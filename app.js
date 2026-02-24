@@ -3485,20 +3485,20 @@ const renderLoginPage = () => `
       padding: 20px;
     }
     .container {
-      background: linear-gradient(135deg, white 20%, #f7f4f4d0 100%);
+      background: linear-gradient(130deg, white 38%, #f7f4f4bc 100%);
       border-radius: 12px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      padding: 4px 17px;
-      max-width: 423px;
-      max-height: 618px;
+      padding: 8px 20px;
+      max-width: 430px;
+      max-height: 620px;
       overflow-y: auto;
       width: 100%;
       text-align: center;
     }
     .logo {
-      height: 100px;
+      height: 90px;
       width: auto;
-      margin-bottom: 11px;
+      margin-bottom: 10px;
       margin-top: -1x;
       display: block;
       margin-left: auto;
@@ -3717,11 +3717,11 @@ const renderLoginPage = () => `
     <div style="position: absolute; top: 15px; right: 15px;">
       <button onclick="document.getElementById('requestAccessModal').classList.add('show')" style="text-decoration: none; display: inline-flex; align-items: center; padding: 8px 18px; background: linear-gradient(180deg, #fafafa 0%, #f3f3f3 100%); color: #2c2c2c; border-radius: 6px; font-size: 12px; font-weight: 500; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; letter-spacing: 0.3px; transition: all 0.3s ease; cursor: pointer; border: 1px solid #e5e5e5; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);" onmouseover="this.style.background='linear-gradient(180deg, #f5f5f5 0%, #f0f0f0 100%)'; this.style.borderColor='#d9d9d9'; this.style.boxShadow='0 2px 5px rgba(0, 0, 0, 0.1)'" onmouseout="this.style.background='linear-gradient(180deg, #fafafa 0%, #f3f3f3 100%)'; this.style.borderColor='#e5e5e5'; this.style.boxShadow='0 1px 3px rgba(0, 0, 0, 0.08)'">Request Access</button>
     </div>
-    <div style="display: flex; justify-content: center; margin-bottom: 10px; margin-top: 15px;">
-      <img src="/docs/logo.jpeg" alt="Eugene's Non-Profit" style="height: 125px; width: auto; object-fit: contain;">
+    <div style="display: flex; justify-content: center; margin-bottom: 4px; margin-top: 8px;">
+      <img src="/docs/logo.jpeg" alt="Eugene's Non-Profit" style="height: 110px; width: auto; object-fit: contain;">
     </div>
-    <h1 style="color: #000000; font-size: 30px; font-family: 'Crafty Girls', cursive; font-weight: 400; letter-spacing: 0px; margin: 0px 0 8px 0;">Eugene's Non-Profit</h1>
-    <p class="subtitle" style="margin-top: -2px; opacity: 0.55; font-size: 11px;">Secure Access Portal</p>
+    <h1 style="color: #000000; font-size: 30px; font-family: 'Crafty Girls', cursive; font-weight: 400; letter-spacing: 0px; margin: 0px 0 2px 0;">Eugene's Non-Profit</h1>
+    <p class="subtitle" style="margin-top: 1px; margin-bottom: 8px; opacity: 0.55; font-size: 11px;">Secure Access Portal</p>
     
     <div class="error" id="error"></div>
     <div class="success" id="success"></div>
@@ -3767,7 +3767,6 @@ const renderLoginPage = () => `
       <input type="email" id="signupEmail" placeholder="Email address" autocomplete="off" style="margin-bottom: 4px;">
       <input type="password" id="signupPassword" placeholder="Password" autocomplete="off" style="margin-bottom: 4px;">
       <input type="password" id="signupConfirmPassword" placeholder="Confirm password" autocomplete="off" style="margin-bottom: 4px;">
-      <input type="text" id="signupFullName" placeholder="Full name" autocomplete="off" style="margin-bottom: 4px;">
       <input type="text" id="signupCompany" placeholder="Company (optional)" autocomplete="off" style="margin-bottom: 4px;">
       <input type="text" id="signupAccessCode" placeholder="Access code" autocomplete="off" style="margin-bottom: 4px;">
       <button onclick="registerUser()">Create Account</button>
@@ -4045,7 +4044,6 @@ const renderLoginPage = () => `
       const email = document.getElementById('signupEmail').value.trim();
       const password = document.getElementById('signupPassword').value.trim();
       const confirmPassword = document.getElementById('signupConfirmPassword').value.trim();
-      const fullName = document.getElementById('signupFullName').value.trim();
       const company = document.getElementById('signupCompany').value.trim();
       const accessCode = document.getElementById('signupAccessCode').value.trim();
       const error = document.getElementById('error');
@@ -4068,11 +4066,6 @@ const renderLoginPage = () => `
       
       if (password !== confirmPassword) {
         showErrorWithTimer(error, 'Passwords do not match');
-        return;
-      }
-      
-      if (!fullName || fullName.length < 2) {
-        showErrorWithTimer(error, 'Please enter your full name');
         return;
       }
       

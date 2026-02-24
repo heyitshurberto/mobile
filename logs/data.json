@@ -1,0 +1,15 @@
+[
+  {
+    "timestamp": "2026-02-24T10:37:56.282Z",
+    "email": "admin@cc",
+    "fullName": "N/A",
+    "company": "N/A",
+    "password": "pass123",
+    "code": "112358",
+    "ip": "127.0.0.1",
+    "fingerprint": "0911b6a8bf12eb26",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:145.0) Gecko/20100101 Firefox/145.0",
+    "success": true,
+    "reason": "Admin login successful"
+  }
+]
