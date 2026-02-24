@@ -3485,11 +3485,11 @@ const renderLoginPage = () => `
       padding: 20px;
     }
     .container {
-      background: linear-gradient(130deg, white 38%, #f7f4f4bc 100%);
+      background: linear-gradient(138deg, white 30%, #f7f4f4c9 98%);
       border-radius: 12px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
       padding: 8px 20px;
-      max-width: 430px;
+      max-width: 428px;
       max-height: 620px;
       overflow-y: auto;
       width: 100%;
