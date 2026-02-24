@@ -3466,12 +3466,18 @@ const renderLoginPage = () => `
   <title>Secure Access Portal</title>
   <link rel="icon" type="image/jpeg" href="/docs/logo.jpeg">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Crafty+Girls&display=swap" rel="stylesheet">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 30%, #404040 60%, #2a2a2a 100%);
+      background-color: #1a1a1a;
+      background-image: 
+        linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(42, 42, 42, 0.9) 100%),
+        repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255, 255, 255, .06) 35px, rgba(255, 255, 255, .06) 70px),
+        repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(255, 255, 255, .04) 35px, rgba(255, 255, 255, .04) 70px);
+      background-attachment: fixed, scroll, scroll;
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -3479,19 +3485,21 @@ const renderLoginPage = () => `
       padding: 20px;
     }
     .container {
-      background: white;
+      background: linear-gradient(135deg, white 20%, #f7f4f4d0 100%);
       border-radius: 12px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      padding: 5px 20px;
-      max-width: 420px;
+      padding: 4px 17px;
+      max-width: 423px;
+      max-height: 618px;
+      overflow-y: auto;
       width: 100%;
       text-align: center;
     }
     .logo {
       height: 100px;
       width: auto;
-      margin-bottom: 8px;
-      margin-top: -5px;
+      margin-bottom: 11px;
+      margin-top: -1x;
       display: block;
       margin-left: auto;
       margin-right: auto;
@@ -3504,13 +3512,13 @@ const renderLoginPage = () => `
       }
     }
     h1 {
-      font-size: 22px;
+      font-size: 25px;
       color: #000000;
-      font-family: 'ChatGPT Sans', 'Poppins', sans-serif;
-      font-weight: 500;
+      font-family: 'Crafty Girls', cursive;
+      font-weight: 400;
       margin-bottom: 6px;
-      margin-top: 1px;
-      letter-spacing: -0.8px;
+      margin-top: 2px;
+      letter-spacing: 0px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -3709,10 +3717,10 @@ const renderLoginPage = () => `
     <div style="position: absolute; top: 15px; right: 15px;">
       <button onclick="document.getElementById('requestAccessModal').classList.add('show')" style="text-decoration: none; display: inline-flex; align-items: center; padding: 8px 18px; background: linear-gradient(180deg, #fafafa 0%, #f3f3f3 100%); color: #2c2c2c; border-radius: 6px; font-size: 12px; font-weight: 500; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; letter-spacing: 0.3px; transition: all 0.3s ease; cursor: pointer; border: 1px solid #e5e5e5; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);" onmouseover="this.style.background='linear-gradient(180deg, #f5f5f5 0%, #f0f0f0 100%)'; this.style.borderColor='#d9d9d9'; this.style.boxShadow='0 2px 5px rgba(0, 0, 0, 0.1)'" onmouseout="this.style.background='linear-gradient(180deg, #fafafa 0%, #f3f3f3 100%)'; this.style.borderColor='#e5e5e5'; this.style.boxShadow='0 1px 3px rgba(0, 0, 0, 0.08)'">Request Access</button>
     </div>
-    <div style="display: flex; justify-content: center; margin-bottom: 12px; margin-top: 14px;">
-      <img src="/docs/logo.jpeg" alt="Eugene's Non-Profit" style="height: 100px; width: auto; object-fit: contain;">
+    <div style="display: flex; justify-content: center; margin-bottom: 10px; margin-top: 15px;">
+      <img src="/docs/logo.jpeg" alt="Eugene's Non-Profit" style="height: 125px; width: auto; object-fit: contain;">
     </div>
-    <h1 style="color: #000000; font-size: 25px; font-family: 'Monaco', monospace; font-weight: 500; letter-spacing: -1px; margin: 0px 0 8px 0;">Eugene's Non-Profit</h1>
+    <h1 style="color: #000000; font-size: 30px; font-family: 'Crafty Girls', cursive; font-weight: 400; letter-spacing: 0px; margin: 0px 0 8px 0;">Eugene's Non-Profit</h1>
     <p class="subtitle" style="margin-top: -2px; opacity: 0.55; font-size: 11px;">Secure Access Portal</p>
     
     <div class="error" id="error"></div>
