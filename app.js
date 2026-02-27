@@ -27,13 +27,13 @@ if (fs.existsSync('.env')) {
 const CONFIG = {
   // Alert filtering criteria
   FILE_TIME: 1,                     // Minutes retro to fetch filings
-  MIN_ALERT_VOLUME: 25000,          // Lower base, conditional on signal strength
-  STRONG_SIGNAL_MIN_VOLUME: 1000,   // Very low for penny stocks with extreme S/O
-  MAX_FLOAT_6K: 50000000,           // Max float size for 6-K
-  MAX_FLOAT_8K: 75000000,          // Max float size for 8-K 
+  MIN_ALERT_VOLUME: 5000,           // Capture initial filing → AMM shock wave (first 3 min)
+  STRONG_SIGNAL_MIN_VOLUME: 500,    // Very early for strong catalysts (Insider + Merger, etc.)
+  MAX_FLOAT_6K: 75000000,           // Max float size for 6-K
+  MAX_FLOAT_8K: 100000000,          // Max float size for 8-K 
   MAX_SO_RATIO: 250.0,              // Max short interest ratio
-  ALLOWED_COUNTRIES: ['israel', 'china', 'hong kong', 'cayman islands', 'virgin islands', 'greece', 'singapore', 'bermuda', 'ireland', 'canada', 'nevada', 'delaware'], // Allowed incorporation/located countries
-  CTB_WATCHLIST: ['AGILQ', 'MOTS', 'NUWE', 'MRNO', 'RUBI', 'NEPTF', 'ELPW', 'SHPWQ', 'GXAI', 'SEELQ', 'KXIN', 'DCX', 'FOXX', 'VIVS', 'NMHI', 'ABPO', 'JFBR', 'IOTR', 'FEED', 'PHGE', 'OBAI', 'CZOOF', 'VEEE', 'IONM', 'GMUN'], // High CTB stocks (CTB > 100%, Availability < 100k) - updated daily from IBorrowDesk
+  ALLOWED_COUNTRIES: ['israel', 'china', 'hong kong', 'cayman islands', 'virgin islands', 'greece', 'singapore', 'malaysia', 'australia', 'bermuda', 'ireland', 'canada', 'nevada', 'delaware'], // Allowed incorporation/located countries
+  CTB_WATCHLIST: ['LVROF', 'OLB', 'AGILQ', 'BINI', 'NUWE', 'VEEE', 'ABPO', 'MRNO', 'NEPTF', 'SHPWQ', 'GXAI', 'RUBI', 'SEELQ', 'VHUB', 'IOTR', 'NMHI', 'FOXX', 'AUUD', 'ACCL', 'FABTQ', 'CZOOF', 'GMUN', 'UOKA', 'IONM', 'VIVS'], // High CTB stocks (CTB > 100%, Availability < 100k) - updated daily from IBorrowDesk
   // Enable optimizations for Raspberry Pi devices
   PI_MODE: true,              // Enable Pi optimizations          
   REFRESH_PEAK: 1,            // 10s during trading hours (7am-10am ET)
@@ -582,7 +582,6 @@ const calculatesignalScore = (float, sharesOutstanding, volume, avgVolume, signa
   exhibitBonus = Math.min(exhibitBonus, 1.12);
 
   // Layer 7: CONCRETE CATALYST MULTIPLIER - New high-impact keywords from filings
-  // NOTE: Patent Approval removed due to historical underperformance (-1.1% avg, TWST example)
   let concreteMultiplier = 1.0;
   const concreteCatalysts = signalCategories?.filter(cat => [
     'Medical Device Milestone', 'Equity Incentive Plan',
@@ -622,127 +621,33 @@ const calculatesignalScore = (float, sharesOutstanding, volume, avgVolume, signa
 };
 
 // Returns { direction: 'LONG' | 'SHORT', confidence: 0-1 }
+// SIMPLIFIED FOR AMM SPEED: Quick categorization based on catalyst strength
 const determineDirection = (signals = [], country = '', float = null, price = null, signalScore = 0) => {
   const signalArray = Array.isArray(signals) ? signals : (signals ? String(signals).split(',').map(s => s.trim()) : []);
-  const countryLower = (country || '').toLowerCase();
-  const floatM = float ? parseFloat(float) : null;
-  const priceNum = price ? parseFloat(price) : null;
   
-  // China/Cayman status
-  const isChinaCayman = countryLower.includes('china') || countryLower.includes('cayman');
-  
-  // Weighted bearish signals (heavier = more concerning)
-  const bearishWeights = {
-    'Bankruptcy Filing': 10,
-    'Credit Default': 10,
-    'Going Concern Risk': 9,
-    'Operating Deficit': 3,
-    'Negative Earnings': 3,
-    'Cash Burn': 3,
-    'Executive Liquidation': 7,
-    'Accounting Restatement': 6,
-    'Nasdaq Delisting': 8,
-    'Bid Price Delisting': 7,
-    'Artificial Inflation': 4,  // Reverse split alone isn't as bad
-    'Share Issuance': 2,        // Dilution is mild vs bankruptcy
-    'Convertible Dilution': 3,
-    'Warrant Dilution': 2,
-    'Compensation Dilution': 1, // Very mild
-    'Public Offering': 2,
-    'Material Lawsuit': 4,
-    'Regulatory Breach': 5,
-    'VIE Arrangement': 6,
-    'Product Sunset': 4,
-    'Loss of Major Customer': 4,
-    'Supply Chain Crisis': 4,
-    'Senior Debt': 3,
-    'Convertible Debt': 2,
-    'Junk Debt': 3,
-    'Underwritten Offering': 2,
-    'Deal Termination': 3,
-    'Asset Disposition': 1,     // Minor
-    'Share Consolidation': 1,   // Very minor
-    'Auditor Change': 1         // Very minor
-  };
-  
-  // Weighted bullish signals (heavier = more positive)
-  const bullishWeights = {
-    'FDA Approved': 10,
-    'Clinical Success': 9,
-    'Clinical Milestone': 7,
-    'Clinical Breakthrough': 10,
-    'FDA Filing': 5,
-    'Merger/Acquisition': 8,
-    'Major Contract': 6,
-    'Revenue Growth': 4,
-    'Insider Buying': 5,
-    'Insider Confidence': 4,
-    'Options Grants': 2,        // Mild bullish - shows confidence but dilutive
-    'Regulatory Approval': 7,
-    'Partnership': 3,           // Partnership alone is weak
-    'Strong Market Demand': 3,
-    'Market Penetration': 2,
-    'Cost Savings': 1          // Very minor
-  };
-  
-  // Calculate weighted bearish score
-  let bearishScore = 0;
-  signalArray.forEach(signal => {
-    for (const [category, weight] of Object.entries(bearishWeights)) {
-      if (signal.includes(category) || category.includes(signal)) {
-        bearishScore += weight;
-        break;
-      }
-    }
-  });
-  
-  // Calculate weighted bullish score
-  let bullishScore = 0;
-  signalArray.forEach(signal => {
-    for (const [category, weight] of Object.entries(bullishWeights)) {
-      if (signal.includes(category) || category.includes(signal)) {
-        bullishScore += weight;
-        break;
-      }
-    }
-  });
-  
-  let direction = 'LONG';
-  let confidence = 0.5;
-  
-  // **PRIMARY RULE: Weighted comparison**
-  // Require significant bearish advantage to flip to SHORT (not just simple majority)
-  const scoreDiff = bullishScore - bearishScore;
-  
-  if (scoreDiff < -5) {
-    // Strong bearish advantage
-    direction = 'SHORT';
-    confidence = Math.min(0.85, 0.50 + (Math.abs(scoreDiff) * 0.05));
-  } else if (scoreDiff > 5 && bullishScore > 0) {
-    // Strong bullish advantage
-    direction = 'LONG';
-    confidence = Math.min(0.85, 0.50 + (scoreDiff * 0.05));
-  } else if (scoreDiff <= 5 && scoreDiff >= -5) {
-    // Balanced/neutral case - mixed signals
-    if (isChinaCayman && bearishScore > 2) {
-      direction = 'SHORT';
-      confidence = 0.55;
-    } else if (bullishScore > bearishScore) {
-      direction = 'LONG';
-      confidence = 0.50 + (scoreDiff * 0.02);
-    } else if (bearishScore > bullishScore && bearishScore > 5) {
-      direction = 'SHORT';
-      confidence = 0.55;
-    } else {
-      direction = 'LONG';
-      confidence = 0.45;
-    }
-  } else {
-    direction = 'LONG';
-    confidence = 0.40;
+  // Fast-track bankruptcy indicators (force SHORT immediately)
+  const deathSpiral = ['Bankruptcy Filing', 'Credit Default', 'Going Concern Risk', 'Executive Liquidation', 'Going Dark'].some(cat => signalArray.includes(cat));
+  if (deathSpiral) {
+    return { direction: 'SHORT', confidence: 0.85 };
   }
   
-  return { direction, confidence };
+  // Fast-track growth catalysts (force LONG immediately)
+  const bullishCatalysts = ['FDA Approved', 'Clinical Success', 'Merger/Acquisition', 'Major Contract', 'Insider Confidence', 'Insider Block Buy'].some(cat => signalArray.includes(cat));
+  if (bullishCatalysts) {
+    return { direction: 'LONG', confidence: 0.80 };
+  }
+  
+  // Count bearish vs bullish signals for tie-breaking
+  const bearishCount = ['Bankruptcy Filing', 'Credit Default', 'Going Concern Risk', 'Nasdaq Delisting', 'Executive Liquidation', 'Public Offering', 'Share Issuance', 'Convertible Dilution', 'Warrant Dilution', 'Accounting Restatement', 'Auditor Change', 'Deal Termination', 'Executive Departure', 'Regulatory Breach'].filter(cat => signalArray.includes(cat)).length;
+  const bullishCount = ['Insider Buying', 'Insider Confidence', 'Revenue Growth', 'Major Contract', 'Merger/Acquisition', 'FDA Approved', 'Clinical Success'].filter(cat => signalArray.includes(cat)).length;
+  
+  // Default to LONG unless bearish signals outnumber bullish
+  if (bearishCount > bullishCount && bearishCount >= 2) {
+    return { direction: 'SHORT', confidence: 0.65 };
+  }
+  
+  // Default LONG for everything else (safer for AMM pre-pricing)
+  return { direction: 'LONG', confidence: 0.50 };
 };
 
 // Filing Time Multiplier - 1.2x boost for 30 mins before/after market open & close (9:30am & 4:00pm ET)
@@ -3485,7 +3390,7 @@ const renderLoginPage = () => `
       padding: 20px;
     }
     .container {
-      background: linear-gradient(138deg, white 30%, #f7f4f4c9 98%);
+      background: linear-gradient(136deg, white 40%, #f7f4f4c9 100%);
       border-radius: 12px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
       padding: 8px 20px;
@@ -7982,49 +7887,55 @@ if (process.stdin.isTTY) {
             soRatio = ratio < 100 ? ratio.toFixed(2) + '%' : ratio.toFixed(1) + '%';
           }
           
+          // Check if stock is on CTB watchlist early - will skip non-fundamental filters
+          const isOnCTBWatchlist = CONFIG.CTB_WATCHLIST.includes(ticker.toUpperCase());
+          
           let shortOpportunity = null;
           let longOpportunity = null;
           
-          // Determine if this is a SHORT or LONG opportunity based on signals
-          const sigKeys = Object.keys(semanticSignals || {});
-          
-          // bonus SHORT signals
-          const hasReverseSplit = sigKeys.includes('Reverse Split');
-          const hasDilution = sigKeys.includes('Dilution');
-          const hasStockSplit = sigKeys.includes('Stock Split');
-          
-          // ONLY SHORT if: Reverse Split + Dilution/Stock Split (structural destruction)
-          const isShortCombo = hasReverseSplit && (hasDilution || hasStockSplit);
-          
-          // Bearish signals that force SHORT regardless
-          const bearishCats = ['Bankruptcy Filing', 'Going Concern', 'Public Offering', 'Delisting Risk', 'Warrant Redemption', 'Insider Selling', 'Accounting Restatement', 'Credit Default', 'Debt Issuance', 'Material Lawsuit', 'Supply Chain Crisis', 'Product Sunset', 'Loss of Major Customer', 'Going Dark', 'Asset Disposition', 'Share Consolidation', 'Board Change', 'Artificial Inflation', 'Share Issuance', 'Convertible Dilution', 'Stock Split', 'Reverse Split', 'Convertible Debt', 'Operating Deficit', 'Negative Earnings', 'Cash Burn', 'Going Concern Risk', 'Warrant Dilution', 'Compensation Dilution', 'Warrant Redemption', 'Regulatory Breach', 'Executive Liquidation', 'China Risk', 'VIE Arrangement', 'Stock Dividend', 'Asset Impairment', 'Junk Debt', 'Executive Departure', 'Executive Departure Non-Planned', 'Executive Detention/Investigation', 'Deal Termination', 'Auditor Change', 'ADR Regulation Risk', 'Nasdaq Delisting'];
-          const bearishCount = sigKeys.filter(cat => bearishCats.includes(cat)).length;
-          const bullishCats = ['Major Contract', 'Earnings Outperformance', 'Revenue Growth', 'Licensing Deal', 'Stock Buyback', 'Merger/Acquisition', 'FDA Approved', 'FDA Breakthrough', 'Clinical Success', 'Insider Buying', 'Insider Confidence', 'Insider Block Buy', 'DTC Eligible Restored', 'Dividend Raise', 'Government Contract', 'Critical Minerals Discovery', 'Processing Facility', 'Offtake Agreement', 'Strategic Minerals Partnership'];
-          const bullishCount = sigKeys.filter(cat => bullishCats.includes(cat)).length;
-          const hasPartnership = sigKeys.includes('Partnership');
-          
-          // Determine SHORT or LONG - bearish signals override bullish
-          if (isShortCombo || bearishCount >= 2) {
-            shortOpportunity = true;
-          } else if (bearishCount > 0 && bullishCount > 0) {
-            // Conflicting signals: default to SHORT to avoid false LONG calls
-            shortOpportunity = true;
-          } else if (bearishCount > 0) {
-            shortOpportunity = true;
-          } else if (bullishCount >= 2) {
-            // Need at least 2 bullish signals for LONG (not just 1)
-            longOpportunity = true;
-          } else if (hasPartnership && bullishCount === 0) {
-            // Partnership alone is neutral - don't mark as long or short
-            shortOpportunity = null;
-            longOpportunity = null;
-          }
-          // If no signals, leave both null for "N/A"
-          
-          // Log the intent prefix based on actual SHORT/LONG determination
-          if (signalKeys.length > 0) {
-            const intentPrefix = shortOpportunity ? 'Short' : (longOpportunity ? 'Long' : 'Neutral');
-            log('INFO', `${intentPrefix}: ${signalKeys.join(', ')}`);
+          // CTB stocks bypass direction/SHORT-LONG determination - only fundamentals filter
+          if (!isOnCTBWatchlist) {
+            // Determine if this is a SHORT or LONG opportunity based on signals (non-CTB only)
+            const sigKeys = Object.keys(semanticSignals || {});
+            
+            // bonus SHORT signals
+            const hasReverseSplit = sigKeys.includes('Reverse Split');
+            const hasDilution = sigKeys.includes('Dilution');
+            const hasStockSplit = sigKeys.includes('Stock Split');
+            
+            // ONLY SHORT if: Reverse Split + Dilution/Stock Split (structural destruction)
+            const isShortCombo = hasReverseSplit && (hasDilution || hasStockSplit);
+            
+            // Bearish signals that force SHORT regardless
+            const bearishCats = ['Bankruptcy Filing', 'Going Concern', 'Public Offering', 'Delisting Risk', 'Warrant Redemption', 'Insider Selling', 'Accounting Restatement', 'Credit Default', 'Debt Issuance', 'Material Lawsuit', 'Supply Chain Crisis', 'Product Sunset', 'Loss of Major Customer', 'Going Dark', 'Asset Disposition', 'Share Consolidation', 'Board Change', 'Artificial Inflation', 'Share Issuance', 'Convertible Dilution', 'Stock Split', 'Reverse Split', 'Convertible Debt', 'Operating Deficit', 'Negative Earnings', 'Cash Burn', 'Going Concern Risk', 'Warrant Dilution', 'Compensation Dilution', 'Warrant Redemption', 'Regulatory Breach', 'Executive Liquidation', 'China Risk', 'VIE Arrangement', 'Stock Dividend', 'Asset Impairment', 'Junk Debt', 'Executive Departure', 'Executive Departure Non-Planned', 'Executive Detention/Investigation', 'Deal Termination', 'Auditor Change', 'ADR Regulation Risk', 'Nasdaq Delisting'];
+            const bearishCount = sigKeys.filter(cat => bearishCats.includes(cat)).length;
+            const bullishCats = ['Major Contract', 'Earnings Outperformance', 'Revenue Growth', 'Licensing Deal', 'Stock Buyback', 'Merger/Acquisition', 'FDA Approved', 'FDA Breakthrough', 'Clinical Success', 'Insider Buying', 'Insider Confidence', 'Insider Block Buy', 'DTC Eligible Restored', 'Dividend Raise', 'Government Contract', 'Critical Minerals Discovery', 'Processing Facility', 'Offtake Agreement', 'Strategic Minerals Partnership'];
+            const bullishCount = sigKeys.filter(cat => bullishCats.includes(cat)).length;
+            const hasPartnership = sigKeys.includes('Partnership');
+            
+            // Determine SHORT or LONG - bearish signals override bullish
+            if (isShortCombo || bearishCount >= 2) {
+              shortOpportunity = true;
+            } else if (bearishCount > 0 && bullishCount > 0) {
+              // Conflicting signals: default to SHORT to avoid false LONG calls
+              shortOpportunity = true;
+            } else if (bearishCount > 0) {
+              shortOpportunity = true;
+            } else if (bullishCount >= 2) {
+              // Need at least 2 bullish signals for LONG (not just 1)
+              longOpportunity = true;
+            } else if (hasPartnership && bullishCount === 0) {
+              // Partnership alone is neutral - don't mark as long or short
+              shortOpportunity = null;
+              longOpportunity = null;
+            }
+            // If no signals, leave both null for "N/A"
+            
+            // Log the intent prefix based on actual SHORT/LONG determination
+            if (signalKeys.length > 0) {
+              const intentPrefix = shortOpportunity ? 'Short' : (longOpportunity ? 'Long' : 'Neutral');
+              log('INFO', `${intentPrefix}: ${signalKeys.join(', ')}`);
+            }
           }
           
           const now = new Date();
@@ -8173,9 +8084,6 @@ if (process.stdin.isTTY) {
           
           // === VALIDATION CHECKS - All skip conditions evaluated first ===
           
-          // Check if stock is on CTB watchlist early - will skip non-fundamental filters
-          const isOnCTBWatchlist = CONFIG.CTB_WATCHLIST.includes(ticker.toUpperCase());
-          
           // Check for FDA Approvals and Chinese/Cayman reverse splits
           const hasFDAApproval = signalCategories.some(cat => ['FDA Approved', 'FDA Breakthrough', 'FDA Filing'].includes(cat));
           const isChinaOrCaymanReverseSplit = (normalizedIncorporated === 'China' || normalizedLocated === 'China' || normalizedIncorporated === 'Cayman Islands' || normalizedLocated === 'Cayman Islands') && signalCategories.includes('Artificial Inflation');
@@ -8302,68 +8210,49 @@ if (process.stdin.isTTY) {
             continue;
           }
           
-          const floatValue = float !== 'N/A' ? parseFloat(float) : null;
-          const maxFloatThreshold = filing.formType === '8-K' || filing.formType === '8-K/A' ? CONFIG.MAX_FLOAT_8K : CONFIG.MAX_FLOAT_6K;
-          if (floatValue !== null && floatValue > maxFloatThreshold) {
-            skipReason = `Float ${floatValue.toLocaleString('en-US')} exceeds ${(maxFloatThreshold / 1000000).toFixed(0)}m limit for ${filing.formType}`;
-            const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
-            const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
-            log('INFO', `Links: ${secLink} ${tvLink}`);
-            log('SKIP', `$${ticker}, ${skipReason}`);
-            console.log('');
-            // Save to CSV with skip reason
-            try {
-              const csvData = {
-                ticker,
-                price,
-                signalScore: signalScoreData.score,
-                short: shortOpportunity ? true : false,
-                marketCap: marketCap,
-                float: float,
-                sharesOutstanding: sharesOutstanding,
-                soRatio: soRatio,
-                ftd: ftdData || false,
-                ftdPercent: ftdPercent || null,
-                volume: volume,
-                averageVolume: averageVolume,
-                incorporated: normalizedIncorporated,
-                located: normalizedLocated,
-                intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals)[0] : null,
-                signalScoreData: signalScoreData,
-                filingDate: filing.updated,
-                filingType: formLogMessage,
-                cik: filing.cik,
-                sector: sectorDisplay,
-                wa: waValue,
-                fav: fav,
-                companyName: filerName || companyName || 'N/A',
-                financialRatioSignals: financialRatioSignals,
-                peRatio: quoteData && quoteData.trailingPE ? quoteData.trailingPE : null,
-                skipReason: skipReason,
-              };
-              saveToCSV(csvData);
-            } catch (csvErr) {
-              log('ERROR', `CSV error: ${csvErr.message}`);
-            }
-            continue;
-          }
+          // Float filtering removed - kept only in scoring metric
           
           const volumeValue = volume !== 'N/A' ? parseFloat(volume) : null;
 
-          // Determine volume threshold based on signal type (will be calculated later after semantic analysis)
-          // Store volume value for later threshold check after signal detection
+          // Determine volume threshold based on signal strength (bot-reactive detection)
+          // HIGH-CONVICTION SIGNALS (bypass volume entirely):
+          // - Insider Buying + any bullish (FDA, Merger, Clinical, Contract, Buyback)
+          // - Merger/Acquisition (bots trade immediately)
+          // - FDA Approved + Clinical Success combo
+          // - Insider Block Buy (large position)
+          const hasInsiderBuying = signalCategories.includes('Insider Buying');
+          const hasInsiderBlockBuy = signalCategories.includes('Insider Block Buy');
+          const hasMerger = signalCategories.includes('Merger/Acquisition');
+          const hasFDA = signalCategories.includes('FDA Approved') || signalCategories.includes('FDA Breakthrough');
+          const hasClinical = signalCategories.includes('Clinical Success') || signalCategories.includes('Clinical Milestone');
+          const hasMajorContract = signalCategories.includes('Major Contract');
+          const hasStockBuyback = signalCategories.includes('Stock Buyback');
+          
+          // Bot-reactive high-conviction combos (skip volume gate)
+          const isHighConviction = 
+            hasInsiderBlockBuy ||                                           // Large position = immediate bot action
+            hasMerger ||                                                    // M&A = bots trade instantly
+            (hasFDA && hasClinical) ||                                      // FDA + clinical = biotech catalyst
+            (hasInsiderBuying && (hasMerger || hasFDA || hasClinical || hasMajorContract || hasStockBuyback)); // Insider accumulation + catalyst
+          
           const volumeCheckLater = volumeValue;
-          
-          // Dynamic volume threshold based on signal strength
-          const isBiotechSignal = hasFDAApproval || signalCategories.includes('Clinical Success') || signalCategories.includes('Clinical Milestone');
-          const minVolumeThreshold = isBiotechSignal ? 20000 : CONFIG.MIN_ALERT_VOLUME;
-          
-          // Check if volume is 3x or more than average volume (bypass filter)
           const avgVolumeValue = averageVolume !== 'N/A' ? parseFloat(averageVolume) : null;
           const volumeIs3xAverage = volumeCheckLater !== null && avgVolumeValue !== null && volumeCheckLater >= (avgVolumeValue * 3);
           
-          // Check volume after knowing signal type (unless volume is 3x average)
-          if (!volumeIs3xAverage && volumeCheckLater !== null && volumeCheckLater < minVolumeThreshold) {
+          // Dynamic volume threshold based on signal strength
+          let minVolumeThreshold;
+          if (isHighConviction || volumeIs3xAverage) {
+            minVolumeThreshold = 0; // Bypass volume gate for high-conviction signals
+          } else if (hasFDAApproval || hasClinical) {
+            minVolumeThreshold = 10000; // Biotech needs some volume confirmation
+          } else if (signalCategories.length >= 2) {
+            minVolumeThreshold = 5000; // Combo signals need moderate volume
+          } else {
+            minVolumeThreshold = CONFIG.MIN_ALERT_VOLUME; // Single weak signal needs more volume
+          }
+          
+          // Check volume (skip for high-conviction or 3x average)
+          if (minVolumeThreshold > 0 && volumeCheckLater !== null && volumeCheckLater < minVolumeThreshold) {
             skipReason = `Volume ${volumeCheckLater.toLocaleString('en-US')} below ${(minVolumeThreshold / 1000).toFixed(0)}k minimum`;
             const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
             const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
@@ -8454,24 +8343,17 @@ if (process.stdin.isTTY) {
           
           let validSignals = false;
           
-          // Calculate core categories for all stocks (needed for logging)
+          // Calculate core categories for all stocks (needed for logging and later checks)
           const coreCategories = ['Asset Disposition', 'Share Consolidation', 'Artificial Inflation', 'Clinical Success', 'Financing Events', 'Share Issuance', 'Convertible Dilution', 'Partnership', 'Merger/Acquisition', 'Stock Split'];
           const hasCoreCategories = signalCategories.filter(cat => coreCategories.includes(cat)).length;
           const isDeterministic = hasCoreCategories >= 2;
           
-          // CTB stocks skip signal validation - proceed to fundamentals only
+          // CTB stocks bypass signal validation - only fundamental filters apply
           if (isOnCTBWatchlist) {
-            validSignals = true; // Bypass catalyst/signal requirement for CTB stocks
+            validSignals = true; // CTB stocks skip all signal requirements
           } else {
-            // Non-CTB stocks must pass signal validation
-            // Signal count rules based on patterns
-            if (isDeterministic && nonNeutralSignals.length >= 3) {
-              validSignals = true; // Core catalyst: 3+ signals
-            } else if (!isDeterministic && nonNeutralSignals.length >= 5) {
-              validSignals = true; // Non-core: 5+ signals
-            } else if (hasCoreCategories >= 2 && nonNeutralSignals.length >= 4) {
-              validSignals = true; // Has 2+ core catalysts: 4+ signals
-            }
+            // For non-CTB: Skip signal validation - let all filings through
+            validSignals = true;
           }
           
           if (!validSignals) {
@@ -8531,115 +8413,8 @@ if (process.stdin.isTTY) {
             adjustedScore = adjustedScore * 0.75; // 25% penalty - many signals, priced in
           }
           
-          // F/AV (Float/Avg Volume) penalty: supply compression matters mechanically
-          // Low F/AV (<2): spike-and-dump risk → penalize
-          // High F/AV (>60): supply overwhelms demand → heavy penalty
-          // >100: hard skip (supply too large)
-          // favValue and fav are already calculated earlier for logging
+          // F/AV filtering and multiplier logic removed - kept only in metric display
           
-          if (favValue > 100) {
-            skipReason = `F/AV ${favValue.toFixed(1)}x (supply cannot absorb demand)`;
-            const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
-            const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
-            log('INFO', `Links: ${secLink} ${tvLink}`);
-            log('SKIP', `$${ticker}, ${skipReason}`);
-            console.log('');
-            try {
-              const csvData = {
-                ticker,
-                price,
-                signalScore: signalScoreData.score,
-                short: shortOpportunity ? true : false,
-                marketCap: marketCap,
-                float: float,
-                sharesOutstanding: sharesOutstanding,
-                soRatio: soRatio,
-                ftd: ftdData || false,
-                ftdPercent: ftdPercent || null,
-                volume: volume,
-                averageVolume: averageVolume,
-                incorporated: normalizedIncorporated,
-                located: normalizedLocated,
-                intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals)[0] : null,
-                signalScoreData: signalScoreData,
-                filingDate: filing.updated,
-                filingType: formLogMessage,
-                cik: filing.cik,
-                sector: sectorDisplay,
-                wa: waValue,
-                fav: fav,
-                companyName: filerName || companyName || 'N/A',
-                financialRatioSignals: financialRatioSignals,
-                peRatio: quoteData && quoteData.trailingPE ? quoteData.trailingPE : null,
-                skipReason: skipReason,
-              };
-              saveToCSV(csvData);
-            } catch (csvErr) {
-              log('ERROR', `CSV error: ${csvErr.message}`);
-            }
-            continue;
-          }
-          
-          // Apply F/AV boost/penalty to score
-          // HIGH F/AV (>10x) = tight float = supply constrained = BOOST
-          // LOW F/AV (<3x) = loose float = supply abundant = PENALTY
-          if (favValue >= 10) {
-            adjustedScore = adjustedScore * 1.35; // 35% boost for extremely tight float (10x+)
-            log('INFO', `F/AV boost: ${favValue.toFixed(1)}x applied 1.35x multiplier (${(signalScoreData.score * priceBoost).toFixed(2)} → ${adjustedScore.toFixed(2)})`);
-          } else if (favValue >= 5 && favValue < 10) {
-            adjustedScore = adjustedScore * 1.2; // 20% boost for very tight float (5-10x)
-            log('INFO', `F/AV boost: ${favValue.toFixed(1)}x applied 1.2x multiplier (${(signalScoreData.score * priceBoost).toFixed(2)} → ${adjustedScore.toFixed(2)})`);
-          } else if (favValue >= 2 && favValue < 5) {
-            adjustedScore = adjustedScore * 1.1; // 10% boost for tight float (2-5x)
-            log('INFO', `F/AV boost: ${favValue.toFixed(1)}x applied 1.1x multiplier (${(signalScoreData.score * priceBoost).toFixed(2)} → ${adjustedScore.toFixed(2)})`);
-          } else if (favValue < 2) {
-            adjustedScore = adjustedScore * 0.7; // 30% penalty for loose float (<2x)
-            log('INFO', `F/AV penalty: ${favValue.toFixed(1)}x applied 0.7x multiplier (${(signalScoreData.score * priceBoost).toFixed(2)} → ${adjustedScore.toFixed(2)})`);
-          }
-          
-          if (!isDeterministic && adjustedScore < 0.5) {
-            skipReason = `Score ${(signalScoreData.score || 0).toFixed(2)} (adj: ${adjustedScore.toFixed(2)}) insufficient for non-core alert`;
-            const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
-            const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
-            log('INFO', `Links: ${secLink} ${tvLink}`);
-            log('SKIP', `$${ticker}, ${skipReason}`);
-            console.log('');
-            try {
-              const csvData = {
-                ticker,
-                price,
-                signalScore: signalScoreData.score,
-                short: shortOpportunity ? true : false,
-                marketCap: marketCap,
-                float: float,
-                sharesOutstanding: sharesOutstanding,
-                soRatio: soRatio,
-                ftd: ftdData || false,
-                ftdPercent: ftdPercent || null,
-                volume: volume,
-                averageVolume: averageVolume,
-                incorporated: normalizedIncorporated,
-                located: normalizedLocated,
-                intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals)[0] : null,
-                signalScoreData: signalScoreData,
-                filingDate: filing.updated,
-                filingType: formLogMessage,
-                cik: filing.cik,
-                sector: sectorDisplay,
-                wa: waValue,
-                fav: fav,
-                companyName: filerName || companyName || 'N/A',
-                financialRatioSignals: financialRatioSignals,
-                peRatio: quoteData && quoteData.trailingPE ? quoteData.trailingPE : null,
-                skipReason: skipReason,
-              };
-              saveToCSV(csvData);
-            } catch (csvErr) {
-              log('ERROR', `CSV error: ${csvErr.message}`);
-            }
-            continue;
-          }
-
           // Check if custodian control (ADR structure) applies - verified via filing text or structure
           const custodianControl = signalScoreData.isCustodianVerified || (normalizedIncorporated && normalizedLocated && normalizedIncorporated.toLowerCase() !== normalizedLocated.toLowerCase());
           
@@ -8772,15 +8547,16 @@ if (process.stdin.isTTY) {
                 alertData.skipReason = ''; // Clear skip reason - this is an alert
                 // OVERRIDE normal filters for CTB watchlist stocks
                 saveAlert(alertData);
-              } else if (!isDeterministic) {
-                // Non-CTB stocks must pass deterministic pattern check
-                alertData.skipReason = 'Not Deterministic Pattern - Quality Gate Active';
+              } else if (nonNeutralSignals.length < 2 && !isDeterministic) {
+                // Non-CTB stocks with 0-1 signals AND no deterministic pattern = skip
+                // BUT 2+ signal combinations bypass this gate (combo trading signal)
+                alertData.skipReason = 'Insufficient Signal Combination (need 2+)';
                 // Save to CSV for later analysis only
                 saveToCSV(alertData);
                 const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
                 const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
                 log('INFO', `Links: ${secLink} ${tvLink}`);
-                log('SKIP', `$${ticker}, no matching patterns (deterministic: false, score: ${signalScoreData.score.toFixed(2)}, signals: ${nonNeutralSignals.length})`);
+                log('SKIP', `$${ticker}, weak signal combo (${nonNeutralSignals.length} signals, score: ${signalScoreData.score.toFixed(2)})`);
                 console.log('');
               } else {
                 // Check additional quality filters
@@ -8792,9 +8568,6 @@ if (process.stdin.isTTY) {
                   saveToCSV(alertData);
                 } else if (Object.keys(semanticSignals).length < 1) {
                   alertData.skipReason = 'No Signals';
-                  saveToCSV(alertData);
-                } else if (float !== 'N/A' && parseFloat(float) > CONFIG.MAX_FLOAT * 0.95) {
-                  alertData.skipReason = 'Extremely High Float';
                   saveToCSV(alertData);
                 } else if (volume !== 'N/A' && parseFloat(volume) < 5000) {
                   alertData.skipReason = 'Minimal Volume';
