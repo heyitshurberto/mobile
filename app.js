@@ -3377,20 +3377,38 @@ const renderLoginPage = () => `
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #1a1a1a;
-      background-image: 
-        linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(42, 42, 42, 0.9) 100%),
-        repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255, 255, 255, .06) 35px, rgba(255, 255, 255, .06) 70px),
-        repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(255, 255, 255, .04) 35px, rgba(255, 255, 255, .04) 70px);
-      background-attachment: fixed, scroll, scroll;
+      background: 
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 50px,
+          rgba(100, 100, 100, 0.015) 50px,
+          rgba(100, 100, 100, 0.015) 100px
+        ),
+        linear-gradient(135deg, #f0f0f0 0%, #f7f7f7 50%, #efefef 100%);
+      background-attachment: fixed;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
+      color: #333;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    body.dark-mode {
+      background: 
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 40px,
+          rgba(255, 255, 255, 0.015) 40px,
+          rgba(255, 255, 255, 0.015) 80px
+        ),
+        linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+      color: #e0e0e0;
     }
     .container {
-      background: linear-gradient(136deg, white 40%, #f7f4f4c9 100%);
+      background: linear-gradient(135deg, #e8e8e8 0%, white 35%, rgba(255, 255, 255, 0.7) 100%);
       border-radius: 12px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
       padding: 8px 20px;
@@ -3399,6 +3417,12 @@ const renderLoginPage = () => `
       overflow-y: auto;
       width: 100%;
       text-align: center;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    body.dark-mode .container {
+      background: linear-gradient(120deg, #333333 0%, #2a2a2a 100%);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+      color: #e0e0e0;
     }
     .logo {
       height: 90px;
@@ -3456,12 +3480,51 @@ const renderLoginPage = () => `
       border-radius: 8px;
       font-size: 13px;
       font-family: 'Poppins', sans-serif;
-      transition: border-color 0.3s;
+      transition: border-color 0.3s, background-color 0.3s, color 0.3s;
       margin-bottom: 10px;
+      background: #ffffff;
+      color: #000;
     }
     input:focus {
       outline: none;
       border-color: #808080;
+    }
+    body.dark-mode input {
+      background: #2a2a2a;
+      color: #e0e0e0;
+      border-color: #444;
+    }
+    body.dark-mode input:focus {
+      border-color: #666;
+      background: #333;
+    }
+    body.dark-mode h1 {
+      color: #e0e0e0;
+    }
+    body.dark-mode .subtitle {
+      color: #b0b0b0;
+    }
+    body.dark-mode .title-dark-mode {
+      color: #e0e0e0;
+    }
+    #requestAccessBtn {
+      transition: all 0.3s ease;
+    }
+    #requestAccessBtn:hover {
+      background: linear-gradient(180deg, #f5f5f5 0%, #f0f0f0 100%) !important;
+      border-color: #d9d9d9 !important;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+    }
+    body.dark-mode #requestAccessBtn {
+      background: linear-gradient(180deg, #3a3a3a 0%, #2d2d2d 100%);
+      color: #e0e0e0;
+      border-color: #555;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+    body.dark-mode #requestAccessBtn:hover {
+      background: linear-gradient(180deg, #4d4d4d 0%, #3d3d3d 100%) !important;
+      border-color: #666 !important;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5) !important;
     }
     button {
       width: 100%;
@@ -3470,6 +3533,7 @@ const renderLoginPage = () => `
       color: white;
       border: none;
       border-radius: 8px;
+      transition: all 0.3s ease;
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
@@ -3487,6 +3551,13 @@ const renderLoginPage = () => `
       opacity: 0.6;
       cursor: not-allowed;
     }
+    body.dark-mode button:not(:disabled) {
+      background: linear-gradient(135deg, #4a4a4a 0%, #333 100%);
+      color: #e0e0e0;
+    }
+    body.dark-mode button:hover:not(:disabled) {
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+    }
     .legal {
       font-size: 10px;
       color: #999;
@@ -3499,6 +3570,9 @@ const renderLoginPage = () => `
       font-size: 13px;
       margin-bottom: 15px;
       display: block;
+    }
+    body.dark-mode .error {
+      color: #ff4444;
     }
     .error.hidden {
       display: none !important;
@@ -3517,6 +3591,28 @@ const renderLoginPage = () => `
     }
     .success:not(.hidden) {
       display: block !important;
+    }
+    body.dark-mode .legal {
+      color: #999;
+    }
+    body.dark-mode .timer {
+      color: #b0b0b0;
+    }
+    body.dark-mode .social-logo {
+      filter: brightness(0) saturate(100%) invert(100%) !important;
+    }
+    #themeToggle {
+      box-shadow: none !important;
+    }
+    #themeToggle:hover {
+      transform: scale(1.10);
+    }
+    #themeToggle:focus {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+    body.dark-mode #landing-best-trade {
+      color: #00ff44 !important;
     }
     .section {
       display: none;
@@ -3609,6 +3705,13 @@ const renderLoginPage = () => `
       border: 1px solid #e0e0e0;
       animation: slideIn 0.25s ease-out;
       position: relative;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+    body.dark-mode #requestAccessModal > div {
+      background: #2a2a2a;
+      border-color: #444;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    }
       z-index: 100000;
     }
   </style>
@@ -3616,17 +3719,33 @@ const renderLoginPage = () => `
 <body>
   <div class="container">
     <div style="position: absolute; top: 10px; left: 10px; display: flex; gap: 9px; align-items: center;">
-      <a href="#" onclick="if(confirm('Visit the Non-Profit Community on Telegram?')) window.open('https://t.me/+BmyGN66h4Cw2MjM0', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Telegram" style="height: 23px; width: 23px; filter: brightness(0) saturate(100%) invert(100%);" class="social-logo"></a>
-      <a href="#" onclick="if(confirm('Visit @6ugene on X?')) window.open('https://x.com/6ugene', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 17px; width: 17px; filter: brightness(0) saturate(100%) invert(100%);" class="social-logo"></a>
+      <a href="#" onclick="if(confirm('Visit the Non-Profit Community on Telegram?')) window.open('https://t.me/+BmyGN66h4Cw2MjM0', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Telegram" style="height: 23px; width: 23px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
+      <a href="#" onclick="if(confirm('Visit @6ugene on X?')) window.open('https://x.com/6ugene', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 17px; width: 17px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
     </div>
-    <div style="position: absolute; top: 15px; right: 15px;">
-      <button onclick="document.getElementById('requestAccessModal').classList.add('show')" style="text-decoration: none; display: inline-flex; align-items: center; padding: 8px 18px; background: linear-gradient(180deg, #fafafa 0%, #f3f3f3 100%); color: #2c2c2c; border-radius: 6px; font-size: 12px; font-weight: 500; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; letter-spacing: 0.3px; transition: all 0.3s ease; cursor: pointer; border: 1px solid #e5e5e5; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);" onmouseover="this.style.background='linear-gradient(180deg, #f5f5f5 0%, #f0f0f0 100%)'; this.style.borderColor='#d9d9d9'; this.style.boxShadow='0 2px 5px rgba(0, 0, 0, 0.1)'" onmouseout="this.style.background='linear-gradient(180deg, #fafafa 0%, #f3f3f3 100%)'; this.style.borderColor='#e5e5e5'; this.style.boxShadow='0 1px 3px rgba(0, 0, 0, 0.08)'">Request Access</button>
+    <div style="position: absolute; top: 15px; right: 15px; display: flex; gap: 10px; align-items: center;">
+      <button id="themeToggle" onclick="toggleTheme()" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; padding: 0; background: transparent; border: none; outline: none; cursor: pointer; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.10)'" onmouseout="this.style.transform='scale(1)'">
+        <svg id="sunIcon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg id="moonIcon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+      <button id="requestAccessBtn" onclick="document.getElementById('requestAccessModal').classList.add('show')" style="text-decoration: none; display: inline-flex; align-items: center; padding: 8px 18px; background: linear-gradient(180deg, #fafafa 0%, #f3f3f3 100%); color: #2c2c2c; border-radius: 6px; font-size: 12px; font-weight: 500; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; letter-spacing: 0.3px; transition: all 0.3s ease; cursor: pointer; border: 1px solid #e5e5e5; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);">Request Access</button>
     </div>
     <div style="display: flex; justify-content: center; margin-bottom: 4px; margin-top: 8px;">
       <img src="/docs/logo.jpeg" alt="Eugene's Non-Profit" style="height: 110px; width: auto; object-fit: contain;">
     </div>
-    <h1 style="color: #000000; font-size: 30px; font-family: 'Crafty Girls', cursive; font-weight: 400; letter-spacing: 0px; margin: 0px 0 2px 0;">Eugene's Non-Profit</h1>
-    <p class="subtitle" style="margin-top: 1px; margin-bottom: 8px; opacity: 0.55; font-size: 11px;">Secure Access Portal</p>
+    <h1 id="mainTitle" style="color: #000000; font-size: 28px; font-family: 'Crafty Girls', cursive; font-weight: 400; letter-spacing: 2px; margin: 0px 0 2px 0; transition: color 0.3s ease;">Eugene's Non-Profit</h1>
+    <p class="subtitle" id="mainSubtitle" style="margin-top: 1px; margin-bottom: 8px; opacity: 0.55; font-size: 11px; color: #666; transition: color 0.3s ease;">Secure Access Portal</p>
     
     <div class="error" id="error"></div>
     <div class="success" id="success"></div>
@@ -3638,15 +3757,15 @@ const renderLoginPage = () => `
         <div style="display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
           <div>
             <div style="opacity: 0.7; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Win Rate</div>
-            <div style="font-weight: 600; font-size: 14px;" id="landing-win-rate">-- %</div>
+            <div style="font-weight: 600; font-size: 14px; font-family: 'Menlo', 'Monaco', monospace;" id="landing-win-rate">-- %</div>
           </div>
           <div>
             <div style="opacity: 0.7; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Total Trades</div>
-            <div style="font-weight: 600; font-size: 14px;" id="landing-total-trades">--</div>
+            <div style="font-weight: 600; font-size: 14px; font-family: 'Menlo', 'Monaco', monospace;" id="landing-total-trades">--</div>
           </div>
           <div>
             <div style="opacity: 0.7; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Best Trade (5d)</div>
-            <div style="font-weight: 600; font-size: 14px; color: #2a7f3c;" id="landing-best-trade">--</div>
+            <div style="font-weight: 600; font-size: 14px; color: #2a7f3c; font-family: 'Menlo', 'Monaco', monospace;" id="landing-best-trade">--</div>
           </div>
         </div>
       </div>
@@ -3693,6 +3812,164 @@ const renderLoginPage = () => `
   <script>
     let cooldownTimer = 0;
     let currentEmail = '';
+    
+    function toggleTheme() {
+      const body = document.body;
+      const sunIcon = document.getElementById('sunIcon');
+      const moonIcon = document.getElementById('moonIcon');
+      const themeToggle = document.getElementById('themeToggle');
+      const mainTitle = document.getElementById('mainTitle');
+      const mainSubtitle = document.getElementById('mainSubtitle');
+      const requestAccessBtn = document.getElementById('requestAccessBtn');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalDescription = document.getElementById('modalDescription');
+      const submitRequestBtn = document.getElementById('submitRequestBtn');
+      const cancelRequestBtn = document.getElementById('cancelRequestBtn');
+      const modalInputs = document.querySelectorAll('#modalContent input, #modalContent textarea');
+      
+      body.classList.toggle('dark-mode');
+      
+      if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+        sunIcon.style.display = 'block';
+        sunIcon.style.stroke = '#fff';
+        moonIcon.style.display = 'none';
+        moonIcon.style.stroke = '#fff';
+        themeToggle.style.color = '#fff';
+        if (mainTitle) mainTitle.style.color = '#e0e0e0';
+        if (mainSubtitle) mainSubtitle.style.color = '#b0b0b0';
+        if (requestAccessBtn) {
+          requestAccessBtn.style.background = 'linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%)';
+          requestAccessBtn.style.color = '#e0e0e0';
+          requestAccessBtn.style.borderColor = '#555';
+        }
+        if (modalTitle) modalTitle.style.color = '#e0e0e0';
+        if (modalDescription) modalDescription.style.color = '#b0b0b0';
+        if (submitRequestBtn) {
+          submitRequestBtn.style.background = 'linear-gradient(180deg, #4a4a4a 0%, #333 100%)';
+          submitRequestBtn.style.color = '#e0e0e0';
+        }
+        if (cancelRequestBtn) {
+          cancelRequestBtn.style.background = '#3a3a3a';
+          cancelRequestBtn.style.color = '#e0e0e0';
+          cancelRequestBtn.style.borderColor = '#555';
+        }
+        modalInputs.forEach(input => {
+          input.style.background = '#2a2a2a';
+          input.style.color = '#e0e0e0';
+          input.style.borderColor = '#444';
+        });
+      } else {
+        localStorage.setItem('theme', 'light');
+        sunIcon.style.display = 'none';
+        sunIcon.style.stroke = '#333';
+        moonIcon.style.display = 'block';
+        moonIcon.style.stroke = '#333';
+        themeToggle.style.color = '#333';
+        if (mainTitle) mainTitle.style.color = '#000000';
+        if (mainSubtitle) mainSubtitle.style.color = '#666';
+        if (requestAccessBtn) {
+          requestAccessBtn.style.background = 'linear-gradient(180deg, #fafafa 0%, #f3f3f3 100%)';
+          requestAccessBtn.style.color = '#2c2c2c';
+          requestAccessBtn.style.borderColor = '#e5e5e5';
+        }
+        if (modalTitle) modalTitle.style.color = '#2c2c2c';
+        if (modalDescription) modalDescription.style.color = '#666';
+        if (submitRequestBtn) {
+          submitRequestBtn.style.background = 'linear-gradient(180deg, #888888 0%, #666666 100%)';
+          submitRequestBtn.style.color = '#fff';
+        }
+        if (cancelRequestBtn) {
+          cancelRequestBtn.style.background = '#f0f0f0';
+          cancelRequestBtn.style.color = '#666';
+          cancelRequestBtn.style.borderColor = '#e0e0e0';
+        }
+        modalInputs.forEach(input => {
+          input.style.background = '#fff';
+          input.style.color = '#000';
+          input.style.borderColor = '#e0e0e0';
+        });
+      }
+    }
+    
+    // Load theme on page load
+    window.addEventListener('load', function() {
+      const theme = localStorage.getItem('theme') || 'light';
+      const body = document.body;
+      const sunIcon = document.getElementById('sunIcon');
+      const moonIcon = document.getElementById('moonIcon');
+      const themeToggle = document.getElementById('themeToggle');
+      const mainTitle = document.getElementById('mainTitle');
+      const mainSubtitle = document.getElementById('mainSubtitle');
+      const requestAccessBtn = document.getElementById('requestAccessBtn');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalDescription = document.getElementById('modalDescription');
+      const submitRequestBtn = document.getElementById('submitRequestBtn');
+      const cancelRequestBtn = document.getElementById('cancelRequestBtn');
+      const modalInputs = document.querySelectorAll('#modalContent input, #modalContent textarea');
+      
+      if (theme === 'dark') {
+        body.classList.add('dark-mode');
+        sunIcon.style.display = 'block';
+        sunIcon.style.stroke = '#fff';
+        moonIcon.style.display = 'none';
+        moonIcon.style.stroke = '#fff';
+        themeToggle.style.color = '#fff';
+        if (mainTitle) mainTitle.style.color = '#e0e0e0';
+        if (mainSubtitle) mainSubtitle.style.color = '#b0b0b0';
+        if (requestAccessBtn) {
+          requestAccessBtn.style.background = 'linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%)';
+          requestAccessBtn.style.color = '#e0e0e0';
+          requestAccessBtn.style.borderColor = '#555';
+        }
+        if (modalTitle) modalTitle.style.color = '#e0e0e0';
+        if (modalDescription) modalDescription.style.color = '#b0b0b0';
+        if (submitRequestBtn) {
+          submitRequestBtn.style.background = 'linear-gradient(180deg, #4a4a4a 0%, #333 100%)';
+          submitRequestBtn.style.color = '#e0e0e0';
+        }
+        if (cancelRequestBtn) {
+          cancelRequestBtn.style.background = '#3a3a3a';
+          cancelRequestBtn.style.color = '#e0e0e0';
+          cancelRequestBtn.style.borderColor = '#555';
+        }
+        modalInputs.forEach(input => {
+          input.style.background = '#2a2a2a';
+          input.style.color = '#e0e0e0';
+          input.style.borderColor = '#444';
+        });
+      } else {
+        body.classList.remove('dark-mode');
+        sunIcon.style.display = 'none';
+        sunIcon.style.stroke = '#333';
+        moonIcon.style.display = 'block';
+        moonIcon.style.stroke = '#333';
+        themeToggle.style.color = '#333';
+        if (mainTitle) mainTitle.style.color = '#000000';
+        if (mainSubtitle) mainSubtitle.style.color = '#666';
+        if (requestAccessBtn) {
+          requestAccessBtn.style.background = 'linear-gradient(180deg, #fafafa 0%, #f3f3f3 100%)';
+          requestAccessBtn.style.color = '#2c2c2c';
+          requestAccessBtn.style.borderColor = '#e5e5e5';
+        }
+        if (modalTitle) modalTitle.style.color = '#2c2c2c';
+        if (modalDescription) modalDescription.style.color = '#666';
+        if (submitRequestBtn) {
+          submitRequestBtn.style.background = 'linear-gradient(180deg, #888888 0%, #666666 100%)';
+          submitRequestBtn.style.color = '#fff';
+        }
+        if (cancelRequestBtn) {
+          cancelRequestBtn.style.background = '#f0f0f0';
+          cancelRequestBtn.style.color = '#666';
+          cancelRequestBtn.style.borderColor = '#e0e0e0';
+        }
+        modalInputs.forEach(input => {
+          input.style.background = '#fff';
+          input.style.color = '#000';
+          input.style.borderColor = '#e0e0e0';
+        });
+      }
+    });
     
     function showErrorWithTimer(element, message, timeoutMs = 4500) {
       element.textContent = message;
@@ -4160,22 +4437,22 @@ const renderLoginPage = () => `
   </div>
   <!-- Request Access Modal - OUTSIDE container for proper fixed positioning -->
   <div id="requestAccessModal">
-    <div>
+    <div id="modalContent">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
         <img src="/logo.jpeg" alt="Eugene's Non-Profit" style="height: 48px; width: auto;">
-        <h2 style="font-size: 22px; color: #2c2c2c; margin: 0; font-family: 'Poppins', sans-serif; font-weight: 600;">Membership Access</h2>
+        <h2 id="modalTitle" style="font-size: 22px; color: #2c2c2c; margin: 0; font-family: 'Poppins', sans-serif; font-weight: 600; transition: color 0.3s ease;">Membership Access</h2>
       </div>
-      <p style="color: #666; font-size: 13px; margin-bottom: 20px; font-family: 'Poppins', sans-serif;">Submit your information and we'll review your application within 24 hours.</p>
+      <p id="modalDescription" style="color: #666; font-size: 13px; margin-bottom: 20px; font-family: 'Poppins', sans-serif; transition: color 0.3s ease;">Submit your information and we'll review your application within 24 hours.</p>
       <div style="display: flex; flex-direction: column; gap: 12px;">
-        <input type="text" id="requestAccessName" placeholder="Full Name" style="padding: 11px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 13px; font-family: 'Poppins', sans-serif; transition: border-color 0.3s;" onmouseover="this.style.borderColor='#999'" onmouseout="this.style.borderColor='#e0e0e0'">
-        <input type="email" id="requestAccessEmail" placeholder="Email Address" style="padding: 11px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 13px; font-family: 'Poppins', sans-serif; transition: border-color 0.3s;" onmouseover="this.style.borderColor='#999'" onmouseout="this.style.borderColor='#e0e0e0'">
-        <input type="text" id="requestAccessSource" placeholder="Where did you hear about us? (optional)" style="padding: 11px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 13px; font-family: 'Poppins', sans-serif; transition: border-color 0.3s;" onmouseover="this.style.borderColor='#999'" onmouseout="this.style.borderColor='#e0e0e0'">
-        <textarea id="requestAccessMessage" placeholder="Please describe your investment background and intended use case" style="padding: 11px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 13px; font-family: 'Poppins', sans-serif; min-height: 100px; resize: vertical; transition: border-color 0.3s;" onmouseover="this.style.borderColor='#999'" onmouseout="this.style.borderColor='#e0e0e0'"></textarea>
+        <input type="text" id="requestAccessName" placeholder="Full Name" style="padding: 11px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 13px; font-family: 'Poppins', sans-serif; transition: border-color 0.3s, background-color 0.3s, color 0.3s; background: #fff; color: #000;">
+        <input type="email" id="requestAccessEmail" placeholder="Email Address" style="padding: 11px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 13px; font-family: 'Poppins', sans-serif; transition: border-color 0.3s, background-color 0.3s, color 0.3s; background: #fff; color: #000;">
+        <input type="text" id="requestAccessSource" placeholder="Where did you hear about us? (optional)" style="padding: 11px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 13px; font-family: 'Poppins', sans-serif; transition: border-color 0.3s, background-color 0.3s, color 0.3s; background: #fff; color: #000;">
+        <textarea id="requestAccessMessage" placeholder="Please describe your investment background and intended use case" style="padding: 11px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 13px; font-family: 'Poppins', sans-serif; min-height: 100px; resize: vertical; transition: border-color 0.3s, background-color 0.3s, color 0.3s; background: #fff; color: #000;"></textarea>
         <div id="requestAccessError" style="background: linear-gradient(135deg, #fee 0%, #fdd 100%); border-left: 4px solid #d32f2f; color: #c62828; font-size: 13px; display: none; padding: 11px 11px; border-radius: 5px; margin: 0 0 4px 0; font-weight: 500; width: 100%; box-sizing: border-box; box-shadow: 0 2px 8px rgba(211, 47, 47, 0.1); animation: slideIn 0.3s ease-out;"></div>
         <div id="requestAccessSuccess" style="color: #2e7d32; font-size: 12px; display: none; padding: 8px 12px; background: #e8f5e9; border-radius: 4px; margin-bottom: 8px; border: 1px solid #66bb6a;"></div>
         <div style="display: flex; gap: 12px; margin-top: 8px;">
-          <button type="button" onclick="submitAccessRequest()" style="flex: 1; padding: 12px; background: linear-gradient(180deg, #888888 0%, #666666 100%); color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 20px rgba(100, 100, 100, 0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">Submit Request</button>
-          <button type="button" onclick="document.getElementById('requestAccessModal').classList.remove('show')" style="flex: 1; padding: 12px; background: #f0f0f0; color: #666; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#e0e0e0'" onmouseout="this.style.backgroundColor='#f0f0f0'">Cancel</button>
+          <button id="submitRequestBtn" type="button" onclick="submitAccessRequest()" style="flex: 1; padding: 12px; background: linear-gradient(180deg, #888888 0%, #666666 100%); color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; transition: transform 0.2s, box-shadow 0.2s, background 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">Submit Request</button>
+          <button id="cancelRequestBtn" type="button" onclick="document.getElementById('requestAccessModal').classList.remove('show')" style="flex: 1; padding: 12px; background: #f0f0f0; color: #666; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; transition: background-color 0.2s, color 0.3s ease, border-color 0.3s ease;">Cancel</button>
         </div>
       </div>
     </div>
@@ -4184,8 +4461,13 @@ const renderLoginPage = () => `
   <script>
     function updateSocialLogoDarkMode() {
       const logos = document.querySelectorAll('.social-logo');
+      const isDarkMode = document.body.classList.contains('dark-mode');
       logos.forEach(logo => {
-        logo.style.filter = 'brightness(0) saturate(100%) invert(100%)';
+        if (isDarkMode) {
+          logo.style.filter = 'brightness(0) saturate(100%) invert(100%)';
+        } else {
+          logo.style.filter = 'brightness(0) saturate(100%)';
+        }
       });
     }
     updateSocialLogoDarkMode();
