@@ -3791,7 +3791,6 @@ const renderLoginPage = () => `
 
     .notification-item {
       padding: 12px 16px;
-      cursor: pointer;
       transition: all 0.2s ease, background-color 0.2s ease, color 0.2s ease;
       display: flex;
       flex-direction: column;
