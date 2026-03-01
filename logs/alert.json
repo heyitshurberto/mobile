@@ -1,0 +1,155 @@
+[
+  {
+    "ticker": "STFS",
+    "title": "6-K - Star Fashion Culture Holdings Ltd (0002003061) (Filer)",
+    "companyName": "Star Fashion Culture Holdings Ltd",
+    "filerName": null,
+    "sector": "Media",
+    "price": 0.0924,
+    "wa": "0.05",
+    "fav": "8.42",
+    "signalScore": 0.36225,
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.1,
+    "filingTimeBonus": 1.1,
+    "soBonus": 1.12,
+    "volume": 369087,
+    "averageVolume": 3637585,
+    "float": 30630444,
+    "sharesOutstanding": 46450000,
+    "soRatio": "65.94%",
+    "marketCap": 4412100,
+    "peRatio": null,
+    "isShort": true,
+    "ftd": 873836,
+    "ftdPercent": "2.85",
+    "intent": "Artificial Inflation, Convertible Dilution, Asset Disposition, Share Consolidation, Partnership, Stock Split, Reverse Split Event",
+    "incorporated": "Cayman Islands",
+    "located": "China",
+    "filingDate": "2026-02-26",
+    "signals": {
+      "Artificial Inflation": [
+        "Consolidation Of Shares",
+        "Share Consolidation"
+      ],
+      "Convertible Dilution": [
+        "Convertible Securities"
+      ],
+      "Asset Disposition": [
+        "Disposed",
+        "Disposition"
+      ],
+      "Share Consolidation": [
+        "Consolidation"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ],
+      "Stock Split": [
+        "Share Split"
+      ],
+      "Reverse Split Event": [
+        "Consolidation Of Shares"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": "1-for-1002",
+    "reverseSplitReason": "Nasdaq minimum bid price requirement",
+    "formType": [
+      "6-K",
+      "20-F",
+      "EX-99.1"
+    ],
+    "filingType": "6-K, 20-F, EX-99.1",
+    "cik": "2003061",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Artificial Inflation",
+    "deterministicMechanism": "Company conducting reverse split/consolidation + inflated pricing = imminent trading halt or forced liquidation. Market mechanics force downward pressure.",
+    "deterministicPhrase": "[Company conducting reverse split/consolidation + inflated pricing = imminent trading halt or forced liquidation. Market mechanics force downward pressure.]",
+    "recordedAt": "2026-02-26T19:01:40.413Z",
+    "recordId": "STFS-1772132500413",
+    "expiresAt": "2026-03-03T19:01:40.413Z",
+    "direction": "SHORT",
+    "highest5Day": 0.0924,
+    "highest5DayPercent": 0
+  },
+  {
+    "ticker": "TYGO",
+    "title": "8-K - TIGO ENERGY, INC. (0001855447) (Filer)",
+    "companyName": "TIGO ENERGY, INC.",
+    "filerName": null,
+    "sector": "Electrical Equipment",
+    "price": 4.31,
+    "wa": "3.09",
+    "fav": "6.87",
+    "signalScore": 0.7452,
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.1,
+    "filingTimeBonus": 1.1,
+    "soBonus": 1.12,
+    "volume": 556358,
+    "averageVolume": 728115,
+    "float": 5000000,
+    "sharesOutstanding": 70352248,
+    "soRatio": "7.11%",
+    "marketCap": 303218176,
+    "peRatio": null,
+    "isShort": true,
+    "ftd": 237831,
+    "ftdPercent": "4.76",
+    "intent": "Share Issuance, Bid Price Delisting, Partnership, Financing Events, Late Filing Notice",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-02-26",
+    "signals": {
+      "Share Issuance": [
+        "Issuance of shares"
+      ],
+      "Bid Price Delisting": [
+        "Minimum Bid Price"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ],
+      "Financing Events": [
+        "Credit Facility"
+      ],
+      "Late Filing Notice": [
+        "Unreasonable Effort"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "S-3",
+      "EX-10.1",
+      "Item 1.01",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, S-3, EX-10.1, Item 1.01, Item 8.01, Item 9.01",
+    "cik": "1855447",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-02-26T19:16:14.997Z",
+    "recordId": "TYGO-1772133374997",
+    "expiresAt": "2026-03-03T19:16:14.997Z",
+    "direction": "SHORT",
+    "highest5Day": 4.31,
+    "highest5DayPercent": 0
+  }
+]

@@ -1,0 +1,36 @@
+{
+  "STFS": {
+    "short": false,
+    "alert": 0.0924,
+    "highest": 0.0998,
+    "lowest": 0.089,
+    "highest5Day": 0.0924,
+    "highest5DayPercent": 0,
+    "current": 0.089,
+    "currentPrice": 0.089,
+    "performance": -3.68,
+    "date": "2026-02-26T19:01:40.459Z",
+    "alertDate": "2026-02-26T19:01:40.459Z",
+    "reverseSplitRatio": null,
+    "volume": 212098,
+    "averageVolume": 4863255,
+    "marketCap": 4249750
+  },
+  "TYGO": {
+    "short": false,
+    "alert": 4.31,
+    "highest": 4.42,
+    "lowest": 3.7,
+    "highest5Day": 4.31,
+    "highest5DayPercent": 0,
+    "current": 3.7,
+    "currentPrice": 3.7,
+    "performance": -14.15,
+    "date": "2026-02-26T19:16:15.046Z",
+    "alertDate": "2026-02-26T19:16:15.046Z",
+    "reverseSplitRatio": null,
+    "volume": 659157,
+    "averageVolume": 752173,
+    "marketCap": 260303328
+  }
+}
