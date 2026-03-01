@@ -51,6 +51,9 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         .eugene-tag-mobile {
             display: block !important;
         }
+        .eugene-tag-mobile a {
+            font-family: 'Menlo', 'Monaco', monospace !important;
+        }
     }
 </style>
     <title>Eugene's Non-Profit</title>
@@ -789,7 +792,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
 
         body {
             font-family: "Söhne", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: white;
+            background: #ffffff;
             color: black;
             margin: 0;
             padding: 0;
@@ -907,7 +910,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             color: #666666;
             font-family: 'ChatGPT Sans', sans-serif;
             transition: color 0.15s ease;
-            letter-spacing: -0.6px;
+            letter-spacing: 0.5px;
         }
 
         .header-top {
@@ -1321,7 +1324,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         }
 
         body.dark-mode .alert-card[data-position="short"].triggered.up .price-change {
-            color: #12a212c3 !important;
+            color: #067b06a0 !important;
             text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5) !important;
         }
 
@@ -2571,8 +2574,8 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         <div class="container">
             <div class="header">
                 <div class="header-top" style="margin-top:32px; margin-left: 6px;">
-                    <img src="logo.jpeg?t=${new Date().getTime()}" alt="Logo" class="logo" style="height: 114px; width: auto; transition: opacity 0.4s ease; margin-right: 2px; margin-top: 33x;" onload="this.style.opacity=1">
-                    <h1 style="color: #000000; font-size: 27px; font-family: 'Crafty Girls', cursive; font-weight: 400; letter-spacing: 0px; margin-left: -10x; margin-top: 10x;" class="dashboard-title">Eugene's Non-Profit</h1>
+                    <img src="logo.jpeg?t=${new Date().getTime()}" alt="Logo" class="logo" style="height: 115px; width: auto; transition: opacity 0.4s ease; margin-right: 2px; margin-top: 33x;" onload="this.style.opacity=1">
+                    <h1 style="color: #000000; font-size: 28px; font-family: 'Crafty Girls', cursive; font-weight: 400; letter-spacing: 2px; margin-left: -10x; margin-top: 10x;" class="dashboard-title">Eugene's Non-Profit</h1>
                 </div>
                 <div class="theme-toggle" onmousedown="event.stopPropagation(); toggleTheme();">
                     <svg class="theme-icon-light" viewBox="0 0 24 24">

@@ -3408,19 +3408,19 @@ const renderLoginPage = () => `
       color: #e0e0e0;
     }
     .container {
-      background: linear-gradient(135deg, #e8e8e8 0%, white 35%, rgba(255, 255, 255, 0.7) 100%);
+      background: linear-gradient(315deg, #f0f0f0 0%, #f5f5f5 65%, rgba(255, 255, 255, 0.99) 100%);
       border-radius: 12px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      padding: 8px 20px;
-      max-width: 428px;
-      max-height: 620px;
+      padding: 8px 20px 28px 20px;
+      max-width: 440px;
+      max-height: 90vh;
       overflow-y: auto;
       width: 100%;
       text-align: center;
       transition: background 0.3s ease, color 0.3s ease;
     }
     body.dark-mode .container {
-      background: linear-gradient(120deg, #333333 0%, #2a2a2a 100%);
+      background: linear-gradient(315deg, #2a2a2a 0%, #323232 65%, rgba(40, 40, 40, 0.98) 100%);
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
       color: #e0e0e0;
     }
@@ -3511,9 +3511,9 @@ const renderLoginPage = () => `
       transition: all 0.3s ease;
     }
     #requestAccessBtn:hover {
-      background: linear-gradient(180deg, #f5f5f5 0%, #f0f0f0 100%) !important;
-      border-color: #d9d9d9 !important;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+      background: linear-gradient(180deg, #9a9a9a 0%, #7d7d7d 100%) !important;
+      border-color: #c8c8c8 !important;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15) !important;
     }
     body.dark-mode #requestAccessBtn {
       background: linear-gradient(180deg, #3a3a3a 0%, #2d2d2d 100%);
@@ -3525,6 +3525,9 @@ const renderLoginPage = () => `
       background: linear-gradient(180deg, #4d4d4d 0%, #3d3d3d 100%) !important;
       border-color: #666 !important;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5) !important;
+    }
+    body:not(.dark-mode) #requestAccessBtn {
+      border-color: #c0c0c0 !important;
     }
     button {
       width: 100%;
@@ -3552,8 +3555,8 @@ const renderLoginPage = () => `
       cursor: not-allowed;
     }
     body.dark-mode button:not(:disabled) {
-      background: linear-gradient(135deg, #4a4a4a 0%, #333 100%);
-      color: #e0e0e0;
+      background: linear-gradient(135deg, #6b6b6b 0%, #505050 100%);
+      color: #ffffff;
     }
     body.dark-mode button:hover:not(:disabled) {
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
@@ -3636,11 +3639,24 @@ const renderLoginPage = () => `
       background: #e0e0e0;
     }
     .back-btn {
-      margin-top: 10px;
-      background: #f0f0f0;
-      color: #666;
+      background: linear-gradient(135deg, #888888 0%, #666666 100%);
+      color: white;
       font-size: 14px;
       padding: 10px;
+      margin: 0;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .back-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(100, 100, 100, 0.3);
+    }
+    .back-btn:active:not(:disabled) {
+      transform: translateY(0);
     }
     .signup-title {
       font-size: 30px;
@@ -3666,6 +3682,12 @@ const renderLoginPage = () => `
       transform: none !important;
       box-shadow: none !important;
       color: #333 !important;
+    }
+    body.dark-mode button.create-account-btn {
+      color: #b0b0b0 !important;
+    }
+    body.dark-mode button.create-account-btn:hover:not(:disabled) {
+      color: #ffffff !important;
     }
     button.create-account-btn:active:not(:disabled) {
       transform: none !important;
@@ -3696,22 +3718,156 @@ const renderLoginPage = () => `
       display: flex;
     }
     #requestAccessModal > div {
-      background: white;
+      background: rgba(250, 250, 250, 0.98);
       border-radius: 8px;
       padding: 24px;
       max-width: 450px;
       width: 90%;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      border: 1px solid #e0e0e0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+      border: 1px solid rgba(0, 0, 0, 0.08);
       animation: slideIn 0.25s ease-out;
       position: relative;
       transition: background-color 0.3s ease, border-color 0.3s ease;
     }
     body.dark-mode #requestAccessModal > div {
-      background: #2a2a2a;
-      border-color: #444;
+      background: rgba(50, 50, 50, 0.98);
+      border-color: rgba(150, 150, 150, 0.2);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
     }
+    body.dark-mode #requestAccessError {
+      background: linear-gradient(135deg, rgba(180, 60, 60, 0.4) 0%, rgba(160, 50, 50, 0.4) 100%) !important;
+      border-left-color: #ff6b6b !important;
+      color: #ff9999 !important;
+    }
+
+    #statsHistoryModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.3);
+      z-index: 99999;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+    #statsHistoryModal.show {
+      display: flex;
+    }
+    #statsHistoryModal > div {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 12px;
+      padding: 16px;
+      max-width: 420px;
+      width: 90%;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      animation: slideIn 0.25s ease-out;
+      position: relative;
+      transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    body.dark-mode #statsHistoryModal > div {
+      background: rgba(55, 55, 55, 0.85);
+      border-color: rgba(150, 150, 150, 0.25);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+    #statsHistoryModal .close-button {
+      background: linear-gradient(180deg, #f0f0f0 0%, #e8e8e8 100%) !important;
+      color: #666 !important;
+      border: 1px solid #e0e0e0 !important;
+    }
+    body.dark-mode #statsHistoryModal .close-button {
+      background: linear-gradient(135deg, #6b6b6b 0%, #505050 100%) !important;
+      color: #e0e0e0 !important;
+      border: 1px solid rgba(150, 150, 150, 0.3) !important;
+    }
+
+    .notification-list {
+      padding: 0;
+      margin: 0;
+    }
+
+    .notification-item {
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: all 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      color: #333;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    
+    .notification-item:last-child {
+      border-bottom: none;
+    }
+    
+    .notification-item:hover {
+      background-color: rgba(100, 150, 255, 0.06);
+    }
+
+    body.dark-mode .notification-item:hover {
+      background-color: rgba(100, 150, 255, 0.1);
+    }
+
+    body.dark-mode .notification-item {
+      color: #e0e0e0;
+      border-bottom-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .notification-item.success .title {
+      color: #0d7d2b;
+      font-weight: 600;
+    }
+
+    .notification-item.error .title {
+      color: #c41e3a;
+      font-weight: 600;
+    }
+
+    body.dark-mode .notification-item.success .title {
+      color: #00dd66;
+    }
+
+    body.dark-mode .notification-item.error .title {
+      color: #ff4444;
+    }
+
+    .notification-item .time {
+      color: #999;
+      font-size: 12px;
+      opacity: 0.75;
+    }
+
+    body.dark-mode .notification-item .time {
+      color: #999;
+    }
+
+    #statsHistoryList {
+      background: rgba(0,0,0,0.01) !important;
+      border-color: rgba(0,0,0,0.06) !important;
+    }
+
+    body.dark-mode #statsHistoryList {
+      background: rgba(255,255,255,0.02) !important;
+      border-color: rgba(255,255,255,0.08) !important;
+    }
+
+    body.dark-mode #loginStatsBox {
+      background: rgba(255,255,255,0.10) !important;
+      border-color: rgba(255,255,255,0.15) !important;
+    }
+
+    body.dark-mode #loginStatsBox:hover {
+      background: rgba(255,255,255,0.14) !important;
+      border-color: rgba(255,255,255,0.20) !important;
+    }
+
       z-index: 100000;
     }
   </style>
@@ -3722,7 +3878,8 @@ const renderLoginPage = () => `
       <a href="#" onclick="if(confirm('Visit the Non-Profit Community on Telegram?')) window.open('https://t.me/+BmyGN66h4Cw2MjM0', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Telegram" style="height: 23px; width: 23px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
       <a href="#" onclick="if(confirm('Visit @6ugene on X?')) window.open('https://x.com/6ugene', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 17px; width: 17px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
     </div>
-    <div style="position: absolute; top: 15px; right: 15px; display: flex; gap: 10px; align-items: center;">
+    <div style="position: absolute; top: 15px; right: 15px; display: flex; gap: 12px; align-items: center;">
+      <button id="requestAccessBtn" onclick="document.getElementById('requestAccessModal').classList.add('show')" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; padding: 8px 18px; background: linear-gradient(180deg, #888888 0%, #666666 100%); color: white; border-radius: 6px; font-size: 12px; font-weight: 500; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; letter-spacing: 0.3px; transition: all 0.3s ease; cursor: pointer; border: 1px solid #c0c0c0; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); white-space: nowrap;">Request Access</button>
       <button id="themeToggle" onclick="toggleTheme()" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; padding: 0; background: transparent; border: none; outline: none; cursor: pointer; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.10)'" onmouseout="this.style.transform='scale(1)'">
         <svg id="sunIcon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
           <circle cx="12" cy="12" r="5"></circle>
@@ -3739,7 +3896,6 @@ const renderLoginPage = () => `
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
       </button>
-      <button id="requestAccessBtn" onclick="document.getElementById('requestAccessModal').classList.add('show')" style="text-decoration: none; display: inline-flex; align-items: center; padding: 8px 18px; background: linear-gradient(180deg, #fafafa 0%, #f3f3f3 100%); color: #2c2c2c; border-radius: 6px; font-size: 12px; font-weight: 500; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; letter-spacing: 0.3px; transition: all 0.3s ease; cursor: pointer; border: 1px solid #e5e5e5; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);">Request Access</button>
     </div>
     <div style="display: flex; justify-content: center; margin-bottom: 4px; margin-top: 8px;">
       <img src="/docs/logo.jpeg" alt="Eugene's Non-Profit" style="height: 110px; width: auto; object-fit: contain;">
@@ -3753,19 +3909,19 @@ const renderLoginPage = () => `
     <!-- Email Entry Section -->
     <div class="section active" id="emailSection">
       <!-- Performance Stats Section - LOGIN PAGE ONLY -->
-      <div id="loginStatsBox" style="background: rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.08); border-radius: 6px; padding: 12px 16px; margin-bottom: 20px; font-size: 12px; display: block;">
+      <div id="loginStatsBox" onclick="openStatsHistoryModal()" style="background: rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.06); border-radius: 6px; padding: 12px 16px; margin-bottom: 20px; font-size: 12px; display: block; cursor: pointer; transition: all 0.2s ease;" onmouseover="this.style.backgroundColor='rgba(0,0,0,0.04)'; this.style.borderColor='rgba(0,0,0,0.08)';" onmouseout="this.style.backgroundColor='rgba(0,0,0,0.02)'; this.style.borderColor='rgba(0,0,0,0.06)';">
         <div style="display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
           <div>
             <div style="opacity: 0.7; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Win Rate</div>
-            <div style="font-weight: 600; font-size: 14px; font-family: 'Menlo', 'Monaco', monospace;" id="landing-win-rate">-- %</div>
+            <div style="font-weight: 400; font-style: italic; font-size: 14px; font-family: 'Menlo', 'Monaco', monospace;" id="landing-win-rate">-- %</div>
           </div>
           <div>
             <div style="opacity: 0.7; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Total Trades</div>
-            <div style="font-weight: 600; font-size: 14px; font-family: 'Menlo', 'Monaco', monospace;" id="landing-total-trades">--</div>
+            <div style="font-weight: 400; font-style: italic; font-size: 14px; font-family: 'Menlo', 'Monaco', monospace;" id="landing-total-trades">--</div>
           </div>
           <div>
             <div style="opacity: 0.7; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Best Trade (5d)</div>
-            <div style="font-weight: 600; font-size: 14px; color: #2a7f3c; font-family: 'Menlo', 'Monaco', monospace;" id="landing-best-trade">--</div>
+            <div style="font-weight: 400; font-style: italic; font-size: 14px; color: #2a7f3c; font-family: 'Menlo', 'Monaco', monospace;" id="landing-best-trade">--</div>
           </div>
         </div>
       </div>
@@ -3788,13 +3944,15 @@ const renderLoginPage = () => `
     
     <!-- Registration Section -->
     <div class="section" id="signupSection">
-      <input type="email" id="signupEmail" placeholder="Email address" autocomplete="off" style="margin-bottom: 4px;">
-      <input type="password" id="signupPassword" placeholder="Password" autocomplete="off" style="margin-bottom: 4px;">
-      <input type="password" id="signupConfirmPassword" placeholder="Confirm password" autocomplete="off" style="margin-bottom: 4px;">
-      <input type="text" id="signupCompany" placeholder="Company (optional)" autocomplete="off" style="margin-bottom: 4px;">
-      <input type="text" id="signupAccessCode" placeholder="Access code" autocomplete="off" style="margin-bottom: 4px;">
-      <button onclick="registerUser()">Create Account</button>
-      <button class="back-btn" onclick="backToLogin()">← Back to Login</button>
+      <input type="email" id="signupEmail" placeholder="Email address" autocomplete="off" style="margin-bottom: 10px;">
+      <input type="password" id="signupPassword" placeholder="Password" autocomplete="off" style="margin-bottom: 10px;">
+      <input type="password" id="signupConfirmPassword" placeholder="Confirm password" autocomplete="off" style="margin-bottom: 10px;">
+      <input type="text" id="signupCompany" placeholder="Company (optional)" autocomplete="off" style="margin-bottom: 10px;">
+      <input type="text" id="signupAccessCode" placeholder="Access code" autocomplete="off" style="margin-bottom: 16px;">
+      <div style="display: flex; gap: 16px;">
+        <button class="back-btn" onclick="registerUser()" style="flex: 1;">Create Account</button>
+        <button class="back-btn" onclick="backToLogin()" style="flex: 1;">← Back to Login</button>
+      </div>
     </div>
     
     <!-- Verify Registration Code Section (NOT USED - registration now validates access code directly) -->
@@ -3825,6 +3983,8 @@ const renderLoginPage = () => `
       const modalDescription = document.getElementById('modalDescription');
       const submitRequestBtn = document.getElementById('submitRequestBtn');
       const cancelRequestBtn = document.getElementById('cancelRequestBtn');
+      const statsModalTitle = document.getElementById('statsModalTitle');
+      const statsModalCloseBtn = document.querySelector('#statsHistoryModal button[style*="color"]');
       const modalInputs = document.querySelectorAll('#modalContent input, #modalContent textarea');
       
       body.classList.toggle('dark-mode');
@@ -3845,15 +4005,17 @@ const renderLoginPage = () => `
         }
         if (modalTitle) modalTitle.style.color = '#e0e0e0';
         if (modalDescription) modalDescription.style.color = '#b0b0b0';
+        if (statsModalTitle) statsModalTitle.style.color = '#e0e0e0';
         if (submitRequestBtn) {
-          submitRequestBtn.style.background = 'linear-gradient(180deg, #4a4a4a 0%, #333 100%)';
-          submitRequestBtn.style.color = '#e0e0e0';
+          submitRequestBtn.style.background = 'linear-gradient(180deg, #5a5a5a 0%, #424242 100%)';
+          submitRequestBtn.style.color = '#ffffff';
         }
         if (cancelRequestBtn) {
           cancelRequestBtn.style.background = '#3a3a3a';
           cancelRequestBtn.style.color = '#e0e0e0';
           cancelRequestBtn.style.borderColor = '#555';
         }
+        if (statsModalCloseBtn) statsModalCloseBtn.style.color = '#b0b0b0';
         modalInputs.forEach(input => {
           input.style.background = '#2a2a2a';
           input.style.color = '#e0e0e0';
@@ -3869,12 +4031,13 @@ const renderLoginPage = () => `
         if (mainTitle) mainTitle.style.color = '#000000';
         if (mainSubtitle) mainSubtitle.style.color = '#666';
         if (requestAccessBtn) {
-          requestAccessBtn.style.background = 'linear-gradient(180deg, #fafafa 0%, #f3f3f3 100%)';
-          requestAccessBtn.style.color = '#2c2c2c';
-          requestAccessBtn.style.borderColor = '#e5e5e5';
+          requestAccessBtn.style.background = 'linear-gradient(180deg, #888888 0%, #666666 100%)';
+          requestAccessBtn.style.color = 'white';
+          requestAccessBtn.style.borderColor = '#555555';
         }
         if (modalTitle) modalTitle.style.color = '#2c2c2c';
         if (modalDescription) modalDescription.style.color = '#666';
+        if (statsModalTitle) statsModalTitle.style.color = '#2c2c2c';
         if (submitRequestBtn) {
           submitRequestBtn.style.background = 'linear-gradient(180deg, #888888 0%, #666666 100%)';
           submitRequestBtn.style.color = '#fff';
@@ -3884,6 +4047,7 @@ const renderLoginPage = () => `
           cancelRequestBtn.style.color = '#666';
           cancelRequestBtn.style.borderColor = '#e0e0e0';
         }
+        if (statsModalCloseBtn) statsModalCloseBtn.style.color = '#666';
         modalInputs.forEach(input => {
           input.style.background = '#fff';
           input.style.color = '#000';
@@ -3894,7 +4058,7 @@ const renderLoginPage = () => `
     
     // Load theme on page load
     window.addEventListener('load', function() {
-      const theme = localStorage.getItem('theme') || 'light';
+      const theme = localStorage.getItem('theme') || 'dark';
       const body = document.body;
       const sunIcon = document.getElementById('sunIcon');
       const moonIcon = document.getElementById('moonIcon');
@@ -3906,6 +4070,8 @@ const renderLoginPage = () => `
       const modalDescription = document.getElementById('modalDescription');
       const submitRequestBtn = document.getElementById('submitRequestBtn');
       const cancelRequestBtn = document.getElementById('cancelRequestBtn');
+      const statsModalTitle = document.getElementById('statsModalTitle');
+      const statsModalCloseBtn = document.querySelector('#statsHistoryModal button[style*="color"]');
       const modalInputs = document.querySelectorAll('#modalContent input, #modalContent textarea');
       
       if (theme === 'dark') {
@@ -3924,15 +4090,17 @@ const renderLoginPage = () => `
         }
         if (modalTitle) modalTitle.style.color = '#e0e0e0';
         if (modalDescription) modalDescription.style.color = '#b0b0b0';
+        if (statsModalTitle) statsModalTitle.style.color = '#e0e0e0';
         if (submitRequestBtn) {
-          submitRequestBtn.style.background = 'linear-gradient(180deg, #4a4a4a 0%, #333 100%)';
-          submitRequestBtn.style.color = '#e0e0e0';
+          submitRequestBtn.style.background = 'linear-gradient(180deg, #5a5a5a 0%, #424242 100%)';
+          submitRequestBtn.style.color = '#ffffff';
         }
         if (cancelRequestBtn) {
           cancelRequestBtn.style.background = '#3a3a3a';
           cancelRequestBtn.style.color = '#e0e0e0';
           cancelRequestBtn.style.borderColor = '#555';
         }
+        if (statsModalCloseBtn) statsModalCloseBtn.style.color = '#b0b0b0';
         modalInputs.forEach(input => {
           input.style.background = '#2a2a2a';
           input.style.color = '#e0e0e0';
@@ -3948,12 +4116,13 @@ const renderLoginPage = () => `
         if (mainTitle) mainTitle.style.color = '#000000';
         if (mainSubtitle) mainSubtitle.style.color = '#666';
         if (requestAccessBtn) {
-          requestAccessBtn.style.background = 'linear-gradient(180deg, #fafafa 0%, #f3f3f3 100%)';
-          requestAccessBtn.style.color = '#2c2c2c';
-          requestAccessBtn.style.borderColor = '#e5e5e5';
+          requestAccessBtn.style.background = 'linear-gradient(180deg, #888888 0%, #666666 100%)';
+          requestAccessBtn.style.color = 'white';
+          requestAccessBtn.style.borderColor = '#555555';
         }
         if (modalTitle) modalTitle.style.color = '#2c2c2c';
         if (modalDescription) modalDescription.style.color = '#666';
+        if (statsModalTitle) statsModalTitle.style.color = '#2c2c2c';
         if (submitRequestBtn) {
           submitRequestBtn.style.background = 'linear-gradient(180deg, #888888 0%, #666666 100%)';
           submitRequestBtn.style.color = '#fff';
@@ -3963,6 +4132,7 @@ const renderLoginPage = () => `
           cancelRequestBtn.style.color = '#666';
           cancelRequestBtn.style.borderColor = '#e0e0e0';
         }
+        if (statsModalCloseBtn) statsModalCloseBtn.style.color = '#666';
         modalInputs.forEach(input => {
           input.style.background = '#fff';
           input.style.color = '#000';
@@ -4457,6 +4627,19 @@ const renderLoginPage = () => `
       </div>
     </div>
   </div>
+
+  <!-- Stats History Modal -->
+  <div id="statsHistoryModal">
+    <div id="statsModalContent">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h2 id="statsModalTitle" style="font-size: 16px; color: #2c2c2c; margin: 0; font-family: 'Poppins', sans-serif; font-weight: 600; transition: color 0.3s ease;">Trade History</h2>
+      </div>
+      <div id="statsHistoryList" style="max-height: 300px; overflow-y: auto; border: none; border-radius: 8px; margin-bottom: 12px; background: transparent;"></div>
+      <div style="display: flex; gap: 12px;">
+        <button class="close-button" onclick="document.getElementById('statsHistoryModal').classList.remove('show')" style="flex: 1; padding: 12px; background: #f0f0f0; color: #666; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; transition: background-color 0.2s, color 0.3s ease, border-color 0.3s ease;">Close</button>
+      </div>
+    </div>
+  </div>
   
   <script>
     function updateSocialLogoDarkMode() {
@@ -4478,6 +4661,68 @@ const renderLoginPage = () => `
       if (confirm(message)) {
         window.open(url, '_blank');
       }
+    }
+
+    function openStatsHistoryModal() {
+      const modal = document.getElementById('statsHistoryModal');
+      if (!modal) {
+        console.error('Stats history modal element not found');
+        return;
+      }
+      modal.classList.add('show');
+      populateStatsHistory();
+    }
+
+    function populateStatsHistory() {
+      const listContainer = document.getElementById('statsHistoryList');
+      if (!listContainer) return;
+
+      // Fetch stocks.json data from local endpoint
+      fetch('/logs/stocks.json')
+        .then(res => {
+          console.log('Fetch response status:', res.status, 'URL:', res.url);
+          if (!res.ok) {
+            throw new Error('Failed to load stocks: HTTP ' + res.status);
+          }
+          return res.json();
+        })
+        .then(stocks => {
+          console.log('Stocks array length:', Array.isArray(stocks) ? stocks.length : 'not an array');
+          console.log('First stock:', stocks && stocks[0] ? stocks[0].ticker : 'no data');
+          
+          if (!Array.isArray(stocks) || stocks.length === 0) {
+            listContainer.innerHTML = '<div class="notification-list"><div style="padding: 16px; text-align: center; color: #999;">No trade history available</div></div>';
+            return;
+          }
+
+          // Take the last 10 trades (most recent first)
+          const recentTrades = stocks.slice(0, 10);
+          let html = '<div class="notification-list">';
+          
+          recentTrades.forEach(trade => {
+            const direction = trade.isShort ? 'SHORT' : 'LONG';
+            const statusClass = trade.signalScore > 0.5 ? 'success' : 'error';
+            const alertPrice = trade.price ? '$' + trade.price.toFixed(4) : 'N/A';
+            // For shorts, use lowest5Day as the peak movement down
+            const peakPrice = trade.isShort ? (trade.lowest5Day ? '$' + trade.lowest5Day.toFixed(4) : 'N/A') : (trade.highest5Day ? '$' + trade.highest5Day.toFixed(4) : 'N/A');
+            const peakChange = trade.isShort ? (trade.lowest5Day && trade.price ? ((trade.lowest5Day - trade.price) / trade.price * 100).toFixed(1) : '0') : (trade.highest5Day && trade.price ? ((trade.highest5Day - trade.price) / trade.price * 100).toFixed(1) : '0');
+            const filingDate = new Date(trade.filingDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            
+            html += '<div class="notification-item ' + statusClass + '">' +
+              '<div class="title" style="font-weight: 600; font-size: 13px;">' + trade.ticker + ' / ' + direction + '</div>' +
+              '<div style="font-size: 11px; opacity: 0.8; margin: 4px 0;">' +
+              '<span>Alert: ' + alertPrice + ' → Peak: ' + peakPrice + ' (' + peakChange + '%)</span>' +
+              '</div>' +
+              '<div class="time" style="font-size: 10px; margin-top: 4px;">' + filingDate + ' | ' + trade.companyName + '</div>' +
+              '</div>';
+          });
+          html += '</div>';
+          listContainer.innerHTML = html;
+        })
+        .catch(err => {
+          console.error('Error loading trade history:', err);
+          listContainer.innerHTML = '<div class="notification-list"><div style="padding: 16px; text-align: center; color: #999;">Error: ' + err.message + '</div></div>';
+        });
     }
         
     function openRequestAccessModal() {
@@ -5821,6 +6066,21 @@ app.get('/api/performance-summary', (req, res) => {
   }
 });
 
+// Serve stocks.json publicly (BEFORE auth middleware)
+app.get('/logs/stocks.json', (req, res) => {
+  try {
+    if (fs.existsSync(CONFIG.STOCKS_FILE)) {
+      const data = fs.readFileSync(CONFIG.STOCKS_FILE, 'utf8');
+      res.setHeader('Content-Type', 'application/json');
+      res.send(data);
+    } else {
+      res.json([]);
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Apply both factors (basic auth + manual approval) to all routes
 app.use(auth, loginApprovalGate);
 
@@ -6167,19 +6427,6 @@ app.get('/logs/alert.json', (req, res) => {
   }
 });
 
-app.get('/logs/stocks.json', (req, res) => {
-  try {
-    if (fs.existsSync(CONFIG.STOCKS_FILE)) {
-      const data = fs.readFileSync(CONFIG.STOCKS_FILE, 'utf8');
-      res.setHeader('Content-Type', 'application/json');
-      res.send(data);
-    } else {
-      res.json([]);
-    }
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
 
 app.get('/logs/quote.json', (req, res) => {
   try {
