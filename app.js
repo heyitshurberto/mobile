@@ -635,50 +635,55 @@ const determineDirection = (signals = [], country = '', float = null, price = nu
   const heavyweightBearish = ['Negative Earnings', 'Asset Impairment', 'Regulatory Breach', 'Accounting Restatement', 'Auditor Change'];
   const hasHeavyweightBearish = heavyweightBearish.some(cat => signalArray.includes(cat));
   
-  // Count bearish vs bullish signals for context-aware decisions
-  // NOTE: Public Offering alone is neutral - it's only bearish with distress signals
-  const bearishSignals = ['Bankruptcy Filing', 'Credit Default', 'Going Concern Risk', 'Nasdaq Delisting', 'Executive Liquidation', 'Share Issuance', 'Convertible Dilution', 'Warrant Dilution', 'Accounting Restatement', 'Auditor Change', 'Deal Termination', 'Executive Departure Non-Planned', 'Regulatory Breach', 'Reverse Split Event', 'Compensation Dilution', 'Bid Price Delisting', 'Asset Disposition', 'Share Consolidation', 'Negative Earnings', 'Asset Impairment'];
+  // Moderate bearish (only count when reinforced by heavyweight or structural signals)
+  const moderateBearish = ['Nasdaq Delisting', 'Deal Termination', 'Executive Departure Non-Planned', 'Bid Price Delisting', 'Reverse Split Event'];
+  const structuralBearish = ['Share Issuance', 'Convertible Dilution', 'Warrant Dilution', 'Compensation Dilution', 'Asset Disposition', 'Share Consolidation'];
+  
+  // Bullish signals
   const bullishSignals = ['Insider Buying', 'Insider Confidence', 'Revenue Growth', 'Major Contract', 'FDA Approved', 'Clinical Success', 'Clinical Milestone'];
   
-  const bearishCount = bearishSignals.filter(cat => signalArray.includes(cat)).length;
+  const heavyweightCount = heavyweightBearish.filter(cat => signalArray.includes(cat)).length;
+  const moderateCount = moderateBearish.filter(cat => signalArray.includes(cat)).length;
+  const structuralCount = structuralBearish.filter(cat => signalArray.includes(cat)).length;
   const bullishCount = bullishSignals.filter(cat => signalArray.includes(cat)).length;
   
-  // If heavyweight bearish signals present AND bearish >= bullish, it's SHORT
-  if (hasHeavyweightBearish && bearishCount >= bullishCount) {
+  // Heavy/Moderate bearish always win if >= 2 combined
+  if ((heavyweightCount + moderateCount) >= 2) {
     return { direction: 'SHORT', confidence: 0.70 };
+  }
+  
+  // Single heavyweight bearish + structural bearish = SHORT
+  if (heavyweightCount >= 1 && structuralCount >= 2) {
+    return { direction: 'SHORT', confidence: 0.65 };
   }
   
   // Context-aware M&A logic: Merger/Acquisition with multiple bearish signals = DESPERATE ACQUISITION = SHORT
   const hasMergerAcquisition = signalArray.includes('Merger/Acquisition');
-  const hasPartnershipOrLicensing = signalArray.includes('Partnership') || signalArray.includes('Licensing Deal');
   
   if (hasMergerAcquisition) {
-    // If M&A comes WITH 3+ bearish signals, it's a DISTRESSED ACQUISITION (company is desperate) = SHORT
-    if (bearishCount >= 3) {
+    const totalBearish = heavyweightCount + moderateCount + structuralCount;
+    // If M&A with heavy bearish signals, it's DISTRESSED = SHORT
+    if (heavyweightCount >= 1 || totalBearish >= 3) {
       return { direction: 'SHORT', confidence: 0.75 };
-    }
-    // If M&A with moderate bearish signals (2), still lean SHORT as company is in trouble
-    if (bearishCount >= 2 && !bullishCount) {
-      return { direction: 'SHORT', confidence: 0.65 };
     }
     // M&A with strong bullish signals = healthy acquisition = LONG
     if (bullishCount >= 2) {
       return { direction: 'LONG', confidence: 0.80 };
     }
     // Isolated M&A is still LONG (strategic move)
-    if (bullishCount === 0 && bearishCount <= 1) {
+    if (bullishCount === 0 && totalBearish <= 1) {
       return { direction: 'LONG', confidence: 0.70 };
     }
   }
   
-  // Fast-track pure growth catalysts (force LONG immediately) - only if no major distress
+  // Fast-track pure growth catalysts (force LONG immediately) - only if no distress signals
   const pureBullishCatalysts = ['FDA Approved', 'Clinical Success', 'Clinical Milestone', 'Major Contract', 'Insider Confidence', 'Insider Block Buy'].some(cat => signalArray.includes(cat));
-  if (pureBullishCatalysts && bearishCount <= 1 && !hasHeavyweightBearish) {
+  if (pureBullishCatalysts && !hasHeavyweightBearish && moderateCount === 0) {
     return { direction: 'LONG', confidence: 0.80 };
   }
   
-  // Default to SHORT if bearish signals significantly outnumber bullish
-  if (bearishCount > bullishCount && bearishCount >= 2) {
+  // Default to SHORT if heavy/moderate bearish significantly outnumber bullish
+  if ((heavyweightCount + moderateCount) > bullishCount && (heavyweightCount + moderateCount) >= 2) {
     return { direction: 'SHORT', confidence: 0.65 };
   }
   
@@ -8922,8 +8927,15 @@ if (process.stdin.isTTY) {
           if (isOnCTBWatchlist) {
             validSignals = true; // CTB stocks skip all signal requirements
           } else {
-            // For non-CTB: Skip signal validation - let all filings through
-            validSignals = true;
+            // For non-CTB: Require minimum signal quality
+            // Need at least 2 core categories OR deterministic pattern to qualify
+            if (hasCoreCategories >= 2 || isDeterministic) {
+              validSignals = true;
+            }
+            // Also allow if score is high enough (0.60+) and has at least 1 signal
+            if (signalScoreData.score >= 0.60 && nonNeutralSignals.length >= 1) {
+              validSignals = true;
+            }
           }
           
           if (!validSignals) {
