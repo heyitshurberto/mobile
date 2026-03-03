@@ -4753,7 +4753,8 @@ const renderLoginPage = () => `
             const peakChange = trade.isShort ? (trade.lowest5Day && trade.price ? ((trade.lowest5Day - trade.price) / trade.price * 100).toFixed(1) : '0') : (trade.highest5Day && trade.price ? ((trade.highest5Day - trade.price) / trade.price * 100).toFixed(1) : '0');
             // Determine if trade was a win: SHORT with negative change, LONG with positive change
             const isWin = (trade.isShort && peakChange < 0) || (!trade.isShort && peakChange > 0);
-            const percentColor = isWin ? '#2a7f3c' : '#c23b3b';
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            const percentColor = isWin ? (isDarkMode ? '#00ff00' : '#2a7f3c') : (isDarkMode ? '#ff0000' : '#c23b3b');
             const filingDate = new Date(trade.filingDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
             
             const tickerColor = document.body.classList.contains('dark-mode') ? '#ccc' : '#666';
