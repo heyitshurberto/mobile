@@ -631,17 +631,53 @@ const determineDirection = (signals = [], country = '', float = null, price = nu
     return { direction: 'SHORT', confidence: 0.85 };
   }
   
-  // Fast-track growth catalysts (force LONG immediately)
-  const bullishCatalysts = ['FDA Approved', 'Clinical Success', 'Merger/Acquisition', 'Major Contract', 'Insider Confidence', 'Insider Block Buy'].some(cat => signalArray.includes(cat));
-  if (bullishCatalysts) {
+  // Heavyweight bearish signals that override isolated bullish catalysts
+  const heavyweightBearish = ['Negative Earnings', 'Asset Impairment', 'Regulatory Breach', 'Accounting Restatement', 'Auditor Change'];
+  const hasHeavyweightBearish = heavyweightBearish.some(cat => signalArray.includes(cat));
+  
+  // Count bearish vs bullish signals for context-aware decisions
+  // NOTE: Public Offering alone is neutral - it's only bearish with distress signals
+  const bearishSignals = ['Bankruptcy Filing', 'Credit Default', 'Going Concern Risk', 'Nasdaq Delisting', 'Executive Liquidation', 'Share Issuance', 'Convertible Dilution', 'Warrant Dilution', 'Accounting Restatement', 'Auditor Change', 'Deal Termination', 'Executive Departure Non-Planned', 'Regulatory Breach', 'Reverse Split Event', 'Compensation Dilution', 'Bid Price Delisting', 'Asset Disposition', 'Share Consolidation', 'Negative Earnings', 'Asset Impairment'];
+  const bullishSignals = ['Insider Buying', 'Insider Confidence', 'Revenue Growth', 'Major Contract', 'FDA Approved', 'Clinical Success', 'Clinical Milestone'];
+  
+  const bearishCount = bearishSignals.filter(cat => signalArray.includes(cat)).length;
+  const bullishCount = bullishSignals.filter(cat => signalArray.includes(cat)).length;
+  
+  // If heavyweight bearish signals present AND bearish >= bullish, it's SHORT
+  if (hasHeavyweightBearish && bearishCount >= bullishCount) {
+    return { direction: 'SHORT', confidence: 0.70 };
+  }
+  
+  // Context-aware M&A logic: Merger/Acquisition with multiple bearish signals = DESPERATE ACQUISITION = SHORT
+  const hasMergerAcquisition = signalArray.includes('Merger/Acquisition');
+  const hasPartnershipOrLicensing = signalArray.includes('Partnership') || signalArray.includes('Licensing Deal');
+  
+  if (hasMergerAcquisition) {
+    // If M&A comes WITH 3+ bearish signals, it's a DISTRESSED ACQUISITION (company is desperate) = SHORT
+    if (bearishCount >= 3) {
+      return { direction: 'SHORT', confidence: 0.75 };
+    }
+    // If M&A with moderate bearish signals (2), still lean SHORT as company is in trouble
+    if (bearishCount >= 2 && !bullishCount) {
+      return { direction: 'SHORT', confidence: 0.65 };
+    }
+    // M&A with strong bullish signals = healthy acquisition = LONG
+    if (bullishCount >= 2) {
+      return { direction: 'LONG', confidence: 0.80 };
+    }
+    // Isolated M&A is still LONG (strategic move)
+    if (bullishCount === 0 && bearishCount <= 1) {
+      return { direction: 'LONG', confidence: 0.70 };
+    }
+  }
+  
+  // Fast-track pure growth catalysts (force LONG immediately) - only if no major distress
+  const pureBullishCatalysts = ['FDA Approved', 'Clinical Success', 'Clinical Milestone', 'Major Contract', 'Insider Confidence', 'Insider Block Buy'].some(cat => signalArray.includes(cat));
+  if (pureBullishCatalysts && bearishCount <= 1 && !hasHeavyweightBearish) {
     return { direction: 'LONG', confidence: 0.80 };
   }
   
-  // Count bearish vs bullish signals for tie-breaking
-  const bearishCount = ['Bankruptcy Filing', 'Credit Default', 'Going Concern Risk', 'Nasdaq Delisting', 'Executive Liquidation', 'Public Offering', 'Share Issuance', 'Convertible Dilution', 'Warrant Dilution', 'Accounting Restatement', 'Auditor Change', 'Deal Termination', 'Executive Departure', 'Regulatory Breach'].filter(cat => signalArray.includes(cat)).length;
-  const bullishCount = ['Insider Buying', 'Insider Confidence', 'Revenue Growth', 'Major Contract', 'Merger/Acquisition', 'FDA Approved', 'Clinical Success'].filter(cat => signalArray.includes(cat)).length;
-  
-  // Default to LONG unless bearish signals outnumber bullish
+  // Default to SHORT if bearish signals significantly outnumber bullish
   if (bearishCount > bullishCount && bearishCount >= 2) {
     return { direction: 'SHORT', confidence: 0.65 };
   }
