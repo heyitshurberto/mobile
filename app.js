@@ -1818,6 +1818,12 @@ const saveAlert = (alertData) => {
     setTimeout(() => sendPaidWebhook(alertData), 10000);
     setTimeout(() => sendTelegramAlert(alertData), 10000);
     
+    // Log the TradingView and SEC links for the alert
+    const ticker = alertData.ticker;
+    const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
+    const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${alertData.cik}&type=6-K&dateb=&owner=exclude&count=100`;
+    log('INFO', `Links: ${tvLink} ${secLink}`);
+    
     // Consolidated single log line for all file saves + git status
     const gitStatus = CONFIG.GITHUB_PUSH_ENABLED && CONFIG.GITHUB_PAGES_ENABLED ? 'Git Push Enabled' : 'Git Push Disabled';
     log('INFO', `Alert Saved: ${alertData.ticker} to stocks.json, alert.json and quote.json | ${gitStatus}`);
