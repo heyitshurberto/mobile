@@ -3867,21 +3867,21 @@ const renderLoginPage = () => `
     }
 
     .notification-item.success .title {
-      color: #0d7d2b;
+      color: #666;
       font-weight: 600;
     }
 
     .notification-item.error .title {
-      color: #c41e3a;
+      color: #666;
       font-weight: 600;
     }
 
     body.dark-mode .notification-item.success .title {
-      color: #00dd66;
+      color: #999;
     }
 
     body.dark-mode .notification-item.error .title {
-      color: #ff4444;
+      color: #999;
     }
 
     .notification-item .time {
@@ -4747,15 +4747,14 @@ const renderLoginPage = () => `
           
           recentTrades.forEach(trade => {
             const direction = trade.isShort ? 'SHORT' : 'LONG';
-            const statusClass = trade.signalScore > 0.5 ? 'success' : 'error';
             const alertPrice = trade.price ? '$' + trade.price.toFixed(4) : 'N/A';
             // For shorts, use lowest5Day as the peak movement down
             const peakPrice = trade.isShort ? (trade.lowest5Day ? '$' + trade.lowest5Day.toFixed(4) : 'N/A') : (trade.highest5Day ? '$' + trade.highest5Day.toFixed(4) : 'N/A');
             const peakChange = trade.isShort ? (trade.lowest5Day && trade.price ? ((trade.lowest5Day - trade.price) / trade.price * 100).toFixed(1) : '0') : (trade.highest5Day && trade.price ? ((trade.highest5Day - trade.price) / trade.price * 100).toFixed(1) : '0');
             const filingDate = new Date(trade.filingDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
             
-            html += '<div class="notification-item ' + statusClass + '">' +
-              '<div class="title" style="font-weight: 600; font-size: 13px;">' + trade.ticker + ' / ' + direction + '</div>' +
+            html += '<div class="notification-item">' +
+              '<div class="title" style="font-weight: 600; font-size: 13px; color: #666;">' + trade.ticker + ' / ' + direction + '</div>' +
               '<div style="font-size: 11px; opacity: 0.8; margin: 4px 0;">' +
               '<span>Alert: ' + alertPrice + ' → Peak: ' + peakPrice + ' (' + peakChange + '%)</span>' +
               '</div>' +
