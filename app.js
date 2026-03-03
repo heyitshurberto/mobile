@@ -3921,7 +3921,7 @@ const renderLoginPage = () => `
 <body>
   <div class="container">
     <div style="position: absolute; top: 10px; left: 10px; display: flex; gap: 9px; align-items: center;">
-      <a href="#" onclick="if(confirm('Visit the Non-Profit Community on Telegram?')) window.open('https://t.me/+BmyGN66h4Cw2MjM0', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Telegram" style="height: 23px; width: 23px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
+      <a href="#" onclick="if(confirm('Visit the Non-Profit Community on Discord?')) window.open('https://discord.gg/5SQcvhfN', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 10px 10px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 23px; width: 23px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
       <a href="#" onclick="if(confirm('Visit @6ugene on X?')) window.open('https://x.com/6ugene', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 17px; width: 17px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
     </div>
     <div style="position: absolute; top: 15px; right: 15px; display: flex; gap: 12px; align-items: center;">
@@ -4754,7 +4754,7 @@ const renderLoginPage = () => `
             const filingDate = new Date(trade.filingDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
             
             html += '<div class="notification-item">' +
-              '<div class="title" style="font-weight: 600; font-size: 13px; color: #666;">' + trade.ticker + ' / <i>' + direction + '</i></div>' +
+              '<div class="title" style="font-weight: 600; font-size: 13px; color: #666;">$' + trade.ticker + ' / <i>' + direction + '</i></div>' +
               '<div style="font-size: 11px; opacity: 0.8; margin: 4px 0;">' +
               '<span>Alert: ' + alertPrice + ' → Peak: ' + peakPrice + ' <i>(' + peakChange + '%)</i></span>' +
               '</div>' +
