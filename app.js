@@ -4678,7 +4678,7 @@ const renderLoginPage = () => `
   <div id="statsHistoryModal">
     <div id="statsModalContent">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-        <h2 id="statsModalTitle" style="font-size: 16px; color: #2c2c2c; margin: 0; font-family: 'Poppins', sans-serif; font-weight: 600; transition: color 0.3s ease;">Alert History</h2>
+        <h2 id="statsModalTitle" style="font-size: 16px; color: #2c2c2c; margin: 0; font-family: 'Poppins', sans-serif; font-weight: 600; transition: color 0.3s ease;">Recent History</h2>
       </div>
       <div id="statsHistoryList" style="max-height: 300px; overflow-y: auto; border: none; border-radius: 8px; margin-bottom: 12px; background: transparent;"></div>
       <div style="display: flex; gap: 12px;">
