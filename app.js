@@ -4754,9 +4754,9 @@ const renderLoginPage = () => `
             const filingDate = new Date(trade.filingDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
             
             html += '<div class="notification-item">' +
-              '<div class="title" style="font-weight: 600; font-size: 13px; color: #666;">' + trade.ticker + ' / ' + direction + '</div>' +
+              '<div class="title" style="font-weight: 600; font-size: 13px; color: #666;">' + trade.ticker + ' / <i>' + direction + '</i></div>' +
               '<div style="font-size: 11px; opacity: 0.8; margin: 4px 0;">' +
-              '<span>Alert: ' + alertPrice + ' → Peak: ' + peakPrice + ' (' + peakChange + '%)</span>' +
+              '<span>Alert: ' + alertPrice + ' → Peak: ' + peakPrice + ' <i>(' + peakChange + '%)</i></span>' +
               '</div>' +
               '<div class="time" style="font-size: 10px; margin-top: 4px;">' + filingDate + ' | ' + trade.companyName + '</div>' +
               '</div>';
