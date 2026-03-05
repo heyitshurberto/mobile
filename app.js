@@ -67,8 +67,8 @@ const CONFIG = {
   TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID || '', // Telegram chat ID for alerts
   TELEGRAM_ENABLED: process.env.TELEGRAM_ENABLED === 'true', // Enable/disable Telegram alerts (set to 'true' in .env to enable)
   // Domain settings
-  GITHUB_PAGES_ENABLED: process.env.GITHUB_PAGES_ENABLED !== 'true' && process.env.GITHUB_PAGES_ENABLED !== '0', // Enable/disable GitHub Pages domain push (default: true)
-  GITHUB_QUOTE_PUSH_ENABLED: process.env.GITHUB_QUOTE_PUSH_ENABLED !== 'true' && process.env.GITHUB_QUOTE_PUSH_ENABLED !== '0', // Enable/disable auto-push of quotes to GitHub (default: true)
+  GITHUB_PAGES_ENABLED: process.env.GITHUB_PAGES_ENABLED !== 'false' && process.env.GITHUB_PAGES_ENABLED !== '0', // Enable/disable GitHub Pages domain push (default: true)
+  GITHUB_QUOTE_PUSH_ENABLED: process.env.GITHUB_QUOTE_PUSH_ENABLED !== 'false' && process.env.GITHUB_QUOTE_PUSH_ENABLED !== '0', // Enable/disable auto-push of quotes to GitHub (default: true)
   // 2FA settings
   TWO_FACTOR_ENABLED: true, // Set to false to disable 2FA approval gate (keep basic auth always on)
   // Email authentication settings
