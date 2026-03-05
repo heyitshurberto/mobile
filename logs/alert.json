@@ -1182,5 +1182,261 @@
     "direction": "SHORT",
     "highest5Day": 129.51,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "OGI",
+    "title": "6-K - ORGANIGRAM GLOBAL INC. (0001620737) (Filer)",
+    "companyName": "ORGANIGRAM GLOBAL INC.",
+    "filerName": null,
+    "sector": "Pharmaceuticals",
+    "price": 1.37,
+    "wa": "0.86",
+    "fav": "53.66",
+    "signalScore": 0.38812499999999994,
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "soBonus": 1,
+    "volume": 393146,
+    "averageVolume": 1165181,
+    "float": 62518194,
+    "sharesOutstanding": 135141944,
+    "soRatio": "46.26%",
+    "marketCap": 185501808,
+    "peRatio": 12.454546,
+    "isShort": true,
+    "ftd": 42127,
+    "ftdPercent": "0.07",
+    "intent": "Revenue Growth, Bankruptcy Filing, Nasdaq Delisting, Asset Disposition, Financing Events, Strategic Acquisition",
+    "incorporated": "Vancouver, British Columbia, Canada",
+    "located": "Ontario, Canada",
+    "filingDate": "2026-03-03",
+    "signals": {
+      "Revenue Growth": [
+        "Revenue Growth"
+      ],
+      "Bankruptcy Filing": [
+        "Insolvency Proceedings"
+      ],
+      "Nasdaq Delisting": [
+        "Nasdaq Notification"
+      ],
+      "Asset Disposition": [
+        "Disposed"
+      ],
+      "Financing Events": [
+        "Credit Facility",
+        "Capital Structure"
+      ],
+      "Strategic Acquisition": [
+        "Accretive Acquisition"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "20-F",
+      "EX-99.1"
+    ],
+    "filingType": "6-K, 20-F, EX-99.1",
+    "cik": "1620737",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-03T17:24:18.675Z",
+    "recordId": "OGI-1772558658675",
+    "expiresAt": "2026-03-08T17:24:18.675Z",
+    "direction": "SHORT",
+    "highest5Day": 1.37,
+    "highest5DayPercent": 0
+  },
+  {
+    "ticker": "GATX",
+    "title": "8-K/A - GATX CORP (0000040211) (Filer)",
+    "companyName": "GATX CORP",
+    "filerName": null,
+    "sector": null,
+    "price": 183.84,
+    "wa": "120.92",
+    "fav": "185.65",
+    "signalScore": 0.44,
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "soBonus": 1,
+    "volume": 87630,
+    "averageVolume": 190110,
+    "float": 35294810,
+    "sharesOutstanding": 35500000,
+    "soRatio": "99.42%",
+    "marketCap": 6526319616,
+    "peRatio": 20.135815,
+    "isShort": true,
+    "ftd": 5379,
+    "ftdPercent": "0.02",
+    "intent": "Clinical Success, Asset Disposition, Asset Impairment, Partnership, VIE Arrangement, Strategic Acquisition",
+    "incorporated": "New York",
+    "located": "Israel",
+    "filingDate": "2026-03-03",
+    "signals": {
+      "Clinical Success": [
+        "Indication"
+      ],
+      "Asset Disposition": [
+        "Asset Disposition",
+        "Disposed",
+        "Disposition"
+      ],
+      "Asset Impairment": [
+        "Goodwill Impairment"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ],
+      "VIE Arrangement": [
+        "Variable Interest"
+      ],
+      "Strategic Acquisition": [
+        "Asset Acquisition"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {
+      "signals": [
+        "Leverage Concern - Debt/Equity Exceeds 2.0"
+      ],
+      "severity": 0.65,
+      "isDeterministic": true
+    },
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "8-K/A",
+      "S-3",
+      "S-8",
+      "EX-99.1",
+      "EX-99.2",
+      "Item 2.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, 8-K/A, S-3, S-8, EX-99.1, EX-99.2, Item 2.01, Item 9.01",
+    "cik": "40211",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Clinical Success / Milestone",
+    "deterministicMechanism": "Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.",
+    "deterministicPhrase": "[Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.]",
+    "recordedAt": "2026-03-03T18:18:41.575Z",
+    "recordId": "GATX-1772561921575",
+    "expiresAt": "2026-03-08T18:18:41.575Z",
+    "direction": "SHORT",
+    "highest5Day": 183.84,
+    "highest5DayPercent": 0
+  },
+  {
+    "ticker": "OCGN",
+    "title": "8-K - Ocugen, Inc. (0001372299) (Filer)",
+    "companyName": "Ocugen, Inc.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 1.91,
+    "wa": "1.45",
+    "fav": "2.42",
+    "signalScore": 0.405375,
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.1,
+    "filingTimeBonus": 1.1,
+    "soBonus": 1.12,
+    "volume": 5465597,
+    "averageVolume": 5117450,
+    "float": 12379972,
+    "sharesOutstanding": 327320112,
+    "soRatio": "3.78%",
+    "marketCap": 625181440,
+    "peRatio": null,
+    "isShort": true,
+    "ftd": 104861,
+    "ftdPercent": "0.85",
+    "intent": "FDA Filing, Clinical Success, Operating Deficit, Negative Earnings, Going Concern Risk, Licensing Deal, Partnership, ADR Regulation Risk",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Pennsylvania",
+    "filingDate": "2026-03-04",
+    "signals": {
+      "FDA Filing": [
+        "BLA Submission"
+      ],
+      "Clinical Success": [
+        "Phase 1",
+        "Phase 2",
+        "Phase 3",
+        "Trial Results",
+        "Efficacy",
+        "Primary Endpoint",
+        "Enrollment Complete",
+        "Topline Data",
+        "Indication",
+        "Biomarker",
+        "Favorable Safety"
+      ],
+      "Operating Deficit": [
+        "Loss from operations"
+      ],
+      "Negative Earnings": [
+        "Net Loss"
+      ],
+      "Going Concern Risk": [
+        "Accumulated Deficit"
+      ],
+      "Licensing Deal": [
+        "License Agreement"
+      ],
+      "Partnership": [
+        "Strategic Partnership"
+      ],
+      "ADR Regulation Risk": [
+        "Subject To Risks"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "S-1",
+      "FWG",
+      "EX-99.1",
+      "EX-99.2",
+      "Item 2.02",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, S-1, EX-99.1, EX-99.2, Item 2.02, Item 9.01",
+    "cik": "1372299",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Clinical Success / Milestone",
+    "deterministicMechanism": "Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.",
+    "deterministicPhrase": "[Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.]",
+    "recordedAt": "2026-03-04T16:08:35.220Z",
+    "recordId": "OCGN-1772640515220",
+    "expiresAt": "2026-03-09T16:08:35.220Z",
+    "direction": "SHORT",
+    "highest5Day": 1.91,
+    "highest5DayPercent": 0
   }
 ]
