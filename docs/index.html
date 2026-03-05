@@ -4053,16 +4053,15 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
 
             async checkForNewAlerts() {
                 try {
-                    // Determine which URL to use
-                    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-                    const alertUrl = isLocalhost ? '/logs/alert.json' : 'https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/alert.json';
+                    // Always try local endpoint first
+                    const alertUrl = '/logs/alert.json';
                     
                     let response;
                     try {
                         response = await fetch(alertUrl);
-                        if (!response.ok && isLocalhost) {
-                            // Fall back to GitHub if localhost fails
-                            response = await fetch('https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/alert.json');
+                        if (!response.ok) {
+                            // Fall back to GitHub if local fails
+                            response = await fetch('https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json');
                         }
                     } catch (err) {
                         console.error('Error fetching new alerts:', err.message);
@@ -4174,32 +4173,17 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
 
             async checkStockPrice(ticker) {
                 try {
-                    // Check if viewing from localhost (has local API server)
-                    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-                    
+                    // Always try local endpoint first
                     let quote;
+                    let response = await fetch(`/api/quote/${ticker}`);
                     
-                    if (isLocalhost) {
-                        // Use local API endpoint for real-time prices
-                        const response = await fetch(`/api/quote/${ticker}`);
-                        if (!response.ok) {
-                            console.error(`Failed to fetch quote for ${ticker}: ${response.status}`);
-                            return false;
-                        }
-                        
+                    if (!response.ok) {
+                        // Local API failed, try GitHub
                         try {
-                            quote = await response.json();
-                        } catch (parseError) {
-                            console.error(`Failed to parse JSON for ${ticker}:`, parseError);
-                            return false;
-                        }
-                    } else {
-                        // On GitHub Pages - fetch from quote.json which is updated by the bot
-                        try {
-                            const quoteUrl = 'https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/quote.json';
-                            const response = await fetch(quoteUrl);
-                            if (response.ok) {
-                                const quoteData = await response.json();
+                            const quoteUrl = 'https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/quote.json';
+                            const quoteResp = await fetch(quoteUrl);
+                            if (quoteResp.ok) {
+                                const quoteData = await quoteResp.json();
                                 if (quoteData[ticker] && quoteData[ticker].currentPrice) {
                                     // Create a quote object matching the API format
                                     quote = {
@@ -4213,11 +4197,18 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                                     return false;
                                 }
                             } else {
-                                console.error(`Failed to fetch quote.json: ${response.status}`);
+                                console.error(`Failed to fetch quote.json: ${quoteResp.status}`);
                                 return false;
                             }
                         } catch (err) {
                             console.error(`Error fetching quote.json for ${ticker}:`, err);
+                            return false;
+                        }
+                    } else {
+                        try {
+                            quote = await response.json();
+                        } catch (parseError) {
+                            console.error(`Failed to parse JSON for ${ticker}:`, parseError);
                             return false;
                         }
                     }
@@ -4257,9 +4248,12 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                         
                         // Always fetch updated performance data for reverse split adjustments
                         try {
-                            const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-                            const quoteUrl = isLocalhost ? '/logs/quote.json' : 'https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/quote.json';
-                            const pnlResp = await fetch(quoteUrl);
+                            const quoteUrl = '/logs/quote.json';
+                            let pnlResp = await fetch(quoteUrl);
+                            if (!pnlResp.ok) {
+                                // Fallback to GitHub
+                                pnlResp = await fetch('https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/quote.json');
+                            }
                             if (pnlResp.ok) {
                                 const pnlData = await pnlResp.json();
                                 const tickerPerf = pnlData[alert.ticker];
