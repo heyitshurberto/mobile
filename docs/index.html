@@ -2910,10 +2910,16 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         }
 
         function loadRecentAlerts() {
-            const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-            const alertUrl = isLocalhost ? '/logs/alert.json' : 'https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/alert.json';
+            const alertUrl = '/logs/alert.json';
             
             fetch(alertUrl)
+                .then(r => {
+                    if (!r.ok) {
+                        // Fall back to GitHub
+                        return fetch('https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/alert.json');
+                    }
+                    return r;
+                })
                 .then(r => r.json())
                 .then(alerts => {
                     const list = document.getElementById('notification-list');
@@ -2979,10 +2985,16 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         }
 
         function loadHistoryAlerts() {
-            const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-            const stockUrl = isLocalhost ? '/logs/stocks.json' : 'https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/stocks.json';
+            const stockUrl = '/logs/stocks.json';
             
             fetch(stockUrl)
+                .then(r => {
+                    if (!r.ok) {
+                        // Fall back to GitHub
+                        return fetch('https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/stocks.json');
+                    }
+                    return r;
+                })
                 .then(r => r.json())
                 .then(stocks => {
                     const list = document.getElementById('notification-history-list');
@@ -3493,18 +3505,15 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                     let alertData = [];
                     let response;
                     
-                    // Determine which URL to use
-                    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-                    const alertUrl = isLocalhost ? '/logs/alert.json' : 'https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/alert.json';
+                    // Always try local endpoint first, regardless of hostname
+                    const alertUrl = '/logs/alert.json';
                     
                     try {
                         response = await fetch(alertUrl);
                         if (!response.ok) {
-                            console.error('Failed to fetch alert.json:', response.status, response.statusText);
-                            // If it's localhost and failed, try GitHub as fallback
-                            if (isLocalhost) {
-                                response = await fetch('https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/alert.json');
-                            }
+                            console.error('Failed to fetch alert.json locally:', response.status, response.statusText);
+                            // Fall back to GitHub if local fails
+                            response = await fetch('https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/alert.json');
                         }
                         
                         if (response.ok) {
@@ -3513,8 +3522,19 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                             alertData = [];
                         }
                     } catch (err) {
-                        console.error('Error fetching alerts:', err.message);
-                        alertData = [];
+                        console.error('Error fetching alerts locally, trying GitHub:', err.message);
+                        // Fallback to GitHub
+                        try {
+                            const githubResponse = await fetch('https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/alert.json');
+                            if (githubResponse.ok) {
+                                alertData = await githubResponse.json();
+                            } else {
+                                alertData = [];
+                            }
+                        } catch (gitErr) {
+                            console.error('GitHub fallback also failed:', gitErr.message);
+                            alertData = [];
+                        }
                     }
                     
                     smartLog('info', `Loaded ${alertData.length} alerts from alert.json`); // Log total count
@@ -3523,9 +3543,15 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                     let performanceData = {};
                     let stocksData = [];
                     try {
-                        const quoteUrl = isLocalhost ? '/logs/quote.json' : 'https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/quote.json';
+                        const quoteUrl = '/logs/quote.json';
                         const pnlResponse = await fetch(quoteUrl);
-                        if (pnlResponse.ok) {
+                        if (!pnlResponse.ok) {
+                            // Fall back to GitHub
+                            const githubResponse = await fetch('https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/quote.json');
+                            if (githubResponse.ok) {
+                                performanceData = await githubResponse.json();
+                            }
+                        } else {
                             performanceData = await pnlResponse.json();
                         }
                     } catch (err) {
@@ -3534,9 +3560,15 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
 
                     // Load stocks.json to get peak prices (highest5Day)
                     try {
-                        const stockUrl = isLocalhost ? '/logs/stocks.json' : 'https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/stocks.json';
+                        const stockUrl = '/logs/stocks.json';
                         const stockResponse = await fetch(stockUrl);
-                        if (stockResponse.ok) {
+                        if (!stockResponse.ok) {
+                            // Fall back to GitHub
+                            const githubResponse = await fetch('https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/stocks.json');
+                            if (githubResponse.ok) {
+                                stocksData = await githubResponse.json();
+                            }
+                        } else {
                             stocksData = await stockResponse.json();
                         }
                     } catch (err) {
