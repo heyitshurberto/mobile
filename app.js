@@ -48,7 +48,6 @@ const CONFIG = {
   // Log files
   ALERTS_FILE: 'logs/alert.json',      // File to store recent alerts
   STOCKS_FILE: 'logs/stocks.json',     // File to store all alerts
-  QUOTES_FILE: 'logs/quote.json',      // File to store quote data
   PERFORMANCE_FILE: 'logs/quote.json', // File to store performance data
   CSV_FILE: 'logs/track.csv',          // File to store CSV export of all alerts
   // GitHub & Webhook settings
@@ -841,127 +840,54 @@ if (!fs.existsSync('logs')) {
 
 const FORM_TYPES = ['6-K', '6-K/A', '8-K', '8-K/A', 'S-1', 'S-3', 'S-4', 'S-8', 'F-1', 'F-3', '	SC TO-C', 'SC14D9C', 'S-9', 'F-4', 'FWG', '424B1', '424B2', '424B3', '424B4', '424B5', '424H8', '20-F', '20-F/A', '13G', '13G/A', '13D', '13D/A', 'Form D', 'EX-99.1', 'EX-99.2', 'EX-10.1', 'EX-10.2', 'EX-3.1', 'EX-3.2', 'EX-4.1', 'EX-4.2', 'EX-10.3', 'EX-1.1', 'Item 1.01', 'Item 1.02', 'Item 1.03', 'Item 1.04', 'Item 1.05', 'Item 2.01', 'Item 2.02', 'Item 2.03', 'Item 2.04', 'Item 2.05', 'Item 2.06', 'Item 3.01', 'Item 3.02', 'Item 3.03', 'Item 4.01', 'Item 5.01', 'Item 5.02', 'Item 5.03', 'Item 5.04', 'Item 5.05', 'Item 5.06', 'Item 5.07', 'Item 5.08', 'Item 5.09', 'Item 5.10', 'Item 5.11', 'Item 5.12', 'Item 5.13', 'Item 5.14', 'Item 5.15', 'Item 6.01', 'Item 7.01', 'Item 8.01', 'Item 9.01'];
 const SEMANTIC_KEYWORDS = {
+
+  // M&A & Structural
   'Merger/Acquisition': ['Merger Agreement', 'Acquisition Agreement', 'Agreed To Acquire', 'Merger Consideration', 'Premium Valuation', 'Going Private', 'Take Private', 'Acquisition Closing', 'Closing Of Acquisition', 'Completed Acquisition'],
-  'M&A Rebrand': ['Corporate Name Change', 'Ticker Change', 'Trading Name Change', 'Change Of Company Name', 'Formerly Known As', 'Name Changed To'],
+  
+  // Biotech FDA (Clinical & Regulatory)
   'FDA Approved': ['FDA Approval', 'FDA Clearance', 'Approval Granted', 'Approval Letter', 'FDA Approves', 'FDA approved', 'FDA approval', 'EMA Approval', 'Post-Market Approval', 'PMA Approval', '510(k) Clearance', 'De Novo Clearance'],
   'FDA Breakthrough': ['Breakthrough Therapy', 'Breakthrough Designation', 'Fast Track Designation', 'Priority Review', 'Priority Status'],
   'FDA Filing': ['NDA Submission', 'NDA Filed', 'BLA Submission', 'BLA Filed', 'IND Application', 'Regulatory Filing'],
-  'Clinical Success': ['Positive Trial Results', 'Phase 3 Success', 'Topline Results Beat', 'Efficacy Demonstrated', 'Safety Profile Met', 'Positive Results', 'Phase 1', 'Phase 2', 'Phase 3', 'Trial Results', 'Efficacy', 'Safety Profile', 'Cohort Results', 'Primary Endpoint', 'Enrollment Complete', 'Data Readout', 'Topline Data', 'Meaningful Improvement', 'Beat Placebo', 'Indication', 'Mechanism Of Action', 'Biomarker', 'Immune Rebalancing', 'Comparator', 'Patient Population', 'Favorable Safety', 'Separation From Placebo', 'Demonstrated Benefit', 'Clinical Benefit', 'Strong Efficacy'],
+  'Clinical Success': ['Positive Trial Results', 'Phase 3 Success', 'Topline Results Beat', 'Efficacy Demonstrated', 'Safety Profile Met', 'Positive Results', 'Phase 1', 'Phase 2', 'Phase 3', 'Trial Results', 'Efficacy', 'Safety Profile', 'Cohort Results', 'Primary Endpoint', 'Enrollment Complete', 'Data Readout', 'Topline Data', 'Meaningful Improvement', 'Beat Placebo', 'Indication', 'Mechanism Of Action', 'Biomarker', 'Favorable Safety', 'Separation From Placebo', 'Demonstrated Benefit', 'Clinical Benefit', 'Strong Efficacy'],
   'Clinical Milestone': ['Phase Advancement', 'Phase 2 Initiation', 'Phase 3 Initiation', 'Enrollment Opened', 'Enrollment Initiated', 'Trial Initiation', 'Investigational New Drug', 'IND Application', 'NDA Filing', 'PMA Submission', 'Clinical Trial Site', 'Patient Enrollment', 'First Patient', 'Program Initiation', 'Patient Dosed', 'First Dose', 'Dose Escalation', 'Cohort Complete'],
+  
+  // Capital & Dilution
   'Capital Raise': ['Oversubscribed', 'Institutional Participation', 'Lead Investor', 'Top-Tier Investor', 'Strategic Investor'],
   'Underwritten Offering': ['Bought Deal', 'Underwriter Commitment', 'Underwritten Bought Deal', 'IPO', 'IPO Underwritten'],
-  'Earnings Outperformance': ['Earnings Beat', 'Beat Expectations', 'Beat Consensus', 'Exceeded Guidance', 'Record Revenue'],
-  'Major Contract': ['Contract Award', 'Major Customer Win', '$100 Million Contract', 'Exclusive License'],
-  'Regulatory Approval': ['Regulatory Approval Granted', 'Patent Approved', 'License Granted', 'Permit Issued'],
-  'Revenue Growth': ['Revenue Growth Acceleration', 'Record Quarterly Revenue', 'Guidance Raise', 'Organic Growth'],
+  'Convertible Debt': ['Convertible Bonds', 'Convertible Notes', 'Convertible Securities'],
+  'Junk Debt': ['Junk Bond Offering'],
+  
+  // Insider Activity (Real Money)
   'Insider Buying': ['Director Purchase', 'Executive Purchase', 'CEO Buying', 'CFO Buying', 'Meaningful Accumulation', 'CEO Purchased', 'Chairman Bought', 'Director Purchased', 'Officer Purchased'],
-  'Insider Confidence': ['CEO Co-Investment', 'Management Co-Investment', 'Board Co-Investment', 'Insider Co-Investing'],
-  'Artificial Inflation': ['Reverse Stock Split', 'Reverse Split', 'Reversed Split', 'Reverse Split Announced', 'Announced Reverse Split', 'Consolidation Of Shares', 'Share Consolidation', 'Combine Shares', 'Combined Shares', 'Stock Consolidation', 'Share Combination', 'Reverse 1:8', 'Reverse 1:10', 'Reverse 1:20', 'Reverse 1:25', 'Reverse 1:50'],
+  'Executive Liquidation': ['Director Sale', 'Officer Sale', 'CEO Selling', 'CFO Selling', 'Massive Liquidation'],
+  
+  // Distress & Legal
   'Bankruptcy Filing': ['Bankruptcy Protection', 'Chapter 11 Filing', 'Chapter 7 Filing', 'Insolvency Proceedings', 'Creditor Protection'],
-  'Operating Deficit': ['Operating Loss', 'Loss from operations', 'Operational Loss'],
-  'Negative Earnings': ['Net Loss', 'Continued Losses', 'Massive Losses'],
-  'Cash Depletion': ['Cash burn rate', 'Depleted cash', 'Negative cash flow', 'Cash depletion'],
-  'Going Concern Risk': ['Accumulated Deficit', 'Going Concern Warning', 'Substantial Doubt Going Concern', 'Auditor Going Concern Note'],
-  'Public Offering': ['Public Offering Announced', 'Secondary Offering', 'Follow-On Offering', 'Shelf Offering', 'At-The-Market Offering'],
-  'Share Issuance': ['Share Dilution', 'New Shares Issued', 'Shares Outstanding Increased', 'Dilutive issuance', 'Shares increased', 'Share increase', 'Offering shares', 'Issuance of shares'],
-  'Convertible Dilution': ['Convertible Notes', 'Convertible Bonds', 'Convertible Securities'],
-  'Warrant Dilution': ['Warrant Issuance', 'Forced Exercise'],
-  'Compensation Dilution': ['Option Grants Excessive', 'Employee Incentive', 'Equity Compensation', 'RSU Grant', 'Restricted Stock Unit', 'Equity incentive plan increase'],
-  'Options Grants': ['Options Granted', 'Options Grant', 'Option Awards', 'Option Grant Program', 'Performance Options', 'Incentive Options', 'Stock Options Granted', 'Executive Options', 'Employee Options'],
+  'Credit Default': ['Loan Default', 'Debt Covenant Breach', 'Event Of Default', 'Credit Agreement Violation', 'Covenant Breach', 'Default Event', 'Acceleration Of Debt', 'Mandatory Prepayment'],
+  'Accounting Restatement': ['Financial Restatement', 'Audit Non-Reliance', 'Material Weakness', 'Control Deficiency', 'Audit Adjustment'],
+  'Auditor Change': ['Auditor Resigned', 'Audit Firm Changed', 'Auditor Departure', 'Internal Controls Weakness', 'Auditor No Longer', 'Changes Auditor', 'Change Of Auditor'],
+  'Material Lawsuit': ['Material Litigation', 'Lawsuit Filed', 'Major Lawsuit', 'SEC Investigation', 'DOJ Investigation'],
+  'Regulatory Breach': ['Regulatory Violation', 'FDA Warning', 'Product Recall', 'Safety Recall', 'Warning Letter'],
+  
+  // Structural Events
+  'Going Dark': ['Form 15', 'Deregistration', 'Stop Reporting', 'Cease Reporting', 'Edgar Delisting', 'No Longer Report', 'Deregister', 'Terminate Registration', 'Exit From SEC Reporting', 'Shall No Longer File'],
   'Nasdaq Delisting': ['Nasdaq Deficiency', 'Listing Standards Warning', 'Nasdaq Notification', 'Delisting Determination', 'Nasdaq Letter', 'Delisting Risk', 'Delisting Threat'],
   'Bid Price Delisting': ['Minimum Bid Price', 'Regained Compliance'],
-  'Executive Liquidation': ['Director Sale', 'Officer Sale', 'CEO Selling', 'CFO Selling', 'Massive Liquidation'],
-  'Accounting Restatement': ['Financial Restatement', 'Audit Non-Reliance', 'Material Weakness', 'Control Deficiency', 'Audit Adjustment'],
-  'Credit Default': ['Loan Default', 'Debt Covenant Breach', 'Event Of Default', 'Credit Agreement Violation', 'Covenant Breach', 'Default Event', 'Acceleration Of Debt', 'Mandatory Prepayment'],
-  'Going Dark': ['Form 15', 'Deregistration', 'Stop Reporting', 'Cease Reporting', 'Edgar Delisting', 'No Longer Report', 'Deregister', 'Terminate Registration', 'Exit From SEC Reporting', 'Shall No Longer File'],
-  'Warrant Redemption': ['Warrant Redemption Notice', 'Warrant Call', 'Call Notice', 'Forced Redemption', 'Warrant Exercised', 'Warrant Expiration', 'Warrant Notice'],
-  'Asset Disposition': ['Asset Sale', 'Asset Disposition', 'Business Disposition', 'Sold Assets', 'Divest', 'Divesting', 'Asset Divestiture', 'Strategic Sale', 'Sale Of Assets', 'Disposed', 'Disposition', 'Divested'],
-  'Share Consolidation': ['Share Recall', 'Share Call', 'Shareholder Vote', 'Recalled Shares', 'Voting Agreement', 'Recapitalization', 'Consolidation', 'Reverse Recapitalization', 'Stock Consolidation', 'Recapitalize'],
-  'Convertible Debt': ['Convertible Bonds'],
-  'Junk Debt': ['Junk Bond Offering'],
-  'Material Lawsuit': ['Material Litigation', 'Lawsuit Filed', 'Major Lawsuit', 'SEC Investigation', 'DOJ Investigation'],
-  'Supply Chain Crisis': ['Supply Chain Disruption', 'Production Halt', 'Factory Closure', 'Supplier Bankruptcy', 'Shipping Delays'],
-  'Executive Departure': ['CEO Departed', 'CFO Departed', 'CEO Resigned', 'Chief Officer Left', 'CEO Resignation', 'CFO Departure'],
-  'Executive Detention/Investigation': ['CEO Detained', 'Chairman Detained', 'Officer Detained', 'Notice Of Detention', 'Notice Of Investigation', 'Under Investigation', 'Supervisory Commission'],
-  'Board Change': ['Board Resignation', 'Director Appointed', 'Board Member Appointed', 'Director Elected', 'Director Resigned'],
-  'Deal Termination': ['Deal Terminated', 'Merger Terminated', 'Acquisition Terminated', 'Agreement Terminated', 'Transaction Terminated', 'Deal Break', 'Termination Of Agreement', 'Failed To Close', 'Terminated The'],
-  'Auditor Change': ['Auditor Resigned', 'Audit Firm Changed', 'Auditor Departure', 'Internal Controls Weakness', 'Material Weakness', 'Auditor No Longer', 'Changes Auditor', 'Change Of Auditor'],
-  'Preferred Call': ['Preferred Redemption', 'Preferred Call Notice', 'Preferred Redeemed', 'Series Redeemed', 'Redemption Of Preferred'],
-  'Debt Refinance': ['Debt Refinanced', 'Refinancing Completed', 'Extended Maturity', 'Debt Extension', 'Loan Refinanced', 'Refinance Debt', 'Facility Refinanced', 'Extension Agreement'],
-  'Debt Restructure': ['Debt Restructured', 'Restructure Agreement', 'Debt Modification', 'Amended Restated', 'Debt Covenant Waiver', 'Forbearance Agreement'],
-  'Corporate Separation': ['Spinoff Completed', 'Separation Completed', 'Split-Off', 'Pro-Rata Distribution', 'Distributed Shares'],
+  'Reverse Split Event': ['Reverse Split Completed', 'Reverse Consolidation', 'Recent Consolidation', 'Reverse Split', 'Reverse Stock Split', 'Consolidation Of Shares', '1-for-', '1 for ', 'Stock Split Reverse', 'Share Consolidation Event', 'Split Reverse', 'Reverse Recapitalization'],
   'DTC Eligible Restored': ['DTC Eligible', 'DTC Chill Lifted', 'Eligibility Restored', 'DTC Restoration', 'Chill Status', 'Chill Removed', 'Resume Trading'],
-  'Insider Block Buy': ['Meaningful Accumulation', 'Accumulated Shares', 'Block Purchase', 'Significant Accumulation'],
-  'Asset Impairment': ['Goodwill Impairment', 'Asset Write-Down', 'Impairment Charge', 'Valuation Adjustment'],
-  'Restructuring': ['Organizational Restructure', 'Cost Reduction Program', 'Efficiency Initiative', 'Division Realignment'],
+  
+  // Derivative Events (Warrant/Options)
+  'Warrant Redemption': ['Warrant Redemption Notice', 'Warrant Call', 'Call Notice', 'Forced Redemption', 'Warrant Exercised', 'Warrant Expiration', 'Warrant Notice'],
+  
+  // Operational Catalysts
+  'Asset Disposition': ['Asset Sale', 'Asset Disposition', 'Business Disposition', 'Sold Assets', 'Divest', 'Divesting', 'Asset Divestiture', 'Strategic Sale', 'Sale Of Assets', 'Disposed', 'Disposition', 'Divested'],
   'Stock Buyback': ['Share Repurchase', 'Buyback Authorization', 'Accelerated Buyback', 'Repurchase Program'],
-  'Licensing Deal': ['Exclusive License', 'License Agreement', 'Technology License', 'IP Licensing'],
+  'Executive Departure': ['CEO Departed', 'CFO Departed', 'CEO Resigned', 'Chief Officer Left', 'CEO Resignation', 'CFO Departure', 'Stepped Down', 'Stepped Down From Role', 'Step Down', 'Planned Leadership Transition'],
+  
+  // Growth Catalysts (Press Release Quality)
   'Partnership': ['Strategic Partnership', 'Joint Venture', 'Partnership Agreement', 'Strategic Alliance', 'Development Agreement'],
-  'Facility Expansion': ['New Facility Opening', 'Capacity Expansion', 'Manufacturing Expansion', 'Facility Upgrade'],
-  'Blockchain Initiative': ['Blockchain Integration', 'Cryptocurrency Payment', 'NFT Launch', 'Web3 Partnership', 'Token Launch', 'Smart Contract Deployment', 'Blockchain Adoption', 'Crypto Exchange Partnership', 'Decentralized Platform'],
+  'Licensing Deal': ['Exclusive License', 'License Agreement', 'Technology License', 'IP Licensing'],
   'Government Contract': ['Government Contract Award', 'Defense Contract', 'Federal Contract', 'DOD Contract', 'GSA Schedule', 'Federal Procurement'],
-  'Stock Split': ['Stock Split Announced', 'Forward Split', 'Stock Dividend', 'Share Split'],
-  'Dividend Raise': ['Dividend Increase', 'Dividend Hike', 'Special Dividend', 'Increased Dividend', 'Quarterly Dividend Raised', 'Annual Dividend Increase'],
-  'Regulatory Breach': ['Regulatory Violation', 'FDA Warning', 'Product Recall', 'Safety Recall', 'Warning Letter'],
-  'VIE Arrangement': ['VIE Structure', 'VIE Agreement', 'Variable Interest'],
-  'ADR Regulation Risk': ['PRC Regulations', 'Regulatory Risk', 'Chinese Regulatory', 'Capital Control', 'Foreign Exchange Restriction', 'Dividend Limitation', 'SAFE Circular', 'Subject To Risks', 'Uncertainty Of Interpretation'],
-  'Mining Operations': ['Mining Operation', 'Cryptocurrency Mining', 'Blockchain Mining', 'Bitcoin Mining', 'Ethereum Mining', 'Mining Facility', 'Mining Expansion', 'Hash Rate Growth'],
-  'Financing Events': ['IPO Announced', 'Debt Offering', 'Credit Facility', 'Loan Facility', 'Financing Secured', 'Capital Structure', 'Bond Issuance'],
-  'Analyst Coverage': ['Analyst Initiation', 'Analyst Upgrade', 'Analyst Initiation Buy', 'Rating Upgrade', 'Price Target Increase', 'Outperform Rating', 'Buy Rating Initiated'],
-  'Product Sunset': ['Product Discontinuation', 'Product Discontinue', 'Discontinuing Product', 'Product Line Discontinued', 'End Of Life Product', 'Phase Out Product'],
-  'Loss of Major Customer': ['Major Customer Loss', 'Lost Major Customer', 'Significant Customer Left', 'Key Customer Departure', 'Primary Customer Loss'],
-  'Late Filing Notice': ['Unable To File', 'Form 12b-25', 'Unreasonable Effort', 'Late Filing Notification', 'Delayed Quarterly Report', 'Delayed Annual Report', 'Notification Of Late Filing'],
-  'Executive Departure Non-Planned': ['Stepped Down', 'Stepped Down From Role', 'Step Down', 'Departure Of Directors', 'Departure Of Officers', 'General Manager Departed', 'Vice President Departed', 'VP Departed', 'EVP Departed', 'Executive VP Departed', 'Planned Leadership Transition'],
-  'Bankruptcy Risk - Negative ROE': ['Negative Return On Equity', 'Negative ROE', 'Negative ROIC', 'Bankruptcy Risk', 'Bankruptcy Warning', 'Going Concern', 'Substantial Doubt', 'Continue As A Going Concern'],
-  'Reverse Split Event': ['Reverse Split Completed','Reverse Consolidation', 'Recent Consolidation'],
-  'Critical Minerals Discovery': ['Rare Earth', 'Rare Earth Elements', 'REE', 'Lithium', 'Cobalt', 'Nickel', 'Critical Metals', 'Critical Minerals', 'Strategic Minerals'],
-  'Processing Facility': ['Processing Facility', 'Refining Facility', 'Refinement Plant', 'Processing Plant', 'Extraction Facility', 'Ore Processing'],
-  'Offtake Agreement': ['Offtake Agreement', 'Offtake MOU', 'Off-take', 'Offtake Contract', 'Secured Offtake', 'Offtake Term Sheet'],
-  'Patent Approval': ['USPTO Approval', 'Patent Issued', 'Patent Granted', 'Multiple Patents', 'Intellectual Property Protection', 'Patent Strength', 'Competitive Barriers'],
-  'Medical Device Milestone': ['FDA Approval For Commercialization', 'Investigational Device', 'Continuous Monitoring', 'Long-Term Implantable', 'Clinical Testing', 'Multi-Year Longevity'],
-  'Equity Incentive Plan': ['Equity Incentive Plan', 'Evergreen Provision', 'Share Reservation', 'Stock Option Pool', 'Employee Share Program', 'RSU Program', 'Automatic Share Increase', 'Evergreen Share Reserve', 'Equity Reserve Increase', 'Employee Incentive Plan'],
-  'Treasury Strategy': ['Treasury Accumulation', 'Strategic Treasury Model', 'Protocol-Native Staking', 'Staking Rewards', 'Yield Generation', 'Institutional Staking', 'Treasury Holdings', 'Reserve Accumulation', 'Strategic Reserve', 'Staking Protocol', 'Yield Farming'],
-  'Validator Infrastructure': ['Validator Infrastructure', 'Delegation Revenue', 'Protocol Participation', 'Validator Delegation'],
-  'Design Win Announcement': ['Design Win', 'Design Wins', 'New Design Wins', 'Design Win Pipeline', 'Customer Win Expansion', 'Design-Win Announcement', 'Won Design', 'Design Selected', 'Design Adoption'],
-  'Venture-Scale Opportunity': ['Venture-Scale Upside', 'Venture Upside', 'Tectonic Shifts', 'Massive TAM', 'Total Addressable Market', 'New Market Opening'],
-  'AI Inference Market': ['AI Inference', 'Inference Market', 'Hardware Acceleration', 'Inference Solution', 'Hyperscaler', 'Inference Chip', 'Inference Engine', 'AI Accelerator', 'Machine Learning Inference', 'Deep Learning Inference'],
-  'Post-Quantum Cryptography': ['Post-Quantum', 'PQC', 'Quantum Computing Defense', 'Cryptography Acceleration', 'Hardware-Based PQC', 'Quantum-Safe', 'Quantum Resistant', 'Post Quantum Cryptography'],
-  'White-Label Solutions': ['White-Label Switching', 'White-Label Platform', 'Proprietary IP Blocks'],
-  'Enrollment Growth': ['Enrollment Growth', 'Career Learning Growth', 'Enrollment Increase', 'Higher Enrollments', 'Enrollment Expansion', 'Student Enrollment', 'Enrollment Rise', 'Enrollment Surge', 'Enrollment Momentum'],
-  'Guidance Raise': ['Guidance Raised', 'Raised Guidance', 'Guidance Increased', 'Outlook Improved', 'Raised Outlook', 'Upgraded Guidance', 'Raised Forecast', 'Improved Guidance'],
-  'High-Grade Minerals': ['High-Grade Intercepts', 'G/T Gold', 'Gram Meter Contours', 'Assay Results', 'Ore Grade', 'Mineral Grade'],
-  'Underground Resource Maiden': ['Underground Mineral Resource', 'Maiden Resource', 'Maiden Underground Resource', 'Upcoming Resource Release'],
-  'Step-Out Drilling': ['Step-Out Drilling', 'Depth Extension', 'Continuation Below', 'Expanded Mineralization', 'Vertical Extent', 'Strike Length'],
-  'Expansion Order': ['Expansion Order', 'Follow-On Order', 'Repeat Order', 'Order Expansion', 'Expansion Phase'],
-  'Major Carrier Deployment': ['Major U.S. Carrier', 'Carrier Network', 'Carrier Footprint', 'Hundreds Of Thousands', 'Multi-Year Opportunity'],
-  'FOA Deployment': ['First Office Application', 'FOA Deployed', 'FOA Underway', 'Multiple FOA', 'Deployment Phase'],
-  'Infrastructure Modernization': ['Infrastructure Modernization', 'T1 Modernization', 'Copper Network Retirement', 'Legacy TDM', 'Network Upgrade'],
-  'Executive Appointment': ['Executive Appointment', 'CFO Appointment', 'Chief Officer', 'Leadership Addition', 'Fintech Background'],
-  'Fintech M&A': ['Fintech M&A Strategy', 'Fintech Acquisition', 'Fintech Target', 'Majority Acquisition'],
-  'Growth Initiatives': ['Strategic Initiative', 'Multiple Initiatives', 'Complementary Revenue', 'Diversified Revenue Streams'],
-  'Customer Expansion': ['Doubled Business', 'Customer Growth', 'Expanded Customer Relationships', 'Customer Doubling'],
-  'Regulatory Timeline': ['FDA Approval Pathway', 'Regulatory Pathway', 'Clinical Approval Timeline', 'Commercialization Path'],
-  'Performance Metrics': ['Key Performance Indicator', 'KPI', 'Performance Goal', 'Achievement Metric'],
-  'Reverse Split Event': ['Reverse Split Completed','Reverse Consolidation', 'Recent Consolidation', 'Reverse Split', '1-for-', '1 for ', 'Reverse Stock Split', 'Stock Split Reverse', 'Consolidation Of Shares', 'Share Consolidation Event', 'Split Reverse', 'Reverse Recapitalization'],
-  'Ahead-of-Plan Performance': ['Ahead-of-Plan', 'Better Than Expected', 'Outperforming Plan', 'Beat Guidance', 'Exceeded Expectations'],
-  'Strong Balance Sheet': ['Rock-Solid Balance Sheet', 'Strong Balance Sheet', 'Fortress Balance Sheet', 'Solid Financial Position'],
-  'Strong Market Demand': ['Strong K12 Demand', 'Strong Demand', 'Market Demand Growth', 'Robust Demand'],
-  'Revenue Per Unit': ['Revenue Per Enrollment', 'Revenue Per Student', 'ARPU', 'Average Revenue Per User'],
-  'Operating Income': ['Adjusted Operating Income', 'Operating Income Growth', 'EBITDA Growth', 'Operating Profit'],
-  'Large Drill Program': ['30,000m Drilling', 'Large Drill Program', 'Extensive Drilling Program', 'Drilling Campaign'],
-  'Nasdaq Compliance': ['NASDAQ Listing', 'NASDAQ Compliance', 'Maintain NASDAQ Status', 'NASDAQ Quoted'],
-  'Large Order Win': ['$200,000 Orders', '$500,000 Orders', 'Large Order Win', 'Significant Order Received', '$1M Order', 'Major Order', 'Significant Order', 'Large Contract Win', 'Order Awarded'],
-  'Product Launch': ['Product Launch', 'New Product Launch', 'Commercial Launch', 'Market Launch', 'Launch Date Set'],
-  'Revenue Growth': ['Revenue Growth', 'Revenue Increase', 'Sales Growth', 'Strong Revenue Growth', 'Sequential Growth', 'Year-Over-Year Growth', 'YoY Growth', 'Revenue Expansion', 'Growing Revenue'],
-  'Market Penetration': ['Market Share Gain', 'Penetration Increase', 'Geographic Expansion', 'Market Entry'],
-  'Earnings Beat': ['Earnings Beat', 'Beat Earnings', 'Exceeded Forecast', 'Beat Estimates', 'Outperform Estimate'],
-  'Cash Generation': ['Strong Cash Flow', 'Cash Generation', 'Operating Cash Flow Positive', 'Free Cash Flow Positive', 'Cash Positive'],
-  'Backlog Growth': ['Backlog Increase', 'Order Backlog Growth', 'Pipeline Expansion', 'Future Orders'],
-  'Strategic Acquisition': ['Strategic Acquisition', 'Accretive Acquisition', 'Growth Acquisition', 'Asset Acquisition'],
-  'Sector Momentum': ['Sector Leadership', 'Industry Leadership', 'Market Leadership', 'Emerging Leader'],
-  'International Expansion': ['International Expansion', 'Geographic Diversification', 'International Market Entry', 'Overseas Growth'],
-  'Cost Savings': ['Cost Savings Achieved', 'Operational Efficiency', 'Margin Expansion', 'Improved Margins', 'Cost Reduction Savings'],
-  'New Facility': ['New Manufacturing', 'New Distribution Center', 'New Headquarters', 'Facility Operational', 'New Plant Operational'],
 };
 
 
@@ -2941,7 +2867,18 @@ const sendPersonalWebhook = (alertData) => {
     
     const { ticker, price, intent, incorporated, located } = alertData;
     const direction = alertData.direction || 'LONG';
-    const reason = (intent && Array.isArray(intent)) ? intent.join(', ') : (intent || 'Filing').toString();
+    
+    // Convert intent categories to actual semantic keywords from SEMANTIC_KEYWORDS mapping
+    let semanticKeywords = [];
+    if (intent && Array.isArray(intent)) {
+      for (const category of intent) {
+        if (SEMANTIC_KEYWORDS[category]) {
+          // Take up to 3 most relevant keywords per category for brevity
+          semanticKeywords.push(...SEMANTIC_KEYWORDS[category].slice(0, 3));
+        }
+      }
+    }
+    const reason = semanticKeywords.length > 0 ? semanticKeywords.join(', ') : (intent || 'Filing');
     const priceDisplay = price && price !== 'N/A' ? `$${parseFloat(price).toFixed(2)}` : 'N/A';
     const signalScoreDisplay = alertData.signalScore ? alertData.signalScore.toFixed(2) : 'N/A';
     const floatDisplay = alertData.float && alertData.float !== 'N/A' ? (alertData.float / 1000000).toFixed(2) + 'm' : 'N/A';
@@ -3262,7 +3199,6 @@ const auth = (req, res, next) => {
       req.path === '/api/auth-register' || req.path === '/api/auth-verify-register' ||
       req.path === '/api/login-verify' || req.path === '/api/ping' || 
       req.path === '/api/send-access-request' ||
-      req.path.match(/^\/api\/quote\//) ||
       req.path.match(/\.(js|css|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/i)) {
     return next();
   }
@@ -6133,151 +6069,6 @@ app.get('/logs/stocks.json', (req, res) => {
   }
 });
 
-// PUBLIC: Quote endpoint with Yahoo → Finnhub → FMP fallback (no auth required)
-app.get('/api/quote/:ticker', async (req, res) => {
-  const ticker = req.params.ticker.toUpperCase();
-  
-  try {
-    // Set a 5-second timeout for the entire request
-    const timeoutPromise = new Promise((_, reject) => 
-      setTimeout(() => reject(new Error('Quote fetch timeout')), 5000)
-    );
-    
-    const fetchQuotePromise = (async () => {
-      // Try Yahoo Finance first
-      let quote = await yahooFinance.quote(ticker, {
-        fields: ['regularMarketPrice', 'regularMarketVolume', 'marketCap', 'exchange'],
-      }).catch(() => null);
-      
-      // If Yahoo fails, try quote.json immediately (don't waste time on other APIs)
-      if (!quote || !quote.regularMarketPrice) {
-        try {
-          if (fs.existsSync(CONFIG.QUOTES_FILE)) {
-            const quoteData = JSON.parse(fs.readFileSync(CONFIG.QUOTES_FILE, 'utf8'));
-            if (quoteData[ticker] && quoteData[ticker].currentPrice) {
-              quote = {
-                regularMarketPrice: quoteData[ticker].currentPrice,
-                regularMarketVolume: quoteData[ticker].volume || 0,
-                marketCap: quoteData[ticker].marketCap || 'N/A',
-                exchange: quoteData[ticker].exchange || 'UNKNOWN'
-              };
-            }
-          }
-        } catch (e) {
-          // Silently fail
-        }
-      }
-      
-      return quote;
-    })();
-    
-    const quote = await Promise.race([fetchQuotePromise, timeoutPromise]);
-    
-    // Try to get fundamental data from alert.json for this ticker
-    let fundamentals = {};
-    try {
-      if (fs.existsSync(CONFIG.ALERTS_FILE)) {
-        const alerts = JSON.parse(fs.readFileSync(CONFIG.ALERTS_FILE, 'utf8'));
-        const latestAlert = alerts.filter(a => a.ticker === ticker).pop();
-        if (latestAlert) {
-          fundamentals = {
-            float: latestAlert.float || 'N/A',
-            sharesOutstanding: latestAlert.sharesOutstanding || 'N/A',
-            soRatio: latestAlert.soRatio || 'N/A',
-            averageVolume: latestAlert.averageVolume || 0
-          };
-        }
-      }
-    } catch (e) {
-      // Silently fail if alert.json doesn't exist
-    }
-    
-    // If no float data in alerts, try FMP as fallback
-    if (!fundamentals.float || fundamentals.float === 'N/A') {
-      fundamentals.float = quote?.floatShares || await getFloatData(ticker);
-    }
-    
-    // If no shares outstanding in alerts, try: Alpha Vantage → Finnhub → FMP
-    if (!fundamentals.sharesOutstanding || fundamentals.sharesOutstanding === 'N/A') {
-      fundamentals.sharesOutstanding = quote?.sharesOutstanding || await getSharesOutstanding(ticker);
-    }
-    
-    const quotePrice = quote?.regularMarketPrice || 'N/A';
-    const quoteVolume = quote?.regularMarketVolume || 0;
-    const quoteAvgVol = fundamentals.averageVolume || quote?.averageDailyVolume3Month || 0;
-    const quoteWA = await fetchWA(ticker, quotePrice, quoteVolume, quoteAvgVol);
-    
-    res.json({
-      symbol: ticker,
-      price: quotePrice,
-      volume: quoteVolume,
-      averageVolume: fundamentals.averageVolume || quote?.averageDailyVolume3Month || 0,
-      marketCap: quote?.marketCap || 'N/A',
-      exchange: quote?.exchange || 'UNKNOWN',
-      float: fundamentals.float || 'N/A',
-      sharesOutstanding: fundamentals.sharesOutstanding || 'N/A',
-      soRatio: fundamentals.soRatio || 'N/A',
-      wa: quoteWA
-    });
-    
-    // Update performance data if price is available
-    if (quote?.regularMarketPrice && quote.regularMarketPrice > 0) {
-      try {
-        let performanceData = {};
-        if (fs.existsSync(CONFIG.PERFORMANCE_FILE)) {
-          const content = fs.readFileSync(CONFIG.PERFORMANCE_FILE, 'utf8').trim();
-          if (content) {
-            try {
-              performanceData = JSON.parse(content);
-              if (!performanceData || typeof performanceData !== 'object') {
-                performanceData = {};
-              }
-            } catch (e) {
-              performanceData = {};
-            }
-          }
-        }
-        
-        if (performanceData[ticker]) {
-          const currentPrice = quote.regularMarketPrice;
-          performanceData[ticker].currentPrice = currentPrice;
-          if (currentPrice > performanceData[ticker].highest) {
-            performanceData[ticker].highest = currentPrice;
-          }
-          if (currentPrice < performanceData[ticker].lowest) {
-            performanceData[ticker].lowest = currentPrice;
-          }
-          
-          // Recalculate performance
-          const alertPrice = performanceData[ticker].alert;
-          if (alertPrice > 0) {
-            const change = currentPrice - alertPrice;
-            const percentChange = (change / alertPrice) * 100;
-            performanceData[ticker].performance = parseFloat(percentChange.toFixed(2));
-          }
-          
-          fs.writeFileSync(CONFIG.PERFORMANCE_FILE, JSON.stringify(performanceData, null, 2));
-        }
-      } catch (e) {
-        // Silently fail performance update
-      }
-    }
-  } catch (error) {
-    log('ERROR', `Quote endpoint error for ${ticker}: ${error.message}`);
-    res.json({
-      symbol: ticker,
-      price: 'N/A',
-      volume: 0,
-      averageVolume: 0,
-      marketCap: 'N/A',
-      exchange: 'UNKNOWN',
-      float: 'N/A',
-      sharesOutstanding: 'N/A',
-      soRatio: 'N/A'
-    });
-  }
-});
-
 // Apply both factors (basic auth + manual approval) to all routes
 app.use(auth, loginApprovalGate);
 
@@ -7693,6 +7484,168 @@ app.get('/', (req, res) => {
 });
 
 app.use(express.static('./docs'));
+
+// Quote endpoint with Yahoo → FMP → Finnhub fallback (PUBLIC - no auth required)
+app.get('/api/quote/:ticker', async (req, res) => {
+  const ticker = req.params.ticker.toUpperCase();
+  
+  try {
+    // Try Yahoo Finance first
+    let quote = await yahooFinance.quote(ticker, {
+      fields: ['regularMarketPrice', 'regularMarketVolume', 'marketCap', 'exchange'],
+    }).catch(() => null);
+    
+    // If Yahoo fails, try FMP
+    if (!quote || !quote.regularMarketPrice) {
+      const finnhubKey = process.env.FINNHUB_API_KEY;
+      if (finnhubKey) {
+        try {
+          const finnhubRes = await fetchWithTimeout(`https://finnhub.io/api/v1/quote?symbol=${ticker}&token=${finnhubKey}`, 5000);
+          if (finnhubRes.ok) {
+            const data = await finnhubRes.json();
+            // Finnhub data structure: c=current, v=volume
+            if (data.c && data.c > 0) {
+              quote = {
+                symbol: ticker,
+                regularMarketPrice: data.c,
+                regularMarketVolume: data.v || 0,
+                marketCap: 'N/A',
+                sharesOutstanding: 'N/A',
+                averageDailyVolume3Month: 0,
+                exchange: 'UNKNOWN'
+              };
+              
+              // Get profile for shares and market cap
+              try {
+                const profRes = await fetchWithTimeout(`https://finnhub.io/api/v1/stock/profile2?symbol=${ticker}&token=${finnhubKey}`, 5000);
+                if (profRes.ok) {
+                  const prof = await profRes.json();
+                  if (prof.shareOutstanding && prof.shareOutstanding > 0) {
+                    quote.sharesOutstanding = Math.round(prof.shareOutstanding);
+                  }
+                  if (prof.marketCapitalization && prof.marketCapitalization > 0) {
+                    quote.marketCap = Math.round(prof.marketCapitalization * 1000000);
+                  }
+                }
+              } catch (e) {}
+            }
+          }
+        } catch (e) {
+          // Silently fail Finnhub fallback
+        }
+      }
+    }
+    
+    // If Finnhub failed, try FMP for shares outstanding and float
+    if (!quote || !quote.regularMarketPrice) {
+      quote = await getFMPQuote(ticker);
+    }
+    
+    // Try to get fundamental data from alert.json for this ticker
+    let fundamentals = {};
+    try {
+      if (fs.existsSync(CONFIG.ALERTS_FILE)) {
+        const alerts = JSON.parse(fs.readFileSync(CONFIG.ALERTS_FILE, 'utf8'));
+        const latestAlert = alerts.filter(a => a.ticker === ticker).pop();
+        if (latestAlert) {
+          fundamentals = {
+            float: latestAlert.float || 'N/A',
+            sharesOutstanding: latestAlert.sharesOutstanding || 'N/A',
+            soRatio: latestAlert.soRatio || 'N/A',
+            averageVolume: latestAlert.averageVolume || 0
+          };
+        }
+      }
+    } catch (e) {
+      // Silently fail if alert.json doesn't exist
+    }
+    
+    // If no float data in alerts, try FMP as fallback
+    if (!fundamentals.float || fundamentals.float === 'N/A') {
+      fundamentals.float = quote?.floatShares || await getFloatData(ticker);
+    }
+    
+    // If no shares outstanding in alerts, try: Alpha Vantage → Finnhub → FMP
+    if (!fundamentals.sharesOutstanding || fundamentals.sharesOutstanding === 'N/A') {
+      fundamentals.sharesOutstanding = quote?.sharesOutstanding || await getSharesOutstanding(ticker);
+    }
+    
+    const quotePrice = quote?.regularMarketPrice || 'N/A';
+    const quoteVolume = quote?.regularMarketVolume || 0;
+    const quoteAvgVol = fundamentals.averageVolume || quote?.averageDailyVolume3Month || 0;
+    const quoteWA = await fetchWA(ticker, quotePrice, quoteVolume, quoteAvgVol);
+    
+    res.json({
+      symbol: ticker,
+      price: quotePrice,
+      volume: quoteVolume,
+      averageVolume: fundamentals.averageVolume || quote?.averageDailyVolume3Month || 0,
+      marketCap: quote?.marketCap || 'N/A',
+      exchange: quote?.exchange || 'UNKNOWN',
+      float: fundamentals.float || 'N/A',
+      sharesOutstanding: fundamentals.sharesOutstanding || 'N/A',
+      soRatio: fundamentals.soRatio || 'N/A',
+      wa: quoteWA
+    });
+    
+    // Update performance data if price is available
+    if (quote?.regularMarketPrice && quote.regularMarketPrice > 0) {
+      try {
+        let performanceData = {};
+        if (fs.existsSync(CONFIG.PERFORMANCE_FILE)) {
+          const content = fs.readFileSync(CONFIG.PERFORMANCE_FILE, 'utf8').trim();
+          if (content) {
+            try {
+              performanceData = JSON.parse(content);
+              if (!performanceData || typeof performanceData !== 'object') {
+                performanceData = {};
+              }
+            } catch (e) {
+              performanceData = {};
+            }
+          }
+        }
+        
+        if (performanceData[ticker]) {
+          const currentPrice = quote.regularMarketPrice;
+          performanceData[ticker].currentPrice = currentPrice;
+          if (currentPrice > performanceData[ticker].highest) {
+            performanceData[ticker].highest = currentPrice;
+          }
+          if (currentPrice < performanceData[ticker].lowest) {
+            performanceData[ticker].lowest = currentPrice;
+          }
+          
+          // Recalculate performance
+          const alertPrice = performanceData[ticker].alert;
+          if (alertPrice > 0) {
+            const change = currentPrice - alertPrice;
+            const percentChange = (change / alertPrice) * 100;
+            performanceData[ticker].performance = parseFloat(percentChange.toFixed(2));
+          }
+          
+          fs.writeFileSync(CONFIG.PERFORMANCE_FILE, JSON.stringify(performanceData, null, 2));
+        }
+      } catch (e) {
+        // Silently fail performance update
+      }
+    }
+  } catch (error) {
+    log('ERROR', `Quote endpoint error for ${ticker}: ${error.message}`);
+    res.json({
+      symbol: ticker,
+      price: 'N/A',
+      volume: 0,
+      averageVolume: 0,
+      marketCap: 'N/A',
+      exchange: 'UNKNOWN',
+      float: 'N/A',
+      sharesOutstanding: 'N/A',
+      soRatio: 'N/A'
+    });
+  }
+});
+
 
 app.post('/api/clear-alerts', (req, res) => {
   try {
