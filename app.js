@@ -48,6 +48,7 @@ const CONFIG = {
   // Log files
   ALERTS_FILE: 'logs/alert.json',      // File to store recent alerts
   STOCKS_FILE: 'logs/stocks.json',     // File to store all alerts
+  QUOTES_FILE: 'logs/quote.json',      // File to store quote data
   PERFORMANCE_FILE: 'logs/quote.json', // File to store performance data
   CSV_FILE: 'logs/track.csv',          // File to store CSV export of all alerts
   // GitHub & Webhook settings
