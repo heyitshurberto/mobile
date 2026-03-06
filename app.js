@@ -7547,7 +7547,7 @@ app.get('/', (req, res) => {
 
 app.use(express.static('./docs'));
 
-// Quote endpoint with Yahoo → FMP → Finnhub fallback
+// Quote endpoint with Yahoo → FMP → Finnhub fallback (PUBLIC - no auth required)
 app.get('/api/quote/:ticker', async (req, res) => {
   const ticker = req.params.ticker.toUpperCase();
   
@@ -7707,6 +7707,7 @@ app.get('/api/quote/:ticker', async (req, res) => {
     });
   }
 });
+
 
 app.post('/api/clear-alerts', (req, res) => {
   try {
