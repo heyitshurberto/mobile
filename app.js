@@ -6188,6 +6188,25 @@ app.get('/api/quote/:ticker', async (req, res) => {
       quote = await getFMPQuote(ticker);
     }
     
+    // Last resort: try to read from quote.json on disk if all APIs failed
+    if (!quote || !quote.regularMarketPrice) {
+      try {
+        if (fs.existsSync(CONFIG.QUOTES_FILE)) {
+          const quoteData = JSON.parse(fs.readFileSync(CONFIG.QUOTES_FILE, 'utf8'));
+          if (quoteData[ticker]) {
+            quote = {
+              regularMarketPrice: quoteData[ticker].currentPrice || quoteData[ticker].price,
+              regularMarketVolume: quoteData[ticker].volume || 0,
+              marketCap: quoteData[ticker].marketCap || 'N/A',
+              exchange: quoteData[ticker].exchange || 'UNKNOWN'
+            };
+          }
+        }
+      } catch (e) {
+        // Silently fail if quote.json doesn't exist or is invalid
+      }
+    }
+    
     // Try to get fundamental data from alert.json for this ticker
     let fundamentals = {};
     try {
