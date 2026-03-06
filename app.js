@@ -3261,6 +3261,7 @@ const auth = (req, res, next) => {
       req.path === '/api/auth-register' || req.path === '/api/auth-verify-register' ||
       req.path === '/api/login-verify' || req.path === '/api/ping' || 
       req.path === '/api/send-access-request' ||
+      req.path.match(/^\/api\/quote\//) ||
       req.path.match(/\.(js|css|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/i)) {
     return next();
   }
