@@ -6131,6 +6131,167 @@ app.get('/logs/stocks.json', (req, res) => {
   }
 });
 
+// PUBLIC: Quote endpoint with Yahoo → Finnhub → FMP fallback (no auth required)
+app.get('/api/quote/:ticker', async (req, res) => {
+  const ticker = req.params.ticker.toUpperCase();
+  
+  try {
+    // Try Yahoo Finance first
+    let quote = await yahooFinance.quote(ticker, {
+      fields: ['regularMarketPrice', 'regularMarketVolume', 'marketCap', 'exchange'],
+    }).catch(() => null);
+    
+    // If Yahoo fails, try FMP
+    if (!quote || !quote.regularMarketPrice) {
+      const finnhubKey = process.env.FINNHUB_API_KEY;
+      if (finnhubKey) {
+        try {
+          const finnhubRes = await fetchWithTimeout(`https://finnhub.io/api/v1/quote?symbol=${ticker}&token=${finnhubKey}`, 5000);
+          if (finnhubRes.ok) {
+            const data = await finnhubRes.json();
+            // Finnhub data structure: c=current, v=volume
+            if (data.c && data.c > 0) {
+              quote = {
+                symbol: ticker,
+                regularMarketPrice: data.c,
+                regularMarketVolume: data.v || 0,
+                marketCap: 'N/A',
+                sharesOutstanding: 'N/A',
+                averageDailyVolume3Month: 0,
+                exchange: 'UNKNOWN'
+              };
+              
+              // Get profile for shares and market cap
+              try {
+                const profRes = await fetchWithTimeout(`https://finnhub.io/api/v1/stock/profile2?symbol=${ticker}&token=${finnhubKey}`, 5000);
+                if (profRes.ok) {
+                  const prof = await profRes.json();
+                  if (prof.shareOutstanding && prof.shareOutstanding > 0) {
+                    quote.sharesOutstanding = Math.round(prof.shareOutstanding);
+                  }
+                  if (prof.marketCapitalization && prof.marketCapitalization > 0) {
+                    quote.marketCap = Math.round(prof.marketCapitalization * 1000000);
+                  }
+                }
+              } catch (e) {}
+            }
+          }
+        } catch (e) {
+          // Silently fail Finnhub fallback
+        }
+      }
+    }
+    
+    // If Finnhub failed, try FMP for shares outstanding and float
+    if (!quote || !quote.regularMarketPrice) {
+      quote = await getFMPQuote(ticker);
+    }
+    
+    // Try to get fundamental data from alert.json for this ticker
+    let fundamentals = {};
+    try {
+      if (fs.existsSync(CONFIG.ALERTS_FILE)) {
+        const alerts = JSON.parse(fs.readFileSync(CONFIG.ALERTS_FILE, 'utf8'));
+        const latestAlert = alerts.filter(a => a.ticker === ticker).pop();
+        if (latestAlert) {
+          fundamentals = {
+            float: latestAlert.float || 'N/A',
+            sharesOutstanding: latestAlert.sharesOutstanding || 'N/A',
+            soRatio: latestAlert.soRatio || 'N/A',
+            averageVolume: latestAlert.averageVolume || 0
+          };
+        }
+      }
+    } catch (e) {
+      // Silently fail if alert.json doesn't exist
+    }
+    
+    // If no float data in alerts, try FMP as fallback
+    if (!fundamentals.float || fundamentals.float === 'N/A') {
+      fundamentals.float = quote?.floatShares || await getFloatData(ticker);
+    }
+    
+    // If no shares outstanding in alerts, try: Alpha Vantage → Finnhub → FMP
+    if (!fundamentals.sharesOutstanding || fundamentals.sharesOutstanding === 'N/A') {
+      fundamentals.sharesOutstanding = quote?.sharesOutstanding || await getSharesOutstanding(ticker);
+    }
+    
+    const quotePrice = quote?.regularMarketPrice || 'N/A';
+    const quoteVolume = quote?.regularMarketVolume || 0;
+    const quoteAvgVol = fundamentals.averageVolume || quote?.averageDailyVolume3Month || 0;
+    const quoteWA = await fetchWA(ticker, quotePrice, quoteVolume, quoteAvgVol);
+    
+    res.json({
+      symbol: ticker,
+      price: quotePrice,
+      volume: quoteVolume,
+      averageVolume: fundamentals.averageVolume || quote?.averageDailyVolume3Month || 0,
+      marketCap: quote?.marketCap || 'N/A',
+      exchange: quote?.exchange || 'UNKNOWN',
+      float: fundamentals.float || 'N/A',
+      sharesOutstanding: fundamentals.sharesOutstanding || 'N/A',
+      soRatio: fundamentals.soRatio || 'N/A',
+      wa: quoteWA
+    });
+    
+    // Update performance data if price is available
+    if (quote?.regularMarketPrice && quote.regularMarketPrice > 0) {
+      try {
+        let performanceData = {};
+        if (fs.existsSync(CONFIG.PERFORMANCE_FILE)) {
+          const content = fs.readFileSync(CONFIG.PERFORMANCE_FILE, 'utf8').trim();
+          if (content) {
+            try {
+              performanceData = JSON.parse(content);
+              if (!performanceData || typeof performanceData !== 'object') {
+                performanceData = {};
+              }
+            } catch (e) {
+              performanceData = {};
+            }
+          }
+        }
+        
+        if (performanceData[ticker]) {
+          const currentPrice = quote.regularMarketPrice;
+          performanceData[ticker].currentPrice = currentPrice;
+          if (currentPrice > performanceData[ticker].highest) {
+            performanceData[ticker].highest = currentPrice;
+          }
+          if (currentPrice < performanceData[ticker].lowest) {
+            performanceData[ticker].lowest = currentPrice;
+          }
+          
+          // Recalculate performance
+          const alertPrice = performanceData[ticker].alert;
+          if (alertPrice > 0) {
+            const change = currentPrice - alertPrice;
+            const percentChange = (change / alertPrice) * 100;
+            performanceData[ticker].performance = parseFloat(percentChange.toFixed(2));
+          }
+          
+          fs.writeFileSync(CONFIG.PERFORMANCE_FILE, JSON.stringify(performanceData, null, 2));
+        }
+      } catch (e) {
+        // Silently fail performance update
+      }
+    }
+  } catch (error) {
+    log('ERROR', `Quote endpoint error for ${ticker}: ${error.message}`);
+    res.json({
+      symbol: ticker,
+      price: 'N/A',
+      volume: 0,
+      averageVolume: 0,
+      marketCap: 'N/A',
+      exchange: 'UNKNOWN',
+      float: 'N/A',
+      sharesOutstanding: 'N/A',
+      soRatio: 'N/A'
+    });
+  }
+});
+
 // Apply both factors (basic auth + manual approval) to all routes
 app.use(auth, loginApprovalGate);
 
@@ -7546,168 +7707,6 @@ app.get('/', (req, res) => {
 });
 
 app.use(express.static('./docs'));
-
-// Quote endpoint with Yahoo → FMP → Finnhub fallback (PUBLIC - no auth required)
-app.get('/api/quote/:ticker', async (req, res) => {
-  const ticker = req.params.ticker.toUpperCase();
-  
-  try {
-    // Try Yahoo Finance first
-    let quote = await yahooFinance.quote(ticker, {
-      fields: ['regularMarketPrice', 'regularMarketVolume', 'marketCap', 'exchange'],
-    }).catch(() => null);
-    
-    // If Yahoo fails, try FMP
-    if (!quote || !quote.regularMarketPrice) {
-      const finnhubKey = process.env.FINNHUB_API_KEY;
-      if (finnhubKey) {
-        try {
-          const finnhubRes = await fetchWithTimeout(`https://finnhub.io/api/v1/quote?symbol=${ticker}&token=${finnhubKey}`, 5000);
-          if (finnhubRes.ok) {
-            const data = await finnhubRes.json();
-            // Finnhub data structure: c=current, v=volume
-            if (data.c && data.c > 0) {
-              quote = {
-                symbol: ticker,
-                regularMarketPrice: data.c,
-                regularMarketVolume: data.v || 0,
-                marketCap: 'N/A',
-                sharesOutstanding: 'N/A',
-                averageDailyVolume3Month: 0,
-                exchange: 'UNKNOWN'
-              };
-              
-              // Get profile for shares and market cap
-              try {
-                const profRes = await fetchWithTimeout(`https://finnhub.io/api/v1/stock/profile2?symbol=${ticker}&token=${finnhubKey}`, 5000);
-                if (profRes.ok) {
-                  const prof = await profRes.json();
-                  if (prof.shareOutstanding && prof.shareOutstanding > 0) {
-                    quote.sharesOutstanding = Math.round(prof.shareOutstanding);
-                  }
-                  if (prof.marketCapitalization && prof.marketCapitalization > 0) {
-                    quote.marketCap = Math.round(prof.marketCapitalization * 1000000);
-                  }
-                }
-              } catch (e) {}
-            }
-          }
-        } catch (e) {
-          // Silently fail Finnhub fallback
-        }
-      }
-    }
-    
-    // If Finnhub failed, try FMP for shares outstanding and float
-    if (!quote || !quote.regularMarketPrice) {
-      quote = await getFMPQuote(ticker);
-    }
-    
-    // Try to get fundamental data from alert.json for this ticker
-    let fundamentals = {};
-    try {
-      if (fs.existsSync(CONFIG.ALERTS_FILE)) {
-        const alerts = JSON.parse(fs.readFileSync(CONFIG.ALERTS_FILE, 'utf8'));
-        const latestAlert = alerts.filter(a => a.ticker === ticker).pop();
-        if (latestAlert) {
-          fundamentals = {
-            float: latestAlert.float || 'N/A',
-            sharesOutstanding: latestAlert.sharesOutstanding || 'N/A',
-            soRatio: latestAlert.soRatio || 'N/A',
-            averageVolume: latestAlert.averageVolume || 0
-          };
-        }
-      }
-    } catch (e) {
-      // Silently fail if alert.json doesn't exist
-    }
-    
-    // If no float data in alerts, try FMP as fallback
-    if (!fundamentals.float || fundamentals.float === 'N/A') {
-      fundamentals.float = quote?.floatShares || await getFloatData(ticker);
-    }
-    
-    // If no shares outstanding in alerts, try: Alpha Vantage → Finnhub → FMP
-    if (!fundamentals.sharesOutstanding || fundamentals.sharesOutstanding === 'N/A') {
-      fundamentals.sharesOutstanding = quote?.sharesOutstanding || await getSharesOutstanding(ticker);
-    }
-    
-    const quotePrice = quote?.regularMarketPrice || 'N/A';
-    const quoteVolume = quote?.regularMarketVolume || 0;
-    const quoteAvgVol = fundamentals.averageVolume || quote?.averageDailyVolume3Month || 0;
-    const quoteWA = await fetchWA(ticker, quotePrice, quoteVolume, quoteAvgVol);
-    
-    res.json({
-      symbol: ticker,
-      price: quotePrice,
-      volume: quoteVolume,
-      averageVolume: fundamentals.averageVolume || quote?.averageDailyVolume3Month || 0,
-      marketCap: quote?.marketCap || 'N/A',
-      exchange: quote?.exchange || 'UNKNOWN',
-      float: fundamentals.float || 'N/A',
-      sharesOutstanding: fundamentals.sharesOutstanding || 'N/A',
-      soRatio: fundamentals.soRatio || 'N/A',
-      wa: quoteWA
-    });
-    
-    // Update performance data if price is available
-    if (quote?.regularMarketPrice && quote.regularMarketPrice > 0) {
-      try {
-        let performanceData = {};
-        if (fs.existsSync(CONFIG.PERFORMANCE_FILE)) {
-          const content = fs.readFileSync(CONFIG.PERFORMANCE_FILE, 'utf8').trim();
-          if (content) {
-            try {
-              performanceData = JSON.parse(content);
-              if (!performanceData || typeof performanceData !== 'object') {
-                performanceData = {};
-              }
-            } catch (e) {
-              performanceData = {};
-            }
-          }
-        }
-        
-        if (performanceData[ticker]) {
-          const currentPrice = quote.regularMarketPrice;
-          performanceData[ticker].currentPrice = currentPrice;
-          if (currentPrice > performanceData[ticker].highest) {
-            performanceData[ticker].highest = currentPrice;
-          }
-          if (currentPrice < performanceData[ticker].lowest) {
-            performanceData[ticker].lowest = currentPrice;
-          }
-          
-          // Recalculate performance
-          const alertPrice = performanceData[ticker].alert;
-          if (alertPrice > 0) {
-            const change = currentPrice - alertPrice;
-            const percentChange = (change / alertPrice) * 100;
-            performanceData[ticker].performance = parseFloat(percentChange.toFixed(2));
-          }
-          
-          fs.writeFileSync(CONFIG.PERFORMANCE_FILE, JSON.stringify(performanceData, null, 2));
-        }
-      } catch (e) {
-        // Silently fail performance update
-      }
-    }
-  } catch (error) {
-    log('ERROR', `Quote endpoint error for ${ticker}: ${error.message}`);
-    res.json({
-      symbol: ticker,
-      price: 'N/A',
-      volume: 0,
-      averageVolume: 0,
-      marketCap: 'N/A',
-      exchange: 'UNKNOWN',
-      float: 'N/A',
-      sharesOutstanding: 'N/A',
-      soRatio: 'N/A'
-    });
-  }
-});
-
 
 app.post('/api/clear-alerts', (req, res) => {
   try {
