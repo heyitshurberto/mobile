@@ -6138,75 +6138,40 @@ app.get('/api/quote/:ticker', async (req, res) => {
   const ticker = req.params.ticker.toUpperCase();
   
   try {
-    // Try Yahoo Finance first
-    let quote = await yahooFinance.quote(ticker, {
-      fields: ['regularMarketPrice', 'regularMarketVolume', 'marketCap', 'exchange'],
-    }).catch(() => null);
+    // Set a 5-second timeout for the entire request
+    const timeoutPromise = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error('Quote fetch timeout')), 5000)
+    );
     
-    // If Yahoo fails, try FMP
-    if (!quote || !quote.regularMarketPrice) {
-      const finnhubKey = process.env.FINNHUB_API_KEY;
-      if (finnhubKey) {
+    const fetchQuotePromise = (async () => {
+      // Try Yahoo Finance first
+      let quote = await yahooFinance.quote(ticker, {
+        fields: ['regularMarketPrice', 'regularMarketVolume', 'marketCap', 'exchange'],
+      }).catch(() => null);
+      
+      // If Yahoo fails, try quote.json immediately (don't waste time on other APIs)
+      if (!quote || !quote.regularMarketPrice) {
         try {
-          const finnhubRes = await fetchWithTimeout(`https://finnhub.io/api/v1/quote?symbol=${ticker}&token=${finnhubKey}`, 5000);
-          if (finnhubRes.ok) {
-            const data = await finnhubRes.json();
-            // Finnhub data structure: c=current, v=volume
-            if (data.c && data.c > 0) {
+          if (fs.existsSync(CONFIG.QUOTES_FILE)) {
+            const quoteData = JSON.parse(fs.readFileSync(CONFIG.QUOTES_FILE, 'utf8'));
+            if (quoteData[ticker] && quoteData[ticker].currentPrice) {
               quote = {
-                symbol: ticker,
-                regularMarketPrice: data.c,
-                regularMarketVolume: data.v || 0,
-                marketCap: 'N/A',
-                sharesOutstanding: 'N/A',
-                averageDailyVolume3Month: 0,
-                exchange: 'UNKNOWN'
+                regularMarketPrice: quoteData[ticker].currentPrice,
+                regularMarketVolume: quoteData[ticker].volume || 0,
+                marketCap: quoteData[ticker].marketCap || 'N/A',
+                exchange: quoteData[ticker].exchange || 'UNKNOWN'
               };
-              
-              // Get profile for shares and market cap
-              try {
-                const profRes = await fetchWithTimeout(`https://finnhub.io/api/v1/stock/profile2?symbol=${ticker}&token=${finnhubKey}`, 5000);
-                if (profRes.ok) {
-                  const prof = await profRes.json();
-                  if (prof.shareOutstanding && prof.shareOutstanding > 0) {
-                    quote.sharesOutstanding = Math.round(prof.shareOutstanding);
-                  }
-                  if (prof.marketCapitalization && prof.marketCapitalization > 0) {
-                    quote.marketCap = Math.round(prof.marketCapitalization * 1000000);
-                  }
-                }
-              } catch (e) {}
             }
           }
         } catch (e) {
-          // Silently fail Finnhub fallback
+          // Silently fail
         }
       }
-    }
+      
+      return quote;
+    })();
     
-    // If Finnhub failed, try FMP for shares outstanding and float
-    if (!quote || !quote.regularMarketPrice) {
-      quote = await getFMPQuote(ticker);
-    }
-    
-    // Last resort: try to read from quote.json on disk if all APIs failed
-    if (!quote || !quote.regularMarketPrice) {
-      try {
-        if (fs.existsSync(CONFIG.QUOTES_FILE)) {
-          const quoteData = JSON.parse(fs.readFileSync(CONFIG.QUOTES_FILE, 'utf8'));
-          if (quoteData[ticker]) {
-            quote = {
-              regularMarketPrice: quoteData[ticker].currentPrice || quoteData[ticker].price,
-              regularMarketVolume: quoteData[ticker].volume || 0,
-              marketCap: quoteData[ticker].marketCap || 'N/A',
-              exchange: quoteData[ticker].exchange || 'UNKNOWN'
-            };
-          }
-        }
-      } catch (e) {
-        // Silently fail if quote.json doesn't exist or is invalid
-      }
-    }
+    const quote = await Promise.race([fetchQuotePromise, timeoutPromise]);
     
     // Try to get fundamental data from alert.json for this ticker
     let fundamentals = {};
