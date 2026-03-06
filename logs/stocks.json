@@ -618,8 +618,8 @@
     "direction": "SHORT",
     "highest5Day": 4.66,
     "highest5DayPercent": 0,
-    "lowest5Day": 4.215,
-    "lowest5DayPercent": 9.55
+    "lowest5Day": 3.93,
+    "lowest5DayPercent": 15.67
   },
   {
     "ticker": "CGNT",
@@ -762,8 +762,8 @@
     "recordId": "HEPA-1772543526281",
     "expiresAt": "2026-03-08T13:12:06.281Z",
     "direction": "LONG",
-    "highest5Day": 0.04,
-    "highest5DayPercent": 9.44
+    "highest5Day": 0.043,
+    "highest5DayPercent": 17.65
   },
   {
     "ticker": "ATRA",
@@ -1057,8 +1057,8 @@
     "direction": "SHORT",
     "highest5Day": 40.68,
     "highest5DayPercent": 0,
-    "lowest5Day": 39.05,
-    "lowest5DayPercent": 4.01
+    "lowest5Day": 38.77,
+    "lowest5DayPercent": 4.7
   },
   {
     "ticker": "JAGX",
@@ -1376,8 +1376,8 @@
     "direction": "SHORT",
     "highest5Day": 183.84,
     "highest5DayPercent": 0,
-    "lowest5Day": 183.535,
-    "lowest5DayPercent": 0.17
+    "lowest5Day": 181.81,
+    "lowest5DayPercent": 1.1
   },
   {
     "ticker": "OCGN",
@@ -1472,7 +1472,7 @@
     "direction": "SHORT",
     "highest5Day": 1.91,
     "highest5DayPercent": 0,
-    "lowest5Day": 1.93,
-    "lowest5DayPercent": -1.05
+    "lowest5Day": 1.74,
+    "lowest5DayPercent": 8.9
   }
 ]
