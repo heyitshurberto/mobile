@@ -3640,6 +3640,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                                 alertTime: alertTime,
                                 incorporated: alert.incorporated || 'Unknown',
                                 located: alert.located || 'Unknown',
+                                sector: stockRecord?.sector || alert.sector || 'N/A',
                                 signalScore: parseFloat(alert.signalScore) || 5.0,
                                 isShort: Array.isArray(alert.isShort) ? alert.isShort.length > 0 : (alert.isShort === true),
                                 exchange: alert.exchange || 'NASDAQ',
