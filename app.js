@@ -26,13 +26,13 @@ if (fs.existsSync('.env')) {
 
 const CONFIG = {
   // Alert filtering criteria
-  FILE_TIME: 1,                     // Minutes retro to fetch filings
+  FILE_TIME: 10000,                     // Minutes retro to fetch filings
   MIN_ALERT_VOLUME: 5000,           // Capture initial filing → AMM shock wave (first 3 min)
   STRONG_SIGNAL_MIN_VOLUME: 500,    // Very early for strong catalysts (Insider + Merger, etc.)
   MAX_FLOAT_6K: 75000000,           // Max float size for 6-K
   MAX_FLOAT_8K: 100000000,          // Max float size for 8-K 
-  MAX_SO_RATIO: 250.0,              // Max short interest ratio
-  ALLOWED_COUNTRIES: ['israel', 'china', 'hong kong', 'cayman islands', 'virgin islands', 'greece', 'singapore', 'malaysia', 'australia', 'bermuda', 'ireland', 'canada', 'nevada', 'delaware'], // Allowed incorporation/located countries
+  MAX_SO_RATIO: 1000.0,              // Max short interest ratio
+  ALLOWED_COUNTRIES: ['israel', 'argentina', 'texas', 'china', 'hong kong', 'cayman islands', 'virgin islands', 'greece', 'singapore', 'malaysia', 'australia', 'bermuda', 'ireland', 'canada', 'nevada', 'delaware'], // Allowed incorporation/located countries
   CTB_WATCHLIST: ['LVROF', 'OLB', 'AGILQ', 'BINI', 'NUWE', 'VEEE', 'ABPO', 'MRNO', 'NEPTF', 'SHPWQ', 'GXAI', 'RUBI', 'SEELQ', 'VHUB', 'IOTR', 'NMHI', 'FOXX', 'AUUD', 'ACCL', 'FABTQ', 'CZOOF', 'GMUN', 'UOKA', 'IONM', 'VIVS'], // High CTB stocks (CTB > 100%, Availability < 100k) - updated daily from IBorrowDesk
   // Enable optimizations for Raspberry Pi devices
   PI_MODE: true,              // Enable Pi optimizations          
@@ -383,36 +383,6 @@ const calculateWAFromBars = (bars) => {
   return null;
 };
 
-// Fetch WA by calculating from price and volume data
-const fetchWA = async (ticker, price = null, volume = null, averageVolume = null) => {
-  if (!ticker || ticker === 'UNKNOWN') return 'N/A';
-  
-  // WA approximation: use current price weighted by volume dynamics
-  // Formula: WA ≈ price × (volume / (volume + avgVolume))
-  // This approximates where the weighted average entry price is based on current volume vs average
-  if (price && price !== 'N/A' && !isNaN(parseFloat(price))) {
-    const numPrice = parseFloat(price);
-    const numVolume = volume && volume > 0 ? parseFloat(volume) : 0;
-    const numAvgVol = averageVolume && averageVolume > 0 ? parseFloat(averageVolume) : 0;
-    
-    // If we have volume data, weight the price by volume ratio
-    if (numVolume > 0 && numAvgVol > 0) {
-      // Volume ratio: current volume vs total (current + average)
-      const volumeRatio = numVolume / (numVolume + numAvgVol);
-      // WA = current price weighted by volume participation
-      // Higher volume spike = lower WA (more aggressive buying at lower levels)
-      const wa = numPrice * volumeRatio + (numPrice * 0.5) * (1 - volumeRatio);
-      return parseFloat(wa).toFixed(2);
-    }
-    
-    return parseFloat(numPrice).toFixed(2);
-  }
-  
-  // Final fallback: return N/A if no data available
-  return 'N/A';
-};
-
-
 // Detect if registrant is hiding former name/address (suspicious signal)
 const detectFormerNameHidden = (text) => {
   if (!text) return false;
@@ -431,259 +401,78 @@ const detectFormerNameHidden = (text) => {
   return false;
 };
 
-// Signal Score Calculator - Probabilistic weighted model
-// Volume (50%) + Float (25%) + S/O (25%) with signal multipliers
-const calculatesignalScore = (float, sharesOutstanding, volume, avgVolume, signalCategories = [], incorporated = null, located = null, filingText = '', companyName = '', itemCode = null, financingType = null, maClosureData = null, foundForms = new Set()) => {
-  // Float Score - BOOSTED for low float (better volatility potential)
-  let floatScore = 0.18;
-  const floatMillion = float / 1000000;
-  if (floatMillion < 1) floatScore = 0.28;      // <1M = BEST (was 0.24)
-  else if (floatMillion < 2.5) floatScore = 0.27;  // 1-2.5M = excellent (was 0.23)
-  else if (floatMillion < 5) floatScore = 0.26;    // 2.5-5M = very good (was 0.22)
-  else if (floatMillion < 10) floatScore = 0.24;   // 5-10M = good (was 0.21)
-  else if (floatMillion < 25) floatScore = 0.22;   // 10-25M = ok (was 0.20)
-  else if (floatMillion < 50) floatScore = 0.20;   // 25-50M = moderate (was 0.19)
-  else if (floatMillion < 100) floatScore = 0.18;  // 50-100M = low
-  else floatScore = 0.16;                           // >100M = minimal
-  
-  // S/O Score - neutral scoring (both tight and diluted floats are tradeable, just different signals)
-  let soScore = 0.20;
-  const numFloat = parseFloat(float) || 1;
-  const numShares = parseFloat(sharesOutstanding) || 1;
-  const soPercent = numShares > 0 ? (numFloat / numShares) * 100 : 50;
-
-  if (soPercent < 5) soScore = 0.28;        // Tight float
-  else if (soPercent < 25) soScore = 0.27;  // Very tight
-  else if (soPercent < 50) soScore = 0.26;  // Tight
-  else if (soPercent < 0) soScore = 0.24;  // Moderate
-  else if (soPercent < 80) soScore = 0.28;  // Diluted
-  else soScore = 0.22;                      // Heavily diluted (still tradeable)
-
-  let volumeScore = 0.20;  // Boosted baseline—zero-volume penny stocks can still win
-  const volumeRatio = avgVolume > 0 ? volume / avgVolume : 0.5;
-  if (volumeRatio >= 3.0) volumeScore = 0.40;  // Major spike (3x+)
-  else if (volumeRatio >= 2.0) volumeScore = 0.36;  // Significant (2x+)
-  else if (volumeRatio >= 1.5) volumeScore = 0.32;  // Moderate
-  else if (volumeRatio >= 1.0) volumeScore = 0.28;  // Slight increase
-  else if (volumeRatio >= 0.5) volumeScore = 0.22;  // Below average
-  else volumeScore = 0.20;  // No volume spike OK for micro-caps
-
-  let signalMultiplier = 1.0;
-  const structuralMovers = ['Credit Default', 'Going Dark', 'Warrant Redemption', 'Asset Disposition', 'Share Consolidation', 'Deal Termination', 'Auditor Change', 'Preferred Call', 'DTC Eligible Restored'];
-  const hasStructuralMover = signalCategories?.some(cat => structuralMovers.includes(cat));
-  const deathSpiralCats = ['Artificial Inflation', 'Bankruptcy Filing', 'Operating Deficit', 'Negative Earnings', 'Cash Burn', 'Going Concern Risk', 'Share Issuance', 'Convertible Dilution', 'Warrant Dilution', 'Compensation Dilution', 'Accounting Restatement', 'Regulatory Breach', 'Executive Liquidation', 'Credit Default'];
-  const hasDeathSpiral = signalCategories?.some(cat => deathSpiralCats.includes(cat));
-  const hasSqueeze = signalCategories?.some(cat => cat === 'Artificial Inflation');
-  
-  // Financial ratio detection - objective bankruptcy indicators from balance sheet
-  const financialRatios = parseFinancialRatios(filingText);
-  const hasFinancialCrisis = financialRatios.severity > 0.60;
-  
-  // Add financial ratio signals to signalCategories for scoring context
-  if (financialRatios.signals && financialRatios.signals.length > 0) {
-    signalCategories = [...(signalCategories || []), ...financialRatios.signals];
-  }
-  
-  if (hasFinancialCrisis && financialRatios.severity > 0.85) {
-    signalMultiplier = 1.20;  // Critical bankruptcy risk (current ratio <0.2, negative BVPS, etc.)
-  } else if (hasStructuralMover) {
-    signalMultiplier = 1.15;  // Structural events with mechanical execution
-  } else if (hasFinancialCrisis) {
-    signalMultiplier = 1.12;  // High financial distress multiplier
-  } else if (hasDeathSpiral) {
-    signalMultiplier = 1.08;    // Death spirals force selling
-  } else if (hasSqueeze) {
-    signalMultiplier = 1.05;        // Supply shocks
-  } else {
-    signalMultiplier = 1.0;
-  }
-
-  // ADR Detection - verify ONLY actual custodian banks, NOT mere country mismatch
-  // Removed strict ADR structure matching (incorporated != located)
-  let adrMultiplier = 1.0;
-  let isCustodianVerified = false;
-  let custodianName = null;
-  
-  // Red flag: "Not Applicable" indicates shell company with no legitimate origin
-  if ((incorporated && incorporated.includes('Not Applicable')) || (located && located.includes('Not Applicable')) || (companyName && companyName.includes('Not Applicable'))) {
-    adrMultiplier = 1.08;  // Shell company multiplier boost (tightened)
-    isCustodianVerified = false;
-    custodianName = 'Ghost Company (N/A)';
-  }
-  // ONLY apply boost for verified custodian banks (JPMorgan, BNY Mellon, etc.)
-  else {
-    const custodianResult = detectCustodianBanks(filingText);
-    if (custodianResult && custodianResult.verified) {
-      adrMultiplier = 1.10;  // Boost ONLY for verified custodian-controlled ADRs (tightened)
-      isCustodianVerified = true;
-      custodianName = custodianResult.custodian;
-    }
-  }
-  
-  
-  // S/O Bonus - boost score for 0-20% (tight) and 60-80% (diluted) ranges
-  let soBonus = 1.0;
-  if (numShares > 0) {
-    const soPercent = (numFloat / numShares) * 100;
-    if ((soPercent >= 0 && soPercent <= 20) || (soPercent >= 60 && soPercent <= 80)) {
-      soBonus = 1.12; // 12% score boost for these sweet spot ranges
-    }
-  }
-
-  // Layer 3: Financing Type Multiplier (Bought Deal > Registered Direct + Insider > Registered Direct > ATM)
-  let financingMultiplier = 1.0;
-  if (financingType) {
-    financingMultiplier = financingType.multiplier || 1.0;
-  }
-  
-  // Layer 4: M&A Close + Rebrand Multiplier (structural catalyst)
-  let maMultiplier = 1.0;
-  if (maClosureData) {
-    maMultiplier = maClosureData.multiplier || 1.0;
-  }
-  
-  // Layer 1: Item 8.01 context (patent loss = Material Lawsuit signal boost)
-  let item801Multiplier = 1.0;
-  if (itemCode === '8.01' && filingText) {
-    const item801Context = getItem801Context(filingText);
-    if (item801Context === 'Patent Loss' || item801Context === 'Material Lawsuit') {
-      // Boost "Material Lawsuit" signal if detected in Item 8.01 context
-      if (signalCategories?.includes('Material Lawsuit')) {
-        item801Multiplier = 1.05; // 5% boost for Item 8.01 buried lawsuit (tightened)
-      }
-    }
-  }
-  
-  let lowFloatPumpBonus = 1.0;
-  const floatUnderThreshold = numFloat < 5000000; // Under 5M shares = explosivity candidate
-  const hasCleanCatalyst = signalCategories?.some(cat => 
-    ['Partnership', 'Major Contract', 'Licensing Deal', 'Revenue Growth', 'Earnings Outperformance'].includes(cat)
-  );
-  const hasNoClumsyDeathFlag = !signalCategories?.some(cat =>
-    ['Reverse Split', 'Artificial Inflation', 'Share Issuance', 'Convertible Dilution', 'Credit Default', 'Going Dark'].includes(cat)
-  );
-  
-  if (floatUnderThreshold && hasCleanCatalyst && hasNoClumsyDeathFlag) {
-    lowFloatPumpBonus = 1.12; // 12% bonus for <5M float + clean news (tightened)
-  }
-
-  // Layer 6: EXHIBIT TYPE BONUS - EX-99.1, EX-10.1, etc. (press releases, material contracts)
-  let exhibitBonus = 1.0;
-  const hasEX99 = foundForms.has('EX-99.1') || foundForms.has('EX-99.2');
-  const hasEX10 = foundForms.has('EX-10.1') || foundForms.has('EX-10.2') || foundForms.has('EX-10.3');
-  const hasEX3 = foundForms.has('EX-3.1') || foundForms.has('EX-3.2');
-  const hasEX4 = foundForms.has('EX-4.1') || foundForms.has('EX-4.2');
-  
-  // Simple scoring: each exhibit type adds score boost
-  if (hasEX99) exhibitBonus += 0.06;   // Press releases = 6% boost
-  if (hasEX10) exhibitBonus += 0.04;   // Material contracts = 4% boost
-  if (hasEX3 || hasEX4) exhibitBonus += 0.02;  // Charter/Bylaws/Rights = 2% boost
-  // Cap at 1.12 (12% total exhibit bonus)
-  exhibitBonus = Math.min(exhibitBonus, 1.12);
-
-  // Layer 7: CONCRETE CATALYST MULTIPLIER - New high-impact keywords from filings
-  let concreteMultiplier = 1.0;
-  const concreteCatalysts = signalCategories?.filter(cat => [
-    'Medical Device Milestone', 'Equity Incentive Plan',
-    'Treasury Strategy', 'Validator Infrastructure', 'Design Win Announcement',
-    'Venture-Scale Opportunity', 'AI Inference Market', 'Post-Quantum Cryptography',
-    'White-Label Solutions', 'Enrollment Growth', 'Guidance Raise',
-    'High-Grade Minerals', 'Underground Resource Maiden', 'Step-Out Drilling',
-    'Expansion Order', 'Major Carrier Deployment', 'FOA Deployment',
-    'Infrastructure Modernization', 'Executive Appointment', 'Fintech M&A',
-    'Growth Initiatives', 'Customer Expansion', 'Regulatory Timeline', 'Performance Metrics',
-    'Clinical Milestone', 'Asset Disposition'
-  ].includes(cat)) || [];
-  
-  if (concreteCatalysts.length >= 3) {
-    concreteMultiplier = 1.18; // 18% boost: 3+ concrete catalysts = proven winners
-  } else if (concreteCatalysts.length >= 2) {
-    concreteMultiplier = 1.12; // 12% boost: 2 concrete catalysts (AVX, GCTK, ASNS pattern)
-  } else if (concreteCatalysts.length >= 1) {
-    concreteMultiplier = 1.07; // 7% boost: 1 concrete catalyst (baseline win trigger)
-  }
-
-  // Weighted calculation (volume 50%, float 25%, S/O 25%) with all bonuses applied
-  const signalScore = (floatScore * 0.25 + soScore * 0.25 + volumeScore * 0.5) * signalMultiplier * adrMultiplier * soBonus * financingMultiplier * maMultiplier * item801Multiplier * lowFloatPumpBonus * exhibitBonus * concreteMultiplier;
-  
-  return {
-    score: parseFloat(Math.min(0.85, signalScore).toFixed(2)),
-    floatScore: parseFloat(floatScore.toFixed(2)),
-    soScore: parseFloat(soScore.toFixed(2)),
-    volumeScore: parseFloat(volumeScore.toFixed(2)),
-    signalMultiplier: parseFloat(signalMultiplier.toFixed(2)),
-    adrMultiplier: parseFloat(adrMultiplier.toFixed(2)),
-    soBonus: parseFloat(soBonus.toFixed(2)),
-    isADR: adrMultiplier > 1.0,
-    isCustodianVerified: isCustodianVerified,
-    custodianName: custodianName
-  };
-};
-
 // Returns { direction: 'LONG' | 'SHORT', confidence: 0-1 }
 // SIMPLIFIED FOR AMM SPEED: Quick categorization based on catalyst strength
-const determineDirection = (signals = [], country = '', float = null, price = null, signalScore = 0) => {
+const determineDirection = (signals = [], country = '', float = null, price = null) => {
   const signalArray = Array.isArray(signals) ? signals : (signals ? String(signals).split(',').map(s => s.trim()) : []);
   
   // Fast-track bankruptcy indicators (force SHORT immediately)
-  const deathSpiral = ['Bankruptcy Filing', 'Credit Default', 'Going Concern Risk', 'Executive Liquidation', 'Going Dark'].some(cat => signalArray.includes(cat));
+  const deathSpiral = ['Bankruptcy Filing', 'Credit Default', 'Executive Liquidation', 'Going Dark'].some(cat => signalArray.includes(cat));
   if (deathSpiral) {
     return { direction: 'SHORT', confidence: 0.85 };
   }
   
   // Heavyweight bearish signals that override isolated bullish catalysts
-  const heavyweightBearish = ['Negative Earnings', 'Asset Impairment', 'Regulatory Breach', 'Accounting Restatement', 'Auditor Change'];
+  const heavyweightBearish = ['Regulatory Breach', 'Accounting Restatement', 'Auditor Change'];
   const hasHeavyweightBearish = heavyweightBearish.some(cat => signalArray.includes(cat));
   
   // Moderate bearish (only count when reinforced by heavyweight or structural signals)
-  const moderateBearish = ['Nasdaq Delisting', 'Deal Termination', 'Executive Departure Non-Planned', 'Bid Price Delisting', 'Reverse Split Event'];
-  const structuralBearish = ['Share Issuance', 'Convertible Dilution', 'Warrant Dilution', 'Compensation Dilution', 'Asset Disposition', 'Share Consolidation'];
+  const moderateBearish = ['Nasdaq Delisting', 'Bid Price Delisting', 'Reverse Split Event'];
+  const structuralBearish = ['Convertible Debt', 'Junk Debt', 'Warrant Redemption'];
   
-  // Bullish signals
-  const bullishSignals = ['Insider Buying', 'Insider Confidence', 'Revenue Growth', 'Major Contract', 'FDA Approved', 'Clinical Success', 'Clinical Milestone'];
+  // Bullish signals (including confidence signals like buybacks)
+  const bullishSignals = ['Insider Buying', 'FDA Approved', 'Clinical Success', 'Clinical Milestone', 'Partnership', 'Licensing Deal', 'Government Contract', 'Stock Buyback', 'DTC Eligible Restored', 'Merger/Acquisition'];
+  
+  // Asset Disposition is context-dependent: only bearish if paired with distress signals
+  const hasAssetDisposition = signalArray.includes('Asset Disposition');
+  const isDistressedDisposition = hasAssetDisposition && (signalArray.includes('Bankruptcy Filing') || signalArray.includes('Credit Default') || signalArray.includes('Going Dark'));
   
   const heavyweightCount = heavyweightBearish.filter(cat => signalArray.includes(cat)).length;
   const moderateCount = moderateBearish.filter(cat => signalArray.includes(cat)).length;
   const structuralCount = structuralBearish.filter(cat => signalArray.includes(cat)).length;
   const bullishCount = bullishSignals.filter(cat => signalArray.includes(cat)).length;
   
+  // Distressed Asset Disposition counts as additional bearish weight
+  const totalBearish = heavyweightCount + moderateCount + structuralCount + (isDistressedDisposition ? 1 : 0);
+  
   // Heavy/Moderate bearish always win if >= 2 combined
   if ((heavyweightCount + moderateCount) >= 2) {
     return { direction: 'SHORT', confidence: 0.70 };
   }
   
-  // Single heavyweight bearish + structural bearish = SHORT
+  // Distressed Asset Disposition + heavyweight = SHORT
+  if (isDistressedDisposition && heavyweightCount >= 1) {
+    return { direction: 'SHORT', confidence: 0.70 };
+  }
+  
+  // Single heavyweight bearish + structural bearish = SHORT (only if 2+ structural)
   if (heavyweightCount >= 1 && structuralCount >= 2) {
     return { direction: 'SHORT', confidence: 0.65 };
   }
   
-  // Context-aware M&A logic: Merger/Acquisition with multiple bearish signals = DESPERATE ACQUISITION = SHORT
+  // M&A logic: check if distressed or healthy
   const hasMergerAcquisition = signalArray.includes('Merger/Acquisition');
-  
   if (hasMergerAcquisition) {
-    const totalBearish = heavyweightCount + moderateCount + structuralCount;
-    // If M&A with heavy bearish signals, it's DISTRESSED = SHORT
-    if (heavyweightCount >= 1 || totalBearish >= 3) {
+    // M&A + distressed signals = SHORT (desperate acquisition)
+    if (heavyweightCount >= 1 || isDistressedDisposition || totalBearish >= 3) {
       return { direction: 'SHORT', confidence: 0.75 };
     }
-    // M&A with strong bullish signals = healthy acquisition = LONG
+    // M&A + 2+ bullish signals = LONG (healthy strategic acquisition)
     if (bullishCount >= 2) {
       return { direction: 'LONG', confidence: 0.80 };
     }
-    // Isolated M&A is still LONG (strategic move)
-    if (bullishCount === 0 && totalBearish <= 1) {
-      return { direction: 'LONG', confidence: 0.70 };
-    }
+    // M&A alone or with minimal signals = LONG (default strategic move)
+    return { direction: 'LONG', confidence: 0.70 };
   }
   
   // Fast-track pure growth catalysts (force LONG immediately) - only if no distress signals
-  const pureBullishCatalysts = ['FDA Approved', 'Clinical Success', 'Clinical Milestone', 'Major Contract', 'Insider Confidence', 'Insider Block Buy'].some(cat => signalArray.includes(cat));
-  if (pureBullishCatalysts && !hasHeavyweightBearish && moderateCount === 0) {
+  const pureBullishCatalysts = ['FDA Approved', 'Clinical Success', 'Clinical Milestone', 'Partnership', 'Licensing Deal'].some(cat => signalArray.includes(cat));
+  if (pureBullishCatalysts && !hasHeavyweightBearish && moderateCount === 0 && !isDistressedDisposition) {
     return { direction: 'LONG', confidence: 0.80 };
   }
   
-  // Default to SHORT if heavy/moderate bearish significantly outnumber bullish
-  if ((heavyweightCount + moderateCount) > bullishCount && (heavyweightCount + moderateCount) >= 2) {
+  // Heavy/Moderate bearish significantly outweigh bullish = SHORT (need 2+ bearish)
+  if ((heavyweightCount + moderateCount) >= 2 && (heavyweightCount + moderateCount) > bullishCount) {
     return { direction: 'SHORT', confidence: 0.65 };
   }
   
@@ -848,7 +637,7 @@ const SEMANTIC_KEYWORDS = {
   'FDA Approved': ['FDA Approval', 'FDA Clearance', 'Approval Granted', 'Approval Letter', 'FDA Approves', 'FDA approved', 'FDA approval', 'EMA Approval', 'Post-Market Approval', 'PMA Approval', '510(k) Clearance', 'De Novo Clearance'],
   'FDA Breakthrough': ['Breakthrough Therapy', 'Breakthrough Designation', 'Fast Track Designation', 'Priority Review', 'Priority Status'],
   'FDA Filing': ['NDA Submission', 'NDA Filed', 'BLA Submission', 'BLA Filed', 'IND Application', 'Regulatory Filing'],
-  'Clinical Success': ['Positive Trial Results', 'Phase 3 Success', 'Topline Results Beat', 'Efficacy Demonstrated', 'Safety Profile Met', 'Positive Results', 'Phase 1', 'Phase 2', 'Phase 3', 'Trial Results', 'Efficacy', 'Safety Profile', 'Cohort Results', 'Primary Endpoint', 'Enrollment Complete', 'Data Readout', 'Topline Data', 'Meaningful Improvement', 'Beat Placebo', 'Indication', 'Mechanism Of Action', 'Biomarker', 'Favorable Safety', 'Separation From Placebo', 'Demonstrated Benefit', 'Clinical Benefit', 'Strong Efficacy'],
+  'Clinical Success': ['Positive Trial Results', 'Phase 3 Success', 'Topline Results Beat', 'Efficacy Demonstrated', 'Safety Profile Met', 'Positive Results', 'Phase 1', 'Phase 2', 'Phase 3', 'Trial Results', 'Efficacy', 'Safety Profile', 'Cohort Results', 'Primary Endpoint', 'Enrollment Complete', 'Data Readout', 'Topline Data', 'Meaningful Improvement', 'Beat Placebo', 'Mechanism Of Action', 'Biomarker', 'Favorable Safety', 'Separation From Placebo', 'Demonstrated Benefit', 'Clinical Benefit', 'Strong Efficacy'],
   'Clinical Milestone': ['Phase Advancement', 'Phase 2 Initiation', 'Phase 3 Initiation', 'Enrollment Opened', 'Enrollment Initiated', 'Trial Initiation', 'Investigational New Drug', 'IND Application', 'NDA Filing', 'PMA Submission', 'Clinical Trial Site', 'Patient Enrollment', 'First Patient', 'Program Initiation', 'Patient Dosed', 'First Dose', 'Dose Escalation', 'Cohort Complete'],
   
   // Capital & Dilution
@@ -873,14 +662,14 @@ const SEMANTIC_KEYWORDS = {
   'Going Dark': ['Form 15', 'Deregistration', 'Stop Reporting', 'Cease Reporting', 'Edgar Delisting', 'No Longer Report', 'Deregister', 'Terminate Registration', 'Exit From SEC Reporting', 'Shall No Longer File'],
   'Nasdaq Delisting': ['Nasdaq Deficiency', 'Listing Standards Warning', 'Nasdaq Notification', 'Delisting Determination', 'Nasdaq Letter', 'Delisting Risk', 'Delisting Threat'],
   'Bid Price Delisting': ['Minimum Bid Price', 'Regained Compliance'],
-  'Reverse Split Event': ['Reverse Split Completed', 'Reverse Consolidation', 'Recent Consolidation', 'Reverse Split', 'Reverse Stock Split', 'Consolidation Of Shares', '1-for-', '1 for ', 'Stock Split Reverse', 'Share Consolidation Event', 'Split Reverse', 'Reverse Recapitalization'],
+  'Reverse Split Event': ['Reverse Split Completed', 'Reverse Consolidation', 'Recent Consolidation', 'Reverse Split', 'Reverse Stock Split', 'Consolidation Of Shares', 'Stock Split Reverse', 'Share Consolidation Event', 'Split Reverse', 'Reverse Recapitalization'],
   'DTC Eligible Restored': ['DTC Eligible', 'DTC Chill Lifted', 'Eligibility Restored', 'DTC Restoration', 'Chill Status', 'Chill Removed', 'Resume Trading'],
   
   // Derivative Events (Warrant/Options)
   'Warrant Redemption': ['Warrant Redemption Notice', 'Warrant Call', 'Call Notice', 'Forced Redemption', 'Warrant Exercised', 'Warrant Expiration', 'Warrant Notice'],
   
   // Operational Catalysts
-  'Asset Disposition': ['Asset Sale', 'Asset Disposition', 'Business Disposition', 'Sold Assets', 'Divest', 'Divesting', 'Asset Divestiture', 'Strategic Sale', 'Sale Of Assets', 'Disposed', 'Disposition', 'Divested'],
+  'Asset Disposition': ['Asset Sale', 'Asset Disposition', 'Business Disposition', 'Sold Assets', 'Divesting', 'Asset Divestiture', 'Strategic Sale', 'Sale Of Assets', 'Disposition', 'Divested'],
   'Stock Buyback': ['Share Repurchase', 'Buyback Authorization', 'Accelerated Buyback', 'Repurchase Program'],
   'Executive Departure': ['CEO Departed', 'CFO Departed', 'CEO Resigned', 'Chief Officer Left', 'CEO Resignation', 'CFO Departure', 'Stepped Down', 'Stepped Down From Role', 'Step Down', 'Planned Leadership Transition'],
   
@@ -1278,45 +1067,27 @@ const detectDeterministicPatterns = (semanticSignals) => {
   // VALIDATED PATTERNS FROM HISTORICAL DATA (42 winners analyzed)
   // These patterns have proven track records from actual trading outcomes
   
-  const hasArtificialInflation = signals.includes('Artificial Inflation');
   const hasNasdaqDelisting = signals.includes('Nasdaq Delisting');
   const hasBidPriceDelisting = signals.includes('Bid Price Delisting');
   const hasReverseSpliEvent = signals.includes('Reverse Split Event');
   
-  // STRICT: Artificial Inflation ONLY matches with delisting + reverse split combo
-  if (hasArtificialInflation && ((hasNasdaqDelisting || hasBidPriceDelisting) && hasReverseSpliEvent)) {
-    return {
-      pattern: 'Artificial Inflation (Compliance Reversal)',
-      mechanism: 'Company executing reverse split to regain exchange compliance. Delisting threat reversed = structural re-listing play. Market reprices upward.',
-      direction: 'LONG'
-    };
-  }
+  // Note: Artificial Inflation category was deleted - reverse split signals handled via Reverse Split Event + Delisting categories
   
-  // STRICT: Artificial Inflation + reverse split alone is SHORT
-  if (hasArtificialInflation && hasReverseSpliEvent && !hasNasdaqDelisting && !hasBidPriceDelisting) {
+  // STRICT: Asset Disposition requires supporting signals (distress context)
+  const hasAssetDisposition = signals.includes('Asset Disposition');
+  const hasBankruptcy = signals.includes('Bankruptcy Filing');
+  const hasExecutiveDeparture = signals.includes('Executive Departure');
+  
+  if (hasAssetDisposition && (hasBankruptcy || hasExecutiveDeparture)) {
     return {
-      pattern: 'Artificial Inflation',
-      mechanism: 'Company conducting reverse split/consolidation + inflated pricing = imminent trading halt or forced liquidation. Market mechanics force downward pressure.',
+      pattern: 'Asset Disposition (Distressed)',
+      mechanism: 'Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.',
       direction: 'SHORT'
     };
   }
   
-  // STRICT: Asset Disposition requires 2+ supporting signals
-  const hasAssetDisposition = signals.includes('Asset Disposition');
-  const hasShareConsolidation = signals.includes('Share Consolidation');
-  const hasFinancingEvents = signals.includes('Financing Events');
-  const hasExecutiveDeparture = signals.includes('Executive Departure Non-Planned');
-  
-  if (hasAssetDisposition && (hasShareConsolidation || hasFinancingEvents || hasExecutiveDeparture)) {
-    if (hasExecutiveDeparture || (hasFinancingEvents && hasShareConsolidation)) {
-      return {
-        pattern: 'Asset Disposition (Distressed)',
-        mechanism: 'Company liquidating assets in emergency context + leadership exodus + financing = covenant breach scenario. Assets sold at discount, downward spiral.',
-        direction: 'SHORT'
-      };
-    }
-    
-    // Otherwise = LONG (restructuring for growth)
+  // Asset disposition without distress signals = restructuring (LONG)
+  if (hasAssetDisposition && signals.length >= 2 && !hasBankruptcy && !hasExecutiveDeparture) {
     return {
       pattern: 'Asset Disposition (Restructuring)',
       mechanism: 'Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.',
@@ -1338,14 +1109,7 @@ const detectDeterministicPatterns = (semanticSignals) => {
     };
   }
   
-  // STRICT: Share Consolidation requires delisting context to trigger
-  if (hasShareConsolidation && (hasBidPriceDelisting || hasNasdaqDelisting)) {
-    return {
-      pattern: 'Share Consolidation + Delisting Risk',
-      mechanism: 'Reverse split triggered by exchange compliance failure. Stock at imminent delisting risk = trading halt likely.',
-      direction: 'SHORT'
-    };
-  }
+  // Note: Share Consolidation deleted - reverse split delisting signals handled via Reverse Split Event + Delisting categories
   
   // M&A catalysts - STRICT: Merger/Acquisition only without other issues
   const hasMergerAcquisition = signals.includes('Merger/Acquisition');
@@ -1358,13 +1122,13 @@ const detectDeterministicPatterns = (semanticSignals) => {
     };
   }
   
-  // Covenant breach = distressed financing - STRICT: both required
+  // Covenant breach = distressed financing - Credit Default is key signal
   const hasCreditDefault = signals.includes('Credit Default');
   
-  if (hasCreditDefault && hasFinancingEvents && signals.length >= 2) {
+  if (hasCreditDefault && signals.length >= 2) {
     return {
-      pattern: 'Credit Default + Financing Events',
-      mechanism: 'Company in covenant breach seeking emergency capital = dilutive financing at distressed terms. Lenders have leverage.',
+      pattern: 'Credit Default (Covenant Breach)',
+      mechanism: 'Company in covenant breach with lenders = dilutive financing at distressed terms. Lenders have leverage.',
       direction: 'SHORT'
     };
   }
@@ -1515,7 +1279,7 @@ const cleanupStaleAlerts = () => {
 const saveToCSV = (alertData) => {
   try {
     const csvPath = CONFIG.CSV_FILE;
-    const headers = 'CIK,Ticker,Registrant Name,Price,Incorporated,Located,P/E Ratio,Market Cap,Score,Float,Shares Outstanding,S/O Ratio,Weighted Average,F/AV,FTD,FTD %,Volume,Average Volume,Sector,Filing Type,Catalyst,Custodian Control,Filing Time Bonus,S/O Bonus,Bonus Signals,Financial Ratios,Alert Type,Skip Reason,Filed Date,Filed Time,Scanned Date,Scanned Time\n';
+    const headers = 'CIK,Ticker,Registrant Name,Price,Incorporated,Located,Market Cap,Float,Shares Outstanding,S/O Ratio,F/AV,FTD,FTD %,Volume,Average Volume,Sector,Filing Type,Catalyst,Custodian Control,Filing Time Bonus,S/O Bonus,Bonus Signals,Financial Ratios,Alert Type,Skip Reason,Filed Date,Filed Time,Scanned Date,Scanned Time\n';
     
     // Create file with headers if it doesn't exist
     if (!fs.existsSync(csvPath)) {
@@ -1600,9 +1364,7 @@ const saveToCSV = (alertData) => {
       escapeCSV(alertData.price || 'N/A'),
       escapeCSV(incorporated || 'N/A'),
       escapeCSV(located || 'N/A'),
-      escapeCSV(alertData.peRatio || 'N/A'),
       escapeCSV(alertData.marketCap || 'N/A'),
-      escapeCSV(alertData.signalScore || 'N/A'),
       escapeCSV(alertData.float || 'N/A'),
       escapeCSV(alertData.sharesOutstanding || 'N/A'),
       escapeCSV(alertData.soRatio || 'N/A'),
@@ -2880,7 +2642,6 @@ const sendPersonalWebhook = (alertData) => {
     }
     const reason = semanticKeywords.length > 0 ? semanticKeywords.join(', ') : (intent || 'Filing');
     const priceDisplay = price && price !== 'N/A' ? `$${parseFloat(price).toFixed(2)}` : 'N/A';
-    const signalScoreDisplay = alertData.signalScore ? alertData.signalScore.toFixed(2) : 'N/A';
     const floatDisplay = alertData.float && alertData.float !== 'N/A' ? (alertData.float / 1000000).toFixed(2) + 'm' : 'N/A';
     const volumeDisplay = alertData.volume && alertData.volume !== 'N/A' ? (alertData.volume / 1000000).toFixed(2) + 'm' : 'N/A';
     const avgVolDisplay = alertData.averageVolume && alertData.averageVolume !== 'N/A' ? (alertData.averageVolume / 1000000).toFixed(2) + 'm' : 'N/A';
@@ -2916,17 +2677,17 @@ const sendPersonalWebhook = (alertData) => {
     let setupTag = '';
     if (direction === 'SHORT') {
       const hasShortSetup = intents.includes('Credit Default') && 
-                           intents.includes('Bankruptcy Risk - Negative ROE') &&
-                           intents.includes('Executive Departure Non-Planned') &&
+                           intents.includes('Executive Liquidation') &&
+                           intents.includes('Going Dark') &&
                            ftdValue > 5;
       if (hasShortSetup) {
         setupTag = '\n★ Highest Probability Setup';
       }
     } else if (direction === 'LONG') {
-      const hasLongSetup = intents.includes('Revenue Growth') &&
-                          intents.includes('Buyback') &&
-                          intents.includes('Dividend Raise') &&
-                          intents.includes('Strategic Financing');
+      const hasLongSetup = intents.includes('FDA Approved') &&
+                          intents.includes('Stock Buyback') &&
+                          intents.includes('Partnership') &&
+                          intents.includes('Capital Raise');
       if (hasLongSetup) {
         setupTag = '\n★ Highest Probability Setup';
       }
@@ -2943,11 +2704,9 @@ const sendPersonalWebhook = (alertData) => {
 **Industry:** ${sectorDisplay}
 **Location:** ${locationDisplay}
 **Incorporation:** ${incorporationDisplay}
-**Score:** ${signalScoreDisplay}
 **Float:** ${floatDisplay} / **S/O:** ${soDisplay}
 **Volume:** Current: ${volumeDisplay} / Average: ${avgVolDisplay}
 **Market Cap:** ${marketCapDisplay}
-**Weighted Avg:** ${waDisplay}
 **F/AV:** ${favDisplay}
 **FTD %:** ${ftdDisplay}
 **Bonuses:** ${bonusDisplay}
@@ -2987,7 +2746,6 @@ const sendPaidWebhook = (alertData) => {
     const { ticker, price, intent, incorporated, located } = alertData;
     const direction = alertData.direction || 'LONG';
     const priceDisplay = price && price !== 'N/A' ? `$${parseFloat(price).toFixed(2)}` : 'N/A';
-    const signalScoreDisplay = alertData.signalScore ? alertData.signalScore : 'N/A';
     const floatDisplay = alertData.float && alertData.float !== 'N/A' ? (alertData.float / 1000000).toFixed(2) + 'm' : 'N/A';
     const volumeDisplay = alertData.volume && alertData.volume !== 'N/A' ? (alertData.volume / 1000000).toFixed(2) + 'm' : 'N/A';
     const avgVolDisplay = alertData.averageVolume && alertData.averageVolume !== 'N/A' ? (alertData.averageVolume / 1000000).toFixed(2) + 'm' : 'N/A';
@@ -2995,7 +2753,7 @@ const sendPaidWebhook = (alertData) => {
     const sideEmoji = direction === 'SHORT' ? '🔴 SHORT' : '🟢 LONG';
     
     // PAID WEBHOOK: Telegram style (clean, minimal, no branding)
-    const paidAlertContent = `Eugene's Non-Profit\n🚀 NEW ALERT: $${ticker}\n${sideEmoji}\n\nEntry: ${priceDisplay}\nScore: ${signalScoreDisplay}\nFloat: ${floatDisplay}\nVolume: ${volumeDisplay} (Avg: ${avgVolDisplay})\nS/O: ${alertData.soRatio || 'N/A'}\nMarket Cap: ${marketCapDisplay}\n\nhttps://www.tradingview.com/chart/?symbol=${ticker}`;
+    const paidAlertContent = `Eugene's Non-Profit\n🚀 NEW ALERT: $${ticker}\n${sideEmoji}\n\nEntry: ${priceDisplay}\nFloat: ${floatDisplay}\nVolume: ${volumeDisplay} (Avg: ${avgVolDisplay})\nS/O: ${alertData.soRatio || 'N/A'}\nMarket Cap: ${marketCapDisplay}\n\nhttps://www.tradingview.com/chart/?symbol=${ticker}`;
     
     
     const paidMsg = { content: paidAlertContent };
@@ -3029,14 +2787,13 @@ const sendTelegramAlert = (alertData) => {
     const { ticker, price, intent, incorporated, located } = alertData;
     const direction = alertData.direction || 'LONG';
     const priceDisplay = price && price !== 'N/A' ? `$${parseFloat(price).toFixed(2)}` : 'N/A';
-    const signalScoreDisplay = alertData.signalScore ? alertData.signalScore : 'N/A';
     const floatDisplay = alertData.float && alertData.float !== 'N/A' ? (alertData.float / 1000000).toFixed(2) + 'm' : 'N/A';
     const volumeDisplay = alertData.volume && alertData.volume !== 'N/A' ? (alertData.volume / 1000000).toFixed(2) + 'm' : 'N/A';
     const avgVolDisplay = alertData.averageVolume && alertData.averageVolume !== 'N/A' ? (alertData.averageVolume / 1000000).toFixed(2) + 'm' : 'N/A';
     const marketCapDisplay = alertData.marketCap && alertData.marketCap !== 'N/A' ? `$${(alertData.marketCap / 1000000000).toFixed(2)}B` : 'N/A';
     const sideEmoji = direction === 'SHORT' ? '🔴 SHORT' : '🟢 LONG';
     
-    const telegramAlertContent = `Eugene's Non-Profit\n\n🚀 NEW TRADE ALERT: $${ticker}\n${sideEmoji}\n\nEntry: ${priceDisplay}\nScore: ${signalScoreDisplay}\nFloat: ${floatDisplay}\nVolume: ${volumeDisplay} (Avg: ${avgVolDisplay})\nS/O: ${alertData.soRatio || 'N/A'}\nMarket Cap: ${marketCapDisplay}\n\nhttps://www.tradingview.com/chart/?symbol=${ticker}`;
+    const telegramAlertContent = `Eugene's Non-Profit\n\n🚀 NEW TRADE ALERT: $${ticker}\n${sideEmoji}\n\nEntry: ${priceDisplay}\nFloat: ${floatDisplay}\nVolume: ${volumeDisplay} (Avg: ${avgVolDisplay})\nS/O: ${alertData.soRatio || 'N/A'}\nMarket Cap: ${marketCapDisplay}\n\nhttps://www.tradingview.com/chart/?symbol=${ticker}`;
     
     const telegramUrl = `https://api.telegram.org/bot${CONFIG.TELEGRAM_BOT_TOKEN}/sendMessage`;
     const telegramPayload = {
@@ -7585,7 +7342,6 @@ app.get('/api/quote/:ticker', async (req, res) => {
       float: fundamentals.float || 'N/A',
       sharesOutstanding: fundamentals.sharesOutstanding || 'N/A',
       soRatio: fundamentals.soRatio || 'N/A',
-      wa: quoteWA
     });
     
     // Update performance data if price is available
@@ -8210,14 +7966,14 @@ if (process.stdin.isTTY) {
             }
             let newsDisplay = allKeywords.join(', ');
             
-            // If "Artificial Inflation" is detected, try to extract the ratio
-            if (Object.keys(semanticSignals).includes('Artificial Inflation')) {
+            // If "Reverse Split Event" is detected, try to extract the ratio
+            if (Object.keys(semanticSignals).includes('Reverse Split Event')) {
               const ratio = extractReverseSplitRatio(text);
               if (ratio) {
                 // Replace in both the display and the actual signals array
                 newsDisplay = newsDisplay.replace(/1-for-/i, ratio + ' ');
                 // Also update the semanticSignals array to replace incomplete '1-for-' with complete ratio
-                semanticSignals['Artificial Inflation'] = semanticSignals['Artificial Inflation'].map(kw => 
+                semanticSignals['Reverse Split Event'] = semanticSignals['Reverse Split Event'].map(kw => 
                   kw === '1-for-' ? ratio : kw
                 );
               }
@@ -8255,7 +8011,7 @@ if (process.stdin.isTTY) {
           const formsDisplay = otherForms.length > 0 ? otherForms.join(', ') : '';
           const itemsDisplay = otherItems.length > 0 ? otherItems.sort((a, b) => parseFloat(a) - parseFloat(b)).map(item => `Item ${item}`).join(', ') : '';
           
-          const bearishCategories = ['Artificial Inflation', 'Bankruptcy Filing', 'Operating Deficit', 'Negative Earnings', 'Cash Burn', 'Going Concern Risk', 'Public Offering', 'Share Issuance', 'Convertible Dilution', 'Warrant Dilution', 'Compensation Dilution', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Liquidation', 'Accounting Restatement', 'Credit Default', 'Senior Debt', 'Convertible Debt', 'Junk Debt', 'Material Lawsuit', 'Supply Chain Crisis', 'Regulatory Breach', 'VIE Arrangement', 'China Risk', 'Product Sunset', 'Loss of Major Customer', 'Underwritten Offering', 'Deal Termination'];
+          const bearishCategories = ['Bankruptcy Filing', 'Credit Default', 'Material Lawsuit', 'Going Dark', 'Asset Disposition', 'Convertible Debt', 'Junk Debt', 'Executive Liquidation', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Reverse Split Event', 'Warrant Redemption', 'Executive Departure'];
           const signalKeys = Object.keys(semanticSignals);
           
           let formLogMessage = '';
@@ -8316,7 +8072,7 @@ if (process.stdin.isTTY) {
               try {
                 quoteData = await Promise.race([
                   yahooFinance.quote(ticker, {
-                    fields: ['regularMarketPrice', 'regularMarketVolume', 'marketCap', 'sharesOutstanding', 'averageDailyVolume3Month', 'trailingPE', 'forwardPE']
+                    fields: ['regularMarketPrice', 'regularMarketVolume', 'marketCap', 'sharesOutstanding', 'averageDailyVolume3Month']
                   }),
                   new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 8000))
                 ]).catch(() => null);
@@ -8417,17 +8173,17 @@ if (process.stdin.isTTY) {
             const sigKeys = Object.keys(semanticSignals || {});
             
             // bonus SHORT signals
-            const hasReverseSplit = sigKeys.includes('Reverse Split');
-            const hasDilution = sigKeys.includes('Dilution');
-            const hasStockSplit = sigKeys.includes('Stock Split');
+            const hasReverseSplit = sigKeys.includes('Reverse Split Event');
+            const hasDilution = sigKeys.includes('Convertible Debt') || sigKeys.includes('Junk Debt');
+            const hasWarrantRedemption = sigKeys.includes('Warrant Redemption');
             
-            // ONLY SHORT if: Reverse Split + Dilution/Stock Split (structural destruction)
-            const isShortCombo = hasReverseSplit && (hasDilution || hasStockSplit);
+            // ONLY SHORT if: Reverse Split + Dilution/Warrant (structural destruction)
+            const isShortCombo = hasReverseSplit && (hasDilution || hasWarrantRedemption);
             
             // Bearish signals that force SHORT regardless
-            const bearishCats = ['Bankruptcy Filing', 'Going Concern', 'Public Offering', 'Delisting Risk', 'Warrant Redemption', 'Insider Selling', 'Accounting Restatement', 'Credit Default', 'Debt Issuance', 'Material Lawsuit', 'Supply Chain Crisis', 'Product Sunset', 'Loss of Major Customer', 'Going Dark', 'Asset Disposition', 'Share Consolidation', 'Board Change', 'Artificial Inflation', 'Share Issuance', 'Convertible Dilution', 'Stock Split', 'Reverse Split', 'Convertible Debt', 'Operating Deficit', 'Negative Earnings', 'Cash Burn', 'Going Concern Risk', 'Warrant Dilution', 'Compensation Dilution', 'Warrant Redemption', 'Regulatory Breach', 'Executive Liquidation', 'China Risk', 'VIE Arrangement', 'Stock Dividend', 'Asset Impairment', 'Junk Debt', 'Executive Departure', 'Executive Departure Non-Planned', 'Executive Detention/Investigation', 'Deal Termination', 'Auditor Change', 'ADR Regulation Risk', 'Nasdaq Delisting'];
+            const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Material Lawsuit', 'Going Dark', 'Asset Disposition', 'Convertible Debt', 'Junk Debt', 'Executive Liquidation', 'Executive Departure', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Reverse Split Event', 'Warrant Redemption'];
             const bearishCount = sigKeys.filter(cat => bearishCats.includes(cat)).length;
-            const bullishCats = ['Major Contract', 'Earnings Outperformance', 'Revenue Growth', 'Licensing Deal', 'Stock Buyback', 'Merger/Acquisition', 'FDA Approved', 'FDA Breakthrough', 'Clinical Success', 'Insider Buying', 'Insider Confidence', 'Insider Block Buy', 'DTC Eligible Restored', 'Dividend Raise', 'Government Contract', 'Critical Minerals Discovery', 'Processing Facility', 'Offtake Agreement', 'Strategic Minerals Partnership'];
+            const bullishCats = ['Merger/Acquisition', 'FDA Approved', 'FDA Breakthrough', 'FDA Filing', 'Clinical Success', 'Clinical Milestone', 'Insider Buying', 'Executive Liquidation', 'DTC Eligible Restored', 'Government Contract', 'Partnership', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering'];
             const bullishCount = sigKeys.filter(cat => bullishCats.includes(cat)).length;
             const hasPartnership = sigKeys.includes('Partnership');
             
@@ -8464,11 +8220,9 @@ if (process.stdin.isTTY) {
           const startMin = 3.5 * 60; // 3:30am = 210 minutes
           const endMin = 18 * 60; // 6:00pm = 1080 minutes
           
-          // Calculate signal score early for logging
+          // Convert to numeric values for calculations
           const numFloat = (() => { const v = typeof float === 'number' ? float : (typeof float === 'string' && float !== 'N/A' ? parseFloat(float) : NaN); return isNaN(v) ? null : v; })();
-          const numVolume = (() => { const v = typeof volume === 'number' ? volume : (typeof volume === 'string' && volume !== 'N/A' ? parseFloat(volume) : NaN); return isNaN(v) ? 0 : v; })();
           const numAvgVol = (() => { const v = typeof averageVolume === 'number' ? averageVolume : (typeof averageVolume === 'string' && averageVolume !== 'N/A' ? parseFloat(averageVolume) : NaN); return isNaN(v) ? 1 : v; })();
-          const numShares = (() => { const v = typeof sharesOutstanding === 'number' ? sharesOutstanding : (typeof sharesOutstanding === 'string' && sharesOutstanding !== 'N/A' ? parseFloat(sharesOutstanding) : NaN); return isNaN(v) ? null : v; })();
           
           // Calculate F/AV early for logging (before it's used at line 8012)
           const favValue = numAvgVol > 0 ? (numFloat / numAvgVol) : 0;
@@ -8508,72 +8262,7 @@ if (process.stdin.isTTY) {
               insiderConfidenceMultiplier = 1.10; // Generic insider buying
             }
           }
-          
-          const signalScoreData = calculatesignalScore(numFloat, numShares, numVolume, numAvgVol, signalCategories, normalizedIncorporated, normalizedLocated, text, filing.title, itemCode, financingType, maClosureData, foundForms);
                     
-          // DTC Chill Lift
-          if (bonusSignals['DTC Chill Lift']) {
-            signalScoreData.score = 0.75;
-            signalScoreData.bonusSignal = 'DTC Chill Lift';
-            log('INFO', `Bonus: DTC Chill Lift detected`);
-          }
-          
-          // Shell Recycling (Form 15 + Name Change)
-          if (bonusSignals['Shell Recycling']) {
-            signalScoreData.score = parseFloat((signalScoreData.score * 1.15).toFixed(2));
-            signalScoreData.bonusSignal = 'Shell Recycling';
-            log('INFO', `Bonus: Shell Recycling detected`);
-          }
-          
-          // VStock Transfer Agent
-          if (bonusSignals['VStock']) {
-            signalScoreData.score = parseFloat((signalScoreData.score * 1.15).toFixed(2));
-            signalScoreData.bonusSignal = 'Transfer Agent Change';
-            log('INFO', `Bonus: VStock Transfer Agent detected`);
-          }
-          
-          // NT 10-K Cycle (Chinese ADRs)
-          if (bonusSignals['NT 10K'] === 'NT 10K Filed') {
-            signalScoreData.score = parseFloat((signalScoreData.score * 0.85).toFixed(2));
-            signalScoreData.bonusSignal = 'Late Filing Notice';
-            log('INFO', `Bonus: NT 10-K Filed`);
-          } else if (bonusSignals['NT 10K'] === 'Actual 10K Filed') {
-            signalScoreData.score = parseFloat((signalScoreData.score * 1.2).toFixed(2));
-            signalScoreData.bonusSignal = '10-K Filing';
-            log('INFO', `Bonus: Actual 10-K Filed`);
-          }
-          
-          // Cap final score at 1.0
-          signalScoreData.score = parseFloat(Math.min(1.0, signalScoreData.score).toFixed(2));
-          
-          // Apply insider confidence multiplier (stacks with other bonuses)
-          if (insiderConfidenceMultiplier > 1.0 && signalCategories?.includes('Insider Buying')) {
-            signalScoreData.score = parseFloat((signalScoreData.score * insiderConfidenceMultiplier).toFixed(2));
-            signalScoreData.insiderConfidenceMultiplier = insiderConfidenceMultiplier;
-          }
-          
-          // Apply Tuesday bonus (1.1x multiplier for better market conditions)
-          const dayOfWeek = new Date().getDay(); // 0=Sunday, 2=Tuesday
-          const hasTuesdayBonus = dayOfWeek === 2;
-          if (hasTuesdayBonus) {
-            signalScoreData.score = parseFloat((signalScoreData.score * 1.1).toFixed(2));
-          }
-          
-          // Filing time bonus: 1.2x peak (30 mins before/after open/close), 1.05-1.15x otherwise
-          const filingTimeMultiplier = getFilingTimeMultiplier(filing.updated);
-          signalScoreData.filingTimeMultiplier = filingTimeMultiplier;
-          signalScoreData.score = parseFloat((signalScoreData.score * filingTimeMultiplier).toFixed(2));
-          
-          // Global attention window bonus (ADDITIONAL - stacks on top)
-          const globalAttentionData = getGlobalAttentionBonus(filing.updated);
-          signalScoreData.globalAttentionBonus = globalAttentionData.bonus;
-          signalScoreData.globalAttentionTier = globalAttentionData.tier;
-          signalScoreData.score = parseFloat((signalScoreData.score * globalAttentionData.bonus).toFixed(2));
-          
-          signalScoreData.score = parseFloat(Math.min(1.0, signalScoreData.score).toFixed(2));
-          
-          const signalScoreDisplay = signalScoreData.score;
-          
           // FTD display with percentage
           let ftdDisplay = 'false';
           if (ftdData) {
@@ -8584,28 +8273,14 @@ if (process.stdin.isTTY) {
           }
           
           const directionLabel = shortOpportunity ? 'SHORT' : (longOpportunity ? 'LONG' : 'N/A');
-          
-          // Fetch Weighted Average and log Stock info for ALL filings (immediately after quote data is ready)
-          let waValue = 'N/A';
-          try {
-            waValue = await fetchWA(ticker, price, volume, averageVolume);
-          } catch (waErr) {
-            waValue = 'N/A';
-          }
-          
-          const waLog = waValue !== 'N/A' ? `$${parseFloat(waValue).toFixed(2)}` : 'N/A';
           const favLog = fav !== 'N/A' ? fav : 'N/A';
-          const peRatioLog = quoteData && quoteData.trailingPE ? quoteData.trailingPE.toFixed(2) : 'N/A';
           
           // === LOG STOCK METRICS FOR ALL FILINGS (before validation checks) ===
-          log('INFO', `Stock: $${ticker}, Score: ${signalScoreDisplay}, Price: ${priceDisplay}, Vol/Avg: ${volDisplay}/${avgDisplay}, MC: ${mcDisplay}, Float: ${floatDisplay}, S/O: ${soRatio}, WA: ${waLog}, F/AV: ${favLog}, P/E: ${peRatioLog}, FTD: ${ftdDisplay}, ${directionLabel}`);
-          
-          // === VALIDATION CHECKS - All skip conditions evaluated first ===
-          
+          log('INFO', `Stock: $${ticker}, Price: ${priceDisplay}, Vol/Avg: ${volDisplay}/${avgDisplay}, MC: ${mcDisplay}, Float: ${floatDisplay}, S/O: ${soRatio}, F/AV: ${favLog}, FTD: ${ftdDisplay}, ${directionLabel}`);
+                    
           // Check for FDA Approvals and Chinese/Cayman reverse splits
           const hasFDAApproval = signalCategories.some(cat => ['FDA Approved', 'FDA Breakthrough', 'FDA Filing'].includes(cat));
-          const isChinaOrCaymanReverseSplit = (normalizedIncorporated === 'China' || normalizedLocated === 'China' || normalizedIncorporated === 'Cayman Islands' || normalizedLocated === 'Cayman Islands') && signalCategories.includes('Artificial Inflation');
-          const highScoreOverride = signalScoreData.score > 0.7;
+          const isChinaOrCaymanReverseSplit = (normalizedIncorporated === 'China' || normalizedLocated === 'China' || normalizedIncorporated === 'Cayman Islands' || normalizedLocated === 'Cayman Islands') && signalCategories.includes('Reverse Split Event');
           
           // CTB stocks skip country and jurisdiction filters
           if (!isOnCTBWatchlist && normalizedLocated === 'Unknown') {
@@ -8620,7 +8295,6 @@ if (process.stdin.isTTY) {
               const csvData = {
                 ticker,
                 price,
-                signalScore: signalScoreData.score,
                 short: shortOpportunity ? true : false,
                 marketCap: marketCap,
                 float: float,
@@ -8633,16 +8307,13 @@ if (process.stdin.isTTY) {
                 incorporated: normalizedIncorporated,
                 located: normalizedLocated,
                 intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals)[0] : null,
-                signalScoreData: signalScoreData,
                 filingDate: filing.updated,
                 filingType: formLogMessage,
                 cik: filing.cik,
                 sector: sectorDisplay,
-                wa: waValue,
                 fav: fav,
                 companyName: filerName || companyName || 'N/A',
                 financialRatioSignals: financialRatioSignals,
-                peRatio: quoteData && quoteData.trailingPE ? quoteData.trailingPE : null,
                 skipReason: skipReason,
               };
               saveToCSV(csvData);
@@ -8662,7 +8333,7 @@ if (process.stdin.isTTY) {
             }
           }
           
-          const neutralCategories = ['Executive Departure', 'Asset Impairment', 'Restructuring', 'Stock Buyback', 'Licensing Deal', 'Partnership', 'Facility Expansion', 'Blockchain Initiative', 'Government Contract', 'Stock Split', 'Dividend Increase', 'Mining Operations', 'Financing Events', 'Analyst Coverage'];
+          const neutralCategories = ['Partnership', 'Licensing Deal', 'Government Contract', 'Stock Buyback'];
           const neutralSignals = signalCategories.filter(cat => neutralCategories.includes(cat));
           const nonNeutralSignals = signalCategories.filter(cat => !neutralCategories.includes(cat));
           
@@ -8673,7 +8344,7 @@ if (process.stdin.isTTY) {
             const locatedMatch = CONFIG.ALLOWED_COUNTRIES.some(country => normalizedLocated.toLowerCase().includes(country));
             const isCaymanOrBVI = normalizedIncorporated.toLowerCase().includes('cayman') || normalizedLocated.toLowerCase().includes('cayman') || 
                                   normalizedIncorporated.toLowerCase().includes('virgin') || normalizedLocated.toLowerCase().includes('virgin');
-            const hasSPSignal = signalCategories.includes('Artificial Inflation') || signalCategories.includes('Delisting Risk') || signalCategories.includes('Bid Price Delisting') || signalCategories.includes('Nasdaq Delisting');
+            const hasSPSignal = signalCategories.includes('Reverse Split Event') || signalCategories.includes('Nasdaq Delisting') || signalCategories.includes('Bid Price Delisting');
             
             if (filing.formType === '6-K' || filing.formType === '6-K/A') {
               // 6-K filings: Only allow whitelisted countries
@@ -8696,7 +8367,6 @@ if (process.stdin.isTTY) {
               const csvData = {
                 ticker,
                 price,
-                signalScore: signalScoreData.score,
                 short: shortOpportunity ? true : false,
                 marketCap: marketCap,
                 float: float,
@@ -8709,16 +8379,13 @@ if (process.stdin.isTTY) {
                 incorporated: normalizedIncorporated,
                 located: normalizedLocated,
                 intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals)[0] : null,
-                signalScoreData: signalScoreData,
                 filingDate: filing.updated,
                 filingType: formLogMessage,
                 cik: filing.cik,
                 sector: sectorDisplay,
-                wa: waValue,
                 fav: fav,
                 companyName: filerName || companyName || 'N/A',
                 financialRatioSignals: financialRatioSignals,
-                peRatio: quoteData && quoteData.trailingPE ? quoteData.trailingPE : null,
                 skipReason: skipReason,
               };
               saveToCSV(csvData);
@@ -8739,11 +8406,11 @@ if (process.stdin.isTTY) {
           // - FDA Approved + Clinical Success combo
           // - Insider Block Buy (large position)
           const hasInsiderBuying = signalCategories.includes('Insider Buying');
-          const hasInsiderBlockBuy = signalCategories.includes('Insider Block Buy');
+          const hasInsiderBlockBuy = signalCategories.includes('Insider Buying');
           const hasMerger = signalCategories.includes('Merger/Acquisition');
           const hasFDA = signalCategories.includes('FDA Approved') || signalCategories.includes('FDA Breakthrough');
           const hasClinical = signalCategories.includes('Clinical Success') || signalCategories.includes('Clinical Milestone');
-          const hasMajorContract = signalCategories.includes('Major Contract');
+          const hasPartnership = signalCategories.includes('Partnership');
           const hasStockBuyback = signalCategories.includes('Stock Buyback');
           
           // Bot-reactive high-conviction combos (skip volume gate)
@@ -8751,7 +8418,7 @@ if (process.stdin.isTTY) {
             hasInsiderBlockBuy ||                                           // Large position = immediate bot action
             hasMerger ||                                                    // M&A = bots trade instantly
             (hasFDA && hasClinical) ||                                      // FDA + clinical = biotech catalyst
-            (hasInsiderBuying && (hasMerger || hasFDA || hasClinical || hasMajorContract || hasStockBuyback)); // Insider accumulation + catalyst
+            (hasInsiderBlockBuy && (hasMerger || hasFDA || hasClinical || hasPartnership || hasStockBuyback)); // Insider accumulation + catalyst
           
           const volumeCheckLater = volumeValue;
           const avgVolumeValue = averageVolume !== 'N/A' ? parseFloat(averageVolume) : null;
@@ -8782,7 +8449,6 @@ if (process.stdin.isTTY) {
               const csvData = {
                 ticker,
                 price,
-                signalScore: signalScoreData.score,
                 short: shortOpportunity ? true : false,
                 marketCap: marketCap,
                 float: float,
@@ -8795,16 +8461,13 @@ if (process.stdin.isTTY) {
                 incorporated: normalizedIncorporated,
                 located: normalizedLocated,
                 intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals)[0] : null,
-                signalScoreData: signalScoreData,
                 filingDate: filing.updated,
                 filingType: formLogMessage,
                 cik: filing.cik,
                 sector: sectorDisplay,
-                wa: waValue,
                 fav: fav,
                 companyName: filerName || companyName || 'N/A',
                 financialRatioSignals: financialRatioSignals,
-                peRatio: quoteData && quoteData.trailingPE ? quoteData.trailingPE : null,
                 skipReason: skipReason,
               };
               saveToCSV(csvData);
@@ -8816,7 +8479,7 @@ if (process.stdin.isTTY) {
           
           // S/O Ratio Check - Allow up to 100%
           if (soRatioValue !== null && soRatioValue > 100) {
-            skipReason = `S/O Out of Range: ${soRatioValue.toFixed(2)}% (max 100%)`;
+            skipReason = `S/O Out of Range: ${soRatioValue.toFixed(2)}%`;
             const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
             const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
             log('INFO', `Links: ${secLink} ${tvLink}`);
@@ -8827,7 +8490,6 @@ if (process.stdin.isTTY) {
               const csvData = {
                 ticker,
                 price,
-                signalScore: signalScoreData.score,
                 short: shortOpportunity ? true : false,
                 marketCap: marketCap,
                 float: float,
@@ -8840,16 +8502,13 @@ if (process.stdin.isTTY) {
                 incorporated: normalizedIncorporated,
                 located: normalizedLocated,
                 intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals)[0] : null,
-                signalScoreData: signalScoreData,
                 filingDate: filing.updated,
                 filingType: formLogMessage,
                 cik: filing.cik,
                 sector: sectorDisplay,
-                wa: waValue,
                 fav: fav,
                 companyName: filerName || companyName || 'N/A',
                 financialRatioSignals: financialRatioSignals,
-                peRatio: quoteData && quoteData.trailingPE ? quoteData.trailingPE : null,
                 skipReason: skipReason,
               };
               saveToCSV(csvData);
@@ -8862,7 +8521,7 @@ if (process.stdin.isTTY) {
           let validSignals = false;
           
           // Calculate core categories for all stocks (needed for logging and later checks)
-          const coreCategories = ['Asset Disposition', 'Share Consolidation', 'Artificial Inflation', 'Clinical Success', 'Financing Events', 'Share Issuance', 'Convertible Dilution', 'Partnership', 'Merger/Acquisition', 'Stock Split'];
+          const coreCategories = ['FDA Approved', 'FDA Breakthrough', 'Clinical Success', 'Clinical Milestone', 'Merger/Acquisition', 'Credit Default', 'Going Dark', 'Bankruptcy Filing', 'Auditor Change', 'Asset Disposition', 'Warrant Redemption', 'Reverse Split Event'];
           const hasCoreCategories = signalCategories.filter(cat => coreCategories.includes(cat)).length;
           const isDeterministic = hasCoreCategories >= 2;
           
@@ -8875,14 +8534,10 @@ if (process.stdin.isTTY) {
             if (hasCoreCategories >= 2 || isDeterministic) {
               validSignals = true;
             }
-            // Also allow if score is high enough (0.60+) and has at least 1 signal
-            if (signalScoreData.score >= 0.60 && nonNeutralSignals.length >= 1) {
-              validSignals = true;
-            }
           }
           
           if (!validSignals) {
-            skipReason = `Not enough signal weight (${nonNeutralSignals.length} signals, ${hasCoreCategories} core categories, deterministic: ${isDeterministic})`;
+            skipReason = `Not enough signal weight`;
             const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
             const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
             log('INFO', `Links: ${secLink} ${tvLink}`);
@@ -8893,7 +8548,6 @@ if (process.stdin.isTTY) {
               const csvData = {
                 ticker,
                 price,
-                signalScore: signalScoreData.score,
                 short: shortOpportunity ? true : false,
                 marketCap: marketCap,
                 float: float,
@@ -8906,16 +8560,13 @@ if (process.stdin.isTTY) {
                 incorporated: normalizedIncorporated,
                 located: normalizedLocated,
                 intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals)[0] : null,
-                signalScoreData: signalScoreData,
                 filingDate: filing.updated,
                 filingType: formLogMessage,
                 cik: filing.cik,
                 sector: sectorDisplay,
-                wa: waValue,
                 fav: fav,
                 companyName: filerName || companyName || 'N/A',
                 financialRatioSignals: financialRatioSignals,
-                peRatio: quoteData && quoteData.trailingPE ? quoteData.trailingPE : null,
                 skipReason: skipReason,
               };
               saveToCSV(csvData);
@@ -8924,32 +8575,31 @@ if (process.stdin.isTTY) {
             }
             continue;
           }
-          
-          // Score filter: skip if score too low for non-deterministic alerts
-          const priceNum = price && price !== 'N/A' ? parseFloat(price) : null;
-          const priceBoost = priceNum && priceNum < 15 ? 1.15 : 1.0; // Price under $15 boosts score 15%
-          let adjustedScore = (signalScoreData.score || 0) * priceBoost;
-          
-          // Signal count penalty: too many signals = already priced in (late setup)
-          const signalCount = nonNeutralSignals.length;
-          if (signalCount >= 7) {
-            adjustedScore = adjustedScore * 0.5; // 50% penalty - too many signals, already consensus
-          } else if (signalCount >= 5) {
-            adjustedScore = adjustedScore * 0.75; // 25% penalty - many signals, priced in
-          }
-          
+
           // F/AV filtering and multiplier logic removed - kept only in metric display
           
           // Check if custodian control (ADR structure) applies - verified via filing text or structure
-          const custodianControl = signalScoreData.isCustodianVerified || (normalizedIncorporated && normalizedLocated && normalizedIncorporated.toLowerCase() !== normalizedLocated.toLowerCase());
+          const custodianControl = (normalizedIncorporated && normalizedLocated && normalizedIncorporated.toLowerCase() !== normalizedLocated.toLowerCase());
+          const isCustodianVerified = custodianControl && normalizedIncorporated && normalizedLocated && normalizedIncorporated.toLowerCase() !== normalizedLocated.toLowerCase();
+          let custodianName = null;
+          if (isCustodianVerified) {
+            custodianName = `${normalizedLocated} (via ${normalizedIncorporated})`;
+          }
+          
+          const filingTimeMultiplier = getFilingTimeMultiplier(filing.updated);
           
           // Filing time bonus: stronger when filed near open/close (9:30am & 3:30pm ET)
           const filingTimeBonus = filingTimeMultiplier > 1.0 ? parseFloat(filingTimeMultiplier.toFixed(2)) : null;
           
+          // Check if filing date is Tuesday (day of week = 2)
+          const filingDateObj = new Date(filing.updated);
+          const dayOfWeek = filingDateObj.getDay(); // 0 = Sunday, 1 = Monday, 2 = Tuesday, etc.
+          const hasTuesdayBonus = dayOfWeek === 2;
+          
           // Detect reverse split ratio and reason
           let reverseSplitRatio = null;
           let reverseSplitReason = null;
-          if (Object.keys(semanticSignals).includes('Artificial Inflation')) {
+          if (Object.keys(semanticSignals).includes('Reverse Split Event')) {
             const ratio = extractReverseSplitRatio(text);
             if (ratio) {
               // Keep the full "1-for-X" format, don't extract just the number
@@ -8978,23 +8628,19 @@ if (process.stdin.isTTY) {
             filerName: filerName || null,
             sector: await getSectorFromFinnhub(ticker),
             price: price,
-            wa: waValue,
             fav: fav,
-            signalScore: adjustedScore,
             hasTuesdayBonus: hasTuesdayBonus,
             custodianControl: custodianControl,
-            custodianVerified: signalScoreData.isCustodianVerified,
-            custodianName: signalScoreData.custodianName,
+            custodianVerified: isCustodianVerified,
+            custodianName: custodianName,
             filingTimeMultiplier: filingTimeMultiplier,
             filingTimeBonus: filingTimeBonus,
-            soBonus: signalScoreData.soBonus,
             volume: volume,
             averageVolume: averageVolume,
             float: float,
             sharesOutstanding: sharesOutstanding,
             soRatio: soRatio,
             marketCap: marketCap,
-            peRatio: quoteData ? quoteData.trailingPE || null : null,
             isShort: shortOpportunity ? true : false,
             ftd: ftdData || false,
             ftdPercent: ftdPercent || null,
@@ -9016,9 +8662,6 @@ if (process.stdin.isTTY) {
             deterministicMechanism: deterministic.mechanism,
             deterministicPhrase: deterministicPhrase
           };
-          
-          // Calculate signal score (already calculated above)
-          // signalScore already set at top of alertData
           
           // Only save alert if we got price, float, and S/O data
           if (price !== 'N/A' && float !== 'N/A' && soRatio !== 'N/A') {
@@ -9054,7 +8697,7 @@ if (process.stdin.isTTY) {
               const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
               const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
               log('INFO', `Links: ${secLink} ${tvLink}`);
-              log('SKIP', `$${ticker}, duplicate alert - already alerted in current session (score: ${signalScoreData.score.toFixed(2)}, signals: ${nonNeutralSignals.length})`);
+              log('SKIP', `$${ticker} duplicate alert, already alerted in current session or recent alerts file`);
               console.log('');
               // Don't save duplicate alerts
             } else {
@@ -9081,14 +8724,12 @@ if (process.stdin.isTTY) {
                 const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
                 const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
                 log('INFO', `Links: ${secLink} ${tvLink}`);
-                log('SKIP', `$${ticker}, weak signal combo (${nonNeutralSignals.length} signals, score: ${signalScoreData.score.toFixed(2)})`);
+                log('SKIP', `$${ticker}, weak signal combo`);
                 console.log('');
               } else {
                 // Check additional quality filters
-                if (signalScoreData.score < 0.15) {
-                  alertData.skipReason = 'Very Low Score';
-                  saveToCSV(alertData);
-                } else if (alertData.intent === 'neutral') {
+
+                  if (alertData.intent === 'neutral') {
                   alertData.skipReason = 'Neutral Signal';
                   saveToCSV(alertData);
                 } else if (Object.keys(semanticSignals).length < 1) {
@@ -9129,7 +8770,6 @@ if (process.stdin.isTTY) {
               const csvData = {
                 ticker,
                 price,
-                signalScore: signalScoreData.score,
                 short: shortOpportunity ? true : false,
                 marketCap: marketCap,
                 float: float,
@@ -9142,16 +8782,13 @@ if (process.stdin.isTTY) {
                 incorporated: normalizedIncorporated,
                 located: normalizedLocated,
                 intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals)[0] : null,
-                signalScoreData: signalScoreData,
                 filingDate: filing.updated,
                 filingType: formLogMessage,
                 cik: filing.cik,
                 sector: sectorDisplay,
-                wa: waValue,
                 fav: fav,
                 companyName: filerName || companyName || 'N/A',
                 financialRatioSignals: financialRatioSignals,
-                peRatio: quoteData && quoteData.trailingPE ? quoteData.trailingPE : null,
                 skipReason: skipReason,
               };
               saveToCSV(csvData);

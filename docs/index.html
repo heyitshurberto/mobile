@@ -359,219 +359,6 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
     </script>
     <!-- Note: app.js is backend/server code and should not be loaded in browser -->
     <script>
-        // Initialize global variables
-        window.activeDropdown = null;
-        window.dropdownStates = new Map();
-        let clickTimeout = null;
-
-        // Save dropdown states with positions
-        function saveDropdownStates() {
-            const openDropdowns = [];
-            document.querySelectorAll('.score-breakdown').forEach(dropdown => {
-                if (dropdown.style.display === 'block') {
-                    const container = dropdown.closest('.score-details-container');
-                    if (container) {
-                        const alertCard = container.closest('.alert-card');
-                        if (alertCard) {
-                            const id = alertCard.getAttribute('data-ticker');
-                            if (id) {
-                                openDropdowns.push({
-                                    id: id,
-                                    top: dropdown.style.top,
-                                    left: dropdown.style.left
-                                });
-                            }
-                        }
-                    }
-                }
-            });
-            localStorage.setItem('openDropdowns', JSON.stringify(openDropdowns));
-            return openDropdowns; // Return for immediate use
-        }
-
-        // Load dropdown states on page load or refresh
-        function loadDropdownStates() {
-            try {
-                const savedDropdowns = JSON.parse(localStorage.getItem('openDropdowns')) || [];
-                savedDropdowns.forEach(item => {
-                    const alertCard = document.querySelector(`.alert-card[data-ticker="${item.id}"]`);
-                    if (alertCard) {
-                        const dropdown = alertCard.querySelector('.score-breakdown');
-                        const button = alertCard.querySelector('.score-details-toggle');
-                        if (dropdown && button) {
-                            dropdown.style.display = 'block';
-                            dropdown.style.top = item.top;
-                            dropdown.style.left = item.left;
-                            button.textContent = '▲';
-                        }
-                    }
-                });
-                return savedDropdowns; // Return for immediate use
-            } catch (err) {
-                console.error('Error loading dropdown states:', err);
-                return [];
-            }
-        }
-        
-        // Preserve dropdown states during updates
-        function preserveDropdownStates() {
-            const states = saveDropdownStates();
-            requestAnimationFrame(() => {
-                states.forEach(item => {
-                    const alertCard = document.querySelector(`.alert-card[data-ticker="${item.id}"]`);
-                    if (alertCard) {
-                        const dropdown = alertCard.querySelector('.score-breakdown');
-                        const button = alertCard.querySelector('.score-details-toggle');
-                        if (dropdown && button) {
-                            dropdown.style.display = 'block';
-                            dropdown.style.top = item.top;
-                            dropdown.style.left = item.left;
-                            button.textContent = '▲';
-                        }
-                    }
-                });
-            });
-        }
-
-        // Initialize dropdown state management
-        document.addEventListener('DOMContentLoaded', loadDropdownStates);
-
-        // Simplified version without mutation observer to prevent loops
-        document.addEventListener('visibilitychange', () => {
-            if (!document.hidden) {
-                preserveDropdownStates();
-            }
-        });
-
-        // Handle clicks outside dropdowns
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.score-details-container')) {
-                closeAllDropdowns();
-                saveDropdownStates();
-            }
-        });
-
-        function closeAllDropdowns() {
-            document.querySelectorAll('.score-breakdown').forEach(dropdown => {
-                if (dropdown.style.display === 'block') {
-                    const button = dropdown.parentElement.querySelector('.score-details-toggle');
-                    // Arrow removed
-                    dropdown.style.display = 'none';
-                }
-            });
-            activeDropdown = null;
-            saveDropdownStates();
-        }
-
-        // Load dropdown states on page load
-        window.addEventListener('load', function() {
-            const savedDropdowns = localStorage.getItem('openDropdowns') ? JSON.parse(localStorage.getItem('openDropdowns')) : [];
-            savedDropdowns.forEach(id => {
-                const container = document.querySelector(`[data-id="${id}"]`);
-                if (container) {
-                    const dropdown = container.querySelector('.score-breakdown');
-                    const button = container.querySelector('.score-details-toggle');
-                    if (dropdown && button) {
-                        dropdown.style.display = 'block';
-                        button.textContent = '▲';
-                        activeDropdown = dropdown;
-                    }
-                }
-            });
-        });
-
-        function toggleDropdown(button, event) {
-            // If button is invalid, return early
-            if (!button) return;
-            
-            // Stop event propagation and prevent default
-            if (event) {
-                event.stopPropagation();
-                event.preventDefault();
-            }
-            
-            const container = button.closest('.score-details-container');
-            if (!container) return;
-            const dropdown = container.querySelector('.score-breakdown');
-            if (!dropdown) return;
-
-            // Close other dropdowns
-            document.querySelectorAll('.score-breakdown').forEach(d => {
-                if (d !== dropdown && d.style.display === 'block') {
-                    d.style.display = 'none';
-                    const btn = d.parentElement.querySelector('.score-details-toggle');
-                    // Arrow removed
-                }
-            });
-
-            // Toggle current dropdown
-            if (dropdown.style.display === 'block') {
-                dropdown.style.display = 'none';
-                // Arrow removed
-            } else {
-
-                // Position and show the dropdown
-                dropdown.style.position = 'absolute';
-                dropdown.style.top = '25px';
-                dropdown.style.right = '25px'; 
-                dropdown.style.left = 'auto';
-                dropdown.style.display = 'block';
-                
-                // Ensure the dropdown is visible and properly positioned
-                requestAnimationFrame(() => {
-                    const dropdownRect = dropdown.getBoundingClientRect();
-                    const containerRect = container.getBoundingClientRect();
-                    const viewportWidth = window.innerWidth;
-                    const viewportHeight = window.innerHeight;
-
-                    // Check if dropdown extends beyond right edge
-                    if (dropdownRect.right > viewportWidth) {
-                        dropdown.style.right = '25px';
-                        dropdown.style.left = 'auto';
-                    }
-
-                    // Check if dropdown extends beyond bottom edge
-                    if (dropdownRect.bottom > viewportHeight) {
-                        dropdown.style.top = 'auto';
-                        dropdown.style.bottom = '25px';
-                    }
-                });
-                button.textContent = '▲';
-                
-                // Handle clicks outside this dropdown
-                const closeHandler = (e) => {
-                    if (e && !container.contains(e.target) && !dropdown.contains(e.target)) {
-                        dropdown.style.display = 'none';
-                        // Arrow removed
-                        document.removeEventListener('click', closeHandler);
-                        document.removeEventListener('mouseleave', closeHandler);
-                        saveDropdownStates();
-                    }
-                };
-                
-                // Remove any existing click handlers first
-                document.removeEventListener('click', closeHandler);
-                
-                // Add the click handler on next tick to avoid immediate trigger
-                requestAnimationFrame(() => {
-                    document.addEventListener('click', closeHandler);
-                    
-                    // Keep dropdown open while hovering
-                    dropdown.addEventListener('mouseover', function(e) {
-                        e.stopPropagation();
-                    });
-                    
-                    dropdown.addEventListener('mouseleave', function(e) {
-                        if (!container.contains(e.relatedTarget)) {
-                            closeHandler(e);
-                        }
-                    });
-                });
-            }
-
-            saveDropdownStates();
-            return false;
-        }
     </script>
     <style>
         /* Link buttons */
@@ -596,74 +383,6 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             -webkit-backdrop-filter: blur(4px);
         }
 
-        .score-details-toggle {
-            background: transparent;
-            border: none;
-            outline: none;
-            width: 26px;
-            height: 26px;
-            font-size: 18px;
-            line-height: 1;
-            text-align: center;
-            color: #999;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-            position: absolute;
-            top: 8px;
-            right: 6px;
-            min-height: unset;
-            min-width: unset;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            z-index: 1003;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
-            will-change: color, box-shadow, background-color;
-            box-shadow: 0 0 0 transparent;
-            pointer-events: auto !important;
-        }
-
-        .score-details-toggle:hover {
-            color: #555;
-            box-shadow: 0 0 0 2px rgba(100, 100, 100, 0.4), 0 0 8px rgba(100, 100, 100, 0.2) !important;
-            pointer-events: auto !important;
-            background-color: rgba(0, 0, 0, 0.08);
-            padding: 0;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-            outline: none !important;
-        }
-        
-        .score-details-toggle:focus {
-            outline: none !important;
-            box-shadow: 0 0 0 2px rgba(100, 100, 100, 0.4), 0 0 8px rgba(100, 100, 100, 0.2) !important;
-        }
-
-        body.dark-mode .score-details-toggle {
-            color: #ccc;
-        }
-
-        body.dark-mode .score-details-toggle:hover {
-            color: #aaa;
-            box-shadow: 0 0 0 2px rgba(150, 150, 150, 0.4), 0 0 8px rgba(150, 150, 150, 0.2) !important;
-            background-color: rgba(29, 155, 240, 0.12);
-            padding: 0;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-            outline: none !important;
-        }
-        
-        body.dark-mode .score-details-toggle:focus {
-            outline: none !important;
-            box-shadow: 0 0 0 2px rgba(29, 155, 240, 0.6), 0 0 8px rgba(29, 155, 240, 0.4) !important;
-        }
-
         button {
             background: #f0f0f0;
             border: 1px solid #ccc;
@@ -685,11 +404,6 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             color: #e0e0e0;
         }
         
-        .score-details-container {
-            position: relative;
-            pointer-events: all;
-            z-index: 100;
-        }
         .trigger-alert {
             background: rgba(240, 240, 240, 0.92) !important;
             color: #333 !important;
@@ -709,54 +423,6 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             background: rgba(45, 45, 45, 0.35) !important;
             color: #e0e0e0 !important;
             border: 1px solid rgba(85, 85, 85, 0.5) !important;
-        }
-
-        .score-breakdown {
-            display: none;
-            position: absolute;
-            top: 10px;
-            right: 8px;
-            z-index: 1001;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 3px 5px;
-            border-radius: 3px;
-            box-shadow: none;
-            width: 274px;
-            pointer-events: auto;
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            transition: none;
-            border: 1px solid #ddd;
-            font-size: 5px;
-            line-height: 1;
-        }
-
-        body.dark-mode .score-breakdown {
-            background: rgba(42, 42, 42, 0.95);
-            border: 1px solid rgba(68, 68, 68, 0.8);
-            width: 274px;
-        }
-
-        /* Button and animation fixes */
-        .score-details-toggle:active {
-            transform: translateY(1px);
-        }
-
-        /* Button styling for triggered cards */
-        body.dark-mode .alert-card.triggered.down .score-details-toggle {
-            color: #ffcccc;
-        }
-
-        body.dark-mode .alert-card.triggered.up .score-details-toggle {
-            color: #ccffcc;
-        }
-
-        body:not(.dark-mode) .alert-card.triggered.down .score-details-toggle {
-            color: #8b0000;
-        }
-
-        body:not(.dark-mode) .alert-card.triggered.up .score-details-toggle {
-            color: #008000;
         }
 
         @keyframes flash {
@@ -1102,36 +768,6 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                 font-size: 13px !important;
             }
             
-            .score-breakdown {
-                width: 75px !important;
-                max-width: 75vw !important;
-                padding: 2px 2px !important;
-                font-size: 4.3px !important;
-                right: 6px !important;
-                top: 40px !important;
-                max-height: 150px !important;
-                overflow: hidden !important;
-                overflow-y: hidden !important;
-                position: absolute !important;
-                z-index: 1002 !important;
-                line-height: 1.1 !important;
-            }
-            
-            .score-breakdown .score-item,
-            .score-breakdown .section-header,
-            .score-breakdown .intent-tag {
-                font-size: 4.3px !important;
-            }
-            
-            .score-breakdown .score-header {
-                font-size: 5px !important;
-            }
-            
-            .score-details-container {
-                position: relative !important;
-                overflow: visible !important;
-            }
-            
             /* Mobile popup styles */
             .popup-content {
                 max-width: 95vw !important;
@@ -1242,13 +878,8 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                 position: relative;
                 z-index: 1;
             }
-            
-            /* Ensure score details container stays above content */
-            .score-details-container {
-                position: relative;
-                z-index: 2;
-                isolation: isolate;
-            }        .alert-card.triggered {
+        
+        .alert-card.triggered {
             z-index: 2;
         }
 
@@ -1258,10 +889,6 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         
         .alert-card.triggered:hover {
             z-index: 901;
-        }
-        
-        .alert-card .score-details-container {
-            z-index: 100;
         }
 
         body.dark-mode .alert-card {
@@ -1282,27 +909,6 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             text-shadow: 0 1px 2px rgba(255,255,255,0.3);
         }
 
-        /* Ensure dropdown text stays BLACK in light mode for triggered cards */
-        body:not(.dark-mode) .alert-card.triggered .score-breakdown {
-            color: #000 !important;
-        }
-        
-        body:not(.dark-mode) .alert-card.triggered .score-breakdown * {
-            color: inherit !important;
-        }
-        
-        body:not(.dark-mode) .alert-card.triggered .score-breakdown .score-item span:first-child {
-            color: #000 !important;
-        }
-
-        body:not(.dark-mode) .alert-card.triggered .score-breakdown .section-header {
-            color: #000 !important;
-        }
-
-        body:not(.dark-mode) .alert-card.triggered .score-breakdown .intent-tag {
-            color: #000 !important;
-        }
-
         body.dark-mode .alert-card.triggered.down {
             animation: flashDark 3s ease-in-out infinite;
             color: white;
@@ -1311,10 +917,6 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
 
         body.dark-mode .alert-card.triggered.down .price-change {
             text-shadow: 0 0 3.5px rgba(0, 0, 0, 1) !important;
-        }
-
-        .alert-card.triggered.down > *:not(.score-details-container):not([style*="margin-top: 2px"]):not(button) {
-            opacity: 1 !important;
         }
 
         body.dark-mode .alert-card.triggered.up {
@@ -1344,16 +946,6 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-        }
-
-        .score-breakdown {
-            animation: none !important;
-            pointer-events: auto !important;
-        }
-
-        .score-details-container {
-            animation: none !important;
-            z-index: 1001 !important;
         }
 
         body.dark-mode .alert-card.triggered.up {
@@ -1574,13 +1166,6 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             min-height: 24px;
             min-width: 80px;
         }
-
-        body.dark-mode .score-item span.positive,
-        body.dark-mode .score-item span.negative,
-        body.dark-mode .score-item span.neutral {
-            text-shadow: none;
-        }
-
         /* Position and ticker styling with transparency */
         .position.short,
         .ticker.short {
@@ -2078,153 +1663,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             transition: all 0.15s ease;
         }
 
-        .score-details-container {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-
-            .score-breakdown .score-item {
-                display: flex;
-                justify-content: space-between;
-                margin-bottom: 0;
-                font-size: 9px;
-                line-height: 1.25;
-                padding: 2px 3px;
-                border-bottom: 1px solid rgba(0,0,0,0.02);
-            }
-
-            .score-breakdown .score-item:last-child {
-                border-bottom: none;
-                padding-bottom: 0;
-            }
-
-            .score-breakdown .score-item span:first-child {
-                font-weight: 500;
-                flex: 1;
-                margin-right: 4px;
-                color: #000 !important;
-            }
-            
-            body:not(.dark-mode) .alert-card.triggered .score-breakdown .score-item span:first-child {
-                color: #000 !important;
-            }
-            
-            .score-breakdown .score-item span:last-child {
-                font-weight: bold;
-                text-align: right;
-            }
-            
-            .score-breakdown .score-item span.positive {
-                color: #00aa00;
-            }
-            
-            .score-breakdown .score-item span.negative {
-                color: #cc0000;
-            }
-            
-            .score-breakdown .score-item span.neutral {
-                color: #666;
-            }
-
-        .score-breakdown .score-header {
-            font-weight: bold;
-            font-size: 9px;
-            margin-bottom: 2px;
-            padding-bottom: 2px;
-            border-bottom: 1px solid rgba(0,0,0,0.06);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .score-breakdown .section-header {
-            font-weight: 600;
-            margin: 4px 0 2px;
-            color: #000 !important;
-            text-transform: uppercase;
-            font-size: 7px;
-            letter-spacing: 0.4px;
-        }
-        
-        body:not(.dark-mode) .alert-card.triggered .score-breakdown .section-header {
-            color: #000 !important;
-        }
-
-        .score-breakdown .intent-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px;
-            margin: 6px 0;
-        }
-
-        .score-breakdown .intent-tag {
-            background: #f0f0f0;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 9.2px;
-            color: #333 !important;
-            border: 1px solid #ccc;
-        }
-
-        body.dark-mode .score-breakdown {
-            background: rgba(42, 42, 42, 0.88);
-            border-color: rgba(68, 68, 68, 0.6);
-            color: #ffffff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-        }
-
-
-        body.dark-mode .score-breakdown .score-item {
-            border-bottom-color: rgba(255,255,255,0.1);
-        }
-
-        body.dark-mode .score-breakdown .score-item span:first-child {
-            color: #ffffff !important;
-        }
-        
-        body.dark-mode .alert-card.triggered .score-breakdown .score-item span:first-child {
-            color: #ffffff !important;
-        }
-
-        body.dark-mode .score-breakdown .score-header {
-            border-bottom-color: #444;
-            color: #ffffff;
-        }
-
-        body.dark-mode .score-breakdown .section-header {
-            color: #ffffff !important;
-        }
-
-        body.dark-mode .score-breakdown .intent-tag {
-            background: #333;
-            color: #ffffff !important;
-            border: 1px solid #555;
-        }
-        
-        body.dark-mode .alert-card.triggered .score-breakdown .intent-tag {
-            color: #ffffff !important;
-        }
-
-        .score-breakdown .signal-indicator {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            margin-right: 6px;
-        }
-
-        .score-breakdown .signal-positive {
-            background: #00aa00;
-        }
-
-        .score-breakdown .signal-neutral {
-            background: #666;
-        }
-
-        .score-breakdown .signal-negative {
-            background: #c70202;
-        }
+        /* Score logic removed - using signal quality and direction classification instead */
 
         button {
             background: rgba(240, 240, 240, 0.92);
@@ -2960,7 +2399,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                         
                         item.innerHTML = `
                             <div style="margin-bottom: 8px;"><b style="font-weight: 700;"></b> $${alert.ticker} <b style="font-weight: 700; font-style: italic;">${direction}</b> @ $${alert.price}</div>
-                            <div style="font-size: 11px; opacity: 0.77; margin-bottom: 4px;">Score: ${alert.signalScore.toFixed(2)} | Float: ${floatStr} | S/O: ${soStr}</div>
+                            <div style="font-size: 11px; opacity: 0.77; margin-bottom: 4px;">Float: ${floatStr} | S/O: ${soStr}</div>
                             <div style="margin-top: 2px; font-size: 10px; opacity: 0.5;">${dateStr} ${timeStr}</div>
                         `;
                         
@@ -3754,8 +3193,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                         <div class="popup-details">
                             <div class="popup-section">
                                 <h4>Alert Details</h4>
-                                <pre style="margin-top: 4px; padding: 6px; border-radius: 4px; font-size: 10px; line-height: 1.4; font-family: monospace; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);"><span style="opacity: 0.7;">Score:</span> ${alert.signalScore.toFixed(1)}
-<span style="opacity: 0.7;">Alert:</span> ${alertAge}
+                                <pre style="margin-top: 4px; padding: 6px; border-radius: 4px; font-size: 10px; line-height: 1.4; font-family: monospace; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);"><span style="opacity: 0.7;">Alert:</span> ${alertAge}
 <span style="opacity: 0.7;">Date:</span> ${alert.alertTime ? new Date(alert.alertTime).toLocaleDateString() + ' ' + new Date(alert.alertTime).toLocaleTimeString() : 'N/A'}
 <span style="opacity: 0.7;">Inc:</span> ${alert.incorporated || 'N/A'}
 <span style="opacity: 0.7;">Ops:</span> ${alert.located || 'N/A'}
@@ -3895,7 +3333,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                         const type = alertData.isShort ? 'error' : 'success';
                         const ticker = `<b><i>$${alertData.ticker}</i></b>`;
                         // For new stock alerts, link to SEC filing
-                        this.showNotification(`${ticker} ${position} alert received (Score: ${alertData.signalScore.toFixed(1)})`, type, alertData.filingLink);
+                        this.showNotification(`${ticker} ${position} alert received`, type, alertData.filingLink);
                         this.notifiedAlerts.set(alertKey, now);
                     }
                 }
@@ -3937,11 +3375,6 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             
             updatePriceDisplay(alert, card) {
                 if (!card || !alert.currentPrice) return;
-                
-                // Save dropdown state before updates
-                const dropdown = card.querySelector('.score-breakdown');
-                const dropdownButton = card.querySelector('.score-details-toggle');
-                const wasOpen = dropdown && (dropdown.style.display === 'block' || window.dropdownStates?.get(alert.ticker)?.isOpen);
                 
                 // Update price elements
                 const currentPriceEl = card.querySelector('div:nth-child(6)');
@@ -4118,7 +3551,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                                 const position = Array.isArray(alert.isShort) ? (alert.isShort.length > 0 ? 'SHORT' : 'LONG') : (alert.isShort ? 'SHORT' : 'LONG');
                                 const type = alert.isShort ? 'error' : 'success';
                                 const ticker = `<b>$${alert.ticker}</b>`;
-                                this.showNotification(`${ticker} ${position} (Score: ${parseFloat(alert.signalScore).toFixed(1)})`, type, alert.filingLink || '#');
+                                this.showNotification(`${ticker} ${position}`, type, alert.filingLink || '#');
                             }
                             
                             // Log new ticker
@@ -4573,54 +4006,15 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                         '#666';
                 }
                 
-                // Store currently open dropdowns before update
-                const openDropdownStates = new Map();
-                document.querySelectorAll('.alert-card').forEach(card => {
-                    const ticker = card.querySelector('.ticker').textContent.split(' ')[0].replace('$', '');
-                    const dropdown = card.querySelector('.score-breakdown');
-                    if (dropdown && dropdown.style.display === 'block') {
-                        openDropdownStates.set(ticker, true);
-                    }
-                });
-                
-                // Store current dropdown states and positions before updating
-                const openDropdowns = new Map();
-                document.querySelectorAll('.score-breakdown').forEach(dropdown => {
-                    if (dropdown.style.display === 'block') {
-                        const alertCard = dropdown.closest('.alert-card');
-                        const ticker = alertCard.querySelector('.ticker').textContent.split(' ')[0].replace('$', '');
-                        const button = alertCard.querySelector('.score-details-toggle');
-                        openDropdowns.set(ticker, {
-                            isOpen: true,
-                            opacity: dropdown.style.opacity,
-                            transform: dropdown.style.transform,
-                            pointerEvents: dropdown.style.pointerEvents,
-                            buttonText: button ? button.textContent : '▲'
-                        });
-                    }
-                });
-
                 // Capture current scroll position and save it
                 const scrollPos = container.scrollTop;
                 
-                // Store all open dropdowns before clearing
-                const openStates = new Map();
-                
                 // Save the scroll position to restore it later
                 const shouldRestoreScroll = scrollPos > 0;
-                document.querySelectorAll('.alert-card').forEach(card => {
-                    const ticker = card.querySelector('.ticker').textContent.split(' ')[0].replace('$', '');
-                    const dropdown = card.querySelector('.score-breakdown');
-                    if (dropdown && (dropdown.style.display === 'block' || card.dataset.dropdownOpen === 'true')) {
-                        openStates.set(ticker, true);
-                    }
-                });
 
                 // Clear container
                 container.innerHTML = '';
                 
-                // We'll restore scroll position after updating
-
                 // Sort alerts by most recent price movement
                 const sortedAlerts = Array.from(this.alerts.values())
                     .flat()
@@ -4647,79 +4041,12 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 const shortCount = sortedAlerts.filter(alert => isShortSetup(alert)).length;
 
                 let triggered = 0;
-
-                // Rebuild alerts and restore dropdown states
+                // Rebuild alerts (dropdown logic removed)
                 sortedAlerts.forEach(alert => {
                     if (alert.triggered) triggered++;
 
                     const alertCard = this.createAlertCard(alert);
                     container.appendChild(alertCard);
-
-                    // Restore dropdown state if it was open
-                    const wasOpen = openDropdownStates.has(alert.ticker) || localStorage.getItem(`dropdown_${alert.ticker}`) === 'open';
-                    if (wasOpen) {
-                        const dropdown = alertCard.querySelector('.score-breakdown');
-                        const button = alertCard.querySelector('.score-details-toggle');
-                        if (dropdown && button) {
-                            dropdown.style.display = 'block';
-                            dropdown.style.opacity = '1';
-                            dropdown.style.transform = 'translateY(0)';
-                            dropdown.style.pointerEvents = 'auto';
-                            button.textContent = '▲';
-                            alertCard.dataset.dropdownOpen = 'true';
-                            // Update global tracking
-                            window.activeDropdown = dropdown;
-                            window.lastActiveTicker = alert.ticker;
-                        }
-                    }
-                    if (openDropdowns.has(alert.ticker) || localStorage.getItem(`dropdown_${alert.ticker}`) === 'open') {
-                        const dropdown = alertCard.querySelector('.score-breakdown');
-                        const button = alertCard.querySelector('.score-details-toggle');
-                        if (dropdown && button) {
-                            dropdown.style.display = 'block';
-                            dropdown.style.opacity = '1';
-                            dropdown.style.transform = 'translateY(0)';
-                            dropdown.style.pointerEvents = 'auto';
-                            button.textContent = '▲';
-                            if (alert.ticker === lastActiveTicker) {
-                                activeDropdown = dropdown;
-                            }
-                            alertCard.dataset.dropdownOpen = 'true';
-                            
-                            // Create a single MutationObserver per dropdown
-                            if (!dropdown._observer) {
-                                dropdown._observer = new MutationObserver((mutations) => {
-                                    // Only update if the dropdown should be open
-                                    if (alertCard.dataset.dropdownOpen === 'true') {
-                                        requestAnimationFrame(() => {
-                                            dropdown.style.display = 'block';
-                                            dropdown.style.opacity = '1';
-                                            dropdown.style.transform = 'translateY(0)';
-                                            dropdown.style.pointerEvents = 'auto';
-                                            button.textContent = '▲';
-                                        });
-                                    }
-                                });
-                                
-                                // Observe both style and class changes
-                                dropdown._observer.observe(dropdown, {
-                                    attributes: true,
-                                    attributeFilter: ['style', 'class']
-                                });
-                                
-                                // Cleanup observer when dropdown is removed
-                                new MutationObserver((mutations) => {
-                                    if (!document.contains(dropdown)) {
-                                        dropdown._observer.disconnect();
-                                        delete dropdown._observer;
-                                    }
-                                }).observe(document.body, {
-                                    childList: true,
-                                    subtree: true
-                                });
-                            }
-                        }
-                    }
                 });
 
                 activeCount.innerHTML = `${sortedAlerts.length} <span style="font-size: 11.5px;">(Long: ${longCount} | Short: ${shortCount})</span>`;
@@ -4770,12 +4097,11 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 // Set up one-time click handlers
                 const setupClickHandlers = () => {
                     const tickerEl = card.querySelector('.ticker-clickable');
-                    const dropdownToggle = card.querySelector('.score-details-toggle');
                     
                     if (tickerEl) {
                         // Remove any existing listeners
                         const newTickerEl = tickerEl.cloneNode(true);
-                                                tickerEl.parentNode.replaceChild(newTickerEl, tickerEl);
+                        tickerEl.parentNode.replaceChild(newTickerEl, tickerEl);
                         
                         // Add single click handler directly to ticker element
                         newTickerEl.addEventListener('click', (e) => {
@@ -4787,25 +4113,6 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             this.handleAlertClick(alert, e);
                             setTimeout(() => delete newTickerEl.dataset.clicking, 500);
                         });
-                    }
-                    
-                    if (dropdownToggle) {
-                        // Remove any existing listeners
-                        const newDropdownToggle = dropdownToggle.cloneNode(true);
-                        dropdownToggle.parentNode.replaceChild(newDropdownToggle, dropdownToggle);
-                        
-                        // Add single click handler directly to dropdown toggle
-                        const handleToggleClick = (e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            if (e.target === newDropdownToggle) {
-                                toggleScoreDetails(newDropdownToggle, e);
-                            }
-                        };
-                        
-                        newDropdownToggle.addEventListener('click', handleToggleClick);
-                        // Also attach to parent container to ensure event bubbling
-                        card.querySelector('.score-details-container').addEventListener('click', handleToggleClick);
                     }
                 };
                 
@@ -4825,15 +4132,11 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
 
                 // Create the initial HTML content
                 card.innerHTML = `
-                    <div class="score-details-container">
-                    </div>
                     <div class="ticker ticker-clickable" tabindex="0" style="cursor:pointer;display:inline-block;user-select:none;transition:background 0.15s,border 0.15s; border-radius:4px; padding:2px 6px; margin-bottom:2px; font-size: 8px;">
-                    <button type="button" class="score-details-toggle" style="background: transparent; border: none; cursor: pointer; padding: 2px 4px; margin-right: 4px; font-size: 12px; color: #666; border-radius: 3px; transition: background-color 0.2s, padding 0.2s;">⋮</button>
                     <div class="ticker" style="transition: all 0.15s ease;">
                         <span style="${alert.triggered ? `text-shadow: 0 0 5px rgba(0, 0, 0, ${this.isDarkMode() ? '0.95' : '0.7'})` : ''}">$${alert.ticker}</span>
                         <span style="color: ${alert.isShort ? '#cc0000' : '#00cc00'}; transition: color 0.15s ease; display: inline-block; min-width: 50px; text-align: center; ${alert.triggered && !this.isDarkMode() ? `text-shadow: 0 0px 2px rgba(120, 120, 120, 0.9)` : ''};">[${alert.isShort ? 'SHORT' : 'LONG'}]</span>
                     </div>
-                        </div>
                     </div>
                     <div>Alert: $${alert.alertPrice.toFixed(4)}</div>
                     <div>Current: $${alert.currentPrice.toFixed(4)} (H/L: $${Math.max(alert.currentPrice, alert.alertPrice, parseFloat(alert.stockPeakPrice || alert.alertPrice)).toFixed(4)}/$${Math.min(alert.currentPrice, alert.alertPrice, parseFloat(alert.stockPeakPrice || alert.alertPrice)).toFixed(4)})</div>
@@ -4886,19 +4189,6 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 }
                 // Set up click handlers after HTML is set
                 setupClickHandlers();
-
-                // Restore dropdown state if it was open
-                const isOpen = localStorage.getItem(`dropdown_${alert.ticker}`) === 'open' || 
-                             window.dropdownStates?.get(alert.ticker)?.isOpen === true;
-                if (isOpen) {
-                    card.dataset.dropdownOpen = 'true';
-                    const dropdown = card.querySelector('.score-breakdown');
-                    const button = card.querySelector('.score-details-toggle');
-                    if (dropdown && button) {
-                        openDropdown(dropdown, button, alert.ticker, card);
-                    }
-                }
-
                 // Ensure all buttons are properly clickable
                 card.querySelectorAll('button').forEach(button => {
                     button.style.pointerEvents = 'auto';
@@ -4972,14 +4262,6 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
 
             // Use requestAnimationFrame for smoother transitions
             requestAnimationFrame(() => {
-                // Store current dropdown states
-                const openDropdowns = document.querySelectorAll('.score-breakdown[style*="display: block"]');
-                const dropdownStates = Array.from(openDropdowns).map(dropdown => ({
-                    dropdown,
-                    button: dropdown.previousElementSibling,
-                    ticker: dropdown.closest('.alert-card').querySelector('.ticker').textContent.split(' ')[0].replace('$', '')
-                }));
-
                 // Toggle theme immediately
                 body.classList.toggle('dark-mode');
                 header.classList.toggle('dark-mode');
@@ -5153,34 +4435,6 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             pingServer();
             // Ping every 30 seconds
             setInterval(pingServer, 30000);
-
-            // Close dropdowns when clicking outside
-            document.addEventListener('click', function(event) {
-                const clickedDropdown = event.target.closest('.score-breakdown');
-                const clickedToggle = event.target.closest('.score-details-toggle');
-                const clickedButton = event.target.closest('button');
-                const clickedCard = event.target.closest('.alert-card');
-                
-                // Don't interfere with any card interactions
-                if (clickedDropdown || clickedToggle || clickedButton || clickedCard) {
-                    return;
-                }
-                
-                // Only close dropdowns when clicking completely outside of cards
-                document.querySelectorAll('.score-breakdown').forEach(dropdown => {
-                    const card = dropdown.closest('.alert-card');
-                    const ticker = card?.getAttribute('data-ticker');
-                    
-                    if (dropdown.style.display === 'block') {
-                        closeDropdown(
-                            dropdown,
-                            card?.querySelector('.score-details-toggle'),
-                            ticker,
-                            card
-                        );
-                    }
-                });
-            });
         });
 
         let loggedMessages = new Set();
@@ -5201,173 +4455,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             }
         }
 
-        // Handle dropdown visibility
-        let activeDropdown = null;
-        let lastActiveTicker = null; // Track which ticker's dropdown was last open
-
-        // Score details toggle function
-        function toggleScoreDetails(button, event) {
-            if (!button) return;
-            if (event) {
-                event.stopPropagation();
-                event.preventDefault();
-            }
-            
-            // Get all the elements we need
-            const card = button.closest('.alert-card');
-            if (!card) return;
-            
-            const dropdown = card.querySelector('.score-breakdown');
-            if (!dropdown) return;
-            
-            const tickerElement = card.querySelector('.ticker');
-            if (!tickerElement) return;
-            
-            const tickerText = tickerElement.textContent.trim();
-            const currentTicker = tickerText.split(' ')[0].replace('$', '');
-            
-            // Close any other open dropdowns first
-            document.querySelectorAll('.score-breakdown').forEach(d => {
-                if (d !== dropdown && d.style.display === 'block') {
-                    const otherCard = d.closest('.alert-card');
-                    if (otherCard) {
-                        const otherButton = otherCard.querySelector('.score-details-toggle');
-                        const otherTickerEl = otherCard.querySelector('.ticker');
-                        if (otherButton && otherTickerEl) {
-                            const otherTicker = otherTickerEl.textContent.trim().split(' ')[0].replace('$', '');
-                            closeDropdown(d, otherButton, otherTicker, otherCard);
-                        }
-                    }
-                }
-            });
-            
-            // Initialize window-level state storage if not exists
-            if (!window.dropdownStates) {
-                window.dropdownStates = new Map();
-            }
-            
-            // Get current state
-            const isCurrentlyOpen = dropdown.style.display === 'block';
-            
-            // Toggle based on current visual state
-            if (isCurrentlyOpen) {
-                closeDropdown(dropdown, button, currentTicker, card);
-                window.dropdownStates.delete(currentTicker);
-                localStorage.removeItem(`dropdown_${currentTicker}`);
-                card.dataset.dropdownOpen = 'false';
-            } else {
-                openDropdown(dropdown, button, currentTicker, card);
-                window.dropdownStates.set(currentTicker, {
-                    isOpen: true,
-                    timestamp: Date.now()
-                });
-                localStorage.setItem(`dropdown_${currentTicker}`, 'open');
-                card.dataset.dropdownOpen = 'true';
-            }
-
-            // Update active references
-            activeDropdown = isCurrentlyOpen ? null : dropdown;
-            lastActiveTicker = isCurrentlyOpen ? null : currentTicker;
-
-            // Ensure the button still works after animation
-            button.style.pointerEvents = 'auto';
-            
-            // Stop event propagation
-            if (event) {
-                event.stopImmediatePropagation();
-            }
-            return false;
-        }
-
-        function openDropdown(dropdown, button, ticker, card) {
-            // Ensure the button remains clickable
-            button.style.pointerEvents = 'auto';
-            
-            // Calculate position
-            const buttonRect = button.getBoundingClientRect();
-            const cardRect = card.getBoundingClientRect();
-            
-            // Position dropdown relative to viewport
-            dropdown.style.position = 'fixed';
-            dropdown.style.top = (buttonRect.bottom + 40) + 'px';
-            dropdown.style.left = (cardRect.right + 105) + 'px'; // 180px width + 10px offset
-            
-            // Set display block first to allow animation
-            dropdown.style.display = 'block';
-            dropdown.style.opacity = '0';
-            dropdown.style.transform = 'translateY(-10px) translateZ(0)';
-            
-            // Force a reflow to ensure animation works
-            dropdown.offsetHeight;
-            
-            // Apply animations with RAF for smoothness
-            requestAnimationFrame(() => {
-                dropdown.style.opacity = '1';
-                dropdown.style.transform = 'translateY(0) translateZ(0)';
-                dropdown.style.pointerEvents = 'auto';
-            });
-            
-            button.textContent = '▲';
-            localStorage.setItem(`dropdown_${ticker}`, 'open');
-            card.dataset.dropdownOpen = 'true';
-            
-            // Store state in window-level persistence
-            window.dropdownStates = window.dropdownStates || new Map();
-            window.dropdownStates.set(ticker, {
-                isOpen: true,
-                timestamp: Date.now()
-            });
-            
-            // Create mutation observer to maintain state
-            if (!dropdown._observer) {
-                dropdown._observer = new MutationObserver(() => {
-                    if (window.dropdownStates.get(ticker)?.isOpen) {
-                        requestAnimationFrame(() => {
-                            dropdown.style.display = 'block';
-                            dropdown.style.opacity = '1';
-                            dropdown.style.transform = 'translateY(0)';
-                            dropdown.style.pointerEvents = 'auto';
-                        });
-                    }
-                });
-                
-                dropdown._observer.observe(dropdown, {
-                    attributes: true,
-                    attributeFilter: ['style', 'class']
-                });
-            }
-        }
-
-        function closeDropdown(dropdown, button, ticker, card) {
-            // Animate out
-            dropdown.style.opacity = '0';
-            dropdown.style.transform = 'translateY(-10px)';
-            dropdown.style.pointerEvents = 'none';
-            
-            // Delay hiding to allow animation
-            setTimeout(() => {
-                if (!window.dropdownStates.get(ticker)?.isOpen) {
-                    dropdown.style.display = 'none';
-                }
-            }, 150);
-            
-            // Arrow removed
-            localStorage.removeItem(`dropdown_${ticker}`);
-            card.dataset.dropdownOpen = 'false';
-            
-            // Clear window-level state
-            if (window.dropdownStates) {
-                window.dropdownStates.delete(ticker);
-            }
-            
-            // Disconnect observer if exists
-            if (dropdown._observer) {
-                dropdown._observer.disconnect();
-                delete dropdown._observer;
-            }
-        }
-
-                // Debounce function to prevent rapid-fire events
+        // Debounce function to prevent rapid-fire events
         function debounce(func, wait) {
             let timeout;
             return function executedFunction(...args) {
@@ -5379,24 +4467,6 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 timeout = setTimeout(later, wait);
             };
         }
-        
-        // Handle document clicks to close dropdowns when clicking outside
-        document.addEventListener('click', function(event) {
-            const clickedInside = event.target.closest('.score-breakdown, .score-details-toggle');
-            if (clickedInside) {
-                event.stopPropagation();
-                return;
-            }
-
-            // Close all dropdowns when clicking outside
-            document.querySelectorAll('.score-breakdown').forEach(dropdown => {
-                if (dropdown.style.display === 'block') {
-                    const button = dropdown.closest('.alert-card').querySelector('.score-details-toggle');
-                    const ticker = dropdown.closest('.alert-card').getAttribute('data-ticker');
-                    closeDropdown(dropdown, button, ticker, dropdown.closest('.alert-card'));
-                }
-            });
-        });
 
         function updateTimeDisplay() {
             const now = new Date();
