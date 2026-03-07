@@ -27,10 +27,10 @@ if (fs.existsSync('.env')) {
 const CONFIG = {
   // Alert filtering criteria
   FILE_TIME: 1,                     // Minutes retro to fetch filings
-  MIN_ALERT_VOLUME: 5000,           // Capture initial filing → AMM shock wave (first 3 min)
+  MIN_ALERT_VOLUME: 2000,           // Capture initial filing → AMM shock wave (first 3 min)
   STRONG_SIGNAL_MIN_VOLUME: 500,    // Very early for strong catalysts (Insider + Merger, etc.)
   MAX_FLOAT_6K: 75000000,           // Max float size for 6-K
-  MAX_FLOAT_8K: 100000000,          // Max float size for 8-K 
+  MAX_FLOAT_8K: 125000000,          // Max float size for 8-K 
   MAX_SO_RATIO: 1000.0,              // Max short interest ratio
   ALLOWED_COUNTRIES: ['israel', 'argentina', 'texas', 'china', 'hong kong', 'cayman islands', 'virgin islands', 'greece', 'singapore', 'malaysia', 'australia', 'bermuda', 'ireland', 'canada', 'nevada', 'delaware'], // Allowed incorporation/located countries
   CTB_WATCHLIST: ['LVROF', 'OLB', 'AGILQ', 'BINI', 'NUWE', 'VEEE', 'ABPO', 'MRNO', 'NEPTF', 'SHPWQ', 'GXAI', 'RUBI', 'SEELQ', 'VHUB', 'IOTR', 'NMHI', 'FOXX', 'AUUD', 'ACCL', 'FABTQ', 'CZOOF', 'GMUN', 'UOKA', 'IONM', 'VIVS'], // High CTB stocks (CTB > 100%, Availability < 100k) - updated daily from IBorrowDesk
