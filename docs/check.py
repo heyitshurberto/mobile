@@ -760,204 +760,106 @@ def main():
             'peak_move_pct': mover['peak_move_pct']
         }
     
-    print("\n" + "="*180)
-    print("COMPREHENSIVE PERFORMANCE ANALYTICS")
-    print("="*180)
+    print("\n" + "="*160)
+    print("ALERT PERFORMANCE ANALYSIS")
+    print("="*160)
     
-    # 1. BASIC PERFORMANCE METRICS
-    print("\n1. BASIC PERFORMANCE METRICS")
-    print("-" * 180)
+    # CORE METRICS
+    print("\n📊 CORE METRICS")
+    print("-" * 160)
     metrics = calculate_metrics(rows, perf_dict)
-    print(f"Total Trades Analyzed: {metrics['total_trades']}")
-    print(f"Winning Trades: {metrics['winning_trades']}")
-    print(f"Losing Trades: {metrics['losing_trades']}")
-    print(f"LONG Positions: {metrics['long_trades']}")
-    print(f"SHORT Positions: {metrics['short_trades']}")
-    print(f"Win Rate: {metrics['win_rate']:.1f}%")
-    print(f"Average Return: {metrics['avg_return']:+.1f}%")
+    print(f"Total: {metrics['total_trades']} | Wins: {metrics['winning_trades']} | Losses: {metrics['losing_trades']} | Rate: {metrics['win_rate']:.1f}% | Avg Return: {metrics['avg_return']:+.1f}%")
+    print(f"LONG: {metrics['long_trades']} | SHORT: {metrics['short_trades']}")
     
-    # 2. TECHNICAL METRICS (F/AV, Volume, S/O, Float)
-    print("\n2. TECHNICAL METRICS (F/AV, Volume, S/O, Float)")
-    print("-" * 180)
+    # TECHNICAL METRICS (condensed)
+    print("\n📈 TECHNICAL METRICS")
+    print("-" * 160)
     tech_metrics = calculate_technical_metrics(rows)
-    
-    # F/AV (Float / Average Volume)
     fav = tech_metrics['fav']
-    print(f"\nF/AV (Float ÷ Average Volume):")
-    print(f"  Count: {fav['count']} | Min: {fav['min']:.1f}x | Max: {fav['max']:.1f}x | Avg: {fav['avg']:.1f}x | Median: {fav['median']:.1f}x")
-    print(f"  → Winners sweet spot: 3-30x (tight float = compressible supply)")
-    print(f"  → Skip: >100x (supply absorbs too much volume)")
-    print(f"  → Penalty: 60-100x (loose float, 0.8x)")
-    print(f"  → Boost: 3-10x (1.2x), 10-30x (1.1x)")
-    
-    # Volume Ratio (Volume / Average Volume)
     vol = tech_metrics['vol_ratio']
-    print(f"\nVolume Analysis (Volume ÷ Average Volume):")
-    print(f"  Count: {vol['count']} | Min: {vol['min']:.2f}x | Max: {vol['max']:.2f}x | Avg: {vol['avg']:.2f}x | Median: {vol['median']:.2f}x")
-    print(f"  → Shows filing-day vs avg trading activity")
-    
-    # S/O (Shares Outstanding)
-    so = tech_metrics['so']
-    print(f"\nShares Outstanding Metrics (Float % of S/O):")
-    print(f"  Count: {so['count']} | Min: {so['min']:.1f}% | Max: {so['max']:.1f}% | Avg: {so['avg']:.1f}% | Median: {so['median']:.1f}%")
-    print(f"  → Higher % = more float relative to shares (higher volatility potential)")
-    
-    # Float (raw values)
     flt = tech_metrics['float']
-    print(f"\nFloat Distribution:")
-    print(f"  Count: {flt['count']} | Min: {flt['min']:,.0f} | Max: {flt['max']:,.0f} | Avg: {flt['avg']:,.0f} | Median: {flt['median']:,.0f}")
+    print(f"F/AV Ratio:     Min {fav['min']:.1f}x | Max {fav['max']:.1f}x | Med {fav['median']:.1f}x | Sweet Spot: 3-30x")
+    print(f"Volume Ratio:   Min {vol['min']:.2f}x | Max {vol['max']:.2f}x | Med {vol['median']:.2f}x")
+    print(f"Float:          Min {flt['min']:,.0f} | Max {flt['max']:,.0f} | Med {flt['median']:,.0f}")
     
-    # 3. SIGNAL ANALYSIS
-    print("\n3. SIGNAL ANALYSIS (Which catalysts are most common?)")
-    print("-" * 180)
+    # WINNING PATTERNS (focus on what works)
+    print("\n🎯 WINNING PATTERNS (20%+ moves only)")
+    print("-" * 160)
+    weighted = weighted_performance_analysis(rows, perf_dict)
+    
+    print("Best Catalysts:")
+    sorted_cats = sorted(weighted['catalysts'].items(), key=lambda x: x[1]['win_rate'], reverse=True)[:5]
+    for cat, data in sorted_cats:
+        if data['total'] >= 3:
+            print(f"  • {cat:<40} {data['win_rate']:>6.1f}% WR ({data['winners']}/{data['total']} wins)")
+    
+    print("\nBest Geographies:")
+    sorted_geo = sorted(weighted['countries'].items(), key=lambda x: x[1]['win_rate'], reverse=True)[:5]
+    for country, data in sorted_geo:
+        if data['total'] >= 3:
+            print(f"  • {country:<40} {data['win_rate']:>6.1f}% WR ({data['winners']}/{data['total']} wins)")
+    
+    print("\nBest Times:")
+    sorted_times = sorted(weighted['times'].items(), key=lambda x: x[1]['win_rate'], reverse=True)
+    for time, data in sorted_times:
+        if data['total'] >= 3:
+            print(f"  • {time:<40} {data['win_rate']:>6.1f}% WR ({data['winners']}/{data['total']} wins)")
+    
+    print("\nBest Price Ranges:")
+    sorted_prices = sorted(weighted['price_ranges'].items(), key=lambda x: x[1]['win_rate'], reverse=True)
+    for price, data in sorted_prices:
+        if data['total'] >= 3:
+            print(f"  • {price:<40} {data['win_rate']:>6.1f}% WR ({data['winners']}/{data['total']} wins)")
+    
+    # SIGNAL FREQUENCY (top 10 only)
+    print("\n📋 TOP SIGNALS")
+    print("-" * 160)
     signals = analyze_signals(rows)
     if signals['signal_counts']:
-        print(f"Total Unique Signals: {len(signals['signal_counts'])}")
-        print(f"\nTop 10 by Frequency:")
-        for signal, count in sorted(signals['signal_counts'].items(), key=lambda x: x[1], reverse=True)[:10]:
+        top_signals = sorted(signals['signal_counts'].items(), key=lambda x: x[1], reverse=True)[:10]
+        for i, (signal, count) in enumerate(top_signals, 1):
             pct = (count / len(rows)) * 100
-            print(f"  {signal:<45} {count:>4} ({pct:>5.1f}%)")
-    else:
-        print("No signals found in dataset")
+            print(f"{i:>2}. {signal:<45} {count:>3} ({pct:>4.1f}%)")
     
-    # 4. TIME OF DAY ANALYSIS
-    print("\n4. TIME OF DAY ANALYSIS (When are filings submitted?)")
-    print("-" * 180)
-    times = time_analysis(rows)
-    for bucket, tickers in times.items():
-        pct = (len(tickers) / len(rows)) * 100 if rows else 0
-        print(f"  {bucket:<35} {len(tickers):>4} filings ({pct:>5.1f}%)")
-    
-    # 5. COUNTRY/INCORPORATION ANALYSIS
-    print("\n5. GEOGRAPHIC ANALYSIS (Top 10 by filing count)")
-    print("-" * 180)
+    # GEOGRAPHY (top 10 only)
+    print("\n🌍 TOP JURISDICTIONS")
+    print("-" * 160)
     countries = country_analysis(rows)
     sorted_countries = sorted(countries['country_counts'].items(), key=lambda x: x[1], reverse=True)[:10]
-    for country, count in sorted_countries:
-        pct = (count / len(rows)) * 100 if rows else 0
-        print(f"  {country:<35} {count:>4} filings ({pct:>5.1f}%)")
+    for i, (country, count) in enumerate(sorted_countries, 1):
+        pct = (count / len(rows)) * 100
+        print(f"{i:>2}. {country:<45} {count:>3} ({pct:>4.1f}%)")
     
-    # 6. P&L SIMULATION ($1000 per trade)
-    print("\n6. FILING SUMMARY")
-    print("-" * 180)
-    pnl = calculate_pnl(rows)
-    print(f"Total Trades Analyzed: {pnl['total_trades']}")
+    # FILING TIMES
+    print("\n⏰ FILING TIMES")
+    print("-" * 160)
+    times = time_analysis(rows)
+    for bucket, tickers in sorted(times.items()):
+        pct = (len(tickers) / len(rows)) * 100 if rows else 0
+        print(f"{bucket:<35} {len(tickers):>4} ({pct:>5.1f}%)")
     
-    if pnl['top_5_winners']:
-        print(f"\nRecent Filings (First 5):")
-        for trade in pnl['top_5_winners']:
-            print(f"  {trade['ticker']:<8} [{trade['type']:>5}] Filed: {trade['filed_date']:<12} Alert Price: ${trade['entry']:<8.2f}")
+    # SKIP REASONS (top 5)
+    print("\n❌ TOP REJECTION REASONS")
+    print("-" * 160)
+    skip_analysis = skip_reason_analysis(rows)
+    if skip_analysis['skip_reasons']:
+        top_skips = sorted(skip_analysis['skip_reasons'].items(), key=lambda x: x[1], reverse=True)[:5]
+        for i, (reason, count) in enumerate(top_skips, 1):
+            pct = (count / len(rows)) * 100 if rows else 0
+            print(f"{i}. {reason:<50} {count:>3} ({pct:>4.1f}%)")
     
-    # 7. TODAY'S FILING SUMMARY
-    print("\n7. TODAY'S FILING SUMMARY")
-    print("-" * 180)
+    # TODAY
+    print("\n📅 TODAY'S FILINGS")
+    print("-" * 160)
     today = daily_summary(rows)
     print(f"Date: {today['date']}")
-    print(f"Filings Today: {today['count']}")
+    print(f"Count: {today['count']}")
     if today['count'] > 0:
         print(f"Tickers: {', '.join(today['tickers'])}")
     else:
-        print("No filings today")
+        print("None")
     
-    # 8. SKIP REASON ANALYSIS
-    print("\n8. SKIP REASON ANALYSIS (Why trades were rejected)")
-    print("-" * 180)
-    skip_analysis = skip_reason_analysis(rows)
-    if skip_analysis['skip_reasons']:
-        print(f"Total Unique Skip Reasons: {len(skip_analysis['skip_reasons'])}")
-        print(f"\nTop 10 Skip Reasons:")
-        for reason, count in sorted(skip_analysis['skip_reasons'].items(), key=lambda x: x[1], reverse=True)[:10]:
-            pct = (count / len(rows)) * 100 if rows else 0
-            sample_tickers = ', '.join(skip_analysis['skip_tickers'][reason][:3])
-            print(f"  {reason:<50} {count:>4} ({pct:>5.1f}%) | Examples: {sample_tickers}")
-    
-    # 9. ALERT TYPE PERFORMANCE (LONG vs SHORT)
-    print("\n9. ALERT TYPE PERFORMANCE (LONG vs SHORT)")
-    print("-" * 180)
-    alert_types = alert_type_analysis(rows)
-    for atype, data in alert_types.items():
-        if data['count'] > 0:
-            pct = (data['count'] / len(rows)) * 100 if rows else 0
-            sample_tickers = ', '.join(data['tickers'][:5])
-            print(f"{atype:<10} | {data['count']:>4} trades ({pct:>5.1f}%) | Examples: {sample_tickers}")
-    
-    # 10. PRICE RANGE ANALYSIS
-    print("\n10. PRICE RANGE PERFORMANCE")
-    print("-" * 180)
-    price_ranges = price_range_analysis(rows)
-    for prange, data in price_ranges.items():
-        if data['count'] > 0:
-            pct = (data['count'] / len(rows)) * 100 if rows else 0
-            print(f"{prange:<20} | {data['count']:>4} trades ({pct:>5.1f}%)")
-    
-    # 11. FILING TYPE ANALYSIS
-    print("\n11. FILING TYPE BREAKDOWN (Top 10)")
-    print("-" * 180)
-    filing_types = filing_type_analysis(rows)
-    if filing_types:
-        sorted_filings = sorted(filing_types.items(), key=lambda x: x[1]['count'], reverse=True)[:10]
-        for ftype, data in sorted_filings:
-            pct = (data['count'] / len(rows)) * 100 if rows else 0
-            sample_tickers = ', '.join(data['tickers'][:3])
-            print(f"  {ftype:<40} {data['count']:>4} ({pct:>5.1f}%) | Examples: {sample_tickers}")
-    
-    # 12. CATALYST PERFORMANCE (Top 15 by count)
-    print("\n12. CATALYST PERFORMANCE RANKING (Top 15)")
-    print("-" * 180)
-    catalysts = catalyst_performance(rows)
-    if catalysts:
-        sorted_catalysts = sorted(catalysts.items(), key=lambda x: x[1]['count'], reverse=True)[:15]
-        for cat, data in sorted_catalysts:
-            pct = (data['count'] / len(rows)) * 100 if rows else 0
-            sample = ', '.join(data['tickers'][:3])
-            print(f"  {cat:<45} {data['count']:>3} trades ({pct:>5.1f}%) | Examples: {sample}")
-    
-    # 13. WEIGHTED WIN RATE ANALYSIS (20%+/- MOVES ONLY)
-    print("\n13. WEIGHTED WIN RATE ANALYSIS (20%+/- MOVES ONLY)")
-    print("-" * 180)
-    weighted = weighted_performance_analysis(rows, perf_dict)
-    
-    # 13a. Best Catalysts by Win Rate
-    print("\n13a. BEST CATALYSTS BY WIN RATE (min 3 trades)")
-    sorted_catalysts_wr = sorted(weighted['catalysts'].items(), 
-                                  key=lambda x: x[1]['win_rate'], reverse=True)[:10]
-    for cat, data in sorted_catalysts_wr:
-        sample_tickers = ', '.join([t[0] for t in data['movers'][:3]])
-        print(f"  {cat:<45} {data['win_rate']:>6.1f}% ({data['winners']}/{data['total']} wins) | Examples: {sample_tickers}")
-    
-    # 13b. Best Countries by Win Rate
-    print("\n13b. BEST COUNTRIES BY WIN RATE (min 3 trades)")
-    sorted_countries_wr = sorted(weighted['countries'].items(), 
-                                  key=lambda x: x[1]['win_rate'], reverse=True)[:10]
-    for country, data in sorted_countries_wr:
-        sample_tickers = ', '.join([t[0] for t in data['movers'][:3]])
-        print(f"  {country:<30} {data['win_rate']:>6.1f}% ({data['winners']}/{data['total']} wins) | Examples: {sample_tickers}")
-    
-    # 13c. Best Filing Times by Win Rate
-    print("\n13c. BEST FILING TIMES BY WIN RATE (min 3 trades)")
-    sorted_times_wr = sorted(weighted['times'].items(), 
-                              key=lambda x: x[1]['win_rate'], reverse=True)
-    for time, data in sorted_times_wr:
-        sample_tickers = ', '.join([t[0] for t in data['movers'][:3]])
-        print(f"  {time:<30} {data['win_rate']:>6.1f}% ({data['winners']}/{data['total']} wins) | Examples: {sample_tickers}")
-    
-    # 13d. Best Filing Types by Win Rate
-    print("\n13d. BEST FILING TYPES BY WIN RATE (min 3 trades)")
-    sorted_filings_wr = sorted(weighted['filing_types'].items(), 
-                                key=lambda x: x[1]['win_rate'], reverse=True)[:10]
-    for ftype, data in sorted_filings_wr:
-        sample_tickers = ', '.join([t[0] for t in data['movers'][:3]])
-        print(f"  {ftype:<40} {data['win_rate']:>6.1f}% ({data['winners']}/{data['total']} wins) | Examples: {sample_tickers}")
-    
-    # 13e. Best Price Ranges by Win Rate
-    print("\n13e. BEST PRICE RANGES BY WIN RATE (min 3 trades)")
-    sorted_prices_wr = sorted(weighted['price_ranges'].items(), 
-                               key=lambda x: x[1]['win_rate'], reverse=True)
-    for price, data in sorted_prices_wr:
-        sample_tickers = ', '.join([t[0] for t in data['movers'][:3]])
-        print(f"  {price:<30} {data['win_rate']:>6.1f}% ({data['winners']}/{data['total']} wins) | Examples: {sample_tickers}")
-    
-    print("\n" + "="*180)
+    print("\n" + "="*160)
 
 if __name__ == '__main__':
     try:
