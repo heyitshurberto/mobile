@@ -153,8 +153,8 @@
     "direction": "SHORT",
     "highest5Day": 4.31,
     "highest5DayPercent": 0,
-    "lowest5Day": 3.51,
-    "lowest5DayPercent": 18.56
+    "lowest5Day": 3.37,
+    "lowest5DayPercent": 21.81
   },
   {
     "ticker": "CI",
@@ -225,8 +225,8 @@
     "direction": "SHORT",
     "highest5Day": 290.85,
     "highest5DayPercent": 0,
-    "lowest5Day": 272.23,
-    "lowest5DayPercent": 6.4
+    "lowest5Day": 269.455,
+    "lowest5DayPercent": 7.36
   },
   {
     "ticker": "MKTW",
@@ -453,8 +453,8 @@
     "direction": "SHORT",
     "highest5Day": 1.35,
     "highest5DayPercent": 0,
-    "lowest5Day": 1.195,
-    "lowest5DayPercent": 11.48
+    "lowest5Day": 1.1401,
+    "lowest5DayPercent": 15.55
   },
   {
     "ticker": "BYRN",
@@ -618,8 +618,8 @@
     "direction": "SHORT",
     "highest5Day": 4.66,
     "highest5DayPercent": 0,
-    "lowest5Day": 3.93,
-    "lowest5DayPercent": 15.67
+    "lowest5Day": 3.7297,
+    "lowest5DayPercent": 19.96
   },
   {
     "ticker": "CGNT",
@@ -830,8 +830,8 @@
     "direction": "SHORT",
     "highest5Day": 4.91,
     "highest5DayPercent": 0,
-    "lowest5Day": 4.832,
-    "lowest5DayPercent": 1.59
+    "lowest5Day": 4.7268,
+    "lowest5DayPercent": 3.73
   },
   {
     "ticker": "SHFS",
@@ -900,8 +900,8 @@
     "direction": "SHORT",
     "highest5Day": 0.8195,
     "highest5DayPercent": 0,
-    "lowest5Day": 0.7901,
-    "lowest5DayPercent": 3.59
+    "lowest5Day": 0.789,
+    "lowest5DayPercent": 3.72
   },
   {
     "ticker": "PROP",
@@ -1057,8 +1057,8 @@
     "direction": "SHORT",
     "highest5Day": 40.68,
     "highest5DayPercent": 0,
-    "lowest5Day": 38.77,
-    "lowest5DayPercent": 4.7
+    "lowest5Day": 36.56,
+    "lowest5DayPercent": 10.13
   },
   {
     "ticker": "JAGX",
@@ -1376,8 +1376,8 @@
     "direction": "SHORT",
     "highest5Day": 183.84,
     "highest5DayPercent": 0,
-    "lowest5Day": 181.81,
-    "lowest5DayPercent": 1.1
+    "lowest5Day": 177.62,
+    "lowest5DayPercent": 3.38
   },
   {
     "ticker": "OCGN",
@@ -1472,7 +1472,75 @@
     "direction": "SHORT",
     "highest5Day": 1.91,
     "highest5DayPercent": 0,
-    "lowest5Day": 1.74,
-    "lowest5DayPercent": 8.9
+    "lowest5Day": 1.61,
+    "lowest5DayPercent": 15.71
+  },
+  {
+    "ticker": "JEM",
+    "title": "6-K - 707 Cayman Holdings Ltd. (0002018222) (Filer)",
+    "companyName": "707 Cayman Holdings Ltd.",
+    "filerName": null,
+    "sector": "Distributors",
+    "price": 0.0796,
+    "fav": "0.85",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Shadong, China (via Kowloon Bay, Hong Kong)",
+    "filingTimeMultiplier": 1.15,
+    "filingTimeBonus": 1.15,
+    "volume": 7089888,
+    "averageVolume": 7449855,
+    "float": 6349433,
+    "sharesOutstanding": 18534000,
+    "soRatio": "34.26%",
+    "marketCap": 1475306,
+    "peRatio": null,
+    "isShort": true,
+    "ftd": 109676,
+    "ftdPercent": "1.73",
+    "intent": "Merger/Acquisition, Clinical Success, Bid Price Delisting, Asset Disposition",
+    "incorporated": "Kowloon Bay, Hong Kong",
+    "located": "Shadong, China",
+    "filingDate": "2026-03-06",
+    "signals": {
+      "Merger/Acquisition": [
+        "Going Private"
+      ],
+      "Clinical Success": [
+        "Indication"
+      ],
+      "Bid Price Delisting": [
+        "Minimum Bid Price"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "20-F",
+      "EX-99.1",
+      "EX-99.2"
+    ],
+    "filingType": "6-K, 20-F, EX-99.1, EX-99.2",
+    "cik": "2018222",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-07T06:18:53.686Z",
+    "recordId": "JEM-1772864333686",
+    "expiresAt": "2026-03-12T06:18:53.686Z",
+    "direction": "SHORT",
+    "highest5Day": 0.0796,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0.0796,
+    "lowest5DayPercent": 0
   }
 ]

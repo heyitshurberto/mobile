@@ -1,79 +1,5 @@
 [
   {
-    "ticker": "TYGO",
-    "title": "8-K - TIGO ENERGY, INC. (0001855447) (Filer)",
-    "companyName": "TIGO ENERGY, INC.",
-    "filerName": null,
-    "sector": "Electrical Equipment",
-    "price": 4.31,
-    "wa": "3.09",
-    "fav": "6.87",
-    "signalScore": 0.7452,
-    "hasTuesdayBonus": false,
-    "custodianControl": true,
-    "custodianVerified": false,
-    "custodianName": null,
-    "filingTimeMultiplier": 1.1,
-    "filingTimeBonus": 1.1,
-    "soBonus": 1.12,
-    "volume": 556358,
-    "averageVolume": 728115,
-    "float": 5000000,
-    "sharesOutstanding": 70352248,
-    "soRatio": "7.11%",
-    "marketCap": 303218176,
-    "peRatio": null,
-    "isShort": true,
-    "ftd": 237831,
-    "ftdPercent": "4.76",
-    "intent": "Share Issuance, Bid Price Delisting, Partnership, Financing Events, Late Filing Notice",
-    "incorporated": "Wilmington, Delaware",
-    "located": "Toronto, Canada",
-    "filingDate": "2026-02-26",
-    "signals": {
-      "Share Issuance": [
-        "Issuance of shares"
-      ],
-      "Bid Price Delisting": [
-        "Minimum Bid Price"
-      ],
-      "Partnership": [
-        "Joint Venture"
-      ],
-      "Financing Events": [
-        "Credit Facility"
-      ],
-      "Late Filing Notice": [
-        "Unreasonable Effort"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "reverseSplitRatio": null,
-    "reverseSplitReason": null,
-    "formType": [
-      "8-K",
-      "S-3",
-      "EX-10.1",
-      "Item 1.01",
-      "Item 8.01",
-      "Item 9.01"
-    ],
-    "filingType": "8-K, S-3, EX-10.1, Item 1.01, Item 8.01, Item 9.01",
-    "cik": "1855447",
-    "skipReason": "",
-    "alertType": null,
-    "deterministicPattern": null,
-    "deterministicMechanism": null,
-    "deterministicPhrase": "",
-    "recordedAt": "2026-02-26T19:16:14.997Z",
-    "recordId": "TYGO-1772133374997",
-    "expiresAt": "2026-03-03T19:16:14.997Z",
-    "direction": "SHORT",
-    "highest5Day": 4.31,
-    "highest5DayPercent": 0
-  },
-  {
     "ticker": "CI",
     "title": "8-K - Cigna Group (0001739940) (Filer)",
     "companyName": "Cigna Group",
@@ -1358,6 +1284,72 @@
     "expiresAt": "2026-03-09T16:08:35.220Z",
     "direction": "SHORT",
     "highest5Day": 1.91,
+    "highest5DayPercent": 0
+  },
+  {
+    "ticker": "JEM",
+    "title": "6-K - 707 Cayman Holdings Ltd. (0002018222) (Filer)",
+    "companyName": "707 Cayman Holdings Ltd.",
+    "filerName": null,
+    "sector": "Distributors",
+    "price": 0.0796,
+    "fav": "0.85",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Shadong, China (via Kowloon Bay, Hong Kong)",
+    "filingTimeMultiplier": 1.15,
+    "filingTimeBonus": 1.15,
+    "volume": 7089888,
+    "averageVolume": 7449855,
+    "float": 6349433,
+    "sharesOutstanding": 18534000,
+    "soRatio": "34.26%",
+    "marketCap": 1475306,
+    "peRatio": null,
+    "isShort": true,
+    "ftd": 109676,
+    "ftdPercent": "1.73",
+    "intent": "Merger/Acquisition, Clinical Success, Bid Price Delisting, Asset Disposition",
+    "incorporated": "Kowloon Bay, Hong Kong",
+    "located": "Shadong, China",
+    "filingDate": "2026-03-06",
+    "signals": {
+      "Merger/Acquisition": [
+        "Going Private"
+      ],
+      "Clinical Success": [
+        "Indication"
+      ],
+      "Bid Price Delisting": [
+        "Minimum Bid Price"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "20-F",
+      "EX-99.1",
+      "EX-99.2"
+    ],
+    "filingType": "6-K, 20-F, EX-99.1, EX-99.2",
+    "cik": "2018222",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-07T06:18:53.686Z",
+    "recordId": "JEM-1772864333686",
+    "expiresAt": "2026-03-12T06:18:53.686Z",
+    "direction": "SHORT",
+    "highest5Day": 0.0796,
     "highest5DayPercent": 0
   }
 ]
