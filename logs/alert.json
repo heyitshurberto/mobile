@@ -282,5 +282,86 @@
     "direction": "LONG",
     "highest5Day": 1.13,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "RLMD",
+    "title": "8-K - RELMADA THERAPEUTICS, INC. (0001553643) (Filer)",
+    "companyName": "RELMADA THERAPEUTICS, INC.",
+    "filerName": null,
+    "sector": "Pharmaceuticals",
+    "price": 4.45,
+    "fav": "43.57",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Florida (via Nevada)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 450015,
+    "averageVolume": 676464,
+    "float": 29474569,
+    "sharesOutstanding": 73333622,
+    "soRatio": "40.19%",
+    "marketCap": 326334624,
+    "isShort": true,
+    "ftd": 51692,
+    "ftdPercent": "0.18",
+    "intent": "Merger/Acquisition, Clinical Success, Clinical Milestone, Activist 13D Filing, Asset Disposition, Partnership",
+    "incorporated": "Nevada",
+    "located": "Florida",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Clinical Success": [
+        "Phase 2",
+        "Phase 3",
+        "Efficacy",
+        "Safety Profile",
+        "Primary Endpoint",
+        "Favorable Safety"
+      ],
+      "Clinical Milestone": [
+        "Program Initiation"
+      ],
+      "Activist 13D Filing": [
+        "Beneficial Ownership"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "S-3",
+      "EX-10.1",
+      "EX-4.1",
+      "Item 1.01",
+      "Item 3.02",
+      "Item 7.01",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, S-3, EX-10.1, EX-4.1, Item 1.01, Item 3.02, Item 7.01, Item 8.01, Item 9.01",
+    "cik": "1553643",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-09T11:11:55.431Z",
+    "recordId": "RLMD-1773054715431",
+    "expiresAt": "2026-03-14T11:11:55.431Z",
+    "direction": "SHORT",
+    "highest5Day": 4.45,
+    "highest5DayPercent": 0
   }
 ]
