@@ -403,5 +403,19 @@
     "date": "2026-03-09T20:06:02.736Z",
     "alertDate": "2026-03-09T20:06:02.736Z",
     "reverseSplitRatio": null
+  },
+  "SGP": {
+    "short": false,
+    "alert": 27.12,
+    "highest": 27.12,
+    "lowest": 27.12,
+    "highest5Day": 27.12,
+    "highest5DayPercent": 0,
+    "current": 27.12,
+    "currentPrice": 27.12,
+    "performance": 0,
+    "date": "2026-03-09T20:06:08.779Z",
+    "alertDate": "2026-03-09T20:06:08.779Z",
+    "reverseSplitRatio": null
   }
 }

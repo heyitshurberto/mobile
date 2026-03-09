@@ -1634,5 +1634,71 @@
     "direction": "SHORT",
     "highest5Day": 63.158,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "SGP",
+    "title": "8-K - SpyGlass Pharma, Inc. (0001778922) (Filer)",
+    "companyName": "SpyGlass Pharma, Inc.",
+    "filerName": null,
+    "sector": "Pharmaceuticals",
+    "price": 27.12,
+    "fav": "65.39",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 186966,
+    "averageVolume": 149670,
+    "float": 9787123,
+    "sharesOutstanding": 33317414,
+    "soRatio": "29.38%",
+    "marketCap": 903568320,
+    "isShort": false,
+    "ftd": 3275,
+    "ftdPercent": "0.03",
+    "intent": "Clinical Success, Clinical Milestone",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "Clinical Success": [
+        "Phase 1",
+        "Phase 3",
+        "Trial Results",
+        "Efficacy",
+        "Primary Endpoint"
+      ],
+      "Clinical Milestone": [
+        "Patient Enrollment"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "8-K",
+      "S-9",
+      "424B4",
+      "EX-99.1",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "filingType": "6-K, 8-K, 424B4, EX-99.1, Item 8.01, Item 9.01",
+    "cik": "1778922",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-03-09T20:06:08.743Z",
+    "recordId": "SGP-1773086768743",
+    "expiresAt": "2026-03-14T20:06:08.743Z",
+    "direction": "LONG",
+    "highest5Day": 27.12,
+    "highest5DayPercent": 0
   }
 ]
