@@ -738,5 +738,66 @@
     "direction": "LONG",
     "highest5Day": 8.01,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "PLX",
+    "title": "8-K - Protalix BioTherapeutics, Inc. (0001006281) (Filer)",
+    "companyName": "Protalix BioTherapeutics, Inc.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 2.62,
+    "fav": "56.82",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "New Jersey (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 843283,
+    "averageVolume": 1184000,
+    "float": 67276000,
+    "sharesOutstanding": 80421181,
+    "soRatio": "83.65%",
+    "marketCap": 210703488,
+    "isShort": false,
+    "ftd": 50637,
+    "ftdPercent": "0.08",
+    "intent": "FDA Approved, Clinical Success",
+    "incorporated": "Wilmington, Delaware",
+    "located": "New Jersey",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "FDA Approved": [
+        "FDA Approval",
+        "FDA approval"
+      ],
+      "Clinical Success": [
+        "Efficacy"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "13D",
+      "EX-99.1",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, 13D, EX-99.1, Item 8.01, Item 9.01",
+    "cik": "1006281",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-03-09T11:52:01.969Z",
+    "recordId": "PLX-1773057121969",
+    "expiresAt": "2026-03-14T11:52:01.969Z",
+    "direction": "LONG",
+    "highest5Day": 2.62,
+    "highest5DayPercent": 0
   }
 ]
