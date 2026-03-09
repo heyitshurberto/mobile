@@ -303,7 +303,7 @@
     "sharesOutstanding": 73333622,
     "soRatio": "40.19%",
     "marketCap": 326334624,
-    "isShort": true,
+    "isShort": false,
     "ftd": 51692,
     "ftdPercent": "0.18",
     "intent": "Merger/Acquisition, Clinical Success, Clinical Milestone, Activist 13D Filing, Asset Disposition, Partnership",
@@ -360,7 +360,7 @@
     "recordedAt": "2026-03-09T11:11:55.431Z",
     "recordId": "RLMD-1773054715431",
     "expiresAt": "2026-03-14T11:11:55.431Z",
-    "direction": "SHORT",
+    "direction": "LONG",
     "highest5Day": 4.45,
     "highest5DayPercent": 0
   },
@@ -600,7 +600,7 @@
     "sharesOutstanding": 77275005,
     "soRatio": "100.5%",
     "marketCap": 3240913664,
-    "isShort": true,
+    "isShort": false,
     "ftd": false,
     "ftdPercent": null,
     "intent": "FDA Filing, Clinical Success, Clinical Milestone, Asset Disposition",
@@ -656,7 +656,7 @@
     "recordedAt": "2026-03-09T11:37:54.956Z",
     "recordId": "XENE-1773056274956",
     "expiresAt": "2026-03-14T11:37:54.956Z",
-    "direction": "SHORT",
+    "direction": "LONG",
     "highest5Day": 41.94,
     "highest5DayPercent": 0
   },
@@ -1429,6 +1429,76 @@
     "expiresAt": "2026-03-14T13:20:11.663Z",
     "direction": "SHORT",
     "highest5Day": 9.83,
+    "highest5DayPercent": 0
+  },
+  {
+    "ticker": "ACDC",
+    "title": "8-K - ProFrac Holding Corp. (0001881487) (Filer)",
+    "companyName": "ProFrac Holding Corp.",
+    "filerName": null,
+    "sector": "Energy",
+    "price": 5.43,
+    "fav": "30.28",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Texas (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 1538911,
+    "averageVolume": 1082991,
+    "float": 32797400,
+    "sharesOutstanding": 180871183,
+    "soRatio": "18.13%",
+    "marketCap": 982130496,
+    "isShort": true,
+    "ftd": 59683,
+    "ftdPercent": "0.18",
+    "intent": "Merger/Acquisition, Activist 13D Filing, Bankruptcy Filing, Credit Default, Asset Disposition",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Texas",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "Merger/Acquisition": [
+        "Acquisition Agreement",
+        "Acquisition Closing",
+        "Material Definitive Agreement"
+      ],
+      "Activist 13D Filing": [
+        "Beneficial Ownership"
+      ],
+      "Bankruptcy Filing": [
+        "Insolvency Proceedings"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-10.1",
+      "Item 1.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-10.1, Item 1.01, Item 9.01",
+    "cik": "1881487",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Distressed)",
+    "deterministicMechanism": "Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.",
+    "deterministicPhrase": "[Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.]",
+    "recordedAt": "2026-03-09T20:02:12.508Z",
+    "recordId": "ACDC-1773086532508",
+    "expiresAt": "2026-03-14T20:02:12.509Z",
+    "direction": "SHORT",
+    "highest5Day": 5.43,
     "highest5DayPercent": 0
   }
 ]

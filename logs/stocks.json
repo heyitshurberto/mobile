@@ -216,8 +216,8 @@
     "recordId": "NBP-1773054366446",
     "expiresAt": "2026-03-14T11:06:06.446Z",
     "direction": "LONG",
-    "highest5Day": 3.5,
-    "highest5DayPercent": 0
+    "highest5Day": 3.545,
+    "highest5DayPercent": 1.29
   },
   {
     "ticker": "BOLD",
@@ -280,8 +280,8 @@
     "recordId": "BOLD-1773054386119",
     "expiresAt": "2026-03-14T11:06:26.119Z",
     "direction": "LONG",
-    "highest5Day": 1.13,
-    "highest5DayPercent": 0
+    "highest5Day": 1.15,
+    "highest5DayPercent": 1.77
   },
   {
     "ticker": "RLMD",
@@ -303,7 +303,7 @@
     "sharesOutstanding": 73333622,
     "soRatio": "40.19%",
     "marketCap": 326334624,
-    "isShort": true,
+    "isShort": false,
     "ftd": 51692,
     "ftdPercent": "0.18",
     "intent": "Merger/Acquisition, Clinical Success, Clinical Milestone, Activist 13D Filing, Asset Disposition, Partnership",
@@ -360,9 +360,9 @@
     "recordedAt": "2026-03-09T11:11:55.431Z",
     "recordId": "RLMD-1773054715431",
     "expiresAt": "2026-03-14T11:11:55.431Z",
-    "direction": "SHORT",
-    "highest5Day": 4.45,
-    "highest5DayPercent": 0,
+    "direction": "LONG",
+    "highest5Day": 7.407,
+    "highest5DayPercent": 66.45,
     "lowest5Day": 4.45,
     "lowest5DayPercent": 0
   },
@@ -436,8 +436,8 @@
     "recordId": "KLRS-1773055000778",
     "expiresAt": "2026-03-14T11:16:40.779Z",
     "direction": "LONG",
-    "highest5Day": 9.82,
-    "highest5DayPercent": 0
+    "highest5Day": 10.09,
+    "highest5DayPercent": 2.75
   },
   {
     "ticker": "KRRO",
@@ -583,8 +583,8 @@
     "direction": "SHORT",
     "highest5Day": 7.6,
     "highest5DayPercent": 0,
-    "lowest5Day": 7.6,
-    "lowest5DayPercent": 0
+    "lowest5Day": 6.96,
+    "lowest5DayPercent": 8.42
   },
   {
     "ticker": "XENE",
@@ -662,9 +662,9 @@
     "recordedAt": "2026-03-09T11:37:54.956Z",
     "recordId": "XENE-1773056274956",
     "expiresAt": "2026-03-14T11:37:54.956Z",
-    "direction": "SHORT",
-    "highest5Day": 41.94,
-    "highest5DayPercent": 0,
+    "direction": "LONG",
+    "highest5Day": 62.783,
+    "highest5DayPercent": 49.7,
     "lowest5Day": 41.94,
     "lowest5DayPercent": 0
   },
@@ -744,8 +744,8 @@
     "recordId": "CRBP-1773056650090",
     "expiresAt": "2026-03-14T11:44:10.090Z",
     "direction": "LONG",
-    "highest5Day": 8.01,
-    "highest5DayPercent": 0
+    "highest5Day": 9.62,
+    "highest5DayPercent": 20.1
   },
   {
     "ticker": "PLX",
@@ -805,8 +805,8 @@
     "recordId": "PLX-1773057121969",
     "expiresAt": "2026-03-14T11:52:01.969Z",
     "direction": "LONG",
-    "highest5Day": 2.62,
-    "highest5DayPercent": 0
+    "highest5Day": 2.895,
+    "highest5DayPercent": 10.5
   },
   {
     "ticker": "GEL",
@@ -866,8 +866,8 @@
     "direction": "SHORT",
     "highest5Day": 18.09,
     "highest5DayPercent": 0,
-    "lowest5Day": 18.09,
-    "lowest5DayPercent": 0
+    "lowest5Day": 17.91,
+    "lowest5DayPercent": 1
   },
   {
     "ticker": "XLO",
@@ -936,8 +936,8 @@
     "recordId": "XLO-1773057698089",
     "expiresAt": "2026-03-14T12:01:38.089Z",
     "direction": "LONG",
-    "highest5Day": 0.53,
-    "highest5DayPercent": 0
+    "highest5Day": 0.5641,
+    "highest5DayPercent": 6.43
   },
   {
     "ticker": "MBX",
@@ -1156,8 +1156,8 @@
     "direction": "SHORT",
     "highest5Day": 17.5,
     "highest5DayPercent": 0,
-    "lowest5Day": 17.5,
-    "lowest5DayPercent": 0
+    "lowest5Day": 15.065,
+    "lowest5DayPercent": 13.91
   },
   {
     "ticker": "ACXP",
@@ -1229,8 +1229,8 @@
     "recordId": "ACXP-1773061224050",
     "expiresAt": "2026-03-14T13:00:24.050Z",
     "direction": "LONG",
-    "highest5Day": 1.35,
-    "highest5DayPercent": 0
+    "highest5Day": 2,
+    "highest5DayPercent": 48.15
   },
   {
     "ticker": "ALLR",
@@ -1299,8 +1299,8 @@
     "recordId": "ALLR-1773061383700",
     "expiresAt": "2026-03-14T13:03:03.700Z",
     "direction": "LONG",
-    "highest5Day": 1.24,
-    "highest5DayPercent": 0
+    "highest5Day": 1.28,
+    "highest5DayPercent": 3.23
   },
   {
     "ticker": "JAGX",
@@ -1374,8 +1374,8 @@
     "direction": "SHORT",
     "highest5Day": 0.5905,
     "highest5DayPercent": 0,
-    "lowest5Day": 0.5905,
-    "lowest5DayPercent": 0
+    "lowest5Day": 0.482,
+    "lowest5DayPercent": 18.37
   },
   {
     "ticker": "ONDS",
@@ -1446,7 +1446,984 @@
     "direction": "SHORT",
     "highest5Day": 9.83,
     "highest5DayPercent": 0,
-    "lowest5Day": 9.83,
+    "lowest5Day": 9.48,
+    "lowest5DayPercent": 3.56
+  },
+  {
+    "ticker": "HSAI",
+    "title": "6-K - Hesai Group (0001861737) (Filer)",
+    "companyName": "Hesai Group",
+    "filerName": null,
+    "price": 27.94,
+    "wa": "18.58",
+    "signalScore": 0.73,
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Deutsche Bank",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "soBonus": 1.05,
+    "volume": 1236261,
+    "averageVolume": 2511740,
+    "float": 26998861,
+    "sharesOutstanding": 130143350,
+    "soRatio": "20.75%",
+    "marketCap": 4460113408,
+    "isShort": true,
+    "ftd": 279711,
+    "ftdPercent": "1.04",
+    "intent": "Convertible Dilution, Going Dark, Asset Disposition, Partnership, Strategic Minerals Partnership",
+    "incorporated": "Cayman Islands",
+    "located": "Shadong, China",
+    "filingDate": "2026-01-26",
+    "signals": {
+      "Convertible Dilution": [
+        "Convertible Securities"
+      ],
+      "Going Dark": [
+        "Deregister"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ]
+    },
+    "bonusSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "20-F",
+      "Form D",
+      "EX-99.1",
+      "EX-99.2"
+    ],
+    "filingType": "6-K, 20-F, Form D, EX-99.1, EX-99.2",
+    "cik": "1861737",
+    "skipReason": "",
+    "alertType": null,
+    "recordedAt": "2026-01-26T14:12:51.640Z",
+    "recordId": "HSAI-1769436771640",
+    "expiresAt": "2026-01-31T14:12:51.640Z",
+    "direction": "SHORT",
+    "highest5Day": 24.105,
+    "highest5DayPercent": -13.73,
+    "lowest5Day": 23.76,
+    "lowest5DayPercent": 14.96
+  },
+  {
+    "ticker": "AXL",
+    "title": "8-K - AMERICAN AXLE & MANUFACTURING HOLDINGS INC (0001062231) (Filer)",
+    "companyName": "AMERICAN AXLE & MANUFACTURING HOLDINGS INC",
+    "filerName": null,
+    "price": 8.28,
+    "wa": "6.35",
+    "signalScore": 0.64,
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "soBonus": 1,
+    "volume": 3468273,
+    "averageVolume": 3039586,
+    "float": 115149772,
+    "sharesOutstanding": 118696421,
+    "soRatio": "97.01%",
+    "marketCap": 982806336,
+    "isShort": true,
+    "ftd": 99485,
+    "ftdPercent": "0.09",
+    "intent": "Share Consolidation, Regulatory Breach, ADR Regulation Risk",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Michigan",
+    "filingDate": "2026-01-26",
+    "signals": {
+      "Share Consolidation": [
+        "Recalled Shares"
+      ],
+      "Regulatory Breach": [
+        "Regulatory Violation"
+      ],
+      "ADR Regulation Risk": [
+        "Subject To Risks"
+      ]
+    },
+    "bonusSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-99.1",
+      "EX-99.2",
+      "EX-3.1",
+      "EX-3.2",
+      "Item 5.03",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-99.1, EX-99.2, EX-3.1, EX-3.2, Item 5.03, Item 8.01, Item 9.01",
+    "cik": "1062231",
+    "skipReason": "",
+    "alertType": null,
+    "recordedAt": "2026-01-26T14:19:44.912Z",
+    "recordId": "AXL-1769437184912",
+    "expiresAt": "2026-01-31T14:19:44.912Z",
+    "direction": "SHORT",
+    "highest5Day": 8.105,
+    "highest5DayPercent": -2.11,
+    "lowest5Day": 8.28,
+    "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "CRDL",
+    "title": "6-K - Cardiol Therapeutics Inc. (0001702123) (Filer)",
+    "companyName": "Cardiol Therapeutics Inc.",
+    "filerName": null,
+    "price": 1,
+    "wa": "0.68",
+    "signalScore": 0.56,
+    "hasTuesdayBonus": false,
+    "custodianControl": false,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "soBonus": 1.15,
+    "volume": 252014,
+    "averageVolume": 466968,
+    "float": 10384616,
+    "sharesOutstanding": 99997648,
+    "soRatio": "10.38%",
+    "marketCap": 99997648,
+    "isShort": false,
+    "ftd": 90556,
+    "ftdPercent": "0.87",
+    "intent": "Clinical Success, Underwritten Offering",
+    "incorporated": "Ottawa, Canada",
+    "located": "Ottawa, Canada",
+    "filingDate": "2026-01-26",
+    "signals": {
+      "Clinical Success": [
+        "Efficacy",
+        "Patient Population"
+      ],
+      "Underwritten Offering": [
+        "Bought Deal"
+      ]
+    },
+    "bonusSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "20-F",
+      "EX-99.1"
+    ],
+    "filingType": "6-K, 20-F, EX-99.1",
+    "cik": "1702123",
+    "skipReason": "",
+    "alertType": null,
+    "recordedAt": "2026-01-26T18:13:17.487Z",
+    "recordId": "CRDL-1769451197487",
+    "expiresAt": "2026-01-31T18:13:17.487Z",
+    "direction": "LONG",
+    "highest5Day": 1,
+    "highest5DayPercent": 0
+  },
+  {
+    "ticker": "BIYA",
+    "title": "6-K - Baiya International Group Inc. (0001944712) (Filer)",
+    "companyName": "Baiya International Group Inc.",
+    "filerName": null,
+    "price": 3.95,
+    "wa": "2.07",
+    "signalScore": 0.61,
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "soBonus": 1,
+    "volume": 36349,
+    "averageVolume": 687987,
+    "float": 12680000,
+    "sharesOutstanding": 1185784,
+    "soRatio": "1069.3%",
+    "marketCap": 4936651,
+    "isShort": true,
+    "ftd": 137283,
+    "ftdPercent": "1.08",
+    "intent": "Artificial Inflation, Convertible Dilution, Asset Disposition, Share Consolidation, Partnership, Stock Split",
+    "incorporated": "Cayman Islands",
+    "located": "New York",
+    "filingDate": "2026-01-26",
+    "signals": {
+      "Artificial Inflation": [
+        "Consolidation Of Shares",
+        "Share Consolidation"
+      ],
+      "Convertible Dilution": [
+        "Convertible Securities"
+      ],
+      "Asset Disposition": [
+        "Disposed",
+        "Disposition"
+      ],
+      "Share Consolidation": [
+        "Consolidation"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ],
+      "Stock Split": [
+        "Share Split"
+      ]
+    },
+    "bonusSignals": {},
+    "reverseSplitRatio": 1002,
+    "reverseSplitReason": "Nasdaq minimum bid price requirement",
+    "formType": [
+      "6-K",
+      "20-F",
+      "EX-3.1"
+    ],
+    "filingType": "6-K, 20-F, EX-3.1",
+    "cik": "1944712",
+    "skipReason": "",
+    "alertType": null,
+    "recordedAt": "2026-01-26T21:16:29.874Z",
+    "recordId": "BIYA-1769462189874",
+    "expiresAt": "2026-01-31T21:16:29.874Z",
+    "direction": "SHORT",
+    "highest5Day": 3.8333,
+    "highest5DayPercent": -2.95,
+    "lowest5Day": 1.54,
+    "lowest5DayPercent": 61.01
+  },
+  {
+    "ticker": "FAT",
+    "title": "8-K - Fat Brands, Inc (0001705012) (Filer)",
+    "companyName": "Fat Brands, Inc",
+    "filerName": null,
+    "price": 0.392,
+    "wa": "0.23",
+    "signalScore": 0.46,
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "soBonus": 1.05,
+    "volume": 86572,
+    "averageVolume": 395745,
+    "float": 5960700,
+    "sharesOutstanding": 16668520,
+    "soRatio": "35.76%",
+    "marketCap": 7272103,
+    "isShort": true,
+    "ftd": 18433,
+    "ftdPercent": "0.31",
+    "intent": "Credit Default, Financing Events, Executive Departure Non-Planned",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-01-27",
+    "signals": {
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Financing Events": [
+        "Capital Structure"
+      ],
+      "Executive Departure Non-Planned": [
+        "Departure Of Directors"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "6-K/A",
+      "8-K",
+      "20-F",
+      "20-F/A",
+      "EX-99.1",
+      "Item 1.03",
+      "Item 2.04",
+      "Item 5.02",
+      "Item 7.01",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "filingType": "6-K, 6-K/A, 8-K, 20-F, 20-F/A, EX-99.1, Item 1.03, Item 2.04, Item 5.02, Item 7.01, Item 8.01, Item 9.01",
+    "cik": "1705012",
+    "skipReason": "",
+    "alertType": null,
+    "recordedAt": "2026-01-27T11:23:20.302Z",
+    "recordId": "FAT-1769513000302",
+    "expiresAt": "2026-02-01T11:23:20.302Z",
+    "direction": "SHORT",
+    "highest5Day": 0.1795,
+    "highest5DayPercent": 54.2,
+    "lowest5Day": 0.1626,
+    "lowest5DayPercent": 58.52
+  },
+  {
+    "ticker": "TWNP",
+    "title": "8-K - Twin Hospitality Group Inc. (0002011954) (Filer)",
+    "companyName": "Twin Hospitality Group Inc.",
+    "filerName": null,
+    "price": 0.5308,
+    "wa": "0.29",
+    "signalScore": 0.56,
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "soBonus": 1.2,
+    "volume": 60726,
+    "averageVolume": 591603,
+    "float": 2621500,
+    "sharesOutstanding": 54455856,
+    "soRatio": "4.81%",
+    "marketCap": 30428564,
+    "isShort": true,
+    "ftd": 163917,
+    "ftdPercent": "6.25",
+    "intent": "Credit Default, Financing Events, Executive Departure Non-Planned",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Texas",
+    "filingDate": "2026-01-27",
+    "signals": {
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Financing Events": [
+        "Capital Structure"
+      ],
+      "Executive Departure Non-Planned": [
+        "Departure Of Directors"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "6-K/A",
+      "8-K",
+      "20-F",
+      "20-F/A",
+      "EX-99.1",
+      "Item 1.03",
+      "Item 2.04",
+      "Item 5.02",
+      "Item 7.01",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "filingType": "6-K, 6-K/A, 8-K, 20-F, 20-F/A, EX-99.1, Item 1.03, Item 2.04, Item 5.02, Item 7.01, Item 8.01, Item 9.01",
+    "cik": "2011954",
+    "skipReason": "",
+    "alertType": null,
+    "recordedAt": "2026-01-27T11:26:59.164Z",
+    "recordId": "TWNP-1769513219164",
+    "expiresAt": "2026-02-01T11:26:59.164Z",
+    "direction": "SHORT",
+    "highest5Day": 0.2521,
+    "highest5DayPercent": 52.5,
+    "lowest5Day": 0.0711,
+    "lowest5DayPercent": 86.61
+  },
+  {
+    "ticker": "CNL",
+    "title": "6-K - Collective Mining Ltd. (0001953575) (Filer)",
+    "companyName": "Collective Mining Ltd.",
+    "filerName": null,
+    "price": 16.78,
+    "wa": "13.58",
+    "signalScore": 0.58,
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "soBonus": 1.05,
+    "volume": 95945,
+    "averageVolume": 59085,
+    "float": 45940500,
+    "sharesOutstanding": 92264749,
+    "soRatio": "49.79%",
+    "marketCap": 1551043584,
+    "isShort": false,
+    "ftd": 2946,
+    "ftdPercent": "0.01",
+    "intent": "FDA Approved, Capital Raise, Mining Operations",
+    "incorporated": "Ottawa, Canada",
+    "located": "Canada (Federal Level)",
+    "filingDate": "2026-01-27",
+    "signals": {
+      "FDA Approved": [
+        "Approves"
+      ],
+      "Capital Raise": [
+        "Strategic Investor"
+      ],
+      "Mining Operations": [
+        "Mining Operation"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "F-3",
+      "FWG",
+      "20-F",
+      "EX-99.1"
+    ],
+    "filingType": "6-K, F-3, FWG, 20-F, EX-99.1",
+    "cik": "1953575",
+    "skipReason": "",
+    "alertType": null,
+    "recordedAt": "2026-01-27T12:06:10.278Z",
+    "recordId": "CNL-1769515570279",
+    "expiresAt": "2026-02-01T12:06:10.279Z",
+    "direction": "LONG",
+    "highest5Day": 17.115,
+    "highest5DayPercent": 2
+  },
+  {
+    "ticker": "NTLA",
+    "title": "8-K - Intellia Therapeutics, Inc. (0001652130) (Filer)",
+    "companyName": "Intellia Therapeutics, Inc.",
+    "filerName": null,
+    "price": 13.95,
+    "wa": "10.47",
+    "signalScore": 0.36,
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.1,
+    "filingTimeBonus": 1.1,
+    "soBonus": 1,
+    "volume": 6409144,
+    "averageVolume": 6373178,
+    "float": 110020000,
+    "sharesOutstanding": 115829926,
+    "soRatio": "94.98%",
+    "marketCap": 1615827456,
+    "isShort": false,
+    "ftd": 20851,
+    "ftdPercent": "0.02",
+    "intent": "Clinical Success, Clinical Milestone",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Massachusetts",
+    "filingDate": "2026-01-27",
+    "signals": {
+      "Clinical Success": [
+        "Phase 1",
+        "Phase 3",
+        "Efficacy"
+      ],
+      "Clinical Milestone": [
+        "Investigational New Drug",
+        "Patient Enrollment"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-99.1",
+      "Item 7.01",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-99.1, Item 7.01, Item 8.01, Item 9.01",
+    "cik": "1652130",
+    "skipReason": "",
+    "alertType": null,
+    "recordedAt": "2026-01-27T13:19:48.566Z",
+    "recordId": "NTLA-1769519988566",
+    "expiresAt": "2026-02-01T13:19:48.566Z",
+    "direction": "LONG",
+    "highest5Day": 14.14,
+    "highest5DayPercent": 1.36
+  },
+  {
+    "ticker": "OM",
+    "title": "8-K - Outset Medical, Inc. (0001484612) (Filer)",
+    "companyName": "Outset Medical, Inc.",
+    "filerName": null,
+    "price": 4.97,
+    "wa": "3.00",
+    "signalScore": 0.37,
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "soBonus": 1,
+    "volume": 255597,
+    "averageVolume": 989757,
+    "float": 10342500,
+    "sharesOutstanding": 18153090,
+    "soRatio": "56.97%",
+    "marketCap": 90220856,
+    "isShort": true,
+    "ftd": 14499,
+    "ftdPercent": "0.14",
+    "intent": "FDA Approved, ADR Regulation Risk",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-01-27",
+    "signals": {
+      "FDA Approved": [
+        "FDA Clearance"
+      ],
+      "ADR Regulation Risk": [
+        "Subject To Risks"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "F-4",
+      "EX-99.1",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, F-4, EX-99.1, Item 8.01, Item 9.01",
+    "cik": "1484612",
+    "skipReason": "",
+    "alertType": null,
+    "recordedAt": "2026-01-27T14:11:19.063Z",
+    "recordId": "OM-1769523079063",
+    "expiresAt": "2026-02-01T14:11:19.063Z",
+    "direction": "LONG",
+    "highest5Day": 4.97,
+    "highest5DayPercent": 0
+  },
+  {
+    "ticker": "CBU",
+    "title": "8-K - COMMUNITY FINANCIAL SYSTEM, INC. (0000723188) (Filer)",
+    "companyName": "COMMUNITY FINANCIAL SYSTEM, INC.",
+    "filerName": null,
+    "price": 61.77,
+    "wa": "47.91",
+    "signalScore": 1,
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "soBonus": 1.2,
+    "volume": 282734,
+    "averageVolume": 230070,
+    "float": 52959,
+    "sharesOutstanding": 52661489,
+    "soRatio": "0.10%",
+    "marketCap": 3264981760,
+    "isShort": true,
+    "ftd": 50,
+    "ftdPercent": "0.09",
+    "intent": "Revenue Growth, Share Consolidation, Stock Buyback, Dividend Raise",
+    "incorporated": "Wilmington, Delaware",
+    "located": "New York",
+    "filingDate": "2026-01-27",
+    "signals": {
+      "Revenue Growth": [
+        "Organic Growth"
+      ],
+      "Share Consolidation": [
+        "Consolidation"
+      ],
+      "Stock Buyback": [
+        "Repurchase Program"
+      ],
+      "Dividend Raise": [
+        "Dividend Increase"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {
+      "signals": [
+        "High Leverage - Debt/Equity Exceeds 3.0"
+      ],
+      "severity": 0.75,
+      "isDeterministic": true
+    },
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-99.1",
+      "Item 2.02",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-99.1, Item 2.02, Item 9.01",
+    "cik": "723188",
+    "skipReason": "",
+    "alertType": null,
+    "recordedAt": "2026-01-27T14:18:32.145Z",
+    "recordId": "CBU-1769523512145",
+    "expiresAt": "2026-02-01T14:18:32.145Z",
+    "direction": "LONG",
+    "highest5Day": 61.77,
+    "highest5DayPercent": 0
+  },
+  {
+    "ticker": "ANEB",
+    "title": "8-K - Anebulo Pharmaceuticals, Inc. (0001815974) (Filer)",
+    "companyName": "Anebulo Pharmaceuticals, Inc.",
+    "filerName": null,
+    "price": 1.08,
+    "wa": "0.70",
+    "signalScore": 0.43,
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "soBonus": 1.15,
+    "volume": 26570,
+    "averageVolume": 61614,
+    "float": 4897188,
+    "sharesOutstanding": 41084731,
+    "soRatio": "11.92%",
+    "marketCap": 44371512,
+    "isShort": true,
+    "ftd": 10958,
+    "ftdPercent": "0.22",
+    "intent": "Clinical Success, Capital Raise, ADR Regulation Risk",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Texas",
+    "filingDate": "2026-01-27",
+    "signals": {
+      "Clinical Success": [
+        "Phase 1",
+        "Phase 2",
+        "Phase 3"
+      ],
+      "Capital Raise": [
+        "Oversubscribed"
+      ],
+      "ADR Regulation Risk": [
+        "Subject To Risks"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "6-K/A",
+      "8-K",
+      "20-F",
+      "20-F/A",
+      "EX-99.1",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "filingType": "6-K, 6-K/A, 8-K, 20-F, 20-F/A, EX-99.1, Item 8.01, Item 9.01",
+    "cik": "1815974",
+    "skipReason": "",
+    "alertType": null,
+    "recordedAt": "2026-01-27T14:25:18.060Z",
+    "recordId": "ANEB-1769523918060",
+    "expiresAt": "2026-02-01T14:25:18.060Z",
+    "direction": "LONG",
+    "highest5Day": 1.08,
+    "highest5DayPercent": 0
+  },
+  {
+    "ticker": "OSRH",
+    "title": "8-K - OSR Holdings, Inc. (0001840425) (Filer)",
+    "companyName": "OSR Holdings, Inc.",
+    "filerName": null,
+    "price": 0.72,
+    "wa": "0.41",
+    "signalScore": 0.63,
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "soBonus": 1.05,
+    "volume": 809052,
+    "averageVolume": 5278213,
+    "float": 7850482,
+    "sharesOutstanding": 25672788,
+    "soRatio": "30.58%",
+    "marketCap": 18484408,
+    "isShort": true,
+    "ftd": 205124,
+    "ftdPercent": "2.61",
+    "intent": "Underwritten Offering, Asset Disposition",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Washington",
+    "filingDate": "2026-01-27",
+    "signals": {
+      "Underwritten Offering": [
+        "IPO"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "6-K/A",
+      "8-K",
+      "F-4",
+      "20-F",
+      "20-F/A",
+      "EX-99.1",
+      "Item 2.01",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "filingType": "6-K, 6-K/A, 8-K, F-4, 20-F, 20-F/A, EX-99.1, Item 2.01, Item 7.01, Item 9.01",
+    "cik": "1840425",
+    "skipReason": "",
+    "alertType": null,
+    "recordedAt": "2026-01-27T14:27:27.644Z",
+    "recordId": "OSRH-1769524047644",
+    "expiresAt": "2026-02-01T14:27:27.644Z",
+    "direction": "SHORT",
+    "highest5Day": 0.6189,
+    "highest5DayPercent": -14.04,
+    "lowest5Day": 0.4926,
+    "lowest5DayPercent": 31.58
+  },
+  {
+    "ticker": "HLEO",
+    "title": "8-K - Helio Corp /FL/ (0001953988) (Filer)",
+    "companyName": "Helio Corp /FL/",
+    "filerName": null,
+    "price": 1.28,
+    "wa": "0.87",
+    "signalScore": 0.5,
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "soBonus": 1.15,
+    "volume": 20879,
+    "averageVolume": 36073,
+    "float": 2565322,
+    "sharesOutstanding": 23095425,
+    "soRatio": "11.11%",
+    "marketCap": 29562142,
+    "isShort": true,
+    "ftd": false,
+    "ftdPercent": null,
+    "intent": "Compensation Dilution, Share Consolidation, Executive Departure Non-Planned",
+    "incorporated": "Florida",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-01-27",
+    "signals": {
+      "Compensation Dilution": [
+        "Equity Compensation"
+      ],
+      "Share Consolidation": [
+        "Shareholder Vote"
+      ],
+      "Executive Departure Non-Planned": [
+        "Departure Of Directors"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "6-K/A",
+      "8-K",
+      "S-1",
+      "20-F",
+      "20-F/A",
+      "EX-99.1",
+      "EX-99.2",
+      "EX-10.1",
+      "Item 5.02",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "filingType": "6-K, 6-K/A, 8-K, S-1, 20-F, 20-F/A, EX-99.1, EX-99.2, EX-10.1, Item 5.02, Item 7.01, Item 9.01",
+    "cik": "1953988",
+    "skipReason": "",
+    "alertType": null,
+    "recordedAt": "2026-01-27T21:59:40.336Z",
+    "recordId": "HLEO-1769551180336",
+    "expiresAt": "2026-02-01T21:59:40.336Z",
+    "direction": "SHORT",
+    "highest5Day": 1.28,
+    "highest5DayPercent": 0,
+    "lowest5Day": 1.28,
+    "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "GP",
+    "title": "6-K - GREENPOWER MOTOR Co INC. (0001584547) (Filer)",
+    "companyName": "GREENPOWER MOTOR Co INC.",
+    "filerName": null,
+    "price": 0.8926,
+    "wa": "0.46",
+    "signalScore": 0.31,
+    "hasTuesdayBonus": false,
+    "custodianControl": false,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "soBonus": 1,
+    "volume": 32250,
+    "averageVolume": 1439463,
+    "float": 6539207,
+    "sharesOutstanding": 3077483,
+    "soRatio": "212.5%",
+    "marketCap": 2767375,
+    "isShort": true,
+    "ftd": 9369,
+    "ftdPercent": "0.14",
+    "intent": "Asset Disposition, Financing Events",
+    "incorporated": "Toronto, Canada",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-01-29",
+    "signals": {
+      "Asset Disposition": [
+        "Disposed"
+      ],
+      "Financing Events": [
+        "Capital Structure"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "S-8",
+      "F-3",
+      "20-F",
+      "EX-99.1"
+    ],
+    "filingType": "6-K, S-8, F-3, 20-F, EX-99.1",
+    "cik": "1584547",
+    "skipReason": "",
+    "alertType": null,
+    "recordedAt": "2026-01-29T17:11:27.594Z",
+    "recordId": "GP-1769706687594",
+    "expiresAt": "2026-02-03T17:11:27.594Z",
+    "direction": "LONG",
+    "highest5Day": 1.0594,
+    "highest5DayPercent": 18.69
+  },
+  {
+    "ticker": "ACDC",
+    "title": "8-K - ProFrac Holding Corp. (0001881487) (Filer)",
+    "companyName": "ProFrac Holding Corp.",
+    "filerName": null,
+    "sector": "Energy",
+    "price": 5.43,
+    "fav": "30.28",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Texas (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 1538911,
+    "averageVolume": 1082991,
+    "float": 32797400,
+    "sharesOutstanding": 180871183,
+    "soRatio": "18.13%",
+    "marketCap": 982130496,
+    "isShort": true,
+    "ftd": 59683,
+    "ftdPercent": "0.18",
+    "intent": "Merger/Acquisition, Activist 13D Filing, Bankruptcy Filing, Credit Default, Asset Disposition",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Texas",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "Merger/Acquisition": [
+        "Acquisition Agreement",
+        "Acquisition Closing",
+        "Material Definitive Agreement"
+      ],
+      "Activist 13D Filing": [
+        "Beneficial Ownership"
+      ],
+      "Bankruptcy Filing": [
+        "Insolvency Proceedings"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-10.1",
+      "Item 1.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-10.1, Item 1.01, Item 9.01",
+    "cik": "1881487",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Distressed)",
+    "deterministicMechanism": "Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.",
+    "deterministicPhrase": "[Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.]",
+    "recordedAt": "2026-03-09T20:02:12.508Z",
+    "recordId": "ACDC-1773086532508",
+    "expiresAt": "2026-03-14T20:02:12.509Z",
+    "direction": "SHORT",
+    "highest5Day": 5.43,
+    "highest5DayPercent": 0,
+    "lowest5Day": 5.43,
     "lowest5DayPercent": 0
   }
 ]
