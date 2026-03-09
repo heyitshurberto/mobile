@@ -2899,5 +2899,82 @@
     "highest5DayPercent": 0,
     "lowest5Day": 55.02,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "EVTV",
+    "title": "8-K - Envirotech Vehicles, Inc. (0001563568) (Filer)",
+    "companyName": "Envirotech Vehicles, Inc.",
+    "filerName": null,
+    "sector": "Automobiles",
+    "price": 1.26,
+    "fav": "0.33",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 449183,
+    "averageVolume": 29858294,
+    "float": 10000000,
+    "sharesOutstanding": 4829515,
+    "soRatio": "207.1%",
+    "marketCap": 6085189,
+    "isShort": true,
+    "ftd": 409718,
+    "ftdPercent": "4.10",
+    "intent": "Merger/Acquisition, Convertible Debt, Activist 13D Filing, Credit Default, Reverse Split Event, Partnership",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Convertible Debt": [
+        "Convertible Securities"
+      ],
+      "Activist 13D Filing": [
+        "Beneficial Ownership"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Reverse Split Event": [
+        "Reverse Stock Split"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": "1-for-985",
+    "reverseSplitReason": "Nasdaq minimum bid price requirement",
+    "formType": [
+      "8-K",
+      "13D",
+      "EX-4.1",
+      "EX-4.2",
+      "Item 1.01",
+      "Item 2.03",
+      "Item 3.02",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, 13D, EX-4.1, EX-4.2, Item 1.01, Item 2.03, Item 3.02, Item 9.01",
+    "cik": "1563568",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Credit Default (Covenant Breach)",
+    "deterministicMechanism": "Company in covenant breach with lenders = dilutive financing at distressed terms. Lenders have leverage.",
+    "deterministicPhrase": "[Company in covenant breach with lenders = dilutive financing at distressed terms. Lenders have leverage.]",
+    "recordedAt": "2026-03-09T20:26:34.998Z",
+    "recordId": "EVTV-1773087994998",
+    "expiresAt": "2026-03-14T20:26:34.998Z",
+    "direction": "SHORT",
+    "highest5Day": 1.26,
+    "highest5DayPercent": 0,
+    "lowest5Day": 1.26,
+    "lowest5DayPercent": 0
   }
 ]
