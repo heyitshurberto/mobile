@@ -928,5 +928,73 @@
     "direction": "LONG",
     "highest5Day": 0.53,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "MBX",
+    "title": "8-K - MBX Biosciences, Inc. (0001776111) (Filer)",
+    "companyName": "MBX Biosciences, Inc.",
+    "filerName": null,
+    "sector": "Pharmaceuticals",
+    "price": 30.55,
+    "fav": "20.47",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Indiana (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.1,
+    "filingTimeBonus": 1.1,
+    "volume": 591573,
+    "averageVolume": 713742,
+    "float": 14609972,
+    "sharesOutstanding": 44902302,
+    "soRatio": "32.54%",
+    "marketCap": 1371765376,
+    "isShort": false,
+    "ftd": 1107,
+    "ftdPercent": "0.01",
+    "intent": "FDA Filing, Clinical Success, Clinical Milestone",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Indiana",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "FDA Filing": [
+        "NDA Submission"
+      ],
+      "Clinical Success": [
+        "Phase 1",
+        "Phase 2",
+        "Phase 3",
+        "Efficacy",
+        "Primary Endpoint"
+      ],
+      "Clinical Milestone": [
+        "First Patient"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "13G",
+      "EX-99.1",
+      "Item 7.01",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, 13G, EX-99.1, Item 7.01, Item 8.01, Item 9.01",
+    "cik": "1776111",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-03-09T12:04:08.672Z",
+    "recordId": "MBX-1773057848672",
+    "expiresAt": "2026-03-14T12:04:08.672Z",
+    "direction": "LONG",
+    "highest5Day": 30.55,
+    "highest5DayPercent": 0
   }
 ]
