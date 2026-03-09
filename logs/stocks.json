@@ -2425,5 +2425,66 @@
     "highest5DayPercent": 0,
     "lowest5Day": 5.43,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "DRTS",
+    "title": "6-K - Alpha Tau Medical Ltd. (0001871321) (Filer)",
+    "companyName": "Alpha Tau Medical Ltd.",
+    "filerName": null,
+    "sector": "Health Care",
+    "price": 6.71,
+    "fav": "172.16",
+    "hasTuesdayBonus": true,
+    "custodianControl": false,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 348717,
+    "averageVolume": 360816,
+    "float": 62116800,
+    "sharesOutstanding": 85264146,
+    "soRatio": "72.85%",
+    "marketCap": 572122432,
+    "isShort": false,
+    "ftd": 137858,
+    "ftdPercent": "0.22",
+    "intent": "FDA Approved, Clinical Milestone",
+    "incorporated": "Tel Aviv, Israel",
+    "located": "Tel Aviv, Israel",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "FDA Approved": [
+        "FDA Approval",
+        "FDA approval"
+      ],
+      "Clinical Milestone": [
+        "First Patient"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "S-8",
+      "F-3",
+      "20-F",
+      "EX-99.1"
+    ],
+    "filingType": "6-K, S-8, F-3, 20-F, EX-99.1",
+    "cik": "1871321",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-03-09T20:04:22.071Z",
+    "recordId": "DRTS-1773086662071",
+    "expiresAt": "2026-03-14T20:04:22.071Z",
+    "direction": "LONG",
+    "highest5Day": 6.71,
+    "highest5DayPercent": 0
   }
 ]
