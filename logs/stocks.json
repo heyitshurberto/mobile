@@ -365,5 +365,78 @@
     "highest5DayPercent": 0,
     "lowest5Day": 4.45,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "KLRS",
+    "title": "8-K - Kalaris Therapeutics, Inc. (0001754068) (Filer)",
+    "companyName": "Kalaris Therapeutics, Inc.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 9.82,
+    "fav": "18.24",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "New Jersey (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 41326,
+    "averageVolume": 100188,
+    "float": 1827000,
+    "sharesOutstanding": 18702418,
+    "soRatio": "9.77%",
+    "marketCap": 183657744,
+    "isShort": false,
+    "ftd": 3761,
+    "ftdPercent": "0.21",
+    "intent": "FDA Approved, Clinical Success, Clinical Milestone, Capital Raise",
+    "incorporated": "Wilmington, Delaware",
+    "located": "New Jersey",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "FDA Approved": [
+        "FDA Approval",
+        "FDA approved",
+        "FDA approval"
+      ],
+      "Clinical Success": [
+        "Phase 1",
+        "Phase 2",
+        "Phase 3",
+        "Efficacy"
+      ],
+      "Clinical Milestone": [
+        "Trial Initiation",
+        "Patient Dosed"
+      ],
+      "Capital Raise": [
+        "Oversubscribed"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "8-K",
+      "S-1",
+      "EX-99.1",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "filingType": "6-K, 8-K, S-1, EX-99.1, Item 7.01, Item 9.01",
+    "cik": "1754068",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Clinical Success / Milestone",
+    "deterministicMechanism": "Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.",
+    "deterministicPhrase": "[Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.]",
+    "recordedAt": "2026-03-09T11:16:40.778Z",
+    "recordId": "KLRS-1773055000778",
+    "expiresAt": "2026-03-14T11:16:40.779Z",
+    "direction": "LONG",
+    "highest5Day": 9.82,
+    "highest5DayPercent": 0
   }
 ]
