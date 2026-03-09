@@ -667,5 +667,84 @@
     "highest5DayPercent": 0,
     "lowest5Day": 41.94,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "CRBP",
+    "title": "8-K - Corbus Pharmaceuticals Holdings, Inc. (0001595097) (Filer)",
+    "companyName": "Corbus Pharmaceuticals Holdings, Inc.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 8.01,
+    "fav": "36.25",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Massachusetts (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 164997,
+    "averageVolume": 275883,
+    "float": 10000000,
+    "sharesOutstanding": 17553037,
+    "soRatio": "56.97%",
+    "marketCap": 140599824,
+    "isShort": false,
+    "ftd": 2248,
+    "ftdPercent": "0.02",
+    "intent": "FDA Breakthrough, Clinical Success, Clinical Milestone",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Massachusetts",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "FDA Breakthrough": [
+        "Fast Track Designation"
+      ],
+      "Clinical Success": [
+        "Phase 1",
+        "Phase 2",
+        "Phase 3",
+        "Trial Results",
+        "Efficacy",
+        "Safety Profile",
+        "Favorable Safety"
+      ],
+      "Clinical Milestone": [
+        "Patient Dosed",
+        "First Dose",
+        "Dose Escalation"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {
+      "signals": [
+        "High Leverage - Debt/Equity Exceeds 3.0"
+      ],
+      "severity": 0.75,
+      "isDeterministic": true
+    },
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "F-1",
+      "EX-99.1",
+      "EX-99.2",
+      "Item 2.02",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, F-1, EX-99.1, EX-99.2, Item 2.02, Item 7.01, Item 9.01",
+    "cik": "1595097",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-03-09T11:44:10.090Z",
+    "recordId": "CRBP-1773056650090",
+    "expiresAt": "2026-03-14T11:44:10.090Z",
+    "direction": "LONG",
+    "highest5Day": 8.01,
+    "highest5DayPercent": 0
   }
 ]
