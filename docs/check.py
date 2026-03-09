@@ -622,7 +622,7 @@ def main():
     
     print(f"\nAlerts ({len(tickers)})")
     print("-" * 180)
-    print(f"{'Ticker':<8} {'Alert':<10} {'Current':<10} {'Peak':<10} {'Change':<10} {'Inc':<12} {'Ops':<12} {'S/O %':<8} {'Filed':<19} {'Reason'}")
+    print(f"{'Ticker':<8} {'Alert':<10} {'Current':<10} {'Peak':<10} {'Change':<10} {'Inc':<12} {'Ops':<12} {'Float':<12} {'S/O %':<8} {'Filed':<19} {'Reason'}")
     print("-" * 180)
     
     total_move = 0
@@ -715,7 +715,8 @@ def main():
         
         alert_str = f"${alert_price:.2f}"
         so_ratio = ticker_rows[0].get('S/O Ratio', 'N/A')
-        print(f"{ticker:<8} {alert_str:<10} {current_str:<10} {peak_str:<10} {move_str:<10} {incorporated:<12} {located:<12} {so_ratio:<8} {filed_display:<19} {skip_reason}")
+        float_val = ticker_rows[0].get('Float', 'N/A')
+        print(f"{ticker:<8} {alert_str:<10} {current_str:<10} {peak_str:<10} {move_str:<10} {incorporated:<12} {located:<12} {str(float_val):<12} {str(so_ratio):<8} {filed_display:<19} {skip_reason}")
     
     print("-" * 180)
     avg_move = total_move / count if count > 0 else 0
