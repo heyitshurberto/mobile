@@ -1071,5 +1071,78 @@
     "direction": "SHORT",
     "highest5Day": 19.09,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "ALOY",
+    "title": "8-K - REALLOYS INC. (0001567900) (Filer)",
+    "companyName": "REALLOYS INC.",
+    "filerName": null,
+    "sector": "Technology",
+    "price": 17.5,
+    "fav": "8.01",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Florida (via Nevada)",
+    "filingTimeMultiplier": 1.15,
+    "filingTimeBonus": 1.15,
+    "volume": 3407078,
+    "averageVolume": 337276,
+    "float": 2702702,
+    "sharesOutstanding": 57111167,
+    "soRatio": "4.73%",
+    "marketCap": 999445440,
+    "isShort": true,
+    "ftd": false,
+    "ftdPercent": null,
+    "intent": "Merger/Acquisition, Credit Default, Accounting Restatement, Asset Disposition, Partnership",
+    "incorporated": "Nevada",
+    "located": "Florida",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "Merger/Acquisition": [
+        "Merger Agreement",
+        "Material Definitive Agreement"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Accounting Restatement": [
+        "Material Weakness"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture",
+        "Partnership Agreement"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "S-3",
+      "S-8",
+      "EX-1.1",
+      "Item 1.01",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, S-3, S-8, EX-1.1, Item 1.01, Item 7.01, Item 9.01",
+    "cik": "1567900",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-09T12:58:18.061Z",
+    "recordId": "ALOY-1773061098061",
+    "expiresAt": "2026-03-14T12:58:18.061Z",
+    "direction": "SHORT",
+    "highest5Day": 17.5,
+    "highest5DayPercent": 0
   }
 ]
