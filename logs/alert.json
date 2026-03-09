@@ -2192,5 +2192,86 @@
     "direction": "SHORT",
     "highest5Day": 1.37,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "OPAL",
+    "title": "8-K - OPAL Fuels Inc. (0001842279) (Filer)",
+    "companyName": "OPAL Fuels Inc.",
+    "filerName": null,
+    "sector": "Energy",
+    "price": 2.12,
+    "fav": "10.93",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Massachusetts (via Cayman Islands)",
+    "filingTimeMultiplier": 1.15,
+    "filingTimeBonus": 1.15,
+    "volume": 158349,
+    "averageVolume": 274425,
+    "float": 3000000,
+    "sharesOutstanding": 28996177,
+    "soRatio": "10.35%",
+    "marketCap": 367597824,
+    "isShort": true,
+    "ftd": 416,
+    "ftdPercent": "0.01",
+    "intent": "Merger/Acquisition, Credit Default, Reverse Split Event, DTC Eligible Restored, Warrant Redemption, Asset Disposition, Partnership",
+    "incorporated": "Cayman Islands",
+    "located": "Massachusetts",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Reverse Split Event": [
+        "Reverse Stock Split"
+      ],
+      "DTC Eligible Restored": [
+        "DTC Eligible"
+      ],
+      "Warrant Redemption": [
+        "Warrant Exercised"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ]
+    },
+    "bonusSignals": {
+      "DTC Chill Lift": "DTC_CHILL_LIFT"
+    },
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-3.1",
+      "EX-4.1",
+      "Item 1.01",
+      "Item 2.03",
+      "Item 3.02",
+      "Item 5.03",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-3.1, EX-4.1, Item 1.01, Item 2.03, Item 3.02, Item 5.03, Item 7.01, Item 9.01",
+    "cik": "1842279",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-09T21:24:48.144Z",
+    "recordId": "OPAL-1773091488144",
+    "expiresAt": "2026-03-14T21:24:48.144Z",
+    "direction": "SHORT",
+    "highest5Day": 2.12,
+    "highest5DayPercent": 0
   }
 ]

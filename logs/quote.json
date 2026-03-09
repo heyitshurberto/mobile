@@ -519,6 +519,23 @@
     "performance": 0,
     "date": "2026-03-09T21:07:14.726Z",
     "alertDate": "2026-03-09T21:07:14.726Z",
+    "reverseSplitRatio": null,
+    "volume": 13756,
+    "averageVolume": 78794,
+    "marketCap": 2382369
+  },
+  "OPAL": {
+    "short": false,
+    "alert": 2.12,
+    "highest": 2.12,
+    "lowest": 2.12,
+    "highest5Day": 2.12,
+    "highest5DayPercent": 0,
+    "current": 2.12,
+    "currentPrice": 2.12,
+    "performance": 0,
+    "date": "2026-03-09T21:24:48.193Z",
+    "alertDate": "2026-03-09T21:24:48.193Z",
     "reverseSplitRatio": null
   }
 }
