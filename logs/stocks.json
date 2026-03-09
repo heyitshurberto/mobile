@@ -218,5 +218,69 @@
     "direction": "LONG",
     "highest5Day": 3.5,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "BOLD",
+    "title": "8-K - Boundless Bio, Inc. (0001782303) (Filer)",
+    "companyName": "Boundless Bio, Inc.",
+    "filerName": "dei_EntityAddressAddressLine1 Namespace Prefix: dei_ Data Type: xbrli:normalizedStringIt",
+    "sector": "Biotechnology",
+    "price": 1.13,
+    "fav": "126.81",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 51393,
+    "averageVolume": 128825,
+    "float": 16336162,
+    "sharesOutstanding": 22385611,
+    "soRatio": "72.98%",
+    "marketCap": 25295742,
+    "isShort": false,
+    "ftd": 27162,
+    "ftdPercent": "0.17",
+    "intent": "Clinical Success, Clinical Milestone",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "Clinical Success": [
+        "Phase 1",
+        "Efficacy"
+      ],
+      "Clinical Milestone": [
+        "Investigational New Drug"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "8-K",
+      "S-4",
+      "Form D",
+      "EX-99.1",
+      "Item 2.02",
+      "Item 5.02",
+      "Item 9.01"
+    ],
+    "filingType": "6-K, 8-K, S-4, Form D, EX-99.1, Item 2.02, Item 5.02, Item 9.01",
+    "cik": "1782303",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-03-09T11:06:26.119Z",
+    "recordId": "BOLD-1773054386119",
+    "expiresAt": "2026-03-14T11:06:26.119Z",
+    "direction": "LONG",
+    "highest5Day": 1.13,
+    "highest5DayPercent": 0
   }
 ]
