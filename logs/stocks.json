@@ -2764,5 +2764,72 @@
     "direction": "LONG",
     "highest5Day": 10.37,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "HPE",
+    "title": "8-K - Hewlett Packard Enterprise Co (0001645590) (Filer)",
+    "companyName": "Hewlett Packard Enterprise Co",
+    "filerName": null,
+    "sector": "Technology",
+    "price": 21.82,
+    "fav": "70.43",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Texas (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 26286150,
+    "averageVolume": 18855194,
+    "float": 1327994000,
+    "sharesOutstanding": 1328808444,
+    "soRatio": "99.94%",
+    "marketCap": 29119512576,
+    "isShort": false,
+    "ftd": 134286,
+    "ftdPercent": "0.01",
+    "intent": "Clinical Success, Asset Disposition",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Texas",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "Clinical Success": [
+        "Efficacy"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {
+      "signals": [
+        "High Leverage - Debt/Equity Exceeds 3.0"
+      ],
+      "severity": 0.75,
+      "isDeterministic": true
+    },
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "Form D",
+      "EX-99.1",
+      "Item 2.02",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, Form D, EX-99.1, Item 2.02, Item 7.01, Item 9.01",
+    "cik": "1645590",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-09T20:09:25.852Z",
+    "recordId": "HPE-1773086965853",
+    "expiresAt": "2026-03-14T20:09:25.853Z",
+    "direction": "LONG",
+    "highest5Day": 21.82,
+    "highest5DayPercent": 0
   }
 ]

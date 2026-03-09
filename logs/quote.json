@@ -414,5 +414,19 @@
     "date": "2026-03-09T20:07:13.120Z",
     "alertDate": "2026-03-09T20:07:13.120Z",
     "reverseSplitRatio": null
+  },
+  "HPE": {
+    "short": false,
+    "alert": 21.82,
+    "highest": 21.82,
+    "lowest": 21.82,
+    "highest5Day": 21.82,
+    "highest5DayPercent": 0,
+    "current": 21.82,
+    "currentPrice": 21.82,
+    "performance": 0,
+    "date": "2026-03-09T20:09:25.985Z",
+    "alertDate": "2026-03-09T20:09:25.985Z",
+    "reverseSplitRatio": null
   }
 }
