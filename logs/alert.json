@@ -1768,5 +1768,72 @@
     "direction": "SHORT",
     "highest5Day": 9.12,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "DSGN",
+    "title": "8-K - Design Therapeutics, Inc. (0001807120) (Filer)",
+    "companyName": "Design Therapeutics, Inc.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 10.37,
+    "fav": "74.55",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 159946,
+    "averageVolume": 329667,
+    "float": 24576400,
+    "sharesOutstanding": 56963757,
+    "soRatio": "43.14%",
+    "marketCap": 590714112,
+    "isShort": false,
+    "ftd": false,
+    "ftdPercent": null,
+    "intent": "Clinical Success, Clinical Milestone",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "Clinical Success": [
+        "Phase 1",
+        "Phase 2",
+        "Efficacy",
+        "Biomarker"
+      ],
+      "Clinical Milestone": [
+        "Patient Enrollment"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "8-K",
+      "S-4",
+      "F-1",
+      "13G",
+      "13D",
+      "EX-99.1",
+      "Item 2.02",
+      "Item 9.01"
+    ],
+    "filingType": "6-K, 8-K, S-4, F-1, 13G, 13D, EX-99.1, Item 2.02, Item 9.01",
+    "cik": "1807120",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-03-09T20:07:12.888Z",
+    "recordId": "DSGN-1773086832888",
+    "expiresAt": "2026-03-14T20:07:12.888Z",
+    "direction": "LONG",
+    "highest5Day": 10.37,
+    "highest5DayPercent": 0
   }
 ]
