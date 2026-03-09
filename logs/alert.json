@@ -2116,5 +2116,81 @@
     "direction": "SHORT",
     "highest5Day": 633.21,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "VTAK",
+    "title": "8-K - Catheter Precision, Inc. (0001716621) (Filer)",
+    "companyName": "Catheter Precision, Inc.",
+    "filerName": "Philip Anderson Title: Chief Financial Officer NOTICE OF CONVERSION (TO BE EXECUTED BY THE REGISTERED HOLDER IN OR",
+    "sector": "Health Care",
+    "price": 1.37,
+    "fav": "16.45",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "South Carolina (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.15,
+    "filingTimeBonus": 1.15,
+    "volume": 13756,
+    "averageVolume": 78794,
+    "float": 1295805,
+    "sharesOutstanding": 1738955,
+    "soRatio": "74.52%",
+    "marketCap": 2382369,
+    "isShort": true,
+    "ftd": 49350,
+    "ftdPercent": "3.81",
+    "intent": "Merger/Acquisition, Activist 13D Filing, Credit Default, Reverse Split Event, Asset Disposition, Partnership",
+    "incorporated": "Wilmington, Delaware",
+    "located": "South Carolina",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "Merger/Acquisition": [
+        "Agreed To Acquire",
+        "Material Definitive Agreement"
+      ],
+      "Activist 13D Filing": [
+        "Beneficial Ownership"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Reverse Split Event": [
+        "Reverse Stock Split"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "13D",
+      "EX-3.1",
+      "Item 1.01",
+      "Item 3.02",
+      "Item 3.03",
+      "Item 5.03",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, 13D, EX-3.1, Item 1.01, Item 3.02, Item 3.03, Item 5.03, Item 9.01",
+    "cik": "1716621",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-09T21:07:14.699Z",
+    "recordId": "VTAK-1773090434699",
+    "expiresAt": "2026-03-14T21:07:14.699Z",
+    "direction": "SHORT",
+    "highest5Day": 1.37,
+    "highest5DayPercent": 0
   }
 ]

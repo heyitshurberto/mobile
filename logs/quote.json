@@ -16,7 +16,7 @@
     "lowest": 2.4,
     "current": 2.5,
     "currentPrice": 2.5,
-    "volume": 1620797,
+    "volume": 1621329,
     "averageVolume": 3271242,
     "marketCap": 86358896,
     "performance": -4.21
@@ -60,7 +60,7 @@
     "lowest": 9.77,
     "current": 10,
     "currentPrice": 10,
-    "volume": 44622,
+    "volume": 44725,
     "averageVolume": 100188,
     "marketCap": 187024176,
     "performance": 1.83
@@ -82,7 +82,7 @@
     "lowest": 6.96,
     "current": 7.38,
     "currentPrice": 7.38,
-    "volume": 2856226,
+    "volume": 2878903,
     "averageVolume": 2288472,
     "marketCap": 390749088,
     "performance": -2.89
@@ -104,7 +104,7 @@
     "lowest": 8.01,
     "current": 9.55,
     "currentPrice": 9.55,
-    "volume": 512741,
+    "volume": 512823,
     "averageVolume": 275883,
     "marketCap": 167631504,
     "performance": 19.23
@@ -115,7 +115,7 @@
     "lowest": 2.62,
     "current": 2.88,
     "currentPrice": 2.88,
-    "volume": 1437333,
+    "volume": 1438483,
     "averageVolume": 1184000,
     "marketCap": 231613024,
     "performance": 9.92
@@ -126,7 +126,7 @@
     "lowest": 17.91,
     "current": 17.95,
     "currentPrice": 17.95,
-    "volume": 137743,
+    "volume": 156775,
     "averageVolume": 268215,
     "marketCap": 2198234624,
     "performance": -0.77
@@ -148,7 +148,7 @@
     "lowest": 27.89,
     "current": 27.94,
     "currentPrice": 27.94,
-    "volume": 816189,
+    "volume": 824238,
     "averageVolume": 713742,
     "marketCap": 1254570368,
     "performance": -8.54
@@ -457,7 +457,7 @@
     "lowest": 21.81,
     "current": 21.81,
     "currentPrice": 21.81,
-    "volume": 31672080,
+    "volume": 33842601,
     "averageVolume": 18855194,
     "marketCap": 29106165760,
     "performance": -0.05
@@ -468,7 +468,7 @@
     "lowest": 55.02,
     "current": 55.02,
     "currentPrice": 55.02,
-    "volume": 29291309,
+    "volume": 32374239,
     "averageVolume": 12633750,
     "marketCap": 54264389632,
     "performance": 0
@@ -502,6 +502,23 @@
     "performance": 0,
     "date": "2026-03-09T20:46:19.049Z",
     "alertDate": "2026-03-09T20:46:19.049Z",
+    "reverseSplitRatio": null,
+    "volume": 374347,
+    "averageVolume": 288440,
+    "marketCap": 13984933888
+  },
+  "VTAK": {
+    "short": false,
+    "alert": 1.37,
+    "highest": 1.37,
+    "lowest": 1.37,
+    "highest5Day": 1.37,
+    "highest5DayPercent": 0,
+    "current": 1.37,
+    "currentPrice": 1.37,
+    "performance": 0,
+    "date": "2026-03-09T21:07:14.726Z",
+    "alertDate": "2026-03-09T21:07:14.726Z",
     "reverseSplitRatio": null
   }
 }
