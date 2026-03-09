@@ -33,7 +33,7 @@ const CONFIG = {
   MAX_FLOAT_8K: 125000000,          // Max float size for 8-K 
   MAX_SO_RATIO: 1000.0,              // Max short interest ratio
   ALLOWED_COUNTRIES: ['israel', 'argentina', 'texas', 'china', 'hong kong', 'cayman islands', 'virgin islands', 'greece', 'singapore', 'malaysia', 'australia', 'bermuda', 'ireland', 'canada', 'nevada', 'delaware'], // Allowed incorporation/located countries
-  CTB_WATCHLIST: ['LVROF', 'OLB', 'AGILQ', 'BINI', 'NUWE', 'VEEE', 'ABPO', 'MRNO', 'NEPTF', 'SHPWQ', 'GXAI', 'RUBI', 'SEELQ', 'VHUB', 'IOTR', 'NMHI', 'FOXX', 'AUUD', 'ACCL', 'FABTQ', 'CZOOF', 'GMUN', 'UOKA', 'IONM', 'VIVS'], // High CTB stocks (CTB > 100%, Availability < 100k) - updated daily from IBorrowDesk
+  CTB_WATCHLIST: ['NMHI', 'BINI', 'AGILQ', 'OLB', 'NCI', 'NEPTF', 'DLXY', 'SHPWQ', 'OBAI', 'SEELQ', 'PLYX', 'XTKG', 'IOTR', 'PFSA', 'RUBI', 'XTIA', 'XWEL', 'BATL', 'MLEC', 'IONM', 'GMUN', 'CZOOF', 'FABTQ', 'GXAI', 'VIVS'], // High CTB stocks (CTB > 300%, Availability tracked) - updated from IBorrowDesk Mar 06 2026
   // Enable optimizations for Raspberry Pi devices
   PI_MODE: true,              // Enable Pi optimizations          
   REFRESH_PEAK: 1,            // 10s during trading hours (7am-10am ET)
@@ -631,13 +631,13 @@ const FORM_TYPES = ['6-K', '6-K/A', '8-K', '8-K/A', 'S-1', 'S-3', 'S-4', 'S-8', 
 const SEMANTIC_KEYWORDS = {
 
   // M&A & Structural
-  'Merger/Acquisition': ['Merger Agreement', 'Acquisition Agreement', 'Agreed To Acquire', 'Merger Consideration', 'Premium Valuation', 'Going Private', 'Take Private', 'Acquisition Closing', 'Closing Of Acquisition', 'Completed Acquisition'],
+  'Merger/Acquisition': ['Merger Agreement', 'Acquisition Agreement', 'Agreed To Acquire', 'Merger Consideration', 'Premium Valuation', 'Going Private', 'Take Private', 'Acquisition Closing', 'Closing Of Acquisition', 'Completed Acquisition', 'Definitive Agreement To Be Acquired', 'Material Definitive Agreement', 'Strategic Alternatives', 'Exploring Strategic Alternatives'],
   
   // Biotech FDA (Clinical & Regulatory)
   'FDA Approved': ['FDA Approval', 'FDA Clearance', 'Approval Granted', 'Approval Letter', 'FDA Approves', 'FDA approved', 'FDA approval', 'EMA Approval', 'Post-Market Approval', 'PMA Approval', '510(k) Clearance', 'De Novo Clearance'],
   'FDA Breakthrough': ['Breakthrough Therapy', 'Breakthrough Designation', 'Fast Track Designation', 'Priority Review', 'Priority Status'],
   'FDA Filing': ['NDA Submission', 'NDA Filed', 'BLA Submission', 'BLA Filed', 'IND Application', 'Regulatory Filing'],
-  'Clinical Success': ['Positive Trial Results', 'Phase 3 Success', 'Topline Results Beat', 'Efficacy Demonstrated', 'Safety Profile Met', 'Positive Results', 'Phase 1', 'Phase 2', 'Phase 3', 'Trial Results', 'Efficacy', 'Safety Profile', 'Cohort Results', 'Primary Endpoint', 'Enrollment Complete', 'Data Readout', 'Topline Data', 'Meaningful Improvement', 'Beat Placebo', 'Mechanism Of Action', 'Biomarker', 'Favorable Safety', 'Separation From Placebo', 'Demonstrated Benefit', 'Clinical Benefit', 'Strong Efficacy'],
+  'Clinical Success': ['Positive Trial Results', 'Phase 3 Success', 'Topline Results Beat', 'Efficacy Demonstrated', 'Safety Profile Met', 'Positive Results', 'Phase 1', 'Phase 2', 'Phase 3', 'Trial Results', 'Efficacy', 'Safety Profile', 'Cohort Results', 'Primary Endpoint', 'Enrollment Complete', 'Data Readout', 'Topline Data', 'Meaningful Improvement', 'Beat Placebo', 'Mechanism Of Action', 'Biomarker', 'Favorable Safety', 'Separation From Placebo', 'Demonstrated Benefit', 'Clinical Benefit', 'Strong Efficacy', 'Primary Endpoint Met', 'Statistically Significant', 'Met Primary Endpoint', 'Positive Phase 3', 'Positive Topline Results'],
   'Clinical Milestone': ['Phase Advancement', 'Phase 2 Initiation', 'Phase 3 Initiation', 'Enrollment Opened', 'Enrollment Initiated', 'Trial Initiation', 'Investigational New Drug', 'IND Application', 'NDA Filing', 'PMA Submission', 'Clinical Trial Site', 'Patient Enrollment', 'First Patient', 'Program Initiation', 'Patient Dosed', 'First Dose', 'Dose Escalation', 'Cohort Complete'],
   
   // Capital & Dilution
@@ -647,20 +647,21 @@ const SEMANTIC_KEYWORDS = {
   'Junk Debt': ['Junk Bond Offering'],
   
   // Insider Activity (Real Money)
+  'Activist 13D Filing': ['Schedule 13D', 'SC 13D', 'Beneficial Ownership', '5% Or Greater', 'Principal Stockholder', 'Activist Investor', 'Investor Activist'],
   'Insider Buying': ['Director Purchase', 'Executive Purchase', 'CEO Buying', 'CFO Buying', 'Meaningful Accumulation', 'CEO Purchased', 'Chairman Bought', 'Director Purchased', 'Officer Purchased'],
   'Executive Liquidation': ['Director Sale', 'Officer Sale', 'CEO Selling', 'CFO Selling', 'Massive Liquidation'],
   
   // Distress & Legal
   'Bankruptcy Filing': ['Bankruptcy Protection', 'Chapter 11 Filing', 'Chapter 7 Filing', 'Insolvency Proceedings', 'Creditor Protection'],
   'Credit Default': ['Loan Default', 'Debt Covenant Breach', 'Event Of Default', 'Credit Agreement Violation', 'Covenant Breach', 'Default Event', 'Acceleration Of Debt', 'Mandatory Prepayment'],
-  'Accounting Restatement': ['Financial Restatement', 'Audit Non-Reliance', 'Material Weakness', 'Control Deficiency', 'Audit Adjustment'],
+  'Accounting Restatement': ['Financial Restatement', 'Audit Non-Reliance', 'Material Weakness', 'Control Deficiency', 'Audit Adjustment', 'Non-Reliance On Previously Issued Financial Statements', 'Previously Issued Financial Statements', 'Substantial Doubt About Ability To Continue As A Going Concern', 'Going Concern Uncertainty', 'Substantial Doubt'],
   'Auditor Change': ['Auditor Resigned', 'Audit Firm Changed', 'Auditor Departure', 'Internal Controls Weakness', 'Auditor No Longer', 'Changes Auditor', 'Change Of Auditor'],
   'Material Lawsuit': ['Material Litigation', 'Lawsuit Filed', 'Major Lawsuit', 'SEC Investigation', 'DOJ Investigation'],
   'Regulatory Breach': ['Regulatory Violation', 'FDA Warning', 'Product Recall', 'Safety Recall', 'Warning Letter'],
   
   // Structural Events
   'Going Dark': ['Form 15', 'Deregistration', 'Stop Reporting', 'Cease Reporting', 'Edgar Delisting', 'No Longer Report', 'Deregister', 'Terminate Registration', 'Exit From SEC Reporting', 'Shall No Longer File'],
-  'Nasdaq Delisting': ['Nasdaq Deficiency', 'Listing Standards Warning', 'Nasdaq Notification', 'Delisting Determination', 'Nasdaq Letter', 'Delisting Risk', 'Delisting Threat'],
+  'Nasdaq Delisting': ['Nasdaq Deficiency', 'Listing Standards Warning', 'Nasdaq Notification', 'Delisting Determination', 'Nasdaq Letter', 'Delisting Risk', 'Delisting Threat', 'Received Notice Of Delisting', 'Notice Of Non-Compliance', 'Not In Compliance With Listing Requirements'],
   'Bid Price Delisting': ['Minimum Bid Price', 'Regained Compliance'],
   'Reverse Split Event': ['Reverse Split Completed', 'Reverse Consolidation', 'Recent Consolidation', 'Reverse Split', 'Reverse Stock Split', 'Consolidation Of Shares', 'Stock Split Reverse', 'Share Consolidation Event', 'Split Reverse', 'Reverse Recapitalization'],
   'DTC Eligible Restored': ['DTC Eligible', 'DTC Chill Lifted', 'Eligibility Restored', 'DTC Restoration', 'Chill Status', 'Chill Removed', 'Resume Trading'],
@@ -8477,8 +8478,8 @@ if (process.stdin.isTTY) {
             continue;
           }
           
-          // S/O Ratio Check - Allow up to 100%
-          if (soRatioValue !== null && soRatioValue > 100) {
+          // S/O Ratio Check - Allow up to CONFIG.MAX_SO_RATIO (CTB stocks bypass)
+          if (!isOnCTBWatchlist && soRatioValue !== null && soRatioValue > CONFIG.MAX_SO_RATIO) {
             skipReason = `S/O Out of Range: ${soRatioValue.toFixed(2)}%`;
             const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
             const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
