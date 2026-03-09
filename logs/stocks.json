@@ -1,1 +1,77 @@
-[]
+[
+  {
+    "ticker": "ENGN",
+    "title": "8-K - enGene Holdings Inc. (0001980845) (Filer)",
+    "companyName": "enGene Holdings Inc.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 8.68,
+    "fav": "84.12",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Montreal, Canada (via Vancouver, British Columbia, Canada)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 165337,
+    "averageVolume": 314298,
+    "float": 26437500,
+    "sharesOutstanding": 66989466,
+    "soRatio": "39.47%",
+    "marketCap": 581468544,
+    "isShort": false,
+    "ftd": 13373,
+    "ftdPercent": "0.05",
+    "intent": "FDA Approved, FDA Breakthrough, FDA Filing, Clinical Success",
+    "incorporated": "Vancouver, British Columbia, Canada",
+    "located": "Montreal, Canada",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "FDA Approved": [
+        "FDA Approval",
+        "FDA approval"
+      ],
+      "FDA Breakthrough": [
+        "Fast Track Designation"
+      ],
+      "FDA Filing": [
+        "BLA Submission"
+      ],
+      "Clinical Success": [
+        "Positive Results",
+        "Phase 2",
+        "Efficacy"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {
+      "signals": [
+        "High Leverage - Debt/Equity Exceeds 3.0"
+      ],
+      "severity": 0.75,
+      "isDeterministic": true
+    },
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "F-4",
+      "EX-99.1",
+      "Item 2.02",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, F-4, EX-99.1, Item 2.02, Item 9.01",
+    "cik": "1980845",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Clinical Success / Milestone",
+    "deterministicMechanism": "Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.",
+    "deterministicPhrase": "[Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.]",
+    "recordedAt": "2026-03-09T11:05:20.714Z",
+    "recordId": "ENGN-1773054320714",
+    "expiresAt": "2026-03-14T11:05:20.714Z",
+    "direction": "LONG",
+    "highest5Day": 8.68,
+    "highest5DayPercent": 0
+  }
+]
