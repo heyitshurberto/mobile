@@ -512,5 +512,72 @@
     "direction": "SHORT",
     "highest5Day": 11.18,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "FCEL",
+    "title": "8-K - FUELCELL ENERGY INC (0000886128) (Filer)",
+    "companyName": "FUELCELL ENERGY INC",
+    "filerName": null,
+    "sector": "Electrical Equipment",
+    "price": 7.6,
+    "fav": "21.06",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Connecticut (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 1390717,
+    "averageVolume": 2288472,
+    "float": 48206002,
+    "sharesOutstanding": 52947032,
+    "soRatio": "91.05%",
+    "marketCap": 402397440,
+    "isShort": true,
+    "ftd": 28730,
+    "ftdPercent": "0.06",
+    "intent": "Clinical Success, Reverse Split Event, Partnership",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Connecticut",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "Clinical Success": [
+        "Phase 1",
+        "Phase 2",
+        "Phase 3"
+      ],
+      "Reverse Split Event": [
+        "Reverse Stock Split"
+      ],
+      "Partnership": [
+        "Development Agreement"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": "1-for-202",
+    "reverseSplitReason": "Nasdaq minimum bid price requirement",
+    "formType": [
+      "8-K",
+      "Form D",
+      "EX-99.1",
+      "EX-99.2",
+      "Item 2.02",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, Form D, EX-99.1, EX-99.2, Item 2.02, Item 7.01, Item 9.01",
+    "cik": "886128",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-03-09T11:36:29.513Z",
+    "recordId": "FCEL-1773056189513",
+    "expiresAt": "2026-03-14T11:36:29.513Z",
+    "direction": "SHORT",
+    "highest5Day": 7.6,
+    "highest5DayPercent": 0
   }
 ]
