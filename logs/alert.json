@@ -579,5 +579,85 @@
     "direction": "SHORT",
     "highest5Day": 7.6,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "XENE",
+    "title": "8-K - Xenon Pharmaceuticals Inc. (0001582313) (Filer)",
+    "companyName": "Xenon Pharmaceuticals Inc.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 41.94,
+    "fav": "84.73",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "British Columbia, Canada (via Toronto, Canada)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 1084871,
+    "averageVolume": 916825,
+    "float": 77681000,
+    "sharesOutstanding": 77275005,
+    "soRatio": "100.5%",
+    "marketCap": 3240913664,
+    "isShort": true,
+    "ftd": false,
+    "ftdPercent": null,
+    "intent": "FDA Filing, Clinical Success, Clinical Milestone, Asset Disposition",
+    "incorporated": "Toronto, Canada",
+    "located": "British Columbia, Canada",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "FDA Filing": [
+        "NDA Submission"
+      ],
+      "Clinical Success": [
+        "Phase 1",
+        "Phase 3",
+        "Efficacy",
+        "Safety Profile",
+        "Primary Endpoint",
+        "Data Readout",
+        "Topline Data",
+        "Mechanism Of Action",
+        "Favorable Safety",
+        "Strong Efficacy",
+        "Statistically Significant",
+        "Met Primary Endpoint",
+        "Positive Phase 3",
+        "Positive Topline Results"
+      ],
+      "Clinical Milestone": [
+        "Investigational New Drug"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "8-K",
+      "EX-99.1",
+      "EX-99.2",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "filingType": "6-K, 8-K, EX-99.1, EX-99.2, Item 7.01, Item 9.01",
+    "cik": "1582313",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-09T11:37:54.956Z",
+    "recordId": "XENE-1773056274956",
+    "expiresAt": "2026-03-14T11:37:54.956Z",
+    "direction": "SHORT",
+    "highest5Day": 41.94,
+    "highest5DayPercent": 0
   }
 ]
