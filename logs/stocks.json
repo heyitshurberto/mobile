@@ -1006,5 +1006,82 @@
     "direction": "LONG",
     "highest5Day": 30.55,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "SLM",
+    "title": "8-K - SLM Corp (0001032033) (Filer)",
+    "companyName": "SLM Corp",
+    "filerName": null,
+    "sector": "Financial Services",
+    "price": 19.09,
+    "fav": "54.64",
+    "hasTuesdayBonus": false,
+    "custodianControl": false,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.15,
+    "filingTimeBonus": 1.15,
+    "volume": 2852217,
+    "averageVolume": 3589193,
+    "float": 196105707,
+    "sharesOutstanding": 198154626,
+    "soRatio": "98.97%",
+    "marketCap": 3782771712,
+    "isShort": true,
+    "ftd": 3788,
+    "ftdPercent": "0.00",
+    "intent": "Merger/Acquisition, Activist 13D Filing, Bankruptcy Filing, Credit Default, Asset Disposition, Stock Buyback",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Wilmington, Delaware",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement",
+        "Strategic Alternatives"
+      ],
+      "Activist 13D Filing": [
+        "Beneficial Ownership"
+      ],
+      "Bankruptcy Filing": [
+        "Insolvency Proceedings"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Stock Buyback": [
+        "Share Repurchase",
+        "Repurchase Program"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-99.1",
+      "EX-10.1",
+      "Item 1.01",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-99.1, EX-10.1, Item 1.01, Item 7.01, Item 9.01",
+    "cik": "1032033",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Distressed)",
+    "deterministicMechanism": "Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.",
+    "deterministicPhrase": "[Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.]",
+    "recordedAt": "2026-03-09T12:31:20.645Z",
+    "recordId": "SLM-1773059480645",
+    "expiresAt": "2026-03-14T12:31:20.645Z",
+    "direction": "SHORT",
+    "highest5Day": 19.09,
+    "highest5DayPercent": 0,
+    "lowest5Day": 19.09,
+    "lowest5DayPercent": 0
   }
 ]
