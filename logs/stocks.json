@@ -2627,5 +2627,75 @@
     "direction": "LONG",
     "highest5Day": 27.12,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "ZVRA",
+    "title": "8-K - ZEVRA THERAPEUTICS, INC. (0001434647) (Filer)",
+    "companyName": "ZEVRA THERAPEUTICS, INC.",
+    "filerName": null,
+    "sector": "Pharmaceuticals",
+    "price": 9.12,
+    "fav": "4.59",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Massachusetts (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 922063,
+    "averageVolume": 876574,
+    "float": 4024157,
+    "sharesOutstanding": 56297535,
+    "soRatio": "7.15%",
+    "marketCap": 513433536,
+    "isShort": true,
+    "ftd": 5550,
+    "ftdPercent": "0.14",
+    "intent": "Clinical Success, Credit Default, Licensing Deal",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Massachusetts",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "Clinical Success": [
+        "Phase 2",
+        "Phase 3",
+        "Efficacy",
+        "Statistically Significant"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Licensing Deal": [
+        "License Agreement"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "Form D",
+      "EX-99.1",
+      "EX-10.1",
+      "Item 2.02",
+      "Item 5.02",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, Form D, EX-99.1, EX-10.1, Item 2.02, Item 5.02, Item 9.01",
+    "cik": "1434647",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Credit Default (Covenant Breach)",
+    "deterministicMechanism": "Company in covenant breach with lenders = dilutive financing at distressed terms. Lenders have leverage.",
+    "deterministicPhrase": "[Company in covenant breach with lenders = dilutive financing at distressed terms. Lenders have leverage.]",
+    "recordedAt": "2026-03-09T20:07:02.577Z",
+    "recordId": "ZVRA-1773086822577",
+    "expiresAt": "2026-03-14T20:07:02.577Z",
+    "direction": "SHORT",
+    "highest5Day": 9.12,
+    "highest5DayPercent": 0,
+    "lowest5Day": 9.12,
+    "lowest5DayPercent": 0
   }
 ]
