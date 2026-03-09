@@ -436,5 +436,81 @@
     "direction": "LONG",
     "highest5Day": 9.82,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "KRRO",
+    "title": "8-K - Korro Bio, Inc. (0001703647) (Filer)",
+    "companyName": "Korro Bio, Inc.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 11.18,
+    "fav": "45.11",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Massachusetts (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 65416,
+    "averageVolume": 219927,
+    "float": 9920643,
+    "sharesOutstanding": 9417295,
+    "soRatio": "105.3%",
+    "marketCap": 105285360,
+    "isShort": true,
+    "ftd": 5025,
+    "ftdPercent": "0.05",
+    "intent": "Merger/Acquisition, Convertible Debt, Activist 13D Filing, Reverse Split Event, Asset Disposition, Partnership",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Massachusetts",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Convertible Debt": [
+        "Convertible Notes",
+        "Convertible Securities"
+      ],
+      "Activist 13D Filing": [
+        "Beneficial Ownership"
+      ],
+      "Reverse Split Event": [
+        "Reverse Stock Split"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-10.1",
+      "EX-4.1",
+      "Item 1.01",
+      "Item 2.02",
+      "Item 3.02",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-10.1, EX-4.1, Item 1.01, Item 2.02, Item 3.02, Item 7.01, Item 9.01",
+    "cik": "1703647",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-09T11:36:04.540Z",
+    "recordId": "KRRO-1773056164540",
+    "expiresAt": "2026-03-14T11:36:04.540Z",
+    "direction": "SHORT",
+    "highest5Day": 11.18,
+    "highest5DayPercent": 0
   }
 ]
