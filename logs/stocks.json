@@ -807,5 +807,66 @@
     "direction": "LONG",
     "highest5Day": 2.62,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "GEL",
+    "title": "8-K - GENESIS ENERGY LP (0001022321) (Filer)",
+    "companyName": "GENESIS ENERGY LP",
+    "filerName": null,
+    "sector": "Energy",
+    "price": 18.09,
+    "fav": "342.98",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Texas (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.1,
+    "filingTimeBonus": 1.1,
+    "volume": 108597,
+    "averageVolume": 268215,
+    "float": 91991842,
+    "sharesOutstanding": 122424321,
+    "soRatio": "75.14%",
+    "marketCap": 2215379456,
+    "isShort": true,
+    "ftd": 29724,
+    "ftdPercent": "0.03",
+    "intent": "Merger/Acquisition, Credit Default",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Texas",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "Item 1.01",
+      "Item 1.02",
+      "Item 2.03"
+    ],
+    "filingType": "8-K, Item 1.01, Item 1.02, Item 2.03",
+    "cik": "1022321",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Merger/Acquisition",
+    "deterministicMechanism": "M&A catalyst = immediate upside catalyst. Market prices in deal value, synergies, and premium.",
+    "deterministicPhrase": "[M&A catalyst = immediate upside catalyst. Market prices in deal value, synergies, and premium.]",
+    "recordedAt": "2026-03-09T12:01:22.895Z",
+    "recordId": "GEL-1773057682895",
+    "expiresAt": "2026-03-14T12:01:22.895Z",
+    "direction": "SHORT",
+    "highest5Day": 18.09,
+    "highest5DayPercent": 0,
+    "lowest5Day": 18.09,
+    "lowest5DayPercent": 0
   }
 ]
