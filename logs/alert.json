@@ -1360,5 +1360,75 @@
     "direction": "SHORT",
     "highest5Day": 0.5905,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "ONDS",
+    "title": "8-K - Ondas Inc. (0001646188) (Filer)",
+    "companyName": "Ondas Inc.",
+    "filerName": null,
+    "sector": "Communications",
+    "price": 9.83,
+    "fav": "3.89",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Florida (via Nevada)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 160635256,
+    "averageVolume": 93930854,
+    "float": 365703586,
+    "sharesOutstanding": 450092050,
+    "soRatio": "81.25%",
+    "marketCap": 4424404992,
+    "isShort": true,
+    "ftd": 4697839,
+    "ftdPercent": "1.28",
+    "intent": "Merger/Acquisition, Credit Default, Reverse Split Event, Asset Disposition, Licensing Deal",
+    "incorporated": "Nevada",
+    "located": "Florida",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "Merger/Acquisition": [
+        "Merger Consideration",
+        "Material Definitive Agreement"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Reverse Split Event": [
+        "Reverse Stock Split"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Licensing Deal": [
+        "License Agreement"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "Item 1.01",
+      "Item 3.02",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, Item 1.01, Item 3.02, Item 8.01, Item 9.01",
+    "cik": "1646188",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-09T13:20:11.663Z",
+    "recordId": "ONDS-1773062411663",
+    "expiresAt": "2026-03-14T13:20:11.663Z",
+    "direction": "SHORT",
+    "highest5Day": 9.83,
+    "highest5DayPercent": 0
   }
 ]
