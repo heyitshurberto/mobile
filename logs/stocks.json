@@ -1158,5 +1158,78 @@
     "highest5DayPercent": 0,
     "lowest5Day": 17.5,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "ACXP",
+    "title": "8-K - Acurx Pharmaceuticals, Inc. (0001736243) (Filer)",
+    "companyName": "Acurx Pharmaceuticals, Inc.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 1.35,
+    "fav": "24.91",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "New York (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.15,
+    "filingTimeBonus": 1.15,
+    "volume": 62475,
+    "averageVolume": 52247,
+    "float": 1301227,
+    "sharesOutstanding": 2546717,
+    "soRatio": "51.09%",
+    "marketCap": 3438068,
+    "isShort": false,
+    "ftd": 5573,
+    "ftdPercent": "0.43",
+    "intent": "FDA Approved, Clinical Success, Clinical Milestone",
+    "incorporated": "Wilmington, Delaware",
+    "located": "New York",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "FDA Approved": [
+        "FDA Approval",
+        "FDA approval"
+      ],
+      "Clinical Success": [
+        "Phase 2",
+        "Phase 3",
+        "Trial Results",
+        "Efficacy"
+      ],
+      "Clinical Milestone": [
+        "Patient Enrollment",
+        "First Patient"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "6-K/A",
+      "8-K",
+      "F-3",
+      "20-F",
+      "20-F/A",
+      "EX-99.1",
+      "Item 5.02",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "filingType": "6-K, 6-K/A, 8-K, F-3, 20-F, 20-F/A, EX-99.1, Item 5.02, Item 8.01, Item 9.01",
+    "cik": "1736243",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-03-09T13:00:24.050Z",
+    "recordId": "ACXP-1773061224050",
+    "expiresAt": "2026-03-14T13:00:24.050Z",
+    "direction": "LONG",
+    "highest5Day": 1.35,
+    "highest5DayPercent": 0
   }
 ]
