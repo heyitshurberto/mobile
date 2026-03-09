@@ -143,5 +143,80 @@
     "direction": "LONG",
     "highest5Day": 2.61,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "NBP",
+    "title": "6-K - NovaBridge Biosciences (0001778016) (Filer)",
+    "companyName": "NovaBridge Biosciences",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 3.5,
+    "fav": "59.54",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Maryland (via Cayman Islands)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 1583670,
+    "averageVolume": 714330,
+    "float": 42530441,
+    "sharesOutstanding": 115291032,
+    "soRatio": "36.89%",
+    "marketCap": 403518624,
+    "isShort": false,
+    "ftd": 388156,
+    "ftdPercent": "0.91",
+    "intent": "Clinical Success, Clinical Milestone, Underwritten Offering",
+    "incorporated": "Cayman Islands",
+    "located": "Maryland",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "Clinical Success": [
+        "Positive Results",
+        "Phase 1",
+        "Phase 2",
+        "Phase 3",
+        "Trial Results",
+        "Efficacy",
+        "Safety Profile",
+        "Primary Endpoint",
+        "Topline Data",
+        "Favorable Safety",
+        "Positive Topline Results"
+      ],
+      "Clinical Milestone": [
+        "Patient Enrollment"
+      ],
+      "Underwritten Offering": [
+        "IPO"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "S-1",
+      "S-8",
+      "F-3",
+      "20-F",
+      "EX-99.1",
+      "EX-99.2"
+    ],
+    "filingType": "6-K, S-1, S-8, F-3, 20-F, EX-99.1, EX-99.2",
+    "cik": "1778016",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-03-09T11:06:06.446Z",
+    "recordId": "NBP-1773054366446",
+    "expiresAt": "2026-03-14T11:06:06.446Z",
+    "direction": "LONG",
+    "highest5Day": 3.5,
+    "highest5DayPercent": 0
   }
 ]
