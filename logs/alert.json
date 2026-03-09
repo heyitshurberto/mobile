@@ -1287,5 +1287,78 @@
     "direction": "LONG",
     "highest5Day": 1.24,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "JAGX",
+    "title": "8-K - Jaguar Health, Inc. (0001585608) (Filer)",
+    "companyName": "Jaguar Health, Inc.",
+    "filerName": null,
+    "sector": "Pharmaceuticals",
+    "price": 0.5905,
+    "fav": "0.46",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 336879,
+    "averageVolume": 3930276,
+    "float": 1795266,
+    "sharesOutstanding": 11218677,
+    "soRatio": "16.00%",
+    "marketCap": 6624628,
+    "isShort": true,
+    "ftd": 74551,
+    "ftdPercent": "4.15",
+    "intent": "Merger/Acquisition, FDA Breakthrough, Credit Default, Asset Disposition, Licensing Deal",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "FDA Breakthrough": [
+        "Priority Review"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Licensing Deal": [
+        "Exclusive License"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-10.1",
+      "EX-10.2",
+      "EX-4.1",
+      "EX-4.2",
+      "Item 1.01",
+      "Item 1.02",
+      "Item 2.03",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-10.1, EX-10.2, EX-4.1, EX-4.2, Item 1.01, Item 1.02, Item 2.03, Item 9.01",
+    "cik": "1585608",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-09T13:06:04.449Z",
+    "recordId": "JAGX-1773061564449",
+    "expiresAt": "2026-03-14T13:06:04.449Z",
+    "direction": "SHORT",
+    "highest5Day": 0.5905,
+    "highest5DayPercent": 0
   }
 ]
