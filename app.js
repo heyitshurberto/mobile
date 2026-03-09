@@ -27,8 +27,8 @@ if (fs.existsSync('.env')) {
 const CONFIG = {
   // Alert filtering criteria
   FILE_TIME: 1,                     // Minutes retro to fetch filings
-  MIN_ALERT_VOLUME: 2000,           // Capture initial filing → AMM shock wave (first 3 min)
-  STRONG_SIGNAL_MIN_VOLUME: 500,    // Very early for strong catalysts (Insider + Merger, etc.)
+  MIN_ALERT_VOLUME: 1000,           // Capture initial filing
+  STRONG_SIGNAL_MIN_VOLUME: 500,    // Very early for strong catalysts
   MAX_FLOAT_6K: 75000000,           // Max float size for 6-K
   MAX_FLOAT_8K: 125000000,          // Max float size for 8-K 
   MAX_SO_RATIO: 1000.0,              // Max short interest ratio

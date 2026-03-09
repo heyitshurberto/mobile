@@ -622,7 +622,7 @@ def main():
     
     print(f"\nAlerts ({len(tickers)})")
     print("-" * 180)
-    print(f"{'Ticker':<8} {'Alert':<10} {'Current':<10} {'Peak':<10} {'Change':<10} {'Inc':<12} {'Ops':<12} {'Float':<12} {'S/O %':<8} {'Filed':<19} {'Reason'}")
+    print(f"{'Ticker':<8} {'Alert':<10} {'Current':<10} {'Peak':<10} {'Change':<10} {'Inc':<12} {'Ops':<12} {'Signals':<35} {'Float':<12} {'S/O %':<8} {'Filed':<19} {'Reason'}")
     print("-" * 180)
     
     total_move = 0
@@ -716,7 +716,20 @@ def main():
         alert_str = f"${alert_price:.2f}"
         so_ratio = ticker_rows[0].get('S/O Ratio', 'N/A')
         float_val = ticker_rows[0].get('Float', 'N/A')
-        print(f"{ticker:<8} {alert_str:<10} {current_str:<10} {peak_str:<10} {move_str:<10} {incorporated:<12} {located:<12} {str(float_val):<12} {str(so_ratio):<8} {filed_display:<19} {skip_reason}")
+        
+        # Extract signals/catalysts - first try Skip Reason, then fall back to Catalyst column
+        signals_display = 'N/A'
+        if 'Alert sent:' in skip_reason:
+            signal_part = skip_reason.split('Alert sent:')[1].split('(')[0].strip()
+            signal_part = signal_part.replace('[LONG]', '').replace('[SHORT]', '').strip()
+            signals_display = signal_part[:32]
+        else:
+            # Try to get from Catalyst column
+            catalyst = ticker_rows[0].get('Catalyst', 'N/A')
+            if catalyst and catalyst != 'N/A':
+                signals_display = str(catalyst)[:32]
+        
+        print(f"{ticker:<8} {alert_str:<10} {current_str:<10} {peak_str:<10} {move_str:<10} {incorporated:<12} {located:<12} {signals_display:<35} {str(float_val):<12} {str(so_ratio):<8} {filed_display:<19} {skip_reason}")
     
     print("-" * 180)
     avg_move = total_move / count if count > 0 else 0
@@ -821,6 +834,15 @@ def main():
         for i, (signal, count) in enumerate(top_signals, 1):
             pct = (count / len(rows)) * 100
             print(f"{i:>2}. {signal:<45} {count:>3} ({pct:>4.1f}%)")
+    
+    # ALL SIGNALS MENTIONED
+    print("\n🔤 ALL SIGNALS MENTIONED")
+    print("-" * 160)
+    if signals['signal_counts']:
+        all_signals = sorted(signals['signal_counts'].items(), key=lambda x: x[1], reverse=True)
+        for signal, count in all_signals:
+            pct = (count / len(rows)) * 100
+            print(f"  • {signal:<50} {count:>3} ({pct:>4.1f}%)")
     
     # GEOGRAPHY (top 10 only)
     print("\n🌍 TOP JURISDICTIONS")
