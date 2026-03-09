@@ -1231,5 +1231,75 @@
     "direction": "LONG",
     "highest5Day": 1.35,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "ALLR",
+    "title": "8-K - Allarity Therapeutics, Inc. (0001860657) (Filer)",
+    "companyName": "Allarity Therapeutics, Inc.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 1.24,
+    "fav": "73.64",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Massachusetts (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 591378,
+    "averageVolume": 166588,
+    "float": 12266826,
+    "sharesOutstanding": 16080980,
+    "soRatio": "76.28%",
+    "marketCap": 19940416,
+    "isShort": false,
+    "ftd": 3035,
+    "ftdPercent": "0.02",
+    "intent": "FDA Approved, Clinical Success, Clinical Milestone",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Massachusetts",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "FDA Approved": [
+        "FDA Approval",
+        "FDA approval"
+      ],
+      "Clinical Success": [
+        "Phase 2",
+        "Efficacy",
+        "Clinical Benefit",
+        "Statistically Significant"
+      ],
+      "Clinical Milestone": [
+        "Patient Enrollment"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "6-K/A",
+      "8-K",
+      "20-F",
+      "20-F/A",
+      "EX-99.1",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "filingType": "6-K, 6-K/A, 8-K, 20-F, 20-F/A, EX-99.1, Item 8.01, Item 9.01",
+    "cik": "1860657",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-03-09T13:03:03.700Z",
+    "recordId": "ALLR-1773061383700",
+    "expiresAt": "2026-03-14T13:03:03.700Z",
+    "direction": "LONG",
+    "highest5Day": 1.24,
+    "highest5DayPercent": 0
   }
 ]
