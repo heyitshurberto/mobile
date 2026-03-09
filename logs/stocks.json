@@ -2486,5 +2486,80 @@
     "direction": "LONG",
     "highest5Day": 6.71,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "SUN",
+    "title": "8-K - Sunoco LP (0001552275) (Filer)",
+    "companyName": "Sunoco LP",
+    "filerName": null,
+    "sector": "Energy",
+    "price": 63.158,
+    "fav": "238.06",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Texas (via Oklahoma)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 492464,
+    "averageVolume": 452738,
+    "float": 107777000,
+    "sharesOutstanding": 136894754,
+    "soRatio": "78.73%",
+    "marketCap": 11899722752,
+    "isShort": true,
+    "ftd": 31527,
+    "ftdPercent": "0.03",
+    "intent": "Merger/Acquisition, Activist 13D Filing, Credit Default, Asset Disposition, Partnership",
+    "incorporated": "Oklahoma",
+    "located": "Texas",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "Merger/Acquisition": [
+        "Merger Agreement",
+        "Material Definitive Agreement"
+      ],
+      "Activist 13D Filing": [
+        "Beneficial Ownership"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Asset Disposition": [
+        "Asset Sale",
+        "Sale Of Assets",
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "13D",
+      "EX-4.1",
+      "Item 1.01",
+      "Item 2.03",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, 13D, EX-4.1, Item 1.01, Item 2.03, Item 9.01",
+    "cik": "1552275",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-09T20:06:02.692Z",
+    "recordId": "SUN-1773086762693",
+    "expiresAt": "2026-03-14T20:06:02.693Z",
+    "direction": "SHORT",
+    "highest5Day": 63.158,
+    "highest5DayPercent": 0,
+    "lowest5Day": 63.158,
+    "lowest5DayPercent": 0
   }
 ]

@@ -390,18 +390,18 @@
     "averageVolume": 1082991,
     "marketCap": 982130496
   },
-  "DRTS": {
+  "SUN": {
     "short": false,
-    "alert": 6.71,
-    "highest": 6.71,
-    "lowest": 6.71,
-    "highest5Day": 6.71,
+    "alert": 63.158,
+    "highest": 63.158,
+    "lowest": 63.158,
+    "highest5Day": 63.158,
     "highest5DayPercent": 0,
-    "current": 6.71,
-    "currentPrice": 6.71,
+    "current": 63.158,
+    "currentPrice": 63.158,
     "performance": 0,
-    "date": "2026-03-09T20:04:22.123Z",
-    "alertDate": "2026-03-09T20:04:22.123Z",
+    "date": "2026-03-09T20:06:02.736Z",
+    "alertDate": "2026-03-09T20:06:02.736Z",
     "reverseSplitRatio": null
   }
 }
