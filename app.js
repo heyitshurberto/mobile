@@ -634,7 +634,7 @@ const SEMANTIC_KEYWORDS = {
   'Merger/Acquisition': ['Merger Agreement', 'Acquisition Agreement', 'Agreed To Acquire', 'Merger Consideration', 'Premium Valuation', 'Going Private', 'Take Private', 'Acquisition Closing', 'Closing Of Acquisition', 'Completed Acquisition', 'Definitive Agreement To Be Acquired', 'Material Definitive Agreement', 'Strategic Alternatives', 'Exploring Strategic Alternatives'],
   
   // Biotech FDA (Clinical & Regulatory)
-  'FDA Approved': ['FDA Approval', 'FDA Clearance', 'Approval Granted', 'Approval Letter', 'FDA Approves', 'FDA approved', 'FDA approval', 'EMA Approval', 'Post-Market Approval', 'PMA Approval', '510(k) Clearance', 'De Novo Clearance'],
+  'FDA Approved': ['FDA Approval', 'FDA Clearance', 'Approval Granted', 'Approval Letter', 'FDA Approves', 'FDA approved', 'EMA Approval', 'Post-Market Approval', 'PMA Approval', '510(k) Clearance', 'De Novo Clearance'],
   'FDA Breakthrough': ['Breakthrough Therapy', 'Breakthrough Designation', 'Fast Track Designation', 'Priority Review', 'Priority Status'],
   'FDA Filing': ['NDA Submission', 'NDA Filed', 'BLA Submission', 'BLA Filed', 'IND Application', 'Regulatory Filing'],
   'Clinical Success': ['Positive Trial Results', 'Phase 3 Success', 'Topline Results Beat', 'Efficacy Demonstrated', 'Safety Profile Met', 'Positive Results', 'Phase 1', 'Phase 2', 'Phase 3', 'Trial Results', 'Efficacy', 'Safety Profile', 'Cohort Results', 'Primary Endpoint', 'Enrollment Complete', 'Data Readout', 'Topline Data', 'Meaningful Improvement', 'Beat Placebo', 'Mechanism Of Action', 'Biomarker', 'Favorable Safety', 'Separation From Placebo', 'Demonstrated Benefit', 'Clinical Benefit', 'Strong Efficacy', 'Primary Endpoint Met', 'Statistically Significant', 'Met Primary Endpoint', 'Positive Phase 3', 'Positive Topline Results'],
@@ -1552,16 +1552,17 @@ const updatePerformanceData = (alertData) => {
     
     // Load existing performance data
     if (fs.existsSync(CONFIG.PERFORMANCE_FILE)) {
-      const content = fs.readFileSync(CONFIG.PERFORMANCE_FILE, 'utf8').trim();
-      if (content) {
-        try {
+      try {
+        const content = fs.readFileSync(CONFIG.PERFORMANCE_FILE, 'utf8').trim();
+        if (content && content.length > 0) {
           performanceData = JSON.parse(content);
           if (!performanceData || typeof performanceData !== 'object') {
             performanceData = {};
           }
-        } catch (e) {
-          performanceData = {};
         }
+      } catch (e) {
+        // If file is corrupted or being written, start fresh
+        performanceData = {};
       }
     }
     
@@ -1625,8 +1626,15 @@ const updatePerformanceData = (alertData) => {
       performanceData[ticker].reverseSplitRatio = null; // Can be updated if needed
     }
     
-    // Write updated performance data
-    fs.writeFileSync(CONFIG.PERFORMANCE_FILE, JSON.stringify(performanceData, null, 2));
+    // Write updated performance data (atomic write)
+    try {
+      const tempFile = CONFIG.PERFORMANCE_FILE + '.tmp';
+      fs.writeFileSync(tempFile, JSON.stringify(performanceData, null, 2));
+      fs.renameSync(tempFile, CONFIG.PERFORMANCE_FILE);
+    } catch (err) {
+      // Fall back to direct write if atomic fails
+      fs.writeFileSync(CONFIG.PERFORMANCE_FILE, JSON.stringify(performanceData, null, 2));
+    }
     
     // Auto-push quotes to GitHub if enabled
     if (CONFIG.GITHUB_QUOTE_PUSH_ENABLED) {
@@ -2754,7 +2762,7 @@ const sendPaidWebhook = (alertData) => {
     const sideEmoji = direction === 'SHORT' ? '🔴 SHORT' : '🟢 LONG';
     
     // PAID WEBHOOK: Telegram style (clean, minimal, no branding)
-    const paidAlertContent = `Eugene's Non-Profit\n🚀 NEW ALERT: $${ticker}\n${sideEmoji}\n\nEntry: ${priceDisplay}\nFloat: ${floatDisplay}\nVolume: ${volumeDisplay} (Avg: ${avgVolDisplay})\nS/O: ${alertData.soRatio || 'N/A'}\nMarket Cap: ${marketCapDisplay}\n\nhttps://www.tradingview.com/chart/?symbol=${ticker}`;
+    const paidAlertContent = `🚀 NEW ALERT: $${ticker}\n${sideEmoji}\n\nEntry: ${priceDisplay}\nFloat: ${floatDisplay}\nVolume: ${volumeDisplay} (Avg: ${avgVolDisplay})\nS/O: ${alertData.soRatio || 'N/A'}\nMarket Cap: ${marketCapDisplay}\n\nhttps://www.tradingview.com/chart/?symbol=${ticker}`;
     
     
     const paidMsg = { content: paidAlertContent };
@@ -2794,7 +2802,7 @@ const sendTelegramAlert = (alertData) => {
     const marketCapDisplay = alertData.marketCap && alertData.marketCap !== 'N/A' ? `$${(alertData.marketCap / 1000000000).toFixed(2)}B` : 'N/A';
     const sideEmoji = direction === 'SHORT' ? '🔴 SHORT' : '🟢 LONG';
     
-    const telegramAlertContent = `Eugene's Non-Profit\n\n🚀 NEW TRADE ALERT: $${ticker}\n${sideEmoji}\n\nEntry: ${priceDisplay}\nFloat: ${floatDisplay}\nVolume: ${volumeDisplay} (Avg: ${avgVolDisplay})\nS/O: ${alertData.soRatio || 'N/A'}\nMarket Cap: ${marketCapDisplay}\n\nhttps://www.tradingview.com/chart/?symbol=${ticker}`;
+    const telegramAlertContent = `🚀 NEW TRADE ALERT: $${ticker}\n${sideEmoji}\n\nEntry: ${priceDisplay}\nFloat: ${floatDisplay}\nVolume: ${volumeDisplay} (Avg: ${avgVolDisplay})\nS/O: ${alertData.soRatio || 'N/A'}\nMarket Cap: ${marketCapDisplay}\n\nhttps://www.tradingview.com/chart/?symbol=${ticker}`;
     
     const telegramUrl = `https://api.telegram.org/bot${CONFIG.TELEGRAM_BOT_TOKEN}/sendMessage`;
     const telegramPayload = {
@@ -3115,20 +3123,16 @@ const renderLoginPage = () => `
   <link rel="icon" type="image/jpeg" href="/docs/logo.jpeg">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Crafty+Girls&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu&display=swap" rel="stylesheet">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: 
-        repeating-linear-gradient(
-          45deg,
-          transparent,
-          transparent 50px,
-          rgba(100, 100, 100, 0.015) 50px,
-          rgba(100, 100, 100, 0.015) 100px
-        ),
-        linear-gradient(135deg, #f0f0f0 0%, #f7f7f7 50%, #efefef 100%);
+        radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+      background-size: 40px 40px;
+      background-color: #ffffff;
       background-attachment: fixed;
       min-height: 100vh;
       display: flex;
@@ -3140,14 +3144,9 @@ const renderLoginPage = () => `
     }
     body.dark-mode {
       background: 
-        repeating-linear-gradient(
-          45deg,
-          transparent,
-          transparent 40px,
-          rgba(255, 255, 255, 0.015) 40px,
-          rgba(255, 255, 255, 0.015) 80px
-        ),
-        linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+        radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 40px 40px;
+      background-color: #0d0d0d;
       color: #e0e0e0;
     }
     .container {
@@ -3639,10 +3638,10 @@ const renderLoginPage = () => `
         </svg>
       </button>
     </div>
-    <div style="display: flex; justify-content: center; margin-bottom: 4px; margin-top: 8px;">
+    <div style="display: flex; justify-content: center; margin-bottom: 2px; margin-top: 6px;">
       <img src="/docs/logo.jpeg" alt="Eugene's Non-Profit" style="height: 110px; width: auto; object-fit: contain;">
     </div>
-    <h1 id="mainTitle" style="color: #000000; font-size: 28px; font-family: 'Crafty Girls', cursive; font-weight: 400; letter-spacing: 2px; margin: 0px 0 2px 0; transition: color 0.3s ease;">Eugene's Non-Profit</h1>
+    <h1 id="mainTitle" style="color: #000000; font-size: 34px; font-family: 'Gaegu', cursive; font-weight: 400; letter-spacing: 0px; margin: 0px 0 2px 0; transition: color 0.3s ease;">Eugene's Non-Profit</h1>
     <p class="subtitle" id="mainSubtitle" style="margin-top: 1px; margin-bottom: 8px; opacity: 0.55; font-size: 11px; color: #666; transition: color 0.3s ease;">Secure Access Portal</p>
     
     <div class="error" id="error"></div>
@@ -4351,8 +4350,8 @@ const renderLoginPage = () => `
   <div id="requestAccessModal">
     <div id="modalContent">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-        <img src="/logo.jpeg" alt="Eugene's Non-Profit" style="height: 48px; width: auto;">
-        <h2 id="modalTitle" style="font-size: 22px; color: #2c2c2c; margin: 0; font-family: 'Poppins', sans-serif; font-weight: 600; transition: color 0.3s ease;">Membership Access</h2>
+        <img src="/logo.jpeg" alt="Eugene's Non-Profit" style="height: 50px; width: auto;">
+        <h2 id="modalTitle" style="font-size: 25px; color: #2c2c2c; margin: 0; font-family: 'Poppins', sans-serif; font-weight: 600; transition: color 0.3s ease;">Membership Access</h2>
       </div>
       <p id="modalDescription" style="color: #666; font-size: 13px; margin-bottom: 20px; font-family: 'Poppins', sans-serif; transition: color 0.3s ease;">Submit your information and we'll review your application within 24 hours.</p>
       <div style="display: flex; flex-direction: column; gap: 12px;">
@@ -4419,47 +4418,94 @@ const renderLoginPage = () => `
       const listContainer = document.getElementById('statsHistoryList');
       if (!listContainer) return;
 
-      // Fetch stocks.json data from local endpoint
-      fetch('/logs/stocks.json')
-        .then(res => {
-          console.log('Fetch response status:', res.status, 'URL:', res.url);
-          if (!res.ok) {
-            throw new Error('Failed to load stocks: HTTP ' + res.status);
+      // Helper function to safely parse JSON with retry logic
+      const safeJsonFetch = (url) => {
+        return fetch(url)
+          .then(r => r.text())
+          .then(text => {
+            if (!text || text.trim().length === 0) {
+              return {};
+            }
+            try {
+              return JSON.parse(text);
+            } catch (e) {
+              console.warn('Failed to parse', url, '- returning empty object');
+              return {};
+            }
+          })
+          .catch(err => {
+            console.warn('Failed to fetch', url, '- returning empty object');
+            return {};
+          });
+      };
+
+      // Fetch both stocks.json (for alert info) and quote.json (for live performance)
+      Promise.all([
+        safeJsonFetch('/logs/stocks.json'),
+        safeJsonFetch('/logs/quote.json')
+      ])
+        .then(([stocks, quotes]) => {
+          // Ensure stocks is an array
+          if (!Array.isArray(stocks)) {
+            stocks = [];
           }
-          return res.json();
-        })
-        .then(stocks => {
-          console.log('Stocks array length:', Array.isArray(stocks) ? stocks.length : 'not an array');
-          console.log('First stock:', stocks && stocks[0] ? stocks[0].ticker : 'no data');
+          if (!quotes || typeof quotes !== 'object') {
+            quotes = {};
+          }
+
+          console.log('Stocks array length:', stocks.length);
+          console.log('Quotes tickers:', Object.keys(quotes).length);
           
           if (!Array.isArray(stocks) || stocks.length === 0) {
             listContainer.innerHTML = '<div class="notification-list"><div style="padding: 16px; text-align: center; color: #999;">No trade history available</div></div>';
             return;
           }
 
-          // Take the last 10 trades (most recent first)
-          const recentTrades = stocks.slice(0, 10);
+          // Show all trades (most recent first)
+          const recentTrades = stocks;
           let html = '<div class="notification-list">';
           
           recentTrades.forEach(trade => {
-            const direction = trade.isShort ? 'SHORT' : 'LONG';
-            const alertPrice = trade.price ? '$' + trade.price.toFixed(4) : 'N/A';
-            // For shorts, use lowest5Day as the peak movement down
-            const peakPrice = trade.isShort ? (trade.lowest5Day ? '$' + trade.lowest5Day.toFixed(4) : 'N/A') : (trade.highest5Day ? '$' + trade.highest5Day.toFixed(4) : 'N/A');
-            const peakChange = trade.isShort ? (trade.lowest5Day && trade.price ? ((trade.lowest5Day - trade.price) / trade.price * 100).toFixed(1) : '0') : (trade.highest5Day && trade.price ? ((trade.highest5Day - trade.price) / trade.price * 100).toFixed(1) : '0');
+            const direction = trade.direction === 'SHORT' ? 'SHORT' : 'LONG';
+            const alertPrice = trade.price ? '$' + parseFloat(trade.price).toFixed(4) : 'N/A';
+            
+            // Get peak data and calculate percentage
+            const quoteData = quotes && quotes[trade.ticker] ? quotes[trade.ticker] : null;
+            let peakPrice = 'N/A';
+            let peakChange = '0';
+            
+            if (direction === 'SHORT') {
+              // For SHORT: peak is when price goes DOWN (lowest price)
+              // Use quote.json lowest as it has live data
+              const lowest = quoteData?.lowest || trade.lowest5Day || trade.price;
+              if (lowest && lowest > 0 && trade.price > 0) {
+                peakPrice = '$' + parseFloat(lowest).toFixed(4);
+                peakChange = ((lowest - trade.price) / trade.price * 100).toFixed(1);
+              }
+            } else {
+              // For LONG: peak is when price goes UP (highest price)
+              // Use quote.json highest as it has live data
+              const highest = quoteData?.highest || trade.highest5Day || trade.price;
+              if (highest && highest > 0 && trade.price > 0) {
+                peakPrice = '$' + parseFloat(highest).toFixed(4);
+                peakChange = ((highest - trade.price) / trade.price * 100).toFixed(1);
+              }
+            }
+            
             // Determine if trade was a win: SHORT with negative change, LONG with positive change
-            const isWin = (trade.isShort && peakChange < 0) || (!trade.isShort && peakChange > 0);
+            const isWin = (direction === 'SHORT' && peakChange < 0) || (direction !== 'SHORT' && peakChange > 0);
             const isDarkMode = document.body.classList.contains('dark-mode');
             const percentColor = isWin ? (isDarkMode ? '#00ff00' : '#2a7f3c') : (isDarkMode ? '#ff0000' : '#c23b3b');
-            const filingDate = new Date(trade.filingDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            const filingDate = trade.filingDate ? new Date(trade.filingDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'N/A';
             
             const tickerColor = document.body.classList.contains('dark-mode') ? '#ccc' : '#666';
+            const filingDateTime = trade.filingDate ? new Date(trade.filingDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'N/A';
             html += '<div class="notification-item">' +
               '<div class="title" style="font-weight: 600; font-size: 13px; color: ' + tickerColor + ';">$' + trade.ticker + ' / <i>' + direction + '</i></div>' +
               '<div style="font-size: 11px; opacity: 0.8; margin: 4px 0;">' +
-              '<span>Alert: ' + alertPrice + ' → Peak: ' + peakPrice + ' <i style="color: ' + percentColor + ';">(' + peakChange + '%)</i></span>' +
+              '<span>Alert: ' + alertPrice + ' → Peak: ' + peakPrice + ' <b><i style="color: ' + percentColor + ';">(' + peakChange + '%)</i></b></span>' +
               '</div>' +
-              '<div class="time" style="font-size: 10px; margin-top: 4px;">' + filingDate + ' | ' + trade.companyName + '</div>' +
+              '<div class="time" style="font-size: 10px; margin-top: 4px;">' + filingDateTime + ' | ' + trade.companyName + '</div>' +
               '</div>';
           });
           html += '</div>';
@@ -5766,26 +5812,26 @@ app.get('/api/performance-summary', (req, res) => {
       if (performanceData[ticker]) {
         const perfData = performanceData[ticker];
         peakPercent = parseFloat(perfData.performance) || 0;
-        
-        // For shorts, flip the sign (if stock down 10%, short is up 10%)
-        if (isShort) {
-          peakPercent = peakPercent * -1;
-        }
       }
+      
+      // Determine if trade is a winner based on direction and performance
+      // LONG wins when peakPercent > 0
+      // SHORT wins when peakPercent < 0 (stock went down)
+      const isWinner = (isShort && peakPercent < 0) || (!isShort && peakPercent > 0);
       
       return {
         ticker,
-        peakPercent: isNaN(peakPercent) ? 0 : peakPercent,
+        peakPercent: Math.abs(peakPercent), // Always store as positive for display
         isShort: isShort,
-        alert: alertPrice
+        alert: alertPrice,
+        isWinner: isWinner
       };
     });
     
     // Filter out 0% trades (no movement yet) - EXCLUDE from all calculations
     const validTrades = allTrades.filter(t => t.peakPercent !== 0 && !isNaN(t.peakPercent));
-    const goodSetupTrades = validTrades.filter(t => t.peakPercent > 0);
-    const losingTrades = validTrades.filter(t => t.peakPercent < 0);
-    const winRate = validTrades.length > 0 ? Math.round((goodSetupTrades.length / validTrades.length) * 100) : 0;
+    const winningTrades = validTrades.filter(t => t.isWinner);
+    const winRate = validTrades.length > 0 ? Math.round((winningTrades.length / validTrades.length) * 100) : 0;
     
     // Get top 5 performers by peak % - from ALL valid trades (not just winners)
     const topPerformers = validTrades
@@ -5803,7 +5849,7 @@ app.get('/api/performance-summary', (req, res) => {
     res.json({
       winRate: winRate,
       totalTrades: stocks.length,
-      goodSetupTrades: goodSetupTrades.length,
+      winningTrades: winningTrades.length,
       topPerformers: topPerformers,
       bestPerformer: bestPerformer
     });
@@ -7331,7 +7377,6 @@ app.get('/api/quote/:ticker', async (req, res) => {
     const quotePrice = quote?.regularMarketPrice || 'N/A';
     const quoteVolume = quote?.regularMarketVolume || 0;
     const quoteAvgVol = fundamentals.averageVolume || quote?.averageDailyVolume3Month || 0;
-    const quoteWA = await fetchWA(ticker, quotePrice, quoteVolume, quoteAvgVol);
     
     res.json({
       symbol: ticker,
@@ -7381,7 +7426,14 @@ app.get('/api/quote/:ticker', async (req, res) => {
             performanceData[ticker].performance = parseFloat(percentChange.toFixed(2));
           }
           
-          fs.writeFileSync(CONFIG.PERFORMANCE_FILE, JSON.stringify(performanceData, null, 2));
+          // Write updated performance data (atomic write)
+          try {
+            const tempFile = CONFIG.PERFORMANCE_FILE + '.tmp';
+            fs.writeFileSync(tempFile, JSON.stringify(performanceData, null, 2));
+            fs.renameSync(tempFile, CONFIG.PERFORMANCE_FILE);
+          } catch (err) {
+            fs.writeFileSync(CONFIG.PERFORMANCE_FILE, JSON.stringify(performanceData, null, 2));
+          }
         }
       } catch (e) {
         // Silently fail performance update
@@ -7680,7 +7732,13 @@ const updateAllPerformanceData = async () => {
     
     // Write back if any updates were made
     if (updated) {
-      fs.writeFileSync(CONFIG.PERFORMANCE_FILE, JSON.stringify(performanceData, null, 2));
+      try {
+        const tempFile = CONFIG.PERFORMANCE_FILE + '.tmp';
+        fs.writeFileSync(tempFile, JSON.stringify(performanceData, null, 2));
+        fs.renameSync(tempFile, CONFIG.PERFORMANCE_FILE);
+      } catch (err) {
+        fs.writeFileSync(CONFIG.PERFORMANCE_FILE, JSON.stringify(performanceData, null, 2));
+      }
     }
   } catch (e) {
     // Silently fail background update
@@ -8182,7 +8240,7 @@ if (process.stdin.isTTY) {
             const isShortCombo = hasReverseSplit && (hasDilution || hasWarrantRedemption);
             
             // Bearish signals that force SHORT regardless
-            const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Material Lawsuit', 'Going Dark', 'Asset Disposition', 'Convertible Debt', 'Junk Debt', 'Executive Liquidation', 'Executive Departure', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Reverse Split Event', 'Warrant Redemption'];
+            const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Material Lawsuit', 'Going Dark', 'Convertible Debt', 'Junk Debt', 'Executive Liquidation', 'Executive Departure', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Reverse Split Event', 'Warrant Redemption'];
             const bearishCount = sigKeys.filter(cat => bearishCats.includes(cat)).length;
             const bullishCats = ['Merger/Acquisition', 'FDA Approved', 'FDA Breakthrough', 'FDA Filing', 'Clinical Success', 'Clinical Milestone', 'Insider Buying', 'Executive Liquidation', 'DTC Eligible Restored', 'Government Contract', 'Partnership', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering'];
             const bullishCount = sigKeys.filter(cat => bullishCats.includes(cat)).length;
@@ -8853,6 +8911,7 @@ const updateAllTickerPrices = async () => {
       alerts = JSON.parse(alertsContent);
       if (!Array.isArray(alerts)) alerts = [];
     } catch (e) {
+      log('ERROR', `Failed to parse alerts: ${e.message}`);
       return;
     }
     
@@ -8867,16 +8926,39 @@ const updateAllTickerPrices = async () => {
             performanceData = {};
           }
         } catch (e) {
+          log('WARN', `Failed to parse performance data: ${e.message}`);
           performanceData = {};
         }
       }
     }
     
-    // Get unique tickers from alerts
+    // Get unique tickers from alerts and load stocks.json to map alert prices
     const tickers = [...new Set(alerts.map(a => a.ticker).filter(t => t))];
     
     if (tickers.length === 0) return;
     
+    // Load stocks.json to get the REAL alert prices
+    let stocksMap = {};
+    if (fs.existsSync(CONFIG.STOCKS_FILE)) {
+      try {
+        const stocksContent = fs.readFileSync(CONFIG.STOCKS_FILE, 'utf8').trim();
+        if (stocksContent) {
+          const stocks = JSON.parse(stocksContent);
+          if (Array.isArray(stocks)) {
+            // Build map of ticker -> price (use first/most recent entry per ticker)
+            for (const stock of stocks) {
+              if (stock.ticker && stock.price && !stocksMap[stock.ticker]) {
+                stocksMap[stock.ticker] = stock.price;
+              }
+            }
+          }
+        }
+      } catch (e) {
+        log('WARN', `Failed to load stocks for price mapping: ${e.message}`);
+      }
+    }
+    
+    let updated = 0;
     // Fetch prices for all tickers
     for (const ticker of tickers) {
       try {
@@ -8889,8 +8971,11 @@ const updateAllTickerPrices = async () => {
         if (quote && quote.regularMarketPrice > 0) {
           // Ensure ticker exists in performance data
           if (!performanceData[ticker]) {
+            // Use alert price from stocks.json if available, otherwise fall back to current price
+            const alertPrice = stocksMap[ticker] || quote.regularMarketPrice;
+            
             performanceData[ticker] = {
-              alert: quote.regularMarketPrice,
+              alert: alertPrice,
               highest: quote.regularMarketPrice,
               lowest: quote.regularMarketPrice,
               current: quote.regularMarketPrice,
@@ -8915,16 +9000,36 @@ const updateAllTickerPrices = async () => {
               performanceData[ticker].lowest = quote.regularMarketPrice;
             }
           }
+          
+          // Calculate performance percentage based on alert price
+          const alertPrice = performanceData[ticker].alert || 0;
+          if (alertPrice > 0) {
+            const percentChange = ((quote.regularMarketPrice - alertPrice) / alertPrice) * 100;
+            performanceData[ticker].performance = parseFloat(percentChange.toFixed(2));
+          } else {
+            performanceData[ticker].performance = 0;
+          }
+          
+          updated++;
         }
       } catch (err) {
-        // Silently skip if fetch fails for this ticker
+        // Log fetch errors to help debug
+        log('DEBUG', `Price fetch failed for ${ticker}: ${err.message}`);
       }
     }
     
     // Save updated performance data
-    fs.writeFileSync(CONFIG.PERFORMANCE_FILE, JSON.stringify(performanceData, null, 2));
+    if (Object.keys(performanceData).length > 0) {
+      try {
+        const tempFile = CONFIG.PERFORMANCE_FILE + '.tmp';
+        fs.writeFileSync(tempFile, JSON.stringify(performanceData, null, 2));
+        fs.renameSync(tempFile, CONFIG.PERFORMANCE_FILE);
+      } catch (err) {
+        fs.writeFileSync(CONFIG.PERFORMANCE_FILE, JSON.stringify(performanceData, null, 2));
+      }
+    }
   } catch (err) {
-    // Silently fail background updates
+    log('ERROR', `Background price update failed: ${err.message}`);
   }
 };
 
