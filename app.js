@@ -8716,7 +8716,7 @@ if (process.stdin.isTTY) {
             filingType: formLogMessage,
             cik: filing.cik,
             skipReason: skipReason,
-            alertType: null,  // Will be set to 'Toxic Structure', 'High Velocity', or 'Composite' if alerted
+            alertType: null,  // Set to 'Toxic Structure', 'High Velocity', or 'Composite' if alerted
             deterministicPattern: deterministic.pattern,
             deterministicMechanism: deterministic.mechanism,
             deterministicPhrase: deterministicPhrase
