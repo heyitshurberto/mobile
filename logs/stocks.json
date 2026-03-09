@@ -2976,5 +2976,86 @@
     "highest5DayPercent": 0,
     "lowest5Day": 1.26,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "CACI",
+    "title": "8-K - CACI INTERNATIONAL INC /DE/ (0000016058) (Filer)",
+    "companyName": "CACI INTERNATIONAL INC /DE/",
+    "filerName": null,
+    "sector": "Professional Services",
+    "price": 633.21,
+    "fav": "75.64",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Virginia (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 374347,
+    "averageVolume": 288440,
+    "float": 21817700,
+    "sharesOutstanding": 22085774,
+    "soRatio": "98.79%",
+    "marketCap": 13984933888,
+    "isShort": true,
+    "ftd": 2300,
+    "ftdPercent": "0.01",
+    "intent": "Merger/Acquisition, Activist 13D Filing, Bankruptcy Filing, Credit Default, Asset Disposition, Partnership",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Virginia",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "Merger/Acquisition": [
+        "Acquisition Agreement",
+        "Material Definitive Agreement"
+      ],
+      "Activist 13D Filing": [
+        "Beneficial Ownership"
+      ],
+      "Bankruptcy Filing": [
+        "Insolvency Proceedings"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Asset Disposition": [
+        "Asset Sale",
+        "Asset Disposition",
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "13D",
+      "Form D",
+      "EX-10.1",
+      "Item 1.01",
+      "Item 2.01",
+      "Item 2.03",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, 13D, Form D, EX-10.1, Item 1.01, Item 2.01, Item 2.03, Item 8.01, Item 9.01",
+    "cik": "16058",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Distressed)",
+    "deterministicMechanism": "Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.",
+    "deterministicPhrase": "[Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.]",
+    "recordedAt": "2026-03-09T20:46:18.965Z",
+    "recordId": "CACI-1773089178965",
+    "expiresAt": "2026-03-14T20:46:18.965Z",
+    "direction": "SHORT",
+    "highest5Day": 633.21,
+    "highest5DayPercent": 0,
+    "lowest5Day": 633.21,
+    "lowest5DayPercent": 0
   }
 ]

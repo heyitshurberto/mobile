@@ -457,7 +457,7 @@
     "lowest": 21.81,
     "current": 21.81,
     "currentPrice": 21.81,
-    "volume": 30024907,
+    "volume": 31672080,
     "averageVolume": 18855194,
     "marketCap": 29106165760,
     "performance": -0.05
@@ -485,6 +485,23 @@
     "performance": 0,
     "date": "2026-03-09T20:26:35.057Z",
     "alertDate": "2026-03-09T20:26:35.057Z",
+    "reverseSplitRatio": null,
+    "volume": 449183,
+    "averageVolume": 29858294,
+    "marketCap": 6085189
+  },
+  "CACI": {
+    "short": false,
+    "alert": 633.21,
+    "highest": 633.21,
+    "lowest": 633.21,
+    "highest5Day": 633.21,
+    "highest5DayPercent": 0,
+    "current": 633.21,
+    "currentPrice": 633.21,
+    "performance": 0,
+    "date": "2026-03-09T20:46:19.049Z",
+    "alertDate": "2026-03-09T20:46:19.049Z",
     "reverseSplitRatio": null
   }
 }
