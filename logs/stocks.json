@@ -1904,8 +1904,8 @@
     "recordId": "CNL-1769515570279",
     "expiresAt": "2026-02-01T12:06:10.279Z",
     "direction": "LONG",
-    "highest5Day": 17.115,
-    "highest5DayPercent": 2
+    "highest5Day": 17.18,
+    "highest5DayPercent": 2.38
   },
   {
     "ticker": "NTLA",
@@ -2831,5 +2831,73 @@
     "direction": "LONG",
     "highest5Day": 21.82,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "OXY",
+    "title": "8-K - OCCIDENTAL PETROLEUM CORP /DE/ (0000797468) (Filer)",
+    "companyName": "OCCIDENTAL PETROLEUM CORP /DE/",
+    "filerName": null,
+    "sector": "Energy",
+    "price": 55.02,
+    "fav": "77.76",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Texas (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 29291309,
+    "averageVolume": 12633750,
+    "float": 982449804,
+    "sharesOutstanding": 986266656,
+    "soRatio": "99.61%",
+    "marketCap": 54264389632,
+    "isShort": true,
+    "ftd": 64393,
+    "ftdPercent": "0.01",
+    "intent": "Merger/Acquisition, Credit Default, Asset Disposition",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Texas",
+    "filingDate": "2026-03-09",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Asset Disposition": [
+        "Divested"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-99.1",
+      "EX-99.2",
+      "EX-4.1",
+      "Item 1.01",
+      "Item 3.03",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-99.1, EX-99.2, EX-4.1, Item 1.01, Item 3.03, Item 8.01, Item 9.01",
+    "cik": "797468",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-09T20:20:01.060Z",
+    "recordId": "OXY-1773087601060",
+    "expiresAt": "2026-03-14T20:20:01.060Z",
+    "direction": "SHORT",
+    "highest5Day": 55.02,
+    "highest5DayPercent": 0,
+    "lowest5Day": 55.02,
+    "lowest5DayPercent": 0
   }
 ]
