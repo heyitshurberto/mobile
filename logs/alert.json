@@ -2412,5 +2412,73 @@
     "highest5DayPercent": 0,
     "lowest5Day": 5.1,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "RAPP",
+    "title": "8-K - Rapport Therapeutics, Inc. (0002012593) (Filer)",
+    "companyName": "Rapport Therapeutics, Inc.",
+    "filerName": null,
+    "sector": "Pharmaceuticals",
+    "price": 30.54,
+    "fav": "84.92",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Massachusetts (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 887970,
+    "averageVolume": 360577,
+    "float": 30618500,
+    "sharesOutstanding": 47661138,
+    "soRatio": "64.24%",
+    "marketCap": 1455571200,
+    "isShort": false,
+    "ftd": 39454,
+    "ftdPercent": "0.13",
+    "intent": "Clinical Success, Clinical Milestone, Licensing Deal",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Massachusetts",
+    "filingDate": "2026-03-10",
+    "signals": {
+      "Clinical Success": [
+        "Phase 1",
+        "Phase 2",
+        "Phase 3",
+        "Efficacy"
+      ],
+      "Clinical Milestone": [
+        "Investigational New Drug"
+      ],
+      "Licensing Deal": [
+        "License Agreement"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "13D",
+      "EX-99.1",
+      "Item 2.02",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, 13D, EX-99.1, Item 2.02, Item 9.01",
+    "cik": "2012593",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-03-10T11:12:34.455Z",
+    "recordId": "RAPP-1773141154455",
+    "expiresAt": "2026-03-15T11:12:34.455Z",
+    "direction": "LONG",
+    "highest5Day": 30.54,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
   }
 ]

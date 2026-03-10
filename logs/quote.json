@@ -553,17 +553,28 @@
     "performance": 0
   },
   "QTTB": {
-    "short": false,
     "alert": 5.1,
-    "highest": 5.1,
-    "lowest": 5.1,
-    "highest5Day": 5.1,
-    "highest5DayPercent": 0,
+    "highest": 5.2314,
+    "lowest": 4.4028,
     "current": 5.1,
     "currentPrice": 5.1,
+    "volume": 232680,
+    "averageVolume": 180583,
+    "marketCap": 65576040,
+    "performance": 0
+  },
+  "RAPP": {
+    "short": false,
+    "alert": 30.54,
+    "highest": 30.54,
+    "lowest": 30.54,
+    "highest5Day": 30.54,
+    "highest5DayPercent": 0,
+    "current": 30.54,
+    "currentPrice": 30.54,
     "performance": 0,
-    "date": "2026-03-10T11:05:43.143Z",
-    "alertDate": "2026-03-10T11:05:43.143Z",
+    "date": "2026-03-10T11:12:34.515Z",
+    "alertDate": "2026-03-10T11:12:34.515Z",
     "reverseSplitRatio": null
   }
 }
