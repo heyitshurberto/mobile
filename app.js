@@ -72,7 +72,7 @@ const CONFIG = {
   // 2FA settings
   TWO_FACTOR_ENABLED: true, // Set to false to disable 2FA approval gate (keep basic auth always on)
   // Email authentication settings
-  EMAIL_AUTH_ENABLED: true, // Use email-based auth instead of basic auth (disabled - no valid SMTP credentials)
+  EMAIL_AUTH_ENABLED: true, // Use email-based auth instead of basic auth
   SMTP_HOST: process.env.SMTP_HOST || 'smtp.gmail.com',
   SMTP_PORT: process.env.SMTP_PORT || 587,
   SMTP_USER: process.env.SMTP_USER || '',
@@ -2948,7 +2948,7 @@ app.use(rateLimitMiddleware(10, 60000));
 // Email-based authentication setup
 let emailTransporter = null;
 try {
-  if (CONFIG.EMAIL_AUTH_ENABLED && CONFIG.SMTP_USER && CONFIG.SMTP_PASS) {
+  if (CONFIG.SMTP_USER && CONFIG.SMTP_PASS) {
     const nodemailer = require('nodemailer');
     emailTransporter = nodemailer.createTransport({
       host: CONFIG.SMTP_HOST,
@@ -2961,7 +2961,7 @@ try {
     });
     log('INFO', `Email transporter initialized: ${CONFIG.SMTP_HOST}:${CONFIG.SMTP_PORT}`);
   } else {
-    log('WARN', 'Email auth not enabled or credentials missing');
+    log('WARN', 'Email credentials missing - check SMTP_USER and SMTP_PASS in .env');
   }
 } catch (err) {
   log('ERROR', `Failed to initialize email transport: ${err.message}`);
@@ -4470,8 +4470,8 @@ const renderLoginPage = () => `
             return;
           }
 
-          // Show all trades (most recent first)
-          const recentTrades = stocks;
+          // Show all trades (most recent first) - reverse array for newest at bottom
+          const recentTrades = stocks.slice().reverse();
           let html = '<div class="notification-list">';
           
           recentTrades.forEach(trade => {
@@ -4483,21 +4483,18 @@ const renderLoginPage = () => `
             let peakPrice = 'N/A';
             let peakChange = '0';
             
-            if (direction === 'SHORT') {
-              // For SHORT: peak is when price goes DOWN (lowest price)
-              // Use quote.json lowest as it has live data
-              const lowest = quoteData?.lowest || trade.lowest5Day || trade.price;
-              if (lowest && lowest > 0 && trade.price > 0) {
-                peakPrice = '$' + parseFloat(lowest).toFixed(4);
-                peakChange = ((lowest - trade.price) / trade.price * 100).toFixed(1);
-              }
-            } else {
-              // For LONG: peak is when price goes UP (highest price)
-              // Use quote.json highest as it has live data
-              const highest = quoteData?.highest || trade.highest5Day || trade.price;
-              if (highest && highest > 0 && trade.price > 0) {
-                peakPrice = '$' + parseFloat(highest).toFixed(4);
-                peakChange = ((highest - trade.price) / trade.price * 100).toFixed(1);
+            // Use performance field from quote.json
+            if (quoteData && typeof quoteData.performance === 'number') {
+              if (direction === 'SHORT') {
+                // For SHORT: negate the performance (price up = loss)
+                peakChange = (-quoteData.performance).toFixed(1);
+                // Use lowest price for SHORT display
+                peakPrice = '$' + parseFloat(quoteData.lowest || trade.price).toFixed(4);
+              } else {
+                // For LONG: use performance as-is
+                peakChange = quoteData.performance.toFixed(1);
+                // Use highest price for LONG display
+                peakPrice = '$' + parseFloat(quoteData.highest || trade.price).toFixed(4);
               }
             }
             
@@ -4505,10 +4502,15 @@ const renderLoginPage = () => `
             const isWin = (direction === 'SHORT' && peakChange < 0) || (direction !== 'SHORT' && peakChange > 0);
             const isDarkMode = document.body.classList.contains('dark-mode');
             const percentColor = isWin ? (isDarkMode ? '#00ff00' : '#2a7f3c') : (isDarkMode ? '#ff0000' : '#c23b3b');
-            const filingDate = trade.filingDate ? new Date(trade.filingDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'N/A';
             
             const tickerColor = document.body.classList.contains('dark-mode') ? '#ccc' : '#666';
-            const filingDateTime = trade.filingDate ? new Date(trade.filingDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'N/A';
+            let filingDateTime = 'N/A';
+            if (trade.recordedAt) {
+              const date = new Date(trade.recordedAt);
+              const dateStr = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+              const timeStr = date.toLocaleTimeString('en-US', { hour12: true, hour: '2-digit', minute: '2-digit' });
+              filingDateTime = dateStr + ' ' + timeStr + ' UTC';
+            }
             html += '<div class="notification-item">' +
               '<div class="title" style="font-weight: 600; font-size: 13px; color: ' + tickerColor + ';">$' + trade.ticker + ' / <i>' + direction + '</i></div>' +
               '<div style="font-size: 11px; opacity: 0.8; margin: 4px 0;">' +
@@ -4556,21 +4558,11 @@ const renderLoginPage = () => `
         return;
       }
       
-      // Email validation
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      // Email validation - permissive regex that accepts valid email formats
+      const emailRegex = /^[a-zA-Z0-9._+%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       if (!emailRegex.test(email)) {
         if (errorDiv) {
           errorDiv.textContent = 'Please enter a valid email address';
-          errorDiv.style.display = 'block';
-        }
-        return;
-      }
-      
-      // Additional email type validation - check for proper domain format
-      const strictEmailRegex = /^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-      if (!strictEmailRegex.test(email)) {
-        if (errorDiv) {
-          errorDiv.textContent = 'Invalid email type';
           errorDiv.style.display = 'block';
         }
         return;
@@ -4657,62 +4649,24 @@ const MAILTRAP_API_TOKEN = process.env.MAILTRAP_API_TOKEN || '';
 // Note: emailTransporter is already initialized above in the email setup section
 
 const sendMailtrapEmail = async (to, subject, html) => {
-  // Try SMTP first if available
-  if (emailTransporter) {
-    try {
-      const info = await emailTransporter.sendMail({
-        from: CONFIG.EMAIL_FROM || 'noreply@eugenes.shop',
-        to: to,
-        subject: subject,
-        html: html
-      });
-      log('INFO', 'Email sent successfully via SMTP');
-      return true;
-    } catch (err) {
-      // Silently fail - no valid credentials
-    }
+  if (!emailTransporter) {
+    log('WARN', `Email transporter not available for ${to}`);
+    return false;
   }
-
-  // Fallback to Mailtrap if SMTP fails (only if token is configured)
-  if (MAILTRAP_API_TOKEN) {
-    try {
-      const response = await fetch('https://send.api.mailtrap.io/api/send', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${MAILTRAP_API_TOKEN}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          from: {
-            email: 'noreply@eugenes.shop',
-            name: 'Eugene'
-          },
-          to: [
-            {
-              email: to
-            }
-          ],
-          subject: subject,
-          html: html
-        })
-      });
-
-      if (!response.ok) {
-        // Silently fail
-        return false;
-      }
-
-      const data = await response.json();
-      log('INFO', 'Email sent successfully via Mailtrap');
-      return true;
-    } catch (err) {
-      // Silently fail - no valid email service
-      return false;
-    }
+  
+  try {
+    const info = await emailTransporter.sendMail({
+      from: CONFIG.EMAIL_FROM || 'noreply@eugenes.shop',
+      to: to,
+      subject: subject,
+      html: html
+    });
+    log('INFO', `Email sent successfully to ${to}`);
+    return true;
+  } catch (err) {
+    log('ERROR', `Failed to send email to ${to}: ${err.message}`);
+    return false;
   }
-
-  // No email service available - silently fail
-  return false;
 };
 
 const sendOTPEmail = async (email, otp) => {
@@ -7487,7 +7441,7 @@ app.post('/api/send-message', async (req, res) => {
     const cookies = parseCookies(req.headers.cookie || '');
     const sessionId = cookies.sid;
     const sessionData = pendingLogins.get(sessionId);
-    const userEmail = sessionData?.email || 'foundereugene1@gmail.com';
+    const userEmail = 'foundereugene1@gmail.com';
 
     const html = `
 <html>
@@ -7591,20 +7545,14 @@ app.post('/api/send-access-request', async (req, res) => {
       return res.status(400).json({ success: false, error: 'Name, email, and message are required' });
     }
 
-    // Validate email format - simple and permissive
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // Validate email format - permissive regex that accepts valid email formats
+    const emailRegex = /^[a-zA-Z0-9._+%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
       return res.status(400).json({ success: false, error: 'Please enter a valid email address' });
     }
 
-    // Additional email type validation - check for proper domain format (fixed regex character class)
-    const strictEmailRegex = /^[a-zA-Z0-9._\-%]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!strictEmailRegex.test(email)) {
-      return res.status(400).json({ success: false, error: 'Invalid email type' });
-    }
-
     // Business email to send to
-    const businessEmail = 'pleroma@atomicmail.io';
+    const businessEmail = 'foundereugene1@gmail.com';
     
     const html = `
 <html>
@@ -7658,14 +7606,13 @@ app.post('/api/send-access-request', async (req, res) => {
         source
       });
       fs.writeFileSync(appFile, JSON.stringify(applications, null, 2));
-      console.log(`Application saved to ${appFile}`);
     } catch (err) {
       console.error('Failed to save application locally:', err.message);
     }
 
-    // Try to send email via Mailtrap, but don't fail the request if it doesn't work
+    // Try to send email via Mailtrap
     sendMailtrapEmail(businessEmail, `New Access Request from ${name}`, html).catch(err => {
-      console.error('Email sending failed (non-blocking):', err.message);
+      log('ERROR', `Email sending error: ${err.message}`);
     });
 
     // Always return success so user sees confirmation

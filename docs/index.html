@@ -2543,8 +2543,12 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                                 peakPercent = stock.lowest5DayPercent;
                                 peakPrice = parseFloat(stock.lowest5Day || stock.price).toFixed(2);
                             } else if (typeof stock.highest5DayPercent === 'number') {
-                                // If only highest5Day available, it went UP (bad for SHORT) - show as negative
-                                peakPercent = -stock.highest5DayPercent;
+                                // If only highest5Day available, it went UP (bad for SHORT)
+                                // For SHORT: loss = ((alertPrice - highestPrice) / alertPrice) * 100
+                                const highestPrice = parseFloat(stock.highest5Day || stock.price);
+                                if (alertPrice > 0) {
+                                    peakPercent = parseFloat((((alertPrice - highestPrice) / alertPrice) * 100).toFixed(2));
+                                }
                                 peakPrice = parseFloat(stock.highest5Day || stock.price).toFixed(2);
                             } else {
                                 const lowestPrice = parseFloat(stock.lowest5Day || stock.price);
