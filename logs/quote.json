@@ -629,5 +629,19 @@
     "averageVolume": 4914891,
     "marketCap": 726752832,
     "performance": 0
+  },
+  "KDP": {
+    "short": false,
+    "alert": 28.19,
+    "highest": 28.19,
+    "lowest": 28.19,
+    "highest5Day": 28.19,
+    "highest5DayPercent": 0,
+    "current": 28.19,
+    "currentPrice": 28.19,
+    "performance": 0,
+    "date": "2026-03-10T12:51:23.744Z",
+    "alertDate": "2026-03-10T12:51:23.744Z",
+    "reverseSplitRatio": null
   }
 }

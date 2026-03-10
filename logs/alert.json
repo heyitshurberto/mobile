@@ -2833,5 +2833,91 @@
     "highest5DayPercent": 0,
     "lowest5Day": 204.07,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "KDP",
+    "title": "8-K - Keurig Dr Pepper Inc. (0001418135) (Filer)",
+    "companyName": "Keurig Dr Pepper Inc.",
+    "filerName": null,
+    "sector": "Beverages",
+    "price": 28.19,
+    "fav": "0.91",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Texas (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.15,
+    "filingTimeBonus": 1.15,
+    "volume": 10723458,
+    "averageVolume": 11320377,
+    "float": 10350000,
+    "sharesOutstanding": 1358666059,
+    "soRatio": "0.76%",
+    "marketCap": 38300798976,
+    "isShort": true,
+    "ftd": 67601,
+    "ftdPercent": "0.65",
+    "intent": "Merger/Acquisition, Activist 13D Filing, Bankruptcy Filing, Credit Default, Regulatory Breach, Asset Disposition, Partnership",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Texas",
+    "filingDate": "2026-03-10",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Activist 13D Filing": [
+        "Beneficial Ownership"
+      ],
+      "Bankruptcy Filing": [
+        "Insolvency Proceedings"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Regulatory Breach": [
+        "Product Recall"
+      ],
+      "Asset Disposition": [
+        "Asset Sale",
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {
+      "signals": [
+        "High Leverage - Debt/Equity Exceeds 3.0"
+      ],
+      "severity": 0.75,
+      "isDeterministic": true
+    },
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-10.1",
+      "Item 1.01",
+      "Item 2.03",
+      "Item 7.01",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-10.1, Item 1.01, Item 2.03, Item 7.01, Item 8.01, Item 9.01",
+    "cik": "1418135",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Distressed)",
+    "deterministicMechanism": "Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.",
+    "deterministicPhrase": "[Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.]",
+    "recordedAt": "2026-03-10T12:51:23.685Z",
+    "recordId": "KDP-1773147083685",
+    "expiresAt": "2026-03-15T12:51:23.685Z",
+    "direction": "SHORT",
+    "highest5Day": 0,
+    "highest5DayPercent": 0,
+    "lowest5Day": 28.19,
+    "lowest5DayPercent": 0
   }
 ]
