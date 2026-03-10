@@ -3067,5 +3067,67 @@
     "highest5DayPercent": 0,
     "lowest5Day": 0,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "ZCSH",
+    "title": "8-K - Grayscale Zcash Trust (ZEC) (0001720265) (Filer)",
+    "companyName": "Grayscale Zcash Trust (ZEC)",
+    "filerName": null,
+    "sector": "N/A",
+    "price": 15.6,
+    "fav": "43.88",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Connecticut (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 16643,
+    "averageVolume": 79715,
+    "float": 3497926,
+    "sharesOutstanding": 4,
+    "soRatio": "87448150.0%",
+    "marketCap": "N/A",
+    "isShort": false,
+    "ftd": false,
+    "ftdPercent": null,
+    "intent": "Merger/Acquisition, Asset Disposition",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Connecticut",
+    "filingDate": "2026-03-10",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-4.1",
+      "Item 1.01",
+      "Item 5.07",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-4.1, Item 1.01, Item 5.07, Item 9.01",
+    "cik": "1720265",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-10T20:10:31.353Z",
+    "recordId": "ZCSH-1773173431353",
+    "expiresAt": "2026-03-15T20:10:31.353Z",
+    "direction": "LONG",
+    "highest5Day": 15.6,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
   }
 ]
