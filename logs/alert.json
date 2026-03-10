@@ -2273,5 +2273,71 @@
     "direction": "SHORT",
     "highest5Day": 2.12,
     "highest5DayPercent": 0
+  },
+  {
+    "ticker": "LEGN",
+    "title": "6-K - Legend Biotech Corp (0001801198) (Filer)",
+    "companyName": "Legend Biotech Corp",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 19.14,
+    "fav": "37.37",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "New Jersey (via Cayman Islands)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 1379941,
+    "averageVolume": 2439230,
+    "float": 91145224,
+    "sharesOutstanding": 184689565,
+    "soRatio": "49.35%",
+    "marketCap": 3534958336,
+    "isShort": false,
+    "ftd": 11459,
+    "ftdPercent": "0.01",
+    "intent": "Clinical Success, Clinical Milestone, Licensing Deal",
+    "incorporated": "Cayman Islands",
+    "located": "New Jersey",
+    "filingDate": "2026-03-10",
+    "signals": {
+      "Clinical Success": [
+        "Trial Results",
+        "Efficacy"
+      ],
+      "Clinical Milestone": [
+        "First Patient"
+      ],
+      "Licensing Deal": [
+        "License Agreement"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "S-8",
+      "F-3",
+      "20-F",
+      "EX-99.1"
+    ],
+    "filingType": "6-K, S-8, F-3, 20-F, EX-99.1",
+    "cik": "1801198",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-03-10T11:01:04.331Z",
+    "recordId": "LEGN-1773140464331",
+    "expiresAt": "2026-03-15T11:01:04.331Z",
+    "direction": "LONG",
+    "highest5Day": 19.14,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
   }
 ]
