@@ -580,18 +580,18 @@
     "marketCap": 1455571200,
     "performance": 0
   },
-  "IRD": {
+  "ESPR": {
     "short": false,
-    "alert": 4.77,
-    "highest": 4.77,
-    "lowest": 4.77,
-    "highest5Day": 4.77,
+    "alert": 3.04,
+    "highest": 3.04,
+    "lowest": 3.04,
+    "highest5Day": 3.04,
     "highest5DayPercent": 0,
-    "current": 4.77,
-    "currentPrice": 4.77,
+    "current": 3.04,
+    "currentPrice": 3.04,
     "performance": 0,
-    "date": "2026-03-10T11:18:00.036Z",
-    "alertDate": "2026-03-10T11:18:00.036Z",
+    "date": "2026-03-10T11:18:15.904Z",
+    "alertDate": "2026-03-10T11:18:15.904Z",
     "reverseSplitRatio": null
   }
 }

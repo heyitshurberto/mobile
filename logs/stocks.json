@@ -3496,5 +3496,69 @@
     "highest5DayPercent": 0,
     "lowest5Day": 0,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "ESPR",
+    "title": "8-K - Esperion Therapeutics, Inc. (0001434868) (Filer)",
+    "companyName": "Esperion Therapeutics, Inc.",
+    "filerName": null,
+    "sector": "Pharmaceuticals",
+    "price": 3.04,
+    "fav": "45.36",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Michigan (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 7405333,
+    "averageVolume": 4914891,
+    "float": 222935000,
+    "sharesOutstanding": 239063437,
+    "soRatio": "93.25%",
+    "marketCap": 726752832,
+    "isShort": true,
+    "ftd": 7567,
+    "ftdPercent": "0.00",
+    "intent": "Clinical Success, Clinical Milestone, Convertible Debt",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Michigan",
+    "filingDate": "2026-03-10",
+    "signals": {
+      "Clinical Success": [
+        "Efficacy"
+      ],
+      "Clinical Milestone": [
+        "Investigational New Drug"
+      ],
+      "Convertible Debt": [
+        "Convertible Notes"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-99.1",
+      "Item 2.02",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-99.1, Item 2.02, Item 9.01",
+    "cik": "1434868",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-03-10T11:18:15.850Z",
+    "recordId": "ESPR-1773141495850",
+    "expiresAt": "2026-03-15T11:18:15.850Z",
+    "direction": "SHORT",
+    "highest5Day": 0,
+    "highest5DayPercent": 0,
+    "lowest5Day": 3.04,
+    "lowest5DayPercent": 0
   }
 ]
