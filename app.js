@@ -4483,18 +4483,21 @@ const renderLoginPage = () => `
             let peakPrice = 'N/A';
             let peakChange = '0';
             
-            // Use performance field from quote.json
-            if (quoteData && typeof quoteData.performance === 'number') {
-              if (direction === 'SHORT') {
-                // For SHORT: negate the performance (price up = loss)
-                peakChange = (-quoteData.performance).toFixed(1);
-                // Use lowest price for SHORT display
-                peakPrice = '$' + parseFloat(quoteData.lowest || trade.price).toFixed(4);
-              } else {
-                // For LONG: use performance as-is
-                peakChange = quoteData.performance.toFixed(1);
-                // Use highest price for LONG display
-                peakPrice = '$' + parseFloat(quoteData.highest || trade.price).toFixed(4);
+            if (direction === 'SHORT') {
+              // For SHORT: peak is when price goes DOWN (lowest price)
+              // Use quote.json lowest as it has live data
+              const lowest = quoteData?.lowest || trade.lowest5Day || trade.price;
+              if (lowest && lowest > 0 && trade.price > 0) {
+                peakPrice = '$' + parseFloat(lowest).toFixed(4);
+                peakChange = ((lowest - trade.price) / trade.price * 100).toFixed(1);
+              }
+            } else {
+              // For LONG: peak is when price goes UP (highest price)
+              // Use quote.json highest as it has live data
+              const highest = quoteData?.highest || trade.highest5Day || trade.price;
+              if (highest && highest > 0 && trade.price > 0) {
+                peakPrice = '$' + parseFloat(highest).toFixed(4);
+                peakChange = ((highest - trade.price) / trade.price * 100).toFixed(1);
               }
             }
             
