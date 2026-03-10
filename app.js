@@ -7487,7 +7487,7 @@ app.post('/api/send-message', async (req, res) => {
     const cookies = parseCookies(req.headers.cookie || '');
     const sessionId = cookies.sid;
     const sessionData = pendingLogins.get(sessionId);
-    const userEmail = sessionData?.email || 'pleroma@atomicmail.io';
+    const userEmail = sessionData?.email || 'foundereugene1@gmail.com';
 
     const html = `
 <html>
@@ -7591,14 +7591,14 @@ app.post('/api/send-access-request', async (req, res) => {
       return res.status(400).json({ success: false, error: 'Name, email, and message are required' });
     }
 
-    // Validate email format
+    // Validate email format - simple and permissive
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return res.status(400).json({ success: false, error: 'Please enter a valid email address' });
     }
 
-    // Additional email type validation - check for proper domain format
-    const strictEmailRegex = /^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    // Additional email type validation - check for proper domain format (fixed regex character class)
+    const strictEmailRegex = /^[a-zA-Z0-9._\-%]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!strictEmailRegex.test(email)) {
       return res.status(400).json({ success: false, error: 'Invalid email type' });
     }
