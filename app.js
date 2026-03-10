@@ -30,8 +30,7 @@ const CONFIG = {
   MIN_ALERT_VOLUME: 1000,           // Capture initial filing
   STRONG_SIGNAL_MIN_VOLUME: 500,    // Very early for strong catalysts
   MAX_FLOAT_6K: 75000000,           // Max float size for 6-K
-  MAX_FLOAT_8K: 125000000,          // Max float size for 8-K 
-  MAX_SO_RATIO: 1000.0,              // Max short interest ratio
+  MAX_FLOAT_8K: 125000000,          // Max float size for 8-K
   ALLOWED_COUNTRIES: ['israel', 'argentina', 'texas', 'china', 'hong kong', 'cayman islands', 'virgin islands', 'greece', 'singapore', 'malaysia', 'australia', 'bermuda', 'ireland', 'canada', 'nevada', 'delaware'], // Allowed incorporation/located countries
   CTB_WATCHLIST: ['NMHI', 'BINI', 'AGILQ', 'OLB', 'NCI', 'NEPTF', 'DLXY', 'SHPWQ', 'OBAI', 'SEELQ', 'PLYX', 'XTKG', 'IOTR', 'PFSA', 'RUBI', 'XTIA', 'XWEL', 'BATL', 'MLEC', 'IONM', 'GMUN', 'CZOOF', 'FABTQ', 'GXAI', 'VIVS'], // High CTB stocks (CTB > 300%, Availability tracked) - updated from IBorrowDesk Mar 06 2026
   // Enable optimizations for Raspberry Pi devices
@@ -8731,47 +8730,6 @@ if (process.stdin.isTTY) {
           // Check volume (skip for high-conviction or 3x average)
           if (minVolumeThreshold > 0 && volumeCheckLater !== null && volumeCheckLater < minVolumeThreshold) {
             skipReason = `Volume ${volumeCheckLater.toLocaleString('en-US')} below ${(minVolumeThreshold / 1000).toFixed(0)}k minimum`;
-            const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
-            const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
-            log('INFO', `Links: ${secLink} ${tvLink}`);
-            log('SKIP', `$${ticker}, ${skipReason}`);
-            console.log('');
-            // Save to CSV with skip reason
-            try {
-              const csvData = {
-                ticker,
-                price,
-                short: shortOpportunity ? true : false,
-                marketCap: marketCap,
-                float: float,
-                sharesOutstanding: sharesOutstanding,
-                soRatio: soRatio,
-                ftd: ftdData || false,
-                ftdPercent: ftdPercent || null,
-                volume: volume,
-                averageVolume: averageVolume,
-                incorporated: normalizedIncorporated,
-                located: normalizedLocated,
-                intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals)[0] : null,
-                filingDate: filing.updated,
-                filingType: formLogMessage,
-                cik: filing.cik,
-                sector: sectorDisplay,
-                fav: fav,
-                companyName: filerName || companyName || 'N/A',
-                financialRatioSignals: financialRatioSignals,
-                skipReason: skipReason,
-              };
-              saveToCSV(csvData);
-            } catch (csvErr) {
-              log('ERROR', `CSV error: ${csvErr.message}`);
-            }
-            continue;
-          }
-          
-          // S/O Ratio Check - Allow up to CONFIG.MAX_SO_RATIO (CTB stocks bypass)
-          if (!isOnCTBWatchlist && soRatioValue !== null && soRatioValue > CONFIG.MAX_SO_RATIO) {
-            skipReason = `S/O Out of Range: ${soRatioValue.toFixed(2)}%`;
             const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
             const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
             log('INFO', `Links: ${secLink} ${tvLink}`);
