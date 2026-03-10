@@ -2999,5 +2999,73 @@
     "highest5DayPercent": 0,
     "lowest5Day": 4.51,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "LIXT",
+    "title": "8-K - LIXTE BIOTECHNOLOGY HOLDINGS, INC. (0001335105) (Filer)",
+    "companyName": "LIXTE BIOTECHNOLOGY HOLDINGS, INC.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 2.57,
+    "fav": "74.14",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Florida (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 30732,
+    "averageVolume": 76844,
+    "float": 5697000,
+    "sharesOutstanding": 8703077,
+    "soRatio": "65.46%",
+    "marketCap": 22366908,
+    "isShort": false,
+    "ftd": 4249,
+    "ftdPercent": "0.07",
+    "intent": "Merger/Acquisition, Going Dark, Asset Disposition, Partnership",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Florida",
+    "filingDate": "2026-03-10",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Going Dark": [
+        "Deregister"
+      ],
+      "Asset Disposition": [
+        "Sale Of Assets",
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-10.1",
+      "Item 1.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-10.1, Item 1.01, Item 9.01",
+    "cik": "1335105",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-10T20:01:40.159Z",
+    "recordId": "LIXT-1773172900159",
+    "expiresAt": "2026-03-15T20:01:40.159Z",
+    "direction": "LONG",
+    "highest5Day": 2.57,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
   }
 ]

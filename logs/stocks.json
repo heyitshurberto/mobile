@@ -182,8 +182,8 @@
     "recordId": "CRDL-1769451197487",
     "expiresAt": "2026-01-31T18:13:17.487Z",
     "direction": "LONG",
-    "highest5Day": 1.0501,
-    "highest5DayPercent": 5.01
+    "highest5Day": 1.07,
+    "highest5DayPercent": 7
   },
   {
     "ticker": "BIYA",
@@ -454,8 +454,8 @@
     "recordId": "CNL-1769515570279",
     "expiresAt": "2026-02-01T12:06:10.279Z",
     "direction": "LONG",
-    "highest5Day": 18.55,
-    "highest5DayPercent": 10.55
+    "highest5Day": 18.58,
+    "highest5DayPercent": 10.73
   },
   {
     "ticker": "NTLA",
@@ -779,8 +779,8 @@
     "direction": "SHORT",
     "highest5Day": 0.6189,
     "highest5DayPercent": -14.04,
-    "lowest5Day": 0.4926,
-    "lowest5DayPercent": 31.58
+    "lowest5Day": 0.4809,
+    "lowest5DayPercent": 33.21
   },
   {
     "ticker": "HLEO",
@@ -1193,8 +1193,8 @@
     "recordId": "BOLD-1773054386119",
     "expiresAt": "2026-03-14T11:06:26.119Z",
     "direction": "LONG",
-    "highest5Day": 1.16,
-    "highest5DayPercent": 2.65
+    "highest5Day": 1.175,
+    "highest5DayPercent": 3.98
   },
   {
     "ticker": "RLMD",
@@ -2142,8 +2142,8 @@
     "recordId": "ACXP-1773061224050",
     "expiresAt": "2026-03-14T13:00:24.050Z",
     "direction": "LONG",
-    "highest5Day": 2.99,
-    "highest5DayPercent": 121.48
+    "highest5Day": 3.13,
+    "highest5DayPercent": 131.85
   },
   {
     "ticker": "ALLR",
@@ -2492,8 +2492,8 @@
     "recordId": "DRTS-1773086662071",
     "expiresAt": "2026-03-14T20:04:22.071Z",
     "direction": "LONG",
-    "highest5Day": 7.1,
-    "highest5DayPercent": 5.81
+    "highest5Day": 7.1488,
+    "highest5DayPercent": 6.54
   },
   {
     "ticker": "SUN",
@@ -2905,8 +2905,8 @@
     "direction": "SHORT",
     "highest5Day": 55.02,
     "highest5DayPercent": 0,
-    "lowest5Day": 52.5,
-    "lowest5DayPercent": 4.58
+    "lowest5Day": 52.05,
+    "lowest5DayPercent": 5.4
   },
   {
     "ticker": "EVTV",
@@ -3063,8 +3063,8 @@
     "direction": "SHORT",
     "highest5Day": 633.21,
     "highest5DayPercent": 0,
-    "lowest5Day": 593.06,
-    "lowest5DayPercent": 6.34
+    "lowest5Day": 591.71,
+    "lowest5DayPercent": 6.55
   },
   {
     "ticker": "VTAK",
@@ -3288,8 +3288,8 @@
     "recordId": "LEGN-1773140464331",
     "expiresAt": "2026-03-15T11:01:04.331Z",
     "direction": "LONG",
-    "highest5Day": 19.91,
-    "highest5DayPercent": 4.02,
+    "highest5Day": 19.9745,
+    "highest5DayPercent": 4.36,
     "lowest5Day": 0,
     "lowest5DayPercent": 0
   },
@@ -3952,5 +3952,73 @@
     "highest5DayPercent": 0,
     "lowest5Day": 4.49,
     "lowest5DayPercent": 0.44
+  },
+  {
+    "ticker": "LIXT",
+    "title": "8-K - LIXTE BIOTECHNOLOGY HOLDINGS, INC. (0001335105) (Filer)",
+    "companyName": "LIXTE BIOTECHNOLOGY HOLDINGS, INC.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 2.57,
+    "fav": "74.14",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Florida (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 30732,
+    "averageVolume": 76844,
+    "float": 5697000,
+    "sharesOutstanding": 8703077,
+    "soRatio": "65.46%",
+    "marketCap": 22366908,
+    "isShort": false,
+    "ftd": 4249,
+    "ftdPercent": "0.07",
+    "intent": "Merger/Acquisition, Going Dark, Asset Disposition, Partnership",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Florida",
+    "filingDate": "2026-03-10",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Going Dark": [
+        "Deregister"
+      ],
+      "Asset Disposition": [
+        "Sale Of Assets",
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-10.1",
+      "Item 1.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-10.1, Item 1.01, Item 9.01",
+    "cik": "1335105",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-10T20:01:40.159Z",
+    "recordId": "LIXT-1773172900159",
+    "expiresAt": "2026-03-15T20:01:40.159Z",
+    "direction": "LONG",
+    "highest5Day": 2.57,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
   }
 ]
