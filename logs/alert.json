@@ -2749,5 +2749,89 @@
     "highest5DayPercent": 0,
     "lowest5Day": 207.68,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "TKO",
+    "title": "8-K - TKO Group Holdings, Inc. (0001973266) (Filer)",
+    "companyName": "TKO Group Holdings, Inc.",
+    "filerName": null,
+    "sector": "Media",
+    "price": 204.07,
+    "fav": "3.22",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "New York (via Wilmington, Delaware)",
+    "custodianBonusName": "New York",
+    "filingTimeMultiplier": 1.1,
+    "filingTimeBonus": 1.1,
+    "volume": 1228749,
+    "averageVolume": 974615,
+    "float": 3136179,
+    "sharesOutstanding": 77966338,
+    "soRatio": "4.02%",
+    "marketCap": 16105687040,
+    "isShort": true,
+    "ftd": 15850,
+    "ftdPercent": "0.51",
+    "intent": "Merger/Acquisition, Activist 13D Filing, Bankruptcy Filing, Credit Default, Asset Disposition, Stock Buyback, Partnership",
+    "incorporated": "Wilmington, Delaware",
+    "located": "New York",
+    "filingDate": "2026-03-10",
+    "signals": {
+      "Merger/Acquisition": [
+        "Merger Agreement",
+        "Acquisition Agreement",
+        "Material Definitive Agreement"
+      ],
+      "Activist 13D Filing": [
+        "Beneficial Ownership"
+      ],
+      "Bankruptcy Filing": [
+        "Insolvency Proceedings"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Asset Disposition": [
+        "Asset Sale",
+        "Disposition"
+      ],
+      "Stock Buyback": [
+        "Share Repurchase",
+        "Repurchase Program"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "13D",
+      "EX-10.1",
+      "Item 1.01",
+      "Item 2.03",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, 13D, EX-10.1, Item 1.01, Item 2.03, Item 8.01, Item 9.01",
+    "cik": "1973266",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Distressed)",
+    "deterministicMechanism": "Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.",
+    "deterministicPhrase": "[Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.]",
+    "recordedAt": "2026-03-10T12:21:09.446Z",
+    "recordId": "TKO-1773145269446",
+    "expiresAt": "2026-03-15T12:21:09.446Z",
+    "direction": "SHORT",
+    "highest5Day": 0,
+    "highest5DayPercent": 0,
+    "lowest5Day": 204.07,
+    "lowest5DayPercent": 0
   }
 ]

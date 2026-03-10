@@ -601,5 +601,19 @@
     "date": "2026-03-10T12:11:21.162Z",
     "alertDate": "2026-03-10T12:11:21.162Z",
     "reverseSplitRatio": null
+  },
+  "TKO": {
+    "short": false,
+    "alert": 204.07,
+    "highest": 204.07,
+    "lowest": 204.07,
+    "highest5Day": 204.07,
+    "highest5DayPercent": 0,
+    "current": 204.07,
+    "currentPrice": 204.07,
+    "performance": 0,
+    "date": "2026-03-10T12:21:09.579Z",
+    "alertDate": "2026-03-10T12:21:09.579Z",
+    "reverseSplitRatio": null
   }
 }
