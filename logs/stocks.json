@@ -3784,8 +3784,8 @@
     "direction": "SHORT",
     "highest5Day": 0,
     "highest5DayPercent": 0,
-    "lowest5Day": 204.07,
-    "lowest5DayPercent": 0
+    "lowest5Day": 197.54,
+    "lowest5DayPercent": 3.2
   },
   {
     "ticker": "KDP",
@@ -3870,7 +3870,87 @@
     "direction": "SHORT",
     "highest5Day": 0,
     "highest5DayPercent": 0,
-    "lowest5Day": 28.19,
+    "lowest5Day": 27.475,
+    "lowest5DayPercent": 2.54
+  },
+  {
+    "ticker": "EB",
+    "title": "8-K - Eventbrite, Inc. (0001475115) (Filer)",
+    "companyName": "Eventbrite, Inc.",
+    "filerName": null,
+    "sector": "Media",
+    "price": 4.51,
+    "fav": "44.60",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.15,
+    "filingTimeBonus": 1.15,
+    "volume": 19512320,
+    "averageVolume": 1743937,
+    "float": 77784000,
+    "sharesOutstanding": 84795275,
+    "soRatio": "91.73%",
+    "marketCap": 452958144,
+    "isShort": true,
+    "ftd": 37983,
+    "ftdPercent": "0.05",
+    "intent": "Merger/Acquisition, Going Dark, Asset Disposition, Executive Departure, Partnership",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-03-10",
+    "signals": {
+      "Merger/Acquisition": [
+        "Merger Agreement",
+        "Merger Consideration",
+        "Material Definitive Agreement"
+      ],
+      "Going Dark": [
+        "Form 15",
+        "Deregistration"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Executive Departure": [
+        "Step Down"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-3.1",
+      "EX-3.2",
+      "Item 1.02",
+      "Item 2.01",
+      "Item 3.01",
+      "Item 3.03",
+      "Item 5.01",
+      "Item 5.02",
+      "Item 5.03",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-3.1, EX-3.2, Item 1.02, Item 2.01, Item 3.01, Item 3.03, Item 5.01, Item 5.02, Item 5.03, Item 9.01",
+    "cik": "1475115",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Distressed)",
+    "deterministicMechanism": "Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.",
+    "deterministicPhrase": "[Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.]",
+    "recordedAt": "2026-03-10T12:56:50.543Z",
+    "recordId": "EB-1773147410543",
+    "expiresAt": "2026-03-15T12:56:50.544Z",
+    "direction": "SHORT",
+    "highest5Day": 0,
+    "highest5DayPercent": 0,
+    "lowest5Day": 4.51,
     "lowest5DayPercent": 0
   }
 ]
