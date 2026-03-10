@@ -2723,11 +2723,10 @@ const sendPersonalWebhook = (alertData) => {
 **Location:** ${locationDisplay}
 **Incorporation:** ${incorporationDisplay}
 **Float:** ${floatDisplay} / **S/O:** ${soDisplay}
-**Volume:** Current: ${volumeDisplay} / Average: ${avgVolDisplay}
+**Volume:** Current: ${volumeDisplay} / **Average:** ${avgVolDisplay}
 **Market Cap:** ${marketCapDisplay}
 **F/AV:** ${favDisplay}
 **FTD %:** ${ftdDisplay}
-**Bonuses:** ${bonusDisplay}
 
 https://www.tradingview.com/chart/?symbol=${ticker}
 ${secLink}`;
@@ -3150,13 +3149,269 @@ const renderLoginPage = () => `
       padding: 20px;
       color: #333;
       transition: background 0.3s ease, color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(240, 240, 240, 0) 0%, rgba(200, 200, 200, 0.03) 50%, rgba(220, 220, 220, 0) 100%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transform: translateZ(0);
+      background-image: 
+        radial-gradient(3.3px 3.3px at 10% 20%, rgba(100, 100, 100, 0.45) 1px, transparent 1px),
+        radial-gradient(1.1px 1.1px at 80% 80%, rgba(100, 100, 100, 0.25) 1px, transparent 1px),
+        radial-gradient(3.08px 3.08px at 40% 60%, rgba(100, 100, 100, 0.4) 1px, transparent 1px),
+        radial-gradient(1.43px 1.43px at 70% 30%, rgba(100, 100, 100, 0.28) 1px, transparent 1px),
+        radial-gradient(3.52px 3.52px at 20% 90%, rgba(100, 100, 100, 0.42) 1px, transparent 1px),
+        radial-gradient(0.77px 0.77px at 50% 10%, rgba(100, 100, 100, 0.18) 1px, transparent 1px),
+        radial-gradient(2.75px 2.75px at 30% 40%, rgba(100, 100, 100, 0.38) 1px, transparent 1px),
+        radial-gradient(1.21px 1.21px at 90% 50%, rgba(100, 100, 100, 0.22) 1px, transparent 1px),
+        radial-gradient(3.41px 3.41px at 60% 75%, rgba(100, 100, 100, 0.41) 1px, transparent 1px),
+        radial-gradient(0.99px 0.99px at 15% 55%, rgba(100, 100, 100, 0.2) 1px, transparent 1px),
+        radial-gradient(2.86px 2.86px at 35% 15%, rgba(100, 100, 100, 0.39) 1px, transparent 1px),
+        radial-gradient(1.65px 1.65px at 75% 45%, rgba(100, 100, 100, 0.3) 1px, transparent 1px),
+        radial-gradient(3.63px 3.63px at 25% 70%, rgba(100, 100, 100, 0.43) 1px, transparent 1px),
+        radial-gradient(0.66px 0.66px at 55% 35%, rgba(100, 100, 100, 0.15) 1px, transparent 1px),
+        radial-gradient(3.19px 3.19px at 85% 65%, rgba(100, 100, 100, 0.4) 1px, transparent 1px),
+        radial-gradient(2.2px 2.2px at 5% 75%, rgba(100, 100, 100, 0.35) 1px, transparent 1px),
+        radial-gradient(1.8px 1.8px at 95% 10%, rgba(100, 100, 100, 0.32) 1px, transparent 1px),
+        radial-gradient(3.4px 3.4px at 60% 25%, rgba(100, 100, 100, 0.44) 1px, transparent 1px),
+        radial-gradient(0.88px 0.88px at 25% 85%, rgba(100, 100, 100, 0.22) 1px, transparent 1px),
+        radial-gradient(2.95px 2.95px at 75% 65%, rgba(100, 100, 100, 0.37) 1px, transparent 1px);
+      background-size: 
+        300px 350px,
+        400px 420px,
+        350px 300px,
+        450px 500px,
+        380px 420px,
+        280px 380px,
+        420px 340px,
+        360px 410px,
+        400px 360px,
+        320px 390px,
+        390px 400px,
+        410px 380px,
+        370px 420px,
+        340px 360px,
+        440px 470px,
+        360px 340px,
+        420px 390px,
+        380px 360px,
+        400px 410px,
+        430px 370px;
+      background-repeat: repeat;
+      background-position: 0 0, 50px 30px, 80px 60px, 120px 40px, 30px 90px, 160px 20px, 70px 150px, 200px 80px, 110px 200px, 250px 110px, 40px 160px, 180px 45px, 220px 120px, 90px 250px, 280px 180px, 130px 20px, 310px 90px, 160px 290px, 60px 225px, 330px 240px;
+      pointer-events: none;
+      z-index: -1;
+      animation: floatParticles1 72s ease-in-out infinite, floatParticles2 88s ease-in-out infinite, floatParticles3 104s ease-in-out infinite, floatParticles4 80s ease-in-out infinite, floatParticles5 96s ease-in-out infinite, floatParticles6 76s ease-in-out infinite, floatParticles7 92s ease-in-out infinite, floatParticles8 84s ease-in-out infinite, floatParticles9 100s ease-in-out infinite, floatParticles10 108s ease-in-out infinite, floatParticles11 68s ease-in-out infinite, floatParticles12 112s ease-in-out infinite, floatParticles13 78s ease-in-out infinite, floatParticles14 94s ease-in-out infinite, floatParticles15 116s ease-in-out infinite, floatParticles16 82s ease-in-out infinite, floatParticles17 98s ease-in-out infinite, floatParticles18 86s ease-in-out infinite, floatParticles19 102s ease-in-out infinite, floatParticles20 110s ease-in-out infinite;
+    }
+    @keyframes floatParticles1 {
+      0% { background-position: 0 0, 50px 30px, 80px 60px, 120px 40px, 30px 90px, 160px 20px, 70px 150px, 200px 80px, 110px 200px, 250px 110px; opacity: 0.3; }
+      25% { background-position: 48px -115px, 98px -85px, 128px -55px, 168px -85px, 78px -85px, 208px -95px, 118px 35px, 248px -35px, 158px 85px, 298px -5px; opacity: 0.5; }
+      50% { background-position: 25px -165px, 75px -135px, 105px -105px, 145px -135px, 55px -135px, 185px -145px, 95px -15px, 225px -85px, 135px 35px, 275px -55px; opacity: 0.6; }
+      75% { background-position: -32px -135px, 18px -105px, 48px -75px, 88px -105px, -2px -105px, 128px -115px, 38px 15px, 168px -55px, 78px 65px, 218px -25px; opacity: 0.4; }
+      100% { background-position: 0 -220px, 50px -190px, 80px -160px, 120px -190px, 30px -190px, 160px -200px, 70px -100px, 200px -140px, 110px -50px, 250px -110px; opacity: 0.2; }
+    }
+    @keyframes floatParticles2 {
+      0% { background-position: 100px 0, 20px 50px, 150px 80px, 60px 120px, 200px 30px, 70px 180px, 240px 100px, 120px 220px, 290px 140px, 180px 260px; opacity: 0.35; }
+      25% { background-position: 48px -88px, -32px 2px, 98px -8px, 8px 32px, 148px -58px, 18px 92px, 188px 12px, 68px 132px, 238px 52px, 128px 172px; opacity: 0.55; }
+      50% { background-position: 18px -148px, -62px -58px, 68px -68px, -22px -28px, 118px -118px, -12px 32px, 158px -48px, 38px 72px, 208px -8px, 98px 112px; opacity: 0.65; }
+      75% { background-position: -22px -118px, -32px 22px, 108px -38px, 38px 42px, 158px -88px, 28px 62px, 198px -18px, 78px 102px, 248px 22px, 138px 142px; opacity: 0.45; }
+      100% { background-position: 100px -198px, 20px -148px, 150px -118px, 60px -68px, 200px -168px, 70px -48px, 240px -88px, 120px 32px, 290px -48px, 180px 72px; opacity: 0.15; }
+    }
+    @keyframes floatParticles3 {
+      0% { background-position: 50px 100px, 120px 20px, 30px 150px, 200px 60px, 80px 200px, 220px 40px, 140px 160px, 280px 80px, 170px 240px, 320px 120px; opacity: 0.32; }
+      25% { background-position: 112px -22px, 182px -78px, 92px 28px, 262px -38px, 142px 62px, 282px -48px, 202px 12px, 342px -58px, 232px 82px, 32px -28px; opacity: 0.52; }
+      50% { background-position: 122px -68px, 192px -128px, 102px -18px, 272px -88px, 152px 12px, 292px -98px, 212px -38px, 352px -108px, 242px 32px, 42px -78px; opacity: 0.62; }
+      75% { background-position: 82px -38px, 152px -98px, 62px 12px, 232px -58px, 112px 42px, 252px -68px, 172px 8px, 312px -78px, 202px 62px, 2px -48px; opacity: 0.42; }
+      100% { background-position: 50px -225px, 120px -180px, 30px -50px, 200px -140px, 80px -25px, 220px -135px, 140px -75px, 280px -155px, 170px 15px, 320px -95px; opacity: 0.12; }
+    }
+    @keyframes floatParticles4 {
+      0% { background-position: 200px 50px, 80px 150px, 120px 90px, 40px 200px, 160px 120px, 260px 170px, 180px 220px, 320px 140px, 100px 280px, 240px 200px; opacity: 0.38; }
+      25% { background-position: 162px -45px, 42px 55px, 82px -5px, 2px 105px, 122px 25px, 222px 75px, 142px 125px, 282px 45px, 62px 185px, 202px 105px; opacity: 0.58; }
+      50% { background-position: 128px -105px, 8px -5px, 48px -65px, -32px 45px, 88px -35px, 188px 15px, 108px 65px, 248px -15px, 28px 125px, 168px 45px; opacity: 0.68; }
+      75% { background-position: 148px -75px, 28px 25px, 68px -35px, -12px 75px, 108px -5px, 208px 45px, 128px 95px, 268px 15px, 48px 155px, 188px 75px; opacity: 0.48; }
+      100% { background-position: 200px -205px, 80px -55px, 120px -115px, 40px 35px, 160px -85px, 260px -35px, 180px 15px, 320px -65px, 100px 95px, 240px 15px; opacity: 0.18; }
+    }
+    @keyframes floatParticles5 {
+      0% { background-position: 150px 200px, 30px 100px, 200px 40px, 90px 160px, 50px 80px, 280px 120px, 170px 260px, 310px 180px, 120px 240px, 350px 160px; opacity: 0.3; }
+      25% { background-position: 195px 88px, 75px -12px, 245px -72px, 135px 48px, 95px -32px, 325px 8px, 215px 148px, 355px 68px, 165px 128px, 35px 48px; opacity: 0.5; }
+      50% { background-position: 178px -62px, 58px -112px, 228px -162px, 118px -52px, 78px -132px, 308px -92px, 198px 48px, 338px -32px, 148px 28px, 18px -52px; opacity: 0.6; }
+      75% { background-position: 125px -32px, 5px -82px, 175px -132px, 65px -22px, 25px -102px, 255px -62px, 145px 78px, 285px 2px, 95px 58px, -35px -22px; opacity: 0.4; }
+      100% { background-position: 150px -218px, 30px -118px, 200px -158px, 90px -98px, 50px -178px, 280px -138px, 170px -68px, 310px 12px, 120px -48px, 350px -68px; opacity: 0.1; }
+    }
+    @keyframes floatParticles6 {
+      0% { background-position: 80px 120px, 240px 60px, 160px 180px, 110px 100px, 190px 140px, 320px 80px, 200px 220px, 130px 160px, 270px 240px, 340px 200px; opacity: 0.28; }
+      25% { background-position: 25px 28px, 185px -32px, 105px 88px, 55px 8px, 135px 48px, 265px -12px, 145px 128px, 75px 68px, 215px 148px, 285px 108px; opacity: 0.48; }
+      50% { background-position: -5px -32px, 155px -92px, 75px 28px, 25px -52px, 105px -12px, 235px -72px, 115px 68px, 45px 8px, 185px 88px, 255px 48px; opacity: 0.58; }
+      75% { background-position: 35px -2px, 195px -62px, 115px 58px, 65px -22px, 145px 18px, 275px -42px, 155px 98px, 85px 38px, 225px 118px, 295px 78px; opacity: 0.38; }
+      100% { background-position: 80px -210px, 240px -150px, 160px -30px, 110px -110px, 190px -70px, 320px -130px, 200px -50px, 130px -110px, 270px -30px, 340px -90px; opacity: 0.08; }
+    }
+    @keyframes floatParticles7 {
+      0% { background-position: 220px 80px, 70px 200px, 140px 120px, 180px 90px, 60px 160px, 290px 200px, 150px 280px, 340px 140px, 210px 260px, 310px 220px; opacity: 0.33; }
+      25% { background-position: 288px -18px, 138px 82px, 208px 2px, 248px -28px, 128px 42px, 358px 82px, 218px 162px, 8px 22px, 278px 142px, 28px 102px; opacity: 0.53; }
+      50% { background-position: 298px -68px, 148px 32px, 218px -48px, 258px -78px, 138px -8px, 368px 32px, 228px 112px, 18px -28px, 288px 92px, 38px 52px; opacity: 0.63; }
+      75% { background-position: 258px -38px, 108px 62px, 178px 22px, 218px -48px, 98px 22px, 328px 62px, 188px 142px, -22px 2px, 248px 122px, -2px 82px; opacity: 0.43; }
+      100% { background-position: 220px -215px, 70px -35px, 140px -80px, 180px -110px, 60px -40px, 290px -110px, 150px 15px, 340px -145px, 210px -65px, 310px -125px; opacity: 0.13; }
+    }
+    @keyframes floatParticles8 {
+      0% { background-position: 140px 150px, 260px 100px, 100px 220px, 50px 130px, 210px 70px, 340px 180px, 180px 240px, 320px 160px, 240px 280px, 160px 200px; opacity: 0.36; }
+      25% { background-position: 98px 45px, 218px -5px, 58px 115px, 8px 25px, 168px -35px, 298px 75px, 138px 135px, 278px 55px, 198px 175px, 118px 95px; opacity: 0.56; }
+      50% { background-position: 65px -50px, 185px -105px, 25px 20px, -25px -70px, 135px -135px, 265px -25px, 105px 35px, 245px -45px, 165px 75px, 85px -5px; opacity: 0.66; }
+      75% { background-position: 85px -20px, 205px -75px, 45px 50px, -5px -40px, 155px -105px, 285px 5px, 125px 65px, 265px -15px, 185px 105px, 105px 25px; opacity: 0.46; }
+      100% { background-position: 140px -212px, 260px -130px, 100px -80px, 50px -170px, 210px -130px, 340px -120px, 180px 32px, 320px -145px, 240px -48px, 160px -30px; opacity: 0.16; }
+    }
+    @keyframes floatParticles9 {
+      0% { background-position: 190px 60px, 110px 180px, 280px 120px, 170px 200px, 90px 140px, 330px 240px, 240px 160px, 360px 280px, 150px 220px, 380px 180px; opacity: 0.31; }
+      25% { background-position: 242px -48px, 162px 82px, 332px 22px, 222px 102px, 142px 42px, 382px 142px, 292px 62px, 12px 182px, 202px 122px, 32px 82px; opacity: 0.51; }
+      50% { background-position: 222px -108px, 142px 22px, 312px -38px, 202px 42px, 122px -18px, 362px 82px, 272px 2px, -8px 122px, 182px 62px, 12px 22px; opacity: 0.61; }
+      75% { background-position: 172px -78px, 92px 52px, 262px 8px, 152px 72px, 72px 12px, 312px 112px, 222px 32px, -58px 152px, 132px 92px, -38px 52px; opacity: 0.41; }
+      100% { background-position: 190px -222px, 110px -42px, 280px -80px, 170px 40px, 90px -40px, 330px 48px, 240px -80px, 360px 48px, 150px -32px, 380px 8px; opacity: 0.11; }
+    }
+    @keyframes floatParticles10 {
+      0% { background-position: 120px 210px, 200px 140px, 75px 95px, 250px 160px, 140px 190px, 360px 250px, 260px 170px, 150px 300px, 300px 210px, 420px 240px; opacity: 0.29; }
+      25% { background-position: 178px 112px, 258px 42px, 133px -3px, 308px 62px, 198px 92px, 418px 152px, 318px 72px, 208px 202px, 358px 112px, 28px 142px; opacity: 0.49; }
+      50% { background-position: 202px 10px, 282px -60px, 157px -105px, 332px -40px, 222px -10px, 442px 50px, 342px -30px, 232px 100px, 382px 10px, 52px 40px; opacity: 0.59; }
+      75% { background-position: 168px 40px, 248px -30px, 123px -75px, 298px -10px, 188px 20px, 408px 80px, 308px 0px, 198px 130px, 348px 40px, 18px 70px; opacity: 0.39; }
+      100% { background-position: 120px -190px, 200px -120px, 75px -165px, 250px -80px, 140px -90px, 360px -60px, 260px -90px, 150px 30px, 300px -60px, 420px 0px; opacity: 0.09; }
+    }
+    @keyframes floatParticles11 {
+      0% { background-position: 60px 50px, 180px 200px, 140px 120px, 280px 90px, 100px 260px, 320px 180px, 200px 240px, 160px 100px, 340px 160px, 240px 280px; opacity: 0.34; }
+      25% { background-position: 18px -65px, 138px 85px, 98px 5px, 238px -25px, 58px 145px, 278px 65px, 158px 125px, 118px -15px, 298px 45px, 198px 165px; opacity: 0.54; }
+      50% { background-position: -8px -128px, 108px 22px, 68px -58px, 208px -88px, 28px 82px, 248px 2px, 128px 62px, 88px -78px, 268px -18px, 168px 102px; opacity: 0.64; }
+      75% { background-position: 22px -98px, 132px 52px, 92px -28px, 232px -58px, 52px 112px, 272px 32px, 152px 92px, 112px -48px, 292px 12px, 192px 132px; opacity: 0.44; }
+      100% { background-position: 60px -185px, 180px 75px, 140px -145px, 280px -215px, 100px 95px, 320px -90px, 200px -75px, 160px -225px, 340px -155px, 240px 75px; opacity: 0.14; }
+    }
+    @keyframes floatParticles12 {
+      0% { background-position: 210px 95px, 90px 180px, 320px 60px, 170px 240px, 260px 120px, 130px 280px, 380px 200px, 230px 150px, 80px 310px, 350px 100px; opacity: 0.31; }
+      25% { background-position: 268px -28px, 148px 67px, 378px -53px, 228px 122px, 318px 5px, 188px 162px, 38px 82px, 288px 32px, 138px 192px, 8px -15px; opacity: 0.51; }
+      50% { background-position: 288px -108px, 168px 7px, 398px -133px, 248px 42px, 338px -75px, 208px 82px, 58px 2px, 308px -48px, 158px 112px, 28px -95px; opacity: 0.61; }
+      75% { background-position: 258px -78px, 138px 37px, 368px -103px, 218px 72px, 308px -45px, 178px 112px, 28px 32px, 278px -18px, 128px 142px, -2px -65px; opacity: 0.41; }
+      100% { background-position: 210px -208px, 90px 95px, 320px -235px, 170px -85px, 260px -175px, 130px 65px, 380px -100px, 230px -165px, 80px 45px, 350px -215px; opacity: 0.11; }
+    }
+    @keyframes floatParticles13 {
+      0% { background-position: 140px 165px, 270px 75px, 50px 220px, 310px 140px, 180px 280px, 400px 100px, 100px 195px, 340px 265px, 210px 60px, 70px 285px; opacity: 0.36; }
+      25% { background-position: 198px 47px, 328px -43px, 108px 102px, 368px 22px, 238px 162px, 458px -18px, 158px 77px, 398px 147px, 268px -58px, 128px 167px; opacity: 0.56; }
+      50% { background-position: 218px -53px, 348px -123px, 128px 22px, 388px -58px, 258px 82px, 478px -98px, 178px -3px, 418px 67px, 288px -138px, 148px 87px; opacity: 0.66; }
+      75% { background-position: 188px -23px, 318px -93px, 98px 52px, 358px -28px, 228px 112px, 448px -68px, 148px 27px, 388px 97px, 258px -108px, 118px 117px; opacity: 0.46; }
+      100% { background-position: 140px -198px, 270px -175px, 50px 75px, 310px -195px, 180px 30px, 400px -215px, 100px -120px, 340px 15px, 210px -225px, 70px 45px; opacity: 0.16; }
+    }
+    @keyframes floatParticles14 {
+      0% { background-position: 280px 130px, 160px 245px, 380px 85px, 100px 155px, 340px 195px, 220px 70px, 60px 265px, 300px 110px, 200px 255px, 420px 165px; opacity: 0.32; }
+      25% { background-position: 338px 12px, 218px 127px, 438px -33px, 158px 37px, 398px 77px, 278px -48px, 118px 147px, 358px -8px, 258px 137px, 478px 47px; opacity: 0.52; }
+      50% { background-position: 358px -68px, 238px 47px, 458px -113px, 178px -43px, 418px -3px, 298px -128px, 138px 67px, 378px -88px, 278px 57px, 498px -33px; opacity: 0.62; }
+      75% { background-position: 328px -38px, 208px 77px, 428px -83px, 148px -13px, 388px 27px, 268px -98px, 108px 97px, 348px -58px, 248px 87px, 468px -3px; opacity: 0.42; }
+      100% { background-position: 280px -210px, 160px 85px, 380px -195px, 100px -175px, 340px 15px, 220px -225px, 60px 35px, 300px -195px, 200px 25px, 420px -135px; opacity: 0.12; }
+    }
+    @keyframes floatParticles15 {
+      0% { background-position: 170px 175px, 310px 95px, 230px 260px, 70px 130px, 350px 225px, 150px 155px, 380px 295px, 110px 235px, 290px 65px, 440px 180px; opacity: 0.35; }
+      25% { background-position: 228px 57px, 368px -23px, 288px 142px, 128px 12px, 408px 107px, 208px 37px, 438px 177px, 168px 117px, 348px -53px, 498px 62px; opacity: 0.55; }
+      50% { background-position: 248px -43px, 388px -103px, 308px 62px, 148px -68px, 428px 27px, 228px -43px, 458px 97px, 188px 37px, 368px -133px, 518px -18px; opacity: 0.65; }
+      75% { background-position: 218px -13px, 358px -73px, 278px 92px, 118px -38px, 398px 57px, 198px -13px, 428px 127px, 158px 67px, 338px -103px, 488px 12px; opacity: 0.45; }
+      100% { background-position: 170px -192px, 310px -165px, 230px 130px, 70px -155px, 350px 95px, 150px -165px, 380px 145px, 110px 85px, 290px -235px, 440px 85px; opacity: 0.15; }
+    }
+    @keyframes floatParticles16 {
+      0% { background-position: 240px 105px, 120px 210px, 360px 140px, 200px 240px, 80px 175px, 420px 120px, 160px 290px, 340px 90px, 260px 195px, 40px 250px; opacity: 0.33; }
+      25% { background-position: 298px -13px, 178px 92px, 418px 22px, 258px 122px, 138px 57px, 478px 2px, 218px 172px, 398px -28px, 318px 77px, 98px 132px; opacity: 0.53; }
+      50% { background-position: 318px -93px, 198px 12px, 438px -58px, 278px 42px, 158px -23px, 498px -78px, 238px 92px, 418px -108px, 338px -3px, 118px 52px; opacity: 0.63; }
+      75% { background-position: 288px -63px, 168px 42px, 408px -28px, 248px 72px, 128px 7px, 468px -48px, 208px 122px, 388px -78px, 308px 27px, 88px 82px; opacity: 0.43; }
+      100% { background-position: 240px -205px, 120px 95px, 360px -165px, 200px 125px, 80px 20px, 420px -165px, 160px 65px, 340px -215px, 260px -85px, 40px 125px; opacity: 0.13; }
+    }
+    @keyframes floatParticles17 {
+      0% { background-position: 110px 140px, 350px 180px, 190px 95px, 330px 255px, 250px 140px, 90px 225px, 410px 185px, 170px 220px, 310px 140px, 130px 305px; opacity: 0.37; }
+      25% { background-position: 168px 22px, 408px 62px, 248px -23px, 388px 137px, 308px 22px, 148px 107px, 468px 67px, 228px 102px, 368px 22px, 188px 187px; opacity: 0.57; }
+      50% { background-position: 188px -58px, 428px -18px, 268px -103px, 408px 57px, 328px -58px, 168px 27px, 488px -13px, 248px 22px, 388px -58px, 208px 107px; opacity: 0.67; }
+      75% { background-position: 158px -28px, 398px 12px, 238px -73px, 378px 87px, 298px -28px, 138px 57px, 458px 17px, 218px 52px, 358px -28px, 178px 137px; opacity: 0.47; }
+      100% { background-position: 110px -185px, 350px 75px, 190px -165px, 330px 145px, 250px -85px, 90px 65px, 410px -95px, 170px 95px, 310px -155px, 130px 155px; opacity: 0.17; }
+    }
+    @keyframes floatParticles18 {
+      0% { background-position: 320px 150px, 180px 160px, 400px 225px, 140px 185px, 300px 280px, 60px 210px, 280px 115px, 440px 245px, 220px 170px, 100px 285px; opacity: 0.34; }
+      25% { background-position: 378px 32px, 238px 42px, 458px 107px, 198px 67px, 358px 162px, 118px 92px, 338px -3px, 498px 127px, 278px 52px, 158px 167px; opacity: 0.54; }
+      50% { background-position: 398px -48px, 258px -38px, 478px 27px, 218px -13px, 378px 82px, 138px 12px, 358px -83px, 518px 47px, 298px -28px, 178px 87px; opacity: 0.64; }
+      75% { background-position: 368px -18px, 228px -8px, 448px 57px, 188px 17px, 348px 112px, 108px 42px, 328px -53px, 488px 77px, 268px 2px, 148px 117px; opacity: 0.44; }
+      100% { background-position: 320px -195px, 180px 95px, 400px -135px, 140px 125px, 300px 75px, 60px 15px, 280px -175px, 440px 135px, 220px -145px, 100px 165px; opacity: 0.14; }
+    }
+    @keyframes floatParticles19 {
+      0% { background-position: 130px 195px, 370px 115px, 250px 275px, 190px 100px, 310px 165px, 70px 260px, 430px 235px, 150px 125px, 330px 280px, 210px 145px; opacity: 0.38; }
+      25% { background-position: 188px 77px, 428px -3px, 308px 157px, 248px -18px, 368px 47px, 128px 142px, 488px 117px, 208px 7px, 388px 162px, 268px 27px; opacity: 0.58; }
+      50% { background-position: 208px -3px, 448px -83px, 328px 77px, 268px -98px, 388px -33px, 148px 62px, 508px 37px, 228px -73px, 408px 82px, 288px -53px; opacity: 0.68; }
+      75% { background-position: 178px 27px, 418px -53px, 298px 107px, 238px -68px, 358px -3px, 118px 92px, 478px 67px, 198px -43px, 378px 112px, 258px -23px; opacity: 0.48; }
+      100% { background-position: 130px -165px, 370px 65px, 250px 145px, 190px -145px, 310px 45px, 70px 105px, 430px 115px, 150px -175px, 330px 115px, 210px 95px; opacity: 0.18; }
+    }
+    @keyframes floatParticles20 {
+      0% { background-position: 290px 175px, 150px 125px, 370px 210px, 230px 280px, 110px 165px, 350px 245px, 190px 100px, 410px 155px, 70px 220px, 320px 280px; opacity: 0.36; }
+      25% { background-position: 348px 57px, 208px 7px, 428px 92px, 288px 162px, 168px 47px, 408px 127px, 248px -18px, 468px 37px, 128px 102px, 378px 162px; opacity: 0.56; }
+      50% { background-position: 368px -23px, 228px -73px, 448px 12px, 308px 82px, 188px -33px, 428px 47px, 268px -98px, 488px -43px, 148px 22px, 398px 82px; opacity: 0.66; }
+      75% { background-position: 338px 7px, 198px -43px, 418px 42px, 278px 112px, 158px -3px, 398px 77px, 238px -68px, 458px -13px, 118px 52px, 368px 112px; opacity: 0.46; }
+      100% { background-position: 290px -180px, 150px 95px, 370px -120px, 230px 105px, 110px 35px, 350px 115px, 190px -175px, 410px 55px, 70px -135px, 320px 135px; opacity: 0.16; }
     }
     body.dark-mode {
-      background: 
-        radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-      background-size: 40px 40px;
       background-color: #0d0d0d;
       color: #e0e0e0;
+    }
+    body.dark-mode::before {
+      background: linear-gradient(135deg, rgba(20, 20, 20, 0) 0%, rgba(80, 80, 80, 0.04) 50%, rgba(60, 60, 60, 0) 100%);
+    }
+    body.dark-mode::after {
+      background-image: 
+        radial-gradient(3.3px 3.3px at 10% 20%, rgba(200, 200, 200, 0.55) 1px, transparent 1px),
+        radial-gradient(1.1px 1.1px at 80% 80%, rgba(200, 200, 200, 0.35) 1px, transparent 1px),
+        radial-gradient(3.08px 3.08px at 40% 60%, rgba(200, 200, 200, 0.5) 1px, transparent 1px),
+        radial-gradient(1.43px 1.43px at 70% 30%, rgba(200, 200, 200, 0.38) 1px, transparent 1px),
+        radial-gradient(3.52px 3.52px at 20% 90%, rgba(200, 200, 200, 0.52) 1px, transparent 1px),
+        radial-gradient(0.77px 0.77px at 50% 10%, rgba(200, 200, 200, 0.28) 1px, transparent 1px),
+        radial-gradient(2.75px 2.75px at 30% 40%, rgba(200, 200, 200, 0.48) 1px, transparent 1px),
+        radial-gradient(1.21px 1.21px at 90% 50%, rgba(200, 200, 200, 0.32) 1px, transparent 1px),
+        radial-gradient(3.41px 3.41px at 60% 75%, rgba(200, 200, 200, 0.51) 1px, transparent 1px),
+        radial-gradient(0.99px 0.99px at 15% 55%, rgba(200, 200, 200, 0.3) 1px, transparent 1px),
+        radial-gradient(2.86px 2.86px at 35% 15%, rgba(200, 200, 200, 0.49) 1px, transparent 1px),
+        radial-gradient(1.65px 1.65px at 75% 45%, rgba(200, 200, 200, 0.4) 1px, transparent 1px),
+        radial-gradient(3.63px 3.63px at 25% 70%, rgba(200, 200, 200, 0.53) 1px, transparent 1px),
+        radial-gradient(0.66px 0.66px at 55% 35%, rgba(200, 200, 200, 0.25) 1px, transparent 1px),
+        radial-gradient(3.19px 3.19px at 85% 65%, rgba(200, 200, 200, 0.5) 1px, transparent 1px),
+        radial-gradient(2.2px 2.2px at 5% 75%, rgba(200, 200, 200, 0.45) 1px, transparent 1px),
+        radial-gradient(1.8px 1.8px at 95% 10%, rgba(200, 200, 200, 0.42) 1px, transparent 1px),
+        radial-gradient(3.4px 3.4px at 60% 25%, rgba(200, 200, 200, 0.54) 1px, transparent 1px),
+        radial-gradient(0.88px 0.88px at 25% 85%, rgba(200, 200, 200, 0.32) 1px, transparent 1px),
+        radial-gradient(2.95px 2.95px at 75% 65%, rgba(200, 200, 200, 0.47) 1px, transparent 1px);
+      background-size: 
+        300px 350px,
+        400px 420px,
+        350px 300px,
+        450px 500px,
+        380px 420px,
+        280px 380px,
+        420px 340px,
+        360px 410px,
+        400px 360px,
+        320px 390px,
+        390px 400px,
+        410px 380px,
+        370px 420px,
+        340px 360px,
+        440px 470px,
+        360px 340px,
+        420px 390px,
+        380px 360px,
+        400px 410px,
+        430px 370px;
+      background-repeat: repeat;
+      background-position: 0 0, 50px 30px, 80px 60px, 120px 40px, 30px 90px, 160px 20px, 70px 150px, 200px 80px, 110px 200px, 250px 110px, 40px 160px, 180px 45px, 220px 120px, 90px 250px, 280px 180px, 130px 20px, 310px 90px, 160px 290px, 60px 225px, 330px 240px;
+      animation: floatParticles1 72s ease-in-out infinite, floatParticles2 88s ease-in-out infinite, floatParticles3 104s ease-in-out infinite, floatParticles4 80s ease-in-out infinite, floatParticles5 96s ease-in-out infinite, floatParticles6 76s ease-in-out infinite, floatParticles7 92s ease-in-out infinite, floatParticles8 84s ease-in-out infinite, floatParticles9 100s ease-in-out infinite, floatParticles10 108s ease-in-out infinite, floatParticles11 68s ease-in-out infinite, floatParticles12 112s ease-in-out infinite, floatParticles13 78s ease-in-out infinite, floatParticles14 94s ease-in-out infinite, floatParticles15 116s ease-in-out infinite, floatParticles16 82s ease-in-out infinite, floatParticles17 98s ease-in-out infinite, floatParticles18 86s ease-in-out infinite, floatParticles19 102s ease-in-out infinite, floatParticles20 110s ease-in-out infinite;
     }
     .container {
       background: linear-gradient(315deg, #f0f0f0 0%, #f5f5f5 65%, rgba(255, 255, 255, 0.99) 100%);
@@ -3165,7 +3420,7 @@ const renderLoginPage = () => `
       padding: 8px 20px 28px 20px;
       max-width: 440px;
       max-height: 90vh;
-      overflow-y: auto;
+      overflow-y: hidden;
       width: 100%;
       text-align: center;
       transition: background 0.3s ease, color 0.3s ease;
@@ -3310,7 +3565,7 @@ const renderLoginPage = () => `
       color: #ffffff;
     }
     body.dark-mode button:hover:not(:disabled) {
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
     }
     .legal {
       font-size: 10px;
@@ -3647,10 +3902,10 @@ const renderLoginPage = () => `
         </svg>
       </button>
     </div>
-    <div style="display: flex; justify-content: center; margin-bottom: 2px; margin-top: 6px;">
-      <img src="/docs/logo.jpeg" alt="Eugene's Non-Profit" style="height: 110px; width: auto; object-fit: contain;">
+    <div style="display: flex; justify-content: center; margin-bottom: 0px; margin-top: 4px;">
+      <img src="/docs/logo.jpeg" alt="Eugene's Non-Profit" style="height: 80px; width: auto; object-fit: contain;">
     </div>
-    <h1 id="mainTitle" style="color: #000000; font-size: 34px; font-family: 'Gaegu', cursive; font-weight: 400; letter-spacing: 0px; margin: 0px 0 2px 0; transition: color 0.3s ease;">Eugene's Non-Profit</h1>
+    <h1 id="mainTitle" style="color: #000000; font-size: 20x; font-family: 'Gaegu', cursive; font-weight: 400; letter-spacing: 0px; margin: 0px 0 2px 0; transition: color 0.3s ease;">Eugene's Non-Profit</h1>
     <p class="subtitle" id="mainSubtitle" style="margin-top: 1px; margin-bottom: 8px; opacity: 0.55; font-size: 11px; color: #666; transition: color 0.3s ease;">Secure Access Portal</p>
     
     <div class="error" id="error"></div>

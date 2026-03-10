@@ -577,8 +577,8 @@
   "CGEM": {
     "short": false,
     "alert": 15.31,
-    "highest": 15.31,
-    "lowest": 15.31,
+    "highest": 16.49,
+    "lowest": 15.22,
     "highest5Day": 15.31,
     "highest5DayPercent": 0,
     "current": 15.31,
@@ -586,13 +586,16 @@
     "performance": 0,
     "date": "2026-03-10T11:24:05.160Z",
     "alertDate": "2026-03-10T11:24:05.160Z",
-    "reverseSplitRatio": null
+    "reverseSplitRatio": null,
+    "volume": 864736,
+    "averageVolume": 834225,
+    "marketCap": 904457536
   },
   "WELL": {
     "short": false,
     "alert": 207.68,
-    "highest": 207.68,
-    "lowest": 207.68,
+    "highest": 208.24,
+    "lowest": 202.61,
     "highest5Day": 207.68,
     "highest5DayPercent": 0,
     "current": 207.68,
@@ -600,20 +603,31 @@
     "performance": 0,
     "date": "2026-03-10T12:11:21.162Z",
     "alertDate": "2026-03-10T12:11:21.162Z",
-    "reverseSplitRatio": null
+    "reverseSplitRatio": null,
+    "volume": 3757495,
+    "averageVolume": 3418316,
+    "marketCap": 144909238272
   },
-  "TKO": {
-    "short": false,
-    "alert": 204.07,
-    "highest": 204.07,
-    "lowest": 204.07,
-    "highest5Day": 204.07,
-    "highest5DayPercent": 0,
-    "current": 204.07,
-    "currentPrice": 204.07,
-    "performance": 0,
-    "date": "2026-03-10T12:21:09.579Z",
-    "alertDate": "2026-03-10T12:21:09.579Z",
-    "reverseSplitRatio": null
+  "IRD": {
+    "alert": 4.77,
+    "highest": 5.09,
+    "lowest": 4.682,
+    "current": 4.77,
+    "currentPrice": 4.77,
+    "volume": 1216872,
+    "averageVolume": 807244,
+    "marketCap": 328959264,
+    "performance": 0
+  },
+  "ESPR": {
+    "alert": 3.04,
+    "highest": 3.0599,
+    "lowest": 2.6399,
+    "current": 3.04,
+    "currentPrice": 3.04,
+    "volume": 7405333,
+    "averageVolume": 4914891,
+    "marketCap": 726752832,
+    "performance": 0
   }
 }

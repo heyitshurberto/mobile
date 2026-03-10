@@ -3625,8 +3625,8 @@
     "recordId": "CGEM-1773141845079",
     "expiresAt": "2026-03-15T11:24:05.079Z",
     "direction": "LONG",
-    "highest5Day": 15.31,
-    "highest5DayPercent": 0,
+    "highest5Day": 16.49,
+    "highest5DayPercent": 7.71,
     "lowest5Day": 0,
     "lowest5DayPercent": 0
   },
@@ -3700,8 +3700,8 @@
     "direction": "SHORT",
     "highest5Day": 0,
     "highest5DayPercent": 0,
-    "lowest5Day": 207.68,
-    "lowest5DayPercent": 0
+    "lowest5Day": 202.61,
+    "lowest5DayPercent": 2.44
   },
   {
     "ticker": "TKO",
