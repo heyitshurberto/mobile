@@ -542,17 +542,28 @@
     "marketCap": 367597824
   },
   "LEGN": {
-    "short": false,
     "alert": 19.14,
-    "highest": 19.14,
-    "lowest": 19.14,
-    "highest5Day": 19.14,
-    "highest5DayPercent": 0,
+    "highest": 19.65,
+    "lowest": 18.7337,
     "current": 19.14,
     "currentPrice": 19.14,
+    "volume": 1379941,
+    "averageVolume": 2439230,
+    "marketCap": 3534958336,
+    "performance": 0
+  },
+  "QTTB": {
+    "short": false,
+    "alert": 5.1,
+    "highest": 5.1,
+    "lowest": 5.1,
+    "highest5Day": 5.1,
+    "highest5DayPercent": 0,
+    "current": 5.1,
+    "currentPrice": 5.1,
     "performance": 0,
-    "date": "2026-03-10T11:01:04.413Z",
-    "alertDate": "2026-03-10T11:01:04.413Z",
+    "date": "2026-03-10T11:05:43.143Z",
+    "alertDate": "2026-03-10T11:05:43.143Z",
     "reverseSplitRatio": null
   }
 }
