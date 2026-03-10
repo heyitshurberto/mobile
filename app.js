@@ -8470,11 +8470,14 @@ if (process.stdin.isTTY) {
             const bullishCount = sigKeys.filter(cat => bullishCats.includes(cat)).length;
             const hasPartnership = sigKeys.includes('Partnership');
             
-            // Determine SHORT or LONG - bearish signals override bullish
+            // Determine SHORT or LONG - bullish signals that drive price up should override single bearish signals
             if (isShortCombo || bearishCount >= 2) {
               shortOpportunity = true;
+            } else if (bearishCount > 0 && bullishCount >= 2) {
+              // Strong bullish signals (2+) override single bearish signals - use bullish
+              longOpportunity = true;
             } else if (bearishCount > 0 && bullishCount > 0) {
-              // Conflicting signals: default to SHORT to avoid false LONG calls
+              // Single bearish + single bullish: default to SHORT to avoid false LONG calls
               shortOpportunity = true;
             } else if (bearishCount > 0) {
               shortOpportunity = true;

@@ -182,8 +182,8 @@
     "recordId": "CRDL-1769451197487",
     "expiresAt": "2026-01-31T18:13:17.487Z",
     "direction": "LONG",
-    "highest5Day": 1.05,
-    "highest5DayPercent": 5
+    "highest5Day": 1.0501,
+    "highest5DayPercent": 5.01
   },
   {
     "ticker": "BIYA",
@@ -454,8 +454,8 @@
     "recordId": "CNL-1769515570279",
     "expiresAt": "2026-02-01T12:06:10.279Z",
     "direction": "LONG",
-    "highest5Day": 18.461,
-    "highest5DayPercent": 10.02
+    "highest5Day": 18.55,
+    "highest5DayPercent": 10.55
   },
   {
     "ticker": "NTLA",
@@ -2492,8 +2492,8 @@
     "recordId": "DRTS-1773086662071",
     "expiresAt": "2026-03-14T20:04:22.071Z",
     "direction": "LONG",
-    "highest5Day": 6.88,
-    "highest5DayPercent": 2.53
+    "highest5Day": 7.1,
+    "highest5DayPercent": 5.81
   },
   {
     "ticker": "SUN",
@@ -2905,8 +2905,8 @@
     "direction": "SHORT",
     "highest5Day": 55.02,
     "highest5DayPercent": 0,
-    "lowest5Day": 52.77,
-    "lowest5DayPercent": 4.09
+    "lowest5Day": 52.5,
+    "lowest5DayPercent": 4.58
   },
   {
     "ticker": "EVTV",
@@ -3288,8 +3288,8 @@
     "recordId": "LEGN-1773140464331",
     "expiresAt": "2026-03-15T11:01:04.331Z",
     "direction": "LONG",
-    "highest5Day": 19.7398,
-    "highest5DayPercent": 3.13,
+    "highest5Day": 19.91,
+    "highest5DayPercent": 4.02,
     "lowest5Day": 0,
     "lowest5DayPercent": 0
   },
