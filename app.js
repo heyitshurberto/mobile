@@ -3217,7 +3217,7 @@ const renderLoginPage = () => `
       background-position: 0 0, 50px 30px, 80px 60px, 120px 40px, 30px 90px, 160px 20px, 70px 150px, 200px 80px, 110px 200px, 250px 110px, 40px 160px, 180px 45px, 220px 120px, 90px 250px, 280px 180px, 130px 20px, 310px 90px, 160px 290px, 60px 225px, 330px 240px;
       pointer-events: none;
       z-index: -1;
-      animation: floatParticles1 72s ease-in-out infinite, floatParticles2 88s ease-in-out infinite, floatParticles3 104s ease-in-out infinite, floatParticles4 80s ease-in-out infinite, floatParticles5 96s ease-in-out infinite, floatParticles6 76s ease-in-out infinite, floatParticles7 92s ease-in-out infinite, floatParticles8 84s ease-in-out infinite, floatParticles9 100s ease-in-out infinite, floatParticles10 108s ease-in-out infinite, floatParticles11 68s ease-in-out infinite, floatParticles12 112s ease-in-out infinite, floatParticles13 78s ease-in-out infinite, floatParticles14 94s ease-in-out infinite, floatParticles15 116s ease-in-out infinite, floatParticles16 82s ease-in-out infinite, floatParticles17 98s ease-in-out infinite, floatParticles18 86s ease-in-out infinite, floatParticles19 102s ease-in-out infinite, floatParticles20 110s ease-in-out infinite;
+      animation: floatParticles1 60s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles2 73s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles3 87s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles4 67s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles5 80s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles6 63s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles7 77s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles8 70s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles9 83s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles10 90s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles11 57s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles12 93s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles13 65s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles14 78s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles15 97s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles16 68s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles17 82s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles18 72s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles19 85s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles20 92s cubic-bezier(0.34, 0, 0.66, 1) infinite;
     }
     @keyframes floatParticles1 {
       0% { background-position: 0 0, 50px 30px, 80px 60px, 120px 40px, 30px 90px, 160px 20px, 70px 150px, 200px 80px, 110px 200px, 250px 110px; opacity: 0.3; }
@@ -3411,7 +3411,7 @@ const renderLoginPage = () => `
         430px 370px;
       background-repeat: repeat;
       background-position: 0 0, 50px 30px, 80px 60px, 120px 40px, 30px 90px, 160px 20px, 70px 150px, 200px 80px, 110px 200px, 250px 110px, 40px 160px, 180px 45px, 220px 120px, 90px 250px, 280px 180px, 130px 20px, 310px 90px, 160px 290px, 60px 225px, 330px 240px;
-      animation: floatParticles1 72s ease-in-out infinite, floatParticles2 88s ease-in-out infinite, floatParticles3 104s ease-in-out infinite, floatParticles4 80s ease-in-out infinite, floatParticles5 96s ease-in-out infinite, floatParticles6 76s ease-in-out infinite, floatParticles7 92s ease-in-out infinite, floatParticles8 84s ease-in-out infinite, floatParticles9 100s ease-in-out infinite, floatParticles10 108s ease-in-out infinite, floatParticles11 68s ease-in-out infinite, floatParticles12 112s ease-in-out infinite, floatParticles13 78s ease-in-out infinite, floatParticles14 94s ease-in-out infinite, floatParticles15 116s ease-in-out infinite, floatParticles16 82s ease-in-out infinite, floatParticles17 98s ease-in-out infinite, floatParticles18 86s ease-in-out infinite, floatParticles19 102s ease-in-out infinite, floatParticles20 110s ease-in-out infinite;
+      animation: floatParticles1 60s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles2 73s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles3 87s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles4 67s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles5 80s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles6 63s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles7 77s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles8 70s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles9 83s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles10 90s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles11 57s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles12 93s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles13 65s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles14 78s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles15 97s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles16 68s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles17 82s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles18 72s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles19 85s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles20 92s cubic-bezier(0.34, 0, 0.66, 1) infinite;
     }
     .container {
       background: linear-gradient(315deg, #f0f0f0 0%, #f5f5f5 65%, rgba(255, 255, 255, 0.99) 100%);
@@ -3420,7 +3420,7 @@ const renderLoginPage = () => `
       padding: 8px 20px 28px 20px;
       max-width: 440px;
       max-height: 90vh;
-      overflow-y: hidden;
+      overflow-y: auto;
       width: 100%;
       text-align: center;
       transition: background 0.3s ease, color 0.3s ease;
@@ -6032,7 +6032,17 @@ app.get('/api/performance-summary', (req, res) => {
       
       if (performanceData[ticker]) {
         const perfData = performanceData[ticker];
-        peakPercent = parseFloat(perfData.performance) || 0;
+        const alertPx = parseFloat(perfData.alert) || alertPrice;
+        const highestPx = parseFloat(perfData.highest) || 0;
+        const lowestPx = parseFloat(perfData.lowest) || 0;
+        
+        if (isShort) {
+          // For shorts, peak is how much it went down
+          peakPercent = alertPx > lowestPx ? ((alertPx - lowestPx) / alertPx * 100) : 0;
+        } else {
+          // For longs, peak is how much it went up
+          peakPercent = highestPx > alertPx ? ((highestPx - alertPx) / alertPx * 100) : 0;
+        }
       }
       
       // Determine if trade is a winner based on direction and performance

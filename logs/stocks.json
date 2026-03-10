@@ -182,8 +182,8 @@
     "recordId": "CRDL-1769451197487",
     "expiresAt": "2026-01-31T18:13:17.487Z",
     "direction": "LONG",
-    "highest5Day": 1,
-    "highest5DayPercent": 0
+    "highest5Day": 1.05,
+    "highest5DayPercent": 5
   },
   {
     "ticker": "BIYA",
@@ -454,8 +454,8 @@
     "recordId": "CNL-1769515570279",
     "expiresAt": "2026-02-01T12:06:10.279Z",
     "direction": "LONG",
-    "highest5Day": 17.18,
-    "highest5DayPercent": 2.38
+    "highest5Day": 18.461,
+    "highest5DayPercent": 10.02
   },
   {
     "ticker": "NTLA",
@@ -1054,8 +1054,8 @@
     "recordId": "IBIO-1773054335255",
     "expiresAt": "2026-03-14T11:05:35.255Z",
     "direction": "LONG",
-    "highest5Day": 2.61,
-    "highest5DayPercent": 0
+    "highest5Day": 2.6299,
+    "highest5DayPercent": 0.76
   },
   {
     "ticker": "NBP",
@@ -1193,8 +1193,8 @@
     "recordId": "BOLD-1773054386119",
     "expiresAt": "2026-03-14T11:06:26.119Z",
     "direction": "LONG",
-    "highest5Day": 1.15,
-    "highest5DayPercent": 1.77
+    "highest5Day": 1.16,
+    "highest5DayPercent": 2.65
   },
   {
     "ticker": "RLMD",
@@ -1274,8 +1274,8 @@
     "recordId": "RLMD-1773054715431",
     "expiresAt": "2026-03-14T11:11:55.431Z",
     "direction": "LONG",
-    "highest5Day": 7.41,
-    "highest5DayPercent": 66.52,
+    "highest5Day": 7.5025,
+    "highest5DayPercent": 68.6,
     "lowest5Day": 4.45,
     "lowest5DayPercent": 0
   },
@@ -1576,8 +1576,8 @@
     "recordId": "XENE-1773056274956",
     "expiresAt": "2026-03-14T11:37:54.956Z",
     "direction": "LONG",
-    "highest5Day": 62.9149,
-    "highest5DayPercent": 50.01,
+    "highest5Day": 63.95,
+    "highest5DayPercent": 52.48,
     "lowest5Day": 41.94,
     "lowest5DayPercent": 0
   },
@@ -1657,8 +1657,8 @@
     "recordId": "CRBP-1773056650090",
     "expiresAt": "2026-03-14T11:44:10.090Z",
     "direction": "LONG",
-    "highest5Day": 9.62,
-    "highest5DayPercent": 20.1
+    "highest5Day": 10.0999,
+    "highest5DayPercent": 26.09
   },
   {
     "ticker": "PLX",
@@ -1718,8 +1718,8 @@
     "recordId": "PLX-1773057121969",
     "expiresAt": "2026-03-14T11:52:01.969Z",
     "direction": "LONG",
-    "highest5Day": 2.9,
-    "highest5DayPercent": 10.69
+    "highest5Day": 2.98,
+    "highest5DayPercent": 13.74
   },
   {
     "ticker": "GEL",
@@ -2142,8 +2142,8 @@
     "recordId": "ACXP-1773061224050",
     "expiresAt": "2026-03-14T13:00:24.050Z",
     "direction": "LONG",
-    "highest5Day": 2.04,
-    "highest5DayPercent": 51.11
+    "highest5Day": 2.99,
+    "highest5DayPercent": 121.48
   },
   {
     "ticker": "ALLR",
@@ -2287,8 +2287,8 @@
     "direction": "SHORT",
     "highest5Day": 0.5905,
     "highest5DayPercent": 0,
-    "lowest5Day": 0.48,
-    "lowest5DayPercent": 18.71
+    "lowest5Day": 0.4653,
+    "lowest5DayPercent": 21.2
   },
   {
     "ticker": "ONDS",
@@ -2431,8 +2431,8 @@
     "direction": "SHORT",
     "highest5Day": 5.43,
     "highest5DayPercent": 0,
-    "lowest5Day": 5.35,
-    "lowest5DayPercent": 1.47
+    "lowest5Day": 5.25,
+    "lowest5DayPercent": 3.31
   },
   {
     "ticker": "DRTS",
@@ -2492,8 +2492,8 @@
     "recordId": "DRTS-1773086662071",
     "expiresAt": "2026-03-14T20:04:22.071Z",
     "direction": "LONG",
-    "highest5Day": 6.78,
-    "highest5DayPercent": 1.04
+    "highest5Day": 6.88,
+    "highest5DayPercent": 2.53
   },
   {
     "ticker": "SUN",
@@ -2567,8 +2567,8 @@
     "direction": "SHORT",
     "highest5Day": 63.158,
     "highest5DayPercent": 0,
-    "lowest5Day": 62.89,
-    "lowest5DayPercent": 0.42
+    "lowest5Day": 62.61,
+    "lowest5DayPercent": 0.87
   },
   {
     "ticker": "SGP",
@@ -2770,8 +2770,8 @@
     "recordId": "DSGN-1773086832888",
     "expiresAt": "2026-03-14T20:07:12.888Z",
     "direction": "LONG",
-    "highest5Day": 10.43,
-    "highest5DayPercent": 0.58
+    "highest5Day": 10.81,
+    "highest5DayPercent": 4.24
   },
   {
     "ticker": "HPE",
@@ -2837,8 +2837,8 @@
     "recordId": "HPE-1773086965853",
     "expiresAt": "2026-03-14T20:09:25.853Z",
     "direction": "LONG",
-    "highest5Day": 21.85,
-    "highest5DayPercent": 0.14
+    "highest5Day": 22.14,
+    "highest5DayPercent": 1.47
   },
   {
     "ticker": "OXY",
@@ -2905,8 +2905,8 @@
     "direction": "SHORT",
     "highest5Day": 55.02,
     "highest5DayPercent": 0,
-    "lowest5Day": 54.09,
-    "lowest5DayPercent": 1.69
+    "lowest5Day": 52.77,
+    "lowest5DayPercent": 4.09
   },
   {
     "ticker": "EVTV",
@@ -2982,8 +2982,8 @@
     "direction": "SHORT",
     "highest5Day": 1.26,
     "highest5DayPercent": 0,
-    "lowest5Day": 1.24,
-    "lowest5DayPercent": 1.59
+    "lowest5Day": 1.223,
+    "lowest5DayPercent": 2.94
   },
   {
     "ticker": "CACI",
@@ -3063,8 +3063,8 @@
     "direction": "SHORT",
     "highest5Day": 633.21,
     "highest5DayPercent": 0,
-    "lowest5Day": 597.0501,
-    "lowest5DayPercent": 5.71
+    "lowest5Day": 593.06,
+    "lowest5DayPercent": 6.34
   },
   {
     "ticker": "VTAK",
@@ -3288,8 +3288,8 @@
     "recordId": "LEGN-1773140464331",
     "expiresAt": "2026-03-15T11:01:04.331Z",
     "direction": "LONG",
-    "highest5Day": 19.65,
-    "highest5DayPercent": 2.66,
+    "highest5Day": 19.7398,
+    "highest5DayPercent": 3.13,
     "lowest5Day": 0,
     "lowest5DayPercent": 0
   },
@@ -3492,8 +3492,8 @@
     "recordId": "IRD-1773141479947",
     "expiresAt": "2026-03-15T11:17:59.947Z",
     "direction": "LONG",
-    "highest5Day": 5.09,
-    "highest5DayPercent": 6.71,
+    "highest5Day": 5.3,
+    "highest5DayPercent": 11.11,
     "lowest5Day": 0,
     "lowest5DayPercent": 0
   },
@@ -3950,7 +3950,7 @@
     "direction": "SHORT",
     "highest5Day": 0,
     "highest5DayPercent": 0,
-    "lowest5Day": 4.51,
-    "lowest5DayPercent": 0
+    "lowest5Day": 4.49,
+    "lowest5DayPercent": 0.44
   }
 ]
