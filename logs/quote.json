@@ -553,28 +553,45 @@
     "performance": 0
   },
   "QTTB": {
+    "short": false,
     "alert": 5.1,
     "highest": 5.2314,
     "lowest": 4.4028,
+    "highest5Day": 5.1,
+    "highest5DayPercent": 0,
     "current": 5.1,
     "currentPrice": 5.1,
+    "performance": 0,
+    "date": "2026-03-10T11:05:43.143Z",
+    "alertDate": "2026-03-10T11:05:43.143Z",
+    "reverseSplitRatio": null,
     "volume": 232680,
     "averageVolume": 180583,
-    "marketCap": 65576040,
-    "performance": 0
+    "marketCap": 65576040
   },
   "RAPP": {
-    "short": false,
     "alert": 30.54,
-    "highest": 30.54,
-    "lowest": 30.54,
-    "highest5Day": 30.54,
-    "highest5DayPercent": 0,
+    "highest": 32.3,
+    "lowest": 29.06,
     "current": 30.54,
     "currentPrice": 30.54,
+    "volume": 887970,
+    "averageVolume": 360577,
+    "marketCap": 1455571200,
+    "performance": 0
+  },
+  "IRD": {
+    "short": false,
+    "alert": 4.77,
+    "highest": 4.77,
+    "lowest": 4.77,
+    "highest5Day": 4.77,
+    "highest5DayPercent": 0,
+    "current": 4.77,
+    "currentPrice": 4.77,
     "performance": 0,
-    "date": "2026-03-10T11:12:34.515Z",
-    "alertDate": "2026-03-10T11:12:34.515Z",
+    "date": "2026-03-10T11:18:00.036Z",
+    "alertDate": "2026-03-10T11:18:00.036Z",
     "reverseSplitRatio": null
   }
 }
