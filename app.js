@@ -1425,8 +1425,13 @@ const saveAlert = (alertData) => {
       recordId: `${alertData.ticker}-${Date.now()}`,
       expiresAt: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
       direction: direction,
-      highest5Day: alertData.price || 0,
-      highest5DayPercent: 0
+      // Initialize correct fields based on position type
+      // SHORT positions track lowest price/percentage, LONG tracks highest
+      highest5Day: !alertData.isShort ? (alertData.price || 0) : 0,
+      highest5DayPercent: 0,
+      lowest5Day: alertData.isShort ? (alertData.price || 0) : 0,
+      lowest5DayPercent: 0,
+      isShort: alertData.isShort
     };
     
     const reason = (alertData.intent && Array.isArray(alertData.intent)) 
@@ -1686,7 +1691,7 @@ const syncPeakDataToStocks = (ticker, peakData) => {
     stocks = stocks.map(stock => {
       if (stock.ticker === ticker) {
         const alertPrice = stock.price || 0;
-        const isShort = stock.direction === 'SHORT';
+        const isShort = stock.direction === 'SHORT' || stock.isShort === true;
         
         let peakPrice, peakPercent = 0;
         
@@ -1699,7 +1704,8 @@ const syncPeakDataToStocks = (ticker, peakData) => {
           return {
             ...stock,
             lowest5Day: peakPrice,
-            lowest5DayPercent: peakPercent
+            lowest5DayPercent: peakPercent,
+            isShort: true
           };
         } else {
           // LONG: track highest price (best profit when price rises)
@@ -1710,7 +1716,8 @@ const syncPeakDataToStocks = (ticker, peakData) => {
           return {
             ...stock,
             highest5Day: peakPrice,
-            highest5DayPercent: peakPercent
+            highest5DayPercent: peakPercent,
+            isShort: false
           };
         }
       }
@@ -1744,7 +1751,7 @@ const syncAllPeakData = () => {
         const quoteData = quotes[stock.ticker];
         const alertPrice = stock.price || 0;
         const currentPrice = quoteData.current || quoteData.currentPrice || stock.price;
-        const isShort = stock.direction === 'SHORT';
+        const isShort = stock.direction === 'SHORT' || stock.isShort === true;
         
         if (isShort) {
           // SHORT: use lowest price (best profit when price drops)
@@ -1756,7 +1763,8 @@ const syncAllPeakData = () => {
           return {
             ...stock,
             lowest5Day: lowestPrice,
-            lowest5DayPercent: peakPercent
+            lowest5DayPercent: peakPercent,
+            isShort: true
           };
         } else {
           // LONG: use highest price (best profit when price rises)
@@ -1768,7 +1776,8 @@ const syncAllPeakData = () => {
           return {
             ...stock,
             highest5Day: highestPrice,
-            highest5DayPercent: peakPercent
+            highest5DayPercent: peakPercent,
+            isShort: false
           };
         }
       }
@@ -8965,7 +8974,7 @@ const updateAllTickerPrices = async () => {
         await rateLimit.wait();
         
         const quote = await yahooFinance.quote(ticker, {
-          fields: ['regularMarketPrice', 'regularMarketVolume', 'averageDailyVolume3Month', 'marketCap']
+          fields: ['regularMarketPrice', 'regularMarketDayHigh', 'regularMarketDayLow', 'regularMarketVolume', 'averageDailyVolume3Month', 'marketCap']
         });
         
         if (quote && quote.regularMarketPrice > 0) {
@@ -8974,10 +8983,14 @@ const updateAllTickerPrices = async () => {
             // Use alert price from stocks.json if available, otherwise fall back to current price
             const alertPrice = stocksMap[ticker] || quote.regularMarketPrice;
             
+            // Initialize with day's high/low, not just current price
+            const dayHigh = quote.regularMarketDayHigh || quote.regularMarketPrice;
+            const dayLow = quote.regularMarketDayLow || quote.regularMarketPrice;
+            
             performanceData[ticker] = {
               alert: alertPrice,
-              highest: quote.regularMarketPrice,
-              lowest: quote.regularMarketPrice,
+              highest: Math.max(dayHigh, alertPrice),  // Start with whichever is higher (for LONG baseline)
+              lowest: Math.min(dayLow, alertPrice),    // Start with whichever is lower (for SHORT baseline)
               current: quote.regularMarketPrice,
               currentPrice: quote.regularMarketPrice,
               volume: quote.regularMarketVolume || 0,
@@ -8992,12 +9005,16 @@ const updateAllTickerPrices = async () => {
             performanceData[ticker].averageVolume = quote.averageDailyVolume3Month || 0;
             performanceData[ticker].marketCap = quote.marketCap || 'N/A';
             
-            // Update high/low
-            if (quote.regularMarketPrice > performanceData[ticker].highest) {
-              performanceData[ticker].highest = quote.regularMarketPrice;
+            // Update high/low - ONLY if this is first time seeing this price
+            // Or if it's a new extreme
+            const dayHigh = quote.regularMarketDayHigh || quote.regularMarketPrice;
+            const dayLow = quote.regularMarketDayLow || quote.regularMarketPrice;
+            
+            if (dayHigh > (performanceData[ticker].highest || 0)) {
+              performanceData[ticker].highest = dayHigh;
             }
-            if (quote.regularMarketPrice < performanceData[ticker].lowest) {
-              performanceData[ticker].lowest = quote.regularMarketPrice;
+            if (dayLow < (performanceData[ticker].lowest || dayLow)) {
+              performanceData[ticker].lowest = dayLow;
             }
           }
           
@@ -9024,8 +9041,12 @@ const updateAllTickerPrices = async () => {
         const tempFile = CONFIG.PERFORMANCE_FILE + '.tmp';
         fs.writeFileSync(tempFile, JSON.stringify(performanceData, null, 2));
         fs.renameSync(tempFile, CONFIG.PERFORMANCE_FILE);
+        // Sync the peak data back to stocks.json immediately after saving
+        syncAllPeakData();
       } catch (err) {
         fs.writeFileSync(CONFIG.PERFORMANCE_FILE, JSON.stringify(performanceData, null, 2));
+        // Still sync even if temp file failed
+        syncAllPeakData();
       }
     }
   } catch (err) {

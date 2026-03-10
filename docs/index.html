@@ -2597,7 +2597,10 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                         const percentSign = peakPercent >= 0 ? '+' : '';
                         const peakDisplay = `Peak: $${peakPrice}   <b style="font-weight: 600;">${percentSign}${peakPercent.toFixed(2)}%</b> (Expires: ${expireText})`;
                         
-                        // Determine color based on performance
+                        // Determine color based on position type and performance
+                        // For SHORT: positive peakPercent = profit (green), negative = loss (red)
+                        // For LONG: positive peakPercent = profit (green), negative = loss (red)
+                        // peakPercent is already signed correctly for both SHORT and LONG
                         let peakColor = peakPercent > 0 ? '#00aa00' : peakPercent < 0 ? '#ff4444' : 'inherit';
                         
                         item.innerHTML = `
