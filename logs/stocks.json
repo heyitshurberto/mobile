@@ -3492,8 +3492,8 @@
     "recordId": "IRD-1773141479947",
     "expiresAt": "2026-03-15T11:17:59.947Z",
     "direction": "LONG",
-    "highest5Day": 4.77,
-    "highest5DayPercent": 0,
+    "highest5Day": 5.09,
+    "highest5DayPercent": 6.71,
     "lowest5Day": 0,
     "lowest5DayPercent": 0
   },
@@ -3558,8 +3558,8 @@
     "direction": "SHORT",
     "highest5Day": 0,
     "highest5DayPercent": 0,
-    "lowest5Day": 3.04,
-    "lowest5DayPercent": 0
+    "lowest5Day": 2.6399,
+    "lowest5DayPercent": 13.16
   },
   {
     "ticker": "CGEM",
@@ -3628,6 +3628,79 @@
     "highest5Day": 15.31,
     "highest5DayPercent": 0,
     "lowest5Day": 0,
+    "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "WELL",
+    "title": "8-K - WELLTOWER INC. (0000766704) (Filer)",
+    "companyName": "WELLTOWER INC.",
+    "filerName": null,
+    "sector": "Real Estate",
+    "price": 207.68,
+    "fav": "203.84",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Ohio (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.1,
+    "filingTimeBonus": 1.1,
+    "volume": 3757495,
+    "averageVolume": 3418316,
+    "float": 696803587,
+    "sharesOutstanding": 697752530,
+    "soRatio": "99.86%",
+    "marketCap": 144909238272,
+    "isShort": true,
+    "ftd": 2027,
+    "ftdPercent": "0.00",
+    "intent": "Merger/Acquisition, Activist 13D Filing, Bankruptcy Filing, Credit Default, Asset Disposition",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Ohio",
+    "filingDate": "2026-03-10",
+    "signals": {
+      "Merger/Acquisition": [
+        "Acquisition Agreement",
+        "Material Definitive Agreement"
+      ],
+      "Activist 13D Filing": [
+        "Beneficial Ownership"
+      ],
+      "Bankruptcy Filing": [
+        "Insolvency Proceedings"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Asset Disposition": [
+        "Asset Sale",
+        "Disposition"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "F-1",
+      "EX-10.1",
+      "Item 1.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, F-1, EX-10.1, Item 1.01, Item 9.01",
+    "cik": "766704",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Distressed)",
+    "deterministicMechanism": "Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.",
+    "deterministicPhrase": "[Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.]",
+    "recordedAt": "2026-03-10T12:11:21.122Z",
+    "recordId": "WELL-1773144681122",
+    "expiresAt": "2026-03-15T12:11:21.122Z",
+    "direction": "SHORT",
+    "highest5Day": 0,
+    "highest5DayPercent": 0,
+    "lowest5Day": 207.68,
     "lowest5DayPercent": 0
   }
 ]
