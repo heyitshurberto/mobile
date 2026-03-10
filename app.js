@@ -4615,7 +4615,7 @@ const renderLoginPage = () => `
     <div id="modalContent">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
         <img src="/logo.jpeg" alt="Eugene's Non-Profit" style="height: 50px; width: auto;">
-        <h2 id="modalTitle" style="font-size: 20px; color: #2c2c2c; margin: 0; font-family: 'Poppins', sans-serif; font-weight: 600; transition: color 0.3s ease;">Membership Access</h2>
+        <h2 id="modalTitle" style="font-size: 18px; color: #2c2c2c; margin: 0; font-family: 'Poppins', sans-serif; font-weight: 600; transition: color 0.3s ease;">Membership Access</h2>
       </div>
       <p id="modalDescription" style="color: #666; font-size: 13px; margin-bottom: 20px; font-family: 'Poppins', sans-serif; transition: color 0.3s ease;">Submit your information and we'll review your application within 24 hours.</p>
       <div style="display: flex; flex-direction: column; gap: 12px;">
