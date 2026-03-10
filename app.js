@@ -3903,7 +3903,7 @@ const renderLoginPage = () => `
       </button>
     </div>
     <div style="display: flex; justify-content: center; margin-bottom: 0px; margin-top: 4px;">
-      <img src="/docs/logo.jpeg" alt="Eugene's Non-Profit" style="height: 80px; width: auto; object-fit: contain;">
+      <img src="/docs/logo.jpeg" alt="Eugene's Non-Profit" style="height: 85px; width: auto; object-fit: contain;">
     </div>
     <h1 id="mainTitle" style="color: #000000; font-size: 20x; font-family: 'Gaegu', cursive; font-weight: 400; letter-spacing: 0px; margin: 0px 0 2px 0; transition: color 0.3s ease;">Eugene's Non-Profit</h1>
     <p class="subtitle" id="mainSubtitle" style="margin-top: 1px; margin-bottom: 8px; opacity: 0.55; font-size: 11px; color: #666; transition: color 0.3s ease;">Secure Access Portal</p>
@@ -4615,7 +4615,7 @@ const renderLoginPage = () => `
     <div id="modalContent">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
         <img src="/logo.jpeg" alt="Eugene's Non-Profit" style="height: 50px; width: auto;">
-        <h2 id="modalTitle" style="font-size: 25px; color: #2c2c2c; margin: 0; font-family: 'Poppins', sans-serif; font-weight: 600; transition: color 0.3s ease;">Membership Access</h2>
+        <h2 id="modalTitle" style="font-size: 20px; color: #2c2c2c; margin: 0; font-family: 'Poppins', sans-serif; font-weight: 600; transition: color 0.3s ease;">Membership Access</h2>
       </div>
       <p id="modalDescription" style="color: #666; font-size: 13px; margin-bottom: 20px; font-family: 'Poppins', sans-serif; transition: color 0.3s ease;">Submit your information and we'll review your application within 24 hours.</p>
       <div style="display: flex; flex-direction: column; gap: 12px;">
