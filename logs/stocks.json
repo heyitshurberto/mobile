@@ -3560,5 +3560,74 @@
     "highest5DayPercent": 0,
     "lowest5Day": 3.04,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "CGEM",
+    "title": "8-K - Cullinan Therapeutics, Inc. (0001789972) (Filer)",
+    "companyName": "Cullinan Therapeutics, Inc.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 15.31,
+    "fav": "49.83",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Massachusetts (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 864736,
+    "averageVolume": 834225,
+    "float": 41567200,
+    "sharesOutstanding": 59076259,
+    "soRatio": "70.36%",
+    "marketCap": 904457536,
+    "isShort": false,
+    "ftd": 90,
+    "ftdPercent": "0.00",
+    "intent": "FDA Breakthrough, FDA Filing, Clinical Success, Clinical Milestone",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Massachusetts",
+    "filingDate": "2026-03-10",
+    "signals": {
+      "FDA Breakthrough": [
+        "Fast Track Designation"
+      ],
+      "FDA Filing": [
+        "NDA Submission"
+      ],
+      "Clinical Success": [
+        "Phase 1",
+        "Phase 2",
+        "Biomarker"
+      ],
+      "Clinical Milestone": [
+        "Dose Escalation"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-99.1",
+      "Item 2.02",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-99.1, Item 2.02, Item 9.01",
+    "cik": "1789972",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Clinical Success / Milestone",
+    "deterministicMechanism": "Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.",
+    "deterministicPhrase": "[Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.]",
+    "recordedAt": "2026-03-10T11:24:05.079Z",
+    "recordId": "CGEM-1773141845079",
+    "expiresAt": "2026-03-15T11:24:05.079Z",
+    "direction": "LONG",
+    "highest5Day": 15.31,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
   }
 ]
