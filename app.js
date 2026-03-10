@@ -3877,7 +3877,7 @@ const renderLoginPage = () => `
 
     @media (max-width: 768px) {
       #modalTitle {
-        font-size: 17px !important;
+        font-size: 16px !important;
       }
     }
   </style>
