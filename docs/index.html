@@ -3624,9 +3624,9 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             if (quoteResp.ok) {
                                 const quoteData = await quoteResp.json();
                                 if (quoteData[ticker] && quoteData[ticker].currentPrice) {
-                                    // Create a quote object matching the API format
+                                    // Create a quote object matching the data format
                                     quote = {
-                                        price: quoteData[ticker].currentPrice,
+                                        currentPrice: quoteData[ticker].currentPrice,
                                         volume: quoteData[ticker].volume || 0,
                                         averageVolume: quoteData[ticker].averageVolume || 0,
                                         marketCap: quoteData[ticker].marketCap || 'N/A'
