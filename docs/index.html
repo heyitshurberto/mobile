@@ -3652,7 +3652,8 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                         }
                     }
 
-                    if (!quote || (typeof quote.currentPrice === 'undefined' && typeof quote.price === 'undefined' && typeof quote.current === 'undefined') || (quote.currentPrice <= 0 && quote.price <= 0 && quote.current <= 0)) {
+                    const priceValue = quote.currentPrice || quote.price || quote.current;
+                    if (!quote || !priceValue || priceValue <= 0) {
                         console.error(`Invalid quote data for ${ticker}:`, quote);
                         return false;
                     }
