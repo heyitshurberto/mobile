@@ -3624,9 +3624,9 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             if (quoteResp.ok) {
                                 const quoteData = await quoteResp.json();
                                 if (quoteData[ticker] && quoteData[ticker].currentPrice) {
-                                    // Create a quote object matching the data format
+                                    // Create a quote object matching the API format
                                     quote = {
-                                        currentPrice: quoteData[ticker].currentPrice,
+                                        price: quoteData[ticker].currentPrice,
                                         volume: quoteData[ticker].volume || 0,
                                         averageVolume: quoteData[ticker].averageVolume || 0,
                                         marketCap: quoteData[ticker].marketCap || 'N/A'
@@ -3652,9 +3652,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                         }
                     }
 
-                    const priceValue = quote.currentPrice || quote.price || quote.current;
-                    const parsedPrice = parseFloat(priceValue);
-                    if (!quote || !priceValue || isNaN(parsedPrice) || parsedPrice <= 0) {
+                    if (!quote || typeof quote.price === 'undefined' || quote.price <= 0) {
                         console.error(`Invalid quote data for ${ticker}:`, quote);
                         return false;
                     }
@@ -3669,7 +3667,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     const statusEl = document.getElementById('status');
                     statusEl.className = 'status-online';
 
-                    const currentPrice = parseFloat(quote.currentPrice || quote.price || quote.current);
+                    const currentPrice = parseFloat(quote.price);
                     const currentVolume = parseInt(quote.volume) || 0;
                     const averageVolume = parseInt(quote.averageVolume) || 0;
 
