@@ -3972,7 +3972,7 @@ const renderLoginPage = () => `
       </button>
     </div>
     <div style="display: flex; justify-content: center; margin-bottom: 15px; margin-top: 16px;">
-      <img src="/docs/logo.jpeg" alt="Pleroma" style="height: 31px; width: auto; object-fit: contain;">
+      <img src="/docs/logo.jpeg" alt="Pleroma" style="height: 32px; width: auto; object-fit: contain;">
     </div>
     <h1 id="mainTitle" style="color: #3a3a3a; font-size: 22px; font-family: 'Menlo', monospace; font-weight: 400; letter-spacing: 0px; margin: 12px 0 8px 0; transition: color 0.3s ease;">Login Portal</h1>
     <p class="subtitle" id="mainSubtitle" style="margin-top: 1px; margin-bottom: 8px; opacity: 0.55; font-size: 11px; color: #666; transition: color 0.3s ease;">Secure Access Hub</p>
