@@ -3653,7 +3653,8 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     }
 
                     const priceValue = quote.currentPrice || quote.price || quote.current;
-                    if (!quote || !priceValue || priceValue <= 0) {
+                    const parsedPrice = parseFloat(priceValue);
+                    if (!quote || !priceValue || isNaN(parsedPrice) || parsedPrice <= 0) {
                         console.error(`Invalid quote data for ${ticker}:`, quote);
                         return false;
                     }
