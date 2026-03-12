@@ -59,75 +59,10 @@
     "recordId": "HSAI-1769436771640",
     "expiresAt": "2026-01-31T14:12:51.640Z",
     "direction": "SHORT",
-    "highest5Day": 24.105,
-    "highest5DayPercent": -13.73,
+    "highest5Day": 23.76,
+    "highest5DayPercent": -14.96,
     "lowest5Day": 23.76,
     "lowest5DayPercent": 14.96
-  },
-  {
-    "ticker": "AXL",
-    "title": "8-K - AMERICAN AXLE & MANUFACTURING HOLDINGS INC (0001062231) (Filer)",
-    "companyName": "AMERICAN AXLE & MANUFACTURING HOLDINGS INC",
-    "filerName": null,
-    "price": 8.28,
-    "wa": "6.35",
-    "signalScore": 0.64,
-    "hasTuesdayBonus": false,
-    "custodianControl": true,
-    "custodianVerified": false,
-    "custodianName": null,
-    "filingTimeMultiplier": 1.2,
-    "filingTimeBonus": 1.2,
-    "soBonus": 1,
-    "volume": 3468273,
-    "averageVolume": 3039586,
-    "float": 115149772,
-    "sharesOutstanding": 118696421,
-    "soRatio": "97.01%",
-    "marketCap": 982806336,
-    "isShort": true,
-    "ftd": 99485,
-    "ftdPercent": "0.09",
-    "intent": "Share Consolidation, Regulatory Breach, ADR Regulation Risk",
-    "incorporated": "Wilmington, Delaware",
-    "located": "Michigan",
-    "filingDate": "2026-01-26",
-    "signals": {
-      "Share Consolidation": [
-        "Recalled Shares"
-      ],
-      "Regulatory Breach": [
-        "Regulatory Violation"
-      ],
-      "ADR Regulation Risk": [
-        "Subject To Risks"
-      ]
-    },
-    "bonusSignals": {},
-    "reverseSplitRatio": null,
-    "reverseSplitReason": null,
-    "formType": [
-      "8-K",
-      "EX-99.1",
-      "EX-99.2",
-      "EX-3.1",
-      "EX-3.2",
-      "Item 5.03",
-      "Item 8.01",
-      "Item 9.01"
-    ],
-    "filingType": "8-K, EX-99.1, EX-99.2, EX-3.1, EX-3.2, Item 5.03, Item 8.01, Item 9.01",
-    "cik": "1062231",
-    "skipReason": "",
-    "alertType": null,
-    "recordedAt": "2026-01-26T14:19:44.912Z",
-    "recordId": "AXL-1769437184912",
-    "expiresAt": "2026-01-31T14:19:44.912Z",
-    "direction": "SHORT",
-    "highest5Day": 8.105,
-    "highest5DayPercent": -2.11,
-    "lowest5Day": 8.28,
-    "lowest5DayPercent": 0
   },
   {
     "ticker": "CRDL",
@@ -182,8 +117,10 @@
     "recordId": "CRDL-1769451197487",
     "expiresAt": "2026-01-31T18:13:17.487Z",
     "direction": "LONG",
-    "highest5Day": 1.07,
-    "highest5DayPercent": 7
+    "highest5Day": 1.0972,
+    "highest5DayPercent": 9.72,
+    "lowest5Day": 0.9701,
+    "lowest5DayPercent": -2.99
   },
   {
     "ticker": "BIYA",
@@ -251,8 +188,8 @@
     "recordId": "BIYA-1769462189874",
     "expiresAt": "2026-01-31T21:16:29.874Z",
     "direction": "SHORT",
-    "highest5Day": 3.8333,
-    "highest5DayPercent": -2.95,
+    "highest5Day": 1.54,
+    "highest5DayPercent": -61.01,
     "lowest5Day": 1.54,
     "lowest5DayPercent": 61.01
   },
@@ -321,8 +258,8 @@
     "recordId": "FAT-1769513000302",
     "expiresAt": "2026-02-01T11:23:20.302Z",
     "direction": "SHORT",
-    "highest5Day": 0.1795,
-    "highest5DayPercent": 54.2,
+    "highest5Day": 0.1626,
+    "highest5DayPercent": -58.52,
     "lowest5Day": 0.1626,
     "lowest5DayPercent": 58.52
   },
@@ -391,8 +328,8 @@
     "recordId": "TWNP-1769513219164",
     "expiresAt": "2026-02-01T11:26:59.164Z",
     "direction": "SHORT",
-    "highest5Day": 0.2521,
-    "highest5DayPercent": 52.5,
+    "highest5Day": 0.0711,
+    "highest5DayPercent": -86.61,
     "lowest5Day": 0.0711,
     "lowest5DayPercent": 86.61
   },
@@ -455,7 +392,9 @@
     "expiresAt": "2026-02-01T12:06:10.279Z",
     "direction": "LONG",
     "highest5Day": 18.58,
-    "highest5DayPercent": 10.73
+    "highest5DayPercent": 10.73,
+    "lowest5Day": 16.5529,
+    "lowest5DayPercent": -1.35
   },
   {
     "ticker": "NTLA",
@@ -515,8 +454,10 @@
     "recordId": "NTLA-1769519988566",
     "expiresAt": "2026-02-01T13:19:48.566Z",
     "direction": "LONG",
-    "highest5Day": 14.14,
-    "highest5DayPercent": 1.36
+    "highest5Day": 13.01,
+    "highest5DayPercent": -6.74,
+    "lowest5Day": 13.01,
+    "lowest5DayPercent": -6.74
   },
   {
     "ticker": "OM",
@@ -573,8 +514,8 @@
     "recordId": "OM-1769523079063",
     "expiresAt": "2026-02-01T14:11:19.063Z",
     "direction": "SHORT",
-    "highest5Day": 4.97,
-    "highest5DayPercent": 0,
+    "highest5Day": 3.055,
+    "highest5DayPercent": -38.53,
     "lowest5Day": 3.055,
     "lowest5DayPercent": 38.53
   },
@@ -644,10 +585,10 @@
     "recordId": "CBU-1769523512145",
     "expiresAt": "2026-02-01T14:18:32.145Z",
     "direction": "SHORT",
-    "highest5Day": 61.77,
-    "highest5DayPercent": 0,
-    "lowest5Day": 57.215,
-    "lowest5DayPercent": 7.37
+    "highest5Day": 57.115,
+    "highest5DayPercent": -7.54,
+    "lowest5Day": 57.115,
+    "lowest5DayPercent": 7.54
   },
   {
     "ticker": "ANEB",
@@ -712,8 +653,8 @@
     "recordId": "ANEB-1769523918060",
     "expiresAt": "2026-02-01T14:25:18.060Z",
     "direction": "SHORT",
-    "highest5Day": 1.08,
-    "highest5DayPercent": 0,
+    "highest5Day": 0.45,
+    "highest5DayPercent": -58.33,
     "lowest5Day": 0.45,
     "lowest5DayPercent": 58.33
   },
@@ -777,140 +718,10 @@
     "recordId": "OSRH-1769524047644",
     "expiresAt": "2026-02-01T14:27:27.644Z",
     "direction": "SHORT",
-    "highest5Day": 0.6189,
-    "highest5DayPercent": -14.04,
-    "lowest5Day": 0.4809,
-    "lowest5DayPercent": 33.21
-  },
-  {
-    "ticker": "HLEO",
-    "title": "8-K - Helio Corp /FL/ (0001953988) (Filer)",
-    "companyName": "Helio Corp /FL/",
-    "filerName": null,
-    "price": 1.28,
-    "wa": "0.87",
-    "signalScore": 0.5,
-    "hasTuesdayBonus": false,
-    "custodianControl": true,
-    "custodianVerified": false,
-    "custodianName": null,
-    "filingTimeMultiplier": 1.2,
-    "filingTimeBonus": 1.2,
-    "soBonus": 1.15,
-    "volume": 20879,
-    "averageVolume": 36073,
-    "float": 2565322,
-    "sharesOutstanding": 23095425,
-    "soRatio": "11.11%",
-    "marketCap": 29562142,
-    "isShort": true,
-    "ftd": false,
-    "ftdPercent": null,
-    "intent": "Compensation Dilution, Share Consolidation, Executive Departure Non-Planned",
-    "incorporated": "Florida",
-    "located": "Toronto, Canada",
-    "filingDate": "2026-01-27",
-    "signals": {
-      "Compensation Dilution": [
-        "Equity Compensation"
-      ],
-      "Share Consolidation": [
-        "Shareholder Vote"
-      ],
-      "Executive Departure Non-Planned": [
-        "Departure Of Directors"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "reverseSplitRatio": null,
-    "reverseSplitReason": null,
-    "formType": [
-      "6-K",
-      "6-K/A",
-      "8-K",
-      "S-1",
-      "20-F",
-      "20-F/A",
-      "EX-99.1",
-      "EX-99.2",
-      "EX-10.1",
-      "Item 5.02",
-      "Item 7.01",
-      "Item 9.01"
-    ],
-    "filingType": "6-K, 6-K/A, 8-K, S-1, 20-F, 20-F/A, EX-99.1, EX-99.2, EX-10.1, Item 5.02, Item 7.01, Item 9.01",
-    "cik": "1953988",
-    "skipReason": "",
-    "alertType": null,
-    "recordedAt": "2026-01-27T21:59:40.336Z",
-    "recordId": "HLEO-1769551180336",
-    "expiresAt": "2026-02-01T21:59:40.336Z",
-    "direction": "SHORT",
-    "highest5Day": 1.28,
-    "highest5DayPercent": 0,
-    "lowest5Day": 1.28,
-    "lowest5DayPercent": 0
-  },
-  {
-    "ticker": "GP",
-    "title": "6-K - GREENPOWER MOTOR Co INC. (0001584547) (Filer)",
-    "companyName": "GREENPOWER MOTOR Co INC.",
-    "filerName": null,
-    "price": 0.8926,
-    "wa": "0.46",
-    "signalScore": 0.31,
-    "hasTuesdayBonus": false,
-    "custodianControl": false,
-    "custodianVerified": false,
-    "custodianName": null,
-    "filingTimeMultiplier": 1.05,
-    "filingTimeBonus": 1.05,
-    "soBonus": 1,
-    "volume": 32250,
-    "averageVolume": 1439463,
-    "float": 6539207,
-    "sharesOutstanding": 3077483,
-    "soRatio": "212.5%",
-    "marketCap": 2767375,
-    "isShort": true,
-    "ftd": 9369,
-    "ftdPercent": "0.14",
-    "intent": "Asset Disposition, Financing Events",
-    "incorporated": "Toronto, Canada",
-    "located": "Toronto, Canada",
-    "filingDate": "2026-01-29",
-    "signals": {
-      "Asset Disposition": [
-        "Disposed"
-      ],
-      "Financing Events": [
-        "Capital Structure"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "reverseSplitRatio": null,
-    "reverseSplitReason": null,
-    "formType": [
-      "6-K",
-      "S-8",
-      "F-3",
-      "20-F",
-      "EX-99.1"
-    ],
-    "filingType": "6-K, S-8, F-3, 20-F, EX-99.1",
-    "cik": "1584547",
-    "skipReason": "",
-    "alertType": null,
-    "recordedAt": "2026-01-29T17:11:27.594Z",
-    "recordId": "GP-1769706687594",
-    "expiresAt": "2026-02-03T17:11:27.594Z",
-    "direction": "SHORT",
-    "highest5Day": 1.0594,
-    "highest5DayPercent": 18.69,
-    "lowest5Day": 0.8926,
-    "lowest5DayPercent": 0
+    "highest5Day": 0.4749,
+    "highest5DayPercent": -34.04,
+    "lowest5Day": 0.4749,
+    "lowest5DayPercent": 34.04
   },
   {
     "ticker": "ENGN",
@@ -984,8 +795,10 @@
     "recordId": "ENGN-1773054320714",
     "expiresAt": "2026-03-14T11:05:20.714Z",
     "direction": "LONG",
-    "highest5Day": 8.68,
-    "highest5DayPercent": 0
+    "highest5Day": 6.67,
+    "highest5DayPercent": -23.16,
+    "lowest5Day": 6.67,
+    "lowest5DayPercent": -23.16
   },
   {
     "ticker": "IBIO",
@@ -1054,8 +867,10 @@
     "recordId": "IBIO-1773054335255",
     "expiresAt": "2026-03-14T11:05:35.255Z",
     "direction": "LONG",
-    "highest5Day": 2.6299,
-    "highest5DayPercent": 0.76
+    "highest5Day": 2.31,
+    "highest5DayPercent": -11.49,
+    "lowest5Day": 2.31,
+    "lowest5DayPercent": -11.49
   },
   {
     "ticker": "NBP",
@@ -1129,8 +944,10 @@
     "recordId": "NBP-1773054366446",
     "expiresAt": "2026-03-14T11:06:06.446Z",
     "direction": "LONG",
-    "highest5Day": 3.55,
-    "highest5DayPercent": 1.43
+    "highest5Day": 3.03,
+    "highest5DayPercent": -13.43,
+    "lowest5Day": 3.03,
+    "lowest5DayPercent": -13.43
   },
   {
     "ticker": "BOLD",
@@ -1194,7 +1011,9 @@
     "expiresAt": "2026-03-14T11:06:26.119Z",
     "direction": "LONG",
     "highest5Day": 1.175,
-    "highest5DayPercent": 3.98
+    "highest5DayPercent": 3.98,
+    "lowest5Day": 1.12,
+    "lowest5DayPercent": -0.88
   },
   {
     "ticker": "RLMD",
@@ -1349,8 +1168,10 @@
     "recordId": "KLRS-1773055000778",
     "expiresAt": "2026-03-14T11:16:40.779Z",
     "direction": "LONG",
-    "highest5Day": 10.19,
-    "highest5DayPercent": 3.77
+    "highest5Day": 9.1345,
+    "highest5DayPercent": -6.98,
+    "lowest5Day": 9.1345,
+    "lowest5DayPercent": -6.98
   },
   {
     "ticker": "KRRO",
@@ -1425,8 +1246,8 @@
     "recordId": "KRRO-1773056164540",
     "expiresAt": "2026-03-14T11:36:04.540Z",
     "direction": "SHORT",
-    "highest5Day": 11.18,
-    "highest5DayPercent": 0,
+    "highest5Day": 13.69,
+    "highest5DayPercent": 22.45,
     "lowest5Day": 11.18,
     "lowest5DayPercent": 0
   },
@@ -1494,8 +1315,8 @@
     "recordId": "FCEL-1773056189513",
     "expiresAt": "2026-03-14T11:36:29.513Z",
     "direction": "SHORT",
-    "highest5Day": 7.6,
-    "highest5DayPercent": 0,
+    "highest5Day": 6.5,
+    "highest5DayPercent": -14.47,
     "lowest5Day": 6.5,
     "lowest5DayPercent": 14.47
   },
@@ -1657,8 +1478,10 @@
     "recordId": "CRBP-1773056650090",
     "expiresAt": "2026-03-14T11:44:10.090Z",
     "direction": "LONG",
-    "highest5Day": 10.12,
-    "highest5DayPercent": 26.34
+    "highest5Day": 10.465,
+    "highest5DayPercent": 30.65,
+    "lowest5Day": 8.01,
+    "lowest5DayPercent": 0
   },
   {
     "ticker": "PLX",
@@ -1719,7 +1542,9 @@
     "expiresAt": "2026-03-14T11:52:01.969Z",
     "direction": "LONG",
     "highest5Day": 2.98,
-    "highest5DayPercent": 13.74
+    "highest5DayPercent": 13.74,
+    "lowest5Day": 2.62,
+    "lowest5DayPercent": 0
   },
   {
     "ticker": "GEL",
@@ -1777,10 +1602,10 @@
     "recordId": "GEL-1773057682895",
     "expiresAt": "2026-03-14T12:01:22.895Z",
     "direction": "SHORT",
-    "highest5Day": 18.09,
-    "highest5DayPercent": 0,
-    "lowest5Day": 17.69,
-    "lowest5DayPercent": 2.21
+    "highest5Day": 17.61,
+    "highest5DayPercent": -2.65,
+    "lowest5Day": 17.61,
+    "lowest5DayPercent": 2.65
   },
   {
     "ticker": "XLO",
@@ -1849,8 +1674,10 @@
     "recordId": "XLO-1773057698089",
     "expiresAt": "2026-03-14T12:01:38.089Z",
     "direction": "LONG",
-    "highest5Day": 0.5718,
-    "highest5DayPercent": 7.89
+    "highest5Day": 0.575,
+    "highest5DayPercent": 8.49,
+    "lowest5Day": 0.53,
+    "lowest5DayPercent": 0
   },
   {
     "ticker": "MBX",
@@ -1917,85 +1744,10 @@
     "recordId": "MBX-1773057848672",
     "expiresAt": "2026-03-14T12:04:08.672Z",
     "direction": "LONG",
-    "highest5Day": 30.55,
-    "highest5DayPercent": 0
-  },
-  {
-    "ticker": "SLM",
-    "title": "8-K - SLM Corp (0001032033) (Filer)",
-    "companyName": "SLM Corp",
-    "filerName": null,
-    "sector": "Financial Services",
-    "price": 19.09,
-    "fav": "54.64",
-    "hasTuesdayBonus": false,
-    "custodianControl": false,
-    "custodianVerified": false,
-    "custodianName": null,
-    "filingTimeMultiplier": 1.15,
-    "filingTimeBonus": 1.15,
-    "volume": 2852217,
-    "averageVolume": 3589193,
-    "float": 196105707,
-    "sharesOutstanding": 198154626,
-    "soRatio": "98.97%",
-    "marketCap": 3782771712,
-    "isShort": true,
-    "ftd": 3788,
-    "ftdPercent": "0.00",
-    "intent": "Merger/Acquisition, Activist 13D Filing, Bankruptcy Filing, Credit Default, Asset Disposition, Stock Buyback",
-    "incorporated": "Wilmington, Delaware",
-    "located": "Wilmington, Delaware",
-    "filingDate": "2026-03-09",
-    "signals": {
-      "Merger/Acquisition": [
-        "Material Definitive Agreement",
-        "Strategic Alternatives"
-      ],
-      "Activist 13D Filing": [
-        "Beneficial Ownership"
-      ],
-      "Bankruptcy Filing": [
-        "Insolvency Proceedings"
-      ],
-      "Credit Default": [
-        "Event Of Default"
-      ],
-      "Asset Disposition": [
-        "Disposition"
-      ],
-      "Stock Buyback": [
-        "Share Repurchase",
-        "Repurchase Program"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "reverseSplitRatio": null,
-    "reverseSplitReason": null,
-    "formType": [
-      "8-K",
-      "EX-99.1",
-      "EX-10.1",
-      "Item 1.01",
-      "Item 7.01",
-      "Item 9.01"
-    ],
-    "filingType": "8-K, EX-99.1, EX-10.1, Item 1.01, Item 7.01, Item 9.01",
-    "cik": "1032033",
-    "skipReason": "",
-    "alertType": null,
-    "deterministicPattern": "Asset Disposition (Distressed)",
-    "deterministicMechanism": "Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.",
-    "deterministicPhrase": "[Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.]",
-    "recordedAt": "2026-03-09T12:31:20.645Z",
-    "recordId": "SLM-1773059480645",
-    "expiresAt": "2026-03-14T12:31:20.645Z",
-    "direction": "SHORT",
-    "highest5Day": 19.09,
-    "highest5DayPercent": 0,
-    "lowest5Day": 18.97,
-    "lowest5DayPercent": 0.63
+    "highest5Day": 27.3801,
+    "highest5DayPercent": -10.38,
+    "lowest5Day": 27.3801,
+    "lowest5DayPercent": -10.38
   },
   {
     "ticker": "ALOY",
@@ -2067,8 +1819,8 @@
     "recordId": "ALOY-1773061098061",
     "expiresAt": "2026-03-14T12:58:18.061Z",
     "direction": "SHORT",
-    "highest5Day": 17.5,
-    "highest5DayPercent": 0,
+    "highest5Day": 14.82,
+    "highest5DayPercent": -15.31,
     "lowest5Day": 14.82,
     "lowest5DayPercent": 15.31
   },
@@ -2142,8 +1894,10 @@
     "recordId": "ACXP-1773061224050",
     "expiresAt": "2026-03-14T13:00:24.050Z",
     "direction": "LONG",
-    "highest5Day": 3.13,
-    "highest5DayPercent": 131.85
+    "highest5Day": 6.2999,
+    "highest5DayPercent": 366.66,
+    "lowest5Day": 1.35,
+    "lowest5DayPercent": 0
   },
   {
     "ticker": "ALLR",
@@ -2213,7 +1967,9 @@
     "expiresAt": "2026-03-14T13:03:03.700Z",
     "direction": "LONG",
     "highest5Day": 1.415,
-    "highest5DayPercent": 14.11
+    "highest5DayPercent": 14.11,
+    "lowest5Day": 1.21,
+    "lowest5DayPercent": -2.42
   },
   {
     "ticker": "JAGX",
@@ -2285,10 +2041,10 @@
     "recordId": "JAGX-1773061564449",
     "expiresAt": "2026-03-14T13:06:04.449Z",
     "direction": "SHORT",
-    "highest5Day": 0.5905,
-    "highest5DayPercent": 0,
-    "lowest5Day": 0.4653,
-    "lowest5DayPercent": 21.2
+    "highest5Day": 0.465,
+    "highest5DayPercent": -21.25,
+    "lowest5Day": 0.465,
+    "lowest5DayPercent": 21.25
   },
   {
     "ticker": "ONDS",
@@ -2357,82 +2113,10 @@
     "recordId": "ONDS-1773062411663",
     "expiresAt": "2026-03-14T13:20:11.663Z",
     "direction": "SHORT",
-    "highest5Day": 9.83,
-    "highest5DayPercent": 0,
+    "highest5Day": 10.56,
+    "highest5DayPercent": 7.43,
     "lowest5Day": 9.2,
     "lowest5DayPercent": 6.41
-  },
-  {
-    "ticker": "ACDC",
-    "title": "8-K - ProFrac Holding Corp. (0001881487) (Filer)",
-    "companyName": "ProFrac Holding Corp.",
-    "filerName": null,
-    "sector": "Energy",
-    "price": 5.43,
-    "fav": "30.28",
-    "hasTuesdayBonus": true,
-    "custodianControl": true,
-    "custodianVerified": true,
-    "custodianName": "Texas (via Wilmington, Delaware)",
-    "filingTimeMultiplier": 1.2,
-    "filingTimeBonus": 1.2,
-    "volume": 1538911,
-    "averageVolume": 1082991,
-    "float": 32797400,
-    "sharesOutstanding": 180871183,
-    "soRatio": "18.13%",
-    "marketCap": 982130496,
-    "isShort": true,
-    "ftd": 59683,
-    "ftdPercent": "0.18",
-    "intent": "Merger/Acquisition, Activist 13D Filing, Bankruptcy Filing, Credit Default, Asset Disposition",
-    "incorporated": "Wilmington, Delaware",
-    "located": "Texas",
-    "filingDate": "2026-03-09",
-    "signals": {
-      "Merger/Acquisition": [
-        "Acquisition Agreement",
-        "Acquisition Closing",
-        "Material Definitive Agreement"
-      ],
-      "Activist 13D Filing": [
-        "Beneficial Ownership"
-      ],
-      "Bankruptcy Filing": [
-        "Insolvency Proceedings"
-      ],
-      "Credit Default": [
-        "Event Of Default"
-      ],
-      "Asset Disposition": [
-        "Disposition"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "reverseSplitRatio": null,
-    "reverseSplitReason": null,
-    "formType": [
-      "8-K",
-      "EX-10.1",
-      "Item 1.01",
-      "Item 9.01"
-    ],
-    "filingType": "8-K, EX-10.1, Item 1.01, Item 9.01",
-    "cik": "1881487",
-    "skipReason": "",
-    "alertType": null,
-    "deterministicPattern": "Asset Disposition (Distressed)",
-    "deterministicMechanism": "Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.",
-    "deterministicPhrase": "[Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.]",
-    "recordedAt": "2026-03-09T20:02:12.508Z",
-    "recordId": "ACDC-1773086532508",
-    "expiresAt": "2026-03-14T20:02:12.509Z",
-    "direction": "SHORT",
-    "highest5Day": 5.43,
-    "highest5DayPercent": 0,
-    "lowest5Day": 5.25,
-    "lowest5DayPercent": 3.31
   },
   {
     "ticker": "DRTS",
@@ -2492,8 +2176,10 @@
     "recordId": "DRTS-1773086662071",
     "expiresAt": "2026-03-14T20:04:22.071Z",
     "direction": "LONG",
-    "highest5Day": 7.1488,
-    "highest5DayPercent": 6.54
+    "highest5Day": 6.1,
+    "highest5DayPercent": -9.09,
+    "lowest5Day": 6.1,
+    "lowest5DayPercent": -9.09
   },
   {
     "ticker": "SUN",
@@ -2565,8 +2251,8 @@
     "recordId": "SUN-1773086762693",
     "expiresAt": "2026-03-14T20:06:02.693Z",
     "direction": "SHORT",
-    "highest5Day": 63.158,
-    "highest5DayPercent": 0,
+    "highest5Day": 64.71,
+    "highest5DayPercent": 2.46,
     "lowest5Day": 62.61,
     "lowest5DayPercent": 0.87
   },
@@ -2633,8 +2319,10 @@
     "recordId": "SGP-1773086768743",
     "expiresAt": "2026-03-14T20:06:08.743Z",
     "direction": "LONG",
-    "highest5Day": 28.81,
-    "highest5DayPercent": 6.23
+    "highest5Day": 29.105,
+    "highest5DayPercent": 7.32,
+    "lowest5Day": 26.4,
+    "lowest5DayPercent": -2.65
   },
   {
     "ticker": "ZVRA",
@@ -2701,8 +2389,8 @@
     "recordId": "ZVRA-1773086822577",
     "expiresAt": "2026-03-14T20:07:02.577Z",
     "direction": "SHORT",
-    "highest5Day": 9.12,
-    "highest5DayPercent": 0,
+    "highest5Day": 11.3999,
+    "highest5DayPercent": 25,
     "lowest5Day": 8.73,
     "lowest5DayPercent": 4.28
   },
@@ -2770,8 +2458,10 @@
     "recordId": "DSGN-1773086832888",
     "expiresAt": "2026-03-14T20:07:12.888Z",
     "direction": "LONG",
-    "highest5Day": 10.81,
-    "highest5DayPercent": 4.24
+    "highest5Day": 9.69,
+    "highest5DayPercent": -6.56,
+    "lowest5Day": 9.69,
+    "lowest5DayPercent": -6.56
   },
   {
     "ticker": "HPE",
@@ -2837,8 +2527,10 @@
     "recordId": "HPE-1773086965853",
     "expiresAt": "2026-03-14T20:09:25.853Z",
     "direction": "LONG",
-    "highest5Day": 22.14,
-    "highest5DayPercent": 1.47
+    "highest5Day": 20.6,
+    "highest5DayPercent": -5.59,
+    "lowest5Day": 20.6,
+    "lowest5DayPercent": -5.59
   },
   {
     "ticker": "OXY",
@@ -2903,87 +2595,10 @@
     "recordId": "OXY-1773087601060",
     "expiresAt": "2026-03-14T20:20:01.060Z",
     "direction": "SHORT",
-    "highest5Day": 55.02,
-    "highest5DayPercent": 0,
+    "highest5Day": 52.05,
+    "highest5DayPercent": -5.4,
     "lowest5Day": 52.05,
     "lowest5DayPercent": 5.4
-  },
-  {
-    "ticker": "EVTV",
-    "title": "8-K - Envirotech Vehicles, Inc. (0001563568) (Filer)",
-    "companyName": "Envirotech Vehicles, Inc.",
-    "filerName": null,
-    "sector": "Automobiles",
-    "price": 1.26,
-    "fav": "0.33",
-    "hasTuesdayBonus": true,
-    "custodianControl": true,
-    "custodianVerified": true,
-    "custodianName": "Toronto, Canada (via Wilmington, Delaware)",
-    "filingTimeMultiplier": 1.2,
-    "filingTimeBonus": 1.2,
-    "volume": 449183,
-    "averageVolume": 29858294,
-    "float": 10000000,
-    "sharesOutstanding": 4829515,
-    "soRatio": "207.1%",
-    "marketCap": 6085189,
-    "isShort": true,
-    "ftd": 409718,
-    "ftdPercent": "4.10",
-    "intent": "Merger/Acquisition, Convertible Debt, Activist 13D Filing, Credit Default, Reverse Split Event, Partnership",
-    "incorporated": "Wilmington, Delaware",
-    "located": "Toronto, Canada",
-    "filingDate": "2026-03-09",
-    "signals": {
-      "Merger/Acquisition": [
-        "Material Definitive Agreement"
-      ],
-      "Convertible Debt": [
-        "Convertible Securities"
-      ],
-      "Activist 13D Filing": [
-        "Beneficial Ownership"
-      ],
-      "Credit Default": [
-        "Event Of Default"
-      ],
-      "Reverse Split Event": [
-        "Reverse Stock Split"
-      ],
-      "Partnership": [
-        "Joint Venture"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "reverseSplitRatio": "1-for-985",
-    "reverseSplitReason": "Nasdaq minimum bid price requirement",
-    "formType": [
-      "8-K",
-      "13D",
-      "EX-4.1",
-      "EX-4.2",
-      "Item 1.01",
-      "Item 2.03",
-      "Item 3.02",
-      "Item 9.01"
-    ],
-    "filingType": "8-K, 13D, EX-4.1, EX-4.2, Item 1.01, Item 2.03, Item 3.02, Item 9.01",
-    "cik": "1563568",
-    "skipReason": "",
-    "alertType": null,
-    "deterministicPattern": "Credit Default (Covenant Breach)",
-    "deterministicMechanism": "Company in covenant breach with lenders = dilutive financing at distressed terms. Lenders have leverage.",
-    "deterministicPhrase": "[Company in covenant breach with lenders = dilutive financing at distressed terms. Lenders have leverage.]",
-    "recordedAt": "2026-03-09T20:26:34.998Z",
-    "recordId": "EVTV-1773087994998",
-    "expiresAt": "2026-03-14T20:26:34.998Z",
-    "direction": "SHORT",
-    "highest5Day": 1.26,
-    "highest5DayPercent": 0,
-    "lowest5Day": 1.223,
-    "lowest5DayPercent": 2.94
   },
   {
     "ticker": "CACI",
@@ -3061,10 +2676,10 @@
     "recordId": "CACI-1773089178965",
     "expiresAt": "2026-03-14T20:46:18.965Z",
     "direction": "SHORT",
-    "highest5Day": 633.21,
-    "highest5DayPercent": 0,
-    "lowest5Day": 591.43,
-    "lowest5DayPercent": 6.6
+    "highest5Day": 589.61,
+    "highest5DayPercent": -6.89,
+    "lowest5Day": 589.61,
+    "lowest5DayPercent": 6.89
   },
   {
     "ticker": "VTAK",
@@ -3139,8 +2754,8 @@
     "recordId": "VTAK-1773090434699",
     "expiresAt": "2026-03-14T21:07:14.699Z",
     "direction": "SHORT",
-    "highest5Day": 1.37,
-    "highest5DayPercent": 0,
+    "highest5Day": 2.2499,
+    "highest5DayPercent": 64.23,
     "lowest5Day": 1.37,
     "lowest5DayPercent": 0
   },
@@ -3222,8 +2837,8 @@
     "recordId": "OPAL-1773091488144",
     "expiresAt": "2026-03-14T21:24:48.144Z",
     "direction": "SHORT",
-    "highest5Day": 2.12,
-    "highest5DayPercent": 0,
+    "highest5Day": 2.197,
+    "highest5DayPercent": 3.63,
     "lowest5Day": 2.08,
     "lowest5DayPercent": 1.89
   },
@@ -3288,10 +2903,10 @@
     "recordId": "LEGN-1773140464331",
     "expiresAt": "2026-03-15T11:01:04.331Z",
     "direction": "LONG",
-    "highest5Day": 19.9745,
-    "highest5DayPercent": 4.36,
-    "lowest5Day": 0,
-    "lowest5DayPercent": 0
+    "highest5Day": 20.5,
+    "highest5DayPercent": 7.11,
+    "lowest5Day": 18.485,
+    "lowest5DayPercent": -3.42
   },
   {
     "ticker": "QTTB",
@@ -3361,8 +2976,8 @@
     "recordId": "QTTB-1773140743086",
     "expiresAt": "2026-03-15T11:05:43.086Z",
     "direction": "SHORT",
-    "highest5Day": 0,
-    "highest5DayPercent": 0,
+    "highest5Day": 7.1,
+    "highest5DayPercent": 39.22,
     "lowest5Day": 4.4028,
     "lowest5DayPercent": 13.67
   },
@@ -3431,8 +3046,8 @@
     "direction": "LONG",
     "highest5Day": 32.3,
     "highest5DayPercent": 5.76,
-    "lowest5Day": 0,
-    "lowest5DayPercent": 0
+    "lowest5Day": 28.84,
+    "lowest5DayPercent": -5.57
   },
   {
     "ticker": "IRD",
@@ -3494,8 +3109,8 @@
     "direction": "LONG",
     "highest5Day": 5.3,
     "highest5DayPercent": 11.11,
-    "lowest5Day": 0,
-    "lowest5DayPercent": 0
+    "lowest5Day": 4.682,
+    "lowest5DayPercent": -1.84
   },
   {
     "ticker": "ESPR",
@@ -3556,10 +3171,10 @@
     "recordId": "ESPR-1773141495850",
     "expiresAt": "2026-03-15T11:18:15.850Z",
     "direction": "SHORT",
-    "highest5Day": 0,
-    "highest5DayPercent": 0,
-    "lowest5Day": 2.6399,
-    "lowest5DayPercent": 13.16
+    "highest5Day": 2.565,
+    "highest5DayPercent": -15.63,
+    "lowest5Day": 2.565,
+    "lowest5DayPercent": 15.63
   },
   {
     "ticker": "CGEM",
@@ -3625,10 +3240,10 @@
     "recordId": "CGEM-1773141845079",
     "expiresAt": "2026-03-15T11:24:05.079Z",
     "direction": "LONG",
-    "highest5Day": 16.49,
-    "highest5DayPercent": 7.71,
-    "lowest5Day": 0,
-    "lowest5DayPercent": 0
+    "highest5Day": 13.99,
+    "highest5DayPercent": -8.62,
+    "lowest5Day": 13.99,
+    "lowest5DayPercent": -8.62
   },
   {
     "ticker": "WELL",
@@ -3698,8 +3313,8 @@
     "recordId": "WELL-1773144681122",
     "expiresAt": "2026-03-15T12:11:21.122Z",
     "direction": "SHORT",
-    "highest5Day": 0,
-    "highest5DayPercent": 0,
+    "highest5Day": 202.61,
+    "highest5DayPercent": -2.44,
     "lowest5Day": 202.61,
     "lowest5DayPercent": 2.44
   },
@@ -3782,8 +3397,8 @@
     "recordId": "TKO-1773145269446",
     "expiresAt": "2026-03-15T12:21:09.446Z",
     "direction": "SHORT",
-    "highest5Day": 0,
-    "highest5DayPercent": 0,
+    "highest5Day": 210.86,
+    "highest5DayPercent": 3.33,
     "lowest5Day": 197.54,
     "lowest5DayPercent": 3.2
   },
@@ -3868,10 +3483,10 @@
     "recordId": "KDP-1773147083685",
     "expiresAt": "2026-03-15T12:51:23.685Z",
     "direction": "SHORT",
-    "highest5Day": 0,
-    "highest5DayPercent": 0,
-    "lowest5Day": 27.475,
-    "lowest5DayPercent": 2.54
+    "highest5Day": 27.325,
+    "highest5DayPercent": -3.07,
+    "lowest5Day": 27.325,
+    "lowest5DayPercent": 3.07
   },
   {
     "ticker": "EB",
@@ -3948,8 +3563,8 @@
     "recordId": "EB-1773147410543",
     "expiresAt": "2026-03-15T12:56:50.544Z",
     "direction": "SHORT",
-    "highest5Day": 0,
-    "highest5DayPercent": 0,
+    "highest5Day": 4.49,
+    "highest5DayPercent": -0.44,
     "lowest5Day": 4.49,
     "lowest5DayPercent": 0.44
   },
@@ -4016,9 +3631,9 @@
     "recordId": "LIXT-1773172900159",
     "expiresAt": "2026-03-15T20:01:40.159Z",
     "direction": "LONG",
-    "highest5Day": 2.68,
-    "highest5DayPercent": 4.28,
-    "lowest5Day": 0,
+    "highest5Day": 3.1599,
+    "highest5DayPercent": 22.95,
+    "lowest5Day": 2.57,
     "lowest5DayPercent": 0
   },
   {
@@ -4078,9 +3693,9 @@
     "recordId": "ZCSH-1773173431353",
     "expiresAt": "2026-03-15T20:10:31.353Z",
     "direction": "LONG",
-    "highest5Day": 15.6,
-    "highest5DayPercent": 0,
-    "lowest5Day": 0,
-    "lowest5DayPercent": 0
+    "highest5Day": 15.1,
+    "highest5DayPercent": -3.21,
+    "lowest5Day": 15.1,
+    "lowest5DayPercent": -3.21
   }
 ]
