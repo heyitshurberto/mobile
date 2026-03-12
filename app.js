@@ -9189,11 +9189,33 @@ const updateAllTickerPrices = async () => {
     // Fetch prices for all tickers
     for (const ticker of tickers) {
       try {
-        await rateLimit.wait();
+        let quote = null;
         
-        const quote = await yahooFinance.quote(ticker, {
-          fields: ['regularMarketPrice', 'regularMarketDayHigh', 'regularMarketDayLow', 'regularMarketVolume', 'averageDailyVolume3Month', 'marketCap']
-        });
+        // Try Yahoo Finance first
+        try {
+          await rateLimit.wait();
+          quote = await yahooFinance.quote(ticker, {
+            fields: ['regularMarketPrice', 'regularMarketDayHigh', 'regularMarketDayLow', 'regularMarketVolume', 'averageDailyVolume3Month', 'marketCap']
+          });
+        } catch (err) {
+          // Yahoo failed, try local quote.json
+          try {
+            if (fs.existsSync('./logs/quote.json')) {
+              const quoteData = JSON.parse(fs.readFileSync('./logs/quote.json', 'utf8'));
+              if (quoteData[ticker] && quoteData[ticker].currentPrice) {
+                quote = {
+                  symbol: ticker,
+                  regularMarketPrice: quoteData[ticker].currentPrice,
+                  regularMarketVolume: quoteData[ticker].volume || 0,
+                  averageDailyVolume3Month: quoteData[ticker].averageVolume || 0,
+                  marketCap: quoteData[ticker].marketCap || 'N/A'
+                };
+              }
+            }
+          } catch (e) {
+            // quote.json also failed, skip this ticker
+          }
+        }
         
         if (quote && quote.regularMarketPrice > 0) {
           // Ensure ticker exists in performance data
