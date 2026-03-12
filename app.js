@@ -3943,6 +3943,15 @@ const renderLoginPage = () => `
       #modalTitle {
         font-size: 14px !important;
       }
+      [alt="Pleroma"][src="/docs/logo.jpeg"] {
+        height: 15.5px !important;
+      }
+      #mainTitle {
+        font-size: 11px !important;
+      }
+      #mainSubtitle {
+        margin-top: 4px !important;
+      }
     }
   </style>
 </head>
