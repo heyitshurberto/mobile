@@ -3190,7 +3190,7 @@ const renderLoginPage = () => `
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Secure Access Portal</title>
+  <title>Login Portal</title>
   <link rel="icon" type="image/jpeg" href="/docs/logo.jpeg">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Crafty+Girls&display=swap" rel="stylesheet">
@@ -3203,7 +3203,7 @@ const renderLoginPage = () => `
       background: 
         radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
       background-size: 40px 40px;
-      background-color: #ffffff;
+      background-color: #f5f5f5;
       background-attachment: fixed;
       min-height: 100vh;
       display: flex;
@@ -3235,26 +3235,26 @@ const renderLoginPage = () => `
       height: 100%;
       transform: translateZ(0);
       background-image: 
-        radial-gradient(3.3px 3.3px at 10% 20%, rgba(100, 100, 100, 0.45) 1px, transparent 1px),
-        radial-gradient(1.1px 1.1px at 80% 80%, rgba(100, 100, 100, 0.25) 1px, transparent 1px),
-        radial-gradient(3.08px 3.08px at 40% 60%, rgba(100, 100, 100, 0.4) 1px, transparent 1px),
-        radial-gradient(1.43px 1.43px at 70% 30%, rgba(100, 100, 100, 0.28) 1px, transparent 1px),
-        radial-gradient(3.52px 3.52px at 20% 90%, rgba(100, 100, 100, 0.42) 1px, transparent 1px),
-        radial-gradient(0.77px 0.77px at 50% 10%, rgba(100, 100, 100, 0.18) 1px, transparent 1px),
-        radial-gradient(2.75px 2.75px at 30% 40%, rgba(100, 100, 100, 0.38) 1px, transparent 1px),
-        radial-gradient(1.21px 1.21px at 90% 50%, rgba(100, 100, 100, 0.22) 1px, transparent 1px),
-        radial-gradient(3.41px 3.41px at 60% 75%, rgba(100, 100, 100, 0.41) 1px, transparent 1px),
-        radial-gradient(0.99px 0.99px at 15% 55%, rgba(100, 100, 100, 0.2) 1px, transparent 1px),
-        radial-gradient(2.86px 2.86px at 35% 15%, rgba(100, 100, 100, 0.39) 1px, transparent 1px),
-        radial-gradient(1.65px 1.65px at 75% 45%, rgba(100, 100, 100, 0.3) 1px, transparent 1px),
-        radial-gradient(3.63px 3.63px at 25% 70%, rgba(100, 100, 100, 0.43) 1px, transparent 1px),
-        radial-gradient(0.66px 0.66px at 55% 35%, rgba(100, 100, 100, 0.15) 1px, transparent 1px),
-        radial-gradient(3.19px 3.19px at 85% 65%, rgba(100, 100, 100, 0.4) 1px, transparent 1px),
-        radial-gradient(2.2px 2.2px at 5% 75%, rgba(100, 100, 100, 0.35) 1px, transparent 1px),
-        radial-gradient(1.8px 1.8px at 95% 10%, rgba(100, 100, 100, 0.32) 1px, transparent 1px),
-        radial-gradient(3.4px 3.4px at 60% 25%, rgba(100, 100, 100, 0.44) 1px, transparent 1px),
-        radial-gradient(0.88px 0.88px at 25% 85%, rgba(100, 100, 100, 0.22) 1px, transparent 1px),
-        radial-gradient(2.95px 2.95px at 75% 65%, rgba(100, 100, 100, 0.37) 1px, transparent 1px);
+        radial-gradient(3.3px 3.3px at 10% 20%, rgba(100, 100, 100, 0.60) 1px, transparent 1px),
+        radial-gradient(1.1px 1.1px at 80% 80%, rgba(100, 100, 100, 0.40) 1px, transparent 1px),
+        radial-gradient(3.08px 3.08px at 40% 60%, rgba(100, 100, 100, 0.55) 1px, transparent 1px),
+        radial-gradient(1.43px 1.43px at 70% 30%, rgba(100, 100, 100, 0.43) 1px, transparent 1px),
+        radial-gradient(3.52px 3.52px at 20% 90%, rgba(100, 100, 100, 0.57) 1px, transparent 1px),
+        radial-gradient(0.77px 0.77px at 50% 10%, rgba(100, 100, 100, 0.33) 1px, transparent 1px),
+        radial-gradient(2.75px 2.75px at 30% 40%, rgba(100, 100, 100, 0.53) 1px, transparent 1px),
+        radial-gradient(1.21px 1.21px at 90% 50%, rgba(100, 100, 100, 0.37) 1px, transparent 1px),
+        radial-gradient(3.41px 3.41px at 60% 75%, rgba(100, 100, 100, 0.56) 1px, transparent 1px),
+        radial-gradient(0.99px 0.99px at 15% 55%, rgba(100, 100, 100, 0.35) 1px, transparent 1px),
+        radial-gradient(2.86px 2.86px at 35% 15%, rgba(100, 100, 100, 0.54) 1px, transparent 1px),
+        radial-gradient(1.65px 1.65px at 75% 45%, rgba(100, 100, 100, 0.45) 1px, transparent 1px),
+        radial-gradient(3.63px 3.63px at 25% 70%, rgba(100, 100, 100, 0.58) 1px, transparent 1px),
+        radial-gradient(0.66px 0.66px at 55% 35%, rgba(100, 100, 100, 0.30) 1px, transparent 1px),
+        radial-gradient(3.19px 3.19px at 85% 65%, rgba(100, 100, 100, 0.55) 1px, transparent 1px),
+        radial-gradient(2.2px 2.2px at 5% 75%, rgba(100, 100, 100, 0.50) 1px, transparent 1px),
+        radial-gradient(1.8px 1.8px at 95% 10%, rgba(100, 100, 100, 0.47) 1px, transparent 1px),
+        radial-gradient(3.4px 3.4px at 60% 25%, rgba(100, 100, 100, 0.59) 1px, transparent 1px),
+        radial-gradient(0.88px 0.88px at 25% 85%, rgba(100, 100, 100, 0.37) 1px, transparent 1px),
+        radial-gradient(2.95px 2.95px at 75% 65%, rgba(100, 100, 100, 0.52) 1px, transparent 1px);
       background-size: 
         300px 350px,
         400px 420px,
@@ -3481,7 +3481,7 @@ const renderLoginPage = () => `
       border-radius: 12px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
       padding: 8px 20px 28px 20px;
-      max-width: 440px;
+      max-width: 442px;
       max-height: 90vh;
       overflow-y: auto;
       width: 100%;
@@ -3971,11 +3971,11 @@ const renderLoginPage = () => `
         </svg>
       </button>
     </div>
-    <div style="display: flex; justify-content: center; margin-bottom: 0px; margin-top: 4px;">
-      <img src="/docs/logo.jpeg" alt="Eugene's Non-Profit" style="height: 85px; width: auto; object-fit: contain;">
+    <div style="display: flex; justify-content: center; margin-bottom: 15px; margin-top: 12px;">
+      <img src="/docs/logo.jpeg" alt="Pleroma" style="height: 31px; width: auto; object-fit: contain;">
     </div>
-    <h1 id="mainTitle" style="color: #000000; font-size: 20x; font-family: 'Gaegu', cursive; font-weight: 400; letter-spacing: 0px; margin: 0px 0 2px 0; transition: color 0.3s ease;">Eugene's Non-Profit</h1>
-    <p class="subtitle" id="mainSubtitle" style="margin-top: 1px; margin-bottom: 8px; opacity: 0.55; font-size: 11px; color: #666; transition: color 0.3s ease;">Secure Access Portal</p>
+    <h1 id="mainTitle" style="color: #3a3a3a; font-size: 22px; font-family: 'Menlo', monospace; font-weight: 400; letter-spacing: 0px; margin: 12px 0 4px 0; transition: color 0.3s ease;">Login Portal</h1>
+    <p class="subtitle" id="mainSubtitle" style="margin-top: 1px; margin-bottom: 8px; opacity: 0.55; font-size: 11px; color: #666; transition: color 0.3s ease;">Secure Access Hub</p>
     
     <div class="error" id="error"></div>
     <div class="success" id="success"></div>
@@ -4102,7 +4102,7 @@ const renderLoginPage = () => `
         moonIcon.style.display = 'block';
         moonIcon.style.stroke = '#333';
         themeToggle.style.color = '#333';
-        if (mainTitle) mainTitle.style.color = '#000000';
+        if (mainTitle) mainTitle.style.color = '#3a3a3a';
         if (mainSubtitle) mainSubtitle.style.color = '#666';
         if (requestAccessBtn) {
           requestAccessBtn.style.background = 'linear-gradient(180deg, #888888 0%, #666666 100%)';
@@ -4187,7 +4187,7 @@ const renderLoginPage = () => `
         moonIcon.style.display = 'block';
         moonIcon.style.stroke = '#333';
         themeToggle.style.color = '#333';
-        if (mainTitle) mainTitle.style.color = '#000000';
+        if (mainTitle) mainTitle.style.color = '#3a3a3a';
         if (mainSubtitle) mainSubtitle.style.color = '#666';
         if (requestAccessBtn) {
           requestAccessBtn.style.background = 'linear-gradient(180deg, #888888 0%, #666666 100%)';
@@ -4438,7 +4438,7 @@ const renderLoginPage = () => `
     function backToLogin() {
       document.getElementById('signupSection').classList.remove('active');
       document.getElementById('emailSection').classList.add('active');
-      document.getElementById('pageTitle').textContent = "Eugene's Non-Profit";
+      document.getElementById('pageTitle').textContent = "Pleroma";
       document.querySelector('.subtitle').style.display = 'block';
       const error = document.getElementById('error');
       const success = document.getElementById('success');
@@ -4683,7 +4683,7 @@ const renderLoginPage = () => `
   <div id="requestAccessModal">
     <div id="modalContent">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-        <img src="/logo.jpeg" alt="Eugene's Non-Profit" style="height: 50px; width: auto;">
+        <img src="/logo.jpeg" alt="Pleroma" style="height: 30px; width: auto;">
         <h2 id="modalTitle" style="font-size: 18px; color: #2c2c2c; margin: 0; font-family: 'Poppins', sans-serif; font-weight: 600; transition: color 0.3s ease;">Membership Access</h2>
       </div>
       <p id="modalDescription" style="color: #666; font-size: 13px; margin-bottom: 20px; font-family: 'Poppins', sans-serif; transition: color 0.3s ease;">Submit your information and we'll review your application within 24 hours.</p>
@@ -5001,8 +5001,8 @@ const sendOTPEmail = async (email, otp) => {
 <html>
 <body style="font-family: Arial, sans-serif; color: #333;">
   <div style="max-width: 600px; margin: 0 auto;">
-    <h2 style="color: #667eea;">Eugene's Non-Profit</h2>
-    <p>You requested access to the Eugene's Non-Profit portal.</p>
+    <h2 style="color: #667eea;">Pleroma</h2>
+    <p>You requested access to the Pleroma portal.</p>
     <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
       <p style="font-size: 12px; color: #999;">Your access code:</p>
       <p style="font-size: 32px; font-weight: bold; color: #667eea; letter-spacing: 4px;">${otp}</p>
@@ -7780,7 +7780,7 @@ app.post('/api/send-message', async (req, res) => {
       <h3 style="color: #667eea; margin-top: 0;">${title}</h3>
       <p style="line-height: 1.6; white-space: pre-wrap;">${message}</p>
     </div>
-    <p style="font-size: 11px; color: #999;">Sent from Eugene's Non-Profit Dashboard</p>
+    <p style="font-size: 11px; color: #999;">Sent from Pleroma Dashboard</p>
   </div>
 </body>
 </html>
@@ -7888,7 +7888,7 @@ app.post('/api/send-access-request', async (req, res) => {
   <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
     <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
       <h2 style="color: #2c2c2c; margin-bottom: 5px;">New Access Request</h2>
-      <p style="color: #999; margin-top: 0; font-size: 13px;">From Eugene's Non-Profit Portal</p>
+      <p style="color: #999; margin-top: 0; font-size: 13px;">From Pleroma Portal</p>
       <hr style="border: none; border-top: 2px solid #f0f0f0; margin: 20px 0;">
       
       <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
