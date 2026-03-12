@@ -3425,6 +3425,10 @@ const renderLoginPage = () => `
     body.dark-mode {
       background-color: #0d0d0d;
       color: #e0e0e0;
+      background: 
+        radial-gradient(circle at 1px 1px, rgba(200, 200, 200, 0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      background-attachment: fixed;
     }
     body.dark-mode::before {
       background: linear-gradient(135deg, rgba(20, 20, 20, 0) 0%, rgba(80, 80, 80, 0.04) 50%, rgba(60, 60, 60, 0) 100%);
