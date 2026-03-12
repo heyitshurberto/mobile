@@ -1576,12 +1576,14 @@ const updatePerformanceData = (alertData) => {
     // Initialize or update ticker performance data
     if (!performanceData[ticker]) {
       performanceData[ticker] = {
-        short: alertData.short ? true : false,
+        short: alertData.isShort ? true : false,
         alert: currentPrice,
         highest: currentPrice,
         lowest: currentPrice,
         highest5Day: currentPrice,
+        lowest5Day: currentPrice,
         highest5DayPercent: 0,
+        lowest5DayPercent: 0,
         current: currentPrice,
         currentPrice: currentPrice,
         performance: 0,
@@ -1591,7 +1593,7 @@ const updatePerformanceData = (alertData) => {
       };
     } else {
       // Update current price and track peaks/lows
-      performanceData[ticker].short = alertData.short ? true : false;
+      performanceData[ticker].short = alertData.isShort ? true : false;
       performanceData[ticker].current = currentPrice;
       if (currentPrice > performanceData[ticker].highest) {
         performanceData[ticker].highest = currentPrice;
@@ -1600,24 +1602,44 @@ const updatePerformanceData = (alertData) => {
         performanceData[ticker].lowest = currentPrice;
       }
       
-      // Track 5-day peak (reset daily)
+      // Track 5-day peak AND trough (reset daily)
       const alertDate = new Date(performanceData[ticker].alertDate);
       const now = new Date();
       const daysDiff = Math.floor((now - alertDate) / (1000 * 60 * 60 * 24));
       
+      const isShort = alertData.isShort === true;
+      const alertPrice = performanceData[ticker].alert || 0;
+      
       if (daysDiff <= 5) {
+        // Track highest price
         if (currentPrice > performanceData[ticker].highest5Day) {
           performanceData[ticker].highest5Day = currentPrice;
-          const alertPrice = performanceData[ticker].alert || 0;
           if (alertPrice > 0) {
-            const peak5DayChange = currentPrice - alertPrice;
-            performanceData[ticker].highest5DayPercent = parseFloat((peak5DayChange / alertPrice * 100).toFixed(2));
+            let highPercent = currentPrice - alertPrice;
+            if (isShort) {
+              highPercent = -highPercent;
+            }
+            performanceData[ticker].highest5DayPercent = parseFloat((highPercent / alertPrice * 100).toFixed(2));
+          }
+        }
+        
+        // Track lowest price
+        if (currentPrice < performanceData[ticker].lowest5Day) {
+          performanceData[ticker].lowest5Day = currentPrice;
+          if (alertPrice > 0) {
+            let lowPercent = currentPrice - alertPrice;
+            if (isShort) {
+              lowPercent = -lowPercent;
+            }
+            performanceData[ticker].lowest5DayPercent = parseFloat((lowPercent / alertPrice * 100).toFixed(2));
           }
         }
       } else {
-        // Reset 5-day peak after 5 days
+        // Reset 5-day peak/trough after 5 days
         performanceData[ticker].highest5Day = currentPrice;
+        performanceData[ticker].lowest5Day = currentPrice;
         performanceData[ticker].highest5DayPercent = 0;
+        performanceData[ticker].lowest5DayPercent = 0;
       }
     }
     
@@ -1625,7 +1647,13 @@ const updatePerformanceData = (alertData) => {
     const alertPrice = performanceData[ticker].alert || 0;
     if (alertPrice > 0) {
       const change = currentPrice - alertPrice;
-      const percentChange = (change / alertPrice) * 100;
+      let percentChange = (change / alertPrice) * 100;
+      
+      // For SHORT positions: invert the sign (price up = loss, price down = profit)
+      if (alertData.isShort === true) {
+        percentChange = -percentChange;
+      }
+      
       performanceData[ticker].performance = parseFloat(percentChange.toFixed(2));
       performanceData[ticker].reverseSplitRatio = null; // Can be updated if needed
     }
@@ -1692,30 +1720,34 @@ const syncPeakDataToStocks = (ticker, peakData) => {
         const alertPrice = stock.price || 0;
         const isShort = stock.direction === 'SHORT' || stock.isShort === true;
         
-        let peakPrice, peakPercent = 0;
+        let highestPercent = 0, lowestPercent = 0;
         
         if (isShort) {
-          // SHORT: track lowest price (best profit when price drops)
-          peakPrice = lowestPrice || currentPrice || stock.price;
+          // SHORT: lowest price = profit, highest price = loss
           if (alertPrice > 0) {
-            peakPercent = parseFloat((((alertPrice - peakPrice) / alertPrice) * 100).toFixed(2));
+            lowestPercent = parseFloat((((alertPrice - lowestPrice) / alertPrice) * 100).toFixed(2)); // profit when price down
+            highestPercent = parseFloat((((highestPrice - alertPrice) / alertPrice) * 100).toFixed(2)); // loss when price up
           }
           return {
             ...stock,
-            lowest5Day: peakPrice,
-            lowest5DayPercent: peakPercent,
+            highest5Day: highestPrice,
+            highest5DayPercent: highestPercent,
+            lowest5Day: lowestPrice,
+            lowest5DayPercent: lowestPercent,
             isShort: true
           };
         } else {
-          // LONG: track highest price (best profit when price rises)
-          peakPrice = highestPrice || currentPrice || stock.price;
+          // LONG: highest price = profit, lowest price = loss
           if (alertPrice > 0) {
-            peakPercent = parseFloat((((peakPrice - alertPrice) / alertPrice) * 100).toFixed(2));
+            highestPercent = parseFloat((((highestPrice - alertPrice) / alertPrice) * 100).toFixed(2)); // profit when price up
+            lowestPercent = parseFloat((((lowestPrice - alertPrice) / alertPrice) * 100).toFixed(2)); // loss when price down
           }
           return {
             ...stock,
-            highest5Day: peakPrice,
-            highest5DayPercent: peakPercent,
+            highest5Day: highestPrice,
+            highest5DayPercent: highestPercent,
+            lowest5Day: lowestPrice,
+            lowest5DayPercent: lowestPercent,
             isShort: false
           };
         }
@@ -1751,31 +1783,41 @@ const syncAllPeakData = () => {
         const alertPrice = stock.price || 0;
         const currentPrice = quoteData.current || quoteData.currentPrice || stock.price;
         const isShort = stock.direction === 'SHORT' || stock.isShort === true;
+        const highestPrice = quoteData.highest || currentPrice;
+        const lowestPrice = quoteData.lowest || currentPrice;
         
         if (isShort) {
-          // SHORT: use lowest price (best profit when price drops)
-          const lowestPrice = quoteData.lowest || currentPrice;
-          let peakPercent = 0;
+          // SHORT: lowest price = profit, highest price = loss
+          let lowestPercent = 0;
+          let highestPercent = 0;
           if (alertPrice > 0) {
-            peakPercent = parseFloat((((alertPrice - lowestPrice) / alertPrice) * 100).toFixed(2));
-          }
-          return {
-            ...stock,
-            lowest5Day: lowestPrice,
-            lowest5DayPercent: peakPercent,
-            isShort: true
-          };
-        } else {
-          // LONG: use highest price (best profit when price rises)
-          const highestPrice = quoteData.highest || currentPrice;
-          let peakPercent = 0;
-          if (alertPrice > 0) {
-            peakPercent = parseFloat((((highestPrice - alertPrice) / alertPrice) * 100).toFixed(2));
+            lowestPercent = parseFloat((((alertPrice - lowestPrice) / alertPrice) * 100).toFixed(2)); // profit
+            highestPercent = parseFloat((((highestPrice - alertPrice) / alertPrice) * 100).toFixed(2)); // loss
           }
           return {
             ...stock,
             highest5Day: highestPrice,
-            highest5DayPercent: peakPercent,
+            highest5DayPercent: highestPercent,
+            lowest5Day: lowestPrice,
+            lowest5DayPercent: lowestPercent,
+            isShort: true
+          };
+        } else {
+          // LONG: show the most extreme move (biggest profit OR biggest loss)
+          let highestPercent = 0;
+          let lowestPercent = 0;
+          if (alertPrice > 0) {
+            highestPercent = parseFloat((((highestPrice - alertPrice) / alertPrice) * 100).toFixed(2)); // profit
+            lowestPercent = parseFloat((((lowestPrice - alertPrice) / alertPrice) * 100).toFixed(2)); // loss
+          }
+          
+          // Store both, but use the more extreme move for display
+          return {
+            ...stock,
+            highest5Day: highestPrice,
+            highest5DayPercent: highestPercent,
+            lowest5Day: lowestPrice,
+            lowest5DayPercent: lowestPercent,
             isShort: false
           };
         }
@@ -1784,6 +1826,28 @@ const syncAllPeakData = () => {
     });
     
     fs.writeFileSync(CONFIG.STOCKS_FILE, JSON.stringify(stocks, null, 2));
+    
+    // Also update quote.json with the most extreme move (best profit or worst loss)
+    try {
+      let updatedQuotes = quotes;
+      stocks.forEach(stock => {
+        if (updatedQuotes[stock.ticker]) {
+          const highestPercent = Math.abs(stock.highest5DayPercent || 0);
+          const lowestPercent = Math.abs(stock.lowest5DayPercent || 0);
+          
+          // Write the more extreme move to 'highest' field so history tab displays it
+          if (lowestPercent > highestPercent) {
+            updatedQuotes[stock.ticker].highest = stock.lowest5Day;
+          } else {
+            updatedQuotes[stock.ticker].highest = stock.highest5Day;
+          }
+          updatedQuotes[stock.ticker].lowest = stock.lowest5Day;
+        }
+      });
+      fs.writeFileSync(CONFIG.PERFORMANCE_FILE, JSON.stringify(updatedQuotes, null, 2));
+    } catch (e) {
+      // Silent fail
+    }
   } catch (err) {
     // Silent fail
   }
@@ -6025,39 +6089,30 @@ app.get('/api/performance-summary', (req, res) => {
       return res.json({ winRate: 0, totalTrades: 0, topPerformers: [], bestPerformer: null });
     }
     
-    // Get all trades with their CURRENT performance data
+    // Get all trades with their CURRENT performance data from stocks.json
     const allTrades = stocks.map(stock => {
       const ticker = stock.ticker;
       const alertPrice = stock.price || 0;
       // Check both isShort field and direction field for compatibility
       const isShort = stock.isShort === true || stock.direction === 'SHORT';
       
-      // Get current performance from quote data
+      // Use the peak data already calculated in stocks.json
       let peakPercent = 0;
+      let isWinner = false;
       
-      if (performanceData[ticker]) {
-        const perfData = performanceData[ticker];
-        const alertPx = parseFloat(perfData.alert) || alertPrice;
-        const highestPx = parseFloat(perfData.highest) || 0;
-        const lowestPx = parseFloat(perfData.lowest) || 0;
-        
-        if (isShort) {
-          // For shorts, peak is how much it went down
-          peakPercent = alertPx > lowestPx ? ((alertPx - lowestPx) / alertPx * 100) : 0;
-        } else {
-          // For longs, peak is how much it went up
-          peakPercent = highestPx > alertPx ? ((highestPx - alertPx) / alertPx * 100) : 0;
-        }
+      if (isShort) {
+        // For shorts: positive lowest5DayPercent means price went down = profit
+        peakPercent = stock.lowest5DayPercent || 0;
+        isWinner = peakPercent > 0; // Positive = profit for short
+      } else {
+        // For longs: positive highest5DayPercent means price went up = profit
+        peakPercent = stock.highest5DayPercent || 0;
+        isWinner = peakPercent > 0; // Positive = profit for long
       }
-      
-      // Determine if trade is a winner based on direction and performance
-      // LONG wins when peakPercent > 0
-      // SHORT wins when peakPercent < 0 (stock went down)
-      const isWinner = (isShort && peakPercent < 0) || (!isShort && peakPercent > 0);
       
       return {
         ticker,
-        peakPercent: Math.abs(peakPercent), // Always store as positive for display
+        peakPercent: Math.abs(peakPercent), // Use absolute for display
         isShort: isShort,
         alert: alertPrice,
         isWinner: isWinner

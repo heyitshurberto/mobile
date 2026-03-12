@@ -2438,17 +2438,13 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
 
         function loadHistoryAlerts() {
             const stockUrl = '/logs/stocks.json';
+            const quoteUrl = '/logs/quote.json';
             
-            fetch(stockUrl)
-                .then(r => {
-                    if (!r.ok) {
-                        // Fall back to GitHub
-                        return fetch('https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/stocks.json');
-                    }
-                    return r;
-                })
-                .then(r => r.json())
-                .then(stocks => {
+            Promise.all([
+                fetch(stockUrl).then(r => r.ok ? r : fetch('https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/stocks.json')).then(r => r.json()),
+                fetch(quoteUrl).then(r => r.ok ? r.json() : {}).catch(() => ({}))
+            ])
+                .then(([stocks, quotes]) => {
                     const list = document.getElementById('notification-history-list');
                     list.innerHTML = '';
                     
@@ -2467,29 +2463,21 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                     
                     stocks.forEach(stock => {
                         const alertPrice = parseFloat(stock.price);
-                        const isShort = stock.isShort === true; // Use isShort as source of truth
+                        const isShort = stock.isShort === true;
+                        const quoteData = quotes[stock.ticker] || {};
                         
                         let peakPercent = 0;
                         if (alertPrice > 0) {
+                            // Use live quote data if available, otherwise fall back to stored percentages
+                            const highest = parseFloat(quoteData.highest || stock.highest5Day || stock.price);
+                            const lowest = parseFloat(quoteData.lowest || stock.lowest5Day || stock.price);
+                            
                             if (isShort) {
-                                // SHORT: use lowest5DayPercent if available (best SHORT outcome)
-                                if (typeof stock.lowest5DayPercent === 'number') {
-                                    peakPercent = stock.lowest5DayPercent;
-                                } else if (typeof stock.highest5DayPercent === 'number') {
-                                    // If only highest5Day available, it went UP (bad for SHORT) - show as negative
-                                    peakPercent = -stock.highest5DayPercent;
-                                } else {
-                                    const lowestPrice = parseFloat(stock.lowest5Day || stock.price);
-                                    peakPercent = ((alertPrice - lowestPrice) / alertPrice) * 100;
-                                }
+                                // SHORT profit = (alertPrice - lowestPrice) / alertPrice * 100
+                                peakPercent = ((alertPrice - lowest) / alertPrice) * 100;
                             } else {
-                                // LONG: use highest5DayPercent if available
-                                if (typeof stock.highest5DayPercent === 'number') {
-                                    peakPercent = stock.highest5DayPercent;
-                                } else {
-                                    const highestPrice = parseFloat(stock.highest5Day || stock.price);
-                                    peakPercent = ((highestPrice - alertPrice) / alertPrice) * 100;
-                                }
+                                // LONG profit = (highestPrice - alertPrice) / alertPrice * 100
+                                peakPercent = ((highest - alertPrice) / alertPrice) * 100;
                             }
                         }
                         
@@ -2529,47 +2517,34 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                         const saLink = `https://www.stockanalysis.com/stocks/${stock.ticker.toLowerCase()}/`;
                         const direction = stock.isShort ? 'SHORT' : 'LONG';
                         
-                        // Use highest5Day for LONG (highest price), lowest5Day for SHORT (lowest price)
-                        const alertPrice = parseFloat(stock.price); // stock.price is alert price
-                        const isShortPos = stock.isShort === true; // Use isShort field as source of truth
+                        // Use live quote data for peak prices and percentages
+                        const alertPrice = parseFloat(stock.price);
+                        const isShortPos = stock.isShort === true;
+                        const quoteData = quotes[stock.ticker] || {};
                         
-                        // Determine which peak value to use (take the bigger profit)
                         let peakPrice = stock.price;
                         let peakPercent = 0;
                         
                         if (isShortPos) {
-                            // SHORT: use lowest5DayPercent if available (best SHORT outcome)
-                            if (typeof stock.lowest5DayPercent === 'number') {
-                                peakPercent = stock.lowest5DayPercent;
-                                peakPrice = parseFloat(stock.lowest5Day || stock.price).toFixed(2);
-                            } else if (typeof stock.highest5DayPercent === 'number') {
-                                // If only highest5Day available, it went UP (bad for SHORT)
-                                // For SHORT: loss = ((alertPrice - highestPrice) / alertPrice) * 100
-                                const highestPrice = parseFloat(stock.highest5Day || stock.price);
-                                if (alertPrice > 0) {
-                                    peakPercent = parseFloat((((alertPrice - highestPrice) / alertPrice) * 100).toFixed(2));
-                                }
-                                peakPrice = parseFloat(stock.highest5Day || stock.price).toFixed(2);
-                            } else {
-                                const lowestPrice = parseFloat(stock.lowest5Day || stock.price);
-                                if (alertPrice > 0) {
-                                    const shortProfit = ((alertPrice - lowestPrice) / alertPrice) * 100;
-                                    peakPercent = shortProfit;
-                                    peakPrice = parseFloat(lowestPrice).toFixed(2);
-                                }
-                            }
+                            // SHORT: lowest price is best outcome (profit)
+                            const lowest = parseFloat(quoteData.lowest || stock.lowest5Day || stock.price);
+                            peakPrice = lowest.toFixed(2);
+                            peakPercent = alertPrice > 0 ? ((alertPrice - lowest) / alertPrice) * 100 : 0;
                         } else {
-                            // LONG: use highest5DayPercent if available, otherwise calculate from highest5Day
-                            if (typeof stock.highest5DayPercent === 'number') {
-                                peakPercent = stock.highest5DayPercent;
-                                peakPrice = parseFloat(stock.highest5Day || stock.price).toFixed(2);
+                            // LONG: check highest first, but if that's 0% or equal to alert, show the worst case (lowest)
+                            const highest = parseFloat(quoteData.highest || stock.highest5Day || stock.price);
+                            const lowest = parseFloat(quoteData.lowest || stock.lowest5Day || stock.price);
+                            
+                            let highestPercent = alertPrice > 0 ? ((highest - alertPrice) / alertPrice) * 100 : 0;
+                            let lowestPercent = alertPrice > 0 ? ((lowest - alertPrice) / alertPrice) * 100 : 0;
+                            
+                            // Use the more extreme move (biggest profit or biggest loss)
+                            if (Math.abs(lowestPercent) > Math.abs(highestPercent)) {
+                                peakPrice = lowest.toFixed(2);
+                                peakPercent = lowestPercent;
                             } else {
-                                const highestPrice = parseFloat(stock.highest5Day || stock.price);
-                                if (alertPrice > 0) {
-                                    const longProfit = ((highestPrice - alertPrice) / alertPrice) * 100;
-                                    peakPercent = longProfit;
-                                    peakPrice = parseFloat(highestPrice).toFixed(2);
-                                }
+                                peakPrice = highest.toFixed(2);
+                                peakPercent = highestPercent;
                             }
                         }
                         
@@ -4152,7 +4127,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
 
                 // Create the initial HTML content
                 card.innerHTML = `
-                    <button type="button" class="score-details-toggle" style="position: absolute; top: 12px; right: 4px; background: transparent; border: none; cursor: pointer; padding: 2px 4px; font-size: 12px; color: #666; border-radius: 3px; transition: background-color 0.2s, padding 0.2s;">⋮</button>
+                    <button type="button" class="score-details-toggle" style="position: absolute; top: 12px; right: 4px; background: transparent; border: none; cursor: pointer; padding: 2px 4px; font-size: 12px; color: #666; border-radius: 3px; transition: background-color 0.2s, padding 0.2s;"></button>
                     <div class="ticker ticker-clickable" tabindex="0" style="cursor:pointer;display:inline-block;user-select:none;transition:background 0.15s,border 0.15s; border-radius:4px; padding:2px 6px; margin-bottom:2px; font-size: 8px;">
                     <div class="ticker" style="transition: all 0.15s ease;">
                         <span style="${alert.triggered ? `text-shadow: 0 0 5px rgba(0, 0, 0, ${this.isDarkMode() ? '0.95' : '0.7'})` : ''}">$${alert.ticker}</span>
