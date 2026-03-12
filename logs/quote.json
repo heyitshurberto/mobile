@@ -507,23 +507,6 @@
     "averageVolume": 292933,
     "marketCap": 13348200448
   },
-  "VTAK": {
-    "short": false,
-    "alert": 1.37,
-    "highest": 2.2499,
-    "lowest": 1.37,
-    "highest5Day": 1.37,
-    "highest5DayPercent": 0,
-    "current": 1.6,
-    "currentPrice": 1.6,
-    "performance": 16.79,
-    "date": "2026-03-09T21:07:14.726Z",
-    "alertDate": "2026-03-09T21:07:14.726Z",
-    "reverseSplitRatio": null,
-    "volume": 1490982,
-    "averageVolume": 1120162,
-    "marketCap": 2782329
-  },
   "OPAL": {
     "short": false,
     "alert": 2.12,
