@@ -3612,32 +3612,44 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
 
             async checkStockPrice(ticker) {
                 try {
-                    // Skip broken backend API, go straight to GitHub quote.json
+                    // Always try local endpoint first
                     let quote;
-                    try {
-                        const quoteUrl = 'https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/quote.json';
-                        const quoteResp = await fetch(quoteUrl);
-                        if (quoteResp.ok) {
-                            const quoteData = await quoteResp.json();
-                            if (quoteData[ticker] && quoteData[ticker].currentPrice) {
-                                // Create a quote object matching the data format
-                                quote = {
-                                    currentPrice: quoteData[ticker].currentPrice,
-                                    volume: quoteData[ticker].volume || 0,
-                                    averageVolume: quoteData[ticker].averageVolume || 0,
-                                    marketCap: quoteData[ticker].marketCap || 'N/A'
-                                };
+                    let response = await fetch(`/api/quote/${ticker}`);
+                    
+                    if (!response.ok) {
+                        // Local API failed, try GitHub
+                        try {
+                            const quoteUrl = 'https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/quote.json';
+                            const quoteResp = await fetch(quoteUrl);
+                            if (quoteResp.ok) {
+                                const quoteData = await quoteResp.json();
+                                if (quoteData[ticker] && quoteData[ticker].currentPrice) {
+                                    // Create a quote object matching the data format
+                                    quote = {
+                                        currentPrice: quoteData[ticker].currentPrice,
+                                        volume: quoteData[ticker].volume || 0,
+                                        averageVolume: quoteData[ticker].averageVolume || 0,
+                                        marketCap: quoteData[ticker].marketCap || 'N/A'
+                                    };
+                                } else {
+                                    console.warn(`No price data for ${ticker} in quote.json`);
+                                    return false;
+                                }
                             } else {
-                                console.warn(`No price data for ${ticker} in quote.json`);
+                                console.error(`Failed to fetch quote.json: ${quoteResp.status}`);
                                 return false;
                             }
-                        } else {
-                            console.error(`Failed to fetch quote.json: ${quoteResp.status}`);
+                        } catch (err) {
+                            console.error(`Error fetching quote.json for ${ticker}:`, err);
                             return false;
                         }
-                    } catch (err) {
-                        console.error(`Error fetching quote.json for ${ticker}:`, err);
-                        return false;
+                    } else {
+                        try {
+                            quote = await response.json();
+                        } catch (parseError) {
+                            console.error(`Failed to parse JSON for ${ticker}:`, parseError);
+                            return false;
+                        }
                     }
 
                     const priceValue = quote.currentPrice || quote.price || quote.current;
