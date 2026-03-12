@@ -3950,7 +3950,7 @@ const renderLoginPage = () => `
   <div class="container">
     <div style="position: absolute; top: 10px; left: 10px; display: flex; gap: 9px; align-items: center;">
       <a href="#" onclick="if(confirm('Visit the Non-Profit Community on Discord?')) window.open('https://discord.gg/5SQcvhfN', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 5px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 25px; width: 24px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
-      <a href="#" onclick="if(confirm('Visit @6ugene on X?')) window.open('https://x.com/6ugene', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 15px; width: 17px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
+      <a href="#" onclick="if(confirm('Visit @pleromics on X?')) window.open('https://x.com/pleromics', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 15px; width: 17px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
     </div>
     <div style="position: absolute; top: 15px; right: 15px; display: flex; gap: 12px; align-items: center;">
       <button id="requestAccessBtn" onclick="document.getElementById('requestAccessModal').classList.add('show')" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; padding: 8px 18px; background: linear-gradient(180deg, #888888 0%, #666666 100%); color: white; border-radius: 6px; font-size: 12px; font-weight: 500; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; letter-spacing: 0.3px; transition: all 0.3s ease; cursor: pointer; border: 1px solid #c0c0c0; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); white-space: nowrap;">Request Access</button>
@@ -3971,7 +3971,7 @@ const renderLoginPage = () => `
         </svg>
       </button>
     </div>
-    <div style="display: flex; justify-content: center; margin-bottom: 15px; margin-top: 12px;">
+    <div style="display: flex; justify-content: center; margin-bottom: 15px; margin-top: 16px;">
       <img src="/docs/logo.jpeg" alt="Pleroma" style="height: 31px; width: auto; object-fit: contain;">
     </div>
     <h1 id="mainTitle" style="color: #3a3a3a; font-size: 22px; font-family: 'Menlo', monospace; font-weight: 400; letter-spacing: 0px; margin: 12px 0 4px 0; transition: color 0.3s ease;">Login Portal</h1>
