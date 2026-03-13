@@ -2911,15 +2911,19 @@ const pushToGitHub = () => {
   try {
     const projectRoot = CONFIG.GITHUB_REPO_PATH;
     // Run git push in background, don't wait for it
-    require('child_process').exec(`cd ${projectRoot} && git add logs/alert.json logs/stocks.json logs/quote.json 2>/dev/null && git commit -m "Auto: Alert update $(date '+%Y-%m-%d %H:%M:%S')" 2>/dev/null && git push origin main 2>/dev/null`, { 
-      timeout: 5000 // 5 second timeout for git operations
-    }, (error) => {
-      if (error && !error.message.includes('timeout')) {
-        // Silently fail if not timeout
+    require('child_process').exec(`cd ${projectRoot} && git add logs/alert.json logs/stocks.json logs/quote.json && git commit -m "Auto: Alert update $(date '+%Y-%m-%d %H:%M:%S')" && git push origin main`, { 
+      timeout: 10000 // 10 second timeout for git operations
+    }, (error, stdout, stderr) => {
+      if (error) {
+        // Log actual errors for debugging
+        log('WARN', `Git push error: ${error.message}`);
+        if (stderr) log('WARN', `Git stderr: ${stderr}`);
+      } else if (stdout) {
+        log('INFO', `Git push success: ${stdout.substring(0, 100)}`);
       }
     });
   } catch (err) {
-    // Git operations failed silently
+    log('ERR', `Git operations failed: ${err.message}`);
   }
 };
 
