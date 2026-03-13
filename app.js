@@ -32,7 +32,7 @@ const CONFIG = {
   MAX_FLOAT_6K: 75000000,           // Max float size for 6-K
   MAX_FLOAT_8K: 125000000,          // Max float size for 8-K
   ALLOWED_COUNTRIES: ['israel', 'argentina', 'texas', 'china', 'hong kong', 'cayman islands', 'virgin islands', 'greece', 'singapore', 'malaysia', 'australia', 'bermuda', 'ireland', 'canada', 'nevada', 'delaware'], // Allowed incorporation/located countries
-  CTB_WATCHLIST: ['NMHI', 'BINI', 'AGILQ', 'OLB', 'NCI', 'NEPTF', 'DLXY', 'SHPWQ', 'OBAI', 'SEELQ', 'PLYX', 'XTKG', 'IOTR', 'PFSA', 'RUBI', 'XTIA', 'XWEL', 'BATL', 'MLEC', 'IONM', 'GMUN', 'CZOOF', 'FABTQ', 'GXAI', 'VIVS'], // High CTB stocks (CTB > 300%, Availability tracked) - updated from IBorrowDesk Mar 06 2026
+  CTB_WATCHLIST: ['CZOOF', 'SEV', 'FABTQ', 'MLEC', 'XTIA', 'SHPWQ', 'IONM', 'PLYX', 'PLRZ', 'NMHI', 'GMUN', 'NCI', 'IOTR', 'SEELQ', 'AGILQ', 'NEPTF', 'BINI', 'XWEL', 'ABPO', 'MFSV', 'ACCL', 'RUBI', 'OLB', 'CDIO', 'MOTS'], // High CTB stocks (CTB > 250%, Availability tracked) - updated from IBorrowDesk Mar 13 2026
   // Enable optimizations for Raspberry Pi devices
   PI_MODE: true,              // Enable Pi optimizations          
   REFRESH_PEAK: 1,            // 10s during trading hours (7am-10am ET)
