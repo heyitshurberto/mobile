@@ -3479,7 +3479,7 @@ const renderLoginPage = () => `
       animation: floatParticles1 60s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles2 73s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles3 87s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles4 67s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles5 80s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles6 63s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles7 77s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles8 70s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles9 83s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles10 90s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles11 57s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles12 93s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles13 65s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles14 78s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles15 97s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles16 68s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles17 82s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles18 72s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles19 85s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles20 92s cubic-bezier(0.34, 0, 0.66, 1) infinite;
     }
     .container {
-      background: linear-gradient(135deg, #f5f5f5 36%, #cfcfcfff 88%, #d8d6d6ae 100%);
+      background: linear-gradient(135deg, #f5f5f5 44%, #cfcfcfff 90%, #d8d6d6ae 100%);
       border-radius: 12px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
       padding: 8px 20px 28px 20px;
@@ -3491,7 +3491,7 @@ const renderLoginPage = () => `
       transition: background 0.3s ease, color 0.3s ease;
     }
     body.dark-mode .container {
-      background: linear-gradient(135deg, #1a1a1aff 12%, #323232a4 82%, rgba(74, 74, 74, 0.45) 100%);
+      background: linear-gradient(135deg, #1a1a1aff 12%, #323232a4 80%, rgba(74, 74, 74, 0.45) 100%);
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
       color: #e0e0e0;
     }
