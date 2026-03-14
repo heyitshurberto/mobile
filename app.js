@@ -6698,6 +6698,91 @@ app.get('/git-status', (req, res) => {
   }
 });
 
+// ============ PUSH NOTIFICATION ROUTES ============
+
+// POST /api/push-subscribe - Subscribe to push notifications
+app.post('/api/push-subscribe', (req, res) => {
+  try {
+    const { subscription, settings } = req.body;
+    if (!subscription) {
+      return res.status(400).json({ success: false, error: 'Subscription required' });
+    }
+    
+    // Save subscription with settings to file
+    let subscriptions = [];
+    const subsFile = 'logs/push-subscriptions.json';
+    if (fs.existsSync(subsFile)) {
+      const content = fs.readFileSync(subsFile, 'utf8').trim();
+      if (content) {
+        try {
+          subscriptions = JSON.parse(content);
+          if (!Array.isArray(subscriptions)) subscriptions = [];
+        } catch (e) {
+          subscriptions = [];
+        }
+      }
+    }
+    
+    // Add or update subscription
+    const existingIndex = subscriptions.findIndex(s => s.subscription.endpoint === subscription.endpoint);
+    if (existingIndex >= 0) {
+      subscriptions[existingIndex] = { subscription, settings, updatedAt: new Date().toISOString() };
+    } else {
+      subscriptions.push({ subscription, settings, subscribedAt: new Date().toISOString() });
+    }
+    
+    fs.writeFileSync(subsFile, JSON.stringify(subscriptions, null, 2));
+    res.json({ success: true, message: 'Subscribed to push notifications' });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// POST /api/check-price-alert - Check if price moved and send notifications
+app.post('/api/check-price-alert', (req, res) => {
+  try {
+    const { ticker, currentPrice, alertPrice } = req.body;
+    if (!ticker || !currentPrice || !alertPrice) {
+      return res.status(400).json({ success: false, error: 'Missing required fields' });
+    }
+    
+    const change = ((currentPrice - alertPrice) / alertPrice * 100);
+    
+    // Load subscriptions and send to those who enabled push
+    const subsFile = 'logs/push-subscriptions.json';
+    if (fs.existsSync(subsFile)) {
+      const content = fs.readFileSync(subsFile, 'utf8').trim();
+      if (content) {
+        try {
+          const subscriptions = JSON.parse(content);
+          subscriptions.forEach(sub => {
+            const settings = sub.settings || {};
+            if (!settings.enabled) return;
+            
+            const absChange = Math.abs(change);
+            const threshold = settings.threshold || 5;
+            
+            if (absChange >= threshold) {
+              // Check direction and type filters
+              if (settings.type === 'up' && change < 0) return;
+              if (settings.type === 'down' && change > 0) return;
+              
+              // Send push notification (in production, use web-push library)
+              log('INFO', `Price Alert: ${ticker} ${change > 0 ? 'UP' : 'DOWN'} ${Math.abs(change).toFixed(2)}% - Sub endpoint: ${sub.subscription.endpoint.substring(0, 50)}...`);
+            }
+          });
+        } catch (e) {
+          log('WARN', `Failed to process push subscriptions: ${e.message}`);
+        }
+      }
+    }
+    
+    res.json({ success: true, change, threshold: req.body.threshold || 5 });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 // ============ EMAIL AUTHENTICATION ROUTES ============
 
 // POST /api/auth-send-code - Send OTP email
