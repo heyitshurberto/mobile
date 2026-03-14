@@ -4499,9 +4499,9 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                                         milestonePercent: milestonePercent
                                     });
                                 }
-                                // Increment: 25% up to 100%, then 50% increments
+                                // Increment: 20% up to 100%, then 50% increments
                                 if (ms.upStep < 1.0) {
-                                    ms.upStep += 0.25;  // 25% increments
+                                    ms.upStep += 0.20;  // 20% increments
                                 } else {
                                     ms.upStep += 0.50;  // 50% increments above 100%
                                 }
@@ -4535,9 +4535,9 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                                         milestonePercent: milestonePercent
                                     });
                                 }
-                                // Decrement: 25% down to -100%, then 50% increments
+                                // Decrement: 20% down to -100%, then 50% increments
                                 if (ms.downStep > -1.0) {
-                                    ms.downStep -= 0.25;  // 25% increments
+                                    ms.downStep -= 0.20;  // 20% increments
                                 } else {
                                     ms.downStep -= 0.50;  // 50% increments below -100%
                                 }
