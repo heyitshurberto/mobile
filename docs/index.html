@@ -4524,7 +4524,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                                     alert.milestoneEvents.push(milestoneEvent);
                                     
                                     // Send notification
-                                    const notificationMsg = `<b>$${alert.ticker}</b> is now ${direction} <b>${milestonePercent}%</b> from alert`;
+                                    const notificationMsg = `<b>$${alert.ticker}</b> is now ${direction} <b>${milestonePercent}%</b> from alert price`;
                                     this.showNotification(notificationMsg, 'error', alert.filingLink);
                                     
                                     // Send to Raspberry Pi
