@@ -2101,7 +2101,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         }
 
         .notification-count {
-            font-size: 10px;
+            font-size: 9px;
             background: #888888;
             color: white;
             padding: 0px 2px;
@@ -2113,7 +2113,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             justify-content: center;
             position: absolute;
             top: -6px;
-            right: -11px;
+            right: -10px;
             font-weight: bold;
         }
 
@@ -4483,7 +4483,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                                     alert.milestoneEvents.push(milestoneEvent);
                                     
                                     // Send notification
-                                    const notificationMsg = `<b>$${alert.ticker}</b> is now ${direction} <b>${milestonePercent}%</b> from alert price`;
+                                    const notificationMsg = `<b>$${alert.ticker}</b> is now down ${direction} <b>${milestonePercent}%</b> from alert price`;
                                     this.showNotification(notificationMsg, 'success', alert.filingLink);
                                     
                                     // Send to Raspberry Pi
