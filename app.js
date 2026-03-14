@@ -3491,7 +3491,7 @@ const renderLoginPage = () => `
       transition: background 0.3s ease, color 0.3s ease;
     }
     body.dark-mode .container {
-      background: linear-gradient(135deg, #1a1a1aff 12%, #323232a4 80%, rgba(74, 74, 74, 0.51) 100%);
+      background: linear-gradient(135deg, #1a1a1aff 12%, #323232a4 82%, rgba(74, 74, 74, 0.45) 100%);
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
       color: #e0e0e0;
     }
