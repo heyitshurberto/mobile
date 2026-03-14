@@ -2070,7 +2070,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             .logo {
                 height: 26.244px !important;
                 margin-top: -2.6px !important;
-                margin-left: 35.6px !important;
+                margin-left: 38px !important;
                 margin-right: 2px !important;
             }
         }
@@ -2738,6 +2738,15 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             
             body.dark-mode #filter-date-wrapper svg {
                 color: #aaa !important;
+            }
+
+            /* Month dropdown styling for dark mode */
+            body.dark-mode .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month {
+                color: #636363d0 !important;
+            }
+
+            body.dark-mode .flatpickr-monthDropdown-months {
+                color: #bcbcbc !important;
             }
         </style>
 </head>
