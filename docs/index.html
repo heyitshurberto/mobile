@@ -2155,13 +2155,13 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         @media (max-width: 768px) {
             .notification-panel {
                 position: fixed !important;
-                top: 65px !important;
+                top: 63px !important;
                 right: 6px !important;
                 left: auto !important;
                 bottom: auto !important;
-                width: 90vw !important;
-                max-width: 300px !important;
-                max-height: 55vh !important;
+                width: 72vw !important;
+                max-width: 240px !important;
+                max-height: 44vh !important;
                 margin-top: 0 !important;
             }
             
@@ -3032,12 +3032,11 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' }
                     }).then(res => res.json()).then(data => {
-                        // Clear all notification lists
+                        // Clear only recent and inbox, NOT history
                         const recentList = document.getElementById('notification-list');
-                        const historyList = document.getElementById('notification-history-list');
                         const inboxList = document.getElementById('notification-inbox-list');
                         
-                        [recentList, historyList, inboxList].forEach(list => {
+                        [recentList, inboxList].forEach(list => {
                             list.innerHTML = '';
                             const emptyState = document.createElement('div');
                             emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
@@ -3047,7 +3046,6 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                         
                         // Clear local storage
                         localStorage.removeItem('recentAlerts');
-                        localStorage.removeItem('alertHistory');
                         
                         // Reload the page after 200ms to refresh everything
                         setTimeout(() => {
