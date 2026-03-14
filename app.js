@@ -2833,7 +2833,7 @@ const sendPaidWebhook = (alertData) => {
     const sideEmoji = direction === 'SHORT' ? '🔴 SHORT' : '🟢 LONG';
     
     // PAID WEBHOOK: Telegram style (clean, minimal, no branding)
-    const paidAlertContent = `🚀 NEW ALERT: $${ticker}\n${sideEmoji}\n\nEntry: ${priceDisplay}\nFloat: ${floatDisplay}\nVolume: ${volumeDisplay} (Avg: ${avgVolDisplay})\nS/O: ${alertData.soRatio || 'N/A'}\nMarket Cap: ${marketCapDisplay}\n\nhttps://www.tradingview.com/chart/?symbol=${ticker}`;
+    const paidAlertContent = `Ж NEW ALERT: $${ticker}\n${sideEmoji}\n\nEntry: ${priceDisplay}\nFloat: ${floatDisplay}\nVolume: ${volumeDisplay} (Avg: ${avgVolDisplay})\nS/O: ${alertData.soRatio || 'N/A'}\nMarket Cap: ${marketCapDisplay}\n\nhttps://www.tradingview.com/chart/?symbol=${ticker}`;
     
     
     const paidMsg = { content: paidAlertContent };
