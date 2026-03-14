@@ -770,19 +770,17 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                 overflow: hidden;
             }
             
-            .notification-history-icon {
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                font-size: 16px !important;
-                order: unset;
-                width: 28px !important;
-                height: 28px !important;
-                flex-shrink: 0;
-                margin-right: 8px !important;
-            }
-            
-            .notification-history-icon svg {
+        .notification-history-icon {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 16px !important;
+            width: 28px !important;
+            height: 28px !important;
+            flex-shrink: 0;
+            margin-right: 8px !important;
+            position: relative;
+        }            .notification-history-icon svg {
                 width: 18px !important;
                 height: 18px !important;
             }
@@ -2103,17 +2101,20 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         }
 
         .notification-count {
-            font-size: 10px;
-            background: #666666;
+            font-size: 8px;
+            background: #888888;
             color: white;
-            padding: 1px 4px;
-            border-radius: 8px;
+            padding: 0px 2px;
+            border-radius: 6px;
             min-width: 14px;
             height: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-left: -2px;
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            font-weight: bold;
         }
 
         body.dark-mode .notification-count {
@@ -2727,6 +2728,10 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                         <!-- Time will be populated here -->
                     </div>
                     <div class="notification-history-icon" onclick="toggleNotificationPanel()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
                         <span class="notification-count" id="notification-count">0</span>
                         <script>
                         // Function to format notification time
