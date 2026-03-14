@@ -2172,42 +2172,50 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                 padding: 6px 10px !important;
             }
             
-            /* Make filter controls fit on one line */
+            /* Make filter controls wrap evenly on 2 lines */
             .alerts-controls {
-                flex-wrap: nowrap !important;
-                overflow-x: auto !important;
-                gap: 4px !important;
+                flex-wrap: wrap !important;
+                gap: 6px !important;
             }
             
             #search-ticker {
-                min-width: 80px !important;
-                flex: 0 1 auto !important;
-                padding: 4px 8px !important;
-                font-size: 11px !important;
+                flex: 1 1 calc(50% - 3px) !important;
+                min-width: 100px !important;
+                padding: 6px 10px !important;
+                font-size: 12px !important;
             }
             
-            #filter-direction,
+            #filter-direction {
+                flex: 1 1 calc(50% - 3px) !important;
+                min-width: 100px !important;
+                padding: 6px 10px !important;
+                font-size: 12px !important;
+            }
+            
             #sort-by {
-                padding: 4px 8px !important;
-                font-size: 11px !important;
-                flex: 0 1 auto !important;
+                flex: 1 1 calc(50% - 3px) !important;
+                min-width: 100px !important;
+                padding: 6px 10px !important;
+                font-size: 12px !important;
             }
             
             #filter-date-wrapper {
-                flex: 0 1 auto !important;
+                flex: 1 1 calc(50% - 3px) !important;
+                min-width: 100px !important;
             }
             
-            #filter-date {
-                padding: 4px 8px !important;
-                font-size: 11px !important;
+            #reset-filters-btn {
+                flex: 1 1 calc(50% - 3px) !important;
+                min-width: 80px !important;
+                padding: 6px 10px !important;
+                font-size: 12px !important;
             }
             
-            #reset-filters-btn,
             #push-notif-btn {
-                padding: 4px 8px !important;
-                font-size: 11px !important;
-                flex: 0 1 auto !important;
-                white-space: nowrap !important;
+                flex: 1 1 calc(50% - 3px) !important;
+                min-width: 80px !important;
+                padding: 6px 10px !important;
+                font-size: 12px !important;
             }
         }
 
