@@ -3199,11 +3199,12 @@ const renderLoginPage = () => `
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Crafty+Girls&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Gaegu&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
       background-color: #f5f5f5;
       background-attachment: fixed;
       min-height: 100vh;
@@ -3478,7 +3479,7 @@ const renderLoginPage = () => `
       animation: floatParticles1 60s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles2 73s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles3 87s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles4 67s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles5 80s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles6 63s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles7 77s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles8 70s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles9 83s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles10 90s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles11 57s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles12 93s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles13 65s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles14 78s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles15 97s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles16 68s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles17 82s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles18 72s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles19 85s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles20 92s cubic-bezier(0.34, 0, 0.66, 1) infinite;
     }
     .container {
-      background: linear-gradient(315deg, #f0f0f0 0%, #f5f5f5 65%, rgba(255, 255, 255, 0.99) 100%);
+      background: linear-gradient(135deg, #f5f5f5 36%, #cfcfcff3 82%, #cacacaae 100%);
       border-radius: 12px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
       padding: 8px 20px 28px 20px;
@@ -3490,12 +3491,12 @@ const renderLoginPage = () => `
       transition: background 0.3s ease, color 0.3s ease;
     }
     body.dark-mode .container {
-      background: linear-gradient(315deg, #2a2a2a 0%, #323232 65%, rgba(40, 40, 40, 0.98) 100%);
+      background: linear-gradient(135deg, #1a1a1aff 14%, #323232b3 78%, rgba(59, 59, 59, 0.51) 100%);
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
       color: #e0e0e0;
     }
     .logo {
-      height: 90px;
+      height: 110px;
       width: auto;
       margin-bottom: 10px;
       margin-top: -1x;
@@ -3505,7 +3506,7 @@ const renderLoginPage = () => `
     }
     @media (min-width: 768px) {
       .logo {
-        height: 143px;
+        height: 165px;
         margin-top: 0px;
         margin-bottom: 12px;
       }
@@ -3673,6 +3674,15 @@ const renderLoginPage = () => `
     }
     body.dark-mode .social-logo {
       filter: brightness(0) saturate(100%) invert(100%) !important;
+    }
+    body.dark-mode .logo {
+      filter: invert(100%);
+    }
+    body.dark-mode #landingPageLogo {
+      filter: invert(100%);
+    }
+    body.dark-mode .modal-logo {
+      filter: invert(100%);
     }
     #themeToggle {
       box-shadow: none !important;
@@ -3948,10 +3958,10 @@ const renderLoginPage = () => `
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="loginContainer">
     <div style="position: absolute; top: 10px; left: 10px; display: flex; gap: 9px; align-items: center;">
       <a href="#" onclick="if(confirm('Visit the Community on Discord?')) window.open('https://discord.gg/5SQcvhfN', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 5px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 25px; width: 24px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
-      <a href="#" onclick="if(confirm('Visit @pleromics on X?')) window.open('https://x.com/pleromics', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 15px; width: 17px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
+      <a href="#" onclick="if(confirm('Visit @cartelwrld on X?')) window.open('https://x.com/cartelwrld', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 15px; width: 17px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
     </div>
     <div style="position: absolute; top: 15px; right: 15px; display: flex; gap: 12px; align-items: center;">
       <button id="requestAccessBtn" onclick="document.getElementById('requestAccessModal').classList.add('show')" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; padding: 8px 18px; background: linear-gradient(180deg, #888888 0%, #666666 100%); color: white; border-radius: 6px; font-size: 12px; font-weight: 500; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; letter-spacing: 0.3px; transition: all 0.3s ease; cursor: pointer; border: 1px solid #c0c0c0; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); white-space: nowrap;">Request Access</button>
@@ -3972,11 +3982,11 @@ const renderLoginPage = () => `
         </svg>
       </button>
     </div>
-    <div style="display: flex; justify-content: center; margin-bottom: 15px; margin-top: 16px;">
-      <img src="/docs/logo.jpeg" alt="Pleroma" style="height: 32px; width: auto; object-fit: contain;">
+    <div style="display: flex; justify-content: center; margin-bottom: 10px; margin-top: 15px;">
+      <img id="landingPageLogo" src="/docs/logo.jpeg" alt="Carlucci Capital" style="height: 52px; width: auto; object-fit: contain; opacity: 0.8;">
     </div>
-    <h1 id="mainTitle" style="color: #3a3a3a; font-size: 22px; font-family: 'Menlo', monospace; font-weight: 400; letter-spacing: 0px; margin: 12px 0 8px 0; transition: color 0.3s ease;">Login Portal</h1>
-    <p class="subtitle" id="mainSubtitle" style="margin-top: 1px; margin-bottom: 8px; opacity: 0.55; font-size: 11px; color: #666; transition: color 0.3s ease;">Secure Access Hub</p>
+    <h1 id="mainTitle" style="color: #3a3a3a; font-size: 28px; font-family: 'El Messiri', serif; font-weight: 400; letter-spacing: 0px; margin-left: -18px; margin-top: 8px; margin-bottom: -6px; transition: color 0.3s ease;">CARLUCCI CAPITAL</h1>
+    <p class="subtitle" id="mainSubtitle" style="margin-top: 2px; margin-bottom: 5px; opacity: 0.55; font-size: 10px; color: #666; transition: color 0.3s ease;">Secure Access Portal</p>
     
     <div class="error" id="error"></div>
     <div class="success" id="success"></div>
@@ -4439,7 +4449,7 @@ const renderLoginPage = () => `
     function backToLogin() {
       document.getElementById('signupSection').classList.remove('active');
       document.getElementById('emailSection').classList.add('active');
-      document.getElementById('pageTitle').textContent = "Pleroma";
+      document.getElementById('pageTitle').textContent = "Carlucci Capital";
       document.querySelector('.subtitle').style.display = 'block';
       const error = document.getElementById('error');
       const success = document.getElementById('success');
@@ -4684,7 +4694,7 @@ const renderLoginPage = () => `
   <div id="requestAccessModal">
     <div id="modalContent">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-        <img src="/logo.jpeg" alt="Pleroma" style="height: 30px; width: auto;">
+        <img src="/logo.jpeg" alt="Carlucci Capital" class="modal-logo" style="height: 35px; width: auto; opacity: 0.8;">
         <h2 id="modalTitle" style="font-size: 18px; color: #2c2c2c; margin: 0; font-family: 'Poppins', sans-serif; font-weight: 600; transition: color 0.3s ease;">Membership Access</h2>
       </div>
       <p id="modalDescription" style="color: #666; font-size: 13px; margin-bottom: 20px; font-family: 'Poppins', sans-serif; transition: color 0.3s ease;">Submit your information and we'll review your application within 24 hours.</p>
@@ -5002,8 +5012,8 @@ const sendOTPEmail = async (email, otp) => {
 <html>
 <body style="font-family: Arial, sans-serif; color: #333;">
   <div style="max-width: 600px; margin: 0 auto;">
-    <h2 style="color: #667eea;">Pleroma</h2>
-    <p>You requested access to the Pleroma portal.</p>
+    <h2 style="color: #667eea; font-family: 'El Messiri', serif;">Carlucci Capital</h2>
+    <p>You requested access to the Carlucci Capital portal.</p>
     <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
       <p style="font-size: 12px; color: #999;">Your access code:</p>
       <p style="font-size: 32px; font-weight: bold; color: #667eea; letter-spacing: 4px;">${otp}</p>
@@ -7847,7 +7857,7 @@ app.post('/api/send-message', async (req, res) => {
       <h3 style="color: #667eea; margin-top: 0;">${title}</h3>
       <p style="line-height: 1.6; white-space: pre-wrap;">${message}</p>
     </div>
-    <p style="font-size: 11px; color: #999;">Sent from Pleroma Dashboard</p>
+    <p style="font-size: 11px; color: #999;">Sent from Carlucci Capital Dashboard</p>
   </div>
 </body>
 </html>
@@ -7955,7 +7965,7 @@ app.post('/api/send-access-request', async (req, res) => {
   <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
     <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
       <h2 style="color: #2c2c2c; margin-bottom: 5px;">New Access Request</h2>
-      <p style="color: #999; margin-top: 0; font-size: 13px;">From Pleroma Portal</p>
+      <p style="color: #999; margin-top: 0; font-size: 13px;">From Carlucci Capital Portal</p>
       <hr style="border: none; border-top: 2px solid #f0f0f0; margin: 20px 0;">
       
       <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
