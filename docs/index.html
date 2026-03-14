@@ -2121,6 +2121,13 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             background: #444444;
         }
 
+        @media (min-width: 769px) {
+            .notification-count {
+                font-size: 10px;
+                top: -4px;
+            }
+        }
+
         .notification-panel {
             position: fixed;
             top: 55px;
@@ -2709,8 +2716,8 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         <div class="container">
             <div class="header">
                 <div class="header-top" style="margin-top:50px; margin-bottom:2px; margin-left: auto; margin-right: auto; display: flex; justify-content: center; align-items: center;">
-                    <img src="logo.jpeg?t=${new Date().getTime()}" alt="Logo" class="logo" style="height: 25px; width: auto; transition: opacity 0.4s ease; margin-right: 2px; margin-top: 34x; margin-bottom: 10px;" onload="this.style.opacity=1">
-                    <h1 style="color: #000000; font-size: 15px; font-family: 'Menlo', monospace; font-weight: 400; letter-spacing: 0px; margin-left: -10px; margin-top: 20x; margin-bottom: 10px;" class="dashboard-title">pleroma</h1>
+                    <img src="logo.jpeg?t=${new Date().getTime()}" alt="Logo" class="logo" style="height: 20px; width: auto; transition: opacity 0.4s ease; margin-right: 10px; margin-left: 0px; margin-top: 0px; margin-bottom: 0px; transform: rotate(0deg);" onload="this.style.opacity=1">
+                    <h1 style="color: #000000; font-size: 16px; font-family: 'Menlo', monospace; font-weight: 400; letter-spacing: 0px; margin-left: -20px; margin-top: 10px; margin-bottom: 10px;" class="dashboard-title">pleroma</h1>
                 </div>
                 <div class="theme-toggle" onmousedown="event.stopPropagation(); toggleTheme();">
                     <svg class="theme-icon-light" viewBox="0 0 24 24">
@@ -2790,8 +2797,8 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                 </select>
                 
                 <select id="sort-by" style="padding: 6px 10px; border-radius: 6px; border: 1px solid #ccc; font-size: 12px;">
+                    <option value="price-change" selected>Price Change %</option>
                     <option value="newest">Newest First</option>
-                    <option value="price-change">Price Change %</option>
                     <option value="oldest">Oldest First</option>
                 </select>
                 
@@ -4731,49 +4738,61 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 // Save the scroll position to restore it later
                 const shouldRestoreScroll = scrollPos > 0;
 
-                // Clear container
-                container.innerHTML = '';
-                
-                // Sort alerts by most recent price movement
+                // Sort alerts by most recent price movement initially
                 const sortedAlerts = Array.from(this.alerts.values())
                     .flat()
                     .sort((a, b) => Math.abs(b.priceChange) - Math.abs(a.priceChange));
                 
                 // Store all alerts for filtering
                 allAlerts = sortedAlerts;
-                filteredAlerts = sortedAlerts;
 
-                // Calculate total P/L, considering position type
-                let totalPL = 0;
-                let totalLongPL = 0;
-                let totalShortPL = 0;
+                // Check if filters OR sort is active
+                const searchTerm = document.getElementById('search-ticker')?.value.toUpperCase() || '';
+                const direction = document.getElementById('filter-direction')?.value || '';
+                const sortBy = document.getElementById('sort-by')?.value || 'price-change';
+                const filterDate = document.getElementById('filter-date')?.value || '';
                 
-                sortedAlerts.forEach(alert => {
-                    const pl = alert.priceChange * 100;
-                    if (isShortSetup(alert)) {
-                        totalShortPL += -pl; // Negative because profit is inverse of price change for shorts
-                        totalPL += -pl;
-                    } else {
-                        totalLongPL += pl;
-                        totalPL += pl;
-                    }
-                });
+                const hasActiveFilters = searchTerm || direction || filterDate || sortBy !== 'price-change';
+                
+                if (hasActiveFilters) {
+                    // Re-apply filters instead of showing all alerts
+                    filterAndSortAlerts();
+                } else {
+                    // No filters - show all alerts normally
+                    filteredAlerts = sortedAlerts;
+                    
+                    // Calculate total P/L, considering position type
+                    let totalPL = 0;
+                    let totalLongPL = 0;
+                    let totalShortPL = 0;
+                    
+                    sortedAlerts.forEach(alert => {
+                        const pl = alert.priceChange * 100;
+                        if (isShortSetup(alert)) {
+                            totalShortPL += -pl;
+                            totalPL += -pl;
+                        } else {
+                            totalLongPL += pl;
+                            totalPL += pl;
+                        }
+                    });
 
-                // Get alert counts by type
-                const longCount = sortedAlerts.filter(alert => !isShortSetup(alert)).length;
-                const shortCount = sortedAlerts.filter(alert => isShortSetup(alert)).length;
+                    // Get alert counts by type
+                    const longCount = sortedAlerts.filter(alert => !isShortSetup(alert)).length;
+                    const shortCount = sortedAlerts.filter(alert => isShortSetup(alert)).length;
 
-                let triggered = 0;
-                // Rebuild alerts (dropdown logic removed)
-                sortedAlerts.forEach(alert => {
-                    if (alert.triggered) triggered++;
+                    // Clear container
+                    container.innerHTML = '';
+                    
+                    let triggered = 0;
+                    sortedAlerts.forEach(alert => {
+                        if (alert.triggered) triggered++;
+                        const alertCard = this.createAlertCard(alert);
+                        container.appendChild(alertCard);
+                    });
 
-                    const alertCard = this.createAlertCard(alert);
-                    container.appendChild(alertCard);
-                });
-
-                activeCount.innerHTML = `${sortedAlerts.length} <span style="font-size: 11.5px;">(Long: ${longCount} | Short: ${shortCount})</span>`;
-            
+                    activeCount.innerHTML = `${sortedAlerts.length} <span style="font-size: 11.5px;">(Long: ${longCount} | Short: ${shortCount})</span>`;
+                }
 
                 // Restore scroll position after update if needed
                 if (shouldRestoreScroll) {
@@ -5027,47 +5046,106 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
         let filteredAlerts = [];
         
         function filterAndSortAlerts() {
-            const searchTerm = document.getElementById('search-ticker').value.toUpperCase();
-            const direction = document.getElementById('filter-direction').value;
-            const sortBy = document.getElementById('sort-by').value;
-            const filterDate = document.getElementById('filter-date').value;
+            // Get alerts from the dashboard's alerts map
+            if (!window.dashboard || !window.dashboard.alerts) {
+                console.warn('Dashboard not initialized yet');
+                return;
+            }
             
-            // Filter alerts
+            // Convert Map to array
+            allAlerts = Array.from(window.dashboard.alerts.values()).flat();
+            
+            const searchTerm = document.getElementById('search-ticker')?.value.toUpperCase() || '';
+            const direction = document.getElementById('filter-direction')?.value || '';
+            const sortBy = document.getElementById('sort-by')?.value || 'price-change';
+            const filterDate = document.getElementById('filter-date')?.value || '';
+            
+            // Apply filters
             filteredAlerts = allAlerts.filter(alert => {
-                // Search filter - search in both ticker and company name
-                if (searchTerm && !alert.ticker.includes(searchTerm) && !(alert.companyName && alert.companyName.toUpperCase().includes(searchTerm))) return false;
+                // Search filter
+                if (searchTerm) {
+                    const tickerMatch = alert.ticker && alert.ticker.toUpperCase().includes(searchTerm);
+                    const nameMatch = alert.companyName && alert.companyName.toUpperCase().includes(searchTerm);
+                    if (!tickerMatch && !nameMatch) return false;
+                }
                 
                 // Direction filter
-                if (direction && alert.direction !== direction) return false;
+                if (direction) {
+                    const isShort = alert.isShort === true || (Array.isArray(alert.isShort) && alert.isShort.length > 0);
+                    const alertDirection = isShort ? 'SHORT' : 'LONG';
+                    if (alertDirection !== direction) return false;
+                }
                 
-                // Date filter
+                // Date filter - be more flexible with date matching
                 if (filterDate) {
-                    const alertDate = new Date(alert.recordedAt).toISOString().split('T')[0];
-                    if (alertDate !== filterDate) return false;
+                    try {
+                        const parts = filterDate.split('/');
+                        if (parts.length === 3) {
+                            const day = parseInt(parts[0]);
+                            const month = parseInt(parts[1]);
+                            const year = parseInt(parts[2]);
+                            const fullYear = year < 50 ? 2000 + year : 1900 + year;
+                            
+                            // Check multiple possible date fields
+                            let alertMatchesDate = false;
+                            const datesToCheck = [alert.recordedAt, alert.alertDate, alert.date, alert.alertTime];
+                            
+                            for (let dateStr of datesToCheck) {
+                                if (!dateStr) continue;
+                                const alertDate = new Date(dateStr);
+                                if (isNaN(alertDate.getTime())) continue;
+                                
+                                if (alertDate.getDate() === day && 
+                                    alertDate.getMonth() === month - 1 && 
+                                    alertDate.getFullYear() === fullYear) {
+                                    alertMatchesDate = true;
+                                    break;
+                                }
+                            }
+                            
+                            if (!alertMatchesDate) return false;
+                        }
+                    } catch (e) {
+                        console.log('Date parsing error:', e);
+                        return false;
+                    }
                 }
                 
                 return true;
             });
             
-            // Sort alerts
-            filteredAlerts.sort((a, b) => {
-                switch(sortBy) {
-                    case 'price-change':
-                        const changeA = parseFloat(a.highest5DayPercent) || parseFloat(a.lowest5DayPercent) || 0;
-                        const changeB = parseFloat(b.highest5DayPercent) || parseFloat(b.lowest5DayPercent) || 0;
-                        return changeB - changeA;
-                    case 'score':
-                        return (b.signalScore || 0) - (a.signalScore || 0);
-                    case 'oldest':
-                        return new Date(a.recordedAt) - new Date(b.recordedAt);
-                    case 'newest':
-                    default:
-                        return new Date(b.recordedAt) - new Date(a.recordedAt);
-                }
-            });
+            // Apply sort
+            if (sortBy === 'newest') {
+                filteredAlerts.sort((a, b) => {
+                    const dateA = new Date(a.recordedAt || a.alertDate || a.date || a.alertTime || 0).getTime();
+                    const dateB = new Date(b.recordedAt || b.alertDate || b.date || b.alertTime || 0).getTime();
+                    return dateB - dateA; // Descending for newest first
+                });
+            } else if (sortBy === 'oldest') {
+                filteredAlerts.sort((a, b) => {
+                    const dateA = new Date(a.recordedAt || a.alertDate || a.date || a.alertTime || 0).getTime();
+                    const dateB = new Date(b.recordedAt || b.alertDate || b.date || b.alertTime || 0).getTime();
+                    return dateA - dateB; // Ascending for oldest first
+                });
+            } else {
+                // Default: price change
+                filteredAlerts.sort((a, b) => {
+                    const changeA = Math.abs(parseFloat(a.priceChange) || 0);
+                    const changeB = Math.abs(parseFloat(b.priceChange) || 0);
+                    return changeB - changeA;
+                });
+            }
             
             // Re-render alerts
             renderFilteredAlerts();
+            
+            // Update active count
+            const activeCount = document.getElementById('active-count');
+            if (activeCount) {
+                const longCount = filteredAlerts.filter(alert => !isShortSetup(alert)).length;
+                const shortCount = filteredAlerts.filter(alert => isShortSetup(alert)).length;
+                activeCount.innerHTML = `${filteredAlerts.length} <span style="font-size: 11.5px;">(Long: ${longCount} | Short: ${shortCount})</span>`;
+            }
         }
         
         function renderFilteredAlerts() {
@@ -5080,8 +5158,16 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             }
             
             filteredAlerts.forEach(alert => {
-                // Re-use existing alert rendering
-                const card = createAlertCard(alert);
+                // Create alert card using the dashboard class method
+                let card;
+                if (window.dashboard && typeof window.dashboard.createAlertCard === 'function') {
+                    card = window.dashboard.createAlertCard(alert);
+                } else {
+                    // Fallback: create a simple div with alert info
+                    card = document.createElement('div');
+                    card.className = 'alert-card';
+                    card.innerHTML = `<div>${alert.ticker}</div>`;
+                }
                 container.appendChild(card);
             });
         }
@@ -5089,7 +5175,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
         function resetFilters() {
             document.getElementById('search-ticker').value = '';
             document.getElementById('filter-direction').value = '';
-            document.getElementById('sort-by').value = 'newest';
+            document.getElementById('sort-by').value = 'price-change';
             document.getElementById('filter-date').value = '';
             filterAndSortAlerts();
         }
@@ -5378,7 +5464,10 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             
             window.dashboard = new AlertDashboard();
             loadRecentAlerts(); // Initialize notification count from alert.json
-            dashboard.loadInitialAlerts(); // Load main alerts into dashboard
+            dashboard.loadInitialAlerts().then(() => {
+                // After alerts are loaded, initialize filters
+                filterAndSortAlerts();
+            }); // Load main alerts into dashboard
             updateTimeDisplay();
             setInterval(updateTimeDisplay, 1000); // Update every second
 
