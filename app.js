@@ -3200,18 +3200,6 @@ const renderLoginPage = () => `
   <link href="https://fonts.googleapis.com/css2?family=Crafty+Girls&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Gaegu&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script>
-    // iOS Detection - MUST RUN BEFORE CSS LOADS
-    (function() {
-      const ua = navigator.userAgent;
-      const isIOS = /iPad|iPhone|iPod|Macintosh/.test(ua) && !/Android/.test(ua);
-      if (isIOS) {
-        document.documentElement.classList.add('is-ios');
-        document.body.classList.add('is-ios');
-      }
-      console.log('iOS Detection:', { isIOS, ua: ua.substring(0, 50) });
-    })();
-  </script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -3968,36 +3956,38 @@ const renderLoginPage = () => `
       }
     }
 
-    /* iOS-specific styling - only affects Apple devices */
-    html.is-ios body.is-ios .container {
-      padding: 16px 28px 36px 28px !important;
-      max-width: 500px !important;
-    }
+    /* Mobile-only styling for login portal */
+    @media (max-width: 768px) {
+      .container {
+        padding: 16px 28px 36px 28px !important;
+        max-width: 100% !important;
+      }
 
-    html.is-ios body.is-ios #loginStatsBox {
-      font-size: 12px !important;
-      padding: 16px 20px !important;
-    }
+      #loginStatsBox {
+        font-size: 12px !important;
+        padding: 16px 20px !important;
+      }
 
-    html.is-ios body.is-ios #loginStatsBox > div > div {
-      font-size: 14px !important;
-    }
+      #loginStatsBox > div > div {
+        font-size: 14px !important;
+      }
 
-    html.is-ios body.is-ios #loginStatsBox .stat-value {
-      font-size: 14px !important;
-      font-weight: 600 !important;
-    }
+      #loginStatsBox .stat-value {
+        font-size: 14px !important;
+        font-weight: 600 !important;
+      }
 
-    html.is-ios body.is-ios #statsHistoryList {
-      backdrop-filter: blur(16px) !important;
-      -webkit-backdrop-filter: blur(16px) !important;
-      background: rgba(255,255,255,0.20) !important;
-    }
+      #statsHistoryList {
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        background: rgba(255,255,255,0.25) !important;
+      }
 
-    html.is-ios body.dark-mode.is-ios #statsHistoryList {
-      backdrop-filter: blur(16px) !important;
-      -webkit-backdrop-filter: blur(16px) !important;
-      background: rgba(0,0,0,0.30) !important;
+      body.dark-mode #statsHistoryList {
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        background: rgba(0,0,0,0.35) !important;
+      }
     }
   </style>
 </head>
