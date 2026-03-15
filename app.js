@@ -3955,6 +3955,38 @@ const renderLoginPage = () => `
         font-size: 14px !important;
       }
     }
+
+    /* iOS-specific styling - only affects Apple devices */
+    body.is-ios .container {
+      padding: 12px 24px 32px 24px !important;
+      max-width: 480px !important;
+    }
+
+    body.is-ios #loginStatsBox {
+      font-size: 11px !important;
+      padding: 14px 18px !important;
+    }
+
+    body.is-ios #loginStatsBox > div > div {
+      font-size: 13px !important;
+    }
+
+    body.is-ios #loginStatsBox .stat-value {
+      font-size: 13px !important;
+      font-weight: 600 !important;
+    }
+
+    body.is-ios #statsHistoryList {
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+      background: rgba(255,255,255,0.15) !important;
+    }
+
+    body.dark-mode.is-ios #statsHistoryList {
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+      background: rgba(0,0,0,0.25) !important;
+    }
   </style>
 </head>
 <body>
@@ -4053,6 +4085,12 @@ const renderLoginPage = () => `
   </div>
   
   <script>
+    // iOS Detection - adds 'is-ios' class to body if on Apple device
+    const isIOS = /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent);
+    if (isIOS) {
+      document.body.classList.add('is-ios');
+    }
+
     let cooldownTimer = 0;
     let currentEmail = '';
     
