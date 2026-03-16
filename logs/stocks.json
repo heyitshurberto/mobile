@@ -59,8 +59,8 @@
     "recordId": "HSAI-1769436771640",
     "expiresAt": "2026-01-31T14:12:51.640Z",
     "direction": "SHORT",
-    "highest5Day": 25.67,
-    "highest5DayPercent": -8.12,
+    "highest5Day": 23.76,
+    "highest5DayPercent": -14.96,
     "lowest5Day": 23.76,
     "lowest5DayPercent": 14.96
   },
@@ -188,10 +188,10 @@
     "recordId": "BIYA-1769462189874",
     "expiresAt": "2026-01-31T21:16:29.874Z",
     "direction": "SHORT",
-    "highest5Day": 2.11,
-    "highest5DayPercent": -46.58,
-    "lowest5Day": 1.54,
-    "lowest5DayPercent": 61.01
+    "highest5Day": 1.43,
+    "highest5DayPercent": -63.8,
+    "lowest5Day": 1.43,
+    "lowest5DayPercent": 63.8
   },
   {
     "ticker": "FAT",
@@ -393,8 +393,8 @@
     "direction": "LONG",
     "highest5Day": 18.58,
     "highest5DayPercent": 10.73,
-    "lowest5Day": 16.5529,
-    "lowest5DayPercent": -1.35
+    "lowest5Day": 15.28,
+    "lowest5DayPercent": -8.94
   },
   {
     "ticker": "NTLA",
@@ -454,10 +454,10 @@
     "recordId": "NTLA-1769519988566",
     "expiresAt": "2026-02-01T13:19:48.566Z",
     "direction": "LONG",
-    "highest5Day": 13.01,
-    "highest5DayPercent": -6.74,
-    "lowest5Day": 13.01,
-    "lowest5DayPercent": -6.74
+    "highest5Day": 12.7497,
+    "highest5DayPercent": -8.6,
+    "lowest5Day": 12.7497,
+    "lowest5DayPercent": -8.6
   },
   {
     "ticker": "OM",
@@ -514,8 +514,8 @@
     "recordId": "OM-1769523079063",
     "expiresAt": "2026-02-01T14:11:19.063Z",
     "direction": "SHORT",
-    "highest5Day": 3.26,
-    "highest5DayPercent": -34.41,
+    "highest5Day": 3.055,
+    "highest5DayPercent": -38.53,
     "lowest5Day": 3.055,
     "lowest5DayPercent": 38.53
   },
@@ -585,10 +585,10 @@
     "recordId": "CBU-1769523512145",
     "expiresAt": "2026-02-01T14:18:32.145Z",
     "direction": "SHORT",
-    "highest5Day": 57.62,
-    "highest5DayPercent": -6.72,
-    "lowest5Day": 57.115,
-    "lowest5DayPercent": 7.54
+    "highest5Day": 57.06,
+    "highest5DayPercent": -7.63,
+    "lowest5Day": 57.06,
+    "lowest5DayPercent": 7.63
   },
   {
     "ticker": "ANEB",
@@ -653,10 +653,10 @@
     "recordId": "ANEB-1769523918060",
     "expiresAt": "2026-02-01T14:25:18.060Z",
     "direction": "SHORT",
-    "highest5Day": 0.47,
-    "highest5DayPercent": -56.48,
-    "lowest5Day": 0.45,
-    "lowest5DayPercent": 58.33
+    "highest5Day": 0.3727,
+    "highest5DayPercent": -65.49,
+    "lowest5Day": 0.3727,
+    "lowest5DayPercent": 65.49
   },
   {
     "ticker": "OSRH",
@@ -718,10 +718,10 @@
     "recordId": "OSRH-1769524047644",
     "expiresAt": "2026-02-01T14:27:27.644Z",
     "direction": "SHORT",
-    "highest5Day": 0.4749,
-    "highest5DayPercent": -34.04,
-    "lowest5Day": 0.4749,
-    "lowest5DayPercent": 34.04
+    "highest5Day": 0.47,
+    "highest5DayPercent": -34.72,
+    "lowest5Day": 0.47,
+    "lowest5DayPercent": 34.72
   },
   {
     "ticker": "ENGN",
@@ -795,10 +795,10 @@
     "recordId": "ENGN-1773054320714",
     "expiresAt": "2026-03-14T11:05:20.714Z",
     "direction": "LONG",
-    "highest5Day": 6.88,
-    "highest5DayPercent": -20.74,
-    "lowest5Day": 6.67,
-    "lowest5DayPercent": -23.16
+    "highest5Day": 6.6,
+    "highest5DayPercent": -23.96,
+    "lowest5Day": 6.6,
+    "lowest5DayPercent": -23.96
   },
   {
     "ticker": "IBIO",
@@ -867,8 +867,8 @@
     "recordId": "IBIO-1773054335255",
     "expiresAt": "2026-03-14T11:05:35.255Z",
     "direction": "LONG",
-    "highest5Day": 2.43,
-    "highest5DayPercent": -6.9,
+    "highest5Day": 2.31,
+    "highest5DayPercent": -11.49,
     "lowest5Day": 2.31,
     "lowest5DayPercent": -11.49
   },
@@ -944,10 +944,10 @@
     "recordId": "NBP-1773054366446",
     "expiresAt": "2026-03-14T11:06:06.446Z",
     "direction": "LONG",
-    "highest5Day": 3.22,
-    "highest5DayPercent": -8,
-    "lowest5Day": 3.03,
-    "lowest5DayPercent": -13.43
+    "highest5Day": 2.82,
+    "highest5DayPercent": -19.43,
+    "lowest5Day": 2.82,
+    "lowest5DayPercent": -19.43
   },
   {
     "ticker": "BOLD",
@@ -1012,8 +1012,8 @@
     "direction": "LONG",
     "highest5Day": 1.175,
     "highest5DayPercent": 3.98,
-    "lowest5Day": 1.12,
-    "lowest5DayPercent": -0.88
+    "lowest5Day": 1.1039,
+    "lowest5DayPercent": -2.31
   },
   {
     "ticker": "RLMD",
@@ -1168,10 +1168,10 @@
     "recordId": "KLRS-1773055000778",
     "expiresAt": "2026-03-14T11:16:40.779Z",
     "direction": "LONG",
-    "highest5Day": 9.21,
-    "highest5DayPercent": -6.21,
-    "lowest5Day": 9.1345,
-    "lowest5DayPercent": -6.98
+    "highest5Day": 8.56,
+    "highest5DayPercent": -12.83,
+    "lowest5Day": 8.56,
+    "lowest5DayPercent": -12.83
   },
   {
     "ticker": "KRRO",
@@ -1246,8 +1246,8 @@
     "recordId": "KRRO-1773056164540",
     "expiresAt": "2026-03-14T11:36:04.540Z",
     "direction": "SHORT",
-    "highest5Day": 13.69,
-    "highest5DayPercent": 22.45,
+    "highest5Day": 14.79,
+    "highest5DayPercent": 32.29,
     "lowest5Day": 11.18,
     "lowest5DayPercent": 0
   },
@@ -1315,8 +1315,8 @@
     "recordId": "FCEL-1773056189513",
     "expiresAt": "2026-03-14T11:36:29.513Z",
     "direction": "SHORT",
-    "highest5Day": 7.11,
-    "highest5DayPercent": -6.45,
+    "highest5Day": 6.5,
+    "highest5DayPercent": -14.47,
     "lowest5Day": 6.5,
     "lowest5DayPercent": 14.47
   },
@@ -1602,10 +1602,10 @@
     "recordId": "GEL-1773057682895",
     "expiresAt": "2026-03-14T12:01:22.895Z",
     "direction": "SHORT",
-    "highest5Day": 17.87,
-    "highest5DayPercent": -1.22,
-    "lowest5Day": 17.61,
-    "lowest5DayPercent": 2.65
+    "highest5Day": 17.57,
+    "highest5DayPercent": -2.87,
+    "lowest5Day": 17.57,
+    "lowest5DayPercent": 2.87
   },
   {
     "ticker": "XLO",
@@ -1674,10 +1674,10 @@
     "recordId": "XLO-1773057698089",
     "expiresAt": "2026-03-14T12:01:38.089Z",
     "direction": "LONG",
-    "highest5Day": 0.575,
-    "highest5DayPercent": 8.49,
-    "lowest5Day": 0.53,
-    "lowest5DayPercent": 0
+    "highest5Day": 7.2599,
+    "highest5DayPercent": 1269.79,
+    "lowest5Day": 0.4618,
+    "lowest5DayPercent": -12.87
   },
   {
     "ticker": "MBX",
@@ -1744,10 +1744,10 @@
     "recordId": "MBX-1773057848672",
     "expiresAt": "2026-03-14T12:04:08.672Z",
     "direction": "LONG",
-    "highest5Day": 28.94,
-    "highest5DayPercent": -5.27,
-    "lowest5Day": 27.3801,
-    "lowest5DayPercent": -10.38
+    "highest5Day": 26.42,
+    "highest5DayPercent": -13.52,
+    "lowest5Day": 26.42,
+    "lowest5DayPercent": -13.52
   },
   {
     "ticker": "ALOY",
@@ -1819,10 +1819,10 @@
     "recordId": "ALOY-1773061098061",
     "expiresAt": "2026-03-14T12:58:18.061Z",
     "direction": "SHORT",
-    "highest5Day": 16.87,
-    "highest5DayPercent": -3.6,
-    "lowest5Day": 14.82,
-    "lowest5DayPercent": 15.31
+    "highest5Day": 11.3,
+    "highest5DayPercent": -35.43,
+    "lowest5Day": 11.3,
+    "lowest5DayPercent": 35.43
   },
   {
     "ticker": "ACXP",
@@ -1968,8 +1968,8 @@
     "direction": "LONG",
     "highest5Day": 1.415,
     "highest5DayPercent": 14.11,
-    "lowest5Day": 1.21,
-    "lowest5DayPercent": -2.42
+    "lowest5Day": 1.204,
+    "lowest5DayPercent": -2.9
   },
   {
     "ticker": "JAGX",
@@ -2041,8 +2041,8 @@
     "recordId": "JAGX-1773061564449",
     "expiresAt": "2026-03-14T13:06:04.449Z",
     "direction": "SHORT",
-    "highest5Day": 0.5649,
-    "highest5DayPercent": -4.34,
+    "highest5Day": 0.465,
+    "highest5DayPercent": -21.25,
     "lowest5Day": 0.465,
     "lowest5DayPercent": 21.25
   },
@@ -2113,8 +2113,8 @@
     "recordId": "ONDS-1773062411663",
     "expiresAt": "2026-03-14T13:20:11.663Z",
     "direction": "SHORT",
-    "highest5Day": 10.56,
-    "highest5DayPercent": 7.43,
+    "highest5Day": 10.98,
+    "highest5DayPercent": 11.7,
     "lowest5Day": 9.2,
     "lowest5DayPercent": 6.41
   },
@@ -2176,8 +2176,8 @@
     "recordId": "DRTS-1773086662071",
     "expiresAt": "2026-03-14T20:04:22.071Z",
     "direction": "LONG",
-    "highest5Day": 7.04,
-    "highest5DayPercent": 4.92,
+    "highest5Day": 7.5399,
+    "highest5DayPercent": 12.37,
     "lowest5Day": 6.1,
     "lowest5DayPercent": -9.09
   },
@@ -2251,8 +2251,8 @@
     "recordId": "SUN-1773086762693",
     "expiresAt": "2026-03-14T20:06:02.693Z",
     "direction": "SHORT",
-    "highest5Day": 64.71,
-    "highest5DayPercent": 2.46,
+    "highest5Day": 64.97,
+    "highest5DayPercent": 2.87,
     "lowest5Day": 62.61,
     "lowest5DayPercent": 0.87
   },
@@ -2321,8 +2321,8 @@
     "direction": "LONG",
     "highest5Day": 29.105,
     "highest5DayPercent": 7.32,
-    "lowest5Day": 26.4,
-    "lowest5DayPercent": -2.65
+    "lowest5Day": 26.22,
+    "lowest5DayPercent": -3.32
   },
   {
     "ticker": "ZVRA",
@@ -2458,8 +2458,8 @@
     "recordId": "DSGN-1773086832888",
     "expiresAt": "2026-03-14T20:07:12.888Z",
     "direction": "LONG",
-    "highest5Day": 10.01,
-    "highest5DayPercent": -3.47,
+    "highest5Day": 9.69,
+    "highest5DayPercent": -6.56,
     "lowest5Day": 9.69,
     "lowest5DayPercent": -6.56
   },
@@ -2527,8 +2527,8 @@
     "recordId": "HPE-1773086965853",
     "expiresAt": "2026-03-14T20:09:25.853Z",
     "direction": "LONG",
-    "highest5Day": 21.43,
-    "highest5DayPercent": -1.79,
+    "highest5Day": 20.6,
+    "highest5DayPercent": -5.59,
     "lowest5Day": 20.6,
     "lowest5DayPercent": -5.59
   },
@@ -2595,8 +2595,8 @@
     "recordId": "OXY-1773087601060",
     "expiresAt": "2026-03-14T20:20:01.060Z",
     "direction": "SHORT",
-    "highest5Day": 55.58,
-    "highest5DayPercent": 1.02,
+    "highest5Day": 59.055,
+    "highest5DayPercent": 7.33,
     "lowest5Day": 52.05,
     "lowest5DayPercent": 5.4
   },
@@ -2676,8 +2676,8 @@
     "recordId": "CACI-1773089178965",
     "expiresAt": "2026-03-14T20:46:18.965Z",
     "direction": "SHORT",
-    "highest5Day": 604.38,
-    "highest5DayPercent": -4.55,
+    "highest5Day": 589.61,
+    "highest5DayPercent": -6.89,
     "lowest5Day": 589.61,
     "lowest5DayPercent": 6.89
   },
@@ -2759,10 +2759,10 @@
     "recordId": "OPAL-1773091488144",
     "expiresAt": "2026-03-14T21:24:48.144Z",
     "direction": "SHORT",
-    "highest5Day": 2.197,
-    "highest5DayPercent": 3.63,
-    "lowest5Day": 2.08,
-    "lowest5DayPercent": 1.89
+    "highest5Day": 2.48,
+    "highest5DayPercent": 16.98,
+    "lowest5Day": 2.025,
+    "lowest5DayPercent": 4.48
   },
   {
     "ticker": "LEGN",
@@ -2827,8 +2827,8 @@
     "direction": "LONG",
     "highest5Day": 20.5,
     "highest5DayPercent": 7.11,
-    "lowest5Day": 18.485,
-    "lowest5DayPercent": -3.42
+    "lowest5Day": 18.48,
+    "lowest5DayPercent": -3.45
   },
   {
     "ticker": "QTTB",
@@ -2898,8 +2898,8 @@
     "recordId": "QTTB-1773140743086",
     "expiresAt": "2026-03-15T11:05:43.086Z",
     "direction": "SHORT",
-    "highest5Day": 7.1,
-    "highest5DayPercent": 39.22,
+    "highest5Day": 7.8,
+    "highest5DayPercent": 52.94,
     "lowest5Day": 4.4028,
     "lowest5DayPercent": 13.67
   },
@@ -2966,10 +2966,10 @@
     "recordId": "RAPP-1773141154455",
     "expiresAt": "2026-03-15T11:12:34.455Z",
     "direction": "LONG",
-    "highest5Day": 32.3,
-    "highest5DayPercent": 5.76,
-    "lowest5Day": 28.84,
-    "lowest5DayPercent": -5.57
+    "highest5Day": 27.37,
+    "highest5DayPercent": -10.38,
+    "lowest5Day": 27.37,
+    "lowest5DayPercent": -10.38
   },
   {
     "ticker": "IRD",
@@ -3093,10 +3093,10 @@
     "recordId": "ESPR-1773141495850",
     "expiresAt": "2026-03-15T11:18:15.850Z",
     "direction": "SHORT",
-    "highest5Day": 2.59,
-    "highest5DayPercent": -14.8,
-    "lowest5Day": 2.565,
-    "lowest5DayPercent": 15.63
+    "highest5Day": 2.385,
+    "highest5DayPercent": -21.55,
+    "lowest5Day": 2.385,
+    "lowest5DayPercent": 21.55
   },
   {
     "ticker": "CGEM",
@@ -3162,10 +3162,10 @@
     "recordId": "CGEM-1773141845079",
     "expiresAt": "2026-03-15T11:24:05.079Z",
     "direction": "LONG",
-    "highest5Day": 14.31,
-    "highest5DayPercent": -6.53,
-    "lowest5Day": 13.99,
-    "lowest5DayPercent": -8.62
+    "highest5Day": 13.12,
+    "highest5DayPercent": -14.3,
+    "lowest5Day": 13.12,
+    "lowest5DayPercent": -14.3
   },
   {
     "ticker": "WELL",
@@ -3235,8 +3235,8 @@
     "recordId": "WELL-1773144681122",
     "expiresAt": "2026-03-15T12:11:21.122Z",
     "direction": "SHORT",
-    "highest5Day": 205.33,
-    "highest5DayPercent": -1.13,
+    "highest5Day": 202.61,
+    "highest5DayPercent": -2.44,
     "lowest5Day": 202.61,
     "lowest5DayPercent": 2.44
   },
@@ -3319,10 +3319,10 @@
     "recordId": "TKO-1773145269446",
     "expiresAt": "2026-03-15T12:21:09.446Z",
     "direction": "SHORT",
-    "highest5Day": 210.86,
-    "highest5DayPercent": 3.33,
-    "lowest5Day": 197.54,
-    "lowest5DayPercent": 3.2
+    "highest5Day": 192.91,
+    "highest5DayPercent": -5.47,
+    "lowest5Day": 192.91,
+    "lowest5DayPercent": 5.47
   },
   {
     "ticker": "KDP",
@@ -3405,10 +3405,10 @@
     "recordId": "KDP-1773147083685",
     "expiresAt": "2026-03-15T12:51:23.685Z",
     "direction": "SHORT",
-    "highest5Day": 27.65,
-    "highest5DayPercent": -1.92,
-    "lowest5Day": 27.325,
-    "lowest5DayPercent": 3.07
+    "highest5Day": 27.04,
+    "highest5DayPercent": -4.08,
+    "lowest5Day": 27.04,
+    "lowest5DayPercent": 4.08
   },
   {
     "ticker": "EB",
@@ -3485,8 +3485,8 @@
     "recordId": "EB-1773147410543",
     "expiresAt": "2026-03-15T12:56:50.544Z",
     "direction": "SHORT",
-    "highest5Day": 4.51,
-    "highest5DayPercent": 0,
+    "highest5Day": 4.49,
+    "highest5DayPercent": -0.44,
     "lowest5Day": 4.49,
     "lowest5DayPercent": 0.44
   },
@@ -3553,8 +3553,8 @@
     "recordId": "LIXT-1773172900159",
     "expiresAt": "2026-03-15T20:01:40.159Z",
     "direction": "LONG",
-    "highest5Day": 3.1599,
-    "highest5DayPercent": 22.95,
+    "highest5Day": 3.28,
+    "highest5DayPercent": 27.63,
     "lowest5Day": 2.57,
     "lowest5DayPercent": 0
   },
@@ -3615,9 +3615,9 @@
     "recordId": "ZCSH-1773173431353",
     "expiresAt": "2026-03-15T20:10:31.353Z",
     "direction": "LONG",
-    "highest5Day": 15.236,
-    "highest5DayPercent": -2.33,
-    "lowest5Day": 15.1,
-    "lowest5DayPercent": -3.21
+    "highest5Day": 17.5,
+    "highest5DayPercent": 12.18,
+    "lowest5Day": 15.02,
+    "lowest5DayPercent": -3.72
   }
 ]
