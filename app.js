@@ -465,7 +465,7 @@ const determineDirection = (signals = [], country = '', float = null, price = nu
   }
   
   // Fast-track pure growth catalysts (force LONG immediately) - only if no distress signals
-  const pureBullishCatalysts = ['FDA Approved', 'Clinical Success', 'Clinical Milestone', 'Partnership', 'Licensing Deal'].some(cat => signalArray.includes(cat));
+  const pureBullishCatalysts = ['FDA Approved', 'Clinical Success', 'Clinical Milestone', 'Partnership', 'Licensing Deal', 'Commercial Inflection'].some(cat => signalArray.includes(cat));
   if (pureBullishCatalysts && !hasHeavyweightBearish && moderateCount === 0 && !isDistressedDisposition) {
     return { direction: 'LONG', confidence: 0.80 };
   }
@@ -677,6 +677,9 @@ const SEMANTIC_KEYWORDS = {
   'Partnership': ['Strategic Partnership', 'Joint Venture', 'Partnership Agreement', 'Strategic Alliance', 'Development Agreement'],
   'Licensing Deal': ['Exclusive License', 'License Agreement', 'Technology License', 'IP Licensing'],
   'Government Contract': ['Government Contract Award', 'Defense Contract', 'Federal Contract', 'DOD Contract', 'GSA Schedule', 'Federal Procurement'],
+  
+  // Commercial Inflection & Traction (Growth Signals)
+  'Commercial Inflection': ['Customer Growth', 'Revenue Growth', 'Revenue Doubled', 'Revenue Doubled In', 'Commercial Traction', 'Commercial Momentum', 'POC Completed', 'Proof Of Concept Completed', 'Proof Of Concept', 'Letter Of Intent', 'LOI Signed', 'Commercial Pipeline Expansion', 'Commercial Pipeline', 'Operational Runway', 'Cash Runway', 'Strengthened Foundation', 'De-Risking', 'Strategic Validation', 'Ecosystem Expansion', 'Customer Count Increase', 'Active Customers', 'Revenue-Generating Shipments', 'Repeat Business'],
 };
 
 
@@ -8903,7 +8906,7 @@ if (process.stdin.isTTY) {
           let validSignals = false;
           
           // Calculate core categories for all stocks (needed for logging and later checks)
-          const coreCategories = ['FDA Approved', 'FDA Breakthrough', 'Clinical Success', 'Clinical Milestone', 'Merger/Acquisition', 'Credit Default', 'Going Dark', 'Bankruptcy Filing', 'Auditor Change', 'Asset Disposition', 'Warrant Redemption', 'Reverse Split Event'];
+          const coreCategories = ['FDA Approved', 'FDA Breakthrough', 'Clinical Success', 'Clinical Milestone', 'Merger/Acquisition', 'Credit Default', 'Going Dark', 'Bankruptcy Filing', 'Auditor Change', 'Asset Disposition', 'Warrant Redemption', 'Reverse Split Event', 'Commercial Inflection'];
           const hasCoreCategories = signalCategories.filter(cat => coreCategories.includes(cat)).length;
           const isDeterministic = hasCoreCategories >= 2;
           
