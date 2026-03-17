@@ -2754,7 +2754,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         <div class="container">
             <div class="header">
                 <div class="header-top" style="margin-top:50px; margin-bottom:0px; margin-left: auto; margin-right: auto; display: flex; justify-content: center; align-items: center;">
-                    <img src="logo.jpeg?t=${new Date().getTime()}" alt="Logo" class="logo" style="height: 45px; width: auto; transition: opacity 0.4s ease; margin-right: 10px; margin-left: -25px; margin-top: -10px; margin-bottom: 0px; transform: rotate(0deg); opacity: 0.7;" onload="this.style.opacity=0.75">
+                    <img src="logo.jpeg?t=${new Date().getTime()}" alt="Logo" class="logo" style="height: 45px; width: auto; transition: opacity 0.4s ease; margin-right: 4px; margin-left: -25px; margin-top: 8px; margin-bottom: 0px; transform: rotate(0deg); opacity: 0.7;" onload="this.style.opacity=0.75">
                     <h1 style="color: #000000; font-size: 24px; font-family: 'El Messiri', serif; font-weight: 400; letter-spacing: 0px; margin-left: -18px; margin-top: 2px; margin-bottom: 8px; opacity: 0.8;" class="dashboard-title">CARLUCCI CAPITAL</h1>
                 </div>
                 <div class="theme-toggle" onmousedown="event.stopPropagation(); toggleTheme();">
@@ -5189,7 +5189,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             container.innerHTML = '';
             
             if (filteredAlerts.length === 0) {
-                container.innerHTML = '<div style="text-align: center; padding: 40px 20px; color: #999;">No alerts match your filters</div>';
+                container.innerHTML = '<div style="position: absolute; left: 50%; top: 65%; transform: translate(-50%, -50%); text-align: center; color: #999; font-size: 15px; white-space: nowrap;"><div style="margin-bottom: 5px; font-size: 32px;">📫︎</div><div>No Recent Alerts</div><div style="font-size: 12px; margin-top: 8px; opacity: 0.6;">Check back soon for new opportunities</div></div>';
                 return;
             }
             
