@@ -147,5 +147,66 @@
     "highest5DayPercent": 0,
     "lowest5Day": 0,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "GALT",
+    "title": "8-K - GALECTIN THERAPEUTICS INC (0001133416) (Filer)",
+    "companyName": "GALECTIN THERAPEUTICS INC",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 3.18,
+    "fav": "101.98",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Georgia (via Nevada)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 250185,
+    "averageVolume": 449145,
+    "float": 45802761,
+    "sharesOutstanding": 64472792,
+    "soRatio": "71.04%",
+    "marketCap": 205043888,
+    "isShort": false,
+    "ftd": 10062,
+    "ftdPercent": "0.02",
+    "intent": "FDA Breakthrough, Clinical Success",
+    "incorporated": "Nevada",
+    "located": "Georgia",
+    "filingDate": "2026-03-17",
+    "signals": {
+      "FDA Breakthrough": [
+        "Fast Track Designation"
+      ],
+      "Clinical Success": [
+        "Positive Results"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-99.1",
+      "Item 5.02",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-99.1, Item 5.02, Item 9.01",
+    "cik": "1133416",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-03-17T11:51:13.986Z",
+    "recordId": "GALT-1773748273986",
+    "expiresAt": "2026-03-22T11:51:13.986Z",
+    "direction": "LONG",
+    "highest5Day": 3.18,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
   }
 ]

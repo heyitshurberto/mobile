@@ -690,14 +690,14 @@
     "alertDate": "2026-03-17T11:04:48.360Z",
     "reverseSplitRatio": null,
     "volume": 616447,
-    "averageVolume": 1621522,
+    "averageVolume": 1604716,
     "marketCap": 1246569216
   },
   "ABEO": {
     "short": false,
     "alert": 4.95,
     "highest": 4.95,
-    "lowest": 4.95,
+    "lowest": 4.76,
     "highest5Day": 4.95,
     "lowest5Day": 4.95,
     "highest5DayPercent": 0,
@@ -707,6 +707,25 @@
     "performance": 0,
     "date": "2026-03-17T11:31:01.999Z",
     "alertDate": "2026-03-17T11:31:01.999Z",
+    "reverseSplitRatio": null,
+    "volume": 1583505,
+    "averageVolume": 1138362,
+    "marketCap": 268247216
+  },
+  "GALT": {
+    "short": false,
+    "alert": 3.18,
+    "highest": 3.18,
+    "lowest": 3.18,
+    "highest5Day": 3.18,
+    "lowest5Day": 3.18,
+    "highest5DayPercent": 0,
+    "lowest5DayPercent": 0,
+    "current": 3.18,
+    "currentPrice": 3.18,
+    "performance": 0,
+    "date": "2026-03-17T11:51:14.035Z",
+    "alertDate": "2026-03-17T11:51:14.036Z",
     "reverseSplitRatio": null
   }
 }
