@@ -677,8 +677,8 @@
   "GLUE": {
     "short": false,
     "alert": 16.35,
-    "highest": 16.35,
-    "lowest": 16.35,
+    "highest": 16.8892,
+    "lowest": 16.3101,
     "highest5Day": 16.35,
     "lowest5Day": 16.35,
     "highest5DayPercent": 0,
@@ -688,6 +688,25 @@
     "performance": 0,
     "date": "2026-03-17T11:04:48.360Z",
     "alertDate": "2026-03-17T11:04:48.360Z",
+    "reverseSplitRatio": null,
+    "volume": 616447,
+    "averageVolume": 1621522,
+    "marketCap": 1246569216
+  },
+  "ABEO": {
+    "short": false,
+    "alert": 4.95,
+    "highest": 4.95,
+    "lowest": 4.95,
+    "highest5Day": 4.95,
+    "lowest5Day": 4.95,
+    "highest5DayPercent": 0,
+    "lowest5DayPercent": 0,
+    "current": 4.95,
+    "currentPrice": 4.95,
+    "performance": 0,
+    "date": "2026-03-17T11:31:01.999Z",
+    "alertDate": "2026-03-17T11:31:01.999Z",
     "reverseSplitRatio": null
   }
 }

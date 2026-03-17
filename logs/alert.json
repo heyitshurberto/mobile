@@ -70,5 +70,82 @@
     "highest5DayPercent": 0,
     "lowest5Day": 0,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "ABEO",
+    "title": "8-K - ABEONA THERAPEUTICS INC. (0000318306) (Filer)",
+    "companyName": "ABEONA THERAPEUTICS INC.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 4.95,
+    "fav": "1.77",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Ohio (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 1583505,
+    "averageVolume": 1130644,
+    "float": 2000000,
+    "sharesOutstanding": 54191361,
+    "soRatio": "3.69%",
+    "marketCap": 268247216,
+    "isShort": false,
+    "ftd": 355860,
+    "ftdPercent": "17.79",
+    "intent": "FDA Approved, FDA Breakthrough, Clinical Milestone, Underwritten Offering",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Ohio",
+    "filingDate": "2026-03-17",
+    "signals": {
+      "FDA Approved": [
+        "FDA Approval"
+      ],
+      "FDA Breakthrough": [
+        "Priority Review"
+      ],
+      "Clinical Milestone": [
+        "First Patient"
+      ],
+      "Underwritten Offering": [
+        "IPO"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {
+      "signals": [
+        "High Leverage - Debt/Equity Exceeds 3.0"
+      ],
+      "severity": 0.75,
+      "isDeterministic": true
+    },
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "6-K/A",
+      "8-K",
+      "20-F",
+      "20-F/A",
+      "EX-99.1",
+      "Item 2.02",
+      "Item 9.01"
+    ],
+    "filingType": "6-K, 6-K/A, 8-K, 20-F, 20-F/A, EX-99.1, Item 2.02, Item 9.01",
+    "cik": "318306",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Clinical Success / Milestone",
+    "deterministicMechanism": "Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.",
+    "deterministicPhrase": "[Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.]",
+    "recordedAt": "2026-03-17T11:31:01.927Z",
+    "recordId": "ABEO-1773747061927",
+    "expiresAt": "2026-03-22T11:31:01.927Z",
+    "direction": "LONG",
+    "highest5Day": 4.95,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
   }
 ]
