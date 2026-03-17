@@ -2177,7 +2177,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
 
         @media (max-width: 768px) {
             .logo {
-                margin-top: 30px !important;
+                margin-top: 18px !important;
             }
         }
 
@@ -5197,7 +5197,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             if (filteredAlerts.length === 0) {
                 const isMobile = window.innerWidth <= 768;
                 const icon = isMobile ? '—' : '📫︎';
-                container.innerHTML = '<div style="position: absolute; left: 50%; top: 70%; transform: translate(-50%, -50%); text-align: center; color: #999; font-size: 15px; white-space: nowrap;"><div style="margin-bottom: 3px; font-size: 30px;">' + icon + '</div><div>No Recent Alerts</div><div style="font-size: 12px; margin-top: 8px; opacity: 0.6;">Check back soon for new opportunities</div></div>';
+                container.innerHTML = '<div style="position: absolute; left: 50%; top: 55%; transform: translate(-50%, -50%); text-align: center; color: #999; font-size: 15px; white-space: nowrap;"><div style="margin-bottom: 3px; font-size: 30px;">' + icon + '</div><div>No Recent Alerts</div><div style="font-size: 12px; margin-top: 8px; opacity: 0.6;">Check back soon for new opportunities</div></div>';
                 return;
             }
             
