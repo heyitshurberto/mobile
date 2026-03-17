@@ -188,10 +188,10 @@
     "recordId": "BIYA-1769462189874",
     "expiresAt": "2026-01-31T21:16:29.874Z",
     "direction": "SHORT",
-    "highest5Day": 1.43,
-    "highest5DayPercent": -63.8,
-    "lowest5Day": 1.43,
-    "lowest5DayPercent": 63.8
+    "highest5Day": 1.41,
+    "highest5DayPercent": -64.3,
+    "lowest5Day": 1.41,
+    "lowest5DayPercent": 64.3
   },
   {
     "ticker": "FAT",
@@ -718,10 +718,10 @@
     "recordId": "OSRH-1769524047644",
     "expiresAt": "2026-02-01T14:27:27.644Z",
     "direction": "SHORT",
-    "highest5Day": 0.47,
-    "highest5DayPercent": -34.72,
-    "lowest5Day": 0.47,
-    "lowest5DayPercent": 34.72
+    "highest5Day": 0.45,
+    "highest5DayPercent": -37.5,
+    "lowest5Day": 0.45,
+    "lowest5DayPercent": 37.5
   },
   {
     "ticker": "ENGN",
@@ -1747,10 +1747,10 @@
     "recordId": "ALOY-1773061098061",
     "expiresAt": "2026-03-14T12:58:18.061Z",
     "direction": "SHORT",
-    "highest5Day": 11.3,
-    "highest5DayPercent": -35.43,
-    "lowest5Day": 11.3,
-    "lowest5DayPercent": 35.43
+    "highest5Day": 11.25,
+    "highest5DayPercent": -35.71,
+    "lowest5Day": 11.25,
+    "lowest5DayPercent": 35.71
   },
   {
     "ticker": "ACXP",
@@ -2179,8 +2179,8 @@
     "recordId": "SUN-1773086762693",
     "expiresAt": "2026-03-14T20:06:02.693Z",
     "direction": "SHORT",
-    "highest5Day": 64.97,
-    "highest5DayPercent": 2.87,
+    "highest5Day": 65,
+    "highest5DayPercent": 2.92,
     "lowest5Day": 62.61,
     "lowest5DayPercent": 0.87
   },
@@ -2687,8 +2687,8 @@
     "recordId": "OPAL-1773091488144",
     "expiresAt": "2026-03-14T21:24:48.144Z",
     "direction": "SHORT",
-    "highest5Day": 2.48,
-    "highest5DayPercent": 16.98,
+    "highest5Day": 2.73,
+    "highest5DayPercent": 28.77,
     "lowest5Day": 2.025,
     "lowest5DayPercent": 4.48
   },
@@ -3543,9 +3543,81 @@
     "recordId": "ZCSH-1773173431353",
     "expiresAt": "2026-03-15T20:10:31.353Z",
     "direction": "LONG",
-    "highest5Day": 17.5,
-    "highest5DayPercent": 12.18,
+    "highest5Day": 20.19,
+    "highest5DayPercent": 29.42,
     "lowest5Day": 15.02,
     "lowest5DayPercent": -3.72
+  },
+  {
+    "ticker": "GLUE",
+    "title": "8-K - Monte Rosa Therapeutics, Inc. (0001826457) (Filer)",
+    "companyName": "Monte Rosa Therapeutics, Inc.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 16.35,
+    "fav": "8.02",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Massachusetts (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 616447,
+    "averageVolume": 1621522,
+    "float": 13000000,
+    "sharesOutstanding": 76242761,
+    "soRatio": "17.05%",
+    "marketCap": 1246569216,
+    "isShort": false,
+    "ftd": false,
+    "ftdPercent": null,
+    "intent": "FDA Filing, Clinical Success, Clinical Milestone, Licensing Deal",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Massachusetts",
+    "filingDate": "2026-03-17",
+    "signals": {
+      "FDA Filing": [
+        "IND Application"
+      ],
+      "Clinical Success": [
+        "Phase 1",
+        "Phase 2",
+        "Phase 3",
+        "Efficacy",
+        "Favorable Safety",
+        "Clinical Benefit"
+      ],
+      "Clinical Milestone": [
+        "IND Application"
+      ],
+      "Licensing Deal": [
+        "License Agreement"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-99.1",
+      "Item 2.02",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-99.1, Item 2.02, Item 9.01",
+    "cik": "1826457",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Clinical Success / Milestone",
+    "deterministicMechanism": "Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.",
+    "deterministicPhrase": "[Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.]",
+    "recordedAt": "2026-03-17T11:04:48.332Z",
+    "recordId": "GLUE-1773745488332",
+    "expiresAt": "2026-03-22T11:04:48.332Z",
+    "direction": "LONG",
+    "highest5Day": 16.35,
+    "highest5DayPercent": 0,
+    "lowest5Day": 16.35,
+    "lowest5DayPercent": 0
   }
 ]

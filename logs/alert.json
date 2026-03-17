@@ -1,1 +1,74 @@
-[]
+[
+  {
+    "ticker": "GLUE",
+    "title": "8-K - Monte Rosa Therapeutics, Inc. (0001826457) (Filer)",
+    "companyName": "Monte Rosa Therapeutics, Inc.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 16.35,
+    "fav": "8.02",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Massachusetts (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 616447,
+    "averageVolume": 1621522,
+    "float": 13000000,
+    "sharesOutstanding": 76242761,
+    "soRatio": "17.05%",
+    "marketCap": 1246569216,
+    "isShort": false,
+    "ftd": false,
+    "ftdPercent": null,
+    "intent": "FDA Filing, Clinical Success, Clinical Milestone, Licensing Deal",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Massachusetts",
+    "filingDate": "2026-03-17",
+    "signals": {
+      "FDA Filing": [
+        "IND Application"
+      ],
+      "Clinical Success": [
+        "Phase 1",
+        "Phase 2",
+        "Phase 3",
+        "Efficacy",
+        "Favorable Safety",
+        "Clinical Benefit"
+      ],
+      "Clinical Milestone": [
+        "IND Application"
+      ],
+      "Licensing Deal": [
+        "License Agreement"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-99.1",
+      "Item 2.02",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-99.1, Item 2.02, Item 9.01",
+    "cik": "1826457",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Clinical Success / Milestone",
+    "deterministicMechanism": "Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.",
+    "deterministicPhrase": "[Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.]",
+    "recordedAt": "2026-03-17T11:04:48.332Z",
+    "recordId": "GLUE-1773745488332",
+    "expiresAt": "2026-03-22T11:04:48.332Z",
+    "direction": "LONG",
+    "highest5Day": 16.35,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
+  }
+]
