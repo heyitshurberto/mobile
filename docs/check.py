@@ -622,7 +622,7 @@ def main():
     
     print(f"\nAlerts ({len(tickers)})")
     print("-" * 180)
-    print(f"{'Ticker':<8} {'Alert':<10} {'Current':<10} {'Peak':<10} {'Change':<10} {'Inc':<12} {'Ops':<12} {'Signals':<35} {'Float':<12} {'S/O %':<8} {'Filed':<19} {'Reason'}")
+    print(f"{'Ticker':<8} {'Alert':<10} {'Current':<10} {'Peak':<10} {'Change':<10} {'Dir':<6} {'Incorporated':<20} {'Located':<20} {'Signals':<60} {'Float':<15} {'S/O%':<10} {'F/AV':<8} {'Filed':<16}")
     print("-" * 180)
     
     total_move = 0
@@ -652,8 +652,8 @@ def main():
         # Remove bonus filter text for cleaner display
         if '(Bonus:' in skip_reason:
             skip_reason = skip_reason.split('(Bonus:')[0].strip()
-        incorporated = ticker_rows[0].get('Incorporated', 'N/A')[:10]
-        located = ticker_rows[0].get('Located', 'N/A')[:10]
+        incorporated = ticker_rows[0].get('Incorporated', 'N/A')
+        located = ticker_rows[0].get('Located', 'N/A')
         filed_date = ticker_rows[0].get('Filed Date', 'N/A')
         filed_time = ticker_rows[0].get('Filed Time', 'N/A')
         if filed_date != 'N/A' and filed_time != 'N/A':
@@ -715,23 +715,37 @@ def main():
         
         alert_str = f"${alert_price:.2f}"
         so_ratio = ticker_rows[0].get('S/O Ratio', 'N/A')
+        direction = ticker_rows[0].get('Direction', 'N/A')
         float_val = ticker_rows[0].get('Float', 'N/A')
+        volume_val = ticker_rows[0].get('Volume', 'N/A')
+        avg_volume_val = ticker_rows[0].get('Average Volume', 'N/A')
+        
+        # Calculate F/AV ratio (Float / Average Volume)
+        fav_ratio = 'N/A'
+        try:
+            if float_val != 'N/A' and avg_volume_val != 'N/A':
+                flt = float(float_val)
+                avg_vol = float(avg_volume_val)
+                if avg_vol > 0:
+                    fav_ratio = f"{(flt / avg_vol):.2f}x"
+        except (ValueError, TypeError):
+            pass
         
         # Extract signals/catalysts - first try Skip Reason, then fall back to Catalyst column
         signals_display = 'N/A'
         if 'Alert sent:' in skip_reason:
             signal_part = skip_reason.split('Alert sent:')[1].split('(')[0].strip()
             signal_part = signal_part.replace('[LONG]', '').replace('[SHORT]', '').strip()
-            signals_display = signal_part[:32]
+            signals_display = signal_part
         else:
             # Try to get from Catalyst column
             catalyst = ticker_rows[0].get('Catalyst', 'N/A')
             if catalyst and catalyst != 'N/A':
-                signals_display = str(catalyst)[:32]
+                signals_display = str(catalyst)
         
-        print(f"{ticker:<8} {alert_str:<10} {current_str:<10} {peak_str:<10} {move_str:<10} {incorporated:<12} {located:<12} {signals_display:<35} {str(float_val):<12} {str(so_ratio):<8} {filed_display:<19} {skip_reason}")
+        print(f"{ticker:<8} {alert_str:<10} {current_str:<10} {peak_str:<10} {move_str:<10} {str(direction):<8} {incorporated:<28} {located:<20} {signals_display} Float: {str(float_val):<10} S/O: {str(so_ratio):<6} F/AV: {str(fav_ratio):<6} {filed_display}")
     
-    print("-" * 180)
+    print("-" * 220)
     avg_move = total_move / count if count > 0 else 0
     print(f"Average: {avg_move:+.1f}%")
     print(f"Successful: {winners}/{count}")
