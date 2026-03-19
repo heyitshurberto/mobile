@@ -8601,8 +8601,8 @@ if (process.stdin.isTTY) {
             const hasReverseSplit = sigKeys.includes('Reverse Split Event');
             const hasDilution = sigKeys.includes('Convertible Debt');
             
-            // ONLY SHORT if: Reverse Split + Dilution/Warrant (structural destruction)
-            const isShortCombo = hasReverseSplit && (hasDilution || hasWarrantRedemption);
+            // ONLY SHORT if: Reverse Split + Dilution (structural destruction)
+            const isShortCombo = hasReverseSplit && hasDilution;
             
             // Bearish signals that force SHORT regardless
             const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Material Lawsuit', 'Going Dark', 'Convertible Debt', 'Executive Departure', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Reverse Split Event'];
