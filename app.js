@@ -2914,8 +2914,9 @@ const pushToGitHub = () => {
 
   try {
     const projectRoot = CONFIG.GITHUB_REPO_PATH;
+    const timestamp = new Date().toISOString().replace('T', ' ').substring(0, 19);
     // Run git push in background, don't wait for it
-    require('child_process').exec(`cd ${projectRoot} && git add logs/alert.json logs/stocks.json logs/quote.json && git commit -m "Auto: Alert update $(date '+%Y-%m-%d %H:%M:%S')" && git push origin main`, { 
+    require('child_process').exec(`cd ${projectRoot} && git add logs/alert.json logs/stocks.json logs/quote.json && git commit -m "Auto: Alert update ${timestamp}" && git push origin main`, { 
       timeout: 10000 // 10 second timeout for git operations
     }, (error, stdout, stderr) => {
       if (error) {
