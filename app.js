@@ -31,6 +31,8 @@ const CONFIG = {
   STRONG_SIGNAL_MIN_VOLUME: 500,    // Very early for strong catalysts
   MAX_FLOAT_6K: 50000000,           // Max float size for 6-K (50M limit)
   MAX_FLOAT_8K: 75000000,           // Max float size for 8-K (75M limit)
+  MAX_FAV_RATIO: 90,                // Max F/AV ratio for alerts (filtering out mega floats)
+  PERSONAL_ALERT_MAX_FLOAT: 25000000, // Max float for personal alerts (25M)
   ALLOWED_COUNTRIES: ['israel', 'argentina', 'texas', 'china', 'hong kong', 'cayman islands', 'virgin islands', 'greece', 'singapore', 'malaysia', 'australia', 'bermuda', 'ireland', 'canada', 'nevada', 'delaware'], // Allowed incorporation/located countries
   CTB_WATCHLIST: ['CZOOF', 'SEV', 'FABTQ', 'MLEC', 'XTIA', 'SHPWQ', 'IONM', 'PLYX', 'PLRZ', 'NMHI', 'GMUN', 'NCI', 'IOTR', 'SEELQ', 'AGILQ', 'NEPTF', 'BINI', 'XWEL', 'ABPO', 'MFSV', 'ACCL', 'RUBI', 'OLB', 'CDIO', 'MOTS'], // High CTB stocks (CTB > 250%, Availability tracked) - updated from IBorrowDesk Mar 13 2026
   // Enable optimizations for Raspberry Pi devices
@@ -2682,6 +2684,13 @@ const sendPersonalWebhook = (alertData) => {
     // Personal alert location whitelist: only send from specific jurisdictions
     const personalAlertWhitelist = ['Delaware', 'Israel', 'China', 'Hong Kong', 'Singapore', 'Cayman Islands', 'BVI'];
     let incorporatedJurisdiction = alertData.incorporated ? alertData.incorporated.trim() : '';
+    
+    // Personal alert float filter: max 25M float
+    const alertFloat = parseFloat(alertData.float) || 0;
+    if (alertFloat > CONFIG.PERSONAL_ALERT_MAX_FLOAT && alertFloat !== 0) {
+      log('INFO', `Skipping personal alert for $${alertData.ticker} - float ${(alertFloat / 1000000).toFixed(1)}M exceeds personal alert limit of 25M`);
+      return;
+    }
     
     // Extract just the state/country name (handle cases like "Wilmington, Delaware" → "Delaware")
     if (incorporatedJurisdiction.includes(',')) {
@@ -8934,7 +8943,18 @@ if (process.stdin.isTTY) {
             continue;
           }
 
-          // F/AV filtering and multiplier logic removed - kept only in metric display
+          // F/AV filtering: skip stocks exceeding max ratio (90x)
+          const favNum = parseFloat(fav) || 0;
+          if (favNum > CONFIG.MAX_FAV_RATIO && favNum !== 0) {
+            alertData.skipReason = `F/AV ${favNum}x exceeds max threshold of ${CONFIG.MAX_FAV_RATIO}x`;
+            saveToCSV(alertData);
+            const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
+            const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
+            log('INFO', `Links: ${secLink} ${tvLink}`);
+            log('SKIP', `$${ticker}, F/AV ${favNum}x exceeds ${CONFIG.MAX_FAV_RATIO}x limit`);
+            console.log('');
+            continue;
+          }
           
           // Check if custodian control (ADR structure) applies - verified via filing text or structure
           const custodianControl = (normalizedIncorporated && normalizedLocated && normalizedIncorporated.toLowerCase() !== normalizedLocated.toLowerCase());
