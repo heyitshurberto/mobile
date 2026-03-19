@@ -8597,22 +8597,15 @@ if (process.stdin.isTTY) {
             // Determine if this is a SHORT or LONG opportunity based on signals (non-CTB only)
             const sigKeys = Object.keys(semanticSignals || {});
             
-            // bonus SHORT signals
-            const hasReverseSplit = sigKeys.includes('Reverse Split Event');
-            const hasDilution = sigKeys.includes('Convertible Debt');
-            
-            // ONLY SHORT if: Reverse Split + Dilution (structural destruction)
-            const isShortCombo = hasReverseSplit && hasDilution;
-            
             // Bearish signals that force SHORT regardless
-            const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Material Lawsuit', 'Going Dark', 'Convertible Debt', 'Executive Departure', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Reverse Split Event'];
+            const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Material Lawsuit', 'Going Dark', 'Convertible Debt', 'Executive Departure', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting'];
             const bearishCount = sigKeys.filter(cat => bearishCats.includes(cat)).length;
             const bullishCats = ['Merger/Acquisition', 'FDA Approved', 'FDA Breakthrough', 'FDA Filing', 'Clinical Success', 'Clinical Milestone', 'DTC Eligible Restored', 'Government Contract', 'Partnership', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering'];
             const bullishCount = sigKeys.filter(cat => bullishCats.includes(cat)).length;
             const hasPartnership = sigKeys.includes('Partnership');
             
             // Determine SHORT or LONG - bullish signals that drive price up should override single bearish signals
-            if (isShortCombo || bearishCount >= 2) {
+            if (bearishCount >= 2) {
               shortOpportunity = true;
             } else if (bearishCount > 0 && bullishCount >= 2) {
               // Strong bullish signals (2+) override single bearish signals - use bullish
