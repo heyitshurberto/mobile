@@ -33,8 +33,8 @@ const CONFIG = {
   MAX_FLOAT_8K: 75000000,           // Max float size for 8-K (75M limit)
   MAX_FAV_RATIO: 90,                // Max F/AV ratio for alerts (filtering out mega floats)
   PERSONAL_ALERT_MAX_FLOAT: 25000000, // Max float for personal alerts (25M)
-  ALLOWED_COUNTRIES: ['israel', 'argentina', 'texas', 'china', 'hong kong', 'cayman islands', 'virgin islands', 'greece', 'singapore', 'malaysia', 'australia', 'bermuda', 'ireland', 'canada', 'nevada', 'delaware'], // Allowed incorporation/located countries
-  CTB_WATCHLIST: ['CZOOF', 'SEV', 'FABTQ', 'MLEC', 'XTIA', 'SHPWQ', 'IONM', 'PLYX', 'PLRZ', 'NMHI', 'GMUN', 'NCI', 'IOTR', 'SEELQ', 'AGILQ', 'NEPTF', 'BINI', 'XWEL', 'ABPO', 'MFSV', 'ACCL', 'RUBI', 'OLB', 'CDIO', 'MOTS'], // High CTB stocks (CTB > 250%, Availability tracked) - updated from IBorrowDesk Mar 13 2026
+  ALLOWED_COUNTRIES: ['israel', 'texas', 'china', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'delaware'], // Allowed incorporation/located countries
+  CTB_WATCHLIST: ['NMHI', 'SEV', 'BINI', 'AGILQ', 'MOTS', 'PLYX', 'ABPO', 'NEPTF', 'SHPWQ', 'FBGL', 'SEELQ', 'TMDE', 'ANNA', 'ACCL', 'IOTR', 'GXAI', 'SMCZ', 'FABTQ', 'NCI', 'CZOOF', 'MLEC', 'SMX', 'IONM', 'IBG', 'CRE'], // High CTB stocks (CTB > 250%, Availability tracked) - updated from IBorrowDesk Mar 18 2026
   // Enable optimizations for Raspberry Pi devices
   PI_MODE: true,              // Enable Pi optimizations          
   REFRESH_PEAK: 1,            // 10s during trading hours (7am-10am ET)
@@ -52,7 +52,7 @@ const CONFIG = {
   PERFORMANCE_FILE: 'logs/quote.json', // File to store performance data
   CSV_FILE: 'logs/track.csv',          // File to store CSV export of all alerts
   // GitHub & Webhook settings
-  GITHUB_REPO_PATH: process.env.GITHUB_REPO_PATH || '/home/user/Documents/sysd', // Local path to GitHub repo
+  GITHUB_REPO_PATH: process.env.GITHUB_REPO_PATH || '/home/user/Documents/mobile', // Local path to GitHub repo
   GITHUB_USERNAME: process.env.GITHUB_USERNAME || 'your-github-username', // GitHub username
   GITHUB_REPO_NAME: process.env.GITHUB_REPO_NAME || 'your-repo-name', // GitHub repo name
   GITHUB_DOMAIN: process.env.GITHUB_DOMAIN || 'your-domain.com', // GitHub Pages domain
