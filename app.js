@@ -52,7 +52,7 @@ const CONFIG = {
   PERFORMANCE_FILE: 'logs/quote.json', // File to store performance data
   CSV_FILE: 'logs/track.csv',          // File to store CSV export of all alerts
   // GitHub & Webhook settings
-  GITHUB_REPO_PATH: process.env.GITHUB_REPO_PATH || '/home/user/Documents/mobile', // Local path to GitHub repo
+  GITHUB_REPO_PATH: process.env.GITHUB_REPO_PATH || process.cwd(), // Local path to GitHub repo (default: current working directory)
   GITHUB_USERNAME: process.env.GITHUB_USERNAME || 'your-github-username', // GitHub username
   GITHUB_REPO_NAME: process.env.GITHUB_REPO_NAME || 'your-repo-name', // GitHub repo name
   GITHUB_DOMAIN: process.env.GITHUB_DOMAIN || 'your-domain.com', // GitHub Pages domain
