@@ -151,5 +151,82 @@
     "highest5DayPercent": 0,
     "lowest5Day": 0,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "RYTM",
+    "title": "8-K - RHYTHM PHARMACEUTICALS, INC. (0001649904) (Filer)",
+    "companyName": "RHYTHM PHARMACEUTICALS, INC.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 90.31,
+    "fav": "78.06",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Massachusetts (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 960783,
+    "averageVolume": 710510,
+    "float": 55462000,
+    "sharesOutstanding": 68285039,
+    "soRatio": "81.22%",
+    "marketCap": 6166821888,
+    "isShort": false,
+    "ftd": 33706,
+    "ftdPercent": "0.06",
+    "intent": "FDA Approved, Clinical Success, Commercial Inflection",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Massachusetts",
+    "filingDate": "2026-03-20",
+    "signals": {
+      "FDA Approved": [
+        "FDA Approval"
+      ],
+      "Clinical Success": [
+        "Phase 1",
+        "Phase 2",
+        "Phase 3",
+        "Trial Results",
+        "Efficacy",
+        "Primary Endpoint",
+        "Topline Data",
+        "Statistically Significant",
+        "Positive Phase 3"
+      ],
+      "Commercial Inflection": [
+        "Proof Of Concept"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "8-K",
+      "S-1",
+      "S-8",
+      "EX-99.1",
+      "EX-99.2",
+      "Item 7.01",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "filingType": "6-K, 8-K, S-1, S-8, EX-99.1, EX-99.2, Item 7.01, Item 8.01, Item 9.01",
+    "cik": "1649904",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-03-20T13:21:06.154Z",
+    "recordId": "RYTM-1774012866155",
+    "expiresAt": "2026-03-25T13:21:06.155Z",
+    "direction": "LONG",
+    "highest5Day": 90.31,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
   }
 ]

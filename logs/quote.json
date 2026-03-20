@@ -773,5 +773,21 @@
     "date": "2026-03-20T12:05:55.743Z",
     "alertDate": "2026-03-20T12:05:55.743Z",
     "reverseSplitRatio": null
+  },
+  "RYTM": {
+    "short": false,
+    "alert": 90.31,
+    "highest": 90.31,
+    "lowest": 90.31,
+    "highest5Day": 90.31,
+    "lowest5Day": 90.31,
+    "highest5DayPercent": 0,
+    "lowest5DayPercent": 0,
+    "current": 90.31,
+    "currentPrice": 90.31,
+    "performance": 0,
+    "date": "2026-03-20T13:21:06.202Z",
+    "alertDate": "2026-03-20T13:21:06.202Z",
+    "reverseSplitRatio": null
   }
 }
