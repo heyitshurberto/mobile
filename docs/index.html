@@ -333,32 +333,42 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         const modal = document.createElement('div');
         modal.className = 'trading-view-modal';
         const modalBg = isDarkMode ? 'rgba(0, 0, 0, 0.7)' : 'rgba(255, 255, 255, 0.5)';
+        const isMobile = window.innerWidth <= 768;
+        const modalPaddingTop = isMobile ? '80px' : '120px';
+        const modalPadding = isMobile ? '10px' : '20px';
         modal.style.cssText = `
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             background: ${modalBg};
             display: flex;
             align-items: flex-start;
             justify-content: center;
             z-index: 999999;
-            padding: 20px;
-            padding-top: 120px;
+            padding: ${modalPadding};
+            padding-top: ${modalPaddingTop};
+            box-sizing: border-box;
+            overflow-y: auto;
         `;
         
         const container = document.createElement('div');
         const containerShadow = isDarkMode ? '0 10px 40px rgba(0, 0, 0, 0.9)' : '0 10px 40px rgba(0, 0, 0, 0.212)';
+        const containerMaxWidth = isMobile ? 'calc(100vw - 20px)' : '1051px';
+        const containerHeight = isMobile ? 'auto' : '463px';
+        const containerAspectRatio = isMobile ? '16 / 9' : 'auto';
         container.style.cssText = `
             background: transparent;
             border-radius: 8px;
             width: 100%;
-            max-width: 1051px;
-            height: 463px;
+            max-width: ${containerMaxWidth};
+            height: ${containerHeight};
+            aspect-ratio: ${containerAspectRatio};
             display: flex;
             flex-direction: column;
             box-shadow: ${containerShadow};
+            box-sizing: border-box;
         `;
         
         const header = document.createElement('div');
@@ -817,7 +827,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                 height: 20px !important;
                 width: auto !important;
                 margin-right: 8px;
-                margin-top: 8px !important;
+                margin-top: 2px !important;
             }
             
             .dashboard-title {
