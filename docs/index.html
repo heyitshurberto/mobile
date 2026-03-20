@@ -438,11 +438,12 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         if (isMobile) {
             const updateModalForOrientation = () => {
                 const newIsMobile = window.innerWidth <= 768;
+                const isLandscape = window.innerHeight < window.innerWidth;
                 const newModalPaddingTop = newIsMobile ? '50vh' : '120px';
                 const newModalPadding = newIsMobile ? '10px' : '20px';
                 const newContainerMaxWidth = newIsMobile ? 'calc(100vw - 20px)' : '1051px';
-                const newContainerHeight = newIsMobile ? 'auto' : '463px';
-                const newContainerAspectRatio = newIsMobile ? '16 / 9' : 'auto';
+                const newContainerHeight = (newIsMobile && isLandscape) ? 'calc(100vh - 60px)' : newIsMobile ? 'auto' : '463px';
+                const newContainerAspectRatio = (newIsMobile && isLandscape) ? '75% / auto' : newIsMobile ? '16 / 9' : 'auto';
                 
                 modal.style.padding = newModalPadding;
                 modal.style.paddingTop = newModalPaddingTop;
