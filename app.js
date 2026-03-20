@@ -2915,16 +2915,25 @@ const pushToGitHub = () => {
   try {
     const projectRoot = CONFIG.GITHUB_REPO_PATH;
     const timestamp = new Date().toISOString().replace('T', ' ').substring(0, 19);
+    
+    // Use git commands directly without cd - assumes app is running from repo root
+    const gitCommands = [
+      'git add logs/alert.json logs/stocks.json logs/quote.json docs/check.py 2>/dev/null || true',
+      `git commit -m "Auto: Alert update ${timestamp}" 2>/dev/null || true`,
+      'git push origin main 2>&1'
+    ].join(' && ');
+    
     // Run git push in background, don't wait for it
-    require('child_process').exec(`cd ${projectRoot} && git add logs/alert.json logs/stocks.json logs/quote.json && git commit -m "Auto: Alert update ${timestamp}" && git push origin main`, { 
-      timeout: 10000 // 10 second timeout for git operations
+    require('child_process').exec(gitCommands, { 
+      cwd: projectRoot, // Set working directory instead of using cd
+      timeout: 10000, // 10 second timeout for git operations
+      shell: '/bin/bash'
     }, (error, stdout, stderr) => {
       if (error) {
-        // Log actual errors for debugging
         log('WARN', `Git push error: ${error.message}`);
         if (stderr) log('WARN', `Git stderr: ${stderr}`);
       } else if (stdout) {
-        log('INFO', `Git push success: ${stdout.substring(0, 100)}`);
+        log('INFO', `Git push: ${stdout.substring(0, 80).replace(/\n/g, ' ')}`);
       }
     });
   } catch (err) {
