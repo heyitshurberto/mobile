@@ -334,7 +334,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         modal.className = 'trading-view-modal';
         const modalBg = isDarkMode ? 'rgba(0, 0, 0, 0.7)' : 'rgba(255, 255, 255, 0.5)';
         const isMobile = window.innerWidth <= 768;
-        const modalPaddingTop = isMobile ? '50vh' : '120px';
+        const modalPaddingTop = isMobile ? '25vh' : '120px';
         const modalPadding = isMobile ? '10px' : '20px';
         modal.style.cssText = `
             position: fixed;
@@ -439,7 +439,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             const updateModalForOrientation = () => {
                 const newIsMobile = window.innerWidth <= 768;
                 const isLandscape = window.innerHeight < window.innerWidth;
-                const newModalPaddingTop = newIsMobile ? '50vh' : '120px';
+                const newModalPaddingTop = newIsMobile ? '25vh' : '120px';
                 const newModalPadding = newIsMobile ? '10px' : '20px';
                 const newContainerMaxWidth = newIsMobile ? 'calc(100vw - 20px)' : '1051px';
                 const newContainerHeight = (newIsMobile && isLandscape) ? 'calc(100vh - 60px)' : newIsMobile ? 'auto' : '463px';
