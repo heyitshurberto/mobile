@@ -23,8 +23,8 @@ table {
     table { font-size: 11px; }
 }
 </style>
-<div style="position: absolute; top: 6px; left: 6px; display: flex; gap: 4px; align-items: center;" class="eugene-tag-desktop">
-  <a href="#" onclick="customConfirm('Join the <b><i>Discord</i></b> community?', 'https://discord.gg/5SQcvhfN'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 3px 3px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 23px; width: 22px; filter: brightness(0) saturate(100%);" id="tele-logo" class="social-icon"></a>
+<div style="position: absolute; top: 1px; left: 6px; display: flex; gap: 4px; align-items: center;" class="eugene-tag-desktop">
+  <a href="#" onclick="customConfirm('Join the <b><i>Carlucci</i></b> Community?', 'https://discord.gg/5SQcvhfN'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 3px 3px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 23px; width: 22px; filter: brightness(0) saturate(100%);" id="tele-logo" class="social-icon"></a>
   <a href="#" onclick="customConfirm('Visit <b><i>@cartelwrld</i></b> on X?', 'https://x.com/cartelwrld'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 15px; width: 15px; filter: brightness(0) saturate(100%);" id="x-logo" class="social-icon"></a></div>
 <script>
 function updateLogoDarkMode() {
@@ -324,6 +324,99 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         // TradingView can resolve any ticker symbol directly without exchange mapping
         console.log('getTradingViewSymbol:', { ticker, exchange });
         return ticker;
+    }
+
+    // Open TradingView in a modal popup on the dashboard
+    function openTradingViewModal(ticker, exchange, companyName) {
+        const tvSymbol = getTradingViewSymbol(ticker, exchange);
+        const modal = document.createElement('div');
+        modal.className = 'trading-view-modal';
+        modal.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            z-index: 999999;
+            padding: 20px;
+            padding-top: 125px;
+        `;
+        
+        const container = document.createElement('div');
+        container.style.cssText = `
+            background: transparent;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 1051px;
+            height: 463px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9);
+        `;
+        
+        const header = document.createElement('div');
+        header.style.cssText = `
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(51, 51, 51, 0.5);
+            background: rgba(26, 26, 26, 0.90);
+            border-radius: 8px 8px 0 0;
+            position: relative;
+        `;
+        header.innerHTML = `
+            <div style="position: absolute; left: 20px; font-size: 16px; opacity: 0.5;">Ж</div>
+            <div style="font-weight: 600; color: #fff; font-size: 14px;">$${ticker} <span style="opacity: 0.6;">(${companyName || 'N/A'})</span></div>
+            <button onclick="this.closest('.trading-view-modal').remove()" style="position: absolute; right: 16px; background: none; border: none; color: #999; cursor: pointer; font-size: 20px; padding: 0;">×</button>
+        `;
+        
+        const wrapper = document.createElement('div');
+        wrapper.style.cssText = `
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            background: #1a1a1a;
+        `;
+        
+        // Use TradingView's embed chart which bypasses X-Frame-Options
+        const chartId = 'tradingview_chart_' + Date.now();
+        wrapper.innerHTML = '<div id="' + chartId + '" style="width: 100%; height: 100%;"></div>';
+        
+        // Inject TradingView script
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = 'https://s3.tradingview.com/tv.js';
+        script.onload = function() {
+            new TradingView.widget({
+                "autosize": true,
+                "symbol": tvSymbol,
+                "interval": "D",
+                "timezone": "Etc/UTC",
+                "theme": "dark",
+                "style": "1",
+                "locale": "en",
+                "toolbar_bg": "#1a1a1a",
+                "enable_publishing": false,
+                "allow_symbol_change": true,
+                "container_id": chartId
+            });
+        };
+        wrapper.appendChild(script);
+        container.appendChild(header);
+        container.appendChild(wrapper);
+        modal.appendChild(container);
+        
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.remove();
+        });
+        
+        document.body.appendChild(modal);
     }
 
     // Console filter to suppress DNS resolution logs for www.sec.gov
@@ -2761,8 +2854,8 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         <div class="container">
             <div class="header">
                 <div class="header-top" style="margin-top:50px; margin-bottom:0px; margin-left: auto; margin-right: auto; display: flex; justify-content: center; align-items: center;">
-                    <img src="logo.jpeg?t=${new Date().getTime()}" alt="Logo" class="logo" style="height: 45px; width: auto; transition: opacity 0.4s ease; margin-right: 0px; margin-left: 26px; margin-top: 6px; margin-bottom: 14px; transform: rotate(0deg); opacity: 0.7;" onload="this.style.opacity=0.75">
-                    <h1 style="color: #000000; font-size: 25px; font-family: 'El Messiri', serif; font-weight: 400; letter-spacing: 0px; margin-left: -10px; margin-top: 4px; margin-bottom: 8px; opacity: 0.8;" class="dashboard-title">CARLUCCI CAPITAL</h1>
+                    <img src="logo.jpeg?t=${new Date().getTime()}" alt="Logo" class="logo" style="height: 45px; width: auto; transition: opacity 0.4s ease; margin-right: -3px; margin-left: 45px; margin-top: 3px; margin-bottom: 5px; transform: rotate(0deg); opacity: 0.7;" onload="this.style.opacity=0.75">
+                    <h1 style="color: #000000; font-size: 25px; font-family: 'El Messiri', serif; font-weight: 400; letter-spacing: 0px; margin-left: -8px; margin-top: 4px; margin-bottom: 3px; opacity: 0.8;" class="dashboard-title">CARLUCCI CAPITAL</h1>
                 </div>
                 <div class="theme-toggle" onmousedown="event.stopPropagation(); toggleTheme();">
                     <svg class="theme-icon-light" viewBox="0 0 24 24">
@@ -4018,12 +4111,8 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             <button onclick="(() => {
                                 const ticker = '${alert.ticker}';
                                 const exchange = '${alert.exchange || 'NASDAQ'}';
-                                console.log('Popup TradingView button clicked:', { ticker, exchange });
-                                const tvSymbol = getTradingViewSymbol(ticker, exchange);
-                                console.log('Generated tvSymbol:', tvSymbol);
-                                const url = \`https://www.tradingview.com/chart/?symbol=\${tvSymbol}\`;
-                                console.log('Opening URL:', url);
-                                customConfirm(\`Open TradingView chart for <b><i>\$\${ticker}</i></b>?\`, url);
+                                const companyName = '${alert.companyName || 'N/A'}';
+                                openTradingViewModal(ticker, exchange, companyName);
                             })()">TradingView</button>
                             <button onclick="(() => {
                                 customConfirm(\`View Financials for <b><i>${alert.ticker}</i></b>?\`, \`https://stockanalysis.com/stocks/${alert.ticker}/statistics/\`);
@@ -4929,12 +5018,8 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             event.stopPropagation();
                             const ticker = '${alert.ticker}';
                             const exchange = '${alert.exchange || 'NASDAQ'}';
-                            console.log('Card TradingView button clicked:', { ticker, exchange });
-                            const tvSymbol = getTradingViewSymbol(ticker, exchange);
-                            console.log('Generated tvSymbol:', tvSymbol);
-                            const url = 'https://www.tradingview.com/chart/?symbol=' + tvSymbol;
-                            console.log('Opening URL:', url);
-                            customConfirm('Open TradingView Chart for <b><i>$' + ticker + '</i></b>?', url);
+                            const companyName = '${alert.companyName || 'N/A'}';
+                            openTradingViewModal(ticker, exchange, companyName);
                         })()">TradingView</button>
                         <button type="button" class="link-button" onclick="(() => {
                             event.stopPropagation();
