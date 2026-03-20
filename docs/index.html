@@ -345,10 +345,11 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             justify-content: center;
             z-index: 999999;
             padding: 20px;
-            padding-top: 125px;
+            padding-top: 120px;
         `;
         
         const container = document.createElement('div');
+        const containerShadow = isDarkMode ? '0 10px 40px rgba(0, 0, 0, 0.9)' : '0 10px 40px rgba(0, 0, 0, 0.212)';
         container.style.cssText = `
             background: transparent;
             border-radius: 8px;
@@ -357,13 +358,13 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             height: 463px;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9);
+            box-shadow: ${containerShadow};
         `;
         
         const header = document.createElement('div');
-        const headerBg = isDarkMode ? 'rgba(26, 26, 26, 0.90)' : 'rgba(230, 230, 230, 0.89)';
+        const headerBg = isDarkMode ? 'rgba(26, 26, 26, 0.90)' : 'rgba(240, 240, 240, 0.94)';
         const headerBorder = isDarkMode ? 'rgba(51, 51, 51, 0.5)' : 'rgba(100, 100, 100, 0.3)';
-        const headerText = isDarkMode ? '#fff' : '#000';
+        const headerText = isDarkMode ? '#fff' : '#4a4a4a';
         header.style.cssText = `
             display: flex;
             justify-content: center;
@@ -410,7 +411,8 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                 "toolbar_bg": isDarkMode ? "#1a1a1a" : "#e8e8e8",
                 "enable_publishing": false,
                 "allow_symbol_change": true,
-                "container_id": chartId
+                "container_id": chartId,
+                "zoom": 0.8
             });
         };
         wrapper.appendChild(script);
@@ -2244,7 +2246,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         @media (min-width: 769px) {
             .notification-count {
                 font-size: 11px;
-                top: -6px;
+                top: -5px;
             }
         }
 
@@ -2860,8 +2862,8 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         <div class="container">
             <div class="header">
                 <div class="header-top" style="margin-top:50px; margin-bottom:0px; margin-left: auto; margin-right: auto; display: flex; justify-content: center; align-items: center;">
-                    <img src="logo.jpeg?t=${new Date().getTime()}" alt="Logo" class="logo" style="height: 45px; width: auto; transition: opacity 0.4s ease; margin-right: -3px; margin-left: 45px; margin-top: 3px; margin-bottom: 5px; transform: rotate(0deg); opacity: 0.7;" onload="this.style.opacity=0.75">
-                    <h1 style="color: #000000; font-size: 25px; font-family: 'El Messiri', serif; font-weight: 400; letter-spacing: 0px; margin-left: -8px; margin-top: 4px; margin-bottom: 3px; opacity: 0.8;" class="dashboard-title">CARLUCCI CAPITAL</h1>
+                    <img src="logo.jpeg?t=${new Date().getTime()}" alt="Logo" class="logo" style="height: 45px; width: auto; transition: opacity 0.4s ease; margin-right: -3px; margin-left: 45px; margin-top: 3px; margin-bottom: 0px; transform: rotate(0deg); opacity: 0.7;" onload="this.style.opacity=0.75">
+                    <h1 style="color: #000000; font-size: 25px; font-family: 'El Messiri', serif; font-weight: 400; letter-spacing: 0px; margin-left: -8px; margin-top: 4px; margin-bottom: 2px; opacity: 0.8;" class="dashboard-title">CARLUCCI CAPITAL</h1>
                 </div>
                 <div class="theme-toggle" onmousedown="event.stopPropagation(); toggleTheme();">
                     <svg class="theme-icon-light" viewBox="0 0 24 24">
