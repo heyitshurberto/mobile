@@ -356,8 +356,8 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         const container = document.createElement('div');
         const containerShadow = isDarkMode ? '0 10px 40px rgba(0, 0, 0, 0.9)' : '0 10px 40px rgba(0, 0, 0, 0.212)';
         const containerMaxWidth = isMobile ? 'calc(100vw - 20px)' : '1051px';
-        const containerHeight = isMobile ? 'auto' : '463px';
-        const containerAspectRatio = isMobile ? '16 / 9' : 'auto';
+        const containerHeight = isMobile ? '345px' : '463px';
+        const containerAspectRatio = isMobile ? 'auto' : 'auto';
         container.style.cssText = `
             background: transparent;
             border-radius: 8px;
@@ -442,8 +442,8 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                 const newModalPaddingTop = newIsMobile ? '25vh' : '120px';
                 const newModalPadding = newIsMobile ? '10px' : '20px';
                 const newContainerMaxWidth = newIsMobile ? 'calc(100vw - 20px)' : '1051px';
-                const newContainerHeight = (newIsMobile && isLandscape) ? 'calc(100vh - 60px)' : newIsMobile ? 'auto' : '463px';
-                const newContainerAspectRatio = (newIsMobile && isLandscape) ? '75% / auto' : newIsMobile ? '16 / 9' : 'auto';
+                const newContainerHeight = (newIsMobile && isLandscape) ? '276px' : newIsMobile ? '345px' : '463px';
+                const newContainerAspectRatio = (newIsMobile && isLandscape) ? 'auto' : newIsMobile ? 'auto' : 'auto';
                 
                 modal.style.padding = newModalPadding;
                 modal.style.paddingTop = newModalPaddingTop;
@@ -849,7 +849,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                 height: 20px !important;
                 width: auto !important;
                 margin-right: 8px;
-                margin-top: 30px !important;
+                margin-top: -2px !important;
             }
             
             .dashboard-title {
