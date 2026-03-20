@@ -442,13 +442,14 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                 const newModalPaddingTop = newIsMobile ? '25vh' : '120px';
                 const newModalPadding = newIsMobile ? '10px' : '20px';
                 const newContainerMaxWidth = newIsMobile ? 'calc(100vw - 20px)' : '1051px';
-                const newContainerHeight = (newIsMobile && isLandscape) ? '248px' : newIsMobile ? '345px' : '463px';
+                const newContainerHeight = (newIsMobile && isLandscape) ? '200px' : newIsMobile ? '345px' : '463px';
                 const newContainerAspectRatio = (newIsMobile && isLandscape) ? 'auto' : newIsMobile ? 'auto' : 'auto';
                 
                 modal.style.padding = newModalPadding;
                 modal.style.paddingTop = newModalPaddingTop;
                 container.style.maxWidth = newContainerMaxWidth;
                 container.style.height = newContainerHeight;
+                container.style.maxHeight = newContainerHeight;
                 container.style.aspectRatio = newContainerAspectRatio;
             };
             
