@@ -84,5 +84,72 @@
     "highest5DayPercent": 0,
     "lowest5Day": 0,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "NXST",
+    "title": "8-K - NEXSTAR MEDIA GROUP, INC. (0001142417) (Filer)",
+    "companyName": "NEXSTAR MEDIA GROUP, INC.",
+    "filerName": null,
+    "sector": "Media",
+    "price": 223.05,
+    "fav": "86.63",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Texas (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.1,
+    "filingTimeBonus": 1.1,
+    "volume": 410873,
+    "averageVolume": 325079,
+    "float": 28162900,
+    "sharesOutstanding": 30327997,
+    "soRatio": "92.86%",
+    "marketCap": 6764659712,
+    "isShort": false,
+    "ftd": 5241,
+    "ftdPercent": "0.02",
+    "intent": "Merger/Acquisition, Asset Disposition",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Texas",
+    "filingDate": "2026-03-20",
+    "signals": {
+      "Merger/Acquisition": [
+        "Merger Agreement",
+        "Merger Consideration",
+        "Acquisition Closing",
+        "Material Definitive Agreement"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-99.1",
+      "Item 1.01",
+      "Item 2.01",
+      "Item 2.03",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-99.1, Item 1.01, Item 2.01, Item 2.03, Item 7.01, Item 9.01",
+    "cik": "1142417",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-20T12:05:55.725Z",
+    "recordId": "NXST-1774008355725",
+    "expiresAt": "2026-03-25T12:05:55.725Z",
+    "direction": "LONG",
+    "highest5Day": 223.05,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
   }
 ]
