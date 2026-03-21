@@ -715,7 +715,10 @@ def main():
         
         alert_str = f"${alert_price:.2f}"
         so_ratio = ticker_rows[0].get('S/O Ratio', 'N/A')
-        direction = ticker_rows[0].get('Direction', 'N/A')
+        direction = ticker_rows[0].get('Direction', '')
+        # Default to N/A if direction is empty or not present
+        if not direction or direction.strip() == '':
+            direction = 'N/A'
         float_val = ticker_rows[0].get('Float', 'N/A')
         volume_val = ticker_rows[0].get('Volume', 'N/A')
         avg_volume_val = ticker_rows[0].get('Average Volume', 'N/A')
