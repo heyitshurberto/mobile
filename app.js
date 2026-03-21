@@ -4030,7 +4030,7 @@ const renderLoginPage = () => `
       <input type="text" id="code" placeholder="Access code" autocomplete="off" style="margin-bottom: 12px;">
       <button onclick="sendCode()">Login</button>
       <div class="legal">
-        This system is for authorized users only. All access is logged and monitored. By proceeding, you agree to our terms of service and acknowledge receipt of this notice.
+        This system is for authorized users only. All access is logged and monitored. By proceeding, you agree to our terms of service and acknowledge receipt of this notice. These are educational signals, not investment advice.
       </div>
       <p style="margin-top: 20px; font-size: 13px; color: #666;">
         New user? <button onclick="goToSignUp()" class="create-account-btn">Create account</button>
