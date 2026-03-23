@@ -4105,6 +4105,37 @@ const renderLoginPage = () => `
         font-size: 8px !important;
       }
       
+      /* Make request access modal 20% smaller on Apple */
+      #requestAccessModal > div {
+        padding: 19.2px !important;
+        max-width: 360px !important;
+      }
+      
+      #requestAccessModal input,
+      #requestAccessModal textarea {
+        padding: 8.8px !important;
+        font-size: 12px !important;
+      }
+      
+      #submitRequestBtn,
+      #cancelRequestBtn {
+        padding: 9.6px !important;
+        font-size: 11px !important;
+      }
+      
+      /* Fix background particles on Apple mobile */
+      html {
+        background: #ffffff !important;
+      }
+      
+      body.dark-mode {
+        background: #0a0a0a !important;
+      }
+      
+      body {
+        background-attachment: fixed !important;
+      }
+      
       /* History modal more apparent (darker background) on Apple */
       #statsHistoryModal {
         background-color: rgba(0, 0, 0, 0.8) !important;
