@@ -4031,21 +4031,21 @@ const renderLoginPage = () => `
         margin-top: -5px !important;
       }
       
-      /* Smaller Request Access button on Apple */
+      /* Smaller Request Access button on Apple - 20% smaller */
       #requestAccessBtn {
-        padding: 6px 14px !important;
-        font-size: 11px !important;
+        padding: 4.8px 11.2px !important;
+        font-size: 8.8px !important;
       }
       
-      /* Smaller theme toggle button on Apple */
+      /* Smaller theme toggle button on Apple - 20% smaller */
       #themeToggle {
-        width: 40px !important;
-        height: 40px !important;
+        width: 32px !important;
+        height: 32px !important;
       }
       
       #themeToggle svg {
-        width: 24px !important;
-        height: 24px !important;
+        width: 19.2px !important;
+        height: 19.2px !important;
       }
       
       /* Make logo bigger by 2% on Apple */
