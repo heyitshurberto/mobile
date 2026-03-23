@@ -4029,8 +4029,8 @@ const renderLoginPage = () => `
       
       /* Make X logo 15% smaller on Apple mobile */
       [alt="X"] {
-        height: 11px !important;
-        width: 12px !important;
+        height: 13px !important;
+        width: 14px !important;
       }
       
       /* Move dashboard logo up 4px more on Apple */
@@ -4062,6 +4062,19 @@ const renderLoginPage = () => `
       input[type="submit"] {
         padding: 8.8px !important;
         font-size: 10.4px !important;
+      }
+      
+      /* Make login button 20% smaller on Apple */
+      button[onclick="sendCode()"],
+      button.back-btn {
+        padding: 9px 12px !important;
+        font-size: 12px !important;
+      }
+      
+      /* Make stat boxes 20% smaller on Apple */
+      .stat-box {
+        padding: 8px !important;
+        font-size: 11px !important;
       }
       
       /* Make landing page logo 20% smaller on Apple */
