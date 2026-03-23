@@ -847,5 +847,21 @@
     "date": "2026-03-23T11:13:24.588Z",
     "alertDate": "2026-03-23T11:13:24.588Z",
     "reverseSplitRatio": null
+  },
+  "CRCW": {
+    "short": true,
+    "alert": 0.002,
+    "highest": 0.002,
+    "lowest": 0.002,
+    "highest5Day": 0.002,
+    "lowest5Day": 0.002,
+    "highest5DayPercent": 0,
+    "lowest5DayPercent": 0,
+    "current": 0.002,
+    "currentPrice": 0.002,
+    "performance": 0,
+    "date": "2026-03-23T13:01:32.931Z",
+    "alertDate": "2026-03-23T13:01:32.931Z",
+    "reverseSplitRatio": null
   }
 }

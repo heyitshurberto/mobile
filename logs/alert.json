@@ -579,5 +579,76 @@
     "highest5DayPercent": 0,
     "lowest5Day": 0,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "CRCW",
+    "title": "8-K - Crypto Co (0001688126) (Filer)",
+    "companyName": "Crypto Co",
+    "filerName": null,
+    "sector": null,
+    "price": 0.002,
+    "fav": "3.62",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Nevada)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 4784266,
+    "averageVolume": 9303559,
+    "float": 33633691,
+    "sharesOutstanding": 5522401915,
+    "soRatio": "0.61%",
+    "marketCap": 11044804,
+    "isShort": true,
+    "ftd": 2188158,
+    "ftdPercent": "6.51",
+    "intent": "Merger/Acquisition, Convertible Debt, Asset Disposition",
+    "incorporated": "Nevada",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-03-23",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Convertible Debt": [
+        "Convertible Notes"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "6-K/A",
+      "8-K",
+      "20-F",
+      "20-F/A",
+      "EX-10.1",
+      "Item 1.01",
+      "Item 2.03",
+      "Item 3.02",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "filingType": "6-K, 6-K/A, 8-K, 20-F, 20-F/A, EX-10.1, Item 1.01, Item 2.03, Item 3.02, Item 8.01, Item 9.01",
+    "cik": "1688126",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-23T13:01:32.884Z",
+    "recordId": "CRCW-1774270892884",
+    "expiresAt": "2026-03-28T13:01:32.884Z",
+    "direction": "SHORT",
+    "highest5Day": 0,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0.002,
+    "lowest5DayPercent": 0
   }
 ]
