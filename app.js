@@ -4112,7 +4112,7 @@ const renderLoginPage = () => `
       }
       
       #requestAccessModal h2 {
-        font-size: 16px !important;
+        font-size: 15px !important;
       }
       
       /* Fix floating particles - only dots, behind everything */
