@@ -4971,8 +4971,8 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     let longCount = sortedAlerts.filter(alert => !isShortSetup(alert)).length;
                     let shortCount = sortedAlerts.filter(alert => isShortSetup(alert)).length;
                     
-                    // Limit alerts to max 8 per day
-                    const maxAlertsPerDay = 8;
+                    // Limit alerts to max 9 per day
+                    const maxAlertsPerDay = 9;
                     const alertsToDisplay = sortedAlerts.slice(0, maxAlertsPerDay);
                     
                     // Recalculate counts for displayed alerts only
