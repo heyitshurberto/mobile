@@ -296,5 +296,72 @@
     "highest5DayPercent": 0,
     "lowest5Day": 0,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "RNXT",
+    "title": "8-K - RenovoRx, Inc. (0001574094) (Filer)",
+    "companyName": "RenovoRx, Inc.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 1,
+    "fav": "28.15",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 276540,
+    "averageVolume": 299738,
+    "float": 8438790,
+    "sharesOutstanding": 36649916,
+    "soRatio": "23.03%",
+    "marketCap": 36649916,
+    "isShort": false,
+    "ftd": 18,
+    "ftdPercent": "0.00",
+    "intent": "Merger/Acquisition, Reverse Split Event, Asset Disposition",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-03-23",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Reverse Split Event": [
+        "Reverse Stock Split"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-4.1",
+      "EX-4.2",
+      "Item 1.01",
+      "Item 3.02",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-4.1, EX-4.2, Item 1.01, Item 3.02, Item 8.01, Item 9.01",
+    "cik": "1574094",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-23T11:01:32.422Z",
+    "recordId": "RNXT-1774263692422",
+    "expiresAt": "2026-03-28T11:01:32.422Z",
+    "direction": "LONG",
+    "highest5Day": 1,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
   }
 ]
