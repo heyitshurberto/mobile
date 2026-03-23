@@ -3583,12 +3583,18 @@ const renderLoginPage = () => `
       font-size: 11px;
       margin-bottom: 18px;
     }
-    @supports (-webkit-touch-callout: none) {
-      input {
-        padding: 6.75px 8.25px !important;
-        font-size: 9.75px !important;
-        margin-bottom: 7.5px !important;
-      }
+    input {
+      width: 100%;
+      padding: 9px 11px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: 'Poppins', sans-serif;
+      transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+      margin-bottom: 10px;
+      background: #ffffff;
+      color: #000;
+    }
     input:focus {
       outline: none;
       border-color: #808080;
@@ -3859,7 +3865,7 @@ const renderLoginPage = () => `
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: rgba(0, 0, 0, 0.3);
       z-index: 99999;
       display: none;
       justify-content: center;
@@ -3995,8 +4001,9 @@ const renderLoginPage = () => `
     /* Apple/Safari-specific fixes for landing page */
     @supports (-webkit-touch-callout: none) {
       .container {
-        margin-top: 50px !important;
-        padding: 8px 16px 24px 16px !important;
+        margin-top: 45px !important;
+        padding: 6px 14px 22px 14px !important;
+        max-width: 350px !important;
       }
       
       /* Smaller top buttons on Apple */
@@ -4020,12 +4027,6 @@ const renderLoginPage = () => `
         width: 19.2px !important;
       }
       
-      /* Make X logo 30% smaller on Apple mobile */
-      [alt="X"] {
-        height: 10px !important;
-        width: 11px !important;
-      }
-      
       /* Move dashboard logo up 4px more on Apple */
       .logo {
         margin-top: -5px !important;
@@ -4033,14 +4034,14 @@ const renderLoginPage = () => `
       
       /* Smaller Request Access button on Apple - 20% smaller */
       #requestAccessBtn {
-        padding: 5px 10px !important;
+        padding: 4px 10px !important;
         font-size: 8px !important;
       }
       
       /* Smaller theme toggle button on Apple - 20% smaller */
       #themeToggle {
-        width: 30px !important;
-        height: 30px !important;
+        width: 28px !important;
+        height: 28px !important;
       }
       
       #themeToggle svg {
@@ -4053,20 +4054,18 @@ const renderLoginPage = () => `
         height: 53px !important;
       }
       
-      /* Make sign-in card 25% smaller and moved down 5% more on Apple */
+      /* Make sign-in card bigger by 2% on Apple */
       .container {
-        max-width: 338px !important;
-        margin-top: 60px !important;
+        max-width: 451px !important;
       }
       
-      /* History modal 15% less transparent on Apple (0.75 → 0.64) */
-      /* History modal much less transparent on Apple mobile */
+      /* History modal more apparent (darker background) on Apple */
       #statsHistoryModal {
-        background: rgba(0, 0, 0, 0.85) !important;
+        background-color: rgba(0, 0, 0, 0.8) !important;
       }
       
       body.dark-mode #statsHistoryModal {
-        background: rgba(0, 0, 0, 0.82) !important;
+        background-color: rgba(0, 0, 0, 0.9) !important;
       }
     }
   </style>
