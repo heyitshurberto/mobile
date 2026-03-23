@@ -4125,15 +4125,20 @@ const renderLoginPage = () => `
       
       /* Fix background particles on Apple mobile */
       html {
-        background: #ffffff !important;
-      }
-      
-      body.dark-mode {
-        background: #0a0a0a !important;
+        background: #f5f5f5 !important;
       }
       
       body {
+        background-color: #f5f5f5 !important;
         background-attachment: fixed !important;
+      }
+      
+      body.dark-mode {
+        background-color: #1a1a1a !important;
+      }
+      
+      body.dark-mode::after {
+        opacity: 1 !important;
       }
       
       /* History modal more apparent (darker background) on Apple */
