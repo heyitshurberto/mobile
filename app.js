@@ -4027,7 +4027,7 @@ const renderLoginPage = () => `
       /* Smaller Request Access button on Apple - 20% smaller */
       #requestAccessBtn {
         padding: 4px 10px !important;
-        font-size: 8px !important;
+        font-size: 0px !important;
       }
       
       /* Smaller theme toggle button on Apple - 20% smaller */
