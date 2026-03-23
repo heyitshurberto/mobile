@@ -4077,6 +4077,20 @@ const renderLoginPage = () => `
         font-size: 11px !important;
       }
       
+      /* Make landing page login stats box 20% smaller on Apple */
+      #loginStatsBox {
+        padding: 9.6px 12.8px !important;
+        font-size: 10px !important;
+      }
+      
+      #loginStatsBox div[style*="font-size: 10px"] {
+        font-size: 7.5px !important;
+      }
+      
+      #loginStatsBox div[style*="font-size: 14px"] {
+        font-size: 10px !important;
+      }
+      
       /* Make landing page logo 20% smaller on Apple */
       #landingPageLogo {
         height: 41.6px !important;
