@@ -761,13 +761,14 @@ def main():
         print("\n" + "="*180)
         print(f"BIG MOVERS (>= 10% +/- threshold): {len(big_movers)} stocks")
         print("="*180)
-        print(f"{'Ticker':<8} {'Alert Price':<12} {'Current':<12} {'Peak':<12} {'Move %':<10} {'Peak %':<10} {'Inc':<12} {'Ops':<12} {'Filed':<19} {'Skip Reason'}")
+        print(f"{'Ticker':<8} {'Alert Price':<12} {'Current':<12} {'Peak':<12} {'Move %':<10} {'Peak %':<10} {'Inc':<12} {'Ops':<12} {'Filed':<12} {'Skip Reason':<45}")
         print("-"*180)
         for mover in sorted(big_movers, key=lambda x: abs(x['move_pct']), reverse=True):
             inc = mover.get('incorporated', 'N/A')[:10]
             ops = mover.get('located', 'N/A')[:10]
-            filed = mover.get('filed_display', 'N/A')
-            print(f"{mover['ticker']:<8} ${mover['alert_price']:<11.2f} ${mover['current_price']:<11.2f} ${mover['peak_price']:<11.2f} {mover['move_pct']:+.1f}%{'':<3} {mover['peak_move_pct']:+.1f}%{'':<2} {inc:<12} {ops:<12} {filed:<19} {mover['skip_reason']}")
+            filed = mover.get('filed_display', 'N/A')[:12]  # Truncate to 12 chars to avoid overflow
+            skip_reason = mover['skip_reason'][:45] if mover['skip_reason'] else 'N/A'  # Limit skip reason to 45 chars
+            print(f"{mover['ticker']:<8} ${mover['alert_price']:<11.2f} ${mover['current_price']:<11.2f} ${mover['peak_price']:<11.2f} {mover['move_pct']:+.1f}%{'':<3} {mover['peak_move_pct']:+.1f}%{'':<2} {inc:<12} {ops:<12} {filed:<12} {skip_reason:<45}")
     
     # Summary of N/A (rate limited)
     if na_tickers:
