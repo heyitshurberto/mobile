@@ -4219,30 +4219,6 @@ const renderLoginPage = () => `
         }
       }
       
-      /* Fix background particles on Apple mobile */
-      html {
-        background: #f5f5f5 !important;
-      }
-      
-      body {
-        background-color: #f5f5f5 !important;
-        background-attachment: fixed !important;
-      }
-      
-      body.dark-mode {
-        background-color: #1a1a1a !important;
-      }
-      
-      body::after {
-        opacity: 1 !important;
-        display: block !important;
-      }
-      }
-      
-      body.dark-mode::after {
-        opacity: 1 !important;
-      }
-      
       /* History modal more apparent (darker background) on Apple */
       #statsHistoryModal {
         background-color: rgba(0, 0, 0, 0.8) !important;
