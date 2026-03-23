@@ -3997,6 +3997,65 @@ const renderLoginPage = () => `
         margin-left: -20px !important;
       }
     }
+
+    /* Apple/Safari-specific fixes for landing page */
+    @supports (-webkit-touch-callout: none) {
+      .container {
+        margin-top: 20px !important;
+        padding: 8px 16px 24px 16px !important;
+      }
+      
+      /* Smaller top buttons on Apple */
+      [style*="position: absolute; top: 10px; left: 10px"] {
+        gap: 6px !important;
+      }
+      
+      [style*="position: absolute; top: 15px; right: 15px"] {
+        gap: 8px !important;
+      }
+      
+      /* Smaller social logos on Apple */
+      .social-logo {
+        height: 20px !important;
+        width: 20px !important;
+      }
+      
+      /* Smaller Request Access button on Apple */
+      #requestAccessBtn {
+        padding: 6px 14px !important;
+        font-size: 11px !important;
+      }
+      
+      /* Smaller theme toggle button on Apple */
+      #themeToggle {
+        width: 40px !important;
+        height: 40px !important;
+      }
+      
+      #themeToggle svg {
+        width: 24px !important;
+        height: 24px !important;
+      }
+      
+      /* Make logo bigger by 2% on Apple */
+      #landingPageLogo {
+        height: 53px !important;
+      }
+      
+      /* Make sign-in card bigger by 2% on Apple */
+      .container {
+        max-width: 451px !important;
+      }
+      
+      /* History modal less transparent on Apple */
+      #statsHistoryModal {
+        background: rgba(0, 0, 0, 0.75) !important;
+      }
+      
+      body.dark-mode #statsHistoryModal {
+        background: rgba(0, 0, 0, 0.82) !important;
+      }
+    }
   </style>
 </head>
 <body>
