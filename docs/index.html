@@ -4247,7 +4247,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                         const type = alertData.isShort ? 'error' : 'success';
                         const ticker = `<b><i>$${alertData.ticker}</i></b>`;
                         // For new stock alerts, link to SEC filing
-                        this.showNotification(`${ticker} ${position} alert received`, type, alertData.filingLink);
+                        this.showNotification(`${ticker} new ${position} alert has been received`, type, alertData.filingLink);
                         this.notifiedAlerts.set(alertKey, now);
                     }
                 }
