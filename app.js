@@ -4002,8 +4002,8 @@ const renderLoginPage = () => `
     @supports (-webkit-touch-callout: none) {
       .container {
         margin-top: 45px !important;
-        padding: 6px 14px 22px 14px !important;
-        max-width: 350px !important;
+        padding: 6px 12px 16px 12px !important;
+        max-width: 340px !important;
       }
       
       /* Smaller top buttons on Apple */
@@ -4027,6 +4027,12 @@ const renderLoginPage = () => `
         width: 19.2px !important;
       }
       
+      /* Make X logo 15% smaller on Apple mobile */
+      [alt="X"] {
+        height: 11px !important;
+        width: 12px !important;
+      }
+      
       /* Move dashboard logo up 4px more on Apple */
       .logo {
         margin-top: -5px !important;
@@ -4040,8 +4046,8 @@ const renderLoginPage = () => `
       
       /* Smaller theme toggle button on Apple - 20% smaller */
       #themeToggle {
-        width: 28px !important;
-        height: 28px !important;
+        width: 30px !important;
+        height: 30px !important;
       }
       
       #themeToggle svg {
@@ -4049,14 +4055,27 @@ const renderLoginPage = () => `
         height: 18px !important;
       }
       
-      /* Make logo bigger by 2% on Apple */
-      #landingPageLogo {
-        height: 53px !important;
+      /* Make login inputs 20% smaller on Apple */
+      input[type="text"],
+      input[type="email"],
+      input[type="password"],
+      input[type="submit"] {
+        padding: 8.8px !important;
+        font-size: 10.4px !important;
       }
       
-      /* Make sign-in card bigger by 2% on Apple */
-      .container {
-        max-width: 451px !important;
+      /* Make landing page logo 20% smaller on Apple */
+      #landingPageLogo {
+        height: 41.6px !important;
+      }
+      
+      /* Make heading text smaller on Apple */
+      #mainTitle {
+        font-size: 20.8px !important;
+      }
+      
+      .subtitle {
+        font-size: 8px !important;
       }
       
       /* History modal more apparent (darker background) on Apple */
