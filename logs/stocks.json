@@ -4182,10 +4182,10 @@
     "recordId": "RNXT-1774263692422",
     "expiresAt": "2026-03-28T11:01:32.422Z",
     "direction": "LONG",
-    "highest5Day": 1,
-    "highest5DayPercent": 0,
-    "lowest5Day": 1,
-    "lowest5DayPercent": 0
+    "highest5Day": 1.03,
+    "highest5DayPercent": 3,
+    "lowest5Day": 0.9701,
+    "lowest5DayPercent": -2.99
   },
   {
     "ticker": "AVTX",
@@ -4248,9 +4248,90 @@
     "recordId": "AVTX-1774263717950",
     "expiresAt": "2026-03-28T11:01:57.950Z",
     "direction": "LONG",
-    "highest5Day": 13.42,
+    "highest5Day": 14.8,
+    "highest5DayPercent": 10.28,
+    "lowest5Day": 13.185,
+    "lowest5DayPercent": -1.75
+  },
+  {
+    "ticker": "PYXS",
+    "title": "8-K - Pyxis Oncology, Inc. (0001782223) (Filer)",
+    "companyName": "Pyxis Oncology, Inc.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 1.47,
+    "fav": "48.12",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Massachusetts (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 188118,
+    "averageVolume": 827611,
+    "float": 39828600,
+    "sharesOutstanding": 62264215,
+    "soRatio": "63.97%",
+    "marketCap": 91528400,
+    "isShort": false,
+    "ftd": false,
+    "ftdPercent": null,
+    "intent": "FDA Breakthrough, Clinical Success, Clinical Milestone, Commercial Inflection",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Massachusetts",
+    "filingDate": "2026-03-23",
+    "signals": {
+      "FDA Breakthrough": [
+        "Fast Track Designation"
+      ],
+      "Clinical Success": [
+        "Positive Results",
+        "Phase 1",
+        "Efficacy",
+        "Mechanism Of Action"
+      ],
+      "Clinical Milestone": [
+        "Patient Dosed",
+        "First Dose",
+        "Dose Escalation"
+      ],
+      "Commercial Inflection": [
+        "Cash Runway"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {
+      "signals": [
+        "High Leverage - Debt/Equity Exceeds 3.0"
+      ],
+      "severity": 0.75,
+      "isDeterministic": true
+    },
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "Form D",
+      "EX-99.1",
+      "EX-99.2",
+      "Item 2.02",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, Form D, EX-99.1, EX-99.2, Item 2.02, Item 7.01, Item 9.01",
+    "cik": "1782223",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Clinical Success / Milestone",
+    "deterministicMechanism": "Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.",
+    "deterministicPhrase": "[Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.]",
+    "recordedAt": "2026-03-23T11:13:24.548Z",
+    "recordId": "PYXS-1774264404548",
+    "expiresAt": "2026-03-28T11:13:24.548Z",
+    "direction": "LONG",
+    "highest5Day": 1.47,
     "highest5DayPercent": 0,
-    "lowest5Day": 13.42,
+    "lowest5Day": 1.47,
     "lowest5DayPercent": 0
   }
 ]
