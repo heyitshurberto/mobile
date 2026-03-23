@@ -2324,6 +2324,15 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             }
         }
 
+        /* Apple mobile logo adjustment */
+        @supports (-webkit-touch-callout: none) {
+            @media (max-width: 768px) {
+                .logo {
+                    margin-top: 10px !important;
+                }
+            }
+        }
+
         @media (max-width: 768px) {
             .notification-panel {
                 position: fixed !important;
