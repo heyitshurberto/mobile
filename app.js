@@ -4109,18 +4109,27 @@ const renderLoginPage = () => `
       #requestAccessModal > div {
         padding: 19.2px !important;
         max-width: 360px !important;
+        font-size: 13px !important;
       }
       
       #requestAccessModal input,
       #requestAccessModal textarea {
         padding: 8.8px !important;
-        font-size: 12px !important;
+        font-size: 11.2px !important;
+      }
+      
+      #requestAccessModal label {
+        font-size: 11.2px !important;
       }
       
       #submitRequestBtn,
       #cancelRequestBtn {
         padding: 9.6px !important;
         font-size: 11px !important;
+      }
+      
+      #requestAccessModal h3 {
+        font-size: 16px !important;
       }
       
       /* Fix background particles on Apple mobile */
@@ -4135,6 +4144,10 @@ const renderLoginPage = () => `
       
       body.dark-mode {
         background-color: #1a1a1a !important;
+      }
+      
+      body::after {
+        opacity: 1 !important;
       }
       
       body.dark-mode::after {
