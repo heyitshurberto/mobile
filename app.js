@@ -4020,6 +4020,11 @@ const renderLoginPage = () => `
         width: 20px !important;
       }
       
+      /* Move dashboard logo up 2px on Apple */
+      .logo {
+        margin-top: -3px !important;
+      }
+      
       /* Smaller Request Access button on Apple */
       #requestAccessBtn {
         padding: 6px 14px !important;
