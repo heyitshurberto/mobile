@@ -4001,7 +4001,7 @@ const renderLoginPage = () => `
     /* Apple/Safari-specific fixes for landing page */
     @supports (-webkit-touch-callout: none) {
       .container {
-        margin-top: 20px !important;
+        margin-top: 45px !important;
         padding: 8px 16px 24px 16px !important;
       }
       
@@ -4020,9 +4020,15 @@ const renderLoginPage = () => `
         width: 20px !important;
       }
       
-      /* Move dashboard logo up 2px on Apple */
+      /* Make tele logo 20% smaller on Apple mobile */
+      [alt="Discord"] {
+        height: 20px !important;
+        width: 19.2px !important;
+      }
+      
+      /* Move dashboard logo up 4px more on Apple */
       .logo {
-        margin-top: -3px !important;
+        margin-top: -5px !important;
       }
       
       /* Smaller Request Access button on Apple */
@@ -4052,9 +4058,9 @@ const renderLoginPage = () => `
         max-width: 451px !important;
       }
       
-      /* History modal less transparent on Apple */
+      /* History modal 15% less transparent on Apple (0.75 → 0.64) */
       #statsHistoryModal {
-        background: rgba(0, 0, 0, 0.75) !important;
+        background: rgba(0, 0, 0, 0.64) !important;
       }
       
       body.dark-mode #statsHistoryModal {
