@@ -4085,14 +4085,14 @@ const renderLoginPage = () => `
       /* Apple: professional subtle background pattern */
       body {
         background-color: #f5f5f5 !important;
-        background-image: radial-gradient(circle, rgba(200, 200, 200, 0.4) 1px, transparent 1px) !important;
+        background-image: radial-gradient(circle, rgba(200, 200, 200, 0.2) 1px, transparent 1px) !important;
         background-size: 24px 24px !important;
         background-position: 0 0 !important;
       }
       
       body.dark-mode {
         background-color: #1a1a1a !important;
-        background-image: radial-gradient(circle, rgba(80, 80, 80, 0.5) 1px, transparent 1px) !important;
+        background-image: radial-gradient(circle, rgba(80, 80, 80, 0.25) 1px, transparent 1px) !important;
         background-size: 24px 24px !important;
         background-position: 0 0 !important;
       }
