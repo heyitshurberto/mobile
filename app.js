@@ -4077,13 +4077,22 @@ const renderLoginPage = () => `
         font-size: 17px !important;
       }
       
-      /* Apple: hide particles and use solid background instead */
-      body::after {
-        display: none !important;
-      }
-      
+      /* Apple: subtle background patterns */
       html {
         background-color: #f5f5f5 !important;
+        background-image: 
+          radial-gradient(2px 2px at 20% 30%, rgba(200, 200, 200, 0.25) 1px, transparent 1px),
+          radial-gradient(1px 1px at 60% 70%, rgba(220, 220, 220, 0.2) 1px, transparent 1px),
+          radial-gradient(1.5px 1.5px at 80% 20%, rgba(210, 210, 210, 0.22) 1px, transparent 1px),
+          radial-gradient(1px 1px at 40% 50%, rgba(200, 200, 200, 0.18) 1px, transparent 1px),
+          radial-gradient(2px 2px at 10% 80%, rgba(220, 220, 220, 0.24) 1px, transparent 1px);
+        background-size: 
+          200px 200px,
+          300px 300px,
+          250px 250px,
+          350px 350px,
+          280px 280px;
+        background-position: 0 0, 50px 50px, 100px 0, 25px 75px, 75px 25px;
       }
       
       body {
@@ -4092,6 +4101,23 @@ const renderLoginPage = () => `
       
       body.dark-mode {
         background-color: #1a1a1a !important;
+      }
+      
+      body.dark-mode html {
+        background-color: #1a1a1a !important;
+        background-image: 
+          radial-gradient(2px 2px at 20% 30%, rgba(100, 100, 100, 0.3) 1px, transparent 1px),
+          radial-gradient(1px 1px at 60% 70%, rgba(80, 80, 80, 0.25) 1px, transparent 1px),
+          radial-gradient(1.5px 1.5px at 80% 20%, rgba(90, 90, 90, 0.28) 1px, transparent 1px),
+          radial-gradient(1px 1px at 40% 50%, rgba(100, 100, 100, 0.24) 1px, transparent 1px),
+          radial-gradient(2px 2px at 10% 80%, rgba(80, 80, 80, 0.3) 1px, transparent 1px);
+        background-size: 
+          200px 200px,
+          300px 300px,
+          250px 250px,
+          350px 350px,
+          280px 280px;
+        background-position: 0 0, 50px 50px, 100px 0, 25px 75px, 75px 25px;
       }
       
       /* Mobile media query for request access modal */
