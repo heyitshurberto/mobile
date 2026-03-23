@@ -4077,6 +4077,11 @@ const renderLoginPage = () => `
         font-size: 17px !important;
       }
       
+      /* Hide floating particles on Apple */
+      body::after {
+        display: none !important;
+      }
+      
       /* Apple: professional subtle background pattern */
       body {
         background-color: #f5f5f5 !important;
