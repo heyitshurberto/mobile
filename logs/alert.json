@@ -510,5 +510,74 @@
     "highest5DayPercent": 0,
     "lowest5Day": 0,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "TRIP",
+    "title": "8-K - TripAdvisor, Inc. (0001526520) (Filer)",
+    "companyName": "TripAdvisor, Inc.",
+    "filerName": null,
+    "sector": "Media",
+    "price": 9.35,
+    "fav": "3.23",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Massachusetts (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.15,
+    "filingTimeBonus": 1.15,
+    "volume": 6915247,
+    "averageVolume": 3339528,
+    "float": 10774996,
+    "sharesOutstanding": 114755221,
+    "soRatio": "9.39%",
+    "marketCap": 1093092992,
+    "isShort": false,
+    "ftd": 696931,
+    "ftdPercent": "6.47",
+    "intent": "Merger/Acquisition, Asset Disposition, Partnership",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Massachusetts",
+    "filingDate": "2026-03-23",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "13D",
+      "EX-10.1",
+      "EX-3.1",
+      "Item 1.01",
+      "Item 5.02",
+      "Item 5.03",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, 13D, EX-10.1, EX-3.1, Item 1.01, Item 5.02, Item 5.03, Item 7.01, Item 9.01",
+    "cik": "1526520",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-23T12:36:01.599Z",
+    "recordId": "TRIP-1774269361599",
+    "expiresAt": "2026-03-28T12:36:01.599Z",
+    "direction": "LONG",
+    "highest5Day": 9.35,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
   }
 ]
