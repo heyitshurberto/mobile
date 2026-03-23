@@ -363,5 +363,71 @@
     "highest5DayPercent": 0,
     "lowest5Day": 0,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "AVTX",
+    "title": "8-K - Avalo Therapeutics, Inc. (0001534120) (Filer)",
+    "companyName": "Avalo Therapeutics, Inc.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 13.42,
+    "fav": "24.12",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Pennsylvania (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 477507,
+    "averageVolume": 449352,
+    "float": 10838100,
+    "sharesOutstanding": 18512757,
+    "soRatio": "58.54%",
+    "marketCap": 248441184,
+    "isShort": false,
+    "ftd": 2100,
+    "ftdPercent": "0.02",
+    "intent": "Clinical Success, Commercial Inflection",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Pennsylvania",
+    "filingDate": "2026-03-23",
+    "signals": {
+      "Clinical Success": [
+        "Phase 2",
+        "Trial Results",
+        "Efficacy",
+        "Topline Data"
+      ],
+      "Commercial Inflection": [
+        "Cash Runway"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "8-K",
+      "S-9",
+      "EX-99.1",
+      "Item 2.02",
+      "Item 9.01"
+    ],
+    "filingType": "6-K, 8-K, EX-99.1, Item 2.02, Item 9.01",
+    "cik": "1534120",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-03-23T11:01:57.950Z",
+    "recordId": "AVTX-1774263717950",
+    "expiresAt": "2026-03-28T11:01:57.950Z",
+    "direction": "LONG",
+    "highest5Day": 13.42,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
   }
 ]
