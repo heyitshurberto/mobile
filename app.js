@@ -3248,17 +3248,6 @@ const renderLoginPage = () => `
         padding-right: max(20px, env(safe-area-inset-right));
       }
     }
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(240, 240, 240, 0) 0%, rgba(200, 200, 200, 0.03) 50%, rgba(220, 220, 220, 0) 100%);
-      pointer-events: none;
-      z-index: -1;
-    }
     body::after {
       content: '';
       position: fixed;
@@ -3458,9 +3447,6 @@ const renderLoginPage = () => `
     body.dark-mode {
       background-color: #0d0d0d;
       color: #e0e0e0;
-    }
-    body.dark-mode::before {
-      background: linear-gradient(135deg, rgba(20, 20, 20, 0) 0%, rgba(80, 80, 80, 0.04) 50%, rgba(60, 60, 60, 0) 100%);
     }
     body.dark-mode::after {
       background-image: 
