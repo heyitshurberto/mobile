@@ -4105,31 +4105,35 @@ const renderLoginPage = () => `
         font-size: 8px !important;
       }
       
-      /* Make request access modal 20% smaller on Apple */
+      /* Make request access modal 20% smaller on Apple mobile */
       #requestAccessModal > div {
-        padding: 19.2px !important;
-        max-width: 360px !important;
-        font-size: 13px !important;
+        padding: 14.4px !important;
+        max-width: 288px !important;
+      }
+      
+      #requestAccessModal h2 {
+        font-size: 14.4px !important;
       }
       
       #requestAccessModal input,
       #requestAccessModal textarea {
-        padding: 8.8px !important;
-        font-size: 11.2px !important;
+        padding: 7px !important;
+        font-size: 10px !important;
       }
       
       #requestAccessModal label {
-        font-size: 11.2px !important;
+        font-size: 9.6px !important;
       }
       
       #submitRequestBtn,
       #cancelRequestBtn {
-        padding: 9.6px !important;
-        font-size: 11px !important;
+        padding: 7.2px !important;
+        font-size: 10px !important;
       }
       
-      #requestAccessModal h3 {
-        font-size: 16px !important;
+      /* Restore floating particles animations for Apple mobile landing page */
+      body::after {
+        animation: floatParticles1 60s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles2 73s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles3 87s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles4 67s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles5 80s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles6 63s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles7 77s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles8 70s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles9 83s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles10 90s cubic-bezier(0.42, 0, 0.58, 1) infinite !important;
       }
       
       /* Mobile media query for request access modal */
