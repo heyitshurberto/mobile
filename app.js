@@ -4077,7 +4077,22 @@ const renderLoginPage = () => `
         font-size: 17px !important;
       }
       
-      /* No particle overrides - use original animations */
+      /* Apple: hide particles and use solid background instead */
+      body::after {
+        display: none !important;
+      }
+      
+      html {
+        background-color: #f5f5f5 !important;
+      }
+      
+      body {
+        background-color: #f5f5f5 !important;
+      }
+      
+      body.dark-mode {
+        background-color: #1a1a1a !important;
+      }
       
       /* Mobile media query for request access modal */
       @media (max-width: 480px) {
