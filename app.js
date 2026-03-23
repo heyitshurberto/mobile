@@ -3470,30 +3470,6 @@ const renderLoginPage = () => `
         radial-gradient(3.4px 3.4px at 60% 25%, rgba(200, 200, 200, 0.54) 1px, transparent 1px),
         radial-gradient(0.88px 0.88px at 25% 85%, rgba(200, 200, 200, 0.32) 1px, transparent 1px),
         radial-gradient(2.95px 2.95px at 75% 65%, rgba(200, 200, 200, 0.47) 1px, transparent 1px);
-      background-size: 
-        300px 350px,
-        400px 420px,
-        350px 300px,
-        450px 500px,
-        380px 420px,
-        280px 380px,
-        420px 340px,
-        360px 410px,
-        400px 360px,
-        320px 390px,
-        390px 400px,
-        410px 380px,
-        370px 420px,
-        340px 360px,
-        440px 470px,
-        360px 340px,
-        420px 390px,
-        380px 360px,
-        400px 410px,
-        430px 370px;
-      background-repeat: repeat;
-      background-position: 0 0, 50px 30px, 80px 60px, 120px 40px, 30px 90px, 160px 20px, 70px 150px, 200px 80px, 110px 200px, 250px 110px, 40px 160px, 180px 45px, 220px 120px, 90px 250px, 280px 180px, 130px 20px, 310px 90px, 160px 290px, 60px 225px, 330px 240px;
-      animation: floatParticles1 60s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles2 73s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles3 87s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles4 67s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles5 80s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles6 63s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles7 77s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles8 70s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles9 83s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles10 90s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles11 57s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles12 93s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles13 65s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles14 78s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles15 97s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles16 68s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles17 82s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles18 72s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles19 85s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles20 92s cubic-bezier(0.34, 0, 0.66, 1) infinite;
     }
     .container {
       background: linear-gradient(135deg, #f5f5f5 44%, #cfcfcfff 90%, #d8d6d6ae 100%);
