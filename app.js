@@ -4132,6 +4132,28 @@ const renderLoginPage = () => `
         font-size: 16px !important;
       }
       
+      /* Mobile media query for request access modal */
+      @media (max-width: 480px) {
+        #requestAccessModal > div {
+          padding: 19.2px !important;
+          max-width: 100% !important;
+          width: 90% !important;
+          font-size: 13px !important;
+        }
+        
+        #requestAccessModal input,
+        #requestAccessModal textarea {
+          padding: 8.8px !important;
+          font-size: 11.2px !important;
+        }
+        
+        #submitRequestBtn,
+        #cancelRequestBtn {
+          padding: 9.6px !important;
+          font-size: 11px !important;
+        }
+      }
+      
       /* Fix background particles on Apple mobile */
       html {
         background: #f5f5f5 !important;
@@ -4148,6 +4170,8 @@ const renderLoginPage = () => `
       
       body::after {
         opacity: 1 !important;
+        display: block !important;
+      }
       }
       
       body.dark-mode::after {
