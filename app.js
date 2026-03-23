@@ -4098,7 +4098,7 @@ const renderLoginPage = () => `
       }
       
       #requestAccessModal h2 {
-        font-size: 16px !important;
+        font-size: 17px !important;
       }
       
       /* No particle overrides - use original animations */
