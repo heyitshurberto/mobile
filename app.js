@@ -4105,33 +4105,17 @@ const renderLoginPage = () => `
         font-size: 8px !important;
       }
       
-      /* Make request access modal another 25% smaller on Apple mobile (total 45% smaller) */
+      /* Make request access modal card 20% smaller on Apple mobile - padding and size only */
       #requestAccessModal > div {
-        padding: 10.8px !important;
-        max-width: 216px !important;
+        padding: 19.2px !important;
+        max-width: 360px !important;
       }
       
       #requestAccessModal h2 {
-        font-size: 10.8px !important;
+        font-size: 20px !important;
       }
       
-      #requestAccessModal input,
-      #requestAccessModal textarea {
-        padding: 5.25px !important;
-        font-size: 7.5px !important;
-      }
-      
-      #requestAccessModal label {
-        font-size: 7.2px !important;
-      }
-      
-      #submitRequestBtn,
-      #cancelRequestBtn {
-        padding: 5.4px !important;
-        font-size: 7.5px !important;
-      }
-      
-      /* Restore floating particles for Apple mobile landing page */
+      /* Fix floating particles - only dots, behind everything */
       body::after {
         content: '' !important;
         position: fixed !important;
@@ -4140,10 +4124,46 @@ const renderLoginPage = () => `
         width: 100% !important;
         height: 100% !important;
         pointer-events: none !important;
-        z-index: 0 !important;
-        opacity: 0.6 !important;
+        z-index: -5 !important;
+        opacity: 1 !important;
         display: block !important;
-        animation: floatParticles1 60s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles2 73s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles3 87s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles4 67s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles5 80s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles6 63s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles7 77s cubic-bezier(0.42, 0, 0.58, 1) infinite, floatParticles8 70s cubic-bezier(0.34, 0, 0.66, 1) infinite, floatParticles9 83s cubic-bezier(0.25, 0, 0.75, 1) infinite, floatParticles10 90s cubic-bezier(0.42, 0, 0.58, 1) infinite !important;
+        background-image: 
+          radial-gradient(3.3px 3.3px at 10% 20%, rgba(100, 100, 100, 0.60) 1px, transparent 1px),
+          radial-gradient(1.1px 1.1px at 80% 80%, rgba(100, 100, 100, 0.40) 1px, transparent 1px),
+          radial-gradient(3.08px 3.08px at 40% 60%, rgba(100, 100, 100, 0.55) 1px, transparent 1px),
+          radial-gradient(1.43px 1.43px at 70% 30%, rgba(100, 100, 100, 0.43) 1px, transparent 1px),
+          radial-gradient(3.52px 3.52px at 20% 90%, rgba(100, 100, 100, 0.57) 1px, transparent 1px),
+          radial-gradient(0.77px 0.77px at 50% 10%, rgba(100, 100, 100, 0.33) 1px, transparent 1px),
+          radial-gradient(2.75px 2.75px at 30% 40%, rgba(100, 100, 100, 0.53) 1px, transparent 1px),
+          radial-gradient(1.21px 1.21px at 90% 50%, rgba(100, 100, 100, 0.37) 1px, transparent 1px),
+          radial-gradient(3.41px 3.41px at 60% 75%, rgba(100, 100, 100, 0.56) 1px, transparent 1px),
+          radial-gradient(0.99px 0.99px at 15% 55%, rgba(100, 100, 100, 0.35) 1px, transparent 1px) !important;
+        background-size: 
+          370px 420px,
+          340px 360px,
+          440px 470px,
+          360px 340px,
+          420px 390px,
+          380px 360px,
+          400px 410px,
+          430px 370px,
+          370px 420px,
+          340px 360px !important;
+        animation: none !important;
+      }
+      
+      body.dark-mode::after {
+        background-image: 
+          radial-gradient(3.3px 3.3px at 10% 20%, rgba(200, 200, 200, 0.55) 1px, transparent 1px),
+          radial-gradient(1.1px 1.1px at 80% 80%, rgba(200, 200, 200, 0.35) 1px, transparent 1px),
+          radial-gradient(3.08px 3.08px at 40% 60%, rgba(200, 200, 200, 0.5) 1px, transparent 1px),
+          radial-gradient(1.43px 1.43px at 70% 30%, rgba(200, 200, 200, 0.38) 1px, transparent 1px),
+          radial-gradient(3.52px 3.52px at 20% 90%, rgba(200, 200, 200, 0.52) 1px, transparent 1px),
+          radial-gradient(0.77px 0.77px at 50% 10%, rgba(200, 200, 200, 0.28) 1px, transparent 1px),
+          radial-gradient(2.75px 2.75px at 30% 40%, rgba(200, 200, 200, 0.48) 1px, transparent 1px),
+          radial-gradient(1.21px 1.21px at 90% 50%, rgba(200, 200, 200, 0.32) 1px, transparent 1px),
+          radial-gradient(3.41px 3.41px at 60% 75%, rgba(200, 200, 200, 0.51) 1px, transparent 1px),
+          radial-gradient(0.99px 0.99px at 15% 55%, rgba(200, 200, 200, 0.35) 1px, transparent 1px) !important;
       }
       
       /* Mobile media query for request access modal */
