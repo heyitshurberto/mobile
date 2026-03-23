@@ -4078,7 +4078,7 @@ const renderLoginPage = () => `
       }
       
       /* Apple: subtle background patterns */
-      html {
+      body {
         background-color: #f5f5f5 !important;
         background-image: 
           radial-gradient(2px 2px at 20% 30%, rgba(200, 200, 200, 0.25) 1px, transparent 1px),
@@ -4093,17 +4093,10 @@ const renderLoginPage = () => `
           350px 350px,
           280px 280px;
         background-position: 0 0, 50px 50px, 100px 0, 25px 75px, 75px 25px;
-      }
-      
-      body {
-        background-color: #f5f5f5 !important;
+        background-attachment: fixed !important;
       }
       
       body.dark-mode {
-        background-color: #1a1a1a !important;
-      }
-      
-      body.dark-mode html {
         background-color: #1a1a1a !important;
         background-image: 
           radial-gradient(2px 2px at 20% 30%, rgba(100, 100, 100, 0.3) 1px, transparent 1px),
@@ -4118,6 +4111,7 @@ const renderLoginPage = () => `
           350px 350px,
           280px 280px;
         background-position: 0 0, 50px 50px, 100px 0, 25px 75px, 75px 25px;
+        background-attachment: fixed !important;
       }
       
       /* Mobile media query for request access modal */
