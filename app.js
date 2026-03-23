@@ -4015,8 +4015,8 @@ const renderLoginPage = () => `
       
       /* Make X logo 15% smaller on Apple mobile */
       [alt="X"] {
-        height: 13px !important;
-        width: 14px !important;
+        height: 13.5px !important;
+        width: 14.5px !important;
       }
       
       /* Move dashboard logo up 4px more on Apple */
