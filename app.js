@@ -3217,11 +3217,16 @@ const renderLoginPage = () => `
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
     body {
       font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
       background-color: #f5f5f5;
       background-attachment: fixed;
-      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -3230,6 +3235,18 @@ const renderLoginPage = () => `
       transition: background 0.3s ease, color 0.3s ease;
       position: relative;
       overflow: hidden;
+      box-sizing: border-box;
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-text-size-adjust: 100%;
+    }
+    @supports (padding: max(0px)) {
+      body {
+        padding-bottom: max(20px, env(safe-area-inset-bottom));
+        padding-left: max(20px, env(safe-area-inset-left));
+        padding-right: max(20px, env(safe-area-inset-right));
+      }
     }
     body::before {
       content: '';
@@ -3500,9 +3517,17 @@ const renderLoginPage = () => `
       max-width: 442px;
       max-height: 90vh;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
       width: 100%;
       text-align: center;
       transition: background 0.3s ease, color 0.3s ease;
+    }
+    @media (max-width: 480px) {
+      .container {
+        max-width: calc(100% - 0px);
+        max-height: 85vh;
+        padding: 8px 16px 24px 16px;
+      }
     }
     body.dark-mode .container {
       background: linear-gradient(135deg, #1a1a1aff 12%, #323232a4 80%, rgba(74, 74, 74, 0.45) 100%);

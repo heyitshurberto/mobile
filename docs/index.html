@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, user-scalable=yes">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
 <link rel="icon" type="image/jpeg" href="logo.jpeg">
 <style>
 
@@ -340,8 +340,8 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             background: ${modalBg};
             display: flex;
             align-items: flex-start;
@@ -349,13 +349,18 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             z-index: 999999;
             padding: ${modalPadding};
             padding-top: ${modalPaddingTop};
+            padding-bottom: max(${modalPadding}, env(safe-area-inset-bottom));
+            padding-left: max(${modalPadding}, env(safe-area-inset-left));
+            padding-right: max(${modalPadding}, env(safe-area-inset-right));
             box-sizing: border-box;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            -webkit-user-select: none;
         `;
         
         const container = document.createElement('div');
         const containerShadow = isDarkMode ? '0 10px 40px rgba(0, 0, 0, 0.9)' : '0 10px 40px rgba(0, 0, 0, 0.212)';
-        const containerMaxWidth = isMobile ? 'calc(100vw - 20px)' : '1051px';
+        const containerMaxWidth = isMobile ? 'calc(100% - 20px)' : '1051px';
         const containerHeight = isMobile ? '345px' : '463px';
         const containerAspectRatio = isMobile ? 'auto' : 'auto';
         container.style.cssText = `
@@ -369,6 +374,8 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             flex-direction: column;
             box-shadow: ${containerShadow};
             box-sizing: border-box;
+            -webkit-user-select: none;
+            flex-shrink: 0;
         `;
         
         const header = document.createElement('div');
@@ -441,7 +448,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                 const isLandscape = window.innerHeight < window.innerWidth;
                 const newModalPaddingTop = newIsMobile ? '25vh' : '120px';
                 const newModalPadding = newIsMobile ? '10px' : '20px';
-                const newContainerMaxWidth = newIsMobile ? 'calc(100vw - 20px)' : '1051px';
+                const newContainerMaxWidth = newIsMobile ? 'calc(100% - 20px)' : '1051px';
                 const newContainerHeight = (newIsMobile && isLandscape) ? '130px' : newIsMobile ? '345px' : '463px';
                 const newContainerAspectRatio = (newIsMobile && isLandscape) ? 'auto' : newIsMobile ? 'auto' : 'auto';
                 
@@ -2771,7 +2778,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             }
             
             .flatpickr-day {
-                color: #727272ba !important;
+                color: #333 !important;
                 background: transparent !important;
                 border: none !important;
                 border-radius: 4px !important;
@@ -4952,20 +4959,28 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     });
 
                     // Get alert counts by type
-                    const longCount = sortedAlerts.filter(alert => !isShortSetup(alert)).length;
-                    const shortCount = sortedAlerts.filter(alert => isShortSetup(alert)).length;
+                    let longCount = sortedAlerts.filter(alert => !isShortSetup(alert)).length;
+                    let shortCount = sortedAlerts.filter(alert => isShortSetup(alert)).length;
+                    
+                    // Limit alerts to max 8 per day
+                    const maxAlertsPerDay = 8;
+                    const alertsToDisplay = sortedAlerts.slice(0, maxAlertsPerDay);
+                    
+                    // Recalculate counts for displayed alerts only
+                    longCount = alertsToDisplay.filter(alert => !isShortSetup(alert)).length;
+                    shortCount = alertsToDisplay.filter(alert => isShortSetup(alert)).length;
 
                     // Clear container
                     container.innerHTML = '';
                     
                     let triggered = 0;
-                    sortedAlerts.forEach(alert => {
+                    alertsToDisplay.forEach(alert => {
                         if (alert.triggered) triggered++;
                         const alertCard = this.createAlertCard(alert);
                         container.appendChild(alertCard);
                     });
 
-                    activeCount.innerHTML = `${sortedAlerts.length} <span style="font-size: 11.5px;">(Long: ${longCount} | Short: ${shortCount})</span>`;
+                    activeCount.innerHTML = `${alertsToDisplay.length} <span style="font-size: 11.5px;">(Long: ${longCount} | Short: ${shortCount})</span>`;
                 }
 
                 // Restore scroll position after update if needed
