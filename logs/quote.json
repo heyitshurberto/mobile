@@ -835,7 +835,7 @@
   "PYXS": {
     "short": false,
     "alert": 1.47,
-    "highest": 1.42,
+    "highest": 1.365,
     "lowest": 1.365,
     "highest5Day": 1.47,
     "lowest5Day": 1.47,
@@ -894,7 +894,7 @@
   },
   "NTHI": {
     "alert": 7.88,
-    "highest": 7.88,
+    "highest": 7.41,
     "lowest": 7.41,
     "current": 7.88,
     "currentPrice": 7.88,
@@ -903,20 +903,20 @@
     "marketCap": 192026128,
     "performance": 0
   },
-  "KPTI": {
-    "short": false,
-    "alert": 6.66,
-    "highest": 6.66,
-    "lowest": 6.66,
-    "highest5Day": 6.66,
-    "lowest5Day": 6.66,
+  "ZSPC": {
+    "short": true,
+    "alert": 0.1564,
+    "highest": 0.1564,
+    "lowest": 0.1564,
+    "highest5Day": 0.1564,
+    "lowest5Day": 0.1564,
     "highest5DayPercent": 0,
     "lowest5DayPercent": 0,
-    "current": 6.66,
-    "currentPrice": 6.66,
+    "current": 0.1564,
+    "currentPrice": 0.1564,
     "performance": 0,
-    "date": "2026-03-24T12:01:40.280Z",
-    "alertDate": "2026-03-24T12:01:40.280Z",
+    "date": "2026-03-24T12:01:58.201Z",
+    "alertDate": "2026-03-24T12:01:58.201Z",
     "reverseSplitRatio": null
   }
 }

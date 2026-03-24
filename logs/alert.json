@@ -875,5 +875,78 @@
     "highest5DayPercent": 0,
     "lowest5Day": 0,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "ZSPC",
+    "title": "8-K - zSpace, Inc. (0001637147) (Filer)",
+    "companyName": "zSpace, Inc.",
+    "filerName": null,
+    "sector": "Diversified Consumer Services",
+    "price": 0.1564,
+    "fav": "10.69",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.1,
+    "filingTimeBonus": 1.1,
+    "volume": 1024243,
+    "averageVolume": 1269472,
+    "float": 13572200,
+    "sharesOutstanding": 33302983,
+    "soRatio": "40.75%",
+    "marketCap": 5208586,
+    "isShort": true,
+    "ftd": 51125,
+    "ftdPercent": "0.38",
+    "intent": "Merger/Acquisition, Bankruptcy Filing, Credit Default, Asset Disposition, Partnership",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-03-24",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Bankruptcy Filing": [
+        "Insolvency Proceedings"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-10.1",
+      "EX-10.2",
+      "Item 1.01",
+      "Item 1.02",
+      "Item 2.03",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-10.1, EX-10.2, Item 1.01, Item 1.02, Item 2.03, Item 9.01",
+    "cik": "1637147",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Distressed)",
+    "deterministicMechanism": "Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.",
+    "deterministicPhrase": "[Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.]",
+    "recordedAt": "2026-03-24T12:01:58.156Z",
+    "recordId": "ZSPC-1774353718156",
+    "expiresAt": "2026-03-29T12:01:58.156Z",
+    "direction": "SHORT",
+    "highest5Day": 0,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0.1564,
+    "lowest5DayPercent": 0
   }
 ]
