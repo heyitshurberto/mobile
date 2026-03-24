@@ -4835,9 +4835,75 @@
     "recordId": "LENZ-1774354293009",
     "expiresAt": "2026-03-29T12:11:33.009Z",
     "direction": "LONG",
-    "highest5Day": 11,
+    "highest5Day": 11.475,
+    "highest5DayPercent": 4.32,
+    "lowest5Day": 10.62,
+    "lowest5DayPercent": -3.45
+  },
+  {
+    "ticker": "WBUY",
+    "title": "6-K - WEBUY GLOBAL LTD (0001946703) (Filer)",
+    "companyName": "WEBUY GLOBAL LTD",
+    "filerName": null,
+    "sector": "Retail",
+    "price": 0.959,
+    "fav": "51.07",
+    "hasTuesdayBonus": true,
+    "custodianControl": false,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.15,
+    "filingTimeBonus": 1.15,
+    "volume": 30972,
+    "averageVolume": 391598,
+    "float": 20000000,
+    "sharesOutstanding": 3563336,
+    "soRatio": "561.3%",
+    "marketCap": 3417239,
+    "isShort": true,
+    "ftd": 2733,
+    "ftdPercent": "0.01",
+    "intent": "Credit Default, Accounting Restatement, Asset Disposition",
+    "incorporated": "Cayman Islands",
+    "located": "Cayman Islands",
+    "filingDate": "2026-03-24",
+    "signals": {
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Accounting Restatement": [
+        "Material Weakness"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "F-1",
+      "F-3",
+      "20-F",
+      "13D",
+      "EX-10.1"
+    ],
+    "filingType": "6-K, F-1, F-3, 20-F, 13D, EX-10.1",
+    "cik": "1946703",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-24T12:31:03.865Z",
+    "recordId": "WBUY-1774355463865",
+    "expiresAt": "2026-03-29T12:31:03.865Z",
+    "direction": "SHORT",
+    "highest5Day": 0.959,
     "highest5DayPercent": 0,
-    "lowest5Day": 11,
+    "lowest5Day": 0.959,
     "lowest5DayPercent": 0
   }
 ]

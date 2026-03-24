@@ -903,20 +903,20 @@
     "marketCap": 192026128,
     "performance": 0
   },
-  "LENZ": {
-    "short": false,
-    "alert": 11,
-    "highest": 11,
-    "lowest": 11,
-    "highest5Day": 11,
-    "lowest5Day": 11,
+  "WBUY": {
+    "short": true,
+    "alert": 0.959,
+    "highest": 0.959,
+    "lowest": 0.959,
+    "highest5Day": 0.959,
+    "lowest5Day": 0.959,
     "highest5DayPercent": 0,
     "lowest5DayPercent": 0,
-    "current": 11,
-    "currentPrice": 11,
+    "current": 0.959,
+    "currentPrice": 0.959,
     "performance": 0,
-    "date": "2026-03-24T12:11:33.133Z",
-    "alertDate": "2026-03-24T12:11:33.133Z",
+    "date": "2026-03-24T12:31:03.902Z",
+    "alertDate": "2026-03-24T12:31:03.902Z",
     "reverseSplitRatio": null
   }
 }
