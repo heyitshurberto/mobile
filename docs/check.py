@@ -593,13 +593,6 @@ def main():
                 for i, key in enumerate(header):
                     if i < len(line):
                         row_dict[key] = line[i]
-                # Always use the actual last column as Skip Reason
-                if len(line) > len(header):
-                    row_dict['Skip Reason'] = line[-1]
-                elif 'Skip Reason' in header:
-                    idx = header.index('Skip Reason')
-                    if idx < len(line):
-                        row_dict['Skip Reason'] = line[idx]
                 rows.append(row_dict)
     except FileNotFoundError:
         print("ERROR: No track.csv found.")
@@ -642,13 +635,12 @@ def main():
         except ValueError:
             continue
         
-        skip_reason = ticker_rows[0].get('Skip Reason', '')
-        # If Skip Reason column is not found, it might be the last column due to CSV formatting
-        if not skip_reason or skip_reason == '':
-            # Try to get it from the raw row values as the last non-empty field
-            all_vals = list(ticker_rows[0].values())
-            if all_vals:
-                skip_reason = all_vals[-1] if all_vals[-1] else ''
+        skip_reason = ticker_rows[0].get('Skip Reason', '').strip()
+        
+        # If Skip Reason is empty, try Alert Type
+        if not skip_reason:
+            skip_reason = ticker_rows[0].get('Alert Type', '').strip()
+        
         # Remove bonus filter text for cleaner display
         if '(Bonus:' in skip_reason:
             skip_reason = skip_reason.split('(Bonus:')[0].strip()
@@ -696,6 +688,10 @@ def main():
             
             # Track big movers (10% +/- threshold) but exclude extreme outliers (700%+ = reverse split artifacts)
             if abs(move_pct) >= 10 and abs(move_pct) < 700:
+                # Use Catalyst for big movers display since Skip Reason column is malformed in CSV
+                catalyst_for_display = ticker_rows[0].get('Catalyst', skip_reason)
+                if '(Bonus:' in catalyst_for_display:
+                    catalyst_for_display = catalyst_for_display.split('(Bonus:')[0].strip()
                 big_movers.append({
                     'ticker': ticker,
                     'alert_price': alert_price,
@@ -703,7 +699,7 @@ def main():
                     'peak_price': peak_price,
                     'move_pct': move_pct,
                     'peak_move_pct': peak_move_pct,
-                    'skip_reason': skip_reason,
+                    'skip_reason': catalyst_for_display,
                     'incorporated': incorporated,
                     'located': located,
                     'filed_display': filed_display
