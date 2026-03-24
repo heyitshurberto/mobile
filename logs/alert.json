@@ -948,5 +948,73 @@
     "highest5DayPercent": 0,
     "lowest5Day": 0.1564,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "LENZ",
+    "title": "8-K - LENZ Therapeutics, Inc. (0001815776) (Filer)",
+    "companyName": "LENZ Therapeutics, Inc.",
+    "filerName": null,
+    "sector": "Pharmaceuticals",
+    "price": 11,
+    "fav": "21.03",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.1,
+    "filingTimeBonus": 1.1,
+    "volume": 1478776,
+    "averageVolume": 953693,
+    "float": 20052200,
+    "sharesOutstanding": 31289969,
+    "soRatio": "64.09%",
+    "marketCap": 344189632,
+    "isShort": false,
+    "ftd": 44837,
+    "ftdPercent": "0.22",
+    "intent": "FDA Approved, FDA Filing, Clinical Success, Commercial Inflection",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-03-24",
+    "signals": {
+      "FDA Approved": [
+        "FDA Approval"
+      ],
+      "FDA Filing": [
+        "Regulatory Filing"
+      ],
+      "Clinical Success": [
+        "Phase 3",
+        "Positive Phase 3"
+      ],
+      "Commercial Inflection": [
+        "Cash Runway"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-99.1",
+      "Item 2.02",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-99.1, Item 2.02, Item 9.01",
+    "cik": "1815776",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Clinical Success / Milestone",
+    "deterministicMechanism": "Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.",
+    "deterministicPhrase": "[Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.]",
+    "recordedAt": "2026-03-24T12:11:33.009Z",
+    "recordId": "LENZ-1774354293009",
+    "expiresAt": "2026-03-29T12:11:33.009Z",
+    "direction": "LONG",
+    "highest5Day": 11,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
   }
 ]
