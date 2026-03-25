@@ -4584,10 +4584,11 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     let currentVolume = parseInt(quote.volume) || 0;
                     let averageVolume = parseInt(quote.averageVolume) || 0;
                     
-                    if (currentVolume === 0 && this.alerts.get(ticker) && this.alerts.get(ticker).length > 0) {
+                    // Fallback to alert.json data if quote data is missing/zero
+                    if ((currentVolume === 0 || averageVolume === 0) && this.alerts.get(ticker) && this.alerts.get(ticker).length > 0) {
                         const firstAlert = this.alerts.get(ticker)[0];
-                        currentVolume = parseInt(firstAlert.volume) || 0;
-                        averageVolume = parseInt(firstAlert.averageVolume) || 0;
+                        if (currentVolume === 0) currentVolume = parseInt(firstAlert.volume) || 0;
+                        if (averageVolume === 0) averageVolume = parseInt(firstAlert.averageVolume) || 0;
                     }
 
                     let priceChanged = false;

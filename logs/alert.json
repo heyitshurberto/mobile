@@ -1082,5 +1082,714 @@
     "highest5DayPercent": 0,
     "lowest5Day": 0.959,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "ENLV",
+    "title": "6-K - Enlivex Ltd. (0001596812) (Filer)",
+    "companyName": "Enlivex Ltd.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 1.11,
+    "fav": "15.94",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Israel (via Tel Aviv, Israel)",
+    "filingTimeMultiplier": 1.15,
+    "filingTimeBonus": 1.15,
+    "volume": 269084,
+    "averageVolume": 352803,
+    "float": 5622300,
+    "sharesOutstanding": 237381498,
+    "soRatio": "2.37%",
+    "marketCap": 263493472,
+    "isShort": true,
+    "ftd": 696682,
+    "ftdPercent": "12.39",
+    "intent": "Convertible Debt, Credit Default, Regulatory Breach, Reverse Split Event, Asset Disposition, Stock Buyback, Partnership",
+    "incorporated": "Tel Aviv, Israel",
+    "located": "Israel",
+    "filingDate": "2026-03-24",
+    "signals": {
+      "Convertible Debt": [
+        "Convertible Securities"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Regulatory Breach": [
+        "Warning Letter"
+      ],
+      "Reverse Split Event": [
+        "Reverse Split"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Stock Buyback": [
+        "Share Repurchase",
+        "Repurchase Program"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "S-8",
+      "F-3",
+      "20-F",
+      "13D",
+      "EX-10.1"
+    ],
+    "filingType": "6-K, S-8, F-3, 20-F, 13D, EX-10.1",
+    "cik": "1596812",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-24T12:35:55.058Z",
+    "recordId": "ENLV-1774355755058",
+    "expiresAt": "2026-03-29T12:35:55.058Z",
+    "direction": "SHORT",
+    "highest5Day": 0,
+    "highest5DayPercent": 0,
+    "lowest5Day": 1.11,
+    "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "NRSN",
+    "title": "6-K - NeuroSense Therapeutics Ltd. (0001875091) (Filer)",
+    "companyName": "NeuroSense Therapeutics Ltd.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 0.7456,
+    "fav": "62.44",
+    "hasTuesdayBonus": true,
+    "custodianControl": false,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.15,
+    "filingTimeBonus": 1.15,
+    "volume": 58672,
+    "averageVolume": 220479,
+    "float": 13767800,
+    "sharesOutstanding": 33396608,
+    "soRatio": "41.23%",
+    "marketCap": 24900510,
+    "isShort": false,
+    "ftd": 13262,
+    "ftdPercent": "0.10",
+    "intent": "FDA Approved, Clinical Success",
+    "incorporated": "Tel Aviv, Israel",
+    "located": "Tel Aviv, Israel",
+    "filingDate": "2026-03-24",
+    "signals": {
+      "FDA Approved": [
+        "FDA Clearance"
+      ],
+      "Clinical Success": [
+        "Phase 3",
+        "Biomarker",
+        "Statistically Significant"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "S-8",
+      "F-3",
+      "S-9",
+      "20-F",
+      "EX-99.1"
+    ],
+    "filingType": "6-K, S-8, F-3, 20-F, EX-99.1",
+    "cik": "1875091",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-03-24T14:12:14.045Z",
+    "recordId": "NRSN-1774361534045",
+    "expiresAt": "2026-03-29T14:12:14.045Z",
+    "direction": "LONG",
+    "highest5Day": 0.7456,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "BMEA",
+    "title": "8-K - Biomea Fusion, Inc. (0001840439) (Filer)",
+    "companyName": "Biomea Fusion, Inc.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 1.13,
+    "fav": "47.88",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 1006802,
+    "averageVolume": 1093113,
+    "float": 52342502,
+    "sharesOutstanding": 70703639,
+    "soRatio": "74.03%",
+    "marketCap": 79895112,
+    "isShort": false,
+    "ftd": 57152,
+    "ftdPercent": "0.11",
+    "intent": "Clinical Success, Clinical Milestone, Commercial Inflection",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-03-24",
+    "signals": {
+      "Clinical Success": [
+        "Safety Profile",
+        "Primary Endpoint",
+        "Topline Data",
+        "Mechanism Of Action"
+      ],
+      "Clinical Milestone": [
+        "Patient Enrollment"
+      ],
+      "Commercial Inflection": [
+        "Cash Runway"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-99.1",
+      "Item 2.02",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-99.1, Item 2.02, Item 9.01",
+    "cik": "1840439",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-03-24T20:10:14.623Z",
+    "recordId": "BMEA-1774383014623",
+    "expiresAt": "2026-03-29T20:10:14.624Z",
+    "direction": "LONG",
+    "highest5Day": 1.13,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "CETX",
+    "title": "8-K/A - CEMTREX INC (0001435064) (Filer)",
+    "companyName": "CEMTREX INC",
+    "filerName": null,
+    "sector": "Electrical Equipment",
+    "price": 0.5976,
+    "fav": "1.89",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "New York (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 144898,
+    "averageVolume": 3746379,
+    "float": 7077875,
+    "sharesOutstanding": 10078089,
+    "soRatio": "70.23%",
+    "marketCap": 6022666,
+    "isShort": false,
+    "ftd": 127045,
+    "ftdPercent": "1.79",
+    "intent": "Merger/Acquisition, Asset Disposition",
+    "incorporated": "Wilmington, Delaware",
+    "located": "New York",
+    "filingDate": "2026-03-24",
+    "signals": {
+      "Merger/Acquisition": [
+        "Agreed To Acquire",
+        "Material Definitive Agreement"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {
+      "signals": [
+        "High Leverage - Debt/Equity Exceeds 3.0"
+      ],
+      "severity": 0.75,
+      "isDeterministic": true
+    },
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "8-K/A",
+      "S-3",
+      "S-8",
+      "EX-99.1",
+      "EX-99.2",
+      "Item 1.01",
+      "Item 2.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, 8-K/A, S-3, S-8, EX-99.1, EX-99.2, Item 1.01, Item 2.01, Item 9.01",
+    "cik": "1435064",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-24T20:16:39.664Z",
+    "recordId": "CETX-1774383399664",
+    "expiresAt": "2026-03-29T20:16:39.664Z",
+    "direction": "LONG",
+    "highest5Day": 0.5976,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "XELB",
+    "title": "8-K - XCel Brands, Inc. (0001083220) (Filer)",
+    "companyName": "XCel Brands, Inc.",
+    "filerName": null,
+    "sector": "Retail",
+    "price": 1.5,
+    "fav": "84.95",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "New York (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 9568,
+    "averageVolume": 41777,
+    "float": 3548786,
+    "sharesOutstanding": 5893815,
+    "soRatio": "60.21%",
+    "marketCap": 8840722,
+    "isShort": true,
+    "ftd": 3860,
+    "ftdPercent": "0.11",
+    "intent": "Merger/Acquisition, Credit Default, Asset Disposition",
+    "incorporated": "Wilmington, Delaware",
+    "located": "New York",
+    "filingDate": "2026-03-24",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Asset Disposition": [
+        "Asset Sale"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "S-1",
+      "EX-10.1",
+      "Item 1.01",
+      "Item 2.03",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, S-1, EX-10.1, Item 1.01, Item 2.03, Item 9.01",
+    "cik": "1083220",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-24T20:20:47.208Z",
+    "recordId": "XELB-1774383647208",
+    "expiresAt": "2026-03-29T20:20:47.209Z",
+    "direction": "SHORT",
+    "highest5Day": 0,
+    "highest5DayPercent": 0,
+    "lowest5Day": 1.5,
+    "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "CING",
+    "title": "8-K - Cingulate Inc. (0001862150) (Filer)",
+    "companyName": "Cingulate Inc.",
+    "filerName": null,
+    "sector": "Pharmaceuticals",
+    "price": 6.71,
+    "fav": "12.52",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Kansas (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.15,
+    "filingTimeBonus": 1.15,
+    "volume": 576190,
+    "averageVolume": 446901,
+    "float": 5596934,
+    "sharesOutstanding": 11628613,
+    "soRatio": "48.13%",
+    "marketCap": 78027992,
+    "isShort": true,
+    "ftd": 6941,
+    "ftdPercent": "0.12",
+    "intent": "Merger/Acquisition, Regulatory Breach, Going Dark, Partnership",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Kansas",
+    "filingDate": "2026-03-24",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Regulatory Breach": [
+        "Warning Letter"
+      ],
+      "Going Dark": [
+        "Deregister"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "S-3",
+      "EX-1.1",
+      "Item 1.01",
+      "Item 5.07"
+    ],
+    "filingType": "8-K, S-3, EX-1.1, Item 1.01, Item 5.07",
+    "cik": "1862150",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Merger/Acquisition",
+    "deterministicMechanism": "M&A catalyst = immediate upside catalyst. Market prices in deal value, synergies, and premium.",
+    "deterministicPhrase": "[M&A catalyst = immediate upside catalyst. Market prices in deal value, synergies, and premium.]",
+    "recordedAt": "2026-03-24T21:16:20.614Z",
+    "recordId": "CING-1774386980614",
+    "expiresAt": "2026-03-29T21:16:20.614Z",
+    "direction": "SHORT",
+    "highest5Day": 0,
+    "highest5DayPercent": 0,
+    "lowest5Day": 6.71,
+    "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "SLGL",
+    "title": "6-K - Sol-Gel Technologies Ltd. (0001684693) (Filer)",
+    "companyName": "Sol-Gel Technologies Ltd.",
+    "filerName": null,
+    "sector": "Pharmaceuticals",
+    "price": 80.01,
+    "fav": "30.53",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Israel (via Tel Aviv, Israel)",
+    "filingTimeMultiplier": 1.15,
+    "filingTimeBonus": 1.15,
+    "volume": 55743,
+    "averageVolume": 27372,
+    "float": 835675,
+    "sharesOutstanding": 2785787,
+    "soRatio": "30.00%",
+    "marketCap": 222890816,
+    "isShort": false,
+    "ftd": 7129,
+    "ftdPercent": "0.85",
+    "intent": "FDA Approved, Clinical Success, Capital Raise, Regulatory Breach, Partnership, Licensing Deal",
+    "incorporated": "Tel Aviv, Israel",
+    "located": "Israel",
+    "filingDate": "2026-03-24",
+    "signals": {
+      "FDA Approved": [
+        "Approval Granted"
+      ],
+      "Clinical Success": [
+        "Efficacy"
+      ],
+      "Capital Raise": [
+        "Oversubscribed"
+      ],
+      "Regulatory Breach": [
+        "Warning Letter"
+      ],
+      "Partnership": [
+        "Joint Venture",
+        "Partnership Agreement"
+      ],
+      "Licensing Deal": [
+        "License Agreement"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "S-8",
+      "F-3",
+      "20-F",
+      "EX-1.1"
+    ],
+    "filingType": "6-K, S-8, F-3, 20-F, EX-1.1",
+    "cik": "1684693",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Clinical Success / Milestone",
+    "deterministicMechanism": "Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.",
+    "deterministicPhrase": "[Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.]",
+    "recordedAt": "2026-03-24T21:17:10.070Z",
+    "recordId": "SLGL-1774387030070",
+    "expiresAt": "2026-03-29T21:17:10.070Z",
+    "direction": "LONG",
+    "highest5Day": 80.01,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "MAZE",
+    "title": "8-K - Maze Therapeutics, Inc. (0001842295) (Filer)",
+    "companyName": "Maze Therapeutics, Inc.",
+    "filerName": null,
+    "sector": "Pharmaceuticals",
+    "price": 49,
+    "fav": "28.44",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 550253,
+    "averageVolume": 488452,
+    "float": 13892516,
+    "sharesOutstanding": 48119444,
+    "soRatio": "28.87%",
+    "marketCap": 2357852672,
+    "isShort": false,
+    "ftd": 74613,
+    "ftdPercent": "0.54",
+    "intent": "Clinical Success, Clinical Milestone, Licensing Deal, Commercial Inflection",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-03-25",
+    "signals": {
+      "Clinical Success": [
+        "Phase 1",
+        "Phase 2",
+        "Efficacy",
+        "Topline Data"
+      ],
+      "Clinical Milestone": [
+        "First Patient"
+      ],
+      "Licensing Deal": [
+        "Exclusive License",
+        "License Agreement"
+      ],
+      "Commercial Inflection": [
+        "Proof Of Concept",
+        "Cash Runway"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "S-8",
+      "13G",
+      "EX-99.1",
+      "EX-99.2",
+      "Item 2.02",
+      "Item 5.02",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, S-8, 13G, EX-99.1, EX-99.2, Item 2.02, Item 5.02, Item 7.01, Item 9.01",
+    "cik": "1842295",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Clinical Success / Milestone",
+    "deterministicMechanism": "Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.",
+    "deterministicPhrase": "[Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.]",
+    "recordedAt": "2026-03-25T11:08:44.790Z",
+    "recordId": "MAZE-1774436924790",
+    "expiresAt": "2026-03-30T11:08:44.790Z",
+    "direction": "LONG",
+    "highest5Day": 49,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "KALV",
+    "title": "8-K - KalVista Pharmaceuticals, Inc. (0001348911) (Filer)",
+    "companyName": "KalVista Pharmaceuticals, Inc.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 16.46,
+    "fav": "37.87",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Massachusetts (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 645549,
+    "averageVolume": 982154,
+    "float": 37197780,
+    "sharesOutstanding": 50546293,
+    "soRatio": "73.59%",
+    "marketCap": 831991936,
+    "isShort": false,
+    "ftd": 50513,
+    "ftdPercent": "0.14",
+    "intent": "FDA Filing, Clinical Success, Commercial Inflection",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Massachusetts",
+    "filingDate": "2026-03-25",
+    "signals": {
+      "FDA Filing": [
+        "Regulatory Filing"
+      ],
+      "Clinical Success": [
+        "Phase 3",
+        "Efficacy"
+      ],
+      "Commercial Inflection": [
+        "Cash Runway"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "F-4",
+      "EX-99.1",
+      "Item 2.02",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, F-4, EX-99.1, Item 2.02, Item 9.01",
+    "cik": "1348911",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-03-25T11:17:26.404Z",
+    "recordId": "KALV-1774437446404",
+    "expiresAt": "2026-03-30T11:17:26.404Z",
+    "direction": "LONG",
+    "highest5Day": 16.46,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "TERN",
+    "title": "8-K - Terns Pharmaceuticals, Inc. (0001831363) (Filer)",
+    "companyName": "Terns Pharmaceuticals, Inc.",
+    "filerName": null,
+    "sector": "Pharmaceuticals",
+    "price": 50,
+    "fav": "1.10",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "volume": 2422504,
+    "averageVolume": 2164449,
+    "float": 2380952,
+    "sharesOutstanding": 108767281,
+    "soRatio": "2.19%",
+    "marketCap": 5438364160,
+    "isShort": true,
+    "ftd": 55487,
+    "ftdPercent": "2.33",
+    "intent": "Merger/Acquisition, Accounting Restatement, Going Dark, Reverse Split Event, Asset Disposition",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-03-25",
+    "signals": {
+      "Merger/Acquisition": [
+        "Merger Agreement",
+        "Merger Consideration",
+        "Material Definitive Agreement"
+      ],
+      "Accounting Restatement": [
+        "Material Weakness"
+      ],
+      "Going Dark": [
+        "Deregistration"
+      ],
+      "Reverse Split Event": [
+        "Reverse Stock Split",
+        "Consolidation Of Shares"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "Item 1.01",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, Item 1.01, Item 7.01, Item 9.01",
+    "cik": "1831363",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-25T11:17:49.991Z",
+    "recordId": "TERN-1774437469991",
+    "expiresAt": "2026-03-30T11:17:49.991Z",
+    "direction": "SHORT",
+    "highest5Day": 0,
+    "highest5DayPercent": 0,
+    "lowest5Day": 50,
+    "lowest5DayPercent": 0
   }
 ]

@@ -87,7 +87,7 @@ const originalError = console.error;
 const originalWrite = process.stdout.write;
 const suppressPatterns = [
   'Fetching crumb', 'We expected', "We'll try", 'Success. Cookie', 'New crumb',
-  'guce.yahoo.com', 'consent.yahoo.com', 'query1.finance.yahoo.com', 'collectConsent', 'copyConsent',
+  'guce.yahoo.com', 'consent.yahoo.com', 'query1.finance.yahoo.com', 'query2.finance.yahoo.com', 'collectConsent', 'copyConsent',
   'redirect to guce', 'getcrumb', '/quote/AAPL',
   'yahoo-finance2', 'v2 is no longer maintained nor supported', 'Please migrate to v3',
   'Circuit open', 'returning cached quote', 'Opening circuit', 'attempt', 'Unexpected token',
