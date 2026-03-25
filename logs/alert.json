@@ -1935,5 +1935,79 @@
     "highest5DayPercent": 0,
     "lowest5Day": 0,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "PRTS",
+    "title": "8-K - CarParts.com, Inc. (0001378950) (Filer)",
+    "companyName": "CarParts.com, Inc.",
+    "filerName": null,
+    "sector": "Retail",
+    "price": 0.83,
+    "fav": "11.08",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 626592,
+    "averageVolume": 902598,
+    "float": 10000000,
+    "sharesOutstanding": 66691662,
+    "soRatio": "14.99%",
+    "marketCap": 55354080,
+    "isShort": true,
+    "ftd": 3109,
+    "ftdPercent": "0.03",
+    "intent": "Merger/Acquisition, Convertible Debt, Accounting Restatement, Asset Disposition, Partnership",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-03-25",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Convertible Debt": [
+        "Convertible Notes"
+      ],
+      "Accounting Restatement": [
+        "Material Weakness"
+      ],
+      "Asset Disposition": [
+        "Disposition",
+        "Divested"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "13D",
+      "EX-10.1",
+      "Item 1.01",
+      "Item 3.02",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, 13D, EX-10.1, Item 1.01, Item 3.02, Item 8.01, Item 9.01",
+    "cik": "1378950",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-25T13:02:23.487Z",
+    "recordId": "PRTS-1774443743487",
+    "expiresAt": "2026-03-30T13:02:23.487Z",
+    "direction": "SHORT",
+    "highest5Day": 0,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0.83,
+    "lowest5DayPercent": 0
   }
 ]

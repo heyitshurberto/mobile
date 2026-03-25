@@ -1,7 +1,7 @@
 {
   "ENGN": {
     "alert": 8.68,
-    "highest": 6.9,
+    "highest": 6.6,
     "lowest": 6.6,
     "current": 7.23,
     "currentPrice": 6.9,
@@ -12,7 +12,7 @@
   },
   "IBIO": {
     "alert": 2.61,
-    "highest": 2.08,
+    "highest": 2.0001,
     "lowest": 2.0001,
     "current": 2.54,
     "currentPrice": 2.08,
@@ -23,7 +23,7 @@
   },
   "NBP": {
     "alert": 3.5,
-    "highest": 2.52,
+    "highest": 2.44,
     "lowest": 2.44,
     "current": 2.9183,
     "currentPrice": 2.52,
@@ -78,7 +78,7 @@
   },
   "FCEL": {
     "alert": 7.6,
-    "highest": 6.94,
+    "highest": 6.41,
     "lowest": 6.41,
     "current": 6.805,
     "currentPrice": 6.94,
@@ -111,7 +111,7 @@
   },
   "PLX": {
     "alert": 2.62,
-    "highest": 2.07,
+    "highest": 2.04,
     "lowest": 2.04,
     "current": 2.875,
     "currentPrice": 2.07,
@@ -122,7 +122,7 @@
   },
   "GEL": {
     "alert": 18.09,
-    "highest": 17.93,
+    "highest": 17.19,
     "lowest": 17.19,
     "current": 17.805,
     "currentPrice": 17.93,
@@ -144,7 +144,7 @@
   },
   "MBX": {
     "alert": 30.55,
-    "highest": 27.82,
+    "highest": 26.42,
     "lowest": 26.42,
     "current": 31,
     "currentPrice": 27.82,
@@ -166,7 +166,7 @@
   },
   "ALOY": {
     "alert": 17.5,
-    "highest": 10.79,
+    "highest": 10.63,
     "lowest": 10.63,
     "current": 11.455,
     "currentPrice": 10.79,
@@ -188,7 +188,7 @@
   },
   "ALLR": {
     "alert": 1.24,
-    "highest": 1.12,
+    "highest": 1.055,
     "lowest": 1.055,
     "current": 1.28,
     "currentPrice": 1.12,
@@ -199,7 +199,7 @@
   },
   "JAGX": {
     "alert": 0.5905,
-    "highest": 0.3972,
+    "highest": 0.3805,
     "lowest": 0.3805,
     "current": 0.5233,
     "currentPrice": 0.3972,
@@ -243,7 +243,7 @@
   },
   "CRDL": {
     "alert": 1,
-    "highest": 1.05,
+    "highest": 0.8974,
     "lowest": 0.8974,
     "current": 1,
     "currentPrice": 1.05,
@@ -254,7 +254,7 @@
   },
   "BIYA": {
     "alert": 3.95,
-    "highest": 1.52,
+    "highest": 1.285,
     "lowest": 1.285,
     "current": 3.95,
     "currentPrice": 1.52,
@@ -287,7 +287,7 @@
   },
   "CNL": {
     "alert": 16.78,
-    "highest": 14.17,
+    "highest": 13.3201,
     "lowest": 13.3201,
     "current": 16.78,
     "currentPrice": 14.17,
@@ -298,7 +298,7 @@
   },
   "NTLA": {
     "alert": 13.95,
-    "highest": 12.81,
+    "highest": 12.71,
     "lowest": 12.71,
     "current": 13.95,
     "currentPrice": 12.81,
@@ -309,7 +309,7 @@
   },
   "OM": {
     "alert": 4.97,
-    "highest": 3.53,
+    "highest": 3.055,
     "lowest": 3.055,
     "current": 4.97,
     "currentPrice": 3.53,
@@ -320,7 +320,7 @@
   },
   "CBU": {
     "alert": 61.77,
-    "highest": 57.31,
+    "highest": 55.605,
     "lowest": 55.605,
     "current": 61.77,
     "currentPrice": 57.31,
@@ -331,7 +331,7 @@
   },
   "ANEB": {
     "alert": 1.08,
-    "highest": 1.03,
+    "highest": 0.3727,
     "lowest": 0.3727,
     "current": 1.08,
     "currentPrice": 1.03,
@@ -342,7 +342,7 @@
   },
   "OSRH": {
     "alert": 0.72,
-    "highest": 0.4541,
+    "highest": 0.39,
     "lowest": 0.39,
     "current": 0.72,
     "currentPrice": 0.4541,
@@ -404,7 +404,7 @@
   "DSGN": {
     "short": false,
     "alert": 10.37,
-    "highest": 10.31,
+    "highest": 9.69,
     "lowest": 9.69,
     "highest5Day": 10.37,
     "highest5DayPercent": 0,
@@ -431,7 +431,7 @@
   },
   "SGP": {
     "alert": 27.12,
-    "highest": 23.74,
+    "highest": 22.74,
     "lowest": 22.74,
     "current": 27.15,
     "currentPrice": 23.74,
@@ -493,7 +493,7 @@
   "CACI": {
     "short": false,
     "alert": 633.21,
-    "highest": 576.71,
+    "highest": 576.4,
     "lowest": 576.4,
     "highest5Day": 633.21,
     "highest5DayPercent": 0,
@@ -526,7 +526,7 @@
   },
   "LEGN": {
     "alert": 19.14,
-    "highest": 17.09,
+    "highest": 16.97,
     "lowest": 16.97,
     "current": 19.04,
     "currentPrice": 17.09,
@@ -548,7 +548,7 @@
   },
   "RAPP": {
     "alert": 30.54,
-    "highest": 28.25,
+    "highest": 26.48,
     "lowest": 26.48,
     "current": 28.33,
     "currentPrice": 28.25,
@@ -560,7 +560,7 @@
   "CGEM": {
     "short": false,
     "alert": 15.31,
-    "highest": 13.64,
+    "highest": 12.4396,
     "lowest": 12.4396,
     "highest5Day": 15.31,
     "highest5DayPercent": 0,
@@ -577,7 +577,7 @@
   "WELL": {
     "short": false,
     "alert": 207.68,
-    "highest": 196.61,
+    "highest": 193.39,
     "lowest": 193.39,
     "highest5Day": 207.68,
     "highest5DayPercent": 0,
@@ -604,7 +604,7 @@
   },
   "ESPR": {
     "alert": 3.04,
-    "highest": 2.62,
+    "highest": 2.385,
     "lowest": 2.385,
     "current": 2.616,
     "currentPrice": 2.62,
@@ -615,7 +615,7 @@
   },
   "TKO": {
     "alert": 204.07,
-    "highest": 193.48,
+    "highest": 186.96,
     "lowest": 186.96,
     "current": 197.62,
     "currentPrice": 193.48,
@@ -626,7 +626,7 @@
   },
   "KDP": {
     "alert": 28.19,
-    "highest": 26.21,
+    "highest": 26.195,
     "lowest": 26.195,
     "current": 27.895,
     "currentPrice": 26.21,
@@ -637,7 +637,7 @@
   },
   "EB": {
     "alert": 4.51,
-    "highest": 4.51,
+    "highest": 4.49,
     "lowest": 4.49,
     "current": 4.51,
     "currentPrice": 4.51,
@@ -677,7 +677,7 @@
   "GLUE": {
     "short": false,
     "alert": 16.35,
-    "highest": 14.72,
+    "highest": 14.3,
     "lowest": 14.3,
     "highest5Day": 16.35,
     "lowest5Day": 16.35,
@@ -696,7 +696,7 @@
   "ABEO": {
     "short": false,
     "alert": 4.95,
-    "highest": 4.33,
+    "highest": 4.31,
     "lowest": 4.31,
     "highest5Day": 4.95,
     "lowest5Day": 4.95,
@@ -733,7 +733,7 @@
   },
   "GALT": {
     "alert": 3.18,
-    "highest": 2.83,
+    "highest": 2.725,
     "lowest": 2.725,
     "current": 2.815,
     "currentPrice": 2.83,
@@ -835,7 +835,7 @@
   "PYXS": {
     "short": false,
     "alert": 1.47,
-    "highest": 1.36,
+    "highest": 1.35,
     "lowest": 1.35,
     "highest5Day": 1.47,
     "lowest5Day": 1.47,
@@ -885,7 +885,7 @@
     "alert": 0.002,
     "highest": 0.001,
     "lowest": 0.001,
-    "current": 0.0014,
+    "current": 0.001,
     "currentPrice": 0.001,
     "volume": 5140260,
     "averageVolume": 9303559,
@@ -894,7 +894,7 @@
   },
   "NTHI": {
     "alert": 7.88,
-    "highest": 7.53,
+    "highest": 7.41,
     "lowest": 7.41,
     "current": 7.53,
     "currentPrice": 7.53,
@@ -906,7 +906,7 @@
   "ENLV": {
     "short": true,
     "alert": 1.11,
-    "highest": 1.1,
+    "highest": 1.0547,
     "lowest": 1.0547,
     "highest5Day": 1.11,
     "lowest5Day": 1.11,
@@ -924,7 +924,7 @@
   },
   "KPTI": {
     "alert": 6.66,
-    "highest": 5.44,
+    "highest": 5.14,
     "lowest": 5.14,
     "current": 5.44,
     "currentPrice": 5.44,
@@ -935,7 +935,7 @@
   },
   "ZSPC": {
     "alert": 0.1564,
-    "highest": 0.146,
+    "highest": 0.14,
     "lowest": 0.14,
     "current": 0.146,
     "currentPrice": 0.146,
@@ -946,7 +946,7 @@
   },
   "LENZ": {
     "alert": 11,
-    "highest": 9.03,
+    "highest": 8.85,
     "lowest": 8.85,
     "current": 9.03,
     "currentPrice": 9.03,
@@ -957,7 +957,7 @@
   },
   "WBUY": {
     "alert": 0.959,
-    "highest": 0.96,
+    "highest": 0.9112,
     "lowest": 0.9112,
     "current": 0.96,
     "currentPrice": 0.96,
@@ -968,7 +968,7 @@
   },
   "NRSN": {
     "alert": 0.7456,
-    "highest": 0.73,
+    "highest": 0.63,
     "lowest": 0.63,
     "current": 0.73,
     "currentPrice": 0.73,
@@ -979,7 +979,7 @@
   },
   "BMEA": {
     "alert": 1.13,
-    "highest": 1.13,
+    "highest": 1.07,
     "lowest": 1.07,
     "current": 1.13,
     "currentPrice": 1.13,
@@ -1031,7 +1031,7 @@
   },
   "CING": {
     "alert": 6.71,
-    "highest": 6.71,
+    "highest": 6.31,
     "lowest": 6.31,
     "current": 6.71,
     "currentPrice": 6.71,
@@ -1042,7 +1042,7 @@
   },
   "MAZE": {
     "alert": 49,
-    "highest": 49,
+    "highest": 46.06,
     "lowest": 46.06,
     "current": 49,
     "currentPrice": 49,
@@ -1053,7 +1053,7 @@
   },
   "KALV": {
     "alert": 16.46,
-    "highest": 16.46,
+    "highest": 15.945,
     "lowest": 15.945,
     "current": 16.46,
     "currentPrice": 16.46,
@@ -1064,7 +1064,7 @@
   },
   "TERN": {
     "alert": 50,
-    "highest": 50,
+    "highest": 48.144,
     "lowest": 48.144,
     "current": 50,
     "currentPrice": 50,
@@ -1076,8 +1076,8 @@
   "IBG": {
     "short": false,
     "alert": 1.21,
-    "highest": 1.21,
-    "lowest": 1.21,
+    "highest": 1.27,
+    "lowest": 1.15,
     "highest5Day": 1.21,
     "lowest5Day": 1.21,
     "highest5DayPercent": 0,
@@ -1087,6 +1087,36 @@
     "performance": 0,
     "date": "2026-03-25T12:31:14.426Z",
     "alertDate": "2026-03-25T12:31:14.426Z",
+    "reverseSplitRatio": null,
+    "volume": 242686,
+    "averageVolume": 597901,
+    "marketCap": 2197216
+  },
+  "PMN": {
+    "alert": 17.43,
+    "highest": 18.715,
+    "lowest": 17.43,
+    "current": 17.43,
+    "currentPrice": 17.43,
+    "volume": 16394,
+    "averageVolume": 178869,
+    "marketCap": 156306896,
+    "performance": 0
+  },
+  "PRTS": {
+    "short": true,
+    "alert": 0.83,
+    "highest": 0.83,
+    "lowest": 0.83,
+    "highest5Day": 0.83,
+    "lowest5Day": 0.83,
+    "highest5DayPercent": 0,
+    "lowest5DayPercent": 0,
+    "current": 0.83,
+    "currentPrice": 0.83,
+    "performance": 0,
+    "date": "2026-03-25T13:02:23.560Z",
+    "alertDate": "2026-03-25T13:02:23.560Z",
     "reverseSplitRatio": null
   }
 }
