@@ -8865,12 +8865,10 @@ if (process.stdin.isTTY) {
           
           // === LOG STOCK METRICS FOR ALL FILINGS (before validation checks) ===
           log('INFO', `Stock: $${ticker}, Price: ${priceDisplay}, Vol/Avg: ${volDisplay}/${avgDisplay}, MC: ${mcDisplay}, Float: ${floatDisplay}, S/O: ${soRatio}, F/AV: ${favLog}, FTD: ${ftdDisplay}, ${directionLabel}`);
-                    
+          
           // Check for FDA Approvals and Chinese/Cayman reverse splits
           const hasFDAApproval = signalCategories.some(cat => ['FDA Approved', 'FDA Breakthrough', 'FDA Filing'].includes(cat));
           const isChinaOrCaymanReverseSplit = (normalizedIncorporated === 'China' || normalizedLocated === 'China' || normalizedIncorporated === 'Cayman Islands' || normalizedLocated === 'Cayman Islands') && signalCategories.includes('Reverse Split Event');
-          
-          // CTB stocks skip country and jurisdiction filters
           if (!isOnCTBWatchlist && normalizedLocated === 'Unknown') {
             skipReason = 'No valid country';
             const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
@@ -8927,6 +8925,7 @@ if (process.stdin.isTTY) {
           
           // Check if country is whitelisted - SKIP for CTB stocks
           let countryWhitelisted = true;
+          if (ticker === 'PMN') log('DEBUG', `PMN: Checking country whitelist...`);
           if (!isOnCTBWatchlist) {
             const incorporatedMatch = CONFIG.ALLOWED_COUNTRIES.some(country => normalizedIncorporated.toLowerCase().includes(country));
             const locatedMatch = CONFIG.ALLOWED_COUNTRIES.some(country => normalizedLocated.toLowerCase().includes(country));
