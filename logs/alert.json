@@ -1791,5 +1791,149 @@
     "highest5DayPercent": 0,
     "lowest5Day": 50,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "PMN",
+    "title": "8-K - ProMIS Neurosciences Inc. (0001374339) (Filer)",
+    "companyName": "ProMIS Neurosciences Inc.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 17.43,
+    "fav": "12.40",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Ottawa, Canada (via Vancouver, British Columbia, Canada)",
+    "filingTimeMultiplier": 1.1,
+    "filingTimeBonus": 1.1,
+    "volume": 16394,
+    "averageVolume": 178869,
+    "float": 2218425,
+    "sharesOutstanding": 8967693,
+    "soRatio": "24.74%",
+    "marketCap": 156306896,
+    "isShort": false,
+    "ftd": 188019,
+    "ftdPercent": "8.48",
+    "intent": "FDA Breakthrough, Clinical Success, Capital Raise, Commercial Inflection",
+    "incorporated": "Vancouver, British Columbia, Canada",
+    "located": "Ottawa, Canada",
+    "filingDate": "2026-03-25",
+    "signals": {
+      "FDA Breakthrough": [
+        "Fast Track Designation"
+      ],
+      "Clinical Success": [
+        "Efficacy",
+        "Safety Profile",
+        "Biomarker",
+        "Favorable Safety"
+      ],
+      "Capital Raise": [
+        "Oversubscribed"
+      ],
+      "Commercial Inflection": [
+        "Cash Runway"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-99.1",
+      "Item 2.02",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-99.1, Item 2.02, Item 9.01",
+    "cik": "1374339",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Clinical Success / Milestone",
+    "deterministicMechanism": "Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.",
+    "deterministicPhrase": "[Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.]",
+    "recordedAt": "2026-03-25T12:19:08.463Z",
+    "recordId": "PMN-1774441148463",
+    "expiresAt": "2026-03-30T12:19:08.463Z",
+    "direction": "LONG",
+    "highest5Day": 17.43,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "IBG",
+    "title": "6-K - Innovation Beverage Group Ltd (0001924482) (Filer)",
+    "companyName": "Innovation Beverage Group Ltd",
+    "filerName": null,
+    "sector": "Beverages",
+    "price": 1.21,
+    "fav": "7.52",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Australia (via Brisbane, Australia)",
+    "filingTimeMultiplier": 1.15,
+    "filingTimeBonus": 1.15,
+    "volume": 242686,
+    "averageVolume": 597901,
+    "float": 4497450,
+    "sharesOutstanding": 1815881,
+    "soRatio": "247.7%",
+    "marketCap": 2197216,
+    "isShort": false,
+    "ftd": 42957,
+    "ftdPercent": "0.96",
+    "intent": "Merger/Acquisition, Credit Default, Reverse Split Event, Asset Disposition, Partnership",
+    "incorporated": "Brisbane, Australia",
+    "located": "Australia",
+    "filingDate": "2026-03-25",
+    "signals": {
+      "Merger/Acquisition": [
+        "Merger Agreement",
+        "Merger Consideration"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Reverse Split Event": [
+        "Reverse Stock Split"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "8-K",
+      "20-F",
+      "13D",
+      "EX-10.1",
+      "EX-10.2",
+      "EX-10.3"
+    ],
+    "filingType": "6-K, 8-K, 20-F, 13D, EX-10.1, EX-10.2, EX-10.3",
+    "cik": "1924482",
+    "skipReason": "",
+    "alertType": "CTB Squeeze",
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-03-25T12:31:14.389Z",
+    "recordId": "IBG-1774441874389",
+    "expiresAt": "2026-03-30T12:31:14.389Z",
+    "direction": "LONG",
+    "highest5Day": 1.21,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
   }
 ]
