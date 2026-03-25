@@ -9173,33 +9173,6 @@ if (process.stdin.isTTY) {
             }
           }
           
-          // 4. TIME-SINCE-CATALYST FILTER: avoid too-early chaos and played-out moves
-          // Use filingTime already declared at line 8415 and now at line 8803
-          const minutesSinceFiling = (now - filingTime) / (1000 * 60);
-          const hoursSinceFiling = minutesSinceFiling / 60;
-          const daysSinceFiling = hoursSinceFiling / 24;
-          
-          if (minutesSinceFiling < 30) {
-            skipReason = `Filed ${Math.floor(minutesSinceFiling)} min ago (too early, spread too wide)`;
-            saveToCSV({ ...alertData, skipReason });
-            const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
-            const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
-            log('INFO', `Links: ${secLink} ${tvLink}`);
-            log('SKIP', `$${ticker}, filed ${Math.floor(minutesSinceFiling)}min ago (wait 30min+)`);
-            console.log('');
-            continue;
-          }
-          
-          if (daysSinceFiling > 3) {
-            skipReason = `Filed ${daysSinceFiling.toFixed(1)} days ago (move already played out)`;
-            saveToCSV({ ...alertData, skipReason });
-            const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
-            const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
-            log('INFO', `Links: ${secLink} ${tvLink}`);
-            log('SKIP', `$${ticker}, filed ${daysSinceFiling.toFixed(1)}d ago (too stale)`);
-            console.log('');
-            continue;
-          }
           
           // 5. HIGH SHORT INTEREST MODIFIER: soRatio > 70% requires extreme catalyst
           if (shortOpportunity !== true) {
