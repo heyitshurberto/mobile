@@ -9117,8 +9117,121 @@ if (process.stdin.isTTY) {
             continue;
           }
           
+          // === TRADABILITY FILTERS ===
+          
+          // 1. HARD REJECT: F/AV < 3x (untradeable, gets slipped on entry/exit)
+          if (favNum > 0 && favNum < 3) {
+            skipReason = `F/AV ${favNum.toFixed(2)}x below 3x minimum (untradeable liquidity)`;
+            saveToCSV({ ...alertData, skipReason });
+            const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
+            const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
+            log('INFO', `Links: ${secLink} ${tvLink}`);
+            log('SKIP', `$${ticker}, F/AV ${favNum.toFixed(2)}x - untradeable (need min 3x)`);
+            console.log('');
+            continue;
+          }
+          
+          // 1b. HARD REJECT: F/AV > 100x (overextended blowoff, late entry, already crowded)
+          if (favNum > 100) {
+            skipReason = `F/AV ${favNum.toFixed(2)}x above 100x (overextended blowoff/meme volume)`;
+            saveToCSV({ ...alertData, skipReason });
+            const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
+            const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
+            log('INFO', `Links: ${secLink} ${tvLink}`);
+            log('SKIP', `$${ticker}, F/AV ${favNum.toFixed(2)}x - overextended (news-driven exhaustion, too late)`);
+            console.log('');
+            continue;
+          }
+          
+          // 2. SHORT-SIDE CONSTRAINT: soRatio < 10% is impossible to short (no borrow)
+          if (shortOpportunity === true) {
+            const soNum = soRatioValue !== null ? parseFloat(soRatioValue) : 0;
+            if (soNum < 10) {
+              skipReason = `SHORT signal but S/O ${soNum.toFixed(2)}% < 10% minimum (unborrow able)`;
+              saveToCSV({ ...alertData, skipReason });
+              const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
+              const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
+              log('INFO', `Links: ${secLink} ${tvLink}`);
+              log('SKIP', `$${ticker}, SHORT impossible - S/O ${soNum.toFixed(2)}% (need 10%+ to short)`);
+              console.log('');
+              continue;
+            }
+          }
+          
+          // 3. LONG-SIDE S/O FLOOR: < 5% means no squeeze potential
+          if (shortOpportunity !== true) {
+            const soNum = soRatioValue !== null ? parseFloat(soRatioValue) : 0;
+            if (soNum < 5) {
+              skipReason = `LONG signal but S/O ${soNum.toFixed(2)}% < 5% (no squeeze potential)`;
+              saveToCSV({ ...alertData, skipReason });
+              const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
+              const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
+              log('INFO', `Links: ${secLink} ${tvLink}`);
+              log('SKIP', `$${ticker}, LONG weak - S/O ${soNum.toFixed(2)}% (need 5%+ for squeeze)`);
+              console.log('');
+              continue;
+            }
+          }
+          
+          // 4. TIME-SINCE-CATALYST FILTER: avoid too-early chaos and played-out moves
+          // Use filingTime already declared at line 8415 and now at line 8803
+          const minutesSinceFiling = (now - filingTime) / (1000 * 60);
+          const hoursSinceFiling = minutesSinceFiling / 60;
+          const daysSinceFiling = hoursSinceFiling / 24;
+          
+          if (minutesSinceFiling < 30) {
+            skipReason = `Filed ${Math.floor(minutesSinceFiling)} min ago (too early, spread too wide)`;
+            saveToCSV({ ...alertData, skipReason });
+            const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
+            const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
+            log('INFO', `Links: ${secLink} ${tvLink}`);
+            log('SKIP', `$${ticker}, filed ${Math.floor(minutesSinceFiling)}min ago (wait 30min+)`);
+            console.log('');
+            continue;
+          }
+          
+          if (daysSinceFiling > 3) {
+            skipReason = `Filed ${daysSinceFiling.toFixed(1)} days ago (move already played out)`;
+            saveToCSV({ ...alertData, skipReason });
+            const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
+            const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
+            log('INFO', `Links: ${secLink} ${tvLink}`);
+            log('SKIP', `$${ticker}, filed ${daysSinceFiling.toFixed(1)}d ago (too stale)`);
+            console.log('');
+            continue;
+          }
+          
+          // 5. HIGH SHORT INTEREST MODIFIER: soRatio > 70% requires extreme catalyst
+          if (shortOpportunity !== true) {
+            const soNum = soRatioValue !== null ? parseFloat(soRatioValue) : 0;
+            if (soNum > 70) {
+              // High short interest = overcrowded unless catalyst is EXTREME
+              // Expanded extreme catalyst detection: FDA, M&A, first revenue, earnings surprise, major contracts, guidance changes
+              const hasCriticalCatalyst = 
+                signalCategories.includes('FDA Approved') || 
+                signalCategories.includes('FDA Breakthrough') ||
+                (signalCategories.includes('Merger/Acquisition') && signalCategories.length >= 3) ||
+                signalCategories.includes('Commercial Inflection') || // First revenue/major milestone
+                signalCategories.includes('Clinical Success') || // Earnings surprise equivalent
+                signalCategories.includes('Government Contract') || // Major contract win
+                signalCategories.includes('Licensing Deal'); // Guidance/strategic change
+              
+              if (!hasCriticalCatalyst) {
+                skipReason = `S/O ${soNum.toFixed(2)}% very high - needs extreme catalyst to be tradeable`;
+                saveToCSV({ ...alertData, skipReason });
+                const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
+                const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
+                log('INFO', `Links: ${secLink} ${tvLink}`);
+                log('SKIP', `$${ticker}, overcrowded, (${soNum.toFixed(2)}% short, needs extreme catalyst)`);
+                console.log('');
+                continue;
+              }
+            }
+          }
+          
           // Check if custodian control (ADR structure) applies - verified via filing text or structure
           const custodianControl = (normalizedIncorporated && normalizedLocated && normalizedIncorporated.toLowerCase() !== normalizedLocated.toLowerCase());
+
           const isCustodianVerified = custodianControl && normalizedIncorporated && normalizedLocated && normalizedIncorporated.toLowerCase() !== normalizedLocated.toLowerCase();
           let custodianName = null;
           if (isCustodianVerified) {
