@@ -207,5 +207,72 @@
     "highest5DayPercent": 0,
     "lowest5Day": 0,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "CANF",
+    "title": "6-K - Can-Fite BioPharma Ltd. (0001536196) (Filer)",
+    "companyName": "Can-Fite BioPharma Ltd.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 3.23,
+    "fav": "3.68",
+    "hasTuesdayBonus": false,
+    "custodianControl": false,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "volume": 7388,
+    "averageVolume": 905027,
+    "float": 3333334,
+    "sharesOutstanding": 2105081,
+    "soRatio": "158.3%",
+    "marketCap": 7090764,
+    "isShort": false,
+    "ftd": 65486,
+    "ftdPercent": "1.96",
+    "intent": "FDA Breakthrough, Clinical Success, Commercial Inflection",
+    "incorporated": "Tel Aviv, Israel",
+    "located": "Tel Aviv, Israel",
+    "filingDate": "2026-03-26",
+    "signals": {
+      "FDA Breakthrough": [
+        "Fast Track Designation"
+      ],
+      "Clinical Success": [
+        "Phase 2",
+        "Phase 3",
+        "Efficacy",
+        "Safety Profile",
+        "Primary Endpoint"
+      ],
+      "Commercial Inflection": [
+        "Proof Of Concept"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "20-F",
+      "EX-99.1"
+    ],
+    "filingType": "6-K, 20-F, EX-99.1",
+    "cik": "1536196",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-03-26T13:30:17.891Z",
+    "recordId": "CANF-1774531817891",
+    "expiresAt": "2026-03-31T13:30:17.891Z",
+    "direction": "LONG",
+    "highest5Day": 3.23,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
   }
 ]

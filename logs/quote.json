@@ -703,8 +703,8 @@
     "highest5DayPercent": 0,
     "lowest5DayPercent": 0,
     "current": 4.55,
-    "currentPrice": 4.42,
-    "performance": -10.71,
+    "currentPrice": 4.41,
+    "performance": -10.91,
     "date": "2026-03-17T11:31:01.999Z",
     "alertDate": "2026-03-17T11:31:01.999Z",
     "reverseSplitRatio": null,
@@ -715,13 +715,13 @@
   "CANF": {
     "short": false,
     "alert": 3.58,
-    "highest": 3.13,
+    "highest": 3.23,
     "lowest": 3.13,
-    "highest5Day": 3.58,
-    "lowest5Day": 3.58,
+    "highest5Day": 3.23,
+    "lowest5Day": 3.23,
     "highest5DayPercent": 0,
     "lowest5DayPercent": 0,
-    "current": 3.44,
+    "current": 3.23,
     "currentPrice": 3.23,
     "performance": -9.78,
     "date": "2026-03-17T11:51:28.371Z",
@@ -842,8 +842,8 @@
     "highest5DayPercent": 0,
     "lowest5DayPercent": 0,
     "current": 1.36,
-    "currentPrice": 1.43,
-    "performance": -2.72,
+    "currentPrice": 1.42,
+    "performance": -3.4,
     "date": "2026-03-23T11:13:24.588Z",
     "alertDate": "2026-03-23T11:13:24.588Z",
     "reverseSplitRatio": null,
@@ -924,36 +924,36 @@
   },
   "KPTI": {
     "alert": 6.66,
-    "highest": 5.11,
-    "lowest": 5.11,
+    "highest": 5.075,
+    "lowest": 5.075,
     "current": 5.44,
-    "currentPrice": 5.21,
+    "currentPrice": 5.075,
     "volume": 17831302,
     "averageVolume": 597945,
     "marketCap": 106722096,
-    "performance": -21.77
+    "performance": -23.8
   },
   "ZSPC": {
     "alert": 0.1564,
     "highest": 0.14,
     "lowest": 0.14,
     "current": 0.146,
-    "currentPrice": 0.1401,
+    "currentPrice": 0.1402,
     "volume": 648437,
     "averageVolume": 1269472,
     "marketCap": 4862235,
-    "performance": -10.42
+    "performance": -10.36
   },
   "LENZ": {
     "alert": 11,
     "highest": 8.85,
     "lowest": 8.85,
     "current": 9.03,
-    "currentPrice": 9.07,
+    "currentPrice": 8.91,
     "volume": 3912118,
     "averageVolume": 953693,
     "marketCap": 282548416,
-    "performance": -17.55
+    "performance": -19
   },
   "WBUY": {
     "alert": 0.959,
@@ -1067,11 +1067,11 @@
     "highest": 52.965,
     "lowest": 48.144,
     "current": 50,
-    "currentPrice": 52.86,
+    "currentPrice": 52.85,
     "volume": 2422504,
     "averageVolume": 2164449,
     "marketCap": 5438364160,
-    "performance": 5.72
+    "performance": 5.7
   },
   "IBG": {
     "short": false,
@@ -1102,43 +1102,5 @@
     "averageVolume": 178869,
     "marketCap": 156306896,
     "performance": -9.06
-  },
-  "QNTM": {
-    "alert": 4.35,
-    "highest": 5.6499,
-    "lowest": 4.21,
-    "current": 4.35,
-    "currentPrice": 4.35,
-    "volume": 1153863,
-    "averageVolume": 135764,
-    "marketCap": 16716950,
-    "performance": 0
-  },
-  "DNTH": {
-    "alert": 79.61,
-    "highest": 82.145,
-    "lowest": 78.94,
-    "current": 79.61,
-    "currentPrice": 79.61,
-    "volume": 1027499,
-    "averageVolume": 984011,
-    "marketCap": 4214719232,
-    "performance": 0
-  },
-  "MTVA": {
-    "short": false,
-    "alert": 1.3,
-    "highest": 1.3,
-    "lowest": 1.3,
-    "highest5Day": 1.3,
-    "lowest5Day": 1.3,
-    "highest5DayPercent": 0,
-    "lowest5DayPercent": 0,
-    "current": 1.3,
-    "currentPrice": 1.3,
-    "performance": 0,
-    "date": "2026-03-26T12:32:00.083Z",
-    "alertDate": "2026-03-26T12:32:00.083Z",
-    "reverseSplitRatio": null
   }
 }
