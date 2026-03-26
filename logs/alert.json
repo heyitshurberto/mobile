@@ -1,1 +1,68 @@
-[]
+[
+  {
+    "ticker": "QNTM",
+    "title": "6-K - Quantum Biopharma Ltd. (0001771885) (Filer)",
+    "companyName": "Quantum Biopharma Ltd.",
+    "filerName": null,
+    "sector": "Pharmaceuticals",
+    "price": 4.35,
+    "fav": "26.05",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Ontario, Canada (via Ottawa, Canada)",
+    "filingTimeMultiplier": 1.1,
+    "filingTimeBonus": 1.1,
+    "volume": 1153863,
+    "averageVolume": 135764,
+    "float": 3536700,
+    "sharesOutstanding": 3842935,
+    "soRatio": "92.03%",
+    "marketCap": 16716950,
+    "isShort": false,
+    "ftd": 108808,
+    "ftdPercent": "3.08",
+    "intent": "FDA Filing, Clinical Success, Clinical Milestone",
+    "incorporated": "Ottawa, Canada",
+    "located": "Ontario, Canada",
+    "filingDate": "2026-03-26",
+    "signals": {
+      "FDA Filing": [
+        "IND Application"
+      ],
+      "Clinical Success": [
+        "Phase 2",
+        "Efficacy",
+        "Mechanism Of Action"
+      ],
+      "Clinical Milestone": [
+        "Investigational New Drug",
+        "IND Application"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "6-K",
+      "20-F",
+      "EX-99.1"
+    ],
+    "filingType": "6-K, 20-F, EX-99.1",
+    "cik": "1771885",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-03-26T12:01:07.498Z",
+    "recordId": "QNTM-1774526467498",
+    "expiresAt": "2026-03-31T12:01:07.498Z",
+    "direction": "LONG",
+    "highest5Day": 4.35,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
+  }
+]

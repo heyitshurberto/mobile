@@ -4,33 +4,33 @@
     "highest": 6.6,
     "lowest": 6.6,
     "current": 7.23,
-    "currentPrice": 6.9,
+    "currentPrice": 7.07,
     "volume": 17184,
     "averageVolume": 427728,
     "marketCap": 484333824,
-    "performance": -20.51
+    "performance": -18.55
   },
   "IBIO": {
     "alert": 2.61,
     "highest": 2.0001,
     "lowest": 2.0001,
     "current": 2.54,
-    "currentPrice": 2.08,
+    "currentPrice": 2.18,
     "volume": 40808,
     "averageVolume": 1810345,
     "marketCap": 87740640,
-    "performance": -20.31
+    "performance": -16.48
   },
   "NBP": {
     "alert": 3.5,
     "highest": 2.44,
     "lowest": 2.44,
     "current": 2.9183,
-    "currentPrice": 2.52,
+    "currentPrice": 2.64,
     "volume": 377994,
     "averageVolume": 746625,
     "marketCap": 336453824,
-    "performance": -28
+    "performance": -24.57
   },
   "BOLD": {
     "alert": 1.13,
@@ -48,143 +48,143 @@
     "highest": 7.5025,
     "lowest": 4.45,
     "current": 6.0624,
-    "currentPrice": 6.1,
+    "currentPrice": 6.66,
     "volume": 56220,
     "averageVolume": 1456535,
     "marketCap": 444577760,
-    "performance": 37.08
+    "performance": 49.66
   },
   "KLRS": {
     "alert": 9.82,
-    "highest": 6.2,
-    "lowest": 6.2,
+    "highest": 5.96,
+    "lowest": 5.96,
     "current": 8.67,
-    "currentPrice": 6.2,
+    "currentPrice": 6.115,
     "volume": 1666,
     "averageVolume": 93028,
     "marketCap": 162149968,
-    "performance": -36.86
+    "performance": -37.73
   },
   "KRRO": {
     "alert": 11.18,
     "highest": 14.79,
     "lowest": 10.48,
     "current": 12.72,
-    "currentPrice": 10.58,
+    "currentPrice": 10.92,
     "volume": 23444,
     "averageVolume": 237611,
     "marketCap": 119787992,
-    "performance": -5.37
+    "performance": -2.33
   },
   "FCEL": {
     "alert": 7.6,
     "highest": 6.41,
     "lowest": 6.41,
     "current": 6.805,
-    "currentPrice": 6.94,
+    "currentPrice": 7.1,
     "volume": 271719,
     "averageVolume": 2289825,
     "marketCap": 360304544,
-    "performance": -8.68
+    "performance": -6.58
   },
   "XENE": {
     "alert": 41.94,
     "highest": 63.95,
     "lowest": 41.94,
     "current": 55.54,
-    "currentPrice": 53.38,
+    "currentPrice": 55.57,
     "volume": 115533,
     "averageVolume": 1309845,
     "marketCap": 4620390400,
-    "performance": 27.28
+    "performance": 32.5
   },
   "CRBP": {
     "alert": 8.01,
     "highest": 10.465,
     "lowest": 8.01,
     "current": 9.7,
-    "currentPrice": 8.18,
+    "currentPrice": 8.31,
     "volume": 25732,
     "averageVolume": 191727,
     "marketCap": 170264448,
-    "performance": 2.12
+    "performance": 3.75
   },
   "PLX": {
     "alert": 2.62,
     "highest": 2.04,
     "lowest": 2.04,
     "current": 2.875,
-    "currentPrice": 2.07,
+    "currentPrice": 2.16,
     "volume": 94093,
     "averageVolume": 1206357,
     "marketCap": 231210912,
-    "performance": -20.99
+    "performance": -17.56
   },
   "GEL": {
     "alert": 18.09,
     "highest": 17.19,
     "lowest": 17.19,
     "current": 17.805,
-    "currentPrice": 17.93,
+    "currentPrice": 18,
     "volume": 12943,
     "averageVolume": 261564,
     "marketCap": 2180477184,
-    "performance": -0.88
+    "performance": -0.5
   },
   "XLO": {
     "alert": 0.53,
-    "highest": 8.57,
+    "highest": 8.6299,
     "lowest": 0.4618,
     "current": 7.2,
-    "currentPrice": 8.37,
+    "currentPrice": 8.53,
     "volume": 10884,
     "averageVolume": 31303,
     "marketCap": 37777980,
-    "performance": 1479.25
+    "performance": 1509.43
   },
   "MBX": {
     "alert": 30.55,
     "highest": 26.42,
     "lowest": 26.42,
     "current": 31,
-    "currentPrice": 27.82,
+    "currentPrice": 28.96,
     "volume": 77055,
     "averageVolume": 719289,
     "marketCap": 1391971456,
-    "performance": -8.94
+    "performance": -5.2
   },
   "SLM": {
     "alert": 19.09,
     "highest": 20.75,
     "lowest": 18.97,
     "current": 20.65,
-    "currentPrice": 20.18,
+    "currentPrice": 20.43,
     "volume": 3984309,
     "averageVolume": 3595983,
     "marketCap": 4091892992,
-    "performance": 5.71
+    "performance": 7.02
   },
   "ALOY": {
     "alert": 17.5,
     "highest": 10.63,
     "lowest": 10.63,
     "current": 11.455,
-    "currentPrice": 10.79,
+    "currentPrice": 10.72,
     "volume": 485296,
     "averageVolume": 481011,
     "marketCap": 654208448,
-    "performance": -38.34
+    "performance": -38.74
   },
   "ACXP": {
     "alert": 1.35,
     "highest": 6.63,
     "lowest": 1.35,
     "current": 4.88,
-    "currentPrice": 4.28,
+    "currentPrice": 4.27,
     "volume": 2426631,
     "averageVolume": 2785094,
     "marketCap": 12427979,
-    "performance": 217.04
+    "performance": 216.3
   },
   "ALLR": {
     "alert": 1.24,
@@ -202,33 +202,33 @@
     "highest": 0.3805,
     "lowest": 0.3805,
     "current": 0.5233,
-    "currentPrice": 0.3972,
+    "currentPrice": 0.416,
     "volume": 30296,
     "averageVolume": 3933396,
     "marketCap": 5870733,
-    "performance": -32.73
+    "performance": -29.55
   },
   "ONDS": {
     "alert": 9.83,
     "highest": 11.345,
     "lowest": 9.2,
     "current": 10.58,
-    "currentPrice": 10.68,
+    "currentPrice": 10.31,
     "volume": 16334698,
     "averageVolume": 95384628,
     "marketCap": 4761973760,
-    "performance": 8.65
+    "performance": 4.88
   },
   "HSAI": {
     "alert": 27.94,
-    "highest": 20.24,
-    "lowest": 20.24,
+    "highest": 19.38,
+    "lowest": 19.38,
     "current": 27.94,
-    "currentPrice": 20.24,
+    "currentPrice": 19.85,
     "volume": 0,
     "averageVolume": 0,
     "marketCap": 0,
-    "performance": -27.56
+    "performance": -28.95
   },
   "AXL": {
     "alert": 8.28,
@@ -243,25 +243,25 @@
   },
   "CRDL": {
     "alert": 1,
-    "highest": 0.8974,
+    "highest": 1.12,
     "lowest": 0.8974,
     "current": 1,
-    "currentPrice": 1.05,
+    "currentPrice": 1.07,
     "volume": 0,
     "averageVolume": 0,
     "marketCap": 0,
-    "performance": 5
+    "performance": 7
   },
   "BIYA": {
     "alert": 3.95,
     "highest": 1.285,
     "lowest": 1.285,
     "current": 3.95,
-    "currentPrice": 1.52,
+    "currentPrice": 1.45,
     "volume": 0,
     "averageVolume": 0,
     "marketCap": 0,
-    "performance": -61.52
+    "performance": -63.29
   },
   "FAT": {
     "alert": 0.392,
@@ -290,22 +290,22 @@
     "highest": 13.3201,
     "lowest": 13.3201,
     "current": 16.78,
-    "currentPrice": 14.17,
+    "currentPrice": 14.62,
     "volume": 0,
     "averageVolume": 0,
     "marketCap": 0,
-    "performance": -15.55
+    "performance": -12.87
   },
   "NTLA": {
     "alert": 13.95,
     "highest": 12.71,
     "lowest": 12.71,
     "current": 13.95,
-    "currentPrice": 12.81,
+    "currentPrice": 13.26,
     "volume": 0,
     "averageVolume": 0,
     "marketCap": 0,
-    "performance": -8.17
+    "performance": -4.95
   },
   "OM": {
     "alert": 4.97,
@@ -323,55 +323,55 @@
     "highest": 55.605,
     "lowest": 55.605,
     "current": 61.77,
-    "currentPrice": 57.31,
+    "currentPrice": 57.61,
     "volume": 0,
     "averageVolume": 0,
     "marketCap": 0,
-    "performance": -7.22
+    "performance": -6.73
   },
   "ANEB": {
     "alert": 1.08,
     "highest": 0.3727,
     "lowest": 0.3727,
     "current": 1.08,
-    "currentPrice": 1.03,
+    "currentPrice": 1,
     "volume": 0,
     "averageVolume": 0,
     "marketCap": 0,
-    "performance": -4.63
+    "performance": -7.41
   },
   "OSRH": {
     "alert": 0.72,
     "highest": 0.39,
     "lowest": 0.39,
     "current": 0.72,
-    "currentPrice": 0.4541,
+    "currentPrice": 0.44,
     "volume": 0,
     "averageVolume": 0,
     "marketCap": 0,
-    "performance": -36.93
+    "performance": -38.89
   },
   "HLEO": {
     "alert": 1.28,
     "highest": 1.93,
     "lowest": 1.28,
     "current": 1.28,
-    "currentPrice": 1.52,
+    "currentPrice": 1.5,
     "volume": 0,
     "averageVolume": 0,
     "marketCap": 0,
-    "performance": 18.75
+    "performance": 17.19
   },
   "GP": {
     "alert": 0.8926,
     "highest": 1.12,
     "lowest": 0.8926,
     "current": 0.8926,
-    "currentPrice": 1.0699,
+    "currentPrice": 1.02,
     "volume": 0,
     "averageVolume": 0,
     "marketCap": 0,
-    "performance": 19.86
+    "performance": 14.27
   },
   "ACDC": {
     "short": false,
@@ -381,8 +381,8 @@
     "highest5Day": 5.43,
     "highest5DayPercent": 0,
     "current": 5.86,
-    "currentPrice": 6.71,
-    "performance": 23.57,
+    "currentPrice": 6.37,
+    "performance": 17.31,
     "date": "2026-03-09T20:02:12.634Z",
     "alertDate": "2026-03-09T20:02:12.634Z",
     "reverseSplitRatio": null,
@@ -395,11 +395,11 @@
     "highest": 7.5399,
     "lowest": 6.1,
     "current": 7.24,
-    "currentPrice": 7.01,
+    "currentPrice": 7.06,
     "volume": 46082,
     "averageVolume": 345452,
     "marketCap": 617312384,
-    "performance": 4.47
+    "performance": 5.22
   },
   "DSGN": {
     "short": false,
@@ -409,8 +409,8 @@
     "highest5Day": 10.37,
     "highest5DayPercent": 0,
     "current": 10.67,
-    "currentPrice": 10.31,
-    "performance": -0.58,
+    "currentPrice": 10.73,
+    "performance": 3.47,
     "date": "2026-03-09T20:07:13.120Z",
     "alertDate": "2026-03-09T20:07:13.120Z",
     "reverseSplitRatio": null,
@@ -423,55 +423,55 @@
     "highest": 67.79,
     "lowest": 62.61,
     "current": 64.85,
-    "currentPrice": 65.49,
+    "currentPrice": 65.5,
     "volume": 26740,
     "averageVolume": 464840,
     "marketCap": 12218514432,
-    "performance": 3.69
+    "performance": 3.71
   },
   "SGP": {
     "alert": 27.12,
     "highest": 22.74,
     "lowest": 22.74,
     "current": 27.15,
-    "currentPrice": 23.74,
+    "currentPrice": 25.22,
     "volume": 4592,
     "averageVolume": 152672,
     "marketCap": 904567808,
-    "performance": -12.46
+    "performance": -7.01
   },
   "ZVRA": {
     "alert": 9.12,
     "highest": 11.3999,
     "lowest": 8.73,
     "current": 10.25,
-    "currentPrice": 9.15,
+    "currentPrice": 9.13,
     "volume": 501376,
     "averageVolume": 1108337,
     "marketCap": 577049728,
-    "performance": 0.33
+    "performance": 0.11
   },
   "HPE": {
     "alert": 21.82,
-    "highest": 23.9,
+    "highest": 26.405,
     "lowest": 20.6,
     "current": 21.955,
-    "currentPrice": 23.9,
+    "currentPrice": 25.78,
     "volume": 1053559,
     "averageVolume": 17813684,
     "marketCap": 29299675136,
-    "performance": 9.53
+    "performance": 18.15
   },
   "OXY": {
     "alert": 55.02,
     "highest": 61.93,
     "lowest": 52.05,
     "current": 57.35,
-    "currentPrice": 61.25,
+    "currentPrice": 61.85,
     "volume": 3089345,
     "averageVolume": 14082794,
     "marketCap": 56562388992,
-    "performance": 11.32
+    "performance": 12.41
   },
   "EVTV": {
     "short": false,
@@ -481,8 +481,8 @@
     "highest5Day": 1.26,
     "highest5DayPercent": 0,
     "current": 1.33,
-    "currentPrice": 1.71,
-    "performance": 35.71,
+    "currentPrice": 1.67,
+    "performance": 32.54,
     "date": "2026-03-09T20:26:35.057Z",
     "alertDate": "2026-03-09T20:26:35.057Z",
     "reverseSplitRatio": null,
@@ -493,13 +493,13 @@
   "CACI": {
     "short": false,
     "alert": 633.21,
-    "highest": 576.4,
-    "lowest": 576.4,
+    "highest": 569.6,
+    "lowest": 569.6,
     "highest5Day": 633.21,
     "highest5DayPercent": 0,
     "current": 605.2,
-    "currentPrice": 576.71,
-    "performance": -8.92,
+    "currentPrice": 578.94,
+    "performance": -8.57,
     "date": "2026-03-09T20:46:19.049Z",
     "alertDate": "2026-03-09T20:46:19.049Z",
     "reverseSplitRatio": null,
@@ -515,8 +515,8 @@
     "highest5Day": 2.12,
     "highest5DayPercent": 0,
     "current": 2.4599,
-    "currentPrice": 2.21,
-    "performance": 4.25,
+    "currentPrice": 2.28,
+    "performance": 7.55,
     "date": "2026-03-09T21:24:48.193Z",
     "alertDate": "2026-03-09T21:24:48.193Z",
     "reverseSplitRatio": null,
@@ -529,33 +529,33 @@
     "highest": 16.97,
     "lowest": 16.97,
     "current": 19.04,
-    "currentPrice": 17.09,
+    "currentPrice": 17.6,
     "volume": 67467,
     "averageVolume": 2387598,
     "marketCap": 3516489472,
-    "performance": -10.71
+    "performance": -8.05
   },
   "QTTB": {
     "alert": 5.1,
     "highest": 7.8,
     "lowest": 4.4028,
     "current": 6.47,
-    "currentPrice": 7.3,
+    "currentPrice": 7.25,
     "volume": 68000,
     "averageVolume": 188686,
     "marketCap": 83191560,
-    "performance": 43.14
+    "performance": 42.16
   },
   "RAPP": {
     "alert": 30.54,
     "highest": 26.48,
     "lowest": 26.48,
     "current": 28.33,
-    "currentPrice": 28.25,
+    "currentPrice": 28.88,
     "volume": 15694,
     "averageVolume": 371349,
     "marketCap": 1350240000,
-    "performance": -7.5
+    "performance": -5.44
   },
   "CGEM": {
     "short": false,
@@ -565,8 +565,8 @@
     "highest5Day": 15.31,
     "highest5DayPercent": 0,
     "current": 14.12,
-    "currentPrice": 13.64,
-    "performance": -10.91,
+    "currentPrice": 14.06,
+    "performance": -8.16,
     "date": "2026-03-10T11:24:05.160Z",
     "alertDate": "2026-03-10T11:24:05.160Z",
     "reverseSplitRatio": null,
@@ -582,8 +582,8 @@
     "highest5Day": 207.68,
     "highest5DayPercent": 0,
     "current": 209,
-    "currentPrice": 196.61,
-    "performance": -5.33,
+    "currentPrice": 196.73,
+    "performance": -5.27,
     "date": "2026-03-10T12:11:21.162Z",
     "alertDate": "2026-03-10T12:11:21.162Z",
     "reverseSplitRatio": null,
@@ -596,44 +596,44 @@
     "highest": 5.3,
     "lowest": 4.3218,
     "current": 5.15,
-    "currentPrice": 4.51,
+    "currentPrice": 4.75,
     "volume": 151606,
     "averageVolume": 885537,
     "marketCap": 355165664,
-    "performance": -5.45
+    "performance": -0.42
   },
   "ESPR": {
     "alert": 3.04,
     "highest": 2.385,
     "lowest": 2.385,
     "current": 2.616,
-    "currentPrice": 2.62,
+    "currentPrice": 2.76,
     "volume": 1021618,
     "averageVolume": 4965466,
     "marketCap": 625389952,
-    "performance": -13.82
+    "performance": -9.21
   },
   "TKO": {
     "alert": 204.07,
     "highest": 186.96,
     "lowest": 186.96,
     "current": 197.62,
-    "currentPrice": 193.48,
+    "currentPrice": 193.94,
     "volume": 54941,
     "averageVolume": 1007293,
     "marketCap": 15596636160,
-    "performance": -5.19
+    "performance": -4.96
   },
   "KDP": {
     "alert": 28.19,
-    "highest": 26.195,
-    "lowest": 26.195,
+    "highest": 26.005,
+    "lowest": 26.005,
     "current": 27.895,
-    "currentPrice": 26.21,
+    "currentPrice": 26.37,
     "volume": 750006,
     "averageVolume": 10693269,
     "marketCap": 37899993088,
-    "performance": -7.02
+    "performance": -6.46
   },
   "EB": {
     "alert": 4.51,
@@ -654,8 +654,8 @@
     "highest5Day": 15.6,
     "highest5DayPercent": 0,
     "current": 17.5,
-    "currentPrice": 18.02,
-    "performance": 15.51,
+    "currentPrice": 18.5,
+    "performance": 18.59,
     "date": "2026-03-10T20:10:31.405Z",
     "alertDate": "2026-03-10T20:10:31.405Z",
     "reverseSplitRatio": null,
@@ -668,11 +668,11 @@
     "highest": 3.28,
     "lowest": 2.57,
     "current": 3.11,
-    "currentPrice": 2.7,
+    "currentPrice": 2.99,
     "volume": 2271,
     "averageVolume": 73396,
     "marketCap": 27066568,
-    "performance": 5.06
+    "performance": 16.34
   },
   "GLUE": {
     "short": false,
@@ -684,8 +684,8 @@
     "highest5DayPercent": 0,
     "lowest5DayPercent": 0,
     "current": 15.76,
-    "currentPrice": 14.72,
-    "performance": -9.97,
+    "currentPrice": 15.71,
+    "performance": -3.91,
     "date": "2026-03-17T11:04:48.360Z",
     "alertDate": "2026-03-17T11:04:48.360Z",
     "reverseSplitRatio": null,
@@ -703,8 +703,8 @@
     "highest5DayPercent": 0,
     "lowest5DayPercent": 0,
     "current": 4.55,
-    "currentPrice": 4.33,
-    "performance": -12.53,
+    "currentPrice": 4.42,
+    "performance": -10.71,
     "date": "2026-03-17T11:31:01.999Z",
     "alertDate": "2026-03-17T11:31:01.999Z",
     "reverseSplitRatio": null,
@@ -722,8 +722,8 @@
     "highest5DayPercent": 0,
     "lowest5DayPercent": 0,
     "current": 3.44,
-    "currentPrice": 3.13,
-    "performance": -12.57,
+    "currentPrice": 3.23,
+    "performance": -9.78,
     "date": "2026-03-17T11:51:28.371Z",
     "alertDate": "2026-03-17T11:51:28.371Z",
     "reverseSplitRatio": null,
@@ -736,24 +736,24 @@
     "highest": 2.725,
     "lowest": 2.725,
     "current": 2.815,
-    "currentPrice": 2.83,
+    "currentPrice": 2.93,
     "volume": 398870,
     "averageVolume": 381676,
     "marketCap": 181508976,
-    "performance": -11.01
+    "performance": -7.86
   },
   "CV": {
     "short": false,
     "alert": 6.18,
-    "highest": 8.95,
+    "highest": 9.15,
     "lowest": 5.84,
     "highest5Day": 6.18,
     "lowest5Day": 6.18,
     "highest5DayPercent": 0,
     "lowest5DayPercent": 0,
     "current": 8.69,
-    "currentPrice": 8.69,
-    "performance": 40.61,
+    "currentPrice": 8.27,
+    "performance": 33.82,
     "date": "2026-03-20T12:05:19.657Z",
     "alertDate": "2026-03-20T12:05:19.657Z",
     "reverseSplitRatio": null,
@@ -765,14 +765,14 @@
     "short": false,
     "alert": 223.05,
     "highest": 243.08,
-    "lowest": 221.2422,
+    "lowest": 215.11,
     "highest5Day": 223.05,
     "lowest5Day": 223.05,
     "highest5DayPercent": 0,
     "lowest5DayPercent": 0,
     "current": 221.73,
-    "currentPrice": 221.73,
-    "performance": -0.59,
+    "currentPrice": 218.1,
+    "performance": -2.22,
     "date": "2026-03-20T12:05:55.743Z",
     "alertDate": "2026-03-20T12:05:55.743Z",
     "reverseSplitRatio": null,
@@ -785,24 +785,24 @@
     "highest": 100,
     "lowest": 80.7,
     "current": 82.59,
-    "currentPrice": 82.59,
+    "currentPrice": 84.62,
     "volume": 783482,
     "averageVolume": 759788,
     "marketCap": 5639661056,
-    "performance": -8.55
+    "performance": -6.3
   },
   "SLE": {
     "short": false,
     "alert": 4.32,
     "highest": 4.95,
-    "lowest": 4.01,
+    "lowest": 3.89,
     "highest5Day": 4.32,
     "lowest5Day": 4.32,
     "highest5DayPercent": 0,
     "lowest5DayPercent": 0,
     "current": 4.39,
-    "currentPrice": 4.39,
-    "performance": 1.62,
+    "currentPrice": 3.9,
+    "performance": -9.72,
     "date": "2026-03-20T19:12:26.036Z",
     "alertDate": "2026-03-20T19:12:26.036Z",
     "reverseSplitRatio": null,
@@ -815,22 +815,22 @@
     "highest": 1.19,
     "lowest": 0.9701,
     "current": 1.08,
-    "currentPrice": 1.08,
+    "currentPrice": 1.1,
     "volume": 627022,
     "averageVolume": 299738,
     "marketCap": 51071888,
-    "performance": 8
+    "performance": 10
   },
   "AVTX": {
     "alert": 13.42,
     "highest": 14.8,
     "lowest": 13.075,
     "current": 13.45,
-    "currentPrice": 13.45,
+    "currentPrice": 13.95,
     "volume": 982357,
     "averageVolume": 449352,
     "marketCap": 248996560,
-    "performance": 0.22
+    "performance": 3.95
   },
   "PYXS": {
     "short": false,
@@ -842,8 +842,8 @@
     "highest5DayPercent": 0,
     "lowest5DayPercent": 0,
     "current": 1.36,
-    "currentPrice": 1.36,
-    "performance": -7.48,
+    "currentPrice": 1.43,
+    "performance": -2.72,
     "date": "2026-03-23T11:13:24.588Z",
     "alertDate": "2026-03-23T11:13:24.588Z",
     "reverseSplitRatio": null,
@@ -854,15 +854,15 @@
   "STRO": {
     "short": false,
     "alert": 21.33,
-    "highest": 24.49,
+    "highest": 26.24,
     "lowest": 19.11,
     "highest5Day": 21.33,
     "lowest5Day": 21.33,
     "highest5DayPercent": 0,
     "lowest5DayPercent": 0,
     "current": 23.57,
-    "currentPrice": 23.57,
-    "performance": 10.5,
+    "currentPrice": 23.495,
+    "performance": 10.15,
     "date": "2026-03-23T20:33:49.077Z",
     "alertDate": "2026-03-23T20:33:49.077Z",
     "reverseSplitRatio": null,
@@ -875,11 +875,11 @@
     "highest": 10.135,
     "lowest": 9.25,
     "current": 9.72,
-    "currentPrice": 9.72,
+    "currentPrice": 9.51,
     "volume": 3330424,
     "averageVolume": 3339528,
     "marketCap": 1136349056,
-    "performance": 3.96
+    "performance": 1.71
   },
   "CRCW": {
     "alert": 0.002,
@@ -894,27 +894,27 @@
   },
   "NTHI": {
     "alert": 7.88,
-    "highest": 7.41,
-    "lowest": 7.41,
+    "highest": 7.08,
+    "lowest": 7.08,
     "current": 7.53,
-    "currentPrice": 7.53,
+    "currentPrice": 7.08,
     "volume": 17139,
     "averageVolume": 53867,
     "marketCap": 184542896,
-    "performance": -4.44
+    "performance": -10.15
   },
   "ENLV": {
     "short": true,
     "alert": 1.11,
-    "highest": 1.0547,
+    "highest": 1.32,
     "lowest": 1.0547,
     "highest5Day": 1.11,
     "lowest5Day": 1.11,
     "highest5DayPercent": 0,
     "lowest5DayPercent": 0,
     "current": 1.1,
-    "currentPrice": 1.1,
-    "performance": -0.9,
+    "currentPrice": 1.2,
+    "performance": 8.11,
     "date": "2026-03-24T12:35:55.117Z",
     "alertDate": "2026-03-24T12:35:55.117Z",
     "reverseSplitRatio": null,
@@ -924,69 +924,69 @@
   },
   "KPTI": {
     "alert": 6.66,
-    "highest": 5.14,
-    "lowest": 5.14,
+    "highest": 5.11,
+    "lowest": 5.11,
     "current": 5.44,
-    "currentPrice": 5.44,
+    "currentPrice": 5.21,
     "volume": 17831302,
     "averageVolume": 597945,
     "marketCap": 106722096,
-    "performance": -18.32
+    "performance": -21.77
   },
   "ZSPC": {
     "alert": 0.1564,
     "highest": 0.14,
     "lowest": 0.14,
     "current": 0.146,
-    "currentPrice": 0.146,
+    "currentPrice": 0.1401,
     "volume": 648437,
     "averageVolume": 1269472,
     "marketCap": 4862235,
-    "performance": -6.65
+    "performance": -10.42
   },
   "LENZ": {
     "alert": 11,
     "highest": 8.85,
     "lowest": 8.85,
     "current": 9.03,
-    "currentPrice": 9.03,
+    "currentPrice": 9.07,
     "volume": 3912118,
     "averageVolume": 953693,
     "marketCap": 282548416,
-    "performance": -17.91
+    "performance": -17.55
   },
   "WBUY": {
     "alert": 0.959,
-    "highest": 0.9112,
-    "lowest": 0.9112,
+    "highest": 0.9009,
+    "lowest": 0.9009,
     "current": 0.96,
-    "currentPrice": 0.96,
+    "currentPrice": 0.94,
     "volume": 20282,
     "averageVolume": 391598,
     "marketCap": 3420802,
-    "performance": 0.1
+    "performance": -1.98
   },
   "NRSN": {
     "alert": 0.7456,
     "highest": 0.63,
     "lowest": 0.63,
     "current": 0.73,
-    "currentPrice": 0.73,
+    "currentPrice": 0.77,
     "volume": 532564,
     "averageVolume": 220479,
     "marketCap": 24379524,
-    "performance": -2.09
+    "performance": 3.27
   },
   "BMEA": {
     "alert": 1.13,
-    "highest": 1.07,
+    "highest": 1.265,
     "lowest": 1.07,
     "current": 1.13,
-    "currentPrice": 1.13,
+    "currentPrice": 1.22,
     "volume": 1006802,
     "averageVolume": 1093113,
     "marketCap": 79895112,
-    "performance": 0
+    "performance": 7.96
   },
   "SLGL": {
     "short": false,
@@ -998,8 +998,8 @@
     "highest5DayPercent": 0,
     "lowest5DayPercent": 0,
     "current": 80.01,
-    "currentPrice": 80.01,
-    "performance": 0,
+    "currentPrice": 79.07,
+    "performance": -1.17,
     "date": "2026-03-24T21:17:10.100Z",
     "alertDate": "2026-03-24T21:17:10.100Z",
     "reverseSplitRatio": null,
@@ -1009,82 +1009,82 @@
   },
   "CETX": {
     "alert": 0.5976,
-    "highest": 0.6345,
+    "highest": 0.6422,
     "lowest": 0.5919,
     "current": 0.5976,
-    "currentPrice": 0.5976,
+    "currentPrice": 0.6422,
     "volume": 144898,
     "averageVolume": 3746379,
     "marketCap": 6022666,
-    "performance": 0
+    "performance": 7.46
   },
   "XELB": {
     "alert": 1.5,
-    "highest": 1.635,
-    "lowest": 1.47,
+    "highest": 1.64,
+    "lowest": 1.4483,
     "current": 1.5,
-    "currentPrice": 1.5,
+    "currentPrice": 1.64,
     "volume": 9568,
     "averageVolume": 41777,
     "marketCap": 8840722,
-    "performance": 0
+    "performance": 9.33
   },
   "CING": {
     "alert": 6.71,
-    "highest": 6.31,
-    "lowest": 6.31,
+    "highest": 6.204,
+    "lowest": 6.204,
     "current": 6.71,
-    "currentPrice": 6.71,
+    "currentPrice": 6.36,
     "volume": 576190,
     "averageVolume": 446901,
     "marketCap": 78027992,
-    "performance": 0
+    "performance": -5.22
   },
   "MAZE": {
     "alert": 49,
-    "highest": 46.06,
-    "lowest": 46.06,
+    "highest": 29.7754,
+    "lowest": 29.7754,
     "current": 49,
-    "currentPrice": 49,
+    "currentPrice": 31.73,
     "volume": 550253,
     "averageVolume": 488452,
     "marketCap": 2357852672,
-    "performance": 0
+    "performance": -35.24
   },
   "KALV": {
     "alert": 16.46,
-    "highest": 15.945,
+    "highest": 17.44,
     "lowest": 15.945,
     "current": 16.46,
-    "currentPrice": 16.46,
+    "currentPrice": 17.14,
     "volume": 645549,
     "averageVolume": 982154,
     "marketCap": 831991936,
-    "performance": 0
+    "performance": 4.13
   },
   "TERN": {
     "alert": 50,
-    "highest": 48.144,
+    "highest": 52.965,
     "lowest": 48.144,
     "current": 50,
-    "currentPrice": 50,
+    "currentPrice": 52.86,
     "volume": 2422504,
     "averageVolume": 2164449,
     "marketCap": 5438364160,
-    "performance": 0
+    "performance": 5.72
   },
   "IBG": {
     "short": false,
     "alert": 1.21,
-    "highest": 1.27,
-    "lowest": 1.15,
+    "highest": 0.99,
+    "lowest": 0.99,
     "highest5Day": 1.21,
     "lowest5Day": 1.21,
     "highest5DayPercent": 0,
     "lowest5DayPercent": 0,
     "current": 1.21,
-    "currentPrice": 1.21,
-    "performance": 0,
+    "currentPrice": 1.18,
+    "performance": -2.48,
     "date": "2026-03-25T12:31:14.426Z",
     "alertDate": "2026-03-25T12:31:14.426Z",
     "reverseSplitRatio": null,
@@ -1094,29 +1094,29 @@
   },
   "PMN": {
     "alert": 17.43,
-    "highest": 18.715,
-    "lowest": 17.43,
+    "highest": 15.85,
+    "lowest": 15.85,
     "current": 17.43,
-    "currentPrice": 17.43,
+    "currentPrice": 15.85,
     "volume": 16394,
     "averageVolume": 178869,
     "marketCap": 156306896,
-    "performance": 0
+    "performance": -9.06
   },
-  "PRTS": {
-    "short": true,
-    "alert": 0.83,
-    "highest": 0.83,
-    "lowest": 0.83,
-    "highest5Day": 0.83,
-    "lowest5Day": 0.83,
+  "QNTM": {
+    "short": false,
+    "alert": 4.35,
+    "highest": 4.35,
+    "lowest": 4.35,
+    "highest5Day": 4.35,
+    "lowest5Day": 4.35,
     "highest5DayPercent": 0,
     "lowest5DayPercent": 0,
-    "current": 0.83,
-    "currentPrice": 0.83,
+    "current": 4.35,
+    "currentPrice": 4.35,
     "performance": 0,
-    "date": "2026-03-25T13:02:23.560Z",
-    "alertDate": "2026-03-25T13:02:23.560Z",
+    "date": "2026-03-26T12:01:07.550Z",
+    "alertDate": "2026-03-26T12:01:07.550Z",
     "reverseSplitRatio": null
   }
 }
