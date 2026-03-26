@@ -5968,9 +5968,78 @@
     "recordId": "DNTH-1774526495198",
     "expiresAt": "2026-03-31T12:01:35.198Z",
     "direction": "LONG",
-    "highest5Day": 79.61,
+    "highest5Day": 82.145,
+    "highest5DayPercent": 3.18,
+    "lowest5Day": 78.94,
+    "lowest5DayPercent": -0.84
+  },
+  {
+    "ticker": "MTVA",
+    "title": "8-K - MetaVia Inc. (0001638287) (Filer)",
+    "companyName": "MetaVia Inc.",
+    "filerName": null,
+    "sector": "Biotechnology",
+    "price": 1.3,
+    "fav": "40.16",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Massachusetts (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.15,
+    "filingTimeBonus": 1.15,
+    "volume": 101020,
+    "averageVolume": 249033,
+    "float": 10000000,
+    "sharesOutstanding": 3315164,
+    "soRatio": "301.6%",
+    "marketCap": 4309713,
+    "isShort": false,
+    "ftd": 171196,
+    "ftdPercent": "1.71",
+    "intent": "Clinical Success, Clinical Milestone, Licensing Deal",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Massachusetts",
+    "filingDate": "2026-03-26",
+    "signals": {
+      "Clinical Success": [
+        "Phase 1",
+        "Phase 2",
+        "Efficacy",
+        "Data Readout",
+        "Favorable Safety",
+        "Statistically Significant"
+      ],
+      "Clinical Milestone": [
+        "First Patient"
+      ],
+      "Licensing Deal": [
+        "License Agreement"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "formType": [
+      "8-K",
+      "EX-99.1",
+      "Item 2.02",
+      "Item 9.01"
+    ],
+    "filingType": "8-K, EX-99.1, Item 2.02, Item 9.01",
+    "cik": "1638287",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-03-26T12:32:00.034Z",
+    "recordId": "MTVA-1774528320034",
+    "expiresAt": "2026-03-31T12:32:00.034Z",
+    "direction": "LONG",
+    "highest5Day": 1.3,
     "highest5DayPercent": 0,
-    "lowest5Day": 79.61,
+    "lowest5Day": 1.3,
     "lowest5DayPercent": 0
   }
 ]
