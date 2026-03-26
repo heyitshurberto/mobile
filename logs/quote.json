@@ -1104,19 +1104,30 @@
     "performance": -9.06
   },
   "QNTM": {
-    "short": false,
     "alert": 4.35,
-    "highest": 4.35,
-    "lowest": 4.35,
-    "highest5Day": 4.35,
-    "lowest5Day": 4.35,
-    "highest5DayPercent": 0,
-    "lowest5DayPercent": 0,
+    "highest": 5.6499,
+    "lowest": 4.21,
     "current": 4.35,
     "currentPrice": 4.35,
+    "volume": 1153863,
+    "averageVolume": 135764,
+    "marketCap": 16716950,
+    "performance": 0
+  },
+  "DNTH": {
+    "short": false,
+    "alert": 79.61,
+    "highest": 79.61,
+    "lowest": 79.61,
+    "highest5Day": 79.61,
+    "lowest5Day": 79.61,
+    "highest5DayPercent": 0,
+    "lowest5DayPercent": 0,
+    "current": 79.61,
+    "currentPrice": 79.61,
     "performance": 0,
-    "date": "2026-03-26T12:01:07.550Z",
-    "alertDate": "2026-03-26T12:01:07.550Z",
+    "date": "2026-03-26T12:01:35.256Z",
+    "alertDate": "2026-03-26T12:01:35.256Z",
     "reverseSplitRatio": null
   }
 }
