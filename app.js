@@ -1372,7 +1372,7 @@ const cleanupStaleAlerts = () => {
 const saveToCSV = (alertData) => {
   try {
     const csvPath = CONFIG.CSV_FILE;
-    const headers = 'CIK,Ticker,Registrant Name,Price,Incorporated,Located,Market Cap,Float,Shares Outstanding,S/O Ratio,F/AV,Direction,FTD,FTD %,Volume,Average Volume,Sector,Filing Type,Catalyst,Custodian Control,Filing Time Bonus,S/O Bonus,Bonus Signals,Financial Ratios,Alert Type,Skip Reason,Item 3.02 Detected,SEPA Agreement,SEPA Type,Predatory Lender,Predator Confidence,Timestamp\n';
+    const headers = 'CIK,Ticker,Registrant Name,Price,Incorporated,Located,Market Cap,Float,Shares Outstanding,S/O Ratio,F/AV,Direction,FTD,FTD %,Volume,Average Volume,Sector,Filing Type,Catalyst,Custodian Control,Filing Time Bonus,S/O Bonus,Bonus Signals,Financial Ratios,Alert Type,Skip Reason,Item 3.02 Detected,SEPA Agreement,SEPA Type,Predatory Lender,Predatory Confidence\n';
     
     // Create file with headers if it doesn't exist
     if (!fs.existsSync(csvPath)) {
