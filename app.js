@@ -1372,7 +1372,7 @@ const cleanupStaleAlerts = () => {
 const saveToCSV = (alertData) => {
   try {
     const csvPath = CONFIG.CSV_FILE;
-    const headers = 'CIK,Ticker,Registrant Name,Price,Incorporated,Located,Market Cap,Float,Shares Outstanding,S/O Ratio,F/AV,Direction,FTD,FTD %,Volume,Average Volume,Sector,Filing Type,Catalyst,Custodian Control,Filing Time Bonus,S/O Bonus,Bonus Signals,Financial Ratios,Alert Type,Skip Reason,Filed Date,Filed Time,Scanned Date,Scanned Time\n';
+    const headers = 'CIK,Ticker,Registrant Name,Price,Incorporated,Located,Market Cap,Float,Shares Outstanding,S/O Ratio,F/AV,Direction,FTD,FTD %,Volume,Average Volume,Sector,Filing Type,Catalyst,Custodian Control,Filing Time Bonus,S/O Bonus,Bonus Signals,Financial Ratios,Alert Type,Skip Reason,Item 3.02 Detected,SEPA Agreement,SEPA Type,Predatory Lender,Predator Confidence,Filed Date,Filed Time,Scanned Date,Scanned Time\n';
     
     // Create file with headers if it doesn't exist
     if (!fs.existsSync(csvPath)) {
@@ -1385,6 +1385,24 @@ const saveToCSV = (alertData) => {
     const fav = alertData.fav || 'N/A';
     const companyName = alertData.companyName || 'N/A';
     const financialRatioSignals = alertData.financialRatioSignals || null;
+    
+    // Extract Item 3.02 and SEPA data
+    let item302Detected = 'No';
+    let sepaAgreement = 'N/A';
+    let sepaType = 'N/A';
+    let predatoryLender = 'N/A';
+    let predatorConfidence = 'N/A';
+    
+    if (alertData.signals && alertData.signals['Unregistered Equity Sales']) {
+      item302Detected = 'Yes';
+      if (alertData.filingText) {
+        const sepaData = detectSEPAAgreement(alertData.filingText, alertData.buyerDescription);
+        if (sepaData && sepaData.hasSEPA) {
+          sepaAgreement = sepaData.buyerName || 'Unknown';
+          sepaType = sepaData.isOpenEnded ? 'Open-Ended' : 'Single Tranche';
+        }
+      }
+    }
     
     // Format filing timestamp
     const filingTime = new Date(alertData.filingDate);
@@ -1478,6 +1496,11 @@ const saveToCSV = (alertData) => {
       escapeCSV(financialRatiosStr),
       escapeCSV(alertData.alertType || 'N/A'),
       escapeCSV(alertData.skipReason || ''),
+      escapeCSV(item302Detected),
+      escapeCSV(sepaAgreement),
+      escapeCSV(sepaType),
+      escapeCSV(predatoryLender),
+      escapeCSV(predatorConfidence),
       escapeCSV(filedDate),
       escapeCSV(filedTime),
       escapeCSV(scannedDate),
@@ -1616,6 +1639,17 @@ const saveAlert = (alertData) => {
     const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
     const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${alertData.cik}&type=6-K&dateb=&owner=exclude&count=100`;
     log('INFO', `Links: ${tvLink} ${secLink}`);
+    
+    // Log SEPA agreement if Item 3.02 detected
+    if (alertData.signals && alertData.signals['Unregistered Equity Sales']) {
+      if (alertData.filingText) {
+        const sepaData = detectSEPAAgreement(alertData.filingText, alertData.buyerDescription);
+        if (sepaData && sepaData.hasSEPA) {
+          const sepaMsg = sepaData.isOpenEnded ? `SEPA (Open-Ended): ${sepaData.buyerName}` : `SEPA (Single Tranche): ${sepaData.buyerName}`;
+          log('INFO', sepaMsg);
+        }
+      }
+    }
     
     // Consolidated single log line for all file saves + git status
     const gitStatus = CONFIG.GITHUB_PUSH_ENABLED && CONFIG.GITHUB_PAGES_ENABLED ? 'Git Push Enabled' : 'Git Push Disabled';
@@ -9433,7 +9467,8 @@ if (process.stdin.isTTY) {
             alertType: null,  // Set to 'Toxic Structure', 'High Velocity', or 'Composite' if alerted
             deterministicPattern: deterministic.pattern,
             deterministicMechanism: deterministic.mechanism,
-            deterministicPhrase: deterministicPhrase
+            deterministicPhrase: deterministicPhrase,
+            filingText: text
           };
           
           // Only save alert if we got price, float, and S/O data
