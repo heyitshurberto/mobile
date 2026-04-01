@@ -1405,14 +1405,20 @@ const saveToCSV = (alertData) => {
     }
     
     // Format filing timestamp
-    const filingTime = new Date(alertData.filingDate);
-    const filedDate = filingTime.toISOString().split('T')[0];
-    const filedTime = filingTime.toTimeString().split(' ')[0];
+    let filedDate = 'N/A';
+    let filedTime = 'N/A';
+    if (alertData.filingDate) {
+      const filingTime = new Date(alertData.filingDate);
+      if (!isNaN(filingTime.getTime())) {
+        filedDate = filingTime.toISOString().split('T')[0];
+        filedTime = filingTime.toISOString().split('T')[1].split('.')[0];
+      }
+    }
     
     // Format scan timestamp
     const now = new Date();
     const scannedDate = now.toISOString().split('T')[0];
-    const scannedTime = now.toTimeString().split(' ')[0];
+    const scannedTime = now.toISOString().split('T')[1].split('.')[0];
     
     // Format signals/intent as readable string
     const signals = (alertData.intent && Array.isArray(alertData.intent)) 
