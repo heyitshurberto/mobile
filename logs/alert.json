@@ -274,5 +274,89 @@
     "highest5DayPercent": 0,
     "lowest5Day": 0,
     "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "FFWM",
+    "title": "8-K - First Foundation Inc. (0001413837) (Filer)",
+    "companyName": "First Foundation Inc.",
+    "filerName": null,
+    "sector": "Banking",
+    "price": 5.9,
+    "fav": "60.17",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Texas (via Toronto, Canada)",
+    "filingTimeMultiplier": 1.15,
+    "filingTimeBonus": 1.15,
+    "volume": 2291182,
+    "averageVolume": 831044,
+    "float": 50000000,
+    "sharesOutstanding": 82926292,
+    "soRatio": "60.29%",
+    "marketCap": 489265120,
+    "isShort": false,
+    "ftd": 158,
+    "ftdPercent": "0.00",
+    "intent": "Merger/Acquisition, Going Dark, Reverse Split Event, Asset Disposition, Partnership",
+    "incorporated": "Toronto, Canada",
+    "located": "Texas",
+    "filingDate": "2026-04-01",
+    "signals": {
+      "Merger/Acquisition": [
+        "Merger Agreement",
+        "Merger Consideration"
+      ],
+      "Going Dark": [
+        "Form 15",
+        "Deregistration"
+      ],
+      "Reverse Split Event": [
+        "Reverse Stock Split"
+      ],
+      "Asset Disposition": [
+        "Sale Of Assets",
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ]
+    },
+    "bonusSignals": {
+      "Shell Recycling": "Shell Recycling"
+    },
+    "financialRatioSignals": {},
+    "reverseSplitRatio": "1-for-364",
+    "reverseSplitReason": "Listing standard compliance",
+    "formType": [
+      "6-K",
+      "6-K/A",
+      "8-K",
+      "20-F",
+      "20-F/A",
+      "13G",
+      "Item 2.01",
+      "Item 3.01",
+      "Item 3.03",
+      "Item 5.01",
+      "Item 5.02",
+      "Item 5.03",
+      "Item 9.01"
+    ],
+    "filingType": "6-K, 6-K/A, 8-K, 20-F, 20-F/A, 13G, Item 2.01, Item 3.01, Item 3.03, Item 5.01, Item 5.02, Item 5.03, Item 9.01",
+    "cik": "1413837",
+    "skipReason": "",
+    "alertType": null,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-04-01T18:31:25.654Z",
+    "recordId": "FFWM-1775068285654",
+    "expiresAt": "2026-04-06T18:31:25.654Z",
+    "direction": "LONG",
+    "highest5Day": 5.9,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0,
+    "lowest5DayPercent": 0
   }
 ]
