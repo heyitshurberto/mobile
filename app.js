@@ -673,6 +673,9 @@ const SEMANTIC_KEYWORDS = {
   
   // Commercial Inflection & Traction (Growth Signals)
   'Commercial Inflection': ['Customer Growth', 'Revenue Growth', 'Revenue Doubled', 'Revenue Doubled In', 'Commercial Traction', 'Commercial Momentum', 'POC Completed', 'Proof Of Concept Completed', 'Proof Of Concept', 'Letter Of Intent', 'LOI Signed', 'Commercial Pipeline Expansion', 'Commercial Pipeline', 'Operational Runway', 'Cash Runway', 'Strengthened Foundation', 'De-Risking', 'Strategic Validation', 'Ecosystem Expansion', 'Customer Count Increase', 'Active Customers', 'Revenue-Generating Shipments', 'Repeat Business'],
+  
+  // Predatory Extraction Mechanics (Item 3.02)
+  'Unregistered Equity Sales': ['Item 3.02', 'registered direct offering', 'offering to certain investors', 'accredited investors', 'Rule 506(b)', 'unregistered', 'private placement', 'registered direct', 'issuable under', 'pre-funded warrants', 'purchase agreement', 'placement agent'],
 };
 
 
@@ -907,6 +910,91 @@ const detectThirdPartyServices = (text) => {
 
 const SEC_CODE_TO_COUNTRY = {'C2':'Shanghai, China','F4':'Shadong, China','F8':'Bogota, Columbia','6A':'Shanghai, China','D8':'Hong Kong','H0':'Hong Kong','K3':'Kowloon Bay, Hong Kong','S4':'Singapore','U0':'Singapore','C0':'Cayman Islands','K2':'Cayman Islands','E9':'Cayman Islands','1E':'Charlotte Amalie, U.S. Virgin Islands','VI':'Road Town, British Virgin Islands','A1':'Toronto, Canada','A2':'Winnipeg, Canada','A6':'Ottawa, Canada','A9':'Vancouver, Canada','A0':'Calgary, Canada','CA':'Toronto, Canada','C4':'Toronto, Canada','D0':'Hamilton, Canada','D9':'Toronto, Canada','Q0':'Toronto, Canada','L3':'Tel Aviv, Israel','J1':'Tokyo, Japan','M0':'Tokyo, Japan','E5':'Dublin, Ireland','I0':'Dublin, Ireland','L2':'Dublin, Ireland','DE':'Wilmington, Delaware','1T':'Athens, Greece','B2':'Bridgetown, Barbados','B6':'Nassau, Bahamas','B9':'Hamilton, Bermuda','C1':'Buenos Aires, Argentina','C3':'Brisbane, Australia','C7':'St. Helier, Channel Islands','D2':'Hamilton, Bermuda','D4':'Hamilton, Bermuda','D5':'Sao Paulo, Brazil','D6':'Bridgetown, Barbados','E4':'Hamilton, Bermuda','F2':'Frankfurt, Germany','F3':'Paris, France','F5':'Johannesburg, South Africa','G0':'St. Helier, Jersey','G1':'St. Peter Port, Guernsey','G4':'New York, United States','G7':'Copenhagen, Denmark','H1':'St. Helier, Jersey','I1':'Douglas, Isle of Man','J0':'St. Helier, Jersey','J2':'St. Helier, Jersey','J3':'St. Helier, Jersey','K1':'Seoul, South Korea','K7':'New York, United States','L0':'Hamilton, Bermuda','L6':'Milan, Italy','M1':'Majuro, Marshall Islands','N0':'Amsterdam, Netherlands','N2':'Amsterdam, Netherlands','N4':'Amsterdam, Netherlands','O5':'Mexico City, Mexico','P0':'Lisbon, Portugal','P3':'Manila, Philippines','P7':'Madrid, Spain','P8':'Warsaw, Poland','R0':'Milan, Italy','S0':'Madrid, Spain','T0':'Lisbon, Portugal','T3':'Johannesburg, South Africa','U1':'London, United Kingdom','U5':'London, United Kingdom','V0':'Zurich, Switzerland','V8':'Geneva, Switzerland','W0':'Frankfurt, Germany','X0':'London, UK','X1':'Luxembourg City, Luxembourg','Y0':'Nicosia, Cyprus','Y1':'Nicosia, Cyprus','Y7':'St. Peter Port, Guernsey','Z0':'Johannesburg, South Africa','Z1':'Johannesburg, South Africa','Z4':'Vancouver, British Columbia, Canada','1A':'Pago Pago, American Samoa','1B':'Saipan, Northern Mariana Islands','1C':'Hagatna, Guam','1D':'San Juan, Puerto Rico','3A':'Sydney, Australia','4A':'Auckland, New Zealand','5A':'Apia, Samoa','7A':'Moscow, Russia','8A':'Mumbai, India','9A':'Jakarta, Indonesia','2M':'Frankfurt, Germany','U3':'Madrid, Spain','Y9':'Nicosia, Cyprus','AL':'Birmingham, UK','Q8':'Oslo, Norway','R1':'Panama City, Panama','V7':'Stockholm, Sweden','K8':'Jakarta, Indonesia','O9':'Monaco','W8':'Istanbul, Turkey','R5':'Lima, Peru','N8':'Kuala Lumpur, Malaysia'};
 
+const detectItem302HiddenBuyers = (text) => {
+  if (!text) return null;
+  const lowerText = text.toLowerCase();
+  
+  const hasItem302 = /item\s+3\.02|unregistered.*equity|registered direct/.test(lowerText);
+  if (!hasItem302) return null;
+  
+  const buyerPatterns = [
+    /to\s+(?:certain|a group of|accredited)\s+investors/i,
+    /registered direct offering to\s+(.+?)(?:\.|,|$)/i,
+    /purchasers?.*?identified in\s+(?:a confidential|schedule)/i,
+    /buyer.*?is\s+(.+?)(?:\(|,|\.|$)/i,
+  ];
+  
+  let buyerDescription = 'Unknown Buyer';
+  for (const pattern of buyerPatterns) {
+    const match = text.match(pattern);
+    if (match && match[1]) {
+      buyerDescription = match[1].trim().substring(0, 100);
+      break;
+    }
+  }
+  
+  const discountMatch = text.match(/(?:discount|reduced|lower|minimum).{0,50}?(\d+(?:\.\d{1,2})?)\s*%/i);
+  let discount = null;
+  if (discountMatch && discountMatch[1]) {
+    discount = parseFloat(discountMatch[1]);
+  }
+  
+  const sharesMatch = text.match(/(\d{1,3}(?:,\d{3})*)\s+(?:shares|pre-funded warrants|units)/i);
+  let sharesIssued = null;
+  if (sharesMatch && sharesMatch[1]) {
+    sharesIssued = parseInt(sharesMatch[1].replace(/,/g, ''));
+  }
+  
+  return {
+    hasItem302: true,
+    buyerDescription,
+    discount,
+    sharesIssued,
+    isDilutive: sharesIssued > 1000000 || discount > 50
+  };
+};
+
+const identifyPredatorLender = (text, buyerDescription) => {
+  if (!text) return null;
+  
+  const lowerText = text.toLowerCase();
+  const buyerLower = (buyerDescription || '').toLowerCase();
+  const combined = lowerText + ' ' + buyerLower;
+  
+  // Predator keywords - same pattern as SEMANTIC_KEYWORDS
+  const PREDATOR_KEYWORDS = {
+    'Yorkville Capital': ['yorkville', 'ya ii pn', 'sepa'],
+    'Lincoln Park': ['lincoln park', 'lpac'],
+    'Brio Capital': ['brio capital', 'brio fund'],
+    'Streeterville Capital': ['streeterville', 'streetville'],
+    'Uptown Capital': ['uptown capital', 'irving park'],
+    'Iliad Research': ['iliad research', 'iliad trading'],
+    'Chicago Venture Partners': ['chicago venture', 'cvp'],
+    'Gemini Finance': ['gemini finance', 'gemini corp'],
+    'Solana Growth': ['solana growth', 'solana ventures'],
+    'Silver Run': ['silver run', 'silver run group'],
+    'High Trail': ['high trail', 'high trail investments'],
+    'Southridge': ['southridge partners'],
+    'Roth Capital': ['roth capital', 'roth ch'],
+    'B. Riley': ['b. riley', 'b riley'],
+    'Needham': ['needham capital', 'needham securities'],
+  };
+  
+  for (const [predatorName, keywords] of Object.entries(PREDATOR_KEYWORDS)) {
+    for (const keyword of keywords) {
+      if (combined.includes(keyword)) {
+        return { predatorName, confidence: 1.0, isDTSA: true };
+      }
+    }
+  }
+  
+  if (combined.includes('accredited') && combined.includes('certain investors')) {
+    return { predatorName: 'Unknown Accredited Investor Group', confidence: 0.6, isDTSA: false };
+  }
+  
+  return null;
+};
+
 const parseSemanticSignals = (text) => {
   if (!text) return {};
   const lowerText = text.toLowerCase();
@@ -921,6 +1009,15 @@ const parseSemanticSignals = (text) => {
     if (matches.length > 0) {
       signals[category] = matches;
     }
+  }
+  
+  const item302Data = detectItem302HiddenBuyers(text);
+  if (item302Data && item302Data.hasItem302) {
+    signals['Unregistered Equity Sales'] = [
+      `Item 3.02: ${item302Data.buyerDescription || 'Hidden Buyer'}`,
+      item302Data.discount ? `Discount: ${item302Data.discount}%` : null,
+      item302Data.sharesIssued ? `Shares: ${(item302Data.sharesIssued / 1000000).toFixed(1)}M` : null
+    ].filter(Boolean);
   }
   
   return signals;
@@ -2660,6 +2757,40 @@ async function getOwnershipMetrics(ticker, cik) {
   }
 }
 
+const detectSEPAAgreement = (text, buyerDescription) => {
+  // SEPA = Standstill/Exchange/Purchase Agreement - Yorkville's unlimited dilution vector
+  if (!text) return null;
+  
+  const lowerText = text.toLowerCase();
+  const sepaSigs = ['sepa', 'standstill', 'exchange agreement', 'purchase agreement', 'subscription agreement', 'convertible promissory note'];
+  
+  let hasSEPA = false;
+  for (const sig of sepaSigs) {
+    if (lowerText.includes(sig)) {
+      hasSEPA = true;
+      break;
+    }
+  }
+  
+  if (!hasSEPA) return null;
+  
+  // Check for open-ended discount language (unlimited dilution)
+  const openEndedSigs = ['may purchase', 'will have the right', 'continuing', 'ongoing', 'subsequent', 'additional tranches', 'multiple closings', 'at seller\'s election'];
+  let isOpenEnded = false;
+  for (const sig of openEndedSigs) {
+    if (lowerText.includes(sig)) {
+      isOpenEnded = true;
+      break;
+    }
+  }
+  
+  return {
+    hasSEPA: true,
+    isOpenEnded: isOpenEnded,
+    buyerName: (buyerDescription || 'Unknown').trim()
+  };
+};
+
 const sendPersonalWebhook = (alertData) => {
   try {
     // Check master toggle first
@@ -2783,6 +2914,22 @@ const sendPersonalWebhook = (alertData) => {
     const locationDisplay = alertData.located || 'N/A';
     const incorporationDisplay = alertData.incorporated || 'N/A';
     const alertTypeDisplay = alertData.alertType && alertData.alertType.includes('CTB') ? `${alertData.alertType} ` : '';
+    
+    // Check for SEPA agreement if Item 3.02 detected
+    let sepaMessage = '';
+    if (alertData.signals && alertData.signals['Unregistered Equity Sales']) {
+      const item302Data = alertData.signals['Unregistered Equity Sales'];
+      if (typeof item302Data === 'string' && item302Data.includes('Item 3.02')) {
+        // Try to detect SEPA from filing text if available
+        if (alertData.filingText) {
+          const sepaData = detectSEPAAgreement(alertData.filingText, alertData.buyerDescription);
+          if (sepaData && sepaData.hasSEPA) {
+            sepaMessage = sepaData.isOpenEnded ? `**SEPA:** Open-Ended Dilution (${sepaData.buyerName})` : `**SEPA:** ${sepaData.buyerName}`;
+          }
+        }
+      }
+    }
+    
     const personalAlertContent = `${alertTypeDisplay}[${direction}] $${ticker} @ ${priceDisplay}${setupTag}
 
 **Signals:** ${reason}
@@ -2794,7 +2941,7 @@ const sendPersonalWebhook = (alertData) => {
 **Market Cap:** ${marketCapDisplay}
 **F/AV:** ${favDisplay}
 **FTD %:** ${ftdDisplay}
-
+${sepaMessage ? sepaMessage + '\n' : ''}
 https://www.tradingview.com/chart/?symbol=${ticker}
 ${secLink}`;
     
@@ -2834,7 +2981,7 @@ const sendPaidWebhook = (alertData) => {
     const volumeDisplay = alertData.volume && alertData.volume !== 'N/A' ? (alertData.volume / 1000000).toFixed(2) + 'm' : 'N/A';
     const avgVolDisplay = alertData.averageVolume && alertData.averageVolume !== 'N/A' ? (alertData.averageVolume / 1000000).toFixed(2) + 'm' : 'N/A';
     const marketCapDisplay = alertData.marketCap && alertData.marketCap !== 'N/A' ? `$${(alertData.marketCap / 1000000000).toFixed(2)}B` : 'N/A';
-    const sideEmoji = direction === 'SHORT' ? '🔴 SHORT' : '🟢 LONG';
+    const sideEmoji = direction === 'SHORT' ? '▼ SHORT' : '▲ LONG';
     
     // PAID WEBHOOK: Telegram style (clean, minimal, no branding)
     const paidAlertContent = `Ж NEW ALERT: $${ticker}\n${sideEmoji}\n\nEntry: ${priceDisplay}\nFloat: ${floatDisplay}\nVolume: ${volumeDisplay} (Avg: ${avgVolDisplay})\nS/O: ${alertData.soRatio || 'N/A'}\nMarket Cap: ${marketCapDisplay}\n\nhttps://www.tradingview.com/chart/?symbol=${ticker}`;
@@ -9246,6 +9393,7 @@ if (process.stdin.isTTY) {
             }
           }
           
+          // Initialize alertData early to prevent uninitialized reference errors
           const alertData = {
             ticker: ticker || filing.cik || 'Unknown',
             title: filing.title ? filing.title.replace(/\s*\(\d{10}\)\s*$/, '').trim() : 'Unknown Company',
