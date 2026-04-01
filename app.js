@@ -1399,7 +1399,7 @@ const saveToCSV = (alertData) => {
         const sepaData = detectSEPAAgreement(alertData.filingText, alertData.buyerDescription);
         if (sepaData && sepaData.hasSEPA) {
           sepaAgreement = sepaData.buyerName || 'Unknown';
-          sepaType = sepaData.isOpenEnded ? 'Open-Ended' : 'Single Tranche';
+          sepaType = sepaData.isOpenEnded ? 'Open Ended' : 'Single Tranche';
         }
       }
     }
