@@ -1372,7 +1372,7 @@ const cleanupStaleAlerts = () => {
 const saveToCSV = (alertData) => {
   try {
     const csvPath = CONFIG.CSV_FILE;
-    const headers = 'CIK,Ticker,Registrant Name,Price,Incorporated,Located,Market Cap,Float,Shares Outstanding,S/O Ratio,F/AV,Direction,FTD,FTD %,Volume,Average Volume,Sector,Filing Type,Catalyst,Custodian Control,Filing Time Bonus,S/O Bonus,Bonus Signals,Financial Ratios,Alert Type,Skip Reason,Item 3.02 Detected,SEPA Agreement,SEPA Type,Predatory Lender,Predator Confidence,Filed Date,Filed Time,Scanned Date,Scanned Time\n';
+    const headers = 'CIK,Ticker,Registrant Name,Price,Incorporated,Located,Market Cap,Float,Shares Outstanding,S/O Ratio,F/AV,Direction,FTD,FTD %,Volume,Average Volume,Sector,Filing Type,Catalyst,Custodian Control,Filing Time Bonus,S/O Bonus,Bonus Signals,Financial Ratios,Alert Type,Skip Reason,Item 3.02 Detected,SEPA Agreement,SEPA Type,Predatory Lender,Predator Confidence,Timestamp\n';
     
     // Create file with headers if it doesn't exist
     if (!fs.existsSync(csvPath)) {
@@ -1404,21 +1404,14 @@ const saveToCSV = (alertData) => {
       }
     }
     
-    // Format filing timestamp
-    let filedDate = 'N/A';
-    let filedTime = 'N/A';
+    // Format filing timestamp as Unix timestamp (milliseconds)
+    let timestamp = 'N/A';
     if (alertData.filingDate) {
       const filingTime = new Date(alertData.filingDate);
       if (!isNaN(filingTime.getTime())) {
-        filedDate = filingTime.toISOString().split('T')[0];
-        filedTime = filingTime.toISOString().split('T')[1].split('.')[0];
+        timestamp = filingTime.getTime();
       }
     }
-    
-    // Format scan timestamp
-    const now = new Date();
-    const scannedDate = now.toISOString().split('T')[0];
-    const scannedTime = now.toISOString().split('T')[1].split('.')[0];
     
     // Format signals/intent as readable string
     const signals = (alertData.intent && Array.isArray(alertData.intent)) 
@@ -1507,10 +1500,7 @@ const saveToCSV = (alertData) => {
       escapeCSV(sepaType),
       escapeCSV(predatoryLender),
       escapeCSV(predatorConfidence),
-      escapeCSV(filedDate),
-      escapeCSV(filedTime),
-      escapeCSV(scannedDate),
-      escapeCSV(scannedTime),
+      escapeCSV(timestamp),
     ];
 
     // Convert to CSV string
