@@ -1000,6 +1000,35 @@ const parseSemanticSignals = (text) => {
   const lowerText = text.toLowerCase();
   const signals = {};
   
+  // CRITICAL: Check for failed trial indicators BEFORE parsing signals
+  const failedTrialIndicators = [
+    /primary\s+endpoint\s+(?:was\s+)?not\s+met/i,
+    /did\s+not\s+(?:show|demonstrate|achieve)\s+.*?(?:significant|efficacy|improvement)/i,
+    /failed\s+to\s+(?:meet|achieve|demonstrate)/i,
+    /missed\s+(?:primary|primary\s+endpoint)/i,
+    /primary\s+did\s+not\s+reach/i,
+    /no\s+statistically\s+significant/i
+  ];
+  
+  const hasFailedTrial = failedTrialIndicators.some(pattern => pattern.test(lowerText));
+  
+  // CRITICAL: Check for post-hoc salvage analysis (p-hacking)
+  const postHocIndicators = [
+    /post\s+hoc\s+(?:analysis|findings)/i,
+    /unplanned\s+analysis/i,
+    /subset\s+analysis/i,
+    /exploratory\s+analysis/i
+  ];
+  
+  const hasPostHocAnalysis = postHocIndicators.some(pattern => pattern.test(lowerText));
+  
+  // HARD REJECT: Post-hoc analysis + failed primary = p-hacking (scientific fraud)
+  if (hasPostHocAnalysis && hasFailedTrial) {
+    // Return empty signals - this is p-hacking, not a real finding
+    // Company is mining data after failure to create false narrative
+    return {};
+  }
+  
   for (const [category, keywords] of Object.entries(SEMANTIC_KEYWORDS)) {
     const matches = keywords.filter(kw => {
       const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -1007,6 +1036,43 @@ const parseSemanticSignals = (text) => {
       return regex.test(lowerText);
     });
     if (matches.length > 0) {
+      // FILTER: If Clinical Success detected but trial failed, remove it
+      if (category === 'Clinical Success' && hasFailedTrial) {
+        // Don't add this signal - trial actually failed
+        continue;
+      }
+      
+      // FILTER: If FDA Breakthrough detected, verify it's actually awarded (not just applied)
+      if (category === 'FDA Breakthrough') {
+        // Check if it says "applied for" or "pending" (not yet awarded)
+        const isAwarded = !(/applied\s+for|pending|waiting\s+for|awaiting\s+feedback|applied\s+and\s+waiting/i.test(lowerText));
+        if (!isAwarded) {
+          // FDA Breakthrough is only application, not award - don't add
+          continue;
+        }
+      }
+      
+      // FILTER: If FDA Approved detected, verify it's actually approved (not just applied)
+      if (category === 'FDA Approved') {
+        // Check if it says "applied for", "pending", or mentions approval letter/clearance actually received
+        const hasApprovalLanguage = /approval\s+(?:letter|granted)|FDA\s+(?:approves|approved|clearance|clears|cleared)/i.test(lowerText);
+        const hasApplicationLanguage = /applied\s+for|pending|waiting\s+for|awaiting|awaiting\s+feedback/i.test(lowerText);
+        
+        if (!hasApprovalLanguage || hasApplicationLanguage) {
+          // Not actually approved, just applied - don't add
+          continue;
+        }
+      }
+      
+      // FILTER: Capital preservation language indicates company distress
+      if (category === 'Clinical Success' || category === 'Partnership') {
+        const hasCapitalPreservation = /preserve\s+capital|evaluate\s+(?:all\s+)?options|strategic\s+(?:alternatives|opportunities|transactions)/i.test(lowerText);
+        if (hasCapitalPreservation && hasFailedTrial) {
+          // Failed trial + capital preservation = zombie company, not a signal
+          continue;
+        }
+      }
+      
       signals[category] = matches;
     }
   }
@@ -1018,6 +1084,17 @@ const parseSemanticSignals = (text) => {
       item302Data.discount ? `Discount: ${item302Data.discount}%` : null,
       item302Data.sharesIssued ? `Shares: ${(item302Data.sharesIssued / 1000000).toFixed(1)}M` : null
     ].filter(Boolean);
+  }
+  
+  // VERIFY: FDA signals must be awards, not applications
+  // Remove any FDA signals if only applications are mentioned
+  const fda_applications = (text.match(/applied\s+(?:and\s+)?(?:for|to)\s+(?:breakthrough|fast\s+track)/gi) || []).length;
+  const fda_awards = (text.match(/FDA\s+(?:grants?|granted|approves?|approved|clearance|cleared|award|awarded)\s+(?:breakthrough|fast\s+track)/gi) || []).length;
+  
+  if (fda_applications > 0 && fda_awards === 0) {
+    // Only applications exist, no awards = remove FDA signals
+    delete signals['FDA Breakthrough'];
+    delete signals['FDA Approved'];
   }
   
   return signals;
@@ -3110,7 +3187,6 @@ const pushToGitHub = () => {
         log('WARN', `Git push error: ${error.message}`);
         if (stderr) log('WARN', `Git stderr: ${stderr}`);
       } else if (stdout) {
-        log('INFO', `Git push: ${stdout.substring(0, 80).replace(/\n/g, ' ')}`);
       }
     });
   } catch (err) {
@@ -9283,6 +9359,39 @@ if (process.stdin.isTTY) {
 
           // F/AV filtering: skip stocks exceeding max ratio (90x)
           const favNum = parseFloat(fav) || 0;
+          
+          // Initialize alertData early to prevent uninitialized reference errors
+          let alertData = {
+            ticker: ticker || filing.cik || 'Unknown',
+            title: filing.title ? filing.title.replace(/\s*\(\d{10}\)\s*$/, '').trim() : 'Unknown Company',
+            companyName: companyName !== 'Unknown' ? companyName : null,
+            filerName: filerName || null,
+            price: price,
+            fav: fav,
+            volume: volume,
+            averageVolume: averageVolume,
+            float: float,
+            sharesOutstanding: sharesOutstanding,
+            soRatio: soRatio,
+            marketCap: marketCap,
+            isShort: shortOpportunity ? true : false,
+            ftd: ftdData || false,
+            ftdPercent: ftdPercent || null,
+            intent: intent || 'Regulatory Filing',
+            incorporated: normalizedIncorporated,
+            located: normalizedLocated,
+            filingDate: filing.updated,
+            signals: semanticSignals,
+            bonusSignals: bonusSignals,
+            financialRatioSignals: financialRatioSignals,
+            formType: Array.from(foundForms),
+            filingType: formLogMessage,
+            cik: filing.cik,
+            skipReason: skipReason,
+            alertType: null,
+            filingText: text
+          };
+          
           if (favNum > CONFIG.MAX_FAV_RATIO && favNum !== 0) {
             alertData.skipReason = `F/AV ${favNum}x exceeds max threshold of ${CONFIG.MAX_FAV_RATIO}x`;
             saveToCSV(alertData);
@@ -9379,9 +9488,7 @@ if (process.stdin.isTTY) {
             }
           }
           
-          // Check if custodian control (ADR structure) applies - verified via filing text or structure
-          const custodianControl = (normalizedIncorporated && normalizedLocated && normalizedIncorporated.toLowerCase() !== normalizedLocated.toLowerCase());
-
+          // Initialize custodian data
           const isCustodianVerified = custodianControl && normalizedIncorporated && normalizedLocated && normalizedIncorporated.toLowerCase() !== normalizedLocated.toLowerCase();
           let custodianName = null;
           if (isCustodianVerified) {
@@ -9423,49 +9530,19 @@ if (process.stdin.isTTY) {
             }
           }
           
-          // Initialize alertData early to prevent uninitialized reference errors
-          const alertData = {
-            ticker: ticker || filing.cik || 'Unknown',
-            title: filing.title ? filing.title.replace(/\s*\(\d{10}\)\s*$/, '').trim() : 'Unknown Company',
-            companyName: companyName !== 'Unknown' ? companyName : null,
-            filerName: filerName || null,
-            sector: await getSectorFromFinnhub(ticker),
-            price: price,
-            fav: fav,
-            hasTuesdayBonus: hasTuesdayBonus,
-            custodianControl: custodianControl,
-            custodianVerified: isCustodianVerified,
-            custodianName: custodianName,
-            filingTimeMultiplier: filingTimeMultiplier,
-            filingTimeBonus: filingTimeBonus,
-            volume: volume,
-            averageVolume: averageVolume,
-            float: float,
-            sharesOutstanding: sharesOutstanding,
-            soRatio: soRatio,
-            marketCap: marketCap,
-            isShort: shortOpportunity ? true : false,
-            ftd: ftdData || false,
-            ftdPercent: ftdPercent || null,
-            intent: intent || 'Regulatory Filing',
-            incorporated: normalizedIncorporated,
-            located: normalizedLocated,
-            filingDate: periodOfReport,
-            signals: semanticSignals,
-            bonusSignals: bonusSignals,
-            financialRatioSignals: financialRatioSignals,
-            reverseSplitRatio: reverseSplitRatio,
-            reverseSplitReason: reverseSplitReason,
-            formType: Array.from(foundForms),
-            filingType: formLogMessage,
-            cik: filing.cik,
-            skipReason: skipReason,
-            alertType: null,  // Set to 'Toxic Structure', 'High Velocity', or 'Composite' if alerted
-            deterministicPattern: deterministic.pattern,
-            deterministicMechanism: deterministic.mechanism,
-            deterministicPhrase: deterministicPhrase,
-            filingText: text
-          };
+          // Update alertData with additional properties
+          alertData.sector = await getSectorFromFinnhub(ticker);
+          alertData.hasTuesdayBonus = hasTuesdayBonus;
+          alertData.custodianControl = custodianControl;
+          alertData.custodianVerified = isCustodianVerified;
+          alertData.custodianName = custodianName;
+          alertData.filingTimeMultiplier = filingTimeMultiplier;
+          alertData.filingTimeBonus = filingTimeBonus;
+          alertData.reverseSplitRatio = reverseSplitRatio;
+          alertData.reverseSplitReason = reverseSplitReason;
+          alertData.deterministicPattern = deterministic.pattern;
+          alertData.deterministicMechanism = deterministic.mechanism;
+          alertData.deterministicPhrase = deterministicPhrase;
           
           // Only save alert if we got price, float, and S/O data
           if (price !== 'N/A' && float !== 'N/A' && soRatio !== 'N/A') {
