@@ -1134,7 +1134,7 @@ const extractReverseSplitRatio = (text) => {
   match = text.match(/(reverse|split|consolidation|combination|stock)\s+.*?1\s*(?:-|for)\s*(\d{2,3})/i);
   if (match && match[2]) {
     const ratio = parseInt(match[2]);
-    // Validate it's a reasonable split ratio (between 2 and 1000, not file number)
+    // Validate it's a reasonable split ratio (between 2 and 1000. Not file number)
     if (ratio >= 2 && ratio <= 1000) {
       return `1-for-${match[2]}`;
     }
