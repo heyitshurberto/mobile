@@ -404,8 +404,22 @@ const detectFormerNameHidden = (text) => {
 
 // Returns { direction: 'LONG' | 'SHORT', confidence: 0-1 }
 // SIMPLIFIED FOR AMM SPEED: Quick categorization based on catalyst strength
-const determineDirection = (signals = [], country = '', float = null, price = null) => {
+const determineDirection = (signals = [], country = '', float = null, soRatio = null, price = null) => {
   const signalArray = Array.isArray(signals) ? signals : (signals ? String(signals).split(',').map(s => s.trim()) : []);
+  
+  // CRITICAL: Failed Trial signals (bearish - especially with high short float)
+  const hasFailedTrial = signalArray.includes('Failed Trial');
+  const hasPostHocSalvage = signalArray.includes('Post-Hoc Salvage');
+  
+  if (hasFailedTrial) {
+    // Failed trial with high short float (> 60% S/O) = strong SHORT signal
+    const soRatioNum = soRatio ? parseFloat(String(soRatio).replace('%', '')) : 0;
+    if (soRatioNum > 60) {
+      return { direction: 'SHORT', confidence: 0.80 }; // High S/O + failed trial = short squeeze
+    }
+    // Failed trial without high short float = still SHORT but lower confidence
+    return { direction: 'SHORT', confidence: 0.70 };
+  }
   
   // Fast-track bankruptcy indicators (force SHORT immediately)
   const deathSpiral = ['Bankruptcy Filing', 'Credit Default', 'Executive Liquidation', 'Going Dark'].some(cat => signalArray.includes(cat));
@@ -639,7 +653,11 @@ const SEMANTIC_KEYWORDS = {
   'FDA Breakthrough': ['Breakthrough Therapy', 'Breakthrough Designation', 'Fast Track Designation', 'Priority Review', 'Priority Status'],
   'FDA Filing': ['NDA Submission', 'NDA Filed', 'BLA Submission', 'BLA Filed', 'IND Application', 'Regulatory Filing'],
   'Clinical Success': ['Positive Trial Results', 'Phase 3 Success', 'Topline Results Beat', 'Efficacy Demonstrated', 'Safety Profile Met', 'Positive Results', 'Phase 1', 'Phase 2', 'Phase 3', 'Trial Results', 'Efficacy', 'Safety Profile', 'Cohort Results', 'Primary Endpoint', 'Enrollment Complete', 'Data Readout', 'Topline Data', 'Meaningful Improvement', 'Beat Placebo', 'Mechanism Of Action', 'Biomarker', 'Favorable Safety', 'Separation From Placebo', 'Demonstrated Benefit', 'Clinical Benefit', 'Strong Efficacy', 'Primary Endpoint Met', 'Statistically Significant', 'Met Primary Endpoint', 'Positive Phase 3', 'Positive Topline Results'],
-  'Clinical Milestone': ['Phase Advancement', 'Phase 2 Initiation', 'Phase 3 Initiation', 'Enrollment Opened', 'Enrollment Initiated', 'Trial Initiation', 'Investigational New Drug', 'IND Application', 'NDA Filing', 'PMA Submission', 'Clinical Trial Site', 'Patient Enrollment', 'First Patient', 'Program Initiation', 'Patient Dosed', 'First Dose', 'Dose Escalation', 'Cohort Complete'],
+  // Clinical Milestone': ['Phase Advancement', 'Phase 2 Initiation', 'Phase 3 Initiation', 'Enrollment Opened', 'Enrollment Initiated', 'Trial Initiation', 'Investigational New Drug', 'IND Application', 'NDA Filing', 'PMA Submission', 'Clinical Trial Site', 'Patient Enrollment', 'First Patient', 'Program Initiation', 'Patient Dosed', 'First Dose', 'Dose Escalation', 'Cohort Complete'],
+  
+  // CRITICAL: Failed Trial (BEARISH - distinct from positive clinical signals)
+  'Failed Trial': ['Primary Endpoint Not Met', 'Did Not Meet Primary Endpoint', 'Primary Endpoint Missed', 'Failed To Meet Primary Endpoint', 'Primary Endpoint Failed', 'No Statistically Significant', 'Did Not Show Statistically Significant', 'Did Not Achieve Primary', 'Missed Primary Endpoint'],
+  'Post-Hoc Salvage': ['Post Hoc Analysis', 'Post-Hoc Analysis', 'Unplanned Analysis', 'Post Hoc Findings', 'Subset Analysis', 'Exploratory Analysis', 'Applied For Breakthrough', 'Awaiting FDA Feedback'],
   
   // Capital & Dilution
   'Capital Raise': ['Oversubscribed', 'Institutional Participation', 'Lead Investor', 'Top-Tier Investor', 'Strategic Investor'],
@@ -995,6 +1013,94 @@ const identifyPredatorLender = (text, buyerDescription) => {
   return null;
 };
 
+// UNIFIED PREDATORY FINANCING FILTER
+// Combines: (1) unregistered equity language, (2) known predator or dodgy LLC pattern
+// Works generically across any filing section, not limited to Item 3.02/7.01
+const isPredatoryFinancingAlert = (text, buyerDescription = '') => {
+  if (!text) return { isPredatory: false, reason: null };
+  
+  const lowerText = text.toLowerCase();
+  const buyerLower = (buyerDescription || '').toLowerCase();
+  const combined = lowerText + ' ' + buyerLower;
+  
+  // STEP 1: Detect unregistered equity/financing language (generic, works anywhere in filing)
+  const unregisteredEquityPatterns = [
+    /unregistered.*equity|equity.*unregistered/i,
+    /registered direct offering/i,
+    /private placement|placement agent/i,
+    /accredited investors/i,
+    /rule\s+506\(b\)|rule\s+506\(d\)/i,
+    /pre-funded warrants?/i,
+    /issuable under/i,
+    /offering to\s+(?:certain|a group of)\s+investors/i,
+    /item\s+3\.02|item\s+7\.01.*(?:equity|financing|offering|warrants)/i
+  ];
+  
+  const hasUnregisteredEquity = unregisteredEquityPatterns.some(pattern => pattern.test(combined));
+  
+  if (!hasUnregisteredEquity) {
+    return { isPredatory: false, reason: 'No unregistered equity language detected' };
+  }
+  
+  // STEP 2: Identify predator - known company OR dodgy LLC pattern
+  const PREDATOR_KEYWORDS = {
+    'Yorkville Capital': ['yorkville', 'ya ii pn', 'sepa'],
+    'Lincoln Park': ['lincoln park', 'lpac'],
+    'Brio Capital': ['brio capital', 'brio fund'],
+    'Streeterville Capital': ['streeterville', 'streetville'],
+    'Uptown Capital': ['uptown capital', 'irving park'],
+    'Iliad Research': ['iliad research', 'iliad trading'],
+    'Chicago Venture Partners': ['chicago venture', 'cvp'],
+    'Gemini Finance': ['gemini finance', 'gemini corp'],
+    'Solana Growth': ['solana growth', 'solana ventures'],
+    'Silver Run': ['silver run', 'silver run group'],
+    'High Trail': ['high trail', 'high trail investments'],
+    'Southridge': ['southridge partners'],
+    'Roth Capital': ['roth capital', 'roth ch'],
+    'B. Riley': ['b. riley', 'b riley'],
+    'Needham': ['needham capital', 'needham securities']
+  };
+  
+  // Check if known predator
+  for (const [predatorName, keywords] of Object.entries(PREDATOR_KEYWORDS)) {
+    for (const keyword of keywords) {
+      if (combined.includes(keyword)) {
+        return { isPredatory: true, predatorName, reason: `Known predator: ${predatorName}` };
+      }
+    }
+  }
+  
+  // STEP 3: Detect dodgy LLC patterns (shell entities, suspicious structures)
+  // These indicate suspicious financing arrangement even if predator name not recognized
+  const dodgyLLCPatterns = [
+    // Single word + LLC/Ltd (e.g., "Acme LLC", "Strategic Ltd")
+    /[A-Z][a-z]+\s+(?:LLC|Ltd|Inc|Corp|Partners?|Fund|Group|Capital|Ventures|Growth)\b/i,
+    // Multiple single-letter abbreviations (e.g., "KF Business", "DT Capital")
+    /\b[A-Z]{1,2}\s+(?:Capital|Fund|Partners|Ventures|Holdings|LLC|Ltd|Inc)\b/i,
+    // Numbered entities (e.g., "Fund I", "Partners II", "VI pn")
+    /(?:Fund|Series|Tranche|Vehicle)\s+(?:[IVX]+|[0-9]+)\b/i,
+    // Vague descriptors (e.g., "Certain Investors", "Strategic Partners", "Accredited Entities")
+    /(?:certain|strategic|accredited|institutional|unaffiliated|various)\s+(?:investors|entities|funds|partnerships|buyers)/i,
+    // Offshore/shell indicators in buyer description
+    /cayman|bvi|delaware\s+(?:llc|corp)|bermuda|isle of man/i
+  ];
+  
+  const hasDodgyLLC = dodgyLLCPatterns.some(pattern => pattern.test(combined));
+  
+  if (hasDodgyLLC) {
+    return { isPredatory: true, predatorName: 'Suspicious LLC/Shell Entity', reason: 'Dodgy LLC pattern detected' };
+  }
+  
+  // STEP 4: Generic catch - if unregistered equity detected but buyer is vague
+  const isVagueBuyer = /unknown|accredited|certain investors|unaffiliated/i.test(buyerDescription);
+  if (isVagueBuyer) {
+    return { isPredatory: true, predatorName: 'Unknown Accredited Investor Group', reason: 'Vague buyer + unregistered equity' };
+  }
+  
+  // No predatory pattern matched despite unregistered equity language
+  return { isPredatory: false, reason: 'Unregistered equity but buyer not predatory' };
+};
+
 const parseSemanticSignals = (text) => {
   if (!text) return {};
   const lowerText = text.toLowerCase();
@@ -1021,13 +1127,6 @@ const parseSemanticSignals = (text) => {
   ];
   
   const hasPostHocAnalysis = postHocIndicators.some(pattern => pattern.test(lowerText));
-  
-  // HARD REJECT: Post-hoc analysis + failed primary = p-hacking (scientific fraud)
-  if (hasPostHocAnalysis && hasFailedTrial) {
-    // Return empty signals - this is p-hacking, not a real finding
-    // Company is mining data after failure to create false narrative
-    return {};
-  }
   
   for (const [category, keywords] of Object.entries(SEMANTIC_KEYWORDS)) {
     const matches = keywords.filter(kw => {
@@ -1095,6 +1194,11 @@ const parseSemanticSignals = (text) => {
     // Only applications exist, no awards = remove FDA signals
     delete signals['FDA Breakthrough'];
     delete signals['FDA Approved'];
+  }
+  
+  // ADD FAILED TRIAL SIGNAL if detected (key insight for SHORT direction)
+  if (hasFailedTrial) {
+    signals['Failed Trial'] = ['Primary Endpoint Not Met', hasPostHocAnalysis ? 'Post-Hoc Salvage Attempt' : null].filter(Boolean);
   }
   
   return signals;
@@ -1479,6 +1583,12 @@ const saveToCSV = (alertData) => {
           sepaType = sepaData.isOpenEnded ? 'Open Ended' : 'Single Tranche';
         }
       }
+    }
+    
+    // Extract predatory financing data from alertData
+    if (alertData.predatoryFinancing && alertData.predatoryFinancing.detected) {
+      predatoryLender = alertData.predatoryFinancing.predatorName || 'Unknown Predator';
+      predatorConfidence = alertData.predatoryFinancing.reason || 'Predatory Financing Detected';
     }
     
     // Format filing timestamp as Unix timestamp (milliseconds)
@@ -3037,6 +3147,12 @@ const sendPersonalWebhook = (alertData) => {
       }
     }
     
+    // Check for predatory financing
+    let predatoryMessage = '';
+    if (alertData.predatoryFinancing && alertData.predatoryFinancing.detected) {
+      predatoryMessage = `**Debt Play:** ${alertData.predatoryFinancing.predatorName} (${alertData.predatoryFinancing.reason})`;
+    }
+    
     const personalAlertContent = `${alertTypeDisplay}[${direction}] $${ticker} @ ${priceDisplay}${setupTag}
 
 **Signals:** ${reason}
@@ -3048,7 +3164,7 @@ const sendPersonalWebhook = (alertData) => {
 **Market Cap:** ${marketCapDisplay}
 **F/AV:** ${favDisplay}
 **FTD %:** ${ftdDisplay}
-${sepaMessage ? sepaMessage + '\n' : ''}
+${predatoryMessage ? predatoryMessage + '\n' : ''}${sepaMessage ? sepaMessage + '\n' : ''}
 https://www.tradingview.com/chart/?symbol=${ticker}
 ${secLink}`;
     
@@ -9019,30 +9135,79 @@ if (process.stdin.isTTY) {
             const sigKeys = Object.keys(semanticSignals || {});
             
             // Bearish signals that force SHORT regardless
-            const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Material Lawsuit', 'Going Dark', 'Convertible Debt', 'Executive Departure', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting'];
+            const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Material Lawsuit', 'Going Dark', 'Convertible Debt', 'Executive Departure', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Failed Trial'];
             const bearishCount = sigKeys.filter(cat => bearishCats.includes(cat)).length;
             const bullishCats = ['Merger/Acquisition', 'FDA Approved', 'FDA Breakthrough', 'FDA Filing', 'Clinical Success', 'Clinical Milestone', 'DTC Eligible Restored', 'Government Contract', 'Partnership', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering'];
             const bullishCount = sigKeys.filter(cat => bullishCats.includes(cat)).length;
             const hasPartnership = sigKeys.includes('Partnership');
             
+            // BULL TRAP EXTRACTION DETECTION: Predatory structure + equity incentive
+            // When predator has equity (shares/warrants), they profit from bull catalyst before dumping
+            const hasUnregisteredEquitySales = sigKeys.includes('Unregistered Equity Sales');
+            const hasGoingConcern = sigKeys.includes('Going Concern');
+            const hasReverseSplit = sigKeys.includes('Reverse Split Event');
+            
+            // Bull trap extraction pattern:
+            // 1. Item 3.02 unregistered equity (predator detection)
+            // 2. Going Concern + Reverse Split (distress signals)
+            // 3. BUT: Stock has positive catalyst that will drive it up short-term
+            // 4. Predator dumps after stock runs (extraction play)
+            // 5. EXCLUDE: Fatal signals like Credit Default, Bankruptcy (those override)
+            // 6. REQUIRE: Predator must pass unified predatory financing filter (known bad actor or dodgy LLC)
+            let isBullTrapExtraction = false;
+            const fatalBearishSignals = ['Bankruptcy Filing', 'Credit Default'];
+            const hasFatalBearish = fatalBearishSignals.some(cat => sigKeys.includes(cat));
+            
+            // ALWAYS check for predatory financing to capture details for logging
+            let predatoryCheck = { isPredatory: false, predatorName: null, reason: null };
+            if (hasUnregisteredEquitySales) {
+              const buyerDesc = semanticSignals['Unregistered Equity Sales'] ? 
+                semanticSignals['Unregistered Equity Sales'].join(' ') : '';
+              predatoryCheck = isPredatoryFinancingAlert(text, buyerDesc);
+            }
+            
+            if (!hasFatalBearish && hasUnregisteredEquitySales && (hasGoingConcern || hasReverseSplit)) {
+              if (predatoryCheck.isPredatory) {
+                // Check if text contains commodity/partnership bullish catalyst keywords
+                const bullishCatalystKeywords = [
+                  /oil\s+(?:price|spill|leak|discovery|production)/i,
+                  /partnership|merger|acquisition|strategic/i,
+                  /contract|government|defense|military/i,
+                  /clinical.*success|fda.*approval|clinical.*data/i,
+                  /revenue.*up|earnings.*beat|profit.*increase/i
+                ];
+                const hasBullishCatalyst = bullishCatalystKeywords.some(pattern => pattern.test(text));
+                
+                if (hasBullishCatalyst && bullishCount > 0) {
+                  // This is a bull trap extraction scenario: SHORT structure but predator will pump then dump
+                  isBullTrapExtraction = true;
+                  longOpportunity = true; // LONG entry (predator pumping before dump)
+                  // Note: Would need separate exit signal timing for SHORT exit (when predator dumps)
+                }
+              }
+            }
+            
             // Determine SHORT or LONG - bullish signals that drive price up should override single bearish signals
-            if (bearishCount >= 2) {
-              shortOpportunity = true;
-            } else if (bearishCount > 0 && bullishCount >= 2) {
-              // Strong bullish signals (2+) override single bearish signals - use bullish
-              longOpportunity = true;
-            } else if (bearishCount > 0 && bullishCount > 0) {
-              // Single bearish + single bullish: default to SHORT to avoid false LONG calls
-              shortOpportunity = true;
-            } else if (bearishCount > 0) {
-              shortOpportunity = true;
-            } else if (bullishCount >= 2) {
-              // Need at least 2 bullish signals for LONG (not just 1)
-              longOpportunity = true;
-            } else if (hasPartnership && bullishCount === 0) {
-              // Partnership alone is neutral - don't mark as long or short
-              shortOpportunity = null;
-              longOpportunity = null;
+            // But NOT if it's a bull trap extraction (handle separately above)
+            if (!isBullTrapExtraction) {
+              if (bearishCount >= 2) {
+                shortOpportunity = true;
+              } else if (bearishCount > 0 && bullishCount >= 2) {
+                // Strong bullish signals (2+) override single bearish signals - use bullish
+                longOpportunity = true;
+              } else if (bearishCount > 0 && bullishCount > 0) {
+                // Single bearish + single bullish: default to SHORT to avoid false LONG calls
+                shortOpportunity = true;
+              } else if (bearishCount > 0) {
+                shortOpportunity = true;
+              } else if (bullishCount >= 2) {
+                // Need at least 2 bullish signals for LONG (not just 1)
+                longOpportunity = true;
+              } else if (hasPartnership && bullishCount === 0) {
+                // Partnership alone is neutral - don't mark as long or short
+                shortOpportunity = null;
+                longOpportunity = null;
+              }
             }
             // If no signals, leave both null for "N/A"
             
@@ -9389,7 +9554,12 @@ if (process.stdin.isTTY) {
             cik: filing.cik,
             skipReason: skipReason,
             alertType: null,
-            filingText: text
+            filingText: text,
+            predatoryFinancing: predatoryCheck.isPredatory ? {
+              detected: true,
+              predatorName: predatoryCheck.predatorName,
+              reason: predatoryCheck.reason
+            } : null
           };
           
           if (favNum > CONFIG.MAX_FAV_RATIO && favNum !== 0) {
