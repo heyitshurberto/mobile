@@ -3033,9 +3033,11 @@ const sendPersonalWebhook = (alertData) => {
     const personalAlertWhitelist = ['Delaware', 'Israel', 'China', 'Hong Kong', 'Singapore', 'Cayman Islands', 'BVI'];
     let incorporatedJurisdiction = alertData.incorporated ? alertData.incorporated.trim() : '';
     
-    // Personal alert float filter: max 25M float
+    // Personal alert float filter: max 25M float (BYPASSED for known predators)
     const alertFloat = parseFloat(alertData.float) || 0;
-    if (alertFloat > CONFIG.PERSONAL_ALERT_MAX_FLOAT && alertFloat !== 0) {
+    const isKnownPredator = alertData.predatoryFinancing && alertData.predatoryFinancing.detected;
+    
+    if (!isKnownPredator && alertFloat > CONFIG.PERSONAL_ALERT_MAX_FLOAT && alertFloat !== 0) {
       log('INFO', `Skipping personal alert for $${alertData.ticker} - float ${(alertFloat / 1000000).toFixed(1)}M exceeds personal alert limit of 25M`);
       return;
     }
@@ -9766,8 +9768,16 @@ if (process.stdin.isTTY) {
                 alertData.skipReason = ''; // Clear skip reason - this is an alert
                 // OVERRIDE normal filters for CTB watchlist stocks
                 saveAlert(alertData);
+              } else if (predatoryCheck.isPredatory) {
+                // KNOWN PREDATOR OVERRIDE: Yorkville, Lincoln Park, etc. = auto-alert regardless of signal count
+                // Mark as alerted BEFORE saving (prevent concurrent duplicate processing)
+                alertedTickers.add(ticker);
+                alertData.alertType = `Known Predator: ${predatoryCheck.predatorName}`; // Tag as predatory
+                alertData.skipReason = ''; // Clear skip reason - this is an alert
+                // OVERRIDE signal requirement for known predators
+                saveAlert(alertData);
               } else if (nonNeutralSignals.length < 2 && !isDeterministic) {
-                // Non-CTB stocks with 0-1 signals AND no deterministic pattern = skip
+                // Non-CTB, non-predatory stocks with 0-1 signals AND no deterministic pattern = skip
                 // BUT 2+ signal combinations bypass this gate (combo trading signal)
                 alertData.skipReason = 'Insufficient Signal Combination (need 2+)';
                 // Save to CSV for later analysis only
