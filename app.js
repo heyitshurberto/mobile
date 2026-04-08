@@ -3152,7 +3152,7 @@ const sendPersonalWebhook = (alertData) => {
     // Check for predatory financing
     let predatoryMessage = '';
     if (alertData.predatoryFinancing && alertData.predatoryFinancing.detected) {
-      predatoryMessage = `**Debt Play:** ${alertData.predatoryFinancing.predatorName} (${alertData.predatoryFinancing.reason})`;
+      predatoryMessage = `**Buyer:** ${alertData.predatoryFinancing.predatorName}`;
     }
     
     const personalAlertContent = `${alertTypeDisplay}[${direction}] $${ticker} @ ${priceDisplay}${setupTag}
