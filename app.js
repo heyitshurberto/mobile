@@ -1554,7 +1554,7 @@ const cleanupStaleAlerts = () => {
 const saveToCSV = (alertData) => {
   try {
     const csvPath = CONFIG.CSV_FILE;
-    const headers = 'CIK,Ticker,Registrant Name,Price,Incorporated,Located,Market Cap,Float,Shares Outstanding,S/O Ratio,F/AV,Direction,FTD,FTD %,Volume,Average Volume,Sector,Filing Type,Catalyst,Custodian Control,Filing Time Bonus,S/O Bonus,Bonus Signals,Financial Ratios,Alert Type,Skip Reason,Item 3.02 Detected,SEPA Agreement,SEPA Type,Predatory Lender,Predatory Confidence\n';
+    const headers = 'CIK,Ticker,Registrant Name,Price,Incorporated,Located,Market Cap,Float,Shares Outstanding,S/O Ratio,F/AV,Direction,FTD,FTD %,Volume,Average Volume,Sector,Filing Type,Catalyst,Custodian Control,Filing Time Bonus,S/O Bonus,Signals,Financial Ratios,Skip Reason\n';
     
     // Create file with headers if it doesn't exist
     if (!fs.existsSync(csvPath)) {
@@ -1674,20 +1674,11 @@ const saveToCSV = (alertData) => {
       escapeCSV(alertData.volume || 'N/A'),
       escapeCSV(alertData.averageVolume || 'N/A'),
       escapeCSV(sector),
-      escapeCSV(alertData.filingType || 'N/A'),
       escapeCSV(signals || 'Press/Regulatory Release'),
       escapeCSV(alertData.custodianControl ? (alertData.custodianVerified ? `1.3x ${alertData.custodianName}` : alertData.custodianName) : 'No'),
       escapeCSV(alertData.filingTimeBonus ? `${alertData.filingTimeBonus}x Filing Time` : 'No'),
       escapeCSV(alertData.soBonus && alertData.soBonus > 1.0 ? `${alertData.soBonus}x S/O` : 'No'),
       escapeCSV(bonusSignalsStr),
-      escapeCSV(financialRatiosStr),
-      escapeCSV(alertData.alertType || 'N/A'),
-      escapeCSV(alertData.skipReason || ''),
-      escapeCSV(item302Detected),
-      escapeCSV(sepaAgreement),
-      escapeCSV(sepaType),
-      escapeCSV(predatoryLender),
-      escapeCSV(predatorConfidence),
       escapeCSV(timestamp),
     ];
 
@@ -9316,12 +9307,10 @@ if (process.stdin.isTTY) {
                 located: normalizedLocated,
                 intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals)[0] : null,
                 filingDate: filing.updated,
-                filingType: formLogMessage,
                 cik: filing.cik,
                 sector: sectorDisplay,
                 fav: fav,
                 companyName: filerName || companyName || 'N/A',
-                financialRatioSignals: financialRatioSignals,
                 skipReason: skipReason,
               };
               saveToCSV(csvData);
@@ -9452,13 +9441,10 @@ if (process.stdin.isTTY) {
                 incorporated: normalizedIncorporated,
                 located: normalizedLocated,
                 intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals)[0] : null,
-                filingDate: filing.updated,
-                filingType: formLogMessage,
-                cik: filing.cik,
+                filingDate: filing.updated,                cik: filing.cik,
                 sector: sectorDisplay,
                 fav: fav,
                 companyName: filerName || companyName || 'N/A',
-                financialRatioSignals: financialRatioSignals,
                 skipReason: skipReason,
               };
               saveToCSV(csvData);
@@ -9511,12 +9497,10 @@ if (process.stdin.isTTY) {
                 located: normalizedLocated,
                 intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals)[0] : null,
                 filingDate: filing.updated,
-                filingType: formLogMessage,
                 cik: filing.cik,
                 sector: sectorDisplay,
                 fav: fav,
                 companyName: filerName || companyName || 'N/A',
-                financialRatioSignals: financialRatioSignals,
                 skipReason: skipReason,
               };
               saveToCSV(csvData);
@@ -9554,7 +9538,6 @@ if (process.stdin.isTTY) {
             bonusSignals: bonusSignals,
             financialRatioSignals: financialRatioSignals,
             formType: Array.from(foundForms),
-            filingType: formLogMessage,
             cik: filing.cik,
             skipReason: skipReason,
             alertType: null,
@@ -9847,12 +9830,10 @@ if (process.stdin.isTTY) {
                 located: normalizedLocated,
                 intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals)[0] : null,
                 filingDate: filing.updated,
-                filingType: formLogMessage,
                 cik: filing.cik,
                 sector: sectorDisplay,
                 fav: fav,
                 companyName: filerName || companyName || 'N/A',
-                financialRatioSignals: financialRatioSignals,
                 skipReason: skipReason,
               };
               saveToCSV(csvData);
