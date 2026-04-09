@@ -614,9 +614,10 @@ def main():
         sys.exit(1)
     
     print(f"\nAlerts ({len(tickers)})")
-    print("-" * 180)
-    print(f"{'Ticker':<8} {'Alert':<10} {'Current':<10} {'Peak':<10} {'Change':<10} {'Dir':<6} {'Incorporated':<20} {'Located':<20} {'Signals':<60} {'Float':<15} {'S/O%':<10} {'F/AV':<8} {'Filed':<16}")
-    print("-" * 180)
+    print("=" * 180)
+    header = f"{'Ticker':<8} {'Alert':<10} {'Current':<10} {'Peak':<10} {'Change':<8} {'Location':<15} {'Incorporated':<15} {'Float':<12} {'S/O%':<9} {'F/AV':<8} {'Buyer':<18} {'Signals':<35}"
+    print(header)
+    print("=" * 180)
     
     total_move = 0
     winners = 0
@@ -732,21 +733,38 @@ def main():
         except (ValueError, TypeError):
             pass
         
-        # Extract signals/catalysts - first try Skip Reason, then fall back to Catalyst column
+        # Extract signals/catalysts - only semantic signals, not form types
         signals_display = 'N/A'
         if 'Alert sent:' in skip_reason:
             signal_part = skip_reason.split('Alert sent:')[1].split('(')[0].strip()
             signal_part = signal_part.replace('[LONG]', '').replace('[SHORT]', '').strip()
-            signals_display = signal_part
+            # Remove form types (6-K, 8-K, Item numbers, etc)
+            import re
+            signal_part = re.sub(r'\b(?:6-K|8-K|S-\d|F-\d|13[GD]|Form D|EX-\d+\.\d+|Item \d+\.\d+|20-F)\b', '', signal_part, flags=re.IGNORECASE)
+            signal_part = re.sub(r',\s*,', ',', signal_part).strip(', ')
+            signals_display = signal_part if signal_part else 'N/A'
         else:
             # Try to get from Catalyst column
             catalyst = ticker_rows[0].get('Catalyst', 'N/A')
             if catalyst and catalyst != 'N/A':
                 signals_display = str(catalyst)
         
-        print(f"{ticker:<8} {alert_str:<10} {current_str:<10} {peak_str:<10} {move_str:<10} {str(direction):<8} {incorporated:<28} {located:<20} {signals_display} Float: {str(float_val):<10} S/O: {str(so_ratio):<6} F/AV: {str(fav_ratio):<6} {filed_display}")
+        # Truncate signals to fit in 35 char column
+        signals_display = (signals_display[:32] + '...') if len(signals_display) > 35 else signals_display
+        
+        # Extract buyer from predatory financing if exists
+        buyer_display = 'N/A'
+        predatory_lender = ticker_rows[0].get('Predatory Lender', 'N/A')
+        if predatory_lender and predatory_lender != 'N/A':
+            buyer_display = predatory_lender[:16]  # Truncate buyer to fit column
+        
+        # Truncate location and incorporated for display
+        location_display = (located[:13] if located != 'N/A' else 'N/A')
+        incorporated_display = (incorporated[:13] if incorporated != 'N/A' else 'N/A')
+        
+        print(f"{ticker:<8} {alert_str:<10} {current_str:<10} {peak_str:<10} {move_str:<8} {location_display:<15} {incorporated_display:<15} {str(float_val):<12} {str(so_ratio):<9} {str(fav_ratio):<8} {buyer_display:<18} {signals_display}")
     
-    print("-" * 220)
+    print("=" * 180)
     avg_move = total_move / count if count > 0 else 0
     print(f"Average: {avg_move:+.1f}%")
     print(f"Successful: {winners}/{count}")
@@ -795,25 +813,22 @@ def main():
     print("="*160)
     
     # CORE METRICS
-    print("\n📊 CORE METRICS")
+    print("\n[METRICS] Core Metrics")
     print("-" * 160)
     metrics = calculate_metrics(rows, perf_dict)
-    print(f"Total: {metrics['total_trades']} | Wins: {metrics['winning_trades']} | Losses: {metrics['losing_trades']} | Rate: {metrics['win_rate']:.1f}% | Avg Return: {metrics['avg_return']:+.1f}%")
-    print(f"LONG: {metrics['long_trades']} | SHORT: {metrics['short_trades']}")
+    print(f"Total: {metrics['total_trades']} | Wins: {metrics['winning_trades']} | Losses: {metrics['losing_trades']} | Win Rate: {metrics['win_rate']:.1f}% | Avg Return: {metrics['avg_return']:+.1f}%")
     
     # TECHNICAL METRICS (condensed)
-    print("\n📈 TECHNICAL METRICS")
+    print("\n[TECHNICAL] Technical Metrics")
     print("-" * 160)
     tech_metrics = calculate_technical_metrics(rows)
     fav = tech_metrics['fav']
-    vol = tech_metrics['vol_ratio']
     flt = tech_metrics['float']
-    print(f"F/AV Ratio:     Min {fav['min']:.1f}x | Max {fav['max']:.1f}x | Med {fav['median']:.1f}x | Sweet Spot: 3-30x")
-    print(f"Volume Ratio:   Min {vol['min']:.2f}x | Max {vol['max']:.2f}x | Med {vol['median']:.2f}x")
-    print(f"Float:          Min {flt['min']:,.0f} | Max {flt['max']:,.0f} | Med {flt['median']:,.0f}")
+    print(f"F/AV: Min {fav['min']:.1f}x | Max {fav['max']:.1f}x | Median {fav['median']:.1f}x (Sweet 3-30x)")
+    print(f"Float: Min {flt['min']:,.0f} | Max {flt['max']:,.0f} | Median {flt['median']:,.0f}")
     
     # WINNING PATTERNS (focus on what works)
-    print("\n🎯 WINNING PATTERNS (20%+ moves only)")
+    print("\n[PATTERNS] Winning Patterns (20%+ moves only)")
     print("-" * 160)
     weighted = weighted_performance_analysis(rows, perf_dict)
     
@@ -842,7 +857,7 @@ def main():
             print(f"  • {price:<40} {data['win_rate']:>6.1f}% WR ({data['winners']}/{data['total']} wins)")
     
     # SIGNAL FREQUENCY (top 10 only)
-    print("\n📋 TOP SIGNALS")
+    print("\n[SIGNALS] Top Signals")
     print("-" * 160)
     signals = analyze_signals(rows)
     if signals['signal_counts']:
@@ -851,17 +866,8 @@ def main():
             pct = (count / len(rows)) * 100
             print(f"{i:>2}. {signal:<45} {count:>3} ({pct:>4.1f}%)")
     
-    # ALL SIGNALS MENTIONED
-    print("\n🔤 ALL SIGNALS MENTIONED")
-    print("-" * 160)
-    if signals['signal_counts']:
-        all_signals = sorted(signals['signal_counts'].items(), key=lambda x: x[1], reverse=True)
-        for signal, count in all_signals:
-            pct = (count / len(rows)) * 100
-            print(f"  • {signal:<50} {count:>3} ({pct:>4.1f}%)")
-    
     # GEOGRAPHY (top 10 only)
-    print("\n🌍 TOP JURISDICTIONS")
+    print("\n[GEO] Top Jurisdictions")
     print("-" * 160)
     countries = country_analysis(rows)
     sorted_countries = sorted(countries['country_counts'].items(), key=lambda x: x[1], reverse=True)[:10]
@@ -870,7 +876,7 @@ def main():
         print(f"{i:>2}. {country:<45} {count:>3} ({pct:>4.1f}%)")
     
     # FILING TIMES
-    print("\n⏰ FILING TIMES")
+    print("\n[TIME] Filing Times")
     print("-" * 160)
     times = time_analysis(rows)
     for bucket, tickers in sorted(times.items()):
@@ -878,7 +884,7 @@ def main():
         print(f"{bucket:<35} {len(tickers):>4} ({pct:>5.1f}%)")
     
     # SKIP REASONS (top 5)
-    print("\n❌ TOP REJECTION REASONS")
+    print("\n[SKIP] Top Rejection Reasons")
     print("-" * 160)
     skip_analysis = skip_reason_analysis(rows)
     if skip_analysis['skip_reasons']:
@@ -886,19 +892,6 @@ def main():
         for i, (reason, count) in enumerate(top_skips, 1):
             pct = (count / len(rows)) * 100 if rows else 0
             print(f"{i}. {reason:<50} {count:>3} ({pct:>4.1f}%)")
-    
-    # TODAY
-    print("\n📅 TODAY'S FILINGS")
-    print("-" * 160)
-    today = daily_summary(rows)
-    print(f"Date: {today['date']}")
-    print(f"Count: {today['count']}")
-    if today['count'] > 0:
-        print(f"Tickers: {', '.join(today['tickers'])}")
-    else:
-        print("None")
-    
-    print("\n" + "="*160)
 
 if __name__ == '__main__':
     try:
