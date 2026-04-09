@@ -9130,6 +9130,7 @@ if (process.stdin.isTTY) {
           
           let shortOpportunity = null;
           let longOpportunity = null;
+          let predatoryCheck = { isPredatory: false, predatorName: null, reason: null };
           
           // CTB stocks bypass direction/SHORT-LONG determination - only fundamentals filter
           if (!isOnCTBWatchlist) {
@@ -9161,7 +9162,6 @@ if (process.stdin.isTTY) {
             const hasFatalBearish = fatalBearishSignals.some(cat => sigKeys.includes(cat));
             
             // ALWAYS check for predatory financing to capture details for logging
-            let predatoryCheck = { isPredatory: false, predatorName: null, reason: null };
             if (hasUnregisteredEquitySales) {
               const buyerDesc = semanticSignals['Unregistered Equity Sales'] ? 
                 semanticSignals['Unregistered Equity Sales'].join(' ') : '';
