@@ -9663,7 +9663,8 @@ if (process.stdin.isTTY) {
           }
           
           // Initialize custodian data
-          const isCustodianVerified = custodianControl && normalizedIncorporated && normalizedLocated && normalizedIncorporated.toLowerCase() !== normalizedLocated.toLowerCase();
+          const custodianControl = normalizedIncorporated && normalizedLocated && normalizedIncorporated.toLowerCase() !== normalizedLocated.toLowerCase();
+          const isCustodianVerified = custodianControl;
           let custodianName = null;
           if (isCustodianVerified) {
             custodianName = `${normalizedLocated} (via ${normalizedIncorporated})`;
