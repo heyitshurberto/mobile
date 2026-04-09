@@ -693,7 +693,7 @@ const SEMANTIC_KEYWORDS = {
   'Commercial Inflection': ['Customer Growth', 'Revenue Growth', 'Revenue Doubled', 'Revenue Doubled In', 'Commercial Traction', 'Commercial Momentum', 'POC Completed', 'Proof Of Concept Completed', 'Proof Of Concept', 'Letter Of Intent', 'LOI Signed', 'Commercial Pipeline Expansion', 'Commercial Pipeline', 'Operational Runway', 'Cash Runway', 'Strengthened Foundation', 'De-Risking', 'Strategic Validation', 'Ecosystem Expansion', 'Customer Count Increase', 'Active Customers', 'Revenue-Generating Shipments', 'Repeat Business'],
   
   // Predatory Extraction Mechanics (Item 3.02)
-  'Unregistered Equity Sales': ['Item 3.02', 'Item 7.01', 'registered direct offering', 'offering to certain investors', 'accredited investors', 'Rule 506(b)', 'unregistered', 'private placement', 'registered direct', 'issuable under', 'pre-funded warrants', 'purchase agreement', 'placement agent'],
+  'Unregistered Equity Sales': ['Item 3.02', 'VIE', 'Item 7.01', 'registered direct offering', 'offering to certain investors', 'accredited investors', 'Rule 506(b)', 'unregistered', 'private placement', 'registered direct', 'issuable under', 'pre-funded warrants', 'purchase agreement', 'placement agent'],
 };
 
 
@@ -1058,7 +1058,8 @@ const isPredatoryFinancingAlert = (text, buyerDescription = '') => {
     'Southridge': ['southridge partners'],
     'Roth Capital': ['roth capital', 'roth ch'],
     'B. Riley': ['b. riley', 'b riley'],
-    'Needham': ['needham capital', 'needham securities']
+    'Needham': ['needham capital', 'needham securities'],
+    'KF Business Ventures': ['kf business ventures', 'kf business']
   };
   
   // Check if known predator
