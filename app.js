@@ -26,7 +26,7 @@ if (fs.existsSync('.env')) {
 
 const CONFIG = {
   // Alert filtering criteria
-  FILE_TIME: 12222,                     // Minutes retro to fetch filings
+  FILE_TIME: 1,                     // Minutes retro to fetch filings
   MIN_ALERT_VOLUME: 1000,           // Capture initial filing
   STRONG_SIGNAL_MIN_VOLUME: 500,    // Very early for strong catalysts
   MAX_FLOAT_6K: 50000000,           // Max float size for 6-K (50M limit)
