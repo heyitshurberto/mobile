@@ -26,7 +26,7 @@ if (fs.existsSync('.env')) {
 
 const CONFIG = {
   // Alert filtering criteria
-  FILE_TIME: 1,                     // Minutes retro to fetch filings
+  FILE_TIME: 12222,                     // Minutes retro to fetch filings
   MIN_ALERT_VOLUME: 1000,           // Capture initial filing
   STRONG_SIGNAL_MIN_VOLUME: 500,    // Very early for strong catalysts
   MAX_FLOAT_6K: 50000000,           // Max float size for 6-K (50M limit)
@@ -34,7 +34,7 @@ const CONFIG = {
   MAX_FAV_RATIO: 90,                // Max F/AV ratio for alerts (filtering out mega floats)
   PERSONAL_ALERT_MAX_FLOAT: 25000000, // Max float for personal alerts (25M)
   ALLOWED_COUNTRIES: ['israel', 'texas', 'china', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'delaware'], // Allowed incorporation/located countries
-  CTB_WATCHLIST: ['NMHI', 'SEV', 'BINI', 'AGILQ', 'MOTS', 'PLYX', 'ABPO', 'NEPTF', 'SHPWQ', 'FBGL', 'SEELQ', 'TMDE', 'ANNA', 'ACCL', 'IOTR', 'GXAI', 'SMCZ', 'FABTQ', 'NCI', 'CZOOF', 'MLEC', 'SMX', 'IONM', 'IBG', 'CRE'], // High CTB stocks (CTB > 250%, Availability tracked) - updated from IBorrowDesk Mar 18 2026
+  CTB_WATCHLIST: ['CZOOF', 'VSA', 'ARTL', 'ELAB', 'RENX', 'RMSG', 'ONCO', 'FABTQ', 'FCUV', 'IONM', 'ATPC', 'KIDZ', 'NMHI', 'MOTS', 'SMX', 'GLND', 'AGPU', 'SEELQ', 'CHNR', 'NEPTF', 'AGILQ', 'CYCN', 'BFRG', 'EICA', 'HOOZ'], // High CTB stocks (CTB > 250%, Availability tracked) - updated from IBorrowDesk Apr 09 2026
   // Enable optimizations for Raspberry Pi devices
   PI_MODE: true,              // Enable Pi optimizations          
   REFRESH_PEAK: 1,            // 10s during trading hours (7am-10am ET)
@@ -1553,8 +1553,11 @@ const cleanupStaleAlerts = () => {
 
 const saveToCSV = (alertData) => {
   try {
+    // Skip if no ticker - means data not fully loaded
+    if (!alertData || !alertData.ticker) return;
+    
     const csvPath = CONFIG.CSV_FILE;
-    const headers = 'CIK,Ticker,Registrant Name,Price,Incorporated,Located,Market Cap,Float,Shares Outstanding,S/O Ratio,F/AV,Direction,FTD,FTD %,Volume,Average Volume,Sector,Filing Type,Catalyst,Custodian Control,Filing Time Bonus,S/O Bonus,Signals,Financial Ratios,Skip Reason\n';
+    const headers = 'CIK,Ticker,Company Name,Price,Incorporated,Located,Market Cap,Float,Shares Outstanding,S/O Ratio,F/AV,Direction,FTD,Volume,Avg Volume,Sector,News,Skip Reason,Timestamp\n';
     
     // Create file with headers if it doesn't exist
     if (!fs.existsSync(csvPath)) {
@@ -1602,9 +1605,15 @@ const saveToCSV = (alertData) => {
     }
     
     // Format signals/intent as readable string
-    const signals = (alertData.intent && Array.isArray(alertData.intent)) 
-      ? alertData.intent.join('; ').replace(/,/g, ';')
-      : (alertData.intent ? String(alertData.intent).replace(/,/g, ';') : 'N/A');
+    let signals = 'N/A';
+    if (alertData.intent) {
+      signals = (Array.isArray(alertData.intent)) 
+        ? alertData.intent.join('; ').replace(/,/g, ';')
+        : String(alertData.intent).replace(/,/g, ';');
+    } else if (alertData.signals && typeof alertData.signals === 'object') {
+      // If intent not available but signals object exists, use signal keys
+      signals = Object.keys(alertData.signals).join('; ');
+    }
     
     // Extract country (last part after comma if exists)
     let incorporated = alertData.incorporated || 'Unknown';
@@ -1666,19 +1675,14 @@ const saveToCSV = (alertData) => {
       escapeCSV(alertData.float || 'N/A'),
       escapeCSV(alertData.sharesOutstanding || 'N/A'),
       escapeCSV(alertData.soRatio || 'N/A'),
-      escapeCSV(csvWA !== 'N/A' ? parseFloat(csvWA).toFixed(2) : 'N/A'),
       escapeCSV(csvFAV),
       escapeCSV(alertData.direction || 'N/A'),
-      escapeCSV(alertData.ftd || 'false'),
-      escapeCSV(alertData.ftdPercent || 'N/A'),
+      escapeCSV(alertData.ftd || 'N/A'),
       escapeCSV(alertData.volume || 'N/A'),
       escapeCSV(alertData.averageVolume || 'N/A'),
       escapeCSV(sector),
-      escapeCSV(signals || 'Press/Regulatory Release'),
-      escapeCSV(alertData.custodianControl ? (alertData.custodianVerified ? `1.3x ${alertData.custodianName}` : alertData.custodianName) : 'No'),
-      escapeCSV(alertData.filingTimeBonus ? `${alertData.filingTimeBonus}x Filing Time` : 'No'),
-      escapeCSV(alertData.soBonus && alertData.soBonus > 1.0 ? `${alertData.soBonus}x S/O` : 'No'),
-      escapeCSV(bonusSignalsStr),
+      escapeCSV(signals),
+      escapeCSV(alertData.skipReason || 'N/A'),
       escapeCSV(timestamp),
     ];
 
@@ -3076,7 +3080,6 @@ const sendPersonalWebhook = (alertData) => {
     const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${alertData.cik}&type=6-K&dateb=&owner=exclude&count=100`;
     const waDisplay = alertData.wa && alertData.wa !== 'N/A' ? `$${parseFloat(alertData.wa).toFixed(2)}` : 'N/A';
     const favDisplay = alertData.fav && alertData.fav !== 'N/A' ? alertData.fav + 'x' : 'N/A';
-    const ftdDisplay = alertData.ftdPercent ? `${alertData.ftdPercent}%` : 'N/A';
     const soDisplay = alertData.soRatio || 'N/A';
     
     // Build bonuses
@@ -3099,7 +3102,6 @@ const sendPersonalWebhook = (alertData) => {
     
     // Detect highest probability setup
     const intents = alertData.intent && Array.isArray(alertData.intent) ? alertData.intent : (alertData.intent ? alertData.intent.split(', ') : []);
-    const ftdValue = parseFloat(alertData.ftdPercent) || 0;
     
     let setupTag = '';
     if (direction === 'SHORT') {
@@ -3157,7 +3159,6 @@ const sendPersonalWebhook = (alertData) => {
 **Volume:** Current: ${volumeDisplay} / **Average:** ${avgVolDisplay}
 **Market Cap:** ${marketCapDisplay}
 **F/AV:** ${favDisplay}
-**FTD %:** ${ftdDisplay}
 ${predatoryMessage ? predatoryMessage + '\n' : ''}${sepaMessage ? sepaMessage + '\n' : ''}
 https://www.tradingview.com/chart/?symbol=${ticker}
 ${secLink}`;
@@ -8940,6 +8941,9 @@ if (process.stdin.isTTY) {
             log('INFO', `News: Regulatory Update`);
           } else {
             log('INFO', `News: Press Release`);
+            // Ensure Press Release is tracked for CSV export
+            semanticSignals['Press Release'] = ['Press Release'];
+            intent = 'Press Release';
           }
           
           const foundForms = new Set();
@@ -9101,16 +9105,6 @@ if (process.stdin.isTTY) {
           const mcDisplay = marketCap !== 'N/A' && marketCap > 0 ? '$' + Math.round(marketCap).toLocaleString('en-US') : 'N/A';
           const floatDisplay = float !== 'N/A' ? float.toLocaleString('en-US', { maximumFractionDigits: 0 }) : 'N/A';
           
-          // Get FTD data EARLY - before any skips
-          const ftdData = getFTDData(ticker);
-          let ftdPercent = null;
-          if (ftdData && float !== 'N/A') {
-            const floatNum = parseFloat(float);
-            if (floatNum > 0) {
-              ftdPercent = ((ftdData / floatNum) * 100).toFixed(2);
-            }
-          }
-          
           let soRatio = 'N/A';
           if (sharesOutstanding !== 'N/A' && float !== 'N/A' && sharesOutstanding > 0 && !isNaN(float) && !isNaN(sharesOutstanding)) {
             const ratio = (float / sharesOutstanding) * 100;
@@ -9132,7 +9126,7 @@ if (process.stdin.isTTY) {
             // Bearish signals that force SHORT regardless
             const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Material Lawsuit', 'Going Dark', 'Convertible Debt', 'Executive Departure', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Failed Trial'];
             const bearishCount = sigKeys.filter(cat => bearishCats.includes(cat)).length;
-            const bullishCats = ['Merger/Acquisition', 'FDA Approved', 'FDA Breakthrough', 'FDA Filing', 'Clinical Success', 'Clinical Milestone', 'DTC Eligible Restored', 'Government Contract', 'Partnership', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering'];
+            const bullishCats = ['Merger/Acquisition', 'FDA Approved', 'FDA Breakthrough', 'FDA Filing', 'Clinical Success', 'Clinical Milestone', 'DTC Eligible Restored', 'Government Contract', 'Partnership', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Unregistered Equity Sales', 'Insider Buying'];
             const bullishCount = sigKeys.filter(cat => bullishCats.includes(cat)).length;
             const hasPartnership = sigKeys.includes('Partnership');
             
@@ -9263,21 +9257,12 @@ if (process.stdin.isTTY) {
               insiderConfidenceMultiplier = 1.10; // Generic insider buying
             }
           }
-                    
-          // FTD display with percentage
-          let ftdDisplay = 'false';
-          if (ftdData) {
-            ftdDisplay = ftdData.toLocaleString('en-US');
-            if (ftdPercent) {
-              ftdDisplay += ` (${ftdPercent}%)`;
-            }
-          }
-          
+
           const directionLabel = shortOpportunity ? 'SHORT' : (longOpportunity ? 'LONG' : 'N/A');
           const favLog = fav !== 'N/A' ? fav : 'N/A';
           
           // === LOG STOCK METRICS FOR ALL FILINGS (before validation checks) ===
-          log('INFO', `Stock: $${ticker}, Price: ${priceDisplay}, Vol/Avg: ${volDisplay}/${avgDisplay}, MC: ${mcDisplay}, Float: ${floatDisplay}, S/O: ${soRatio}, F/AV: ${favLog}, FTD: ${ftdDisplay}, ${directionLabel}`);
+          log('INFO', `Stock: $${ticker}, Price: ${priceDisplay}, Vol/Avg: ${volDisplay}/${avgDisplay}, MC: ${mcDisplay}, Float: ${floatDisplay}, S/O: ${soRatio}, F/AV: ${favLog}, ${directionLabel}`);
           
           // Check for FDA Approvals and Chinese/Cayman reverse splits
           const hasFDAApproval = signalCategories.some(cat => ['FDA Approved', 'FDA Breakthrough', 'FDA Filing'].includes(cat));
@@ -9291,6 +9276,7 @@ if (process.stdin.isTTY) {
             console.log('');
             // Save to CSV with skip reason
             try {
+              const ftdData = getFTDData(ticker) || 'N/A';
               const csvData = {
                 ticker,
                 price,
@@ -9299,19 +9285,21 @@ if (process.stdin.isTTY) {
                 float: float,
                 sharesOutstanding: sharesOutstanding,
                 soRatio: soRatio,
-                ftd: ftdData || false,
-                ftdPercent: ftdPercent || null,
+                ftd: ftdData,
                 volume: volume,
                 averageVolume: averageVolume,
                 incorporated: normalizedIncorporated,
                 located: normalizedLocated,
-                intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals)[0] : null,
+                intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals).join('; ') : null,
+                signals: semanticSignals,
                 filingDate: filing.updated,
                 cik: filing.cik,
                 sector: sectorDisplay,
                 fav: fav,
                 companyName: filerName || companyName || 'N/A',
                 skipReason: skipReason,
+                direction: shortOpportunity ? 'SHORT' : 'LONG',
+                isShort: shortOpportunity,
               };
               saveToCSV(csvData);
             } catch (csvErr) {
@@ -9360,6 +9348,37 @@ if (process.stdin.isTTY) {
             log('INFO', `Links: ${secLink} ${tvLink}`);
             log('SKIP', `$${ticker}, ${skipReason}`);
             console.log('');
+            // Save to CSV with skip reason
+            try {
+              const ftdData = getFTDData(ticker) || 'N/A';
+              const csvData = {
+                ticker,
+                price,
+                short: shortOpportunity ? true : false,
+                marketCap: marketCap,
+                float: float,
+                sharesOutstanding: sharesOutstanding,
+                soRatio: soRatio,
+                ftd: ftdData,
+                volume: volume,
+                averageVolume: averageVolume,
+                incorporated: normalizedIncorporated,
+                located: normalizedLocated,
+                intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals).join('; ') : null,
+                signals: semanticSignals,
+                filingDate: filing.updated,
+                cik: filing.cik,
+                sector: sectorDisplay,
+                fav: fav,
+                companyName: filerName || companyName || 'N/A',
+                skipReason: skipReason,
+                direction: shortOpportunity ? 'SHORT' : 'LONG',
+                isShort: shortOpportunity,
+              };
+              saveToCSV(csvData);
+            } catch (csvErr) {
+              log('ERROR', `CSV error: ${csvErr.message}`);
+            }
             continue;
           }
           
@@ -9373,6 +9392,37 @@ if (process.stdin.isTTY) {
               log('INFO', `Links: ${secLink} ${tvLink}`);
               log('SKIP', `$${ticker}, ${skipReason}`);
               console.log('');
+              // Save to CSV with skip reason
+              try {
+                const ftdData = getFTDData(ticker) || 'N/A';
+                const csvData = {
+                  ticker,
+                  price,
+                  short: shortOpportunity ? true : false,
+                  marketCap: marketCap,
+                  float: float,
+                  sharesOutstanding: sharesOutstanding,
+                  soRatio: soRatio,
+                  ftd: ftdData,
+                  volume: volume,
+                  averageVolume: averageVolume,
+                  incorporated: normalizedIncorporated,
+                  located: normalizedLocated,
+                  intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals).join('; ') : null,
+                  signals: semanticSignals,
+                  filingDate: filing.updated,
+                  cik: filing.cik,
+                  sector: sectorDisplay,
+                  fav: fav,
+                  companyName: filerName || companyName || 'N/A',
+                  skipReason: skipReason,
+                  direction: shortOpportunity ? 'SHORT' : 'LONG',
+                  isShort: shortOpportunity,
+                };
+                saveToCSV(csvData);
+              } catch (csvErr) {
+                log('ERROR', `CSV error: ${csvErr.message}`);
+              }
               continue;
             }
           }
@@ -9426,6 +9476,7 @@ if (process.stdin.isTTY) {
             console.log('');
             // Save to CSV with skip reason
             try {
+              const ftdData = getFTDData(ticker) || 'N/A';
               const csvData = {
                 ticker,
                 price,
@@ -9434,18 +9485,21 @@ if (process.stdin.isTTY) {
                 float: float,
                 sharesOutstanding: sharesOutstanding,
                 soRatio: soRatio,
-                ftd: ftdData || false,
-                ftdPercent: ftdPercent || null,
+                ftd: ftdData,
                 volume: volume,
                 averageVolume: averageVolume,
                 incorporated: normalizedIncorporated,
                 located: normalizedLocated,
-                intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals)[0] : null,
-                filingDate: filing.updated,                cik: filing.cik,
+                intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals).join('; ') : null,
+                signals: semanticSignals,
+                filingDate: filing.updated,
+                cik: filing.cik,
                 sector: sectorDisplay,
                 fav: fav,
                 companyName: filerName || companyName || 'N/A',
                 skipReason: skipReason,
+                direction: shortOpportunity ? 'SHORT' : 'LONG',
+                isShort: shortOpportunity,
               };
               saveToCSV(csvData);
             } catch (csvErr) {
@@ -9481,6 +9535,7 @@ if (process.stdin.isTTY) {
             console.log('');
             // Save to CSV with skip reason
             try {
+              const ftdData = getFTDData(ticker) || 'N/A';
               const csvData = {
                 ticker,
                 price,
@@ -9489,19 +9544,21 @@ if (process.stdin.isTTY) {
                 float: float,
                 sharesOutstanding: sharesOutstanding,
                 soRatio: soRatio,
-                ftd: ftdData || false,
-                ftdPercent: ftdPercent || null,
+                ftd: ftdData,
                 volume: volume,
                 averageVolume: averageVolume,
                 incorporated: normalizedIncorporated,
                 located: normalizedLocated,
-                intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals)[0] : null,
+                intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals).join('; ') : null,
+                signals: semanticSignals,
                 filingDate: filing.updated,
                 cik: filing.cik,
                 sector: sectorDisplay,
                 fav: fav,
                 companyName: filerName || companyName || 'N/A',
                 skipReason: skipReason,
+                direction: shortOpportunity ? 'SHORT' : 'LONG',
+                isShort: shortOpportunity,
               };
               saveToCSV(csvData);
             } catch (csvErr) {
@@ -9528,8 +9585,7 @@ if (process.stdin.isTTY) {
             soRatio: soRatio,
             marketCap: marketCap,
             isShort: shortOpportunity ? true : false,
-            ftd: ftdData || false,
-            ftdPercent: ftdPercent || null,
+            ftd: getFTDData(ticker) || 'N/A',
             intent: intent || 'Regulatory Filing',
             incorporated: normalizedIncorporated,
             located: normalizedLocated,
@@ -9814,6 +9870,7 @@ if (process.stdin.isTTY) {
             console.log('');
             // Save to CSV with skip reason
             try {
+              const ftdData = getFTDData(ticker) || 'N/A';
               const csvData = {
                 ticker,
                 price,
@@ -9822,19 +9879,21 @@ if (process.stdin.isTTY) {
                 float: float,
                 sharesOutstanding: sharesOutstanding,
                 soRatio: soRatio,
-                ftd: ftdData || false,
-                ftdPercent: ftdPercent || null,
+                ftd: ftdData,
                 volume: volume,
                 averageVolume: averageVolume,
                 incorporated: normalizedIncorporated,
                 located: normalizedLocated,
-                intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals)[0] : null,
+                intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals).join('; ') : null,
+                signals: semanticSignals,
                 filingDate: filing.updated,
                 cik: filing.cik,
                 sector: sectorDisplay,
                 fav: fav,
                 companyName: filerName || companyName || 'N/A',
                 skipReason: skipReason,
+                direction: shortOpportunity ? 'SHORT' : 'LONG',
+                isShort: shortOpportunity,
               };
               saveToCSV(csvData);
             } catch (csvErr) {
