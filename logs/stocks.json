@@ -59,8 +59,8 @@
     "recordId": "HSAI-1769436771640",
     "expiresAt": "2026-01-31T14:12:51.640Z",
     "direction": "SHORT",
-    "highest5Day": 21.77,
-    "highest5DayPercent": -22.08,
+    "highest5Day": 19.13,
+    "highest5DayPercent": -31.53,
     "lowest5Day": 19.13,
     "lowest5DayPercent": 31.53
   },
@@ -188,8 +188,8 @@
     "recordId": "BIYA-1769462189874",
     "expiresAt": "2026-01-31T21:16:29.874Z",
     "direction": "SHORT",
-    "highest5Day": 1.32,
-    "highest5DayPercent": -66.58,
+    "highest5Day": 1.14,
+    "highest5DayPercent": -71.14,
     "lowest5Day": 1.14,
     "lowest5DayPercent": 71.14
   },
@@ -391,8 +391,8 @@
     "recordId": "CNL-1769515570279",
     "expiresAt": "2026-02-01T12:06:10.279Z",
     "direction": "LONG",
-    "highest5Day": 18.64,
-    "highest5DayPercent": 11.08,
+    "highest5Day": 13.3201,
+    "highest5DayPercent": -20.62,
     "lowest5Day": 13.3201,
     "lowest5DayPercent": -20.62
   },
@@ -454,8 +454,8 @@
     "recordId": "NTLA-1769519988566",
     "expiresAt": "2026-02-01T13:19:48.566Z",
     "direction": "LONG",
-    "highest5Day": 13.83,
-    "highest5DayPercent": -0.86,
+    "highest5Day": 12.71,
+    "highest5DayPercent": -8.89,
     "lowest5Day": 12.71,
     "lowest5DayPercent": -8.89
   },
@@ -514,8 +514,8 @@
     "recordId": "OM-1769523079063",
     "expiresAt": "2026-02-01T14:11:19.063Z",
     "direction": "SHORT",
-    "highest5Day": 4.32,
-    "highest5DayPercent": -13.08,
+    "highest5Day": 3.055,
+    "highest5DayPercent": -38.53,
     "lowest5Day": 3.055,
     "lowest5DayPercent": 38.53
   },
@@ -585,8 +585,8 @@
     "recordId": "CBU-1769523512145",
     "expiresAt": "2026-02-01T14:18:32.145Z",
     "direction": "SHORT",
-    "highest5Day": 62.57,
-    "highest5DayPercent": 1.3,
+    "highest5Day": 55.605,
+    "highest5DayPercent": -9.98,
     "lowest5Day": 55.605,
     "lowest5DayPercent": 9.98
   },
@@ -653,8 +653,8 @@
     "recordId": "ANEB-1769523918060",
     "expiresAt": "2026-02-01T14:25:18.060Z",
     "direction": "SHORT",
-    "highest5Day": 0.601,
-    "highest5DayPercent": -44.35,
+    "highest5Day": 0.3727,
+    "highest5DayPercent": -65.49,
     "lowest5Day": 0.3727,
     "lowest5DayPercent": 65.49
   },
@@ -718,8 +718,8 @@
     "recordId": "OSRH-1769524047644",
     "expiresAt": "2026-02-01T14:27:27.644Z",
     "direction": "SHORT",
-    "highest5Day": 0.5107,
-    "highest5DayPercent": -29.07,
+    "highest5Day": 0.39,
+    "highest5DayPercent": -45.83,
     "lowest5Day": 0.39,
     "lowest5DayPercent": 45.83
   },
@@ -795,8 +795,8 @@
     "recordId": "ENGN-1773054320714",
     "expiresAt": "2026-03-14T11:05:20.714Z",
     "direction": "LONG",
-    "highest5Day": 7.27,
-    "highest5DayPercent": -16.24,
+    "highest5Day": 6.6,
+    "highest5DayPercent": -23.96,
     "lowest5Day": 6.6,
     "lowest5DayPercent": -23.96
   },
@@ -867,8 +867,8 @@
     "recordId": "IBIO-1773054335255",
     "expiresAt": "2026-03-14T11:05:35.255Z",
     "direction": "LONG",
-    "highest5Day": 2.2,
-    "highest5DayPercent": -15.71,
+    "highest5Day": 1.48,
+    "highest5DayPercent": -43.3,
     "lowest5Day": 1.48,
     "lowest5DayPercent": -43.3
   },
@@ -944,8 +944,8 @@
     "recordId": "NBP-1773054366446",
     "expiresAt": "2026-03-14T11:06:06.446Z",
     "direction": "LONG",
-    "highest5Day": 2.43,
-    "highest5DayPercent": -30.57,
+    "highest5Day": 2.27,
+    "highest5DayPercent": -35.14,
     "lowest5Day": 2.27,
     "lowest5DayPercent": -35.14
   },
@@ -1168,8 +1168,8 @@
     "recordId": "KLRS-1773055000778",
     "expiresAt": "2026-03-14T11:16:40.779Z",
     "direction": "LONG",
-    "highest5Day": 6.07,
-    "highest5DayPercent": -38.19,
+    "highest5Day": 5.53,
+    "highest5DayPercent": -43.69,
     "lowest5Day": 5.53,
     "lowest5DayPercent": -43.69
   },
@@ -1315,8 +1315,8 @@
     "recordId": "FCEL-1773056189513",
     "expiresAt": "2026-03-14T11:36:29.513Z",
     "direction": "SHORT",
-    "highest5Day": 6.55,
-    "highest5DayPercent": -13.82,
+    "highest5Day": 6.27,
+    "highest5DayPercent": -17.5,
     "lowest5Day": 6.27,
     "lowest5DayPercent": 17.5
   },
@@ -1541,8 +1541,8 @@
     "recordId": "PLX-1773057121969",
     "expiresAt": "2026-03-14T11:52:01.969Z",
     "direction": "LONG",
-    "highest5Day": 2.28,
-    "highest5DayPercent": -12.98,
+    "highest5Day": 2.04,
+    "highest5DayPercent": -22.14,
     "lowest5Day": 2.04,
     "lowest5DayPercent": -22.14
   },
@@ -1602,8 +1602,8 @@
     "recordId": "GEL-1773057682895",
     "expiresAt": "2026-03-14T12:01:22.895Z",
     "direction": "SHORT",
-    "highest5Day": 17.95,
-    "highest5DayPercent": -0.77,
+    "highest5Day": 17.19,
+    "highest5DayPercent": -4.98,
     "lowest5Day": 17.19,
     "lowest5DayPercent": 4.98
   },
@@ -1672,8 +1672,8 @@
     "recordId": "MBX-1773057848672",
     "expiresAt": "2026-03-14T12:04:08.672Z",
     "direction": "LONG",
-    "highest5Day": 32.86,
-    "highest5DayPercent": 7.56,
+    "highest5Day": 26.42,
+    "highest5DayPercent": -13.52,
     "lowest5Day": 26.42,
     "lowest5DayPercent": -13.52
   },
@@ -1747,8 +1747,8 @@
     "recordId": "ALOY-1773061098061",
     "expiresAt": "2026-03-14T12:58:18.061Z",
     "direction": "SHORT",
-    "highest5Day": 9.88,
-    "highest5DayPercent": -43.54,
+    "highest5Day": 7.6008,
+    "highest5DayPercent": -56.57,
     "lowest5Day": 7.6008,
     "lowest5DayPercent": 56.57
   },
@@ -1894,8 +1894,8 @@
     "recordId": "ALLR-1773061383700",
     "expiresAt": "2026-03-14T13:03:03.700Z",
     "direction": "LONG",
-    "highest5Day": 1.15,
-    "highest5DayPercent": -7.26,
+    "highest5Day": 1.055,
+    "highest5DayPercent": -14.92,
     "lowest5Day": 1.055,
     "lowest5DayPercent": -14.92
   },
@@ -1969,10 +1969,10 @@
     "recordId": "JAGX-1773061564449",
     "expiresAt": "2026-03-14T13:06:04.449Z",
     "direction": "SHORT",
-    "highest5Day": 0.379,
-    "highest5DayPercent": -35.82,
-    "lowest5Day": 0.365,
-    "lowest5DayPercent": 38.19
+    "highest5Day": 0.3426,
+    "highest5DayPercent": -41.98,
+    "lowest5Day": 0.3426,
+    "lowest5DayPercent": 41.98
   },
   {
     "ticker": "ONDS",
@@ -2247,10 +2247,10 @@
     "recordId": "SGP-1773086768743",
     "expiresAt": "2026-03-14T20:06:08.743Z",
     "direction": "LONG",
-    "highest5Day": 21.22,
-    "highest5DayPercent": -21.76,
-    "lowest5Day": 21,
-    "lowest5DayPercent": -22.57
+    "highest5Day": 20.63,
+    "highest5DayPercent": -23.93,
+    "lowest5Day": 20.63,
+    "lowest5DayPercent": -23.93
   },
   {
     "ticker": "ZVRA",
@@ -2604,10 +2604,10 @@
     "recordId": "CACI-1773089178965",
     "expiresAt": "2026-03-14T20:46:18.965Z",
     "direction": "SHORT",
-    "highest5Day": 563.21,
-    "highest5DayPercent": -11.05,
-    "lowest5Day": 555.0626,
-    "lowest5DayPercent": 12.34
+    "highest5Day": 534.49,
+    "highest5DayPercent": -15.59,
+    "lowest5Day": 534.49,
+    "lowest5DayPercent": 15.59
   },
   {
     "ticker": "OPAL",
@@ -2753,8 +2753,8 @@
     "recordId": "LEGN-1773140464331",
     "expiresAt": "2026-03-15T11:01:04.331Z",
     "direction": "LONG",
-    "highest5Day": 18.2,
-    "highest5DayPercent": -4.91,
+    "highest5Day": 16.97,
+    "highest5DayPercent": -11.34,
     "lowest5Day": 16.97,
     "lowest5DayPercent": -11.34
   },
@@ -2957,8 +2957,8 @@
     "recordId": "IRD-1773141479947",
     "expiresAt": "2026-03-15T11:17:59.947Z",
     "direction": "LONG",
-    "highest5Day": 5.5665,
-    "highest5DayPercent": 16.7,
+    "highest5Day": 5.7,
+    "highest5DayPercent": 19.5,
     "lowest5Day": 4.3218,
     "lowest5DayPercent": -9.4
   },
@@ -3021,10 +3021,10 @@
     "recordId": "ESPR-1773141495850",
     "expiresAt": "2026-03-15T11:18:15.850Z",
     "direction": "SHORT",
-    "highest5Day": 2.18,
-    "highest5DayPercent": -28.29,
-    "lowest5Day": 2.18,
-    "lowest5DayPercent": 28.29
+    "highest5Day": 2.09,
+    "highest5DayPercent": -31.25,
+    "lowest5Day": 2.09,
+    "lowest5DayPercent": 31.25
   },
   {
     "ticker": "CGEM",
@@ -3090,8 +3090,8 @@
     "recordId": "CGEM-1773141845079",
     "expiresAt": "2026-03-15T11:24:05.079Z",
     "direction": "LONG",
-    "highest5Day": 15.21,
-    "highest5DayPercent": -0.65,
+    "highest5Day": 12.4396,
+    "highest5DayPercent": -18.75,
     "lowest5Day": 12.4396,
     "lowest5DayPercent": -18.75
   },
@@ -3163,8 +3163,8 @@
     "recordId": "WELL-1773144681122",
     "expiresAt": "2026-03-15T12:11:21.122Z",
     "direction": "SHORT",
-    "highest5Day": 206.34,
-    "highest5DayPercent": -0.65,
+    "highest5Day": 193.39,
+    "highest5DayPercent": -6.88,
     "lowest5Day": 193.39,
     "lowest5DayPercent": 6.88
   },
@@ -3247,8 +3247,8 @@
     "recordId": "TKO-1773145269446",
     "expiresAt": "2026-03-15T12:21:09.446Z",
     "direction": "SHORT",
-    "highest5Day": 197.07,
-    "highest5DayPercent": -3.43,
+    "highest5Day": 186.96,
+    "highest5DayPercent": -8.38,
     "lowest5Day": 186.96,
     "lowest5DayPercent": 8.38
   },
@@ -3333,8 +3333,8 @@
     "recordId": "KDP-1773147083685",
     "expiresAt": "2026-03-15T12:51:23.685Z",
     "direction": "SHORT",
-    "highest5Day": 26.42,
-    "highest5DayPercent": -6.28,
+    "highest5Day": 25.195,
+    "highest5DayPercent": -10.62,
     "lowest5Day": 25.195,
     "lowest5DayPercent": 10.62
   },
@@ -3413,8 +3413,8 @@
     "recordId": "EB-1773147410543",
     "expiresAt": "2026-03-15T12:56:50.544Z",
     "direction": "SHORT",
-    "highest5Day": 4.51,
-    "highest5DayPercent": 0,
+    "highest5Day": 4.49,
+    "highest5DayPercent": -0.44,
     "lowest5Day": 4.49,
     "lowest5DayPercent": 0.44
   },
@@ -3543,8 +3543,8 @@
     "recordId": "ZCSH-1773173431353",
     "expiresAt": "2026-03-15T20:10:31.353Z",
     "direction": "LONG",
-    "highest5Day": 29.07,
-    "highest5DayPercent": 86.35,
+    "highest5Day": 30.25,
+    "highest5DayPercent": 93.91,
     "lowest5Day": 15.02,
     "lowest5DayPercent": -3.72
   },
@@ -3615,8 +3615,8 @@
     "recordId": "GLUE-1773745488332",
     "expiresAt": "2026-03-22T11:04:48.332Z",
     "direction": "LONG",
-    "highest5Day": 18.05,
-    "highest5DayPercent": 10.4,
+    "highest5Day": 14.3,
+    "highest5DayPercent": -12.54,
     "lowest5Day": 14.3,
     "lowest5DayPercent": -12.54
   },
@@ -3692,8 +3692,8 @@
     "recordId": "ABEO-1773747061927",
     "expiresAt": "2026-03-22T11:31:01.927Z",
     "direction": "LONG",
-    "highest5Day": 5.12,
-    "highest5DayPercent": 3.43,
+    "highest5Day": 4.31,
+    "highest5DayPercent": -12.93,
     "lowest5Day": 4.31,
     "lowest5DayPercent": -12.93
   },
@@ -3753,8 +3753,8 @@
     "recordId": "GALT-1773748273986",
     "expiresAt": "2026-03-22T11:51:13.986Z",
     "direction": "LONG",
-    "highest5Day": 2.43,
-    "highest5DayPercent": -23.58,
+    "highest5Day": 2.19,
+    "highest5DayPercent": -31.13,
     "lowest5Day": 2.19,
     "lowest5DayPercent": -31.13
   },
@@ -3817,10 +3817,10 @@
     "recordId": "CANF-1773748288338",
     "expiresAt": "2026-03-22T11:51:28.338Z",
     "direction": "LONG",
-    "highest5Day": 2.93,
-    "highest5DayPercent": -18.16,
-    "lowest5Day": 2.93,
-    "lowest5DayPercent": -18.16
+    "highest5Day": 2.9014,
+    "highest5DayPercent": -18.96,
+    "lowest5Day": 2.9014,
+    "lowest5DayPercent": -18.96
   },
   {
     "ticker": "CV",
@@ -3970,8 +3970,8 @@
     "recordId": "NXST-1774008355725",
     "expiresAt": "2026-03-25T12:05:55.725Z",
     "direction": "LONG",
-    "highest5Day": 178.82,
-    "highest5DayPercent": -19.83,
+    "highest5Day": 173.38,
+    "highest5DayPercent": -22.27,
     "lowest5Day": 173.38,
     "lowest5DayPercent": -22.27
   },
@@ -4115,8 +4115,8 @@
     "recordId": "SLE-1774033946000",
     "expiresAt": "2026-03-25T19:12:26.000Z",
     "direction": "LONG",
-    "highest5Day": 3.69,
-    "highest5DayPercent": -14.58,
+    "highest5Day": 3.42,
+    "highest5DayPercent": -20.83,
     "lowest5Day": 3.42,
     "lowest5DayPercent": -20.83
   },
@@ -4329,8 +4329,8 @@
     "recordId": "PYXS-1774264404548",
     "expiresAt": "2026-03-28T11:13:24.548Z",
     "direction": "LONG",
-    "highest5Day": 1.61,
-    "highest5DayPercent": 9.52,
+    "highest5Day": 1.7,
+    "highest5DayPercent": 15.65,
     "lowest5Day": 1.35,
     "lowest5DayPercent": -8.16
   },
@@ -4469,8 +4469,8 @@
     "recordId": "CRCW-1774270892884",
     "expiresAt": "2026-03-28T13:01:32.884Z",
     "direction": "SHORT",
-    "highest5Day": 0.0013,
-    "highest5DayPercent": -35,
+    "highest5Day": 0.001,
+    "highest5DayPercent": -50,
     "lowest5Day": 0.001,
     "lowest5DayPercent": 50
   },
@@ -4614,10 +4614,10 @@
     "recordId": "NTHI-1774299660418",
     "expiresAt": "2026-03-28T21:01:00.418Z",
     "direction": "SHORT",
-    "highest5Day": 5.12,
-    "highest5DayPercent": -35.03,
-    "lowest5Day": 4.97,
-    "lowest5DayPercent": 36.93
+    "highest5Day": 4.61,
+    "highest5DayPercent": -41.5,
+    "lowest5Day": 4.61,
+    "lowest5DayPercent": 41.5
   },
   {
     "ticker": "KPTI",
@@ -4694,8 +4694,8 @@
     "recordId": "KPTI-1774353700153",
     "expiresAt": "2026-03-29T12:01:40.153Z",
     "direction": "LONG",
-    "highest5Day": 8.16,
-    "highest5DayPercent": 22.52,
+    "highest5Day": 5.01,
+    "highest5DayPercent": -24.77,
     "lowest5Day": 5.01,
     "lowest5DayPercent": -24.77
   },
@@ -4767,10 +4767,10 @@
     "recordId": "ZSPC-1774353718156",
     "expiresAt": "2026-03-29T12:01:58.156Z",
     "direction": "SHORT",
-    "highest5Day": 0.0771,
-    "highest5DayPercent": -50.7,
-    "lowest5Day": 0.0733,
-    "lowest5DayPercent": 53.13
+    "highest5Day": 0.0689,
+    "highest5DayPercent": -55.95,
+    "lowest5Day": 0.0689,
+    "lowest5DayPercent": 55.95
   },
   {
     "ticker": "LENZ",
@@ -4835,8 +4835,8 @@
     "recordId": "LENZ-1774354293009",
     "expiresAt": "2026-03-29T12:11:33.009Z",
     "direction": "LONG",
-    "highest5Day": 9.29,
-    "highest5DayPercent": -15.55,
+    "highest5Day": 8.85,
+    "highest5DayPercent": -19.55,
     "lowest5Day": 8.85,
     "lowest5DayPercent": -19.55
   },
@@ -4980,8 +4980,8 @@
     "recordId": "ENLV-1774355755058",
     "expiresAt": "2026-03-29T12:35:55.058Z",
     "direction": "SHORT",
-    "highest5Day": 0.9496,
-    "highest5DayPercent": -14.45,
+    "highest5Day": 0.8334,
+    "highest5DayPercent": -24.92,
     "lowest5Day": 0.8334,
     "lowest5DayPercent": 24.92
   },
@@ -5045,8 +5045,8 @@
     "recordId": "NRSN-1774361534045",
     "expiresAt": "2026-03-29T14:12:14.045Z",
     "direction": "LONG",
-    "highest5Day": 0.73,
-    "highest5DayPercent": -2.09,
+    "highest5Day": 0.63,
+    "highest5DayPercent": -15.5,
     "lowest5Day": 0.63,
     "lowest5DayPercent": -15.5
   },
@@ -5251,10 +5251,10 @@
     "recordId": "XELB-1774383647208",
     "expiresAt": "2026-03-29T20:20:47.209Z",
     "direction": "SHORT",
-    "highest5Day": 1.375,
-    "highest5DayPercent": -8.33,
-    "lowest5Day": 1.32,
-    "lowest5DayPercent": 12
+    "highest5Day": 1.28,
+    "highest5DayPercent": -14.67,
+    "lowest5Day": 1.28,
+    "lowest5DayPercent": 14.67
   },
   {
     "ticker": "CING",
@@ -5319,10 +5319,10 @@
     "recordId": "CING-1774386980614",
     "expiresAt": "2026-03-29T21:16:20.614Z",
     "direction": "SHORT",
-    "highest5Day": 5.96,
-    "highest5DayPercent": -11.18,
-    "lowest5Day": 5.77,
-    "lowest5DayPercent": 14.01
+    "highest5Day": 5.75,
+    "highest5DayPercent": -14.31,
+    "lowest5Day": 5.75,
+    "lowest5DayPercent": 14.31
   },
   {
     "ticker": "SLGL",
@@ -5471,10 +5471,10 @@
     "recordId": "MAZE-1774436924790",
     "expiresAt": "2026-03-30T11:08:44.790Z",
     "direction": "LONG",
-    "highest5Day": 27.88,
-    "highest5DayPercent": -43.1,
-    "lowest5Day": 27.15,
-    "lowest5DayPercent": -44.59
+    "highest5Day": 26.17,
+    "highest5DayPercent": -46.59,
+    "lowest5Day": 26.17,
+    "lowest5DayPercent": -46.59
   },
   {
     "ticker": "KALV",
@@ -5680,8 +5680,8 @@
     "recordId": "PMN-1774441148463",
     "expiresAt": "2026-03-30T12:19:08.463Z",
     "direction": "LONG",
-    "highest5Day": 12.5,
-    "highest5DayPercent": -28.28,
+    "highest5Day": 10.7,
+    "highest5DayPercent": -38.61,
     "lowest5Day": 10.7,
     "lowest5DayPercent": -38.61
   },
@@ -5754,8 +5754,8 @@
     "recordId": "IBG-1774441874389",
     "expiresAt": "2026-03-30T12:31:14.389Z",
     "direction": "LONG",
-    "highest5Day": 1.08,
-    "highest5DayPercent": -10.74,
+    "highest5Day": 0.99,
+    "highest5DayPercent": -18.18,
     "lowest5Day": 0.99,
     "lowest5DayPercent": -18.18
   },
@@ -6037,8 +6037,8 @@
     "recordId": "MTVA-1774528320034",
     "expiresAt": "2026-03-31T12:32:00.034Z",
     "direction": "LONG",
-    "highest5Day": 1.19,
-    "highest5DayPercent": -8.46,
+    "highest5Day": 1.45,
+    "highest5DayPercent": 11.54,
     "lowest5Day": 1.18,
     "lowest5DayPercent": -9.23
   },
@@ -6104,10 +6104,10 @@
     "recordId": "CANF-1774531817891",
     "expiresAt": "2026-03-31T13:30:17.891Z",
     "direction": "LONG",
-    "highest5Day": 2.93,
-    "highest5DayPercent": -9.29,
-    "lowest5Day": 2.93,
-    "lowest5DayPercent": -9.29
+    "highest5Day": 2.9014,
+    "highest5DayPercent": -10.17,
+    "lowest5Day": 2.9014,
+    "lowest5DayPercent": -10.17
   },
   {
     "ticker": "FFWM",
@@ -6188,8 +6188,8 @@
     "recordId": "FFWM-1775068285654",
     "expiresAt": "2026-04-06T18:31:25.654Z",
     "direction": "LONG",
-    "highest5Day": 5.9,
-    "highest5DayPercent": 0,
+    "highest5Day": 5.6075,
+    "highest5DayPercent": -4.96,
     "lowest5Day": 5.6075,
     "lowest5DayPercent": -4.96
   },
@@ -6345,10 +6345,10 @@
     "recordId": "FMST-1775077672973",
     "expiresAt": "2026-04-06T21:07:52.973Z",
     "direction": "LONG",
-    "highest5Day": 1.63,
-    "highest5DayPercent": -8.43,
-    "lowest5Day": 1.6,
-    "lowest5DayPercent": -10.11
+    "highest5Day": 1.5496,
+    "highest5DayPercent": -12.94,
+    "lowest5Day": 1.5496,
+    "lowest5DayPercent": -12.94
   },
   {
     "ticker": "VTIX",
@@ -6559,9 +6559,81 @@
     "recordId": "LPCN-1775136960664",
     "expiresAt": "2026-04-07T13:36:00.664Z",
     "direction": "LONG",
-    "highest5Day": 2.09,
-    "highest5DayPercent": 0.24,
+    "highest5Day": 1.81,
+    "highest5DayPercent": -13.19,
     "lowest5Day": 1.81,
     "lowest5DayPercent": -13.19
+  },
+  {
+    "ticker": "NMG",
+    "title": "6-K - Nouveau Monde Graphite Inc. (0001649752) (Filer)",
+    "companyName": "Nouveau Monde Graphite Inc.",
+    "filerName": null,
+    "price": 2.005,
+    "fav": "17.23",
+    "volume": 3010475,
+    "averageVolume": 919750,
+    "float": 15847792,
+    "sharesOutstanding": 160826539,
+    "soRatio": "9.85%",
+    "marketCap": 322457248,
+    "isShort": false,
+    "ftd": 145206,
+    "ftdPercent": "0.92",
+    "intent": "Clinical Success, Underwritten Offering, Commercial Inflection, Unregistered Equity Sales",
+    "incorporated": "Vancouver, British Columbia, Canada",
+    "located": "Quebec, Canada",
+    "filingDate": "2026-04-10T09:12:19-04:00",
+    "signals": {
+      "Clinical Success": [
+        "Phase 1",
+        "Phase 2",
+        "Phase 3"
+      ],
+      "Underwritten Offering": [
+        "Bought Deal"
+      ],
+      "Commercial Inflection": [
+        "Letter Of Intent"
+      ],
+      "Unregistered Equity Sales": [
+        "private placement"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "F-1",
+      "20-F",
+      "Form D",
+      "EX-99.1",
+      "EX-99.2"
+    ],
+    "cik": "1649752",
+    "skipReason": "",
+    "alertType": null,
+    "filingText": ".sgml : 20260410 20260410091219 ACCESSION NUMBER: 0001104659-26-041800 CONFORMED SUBMISSION TYPE: 6-K PUBLIC DOCUMENT COUNT: 25 CONFORMED PERIOD OF REPORT: 20260409 AS OF DATE: 20260410 DATE AS OF CHANGE: 20260410 FILER: COMPANY DATA: COMPANY CONFORMED NAME: Nouveau Monde Graphite Inc. CENTRAL INDEX KEY: 0001649752 STANDARD INDUSTRIAL CLASSIFICATION: MISCELLANEOUS METAL ORES [1090] ORGANIZATION NAME: 01 Energy & Transportation EIN: 000000000 STATE OF INCORPORATION: Z4 FISCAL YEAR END: 1231 FILING VALUES: FORM TYPE: 6-K SEC ACT: 1934 Act SEC FILE NUMBER: 001-40416 FILM NUMBER: 26853337 BUSINESS ADDRESS: ADDRESS IS A NON US LOCATION: YES STREET 1: 6 CHEMIN DES BOULEAUX CITY: L'ANGE-GARDIEN NON US STATE TERRITORY: QUEBEC, CANADA PROVINCE COUNTRY: A8 ZIP: J8L 0G2 BUSINESS PHONE: 819-923-0333 MAIL ADDRESS: ADDRESS IS A NON US LOCATION: YES STREET 1: 6 CHEMIN DES BOULEAUX CITY: L'ANGE-GARDIEN NON US STATE TERRITORY: QUEBEC, CANADA PROVINCE COUNTRY: A8 ZIP: J8L 0G2 FORMER COMPANY: FORMER CONFORMED NAME: Nouveau Monde Mining Enterprises Inc. DATE OF NAME CHANGE: 20150731 6-K 1 tm2611280d2_6k.htm FORM 6-K UNITED STATES COMMISSION Washington, D.C. 20549 FORM 6-K REPORT OF FOREIGN PRIVATE ISSUER PURSUANT TO RULE 13a-16 OR 15d-16 UNDER THE SECURITIES EXCHANGE ACT OF 1934 For the month of April 2026 Commission File Number: 001-40416 Nouveau Monde Graphite Inc. (Translation of registrant&rsquo;s name into English) 481 rue Brassard Saint-Michel-des-Saints, Quebec Canada J0K 3B0 (Address of principal executive office) Indicate by check mark whether the registrant files or will file annual reports under cover of Form 20-F or Form 40-F. Form 20-F ¨ Form 40-F x INCORPORATION BY REFERENCE Exhibits 99.1 and 99.2 of this Form 6-K are hereby and incorporated by reference into the registrant&rsquo;s Registration Statement on Form F-10 (File No. 333-291778) . DOCUMENTS TO BE AS PART OF THIS FORM 6-K 99.1 Term Sheet 99.2 Investor Presentation 99.3 Press Release SIGNATURE Pursuant to the requirements of the Securities Exchange Act of 1934, the registrant has duly caused this report to be signed on its behalf by the undersigned, there unto duly authorized. Nouveau Monde Graphite Inc. (Registrant) /s/ Jos&eacute;e Gagnon Date: April 9, 2026 Jos&eacute;e Gagnon Vice President, Legal Affairs & Corporate Secretary EX-99.1 2 tm2611280d6_ex99-1.htm EXHIBIT 99.1 Exhibit 99.1 Nouveau Monde Graphite Inc. Treasury Offering of Subscription Receipts April 9, 2026 The Subscription Receipts will be offered by way of a prospectus supplement in each of the provinces of Canada and in the United States. A final base shelf prospectus dated December 5, 2025 containing important information relating to the securities has been with the securities regulatory authorities in each of the provinces of Canada and a corresponding registration statement on Form F-10, as amended (File No. 333- 291778) has been with the U.S. Commission. A copy of the final base shelf prospectus, any amendment to the final base shelf prospectus and any applicable shelf prospectus supplement that has been filed, is required to be delivered with this term sheet. The base shelf prospectus, any applicable shelf prospectus supplement and any amendment to the documents are accessible through SEDAR+ and . Copies of the base shelf prospectus, registration statement and prospectus supplements relating to the Offering, when available, may also be obtained upon request in Canada by contacting BMO Nesbitt Burns Inc. (&ldquo;BMO Capital Markets&rdquo;), Brampton Distribution Centre C/O The Data Group of Companies, 9195 Torbram Road, Brampton, Ontario, L6S 6H2 by telephone at 905-791-3151 Ext 4312 or by email at torbramwarehouse@datagroup.ca, and in the United States by contacting BMO Capital Markets Corp., Attn: Equity Syndicate Department, 151 W 42nd Street, 32nd Floor, New York, NY 10036, or by telephone at (800) 414-3627 or by email at bmoprospectus@bmo.com. This term sheet does not provide full disclosure of all material facts relating to the securities. Investors should read the final base shelf prospectus, any amendment and any applicable shelf prospectus supplement for disclosure of those facts, especially relating to the securities, and other documents the Company has and SEDAR+ for more complete information, before making an investment decision. Terms and Conditions Issuer: Nouveau Monde Graphite Inc. (the &ldquo;Company&rdquo;) Offering: Treasury offering of 45,600,000 subscription receipts (&ldquo;Subscription Receipts&rdquo;), as described below (the &ldquo;Offering&rdquo;) Offering Price: US$1.84 per Subscription Receipt (the &ldquo;Offering Price&rdquo;) Offering Amount: US$83,904,000 Over-Allotment Option: The Company has granted the Underwriters (as defined below) an option, exercisable, in whole or in part, at any time until and including 30 days following the closing of the Offering, to purchase up to an additional 15% of the Offering at the Offering Price to cover over-allotments, if any. Use of Proceeds: The net proceeds from the Offering will be used for funding the design, engineering and construction of the Phase-2 Matawinie Mine and for general and administrative expenses and general working capital of the Corporation. Concurrent Private Placement: The Company will complete a non-brokered private placement for approximately US$213 million at the Offering Price (the &ldquo;Concurrent Private Placement&rdquo;), with Investissement Qu&eacute;bec, Canada Growth Fund Inc. and ENI S.p.A.. The Concurrent Private Placement shall occur immediately prior to the issuance of the Common Shares underlying the Subscription Receipts (&ldquo;Concurrent Private Placement Closing&rdquo;). Closing of the Concurrent Private Placement forms part of the Escrow Release Conditions and is subject to shareholder approvals, including approval pursuant to Regulation 61-101 &ndash; Protection of minority security holders in special transactions and, as applicable, the Toronto Stock Exchange rules (the &ldquo;Shareholder Approvals&rdquo;). The Company expects to convene a special meeting of shareholders on or about May 13, 2026 for the Shareholder Approvals. Subscription Receipts: Each Subscription Receipt represents the right to receive, for no additional consideration and without further action, one common share of the Company (a &ldquo;Common Share&rdquo;) upon satisfaction of the Escrow Release Conditions, as described below. If (i) the notices to be provided to TSX Trust Company (the &ldquo;Subscription Receipt Agent&rdquo;) and the Bookrunners (as defined below) by the Company certifying that the Escrow Release Conditions (defined below) have been satisfied (the &ldquo;Escrow Release Notice and Direction&rdquo;) are not delivered on or before 11:59 p.m. (Montr&eacute;al time) on July 31, 2026 (unless extended by the Company with the prior written consent of the Bookrunners (the &ldquo;Termination Time&rdquo;), (ii) a &ldquo;termination event&rdquo; as such term is defined in the subscription receipt agreement (the &ldquo;Termination Event&rdquo;) to be entered into in the context of the Offering, or (iii) the Company has advised the Bookrunners and the Subscription Receipt Agent or announced to the public that it does not intend to proceed with obtaining the Shareholder Approvals or completing of the Concurrent Private Placement (in either case, the earliest of such times being the &ldquo;Termination Date&rdquo;), holders of Subscription Receipts will receive the full purchase price of the Subscription Receipt, together with their pro rata portion of income (including interest) generated thereon, calculated from the date of closing of the Offering and up to but excluding the Termination Date (less any applicable withholding taxes). Escrow Release Conditions: The gross proceeds from the Offering, less 50% of the Underwriters&rsquo; Fee (as defined below) will be held in escrow by the Subscription Receipt Agent (the &ldquo;Escrowed Funds&rdquo;), together with any interest and other income actually earned thereon, and invested in short-term interest bearing or discount debt obligations issued or guaranteed by the Government of Canada or a province or a Canadian chartered bank, until the earlier of (i) satisfaction or waiver of the Escrow Release Conditions, and (ii) the Termination Time. Since 50% of the Underwriters&rsquo; Fee will be paid by the Company to the Underwriters on the Closing Date, such amount will not form part of the Escrowed Funds. Therefore, the aggregate amount that holders of the Subscription Receipts shall be entitled to receive from the Subscription Receipt Agent in the event of a Termination Event will be greater than the aggregate amount of the Escrowed Funds. The Company will therefore be required to pay the Subscription Receipt Agent as agent on behalf of holders of Subscription Receipts an amount equal to 50% of the Underwriters&rsquo; Fee such that 100% of the gross proceeds of the Offering, plus the interest or other income actually earned on the investment of the Escrowed Funds, would be returned to holders of Subscription Receipts. On or immediately after the closing of the Concurrent Private Placement, the Company will deliver the Escrow Release Notice and Direction, and the Escrowed Funds, together with interest and other income actually earned thereon, less 50% of the Underwriters&rsquo; Fee, will be released to or as directed by the Company. The Escrow Release Conditions will be: (i) the Company obtaining the Shareholder Approvals, (ii) the closing of the Concurrent Private Placement, and (iii) the satisfaction or waiver of the other escrow release conditions under the subscription receipt agreement to be entered into in the context of the Offering (collectively, the &ldquo;Escrow Release Conditions&rdquo;). Form of Offering: Bought deal by way of a prospectus supplement to be in all provinces of Canada and pursuant to the multijurisdictional disclosure system in the United States. Listing and Trading: An application will be made to list the Subscription Receipts in U.S. dollars on the Toronto Stock Exchange (the &ldquo;TSX&rdquo;) and the Common Shares issuable pursuant to the terms of the Subscription Receipts on the TSX and on the NYSE. Listing of the Subscription Receipts and Common Shares will be subject to the Corporation fulfilling all of the applicable listing requirements of the TSX and NYSE, as applicable. The existing common shares are listed on TSX under the symbol &ldquo;NOU&rdquo;, on the New York Stock Exchange under the symbol &ldquo;NMG&rdquo;. Eligibility: Eligible for RRSPs, RRIFs, RESPs, TFSAs, RDSPs, FHSAs and DPSPs. Underwriters: A syndicate of underwriters (the &ldquo;Underwriters&rdquo;) led by BMO Capital Markets and National Bank Financial Inc. (the &ldquo;Bookrunners&rdquo;). Underwriters&rsquo; Fee: 5.00% of the gross proceeds of the Offering (the &ldquo;Underwriters&rsquo; Fee&rdquo;) Of the total Underwriters&rsquo; Fee, 50% will be payable by the Company at the time of the closing of the Offering out of general funds, and the balance will be paid from the proceeds of the Offering held in escrow upon satisfaction of the Escrow Release Conditions. Closing: On or about April 16, 2026. EX-99.2 3 tm2611280d6_ex99-2.htm EXHIBIT 99.2 Exhibit 99.2 INVESTOR PRESENTATION April 9, 2026 NMG - NYSE : NOU - TSX STRATEGIC AND PUBLIC EQUITY FINANCING NMG.com + NYSE : NMG | TSX : NOU PROPRIETARY & CONFIDENTIAL NMG.com + NYSE : NMG | TSX : NOU + 2 + A final base shelf prospectus of Nouveau Monde Graphite Inc. (the “Company” ) dated December 5, 2025 (the “Prospectus” ) containing important information relating to the securities to which this presentation (the “Presentation” ) relates has been with the securities regulatory authorities in each of the provinces of Canada and with the U.S. Secu rit ies and Exchange Commission (the “SEC” ). The Prospectus, any amendment to the Prospectus and any applicable supplement to the Prospectus that have been are r equ ired to be delivered with this Presentation. Information contained in the Prospectus is subject to completion or amendment. This Presentation shall not constitute an offer to sell or the solicitation of an offer to buy, nor shall there be any sale o f t he Company’s securities in any jurisdiction in which such offer, solicitation or sale would be unlawful prior to registration or qualification under the securities laws of such jurisdiction. Th e Prospectus constitutes a public offering of the Company’s securities only in those jurisdictions where they may be lawfully offered for sale and therein only by persons permitted to sel l such securities in these jurisdictions. The Prospectus, any applicable supplement to the Prospectus and any amendment to the documents, as well as the documents inco rpo rated by reference therein are accessible through SEDAR+ and . Copies of the documents may be obtained from ( i ) the Vice - President, Legal Affairs and Corporate Secretary of Nouveau Monde Graphite Inc. at 481 Brassard Street, Saint - Michel - des - Saints, Québec J0K 3B0, phone: 1 - 450 - 757 - 8905 and (ii) in Canada by contacting BMO Nesbitt Burns Inc. (“BMO Ca pital Markets”), Brampton Distribution Centre C/O The Data Group of Companies, 9195 Torbram Road, Brampton, Ontario, L6S 6H2 by telephone at 905 - 791 - 3151 Ext 4312 or by email at torbramwarehouse@datagroup.ca, and in the United States by contacting BMO Capital Markets Corp., Attn: Equity Syndicate Department, 151 W 42nd Street, 32nd Floor, New Yor k, NY 10036, or by telephone at (800) 414 - 3627 or by email at bmoprospectus@bmo.com. This Presentation does not provide full disclosure of all material facts relating to the Company or its securities. Investors sh ould carefully read the Prospectus, any applicable supplement to the Prospectus, and any amendment to the documents, as well as the documents incorporated by reference therein, for disclo sur e of those facts, especially relating to the Company and the securities offered, before making an investment decision. Neither the SEC nor any state or Canadian securities commission or regulator has approved or disapproved the Company’s securi tie s or passed upon the adequacy or accuracy of the Prospectus, any applicable supplement to the Prospectus, and any amendment to the documents, as well as the documents incorpo rat ed by reference therein, or determined if the Prospectus, as well as the documents incorporated by reference therein, or any of the above documents is truthful or complete . A ny representation to the contrary is a criminal offence. The Company may offer and sell securities in the United States under the multijurisdictional disclosure system adopted in the Un ited States and Canada and may prepare the Prospectus, any applicable supplement to the Prospectus and any amendment to the documents, as well as the documents incorporated by refe ren ce therein, in accordance with Canadian disclosure requirements. Prospective investors should be aware that such requirements are different from those of the United Sta tes. Financial statements incorporated by reference in the Prospectus, any applicable supplement to the Prospectus and any amendment to the documents, as well as the documents inco rpo rated by reference therein, have been prepared in accordance with International Financial Reporting Standards as issued by the International Accounting Standards Board in C ana dian dollars and may be subject to foreign auditing and auditor independence standards and thus may not be comparable to financial statements of United States companies. As a result , c ertain financial information included in or incorporated by reference in the Prospectus may not be comparable to financial information prepared by companies in the Unite d S tates reporting under U.S. GAAP. Unless otherwise specified in the applicable supplement to the Prospectus, there is no market through which the debt securiti es, subscription receipts, warrants, or units of the Company may be sold and purchasers may not be able to resell any securities purchased under the Prospectus. This may affect t he pricing of these securities in the secondary market, the transparency and availability of trading prices, the liquidity of the securities and the extent of issuer regulation. See th e section named “” in the Prospectus. CAUTIONARY NOTE & FORWARD - LOOKING STATEMENTS NMG.com + NYSE : NMG | TSX : NOU PROPRIETARY & CONFIDENTIAL NMG.com + NYSE : NMG | TSX : NOU 3 An investment in the Company’s securities involves a high degree of risk and must be considered speculative due to the nature of the Company’s business, the present stage of development of its mineral properties and of construction and installation of its facilities, and the fact that the Company’s ne gative cash flow will continue at least until commercial production at the Matawinie Mine Project and/or the Bécancour Battery Material Plants Project is achieved. Prospective investors should carefully consider the described in and incorporated by reference into the Prospect us. See section entitled “” in the Prospectus and in any applicable supplement to the Prospectus Prospective investors should be aware that the acquisition of securities descr ibe d in the Prospectus may have tax consequences both in the United States and in Canada. Such consequences for investors who are resident in, or citizens of, the United States or wh o a re resident in Canada may not be described fully in the Prospectus or in any applicable supplement to the Prospectus and any amendment to the documents, as well as the documents inc orp orated by reference therein. Prospective investors should carefully read the tax discussion contained in the applicable supplement to the Prospectus with respect to a pa rticular offering of securities. The ability of investors to enforce civil liabilities under United States federal securities laws may be affected adversely b eca use the Company is incorporated in Canada, most of the Company’s officers and directors and most of the experts named in the Prospectus or any applicable supplement to the Prospect us and any amendment to the documents, as well as the documents incorporated by reference therein, are not residents of the United States, and all of Company’s assets and all or a substantial portion of the assets of such persons are located outside of the United States. No underwriters, dealers or agents have been involved in the preparation of the Prospectus, nor have any underwriters, dealer s o r agents performed any review of the contents of the Prospectus. You may not take away, reproduce or distribute this Presentation, in whole or in part. Defined terms Unless otherwise defined herein, all capitalized terms used in this Presentation have the meanings ascribed to them in the Pr osp ectus, any applicable supplement to the Prospectus and any amendment to the documents. Forward - looking statements This Presentation, as well as the Prospectus, any applicable supplement to the Prospectus and any amendment to the documents, in cluding the documents incorporated by reference therein, contains “forward - looking information” and “forward - looking statements” within the meaning of applicable securities law s (collectively, “forward - looking statements”), which relate to future events or future performance and reflect management’s expectations and assumptions regarding the Company’s gro wth, results, performance and business prospects and opportunities. Such forward - looking statements reflect management’s current beliefs and are based on information currently a vailable to it. In some cases, forward - looking statements can be identified by words such as “may”, “would”, “could”, “will”, “should”, “expect”, “intend”, “aim”, “attempt” , “ anticipate”, “believe”, “study”, “target”, “estimate”, “forecast”, “predict”, “outlook”, “mission”, “aspire”, “plan”, “schedule”, “potential”, “progress” or the negative of these t erm s or other similar expressions concerning matters that are not historical facts. To the extent that any forward - looking statement in this Presentation constitutes “future - oriented financial information” or “fi nancial outlook” within the meaning of applicable securities laws, such information is intended to provide investors with information regarding the Company, including the Comp any ’s plan, objectives and goals and may not be appropriate for other purposes and the reader should not place undue reliance on such future - oriented financial information and financial outlook. Future - oriented financial information and financial outlook, as with forward - looking statements generally, are, without limitation, based on the assumptio ns and subject to the risks set out below. The Company’s actual financial position and results of operations may differ materially from management’s current expectations an d, as a result, the Company’s revenue and expenses. The report of PricewaterhouseCoopers LLP incorporated by reference in the Prospectus refers exclusively to the historical financi al statements described therein and do not extend to the future - oriented financial information included in this Prospectus Supplement and should not be read to do so. CAUTIONARY NOTE & FORWARD - LOOKING STATEMENTS ( ) NMG.com + NYSE : NMG | TSX : NOU PROPRIETARY & CONFIDENTIAL NMG.com + NYSE : NMG | TSX : NOU 4 In particular, assumptions about the satisfaction of all closing conditions and the successful completion of the Offering wit hin the anticipated timeframe, the ability of the Company to successfully execute definitive agreements with respect to the Facilities, on the terms and conditions described herein an d/o r set forth in the commitment letter (including the amount of the Facilities) or at all, the completion of due diligence by EDC and CIB, the ability of the Company to meet the F aci lities’ conditions precedent and/or customary closing conditions, the expected timing of completion of the Concurrent Private Placement and the conditions precedent to the Concurr ent Private Placement Closing (including obtaining the Shareholder Approvals), as well as statements regarding the Company’s future results, the intended construction and commissioning timeline of the Matawinie Mine Project and the Bécancour Battery Material Plants Project, the Shaping Demonstration Plant, the Coating Demonstration Plant and the Conce ntr ator Demonstration Plant, the intended development of the Matawinie Mine, the intended development of the First - Stage Bécancour Battery Material Plant, the intended de velopment of the Second - Stage Bécancour Battery Material Plant, the intended execution strategy of the Company’s projected development of the Matawinie Mine Project and the First - Stage Bécancour Battery Material Plants Project, the development of the First - Stage Bécancour Battery Material Plant, the possibility that the powerline may or m ay not be operational in due time for the Matawinie Mine Project commissioning phase, the intended development of the Uatnan Mining Project, the economic performance and product development efforts, as well as the Company ’s expected achievement of milestones, including the ability to obtain sufficient financing for the development of the Matawinie Mi ne Project and the Bécancour Battery Material Plants Project on favorable terms for the Company, including the completion of the financing and the FID, the satisfaction of the te rms and conditions, conditions precedent, as well as qualification requirements of the product and the commercial operations as set forth in the offtake agreements entered into w ith the Company , including the Panasonic Energy Agreement and the A&R Offtake and Joint Marketing Agreement, the ability of the Company to enter into definitive agreements w ith the GoC and allied country entities and with an established active anode manufacturer, the satisfaction of the conditions precedent to the Panasonic Energy Agreement, and th e p otential for GM to collaborate on certain shared strategic objectives identified in the non - binding memorandum of understanding with GM, the Company’s development activities an d production plans, including the operation of the Shaping Demonstration Plant, the Coating Demonstration Plant and the Concentrator Demonstration Plant, the ability to ach iev e the Company’s environmental, social and governance initiatives, the execution and implementation of agreements with First Nations, communities and key stakeholders o n f avorable terms for the Company, the Company’s ability to provide advanced materials while promoting sustainability and supply chain traceability, including the Company’s g ree n and sustainable lithium - ion active anode material initiatives, the Company’s ability to establish a local, carbon - neutral, and traceable turnkey supply of graphite for the Wester n World, the Company’s electrification strategy and its intended results, market trends, the consumers demand for components in lithium - ion batteries for electric vehicles, energy stor age solutions, and consumer technology applications, as well as niche applications in traditional, specialized, defense industries, the Company’s competitive advant age s, macroeconomic conditions, the impact of applicable laws and regulations, the results of the 2025 Matawinie Mine Feasibility Study, the results of the AACE Project Cost Estimate s, the results of the 2023 Uatnan Mining Project Report and any other feasibility study and preliminary economic assessments and any information as to future plans and outlook for t he Company are or involve forward looking - statements. Forward - looking statements are based on reasonable assumptions that have been made by the Company as of the date of such stateme nts and are subject to known and unknown risks, uncertainties, and other factors that may cause the actual results, level of activity, performance, or achievements of th e Company to be materially different from those expressed or implied by such forward - looking statements, including but not limited to: the actual results of current development , engineering and planning activities; access to capital and future prices of graphite; inherent risks in new mining operations; inherent risks in the mineral exploration and de velopment activities; the speculative nature of mining development; the impact of inflation and any tariffs, trade barriers and/or regulatory costs; changes in mineral production p erf ormance; the uncertainty of processing the Company’s technology on a commercial basis; development and production timetables; competition and market risks, pricing pressures, oth er risks of the mining industry and geopolitical conditions (including policy, trade and tax - related risks and the potential impact of any new or elevated tariffs or any retalia tory tariffs); required additional engineering work and other analysis that is required to fully assess their impact; the fact that certain of the initiatives described in the Prosp ect us, and in the documents incorporated by reference therein, are still in the early stages and may not materialize; business continuity and crisis management; political instability and i nte rnational conflicts; and such other assumptions and factors described in or incorporated by reference in the Prospectus. The estimate of capital expenditures ( “capex” ) with respect to the First - Stage Bécancour Battery Material Plant is future - oriented financial information. This projection is, and will remain, an estimate only, and there can be no assurance that it will prove accurate. Such projection is based on numerous ass ump tions, including the following material assumptions: ( i ) targeted production capacity and associated design and throughput; (ii) expected capital costs for major processing equipme nt, raw materials, and installation; (iii) projected labour costs and workforce availability during construction and commissioning; (iv) assumed foreign exchange rates; (v) anticipated co sts of site preparation and building; and (vi) expected construction schedule, commissioning timeline, and ramp - up profile. While the Company believes these assumptions are r easonable as of the date of this Presentation, there is no guarantee that they will prove accurate. Investors should not rely on the future - oriented financial information on t he construction of, and the production from the First - Stage Bécancour Battery Material Plant made by the Company. Although the Company has attempted to identify important factors th at could cause actual results to differ materially from those contained in forward - looking statements, there may be other factors that may cause results not to be as anticipated, estimated or intended. There can be no assurance that such information will prove to be accurate, as actual results and future events could differ materially from those antic ipa ted in such information. Accordingly, readers should not place undue reliance on forward - looking statements. The Company does not undertake to update or revise any forward - looking state ments that is included herein, whether as a result of new information, future events or otherwise, except in accordance with applicable securities laws. CAUTIONARY NOTE & FORWARD - LOOKING STATEMENTS ( ) NMG.com + NYSE : NMG | TSX : NOU PROPRIETARY & CONFIDENTIAL NMG.com + NYSE : NMG | TSX : NOU 5 Market and industry data Market and industry data presented throughout in this Presentation, as well as in the Prospectus, any applicable supplement t o t he Prospectus and any amendment to the documents, including the documents incorporated by reference therein, was obtained from third party sources and indust ry reports, publications, websites and other publicly available information, as well as industry and other data prepared by the Company or on the behalf of the Comp any on the basis of the Company’s knowledge of the markets in which the Company operates, including information provided by suppliers, partners, customers and oth er industry participants. This Presentation also contains or references certain market, industry and peer group data which is based upon information fr om independent industry publications, market research, analyst reports and surveys and other publicly available sources. Although the Company believes these source s t o be generally reliable, such information is subject to interpretation and cannot be verified with complete certainty due to limits on the availability and re liability of data, the voluntary nature of the data gathering process and other inherent limitations and uncertainties. The Company has not independently verified any o f t he data from third party sources referred to in this Presentation and accordingly, the accuracy and completeness of such data is not guaranteed. The Company believes that the market and economic data presented in this Presentation, as well as in the Prospectus, any appl ica ble supplement to the Prospectus and any amendment to the documents, including the documents incorporated by reference therein is accurate as of the date of p ubl ication and, with respect to data prepared by the Company or on behalf of the Company, that estimates and assumptions are currently appropriate and reasonable, bu t there can be no assurance as to the accuracy or completeness thereof. The accuracy and completeness of the market and economic data in this Presentation, as well as in the Prospectus and any documents mentioned above, are not guaranteed and the Company does not make any representation as to the accuracy of such dat a. Actual outcomes may vary materially from those forecasts in such reports or publications, and the prospect for material variation can be expected to i ncr ease as the length of the forecast period increases. Although the Company believes it to be reliable as of the date of publication, the Company has not independently v eri fied any of the data from third - party sources referred to this Presentation, analyzed or verified the underlying studies or surveys relied upon or referred to by s uch sources, or ascertained the underlying market, economic and other assumptions relied upon by such sources. Market and economic data are subject to variations and ca nno t be verified due to limits on the availability and reliability of data inputs, the voluntary nature of the data gathering process and other limitations and unc ert ainties inherent in any statistical survey. Cautionary note regarding Mineral Reserve and Mineral Resource Information Information regarding mineral reserve and mineral resource estimates included in this Presentation were prepared in accordance with Regul at ion 43 - 101 respecting Standards of Disclosure for Mineral Projects ( “NI 43 - 101” ) and applicable mining terms are as defined in accordance with the CIM Definition Standards on Mineral Resources and Reserves adopted by the Canadian Institute of Mining, Metallurgy and Petroleum Council (the “CIM Definition Standards” ), as required by NI 43 101. Unless otherwise indicated, all mineral reserve and resource information in this Presentation, have been prepared in accordan ce with the CIM Definition Standards, as required by NI 43 - 101. NI 43 - 101 is a rule developed by the Canadian Securities Administrators that establishes the Canadian standards for all public d isclosure an issuer makes of scientific and technical information concerning mineral projects. These standards differ from the requirements of Subpart 1300 of Regula tio n S-K ( “S - K 1300” ) adopted by the SEC, and reserve and resource information contained in this Presentation may not be comparable to similar information disclos ed by U.S. companies reporting under S - K 1300. The requirements of NI 43-101 for identification of reserves and resources are also not the same as those of S - K 1300, and any reserves or resources reported in compliance with NI 43-101 may not qualify as \"reserves\" or \"resources\" under S - K 1300. Éric Desaulniers, President and Chief Executive Officer of the Company, who is a non - independent “qualified person” for the purp oses of NI 43 - 101, is responsible for reviewing and approving certain information of a scientific or technical nature contained in this Presentation. CAUTIONARY NOTE & FORWARD - LOOKING STATEMENTS ( ) NMG.com + NYSE : NMG | TSX : NOU PROPRIETARY & CONFIDENTIAL NMG.com + NYSE : NMG | TSX : NOU 6 US Disclaimer This Presentation is not a prospectus or an offering memorandum pursuant to applicable United States securities laws. The sec uri ties of the Company may not be offered or sold in the “United States”, or to, or for the account or benefit of, “U.S. persons” as such terms are defined in Reg ulation S under the United States Securities Act of 1933, as amended (the “U.S. Securities Act” ), unless pursuant to the registration requirements of the U.S. Securities Act and all applicable state securities laws or pursuant to an exemption or exclusion from such registration requirements. The Company has with the SEC a registration statement on Form F - 10, as amended (File No. 333 - 291778) (the “Registration Statement” ), containing the Prospectus and will file with the SEC a supplement to the Prospectus for the offering to which this Presentation relates. Bef ore you invest, you should carefully read the Prospectus and the supplement to the Prospectus and the documents incorporated by reference in, or as exhibits to, the Registration Statement, for more complete information about the Company and this offering. You may obtain these documents and other documents for free by visi tin g the SEC’s website at http://www./ or by requesting them ( i ) from the Company from the Vice - President, Legal Affairs and Corporate Secretary of Nouveau Monde Graphite Inc. at 481 Brassard Street, Saint - Michel - des - Saints, Québec J0K 3B0, phone: 1 - 450 - 757 - 8905 and (ii) in the United States by con tacting BMO Capital Markets Corp., Attn: Equity Syndicate Department, 151 W 42nd Street, 32nd Floor, New York, NY 10036, or by telephone at (800) 414 - 3627 or by em ail at bmoprospectus@bmo.com CAUTIONARY NOTE & FORWARD - LOOKING STATEMENTS ( ) NMG.com + NYSE : NMG | TSX : NOU PROPRIETARY & CONFIDENTIAL NMG.com + NYSE : NMG | TSX : NOU + 7 + + COMPANY OVERVIEW » The Company aims to become an integrated company developing responsible mining and advanced processing operations to supply the global economy with carbon - neutral advanced graphite materials. The Company is developing an integrated ore - to - processed - graphite value chain to serve tomorrow’s industries in energy, defense, technology, and manufacturing in Québec, Canada. With recognized ESG standards and structuring partnerships, the Company is set to become a strategic supplier to the world’s leading lithium - ion battery and EV manufacturers, providing advanced materials (sources: Bloomberg Finance L.P., CDP and Benchmark Mineral Intelligence) » The Common Shares of the Company are listed on the New York Stock Exchange (NYSE) under the ticker NMG and on the Toronto Stock Exchange (TSX) under the ticker NOU NMG.com + NYSE : NMG | TSX : NOU PROPRIETARY & CONFIDENTIAL NMG.com + NYSE : NMG | TSX : NOU + 8 + + FUNDING OVERVIEW AND STATUS OF THE MATAWINIE MINE PROJECT » NMG expects to have fully secured the funds required for construction of the 106 ktpy Phase - 2 Matawinie Mine following the Offering Closing and Concurrent Private Placement Closing: − ~US$213 million strategic equity investments have been committed by IQ, CGF, and ENI under the Concurrent Private Placement − ~US$84 million Subscription Receipts to be issued under the public Offering under the Prospectus Supplement − US$335 million of senior secured project debt committed by EDC and the CIB » The Offering Price will correspond to the subscription price per Common Share subscribed for under the Concurrent Private Placement » In parallel, the Company’s achievements include: − Commercial and offtake agreements executed with the Government of Canada, Panasonic Energy, and Traxys (subject to conditions precedents) − Matawinie is shovel ready with close to 80% advancement in detailed engineering and 50% of capex secured by key contracts wit hin expected NI 43 - 101 capex estimates − Completion of the Offering and the Concurrent Private Placement are expected to enable the Company to proceed to the final investment decision (“FID”) for the Phase - 2 Matawinie Mine − The Matawinie Mine Project has been recognized by the Government of Canada’s Major Projects Office as a project of national i mpo rtance − FID for 13 ktpy active anode material (“AAM”) First - Stage Bécancour Battery Plant targeted for H2 2026 NMG.com + NYSE : NMG | TSX : NOU PROPRIETARY & CONFIDENTIAL NMG.com + NYSE : NMG | TSX : NOU + 9 + + SUB - RECEIPTS PUBLIC EQUITY FINANCING - TERM SHEET Source: Company filings 1. Representing the same price as the private placement of common shares to strategic investors. Term Sheet Key Dates » Announcement and launch: April 9 at market close » Books close: April 10, 8:00am » Closing of subscription receipts offering: on or about April 16 » Shareholder vote: May 13, 2026 » Closing of private placement and release of funds from escrow: May 2026 Nouveau Monde Graphite (the “Company”) Issuer: Treasury offering of 45.6 million subscription receipts (“Subscription Receipts”), as described below (the “Offering”) Offering: US$1.84 per Subscription Receipt (the “Offering Price”) (1) Offering Price: ~US$ 84 million (~US$96 million assuming the exercise in full of the Over Allotment Option) Offering Amount The Company has granted the Underwriters (as defined below) an option, exercisable, in whole or in part, at any time until an d i ncluding 30 days following the closing of the Offering, to purchase up to an additional 15% of the Offering at the Offering Price to cove r o ver - allotments, if any. Over - Allotment Option: The net proceeds from the Offering will be used for funding the design, engineering and construction of the Phase - 2 Matawinie Mi ne and for general and administrative expenses and general working capital of the Corporation. Use of Proceeds The Company will complete a non - brokered private placement for approximately US$213 million at the Offering Price (the “Concurre nt Private Placement”), with Investissement Québec, Canada Growth Fund Inc. and Eni S.p.A. The Concurrent Private Placement shall occur imm ediately prior to the issuance of the Common Shares underlying the Subscription Receipts. Closing of the Concurrent Private Placement for ms part of the Escrow Release Conditions and is subject to shareholder approvals, including approval pursuant to Regulation 61 - 101 – ࣯ Protection of minority security holders in special transactions and, as applicable, the Toronto Stock Exchange rules (the “Shareholder Approvals”). The Company expects to convene a special meeting of shareholders on or about May 13, 2026 for the Shareholder Approvals. Concurrent Private Placement NMG.com + NYSE : NMG | TSX : NOU PROPRIETARY & CONFIDENTIAL NMG.com + NYSE : NMG | TSX : NOU + 10 + + SUB - RECEIPTS PUBLIC EQUITY FINANCING - TERM SHEET (CONT’D) Term Sheet Each Subscription Receipt represents the right to receive, for no additional consideration and without further action, one co mmo n share of the Company (a “Common Share”) upon satisfaction of the Escrow Release Conditions, as described below. If ( i ) the notices to be provided to TSX Trust Company (the “Subscription Receipt Agent”) and the Bookrunners (as defined below) b y t he Company certifying that the Escrow Release Conditions have been satisfied (the “Escrow Release Notice and Direction”) are not delivered on or before 11:59 p.m. (Montréa l t ime) on July 31, 2026 (unless extended by the Company with the prior written consent of the Bookrunners (the “Termination Time”), (ii) a “termination event” as such term is define d i n the subscription receipt agreement (the “Termination Event”) to be entered into in the context of the Offering, or (iii) the Company has advised the Bookrunners and the Subscript ion Receipt Agent or announced to the public that it does not intend to proceed with obtaining the Shareholder Approvals or completing of the Concurrent Private Placement (in either case, th e earliest of such times being the “Termination Date”), holders of Subscription Receipts will receive the full purchase price of the Subscription Receipt, together with their pro ra ta portion of income (including interest) generated thereon, calculated from the date of closing of the Offering and up to but excluding the Termination Date (less any applicable withhol din g taxes). Subscription Receipts The gross proceeds from the Offering, less 50 % of the Underwriters’ Fee (as defined below) will be held in escrow by the Subscription Receipt Agent (the “Escrowed Funds”), together with any interest and other income actually earned thereon, and invested in short - term interest bearing or discount debt obligations issued or guaranteed by the Government of Canada or a province or a Canadian chartered bank, until the earlier of ( i ) satisfaction or waiver of the Escrow Release Conditions, and (ii) the Termination Time . Since 50 % of the Underwriters’ Fee will be paid by the Company to the Underwriters on the Closing Date, such amount will not form part of the Escrowed Funds . Therefore, the aggregate amount that holders of the Subscription Receipts shall be entitled to receive from the Subscription Receipt Agent in the event of a Termination Event will be greater than the aggregate amount of the Escrowed Funds . The Company will therefore be required to pay the Subscription Receipt Agent as agent on behalf of holders of Subscription Receipts an amount equal to 50 % of the Underwriters’ Fee such that 100 % of the gross proceeds of the Offering, plus the interest or other income actually earned on the investment of the Escrowed Funds, would be returned to holders of Subscription Receipts . On or immediately after the closing of the Concurrent Private Placement, the Company will deliver the Escrow Release Notice and Direction , and the Escrowed Funds, together with interest and other income actually earned thereon, less 50 % of the Underwriters’ Fee, will be released to or as directed by the Company . The Escrow Release Conditions will be : ( i ) the Company obtaining the Shareholder Approvals, (ii) the closing of the Concurrent Private Placement, and (iii) the satisfaction or waiver of the other escrow release conditions under the subscription receipt agreement to be entered into in the context of the Offering (collectively, the “Escrow Release Conditions”) . Escrow Release Conditions NMG.com + NYSE : NMG | TSX : NOU PROPRIETARY & CONFIDENTIAL NMG.com + NYSE : NMG | TSX : NOU + 11 + + SUB - RECEIPTS PUBLIC EQUITY FINANCING - TERM SHEET (CONT’D) Term Sheet Bought deal by way of a prospectus supplement to be in all provinces of Canada and pursuant to the multijurisdictional dis closure system in the United States. Form of Offering: An application will be made to list the Subscription Receipts in U.S. dollars on the Toronto Stock Exchange (the “TSX”) and the Common Shares issuable pursuant to the terms of the Subscription Receipts on the TSX and on the NYSE. Listing of the Subscription Receipts and Common Shares will be subject to t he Company fulfilling all of the applicable listing requirements of the TSX and NYSE, as applicable. The existing common shares are listed on TSX under the symbol “NOU”, on the New York Stoc k E xchange under the symbol “NMG”. Listing and Trading: Eligible for RRSPs, RRIFs, RESPs, TFSAs, RDSPs, FHSAs and DPSPs. Eligibility : A syndicate of underwriters (the “Underwriters”) led by BMO Capital Markets and National Bank Financial Inc. (the “Bookrunner s”) . Underwriters : 5.00% of the gross proceeds of the Offering (the “Underwriters’ Fee”) Of the total Underwriters’ Fee, 50% will be payable by the Company at the time of the closing of the Offering out of general fun ds, and the balance will be paid from the proceeds of the Offering held in escrow upon satisfaction of the Escrow Release Conditions. Underwriters ’ Fee : On or about April 16, 2026 Closing NMG.com + NYSE : NMG | TSX : NOU PROPRIETARY & CONFIDENTIAL NMG.com + NYSE : NMG | TSX : NOU + PLANNED TO BE ONE OF THE G7’S LARGEST INTEGRATED NATURAL GRAPHITE PRODUCER + 12 + BATTERY MATERIAL PLANTS Active a node material BÉCANCOUR MINE & CONCENTRATOR Flake graphite MATAWINIE Mine and concentrator expected to produce 106 ktpy of high - purity flake graphite concentrate 25 - year life of mine Processing of graphite concentrate into AAM via the initial Phase - 2 AAM facility with expected annual average capacity of approximately 13 ktpy with the First Stage Bécancour Battery Material Plant, with planned additional AAM facility with expected annual average capacity of approximately 44 ktpy with the Second - Stage Bécancour Battery Material Plant Short road transport (150 km) northeast of Montréal to the Bécancour Battery Material Plants UATNAN MONTRÉAL MINE & CONCENTRATOR Large volume of flake graphite UATNAN Mine and concentrator to produce 500 ktpy of flake concentrate (2) 24 - year life of mine ( 2) Enabling NMG to supply future anticipated growth in North America and Europe 1 FID to proceed with the design, engineering and construction of the Phase - 2 Matawinie Mine, expected to be made following the closing of the Offering and the Concurrent Private Placement, on the basis of, among other things, access to the net proceeds from the Offering, the Concurrent Private Placement and to the Facilities committed to be provided by EDC and CIB totaling US$335 million which will be available at the level of NMG Matawinie Inc. (“NMG Matawinie”), a wholly owned subsidiary of the Corporation, upon completion of the definitive documentation, final legal, insurance and regulatory due diligence, and satisfaction of customary conditions precedents. 2 The 2023 Uatnan Mining Project Report is preliminary in nature and includes inferred mineral resources that are considered too speculative geologically to have the economic considerations applied to them that would enable them to be categorized as mineral reserves. Mineral resources that are not mineral reserves have not demonstrated economic viability. Additional trenching and/or drilling will be required to convert inferred mineral resources to indicated or measured mineral resources. There is no certainty that the resource development, production, and economic forecasts on which the 2023 Uatnan Mining Project Report is based will be realized. There are a number of risks and uncertainties identifiable to any new project and usually cover the mineralization, process, financial, environmental, engineering and permitting aspects. The Uatnan Project is no different and an evaluation of the possible risks was undertaken as part of the 2023 Uatnan Mining Project Report. There are known significant such as graphite price, ability to fund the Uatnan Mining Project, fluctuation of oil, metals and other commodity prices, change in mining laws, environmental laws and permitting. FID for the First - Stage Bécancour Battery Material Plant targeted for H2 2026 FID expected following the Offering Closing and Concurrent Private Placement Closing (1) NMG.com + NYSE : NMG | TSX : NOU PROPRIETARY & CONFIDENTIAL NMG.com + NYSE : NMG | TSX : NOU + 13 + + STRIVING TO BECOME A GRAPHITE MATERIAL LEADER FOR THE WESTERN WORLD Aims to become a leading supplier of advanced graphite materials for Western economies OUR PLAN PHASE 1 In operation since 2018 “DE - RISKING” x Demonstrat ion facilities for fully - integrated operations x ~2 ktpy of anode material x Product qualification Ongoing engineering and financing EXECUTION x Matawinie Mine (FID following the Offering Closing and Concurrent Private Placement Closing ) (1) x Commercial and offtakes agreements executed with the Government of Canada, Traxys, and Panasonic Energy (2) x Key permits and authorizations in place » First Stage Bécancour Battery Material Plant (targeting FID in H2 2026) » Further expansion to increase AAM production to an additional 44 ktpy with Second - Stage Bécancour Battery Material Plant Under development GROWTH OPTIONALITY » Uatnan Mining Project: development for an expected targeted production of 500 ktpy of flake graphite concentrate OUR GOAL PHASE 2 OUR VISION PHASE 3 Source: Company filings 1. FID to proceed with the design, engineering and construction of the Phase - 2 Matawinie Mine, expected to be made following the cl osing of the Offering and the Concurrent Private Placement, on the basis of, among other things, access to the net proceeds from the Offering, the Concurrent Private Placemen t a nd to the Facilities committed to be provided by EDC and CIB totaling US$335 million which will be available at the level of NMG Matawinie, upon completion of the definitive docu men tation, final legal, insurance and regulatory due diligence, and satisfaction of customary conditions precedents. 2. Subject to conditions precedents. NMG.com + NYSE : NMG | TSX : NOU PROPRIETARY & CONFIDENTIAL + 14 + ENERGY + Energy storage for AI/data centres + Grid - scale battery systems for solar and wind power + Nuclear industry components + GROWING INDUSTRIES ARE HUNGRY FOR GRAPHITE TECHNOLOGIES + Batteries + EVs + Hydrogen fuel cells + Foils for electronics + Communications systems NEXT - GEN MATERIALS + Thermal and fire protection materials + Advanced construction materials and composites . MANUFACTURING + Refractories for steel, cement and glass industries Securing critical minerals is fundamental to strengthening national security, achieving energy independence, and fueling long - term economic prosperity NMG.com + NYSE : NMG | TSX : NOU PROPRIETARY & CONFIDENTIAL NMG.com + NYSE : NMG | TSX : NOU Source: Feasibility study Note: All amounts are presented in U.S. dollars unless otherwise stated. Total may not add up due to rounding. 1. Please refer to the details of the capital expenditure for the construction of the Phase - 2 Matawinie Mine provided for in the 20 25 Updated Feasibility Study. 2. Includes additional contingency, reflects a change of rate of exchange for conversion of United States dollars into Canadian dol lars from 1.40 to 1.37, and incorporates escalation amounts that were not included in the capital costs provided in the 2025 Updated Feasibility Study but were required under the Facilities. 3. Financing - related costs, including interest capitalized during the construction phase of the Phase - 2 Matawinie Mine and other fi nancing - related fees. 4. Closure and mine rehabilitation cost for the Matawinie Mine Project provided for in the 2025 Updated Feasibility Study. 5. The cost overrun facility provides additional protection against construction cost overruns, subject to defined conditions. S ee “The Corporation – Recent Development”. 6. The estimated net proceeds from the Offering and the Concurrent Private Placement, after deducting the Underwriters’ Fee and the estimated expenses and costs of the Offering and the Concurrent Private Placement payable by the Company , are expected to be approximately US$292 million assuming no exercise of the Over - Allotment Option (~US$304 million assuming th e exercise in full of the Over - Allotment Option). The net proceeds from the exercise of the Over - Allotment Option, if any, is expected to be applied towards the general and administrative expenses and general working cap ital of the Corporation. 7. Facilities committed to be provided by EDC and CIB totaling US$335 million, including US$290 million senior secured term loan fa cilities and US$45 million senior secured cost overrun debt facilities. See “The Corporation – Recent Development” in the Prospectus Supplement. + 15 + + MATAWINIE MINE FINANCING AND FID Sources and Uses of Proceeds US$ million Summary of Uses 421 Capital expenditure (CAPEX) for the construction of the Phase - 2 Matawinie Mine (1) 53 Additional contingency (2) 474 Total Capital Expenditure (CAPEX) 44 F inancing costs (3) , general and administrative expenses, and general working capital 24 Closure and rehabilitation costs (4) 542 Total Uses Before Cost overrun facilities 85 Cost overrun facilities (5) 627 Total Uses FID to proceed with the design, engineering and construction of the Phase - 2 Matawinie Mine, expected to be made following the cl osing of the Offering and the Concurrent Private Placement, on the basis of, among other things, access to the net proceeds from the Offering, the Concurrent Private Placemen t a nd to the Facilities committed to be provided by EDC and CIB totaling US$335 million which will be available at the level of NMG Matawinie, upon completion of the definitive document ati on, final legal, insurance and regulatory due diligence, and satisfaction of customary conditions precedents US$ million Summary of Sources 79 Net proceeds from the Offering (6) 213 Net proceeds from the Concurrent Private placement (6) 70 ENI 82 CGF 61 IQ 335 Facilities (7) 290 Senior Secured Term Loan Facilities 45 Senior Secured Cost Overrun Debt Facilities 627 Total Sources NMG.com + NYSE : NMG | TSX : NOU PROPRIETARY & CONFIDENTIAL NMG.com + NYSE : NMG | TSX : NOU + 16 + + NMG HAS SECURED DEBT AND OFFTAKE COMMITMENTS PRICING TENOR VOLUMES ( KTPY ) CUSTOMER » Fixed North American market price for a basket of products ranging from fine to large and jumbo flakes at a minimum 94% Cg purity level » Seven - year tenor commencing upon start of production at the Matawinie Mine Project » Approximately 30 ktpy − 30 ktpy under take - or - pay » AAM pricing based on offtake agreements with Panasonic Energy » Seven - year tenor, commencing post - construction of the First - Stage Bécancour Battery Material Plant » 25 ktpy − ~13 ktpy of AAM » Take - or - pay volumes based on market indices, with spot market volumes sold at prevailing market prices » Seven - year tenor commencing upon start of production at the Matawinie Mine Project » 20 ktpy − 10 ktpy under take - or - pay agreement − 10 ktpy available for sale on spot market » NMG entered into the ENI Side Letter pursuant to which NMG agreed, among other things, to negotiate in good faith the terms of a potential offtake agreement relating to up to 15,000 tpy of flake graphite concentrate produced by NMG or an equivalent volume of AAM produced at the Bécancour Battery Material Plants Project, on an exclusive basis. See “The Concurrent Private Placement – ENI Side Letter” Government of Canada Source: Company filings 1. Subject to customary conditions precedent including governmental appropriations and NMG’s positive FID. 2. Subject to conditions precedents. Commercial and offtake agreements sufficient to potentially secure close to 100% of the entire future output of flake graphite from the Phase - 2 Matawinie Mine Lenders US$290 mm Senior Secured Term Loan Facility US$45 mm Senior Secured Cost Overrun Facility US$335 mm Total Senior Debt – Total Commitments Flake Concentrate O fftake Agreements / x Term : 15 years with 3.5 grace period on capital repayments x Interest on Term L oan : − Pre - completion: SOFR + 500bps − Post - completion: SOFR + 450bps x Interest on Cost Overrun Facility: − Pre - completion: SOFR + 525bps − Post - completion: SOFR + 475bps (2) (1) NMG.com + NYSE : NMG | TSX : NOU PROPRIETARY & CONFIDENTIAL NMG.com + NYSE : NMG | TSX : NOU DESCRIPTION QUANTUM CUSTOMER » Global energy company headquartered in Italy, engaged in the development, production, and supply of energy solutions across traditional and low - carbon businesses, with a market capitalization of approximately €67bn » US$70 mm New Shareholder » $15 ථ billion public investment fund, operating at arm’s length from the Government of Canada, that uses risk - absorbing instruments to catalyze private investment in low - carbon projects, technologies, companies, and supply chains in support of Canada’s economic and climate objectives » ~US$82 mm (1) Shareholder since 2024 » Government - owned corporation that supports Québec’s economic development by providing financing, tailored solutions, and advisory support to businesses of all sizes, while promoting exports and attracting foreign investment across the province » ~US$61 mm Shareholder since 2017 + 17 + + NMG HAS SECURED EQUITY FROM LONG - TERM INVESTORS WITH SIGNIFICANT FINANCIAL RESOURCES Source: Company filings 1. Subject to a maximum 19.9% ownership. NMG.com + NYSE : NMG | TSX : NOU PROPRIETARY & CONFIDENTIAL NMG.com + NYSE : NMG | TSX : NOU The Company expects to have fully secured the funds required for construction of the Phase - 2 Matawinie Mine following the Offering Closing and Concurrent Private Placement Closing x ~80% of detailed engineering completed x Preparatory work completed on site x 50% of capital expenditures secured by key contracts, with costs within projections of the 2025 Matawinie Mine Feasibility Study x All key permits secured and key agreements with First Nation and local community in place x As provided in the 2025 Matawinie Mine Feasibility Study, the Company could benefit from clean technology investment tax credits to recover up to 30% of eligible capital + 18 + + CONSTRUCTION OF THE MATAWINIE MINE PROJECT HAS REACHED AN ADVANCED STAGE OF RISK MITIGATION First Production Targeted within 31 months of FID NMG.com + NYSE : NMG | TSX : NOU PROPRIETARY & CONFIDENTIAL NMG.com + NYSE : NMG | TSX : NOU + 19 + + CLEAR PATH TO FID AND CONSTRUCTION OF THE FIRST - STAGE BÉCANCOUR BATTERY MATERIAL PLANT Phase - 1 demonstration plants for integrated production have enabled successful qualification of the product with Panasonic, leveraging proven, optimized processing technology: x Full 13 ktpy production committed under the Panasonic Energy Agreement, subject to conditions precedent x Brownfield site acquired in Bécancour industrial park with 22,000 m2 large industrial facility should enable the Company to align development timeline with Matawinie Mine Project x Strategic location limiting distance to the Matawinie Mine Project, highway, railroad, and port infrastructures x The Company expects the industrial building should enable to lower infrastructure costs, and optimize capex per tonne FID for the First - Stage Bécancour Battery Material Plant targeted for the second half of 2026 NMG.com + NYSE : NMG | TSX : NOU NMG.com Facebook Twitter YouTube LinkedIn GREEN BATTERY MATERIALS TO POWER THE ENERGY R EV OLUTION CORPORATE OFFICE 995 Wellington Street, Suite 240 Montréal (Québec) H3C 1V3 Canada CONTACT Marc Jasmin Director, Investor Relations +1 450 757 - 8905 #993 mjasmin@nmg.com + 20 + EX-99.3 4 tm2611280d6_ex99-3.htm EXHIBIT 99.3 Exhibit 99.3 NMG Announces US$297 Million Equity Financing Package including US$213 Million Private Placement and US$84 Million Bought Deal Public Offering, Advancing Phase-2 Matawinie Mine toward FID + Canada Growth Fund, the Government of Qu&eacute;bec, through Investissement Qu&eacute;bec, and Eni S.p.A., commit to an aggregate US$213 million equity investment, to support the advancement of NMG&rsquo;s Phase-2 Matawinie Mine project + Concurrent US$84 million bought deal public offering of subscription receipts, completing the equity component of the Phase-2 Matawinie Mine financing package + Equity financing, together with previously announced US$335 million project debt facilities commitment, is expected to fully secure the funds required for the Phase - 2 Matawinie Mine and advance the project to FID + Completion of the private placement by Canada Growth Fund, the Government of Qu&eacute;bec via its agent Investissement Qu&eacute;bec, and Eni is subject to specified shareholder approvals in accordance with applicable regulatory requirements; annual and special shareholder meeting scheduled for May 13, 2026, via webcast + Eni&rsquo;s equity investment complemented by a letter of intent to advance commercial discussions toward a potential 15,000-tpa graphite concentrate offtake from the Phase-2 Matawinie Mine or equivalent in active anode material + Phase-2 Matawinie Mine financing enables the start of NMG&rsquo;s execution strategy for an integrated mine-to-anode-material value chain; 13-ktpa B&eacute;cancour Battery Material Plant targeted to reach FID in H2-2026 + Panasonic and Mitsui have indicated their intention to vote in favor of the approvals required in connection with the private placements BASE SHELF PROSPECTUS IS ACCESSIBLE, AND THE SHELF PROSPECTUS SUPPLEMENT WILL BE ACCESSIBLE WITHIN TWO BUSINESS DAYS ON SEDAR+ AND MONTR&Eacute;AL, CANADA, April 9, 2026 &ndash; Nouveau Monde Graphite Inc. (&ldquo;NMG&rdquo; or the &ldquo;Company&rdquo;) ( NYSE: NMG , TSX: NOU ) is pleased to announce an equity investment of US$82 million by Canada Growth Fund Inc. (&ldquo;CGF&rdquo;), US$61 million by the Government of Qu&eacute;bec, through Investissement Qu&eacute;bec (&ldquo;IQ&rdquo;), and US$70 million by Eni S.p.A. (&ldquo;Eni&rdquo;) &ndash; a global integrated energy company &ndash; respectively, in NMG for an aggregate investment amount of US$213 million (the &ldquo;Private Placement&rdquo;), subject to, among other things, receipt of the Shareholder Approvals (as defined below). NMG is also announcing the launch of a concurrent bought deal public offering of subscription receipts, which, together with the Private Placement, comprise the equity component of the financing package for the phased development of the commercial operations of its Matawinie Mine (the &ldquo;Phase-2 Matawinie Mine&rdquo;). Together with the previously announced senior project debt facilities of US$335 million commitment (the &ldquo;Facilities&rdquo;) and on the basis of accessing the Facilities committed, the net proceeds from the equity financing, once available to the Company, are expected to fully fund the Phase-2 Matawinie Mine and positions NMG to advance toward final investment decision (&ldquo;FID&rdquo;) and construction. The Company intends to use the net proceeds from the Offering (as defined below), and the Private Placement and the funds available under the Facilities, for: (i) funding the design, engineering and construction of the Phase-2 Matawinie Mine, and (ii) for general and administrative expenses and general working capital of the Company. A summary of the key terms of the Private Placement and the Offering follows, which are described in greater detail in the subscription agreement entered into on the date hereof with each of CGF, IQ and Eni (collectively, the &ldquo;Subscription Agreements&rdquo;) and the Prospectus Supplements that will be available on SEDAR+ and . This summary does not purport to be complete and reference should be made to the full text of the Subscription Agreements and the Prospectus Supplements. Private Placement Each of CGF, IQ, and Eni has agreed to subscribe, on a private placement basis, for common shares in the capital of NMG (the &ldquo;Common Shares&rdquo;), subject to certain conditions, including receipt of the Shareholder Approvals (as defined below). Pursuant to the Private Placement, the Company will issue an aggregate 115,847,792 Common Shares at a price of US$1.84 per Common Share, for aggregate gross proceeds of US$213 million. The closing of the subscriptions by each of CGF, IQ and Eni pursuant to the Private Placement are cross-conditional on the closing of the other subscriptions and the Offering. The closing of the Private Placement shall occur immediately prior to the issuance of the Common Shares underlying the Subscription Receipts (as defined below) issued in the Offering. The participation of IQ and CGF in the Private Placement builds on their prior support for the advancement of the Phase-2 Matawinie Mine and the broader ore-to-battery-material value chain, while Eni&rsquo;s investment reflects growing strategic interest from global energy and industrial players in secure, carbon-neutral critical minerals supply. As a condition to the closing of the equity investment by Eni, Eni and the Company have agreed to enter into: (i) an investor rights agreement providing Eni with certain board nomination and observer rights, as well as pre-emptive and top-up rights in connection with future offerings and certain dilution events, in each case subject to Eni maintaining specified ownership thresholds in the Company; (ii) a registration rights agreement providing Eni with demand, piggyback and shelf registration rights in respect of the Common Shares held by Eni, subject to customary terms and conditions; and (iii) a side letter agreement pursuant to which the Company has agreed to negotiate in good faith the terms of a potential offtake agreement relating to 15,000 tonnes per annum (&ldquo;tpa&rdquo;) of graphite concentrate from the Phase-2 Matawinie Mine or equivalent in active anode material. Each of CGF and IQ are parties to an investor rights agreement and a registration rights agreement with the Company, respectively, dated December 20, 2024, which agreements remain in force. The Common Shares to be issued in connection with the Private Placement will be subject to a four-month hold period under Canadian securities laws. Closing of the Private Placement is subject to, among other things, receipt of the Shareholder Approvals and certain customary conditions and regulatory approvals, including the approval of the Toronto Stock Exchange (&ldquo;TSX&rdquo;) and the New York Stock Exchange (&ldquo;NYSE&rdquo;). BMO Capital Markets is acting as exclusive financial advisor to the Company in connection with the Private Placement and the overall equity financing. The Private Placement is expected to close on or about May 15, 2026 and will occur immediately prior to the issuance of the Common Shares underlying the Subscription Receipts issued in the Offering. Concurrent Bought Deal Subscription Receipt Public Offering NMG has entered into an agreement with a syndicate of underwriters co-led by BMO Capital Markets and National Bank Capital Markets (the &ldquo;Bookrunners&rdquo; and collectively with the other members of the syndicate, the &ldquo;Underwriters&rdquo;), pursuant to which the Company will issue, on a &ldquo;bought deal&rdquo; basis, 45,600,000 subscription receipts (the &ldquo;Subscription Receipts&rdquo;) at a price of US$1.84 per Subscription Receipt (the &ldquo;Offering Price&rdquo;), for gross proceeds to the Company of approximately US$84 million (the &ldquo;Offering&rdquo;). The Company has granted the Underwriters an option, exercisable at the Offering Price until the earlier of 30 days following the closing of the Offering and the Termination Date (as defined below), to purchase up to an additional 15% of the Offering to cover over-allotments, if any (the &ldquo;Over-Allotment Option&rdquo;). Each Subscription Receipt represents the right to receive, for no additional consideration and without further action, one Common Share upon satisfaction of certain release conditions, including the completion of the Private Placement which is conditional upon, among other things, receipt of the Shareholder Approvals of the Private Placement (collectively, the &ldquo;Release Conditions&rdquo;). The gross proceeds from the Offering (less 50% of the Underwriters&rsquo; fee) will be held in escrow pending the satisfaction of the Release Conditions. If (i) the Release Conditions are not satisfied prior to 5:00 p.m. (Montr&eacute;al time) on July 31, 2026; (ii) a &ldquo;termination event&rdquo; occurs, as such term is defined in the subscription receipt agreement to be entered into between NMG and the subscription receipt agent, or (iii) the Company has advised the Bookrunners and the subscription receipt agent or announced to the public that it does not intend to proceed with obtaining the Shareholder Approvals or completing the Private Placement (the date on which the earliest any such termination event occurs, the &ldquo;Termination Date&rdquo;), holders of Subscription Receipts will receive the full purchase price of the Subscription Receipt, together with their pro rata portion of income (including interest) generated thereon, calculated from the date of the closing of the Offering and up to but excluding the Termination Date (less any applicable withholding taxes). The Underwriters&rsquo; fee representing 5% of the aggregate gross proceeds of the Offering, will be paid as to 50% on the closing of the Offering and 50% upon and subject to the realization of the Release Conditions. The Subscription Receipts will be offered by way of a prospectus supplement (a preliminary supplement followed by a final supplement) which has been or will be in all provinces of Canada (excluding the territories) (the &ldquo;Prospectus Supplements&rdquo;) to the short form base shelf prospectus of the Company dated December 5, 2025 (the &ldquo;Base Shelf Prospectus&rdquo;) and the Company&rsquo;s United States registration statement on Form F-10, as amended (File No. 333-291778) (the &ldquo;Registration Statement&rdquo;) with the United States Commission (the &ldquo;SEC&rdquo;) under the United States Securities Act of 1933, as amended (the &ldquo;U.S. Securities Act&rdquo;), pursuant to the multijurisdictional disclosure system. The Prospectus Supplements, the Base Shelf Prospectus and the Registration Statement contain important information about the Company, the Offering and the Private Placement. Prospective investors should carefully read the Prospectus Supplements, the Base Shelf Prospectus and the Registration Statement and the documents incorporated by reference therein before making an investment decision. Delivery of the Prospectus Supplements, and any amendments to the documents will be provided in accordance with securities legislation relating to procedures for providing access to a shelf prospectus supplement, and any amendment. The final Prospectus Supplements when in Canada (together with the related Base Shelf Prospectus already SEDAR+) will be available on SEDAR+ at www.sedarplus.ca within two business days. The final Prospectus Supplements when in the United States (together with the Base Shelf Prospectus already ) will be available on the SEC&rsquo;s website at www. . Alternatively, an electronic or paper copy of the Prospectus Supplements, the corresponding Base Shelf Prospectus and any amendment to the documents may be obtained, without charge, from the Company, any Underwriter, or any dealer participating in the Offering by providing the contact with an email address or address, as applicable. Shareholders may request it in Canada from BMO Capital Markets, Brampton Distribution Centre C/O The Data Group of Companies, 9195 Torbram Road, Brampton, Ontario, L6S 6H2 by telephone at 905-791-3151 Ext 4312 or by email at torbramwarehouse@datagroup.ca , and in the United States by contacting BMO Capital Markets Corp., Attn: Equity Syndicate Department, 151 W 42nd Street, 32nd Floor, New York, NY 10036, or by telephone at (800) 414-3627 or by email at bmoprospectus@bmo.com . The Offering is expected to close on or about April 16, 2026, subject to a number of customary closing conditions, including NMG receiving all necessary regulatory approvals and the approval of the TSX and the NYSE. The Company will apply to list the Subscription Receipts and the Common Shares issuable pursuant to the terms of the Subscription Receipts on the TSX and will apply to list the Common Shares issuable pursuant to the terms of the Subscription Receipts on the NYSE. Listing of the Subscription Receipts will be subject to the Company fulfilling all of the applicable listing requirements of the TSX and listing the Common Shares issuable pursuant to the terms of the Subscription Receipts on the TSX and NYSE will be subject to the Company fulfilling all of the applicable listing requirements of the TSX and NYSE. The Subscription Receipts will not be listed on the NYSE. Shareholder Approvals The closing of the Private Placement is subject to the receipt of various shareholder approvals in accordance with applicable TSX rules and Regulation 61-101 respecting Protection of Minority Security Holders in Special Transactions (&ldquo;Regulation 61-101&rdquo;) (collectively, the &ldquo;Shareholder Approvals&rdquo;). Given that each of IQ and CGF beneficially owns, or has control or direction over, directly or indirectly, Common Shares representing more than 10% of the issued and outstanding Common Shares of the Company, the Private Placement, insofar as it involves IQ and CGF, is a &ldquo;related party transaction&rdquo; for the purposes of Regulation 61-101. As a result, completion of the Private Placement will require &ldquo;majority of the minority&rdquo; approval under 61-101, being approval by a simple majority of votes cast by the shareholders, excluding any votes attached to the Common Shares held by IQ and CGF and any of their respective affiliates. In addition to the above, the TSX rules will require that the Company obtain, (i) approval of the issuance of Common Shares to Eni, IQ and CGF under Section 607(g)(i) of the TSX Company Manual, as the aggregate number of Common Shares issuable to Eni, IQ and CGF exceeds 25% of the Company&rsquo;s issued and outstanding Common Shares as of the date hereof; (ii) approval of the issuance of Common Shares to each of IQ and CGF under Section 607(g)(ii) of the TSX Company Manual, as these private placements to insiders exceed 10% of the Company&rsquo;s issued and outstanding Common Shares as of the date hereof; and (iii) approval of the pricing of the Private Placement under Section 607(e) of the TSX Company Manual, as the Common Shares issued pursuant to the Private Placement are to be issued at a price per Common Share lower than the Common Shares&rsquo; Market Price (as defined in the TSX Company Manual) less a 15% discount. Each such approval will be required to be obtained by a simple majority of votes cast by holders of Common Shares eligible to vote (excluding the votes of IQ and CGF in respect of the approval of the issuance of Common Shares to them and the votes of IQ, CGF and Eni, if any, in respect of the approval of the pricing of the issuance of Common Shares to them). The Private Placement is also subject to the formal valuation requirement set out in Regulation 61-101. The Company will convene an annual and special meeting of shareholders on May 13, 2026 at 10:00 a.m. EDT via webcast at https://virtual-meetings.tsxtrust.com/en/1931 to consider the Shareholder Approvals and any related matters. Additional details regarding the Shareholder Approvals will be provided in a forthcoming management information circular, which, once filed, will be available in Canada on SEDAR+ at www.sedarplus.ca and in the United States on the SEC&rsquo;s website at www. . Path to Matawinie Mine FID and Construction The transaction represents the final step in assembling a comprehensive financing package combining senior debt, strategic equity investments, and public-market capital. Upon closing of the Private Placement, satisfaction of the Release Conditions, and satisfaction of conditions precedent to the previously announced project debt financing, NMG expects to have secured all required funding to declare FID on the Phase-2 Matawinie Mine and proceed with its design, engineering and construction. FID is expected to be made following the closing of the Offering and the Private Placement, on the basis of, among other things, access to the net proceeds from the Offering, the Private Placement and to the Facilities committed to be provided by EDC and CIB totaling US$335 million which will be available at the level of NMG Matawinie Inc., a wholly owned subsidiary of the Company, upon completion of the definitive documentation, final legal, insurance and regulatory due diligence, and satisfaction of customary conditions precedents. In recent months, NMG has advanced its Phase-2 Matawinie Mine execution strategy. Construction preparation, engineering, and procurement have advanced with contracts awarded representing over 50% of the project&rsquo;s CAPEX &ndash; within estimates of NMG&rsquo;s updated feasibility study for the Phase-2 Matawinie Mine in accordance with National Instrument 43-101. NMG&rsquo;s construction manager, Pomerleau, has started to mobilize onsite to supervise the start of contractors&rsquo; arrival and preliminary civil works to be initiated in the coming weeks. 13-ktpa B&eacute;cancour Battery Material Plant The Company has also acquired a 143,000-m 2 brownfield site , adjacent to its greenfield property, to build a first production capacity of active anode material dedicated to Panasonic Energy Co., Ltd., a wholly owned subsidiary of Panasonic Holdings Corporation (&ldquo;Panasonic&rdquo;), namely the 13-ktpa B&eacute;cancour Battery Material Plant. The industrial building and associated infrastructure should enable the Company to lower infrastructure costs, optimize CAPEX per tonne costs for this first stage development, and streamline permitting, engineering, and construction timelines to align the commissioning period with that of the Matawinie Mine. The Company is currently updating its Feasibility study and advancing procurement negotiations with key equipment suppliers with a view to proceed with an FID and construction decision in H2-2026. NMG&rsquo;s strategic shareholders Panasonic and Mitsui & Co., Ltd (&ldquo;Mitsui&rdquo;) have indicated their intention, subject to internal approval, to vote in favor of the Matawinie Mine transaction and have reiterated their non-binding interest to continue diligently studying an equity investment into the 13-ktpa B&eacute;cancour Battery Material Plant FID, pending customary due diligence including review of economics, agreement on relevant contracts, lenders&rsquo; approval (if necessary), and internal approval. About Nouveau Monde Graphite Nouveau Monde Graphite is an integrated company developing responsible mining and advanced processing operations to supply the global economy with carbon-neutral advanced graphite materials. The Company is developing in Qu&eacute;bec, Canada, a fully integrated ore-to-processed-graphite value chain to serve tomorrow&rsquo;s industries in energy, advanced technology, and manufacturing. With recognized ESG standards and structuring partnerships with major customers, NMG is set to become a strategic supplier of advanced materials to leading specialized manufacturers while promoting sustainability, innovation, and supply chain traceability. www.NMG.com About Canada Growth Fund CGF is a $15 billion arm&rsquo;s-length investment vehicle designed to attract private capital to build Canada&rsquo;s clean economy. It uses investment instruments that absorb certain risks to catalyze private investment in low-carbon projects, technologies, businesses, and supply chains. For more information on CGF&rsquo;s mandate, strategic objectives, investment criteria, scope of investment activities and range of instruments, please visit www.cgf-fcc.ca/en/. About Investissement Qu&eacute;bec Investissement Qu&eacute;bec&rsquo;s mission is to play an active role in Qu&eacute;bec&rsquo;s economic development by stimulating business innovation, entrepreneurship, and business acquisitions, as well as growth in investment and exports. Operating in all the province&rsquo;s administrative regions, Investissement Qu&eacute;bec supports the creation and growth of businesses of all sizes with investments and customized financial solutions. It also assists businesses by providing consulting services and other support measures, including technological assistance available from Investissement Qu&eacute;bec Innovation. In addition, through Investissement Qu&eacute;bec International, Investissement Qu&eacute;bec prospects for talent and foreign investment, and assists Quebec businesses with export activities. About Eni Eni is an integrated global energy company headquartered in Italy, engaged in the development, production, and supply of energy solutions across traditional and low-carbon businesses. Operating worldwide, Eni focuses on supporting energy transition through technological innovation, industrial development, and the progressive decarbonization of its activities. Eni is committed to building resilient and sustainable energy value chains while fostering long-term partnerships and responsible growth in the communities where it operates. Contact MEDIA INVESTORS Julie Paquet VP Communications & ESG Strategy +1-450-757-8905 #140 jpaquet@nmg.com Marc Jasmin Director, Investor Relations +1-450-757-8905 #993 mjasmin@nmg.com Subscribe to our news feed: https://bit.ly/3UDrY3X Cautionary Note Regarding Forward-Looking Information This press release contains &ldquo;forward-looking information&rdquo; and &ldquo;&rdquo; within the meaning of applicable securities legislation (collectively, &ldquo;&rdquo;), including, but not limited to, statements relating to future events or future financial or operating performance of the Company and reflect management&rsquo;s expectations and assumptions regarding the Company&rsquo;s growth, results, performance and business prospects and opportunities. Such reflect management&rsquo;s current beliefs and are based on information currently available to it. These include, but are not limited to the Company&rsquo;s ability to successfully execute definitive agreements in respect of the Facilities, on the terms and conditions described herein and/or set forth in the commitment letter or at all, completion of due diligence by the providers of the Facilities, the satisfaction of closing conditions with respect to the Private Placement and the Offering, as applicable, the Company&rsquo;s ability to obtain the Shareholder Approvals for the Private Placement, the Company&rsquo;s ability to satisfy all of the Release Conditions under the subscription receipt agreement, the Company&rsquo;s ability to raise all funds needed to complete the Phase-2 Matawinie Mine, the expected use of proceeds from the Offering and the Private Placement, the Company&rsquo;s ability to secure a positive FID for the Phase-2 Matawinie Mine, the ability to execute the construction and the commissioning as planned and in accordance with the execution plan and strategy, the ability of all contractors and suppliers of the Company to deliver in accordance with their commitment, the receipt of all necessary regulatory approvals and stock exchange approvals including the Company&rsquo;s ability to obtain approval from the TSX and the NYSE, as applicable, the expected closing dates of the Private Placement and the Offering and the expected date for the satisfaction of the Release Conditions, the listing of the Subscription Receipts on the TSX and the listing of the Common Shares issuable pursuant to the terms of the Subscription Receipts on the TSX and NYSE and the expected results of the initiatives described in this press release, and those statements which are discussed under the &ldquo;About Nouveau Monde Graphite&rdquo; paragraph and elsewhere in the press release which essentially describe the Company&rsquo;s outlook and objectives. Forward-looking statements are based upon a number of estimates and assumptions that, while considered reasonable by the Company as of the time of such statements, are inherently subject to significant business, economic and competitive uncertainties and contingencies. These estimates and assumptions are not guarantees of future performance and may prove to be incorrect. Moreover, these are based upon various underlying factors and assumptions, including the ability of the Company to complete the Private Placement and the Offering on the terms described herein or at all, the ability of the Company to obtain the Shareholder Approvals, the ability of the Company to satisfy all of the closing conditions on the Private Placement and the Offering, the ability of the Company to receive all necessary regulatory and stock exchange approvals, the ability of the Company to successfully execute definitive agreements with respect to the Facilities, on the terms and conditions previously announced and/or set forth in the commitment letter (including the amount of the Facilities) or at all, the completion of due diligence by EDC and CIB, the ability of the Company to meet the Facilities&rsquo; conditions precedent and/or customary closing conditions, the ability to execute the construction and the commissioning as planned and in accordance with the execution plan and strategy, are not guarantees of future performance. Forward-looking statements are subject to known or unknown risks and uncertainties that may cause actual results to differ materially from those anticipated or implied in the . that could cause actual results or events to differ materially from current expectations include, among others, failure to obtain the Shareholder Approvals, failure to satisfy all closing conditions for the Private Placement and the Offering and failure to satisfy all of the Release Conditions pursuant to the subscription receipt agreement, failure to obtain necessary regulatory or stock exchange approvals, and delays in completing the Private Placement or the Offering or the satisfaction of the Release Conditions, the failure to enter into definitive agreements with respect to the Facilities, on the terms and conditions previously announced and/or set forth in the commitment letter (including the amount of the Facilities) or at all, the completion of due diligence by EDC and CIB, the failure of the Company to meet the Facilities&rsquo; conditions precedent and/or customary closing conditions and the expected impacts of the Facilities on the Company&rsquo;s operational and financial situation and general economic conditions, as well as earnings, capital expenditure, cash flow and capital structure risks and general business risks. A further description of risks and uncertainties can be found in NMG&rsquo;s Annual Information Form dated March 31, 2025, including in the section thereof captioned &ldquo;&rdquo;, which is available on SEDAR+ at www.sedarplus.ca and on at www. . Unpredictable or unknown factors not discussed in this Cautionary Note could also have material adverse effects on . Many of these uncertainties and contingencies can directly or indirectly affect, and could cause, actual results to differ materially from those expressed or implied in any . There can be no assurance that will prove to be accurate, as actual results and future events could differ materially from those anticipated in such statements. are provided for the purpose of providing information about management&rsquo;s expectations and plans relating to the future. The Company disclaims any intention or obligation to update or revise any or to explain any material difference between subsequent actual events and such , except to the extent required by applicable law. Further information regarding the Company is available in the SEDAR+ database ( www.sedarplus.ca ), and for United States readers on ( www. ), and on the Company&rsquo;s website at: www.NMG.com . GRAPHIC 5 tm2611280d2_ex99-2img001.jpg GRAPHIC begin 644 tm2611280d2_ex99-2img001.jpg M_]C_X 02D9)1@ ! 0$ R #( #_VP!# ,\" @,\" @,# P,$ P,$!0@%!00$ M!0H'!P8(# H,# L*\"PL-#A(0#0X1#@L+$!80$1,4%145# \\7&!84&!(4%13_ MVP!# 0,$! 4$!0D%!0D4#0L-%!04%!04%!04%!04%!04%!04%!04%!04%!04 M%!04%!04%!04%!04%!04%!04%!04%!3_P 1\" -,!=P# 2( A$! Q$!_\\0 M'@ ! (\" P$! 0 8'!0@#! D\" 0K_Q !B$ ! P,# @,$! 8+ M# 8( @L! @,$ 41!A(A!S$305$(%\")A\"3)Q@14C0I&ATQ87&5)455:3E;'! M&\"0S-U=B=;*ST=+P.')TDN'Q)30U-D-S@I2T.5-VHD1CH[4F1 (C5-+P-#5\" @/RONOBON@%*4H#XI2E * M4I0\"E*4!]#M7[7X.U?M *4I0\"E*4 I2E *4I0\"OP]J_:_#VH#YI2E *4I0\"E M*4 I2E *4I0\"E*4 I2E *4I0\"E*4 I2E *4I0\"E*4!]TI2@%*4H!2E* 4I2@ M%*4H!2E* 4I2@%*4H!2E* 4I2@%*4H!2E* 4I2@%*4H!2E* 4I2@%*4H!2E* M 4I2@%*4H!2E* 4I2@%*4H!2E* ^*4I0\"E*4 I2E *4I0\"E*4 I2E *4I0\"E M*4 I2E \",]Z_-H]!7[2@/S:/04V)]!^:OVE ?FT>@IM'H*_:4!^;1Z\"O+[Z2 M;7E[T]UZ3'M+K09&GFVGFWTE3:4J6M140/RL8Q\\J]0J\\F_I()\\B_>T) _=C&>.:HXS*Z:4E=7*6+MT:3YLU=TZ6;YJ.*\\V[):\\%\" M4MR&%;E\\# &% @C@CD'[!5\\:7THSIFTRERG$7M*VU2 Y+ I[);7XMWNLZ%:G;8^B*W$5NW*;.,NK(';G'/]?!L35;%NCK]Z M5XEQAS5*Q:BD*:4G@!W8,I4//C/ .XA*4ZBHV:C^?F_4\\W7S4ZEWI$HB M]=:]1:PEIMK9M\\.(R^XPEYM2VG5I5A&%DK* >U73H/4 J* M6B&M[J5?CMH(W(.> M%1M3AHD M86=!2M%U@J>:?ENY$=UL%*DJ6,^\"H*.#QV('/SK'V&?(LT.2'G6X=X6X%R'4 MMJ2EP\\ QPXS \"[&0EI2GBD)!)SSGY?/-0Z[W6 M[Z7U,])B1I,_WU2$,PU,%;2G/WJL'.1Z>?K4DZ8:P59M.7>-+B38E[6\\IWP\" MTHAQ1S@X(_)S^G@USB%45+/3WY'-;,Z>=-?J0NYONV;5\\JVO!QAQ)&UQY.!P M CK7&:0GXT*2KX59! &>?S=JA6H++>=:ZT: M6H>YI<>3&4=JTA) ))(\\C\\J[=S>F:2N\\RTSGH\\UYA)0W)\\DIQ]8'UQBKW9DH MQOVK:HN1E!V2>IF(UZMD)YJ;-@L.M/N*W,QUD!M[OD;3VP,Y\\B*D>EKTFYON M3/B?6A:CN8SE#9!&Q14?3\\V:K6[V1I.G(\\R,A;Z5/MD[7@2D\\E6Y([CY\\=ZD MW3N*F$B;XC,MI9/C-MA12SC)W#U^[[ZCQ-.#I9D]2'%J/0N2W+\"O2 9/NK6Y MJ(X$O+DI6%*:\" KT(S4AN0F-E! #Y9-9#6 M/3F&KQKS.E2$2ICK3B$/96=H_)!2HCMQD^E ?+G[*QUQN0T3?2Y+= 4M*03G#9YQZ@\\5;NY56Z;YEN; ME*;4&96UW5_\\(\"6TF&[*:2M2+8$'9@)P22/K*P.PXY/-3JTW,WBV-S$-,&=( M04NLK! ]92U]1XDMJ; F6QB Q(D) U+=R64L._#M+@* V>0:ZX LLV7)#;KC7B%;C3I\\5[)!'_[6 JW-O1(#Y2$A2,D*&2 M2!^3DX]*QEYL,&[09$.XW>7*#CBENF04$H)6I0\"202\".1P \\\\S\">6LU/1)E&PY,&5 #\"0E*DH #JSRI)5ZG('?&>:[VH] M'N18\\JX)=:;D/84Y(=X0RD9W)P>Q)^1Q@YQ5JICJ4^RN?)ENIBH2;IQ6C(I; MGE:A>?AOQ)6UMWQ&U-NI2748!*@2, WPU+M;N/N6Y>H8ZI:;.TA&4) PWG\" \" 1\\/(/EGM5@F';V[C;IB9A3#>;&]#_P@JVGGOR02,@@8JQBJ$5* M]FI$>(IQS> .-S93@)5Z=\\)_17\"P^9.:WL%3E/5%D7BYE%\\8APB\\^J. M@/.M,E2DM+.>_&#P$]NV?G4\\L&IK5;;&Y, Z,]LFL&G3ABI_5Y]FWO,^G'I*G1I6:,AJ'6%IC+G/_ (/C M(M;X4F'$\"3XR7,9*P WD*P3\\ MM_4 83.::RXY(0L#:4_7& $C&&61Z M!8>.6S9/XH7 M\"KOG)/G_ .%9^^+=OC#8#\"+;'7ESPDJ.0OGGL/3T[_;75AZ&?N S-\"?[Z>3A)4!VS@'OZ M5*-.Z(;@:JD1KU/_ @M )8*2H;R>!M..PY_-75:OBHLV.)\\8.3(K@6T5# J;UMN4@:?E!&\\MA1DC\\C('P X^PU'H' M56WW5O E*L YOSS M+ML6U.) \"0/,_(5Z>G55?#*M%^DVHRZ2GF1\\WVYO6:\\1 M7A'2\\B&K$ '52+PZD.9_%@I&Q..Y [=O,U8TCI2]+ ML\\=F.^EM[WD.E4CX@XC!W*/;(]*C%TLX7J&6S);:;:\"0&UM _P_/[JS-@AOQ;^AR)X*%( M:);0\\O !P ?.NG!4U;;HY'2G:PKC!5R<>0.:FT&)'DL-7A#F^(PZ%2X[ MO!.!@) '?N.YJ.M4RK4KRG*Z2(C L??+^ M^'5PF)1+*6@E24JP2HG!&?MJ:ZCLML%@%PAJ=A/.M+F/-R\"$$C/ 2KM]P^=5 MKIZVIF..37EEQC)4KP4943^3VY)K[1RSCF?(MTZ>97:)?9M-N733AE>.V'B> M5;\\?:\":CETO4MJ\\*;) BKC/LI.6WD%&?3%2T4W)R9U#LMR9((?4>Z,.,-[D>&VT M0AEE6T;N^3GOS6)>BR=4V]QV0X/&+A)5V)63G-8M5MD(DJ<>26VDK W ITJ5+6\"+L,J69%>28DIN W*R)8K,]\"?QK0S8+6B(TC8M0RL)Q M];TX%=5,$*>\"\"H* Y)'8&LA Z-$%QWX>V -:/MB(\"$A #P?/YU/]7ZC M9L\\>7 93)>E,(8\"4APN!8.05 )SSWS6,@:,=N#!==]X;5G; MM\\)2L ?U5;[\\OQ]++ND2)X !SM'&0,>1J%)TQ ]M\"E&JWN?T U\\J[U^XK\\/>O4FH?E?=?%?6* M _:5^8IB@/FE*4 I2E *4I0'T.U?M?@[5^T I2E *4I0\"E*4 I2E *_#VK]K M\\/:@/FE*4 I2E *4I0\"E*4 I2E *4I0\"E*4 I2E *4I0\"E*4 I2E *4I0'W2 ME* 4I2@%*4H!2E* 4I2@%*4H!2E* 4I2@%*4H!2E* 4I2@%*4H!2E* 4I2@% M*4H!2E* 4I2@%*4H!2E* 4I2@%*4H!2E* 4I2@%*4H#XI2E *4I0\"E*4 I2E M *4I0\"E*4 I2E *4I0\"E*4 I2E *4I0\"E*4 KQ]^D2U*W>/: 6DDI6!]8 \"G%)E>O#/%(U]U1- ;BL[(J7$!\"D8\"6R\" 2$3S*)2AL#_ 24X[8(^7>L4[95W,15 K2%8PI2?B 'GGT]*7K1 LC2 M%+F*6R^0M:,%\"2/L]?OJ!1I.T9 _7$>*N0X5*=5V*SR M>, .4CP3GG (YSQVQ58W5R-92R]\"DOG82I*5#* M 44[% *LU:;JTVX[=Q B(D5J79&%+,P+D^[I2'B!\\64JS@=^Q'J*S\\EVUZ_NSMRB0IL60AE1;/B M(2WE2OR@/0$X(YS6#5,B=0%MEJX//+905*B.IP0LC!QWR.!SGBL,N1 !:OPA=$/H M\\9Q4AQ2V6R23D A/_P\"SFJP5J\"X6O63#:YJ;;#:D%0$1O OE1KI+: I8[,R=&:> &HESQFFDGD'&>W.>!Q4 M%NNN)DN2XI;;+X25I:*^0DJX4H#MGYU/AJ3Z=N)/AJ,^G Z@*\"@D\\C(!Y'W#UJI!(>9?*D M+7LQE25=E_(@#M4J]\\5&M$2X-^#X[BBV\" 57*^'4W=\\R[7P\\:C MNR I7,LMTB M(2N7'RD(W9:6E6X$9YP3C[ZC4EE,@A:BI*DJ^JKOBI,)3C2@XQ+&&I1HQRQ. MY;Y(:84D>(CC(!4 (AG M G5F:C7^*^[&2XJ*L)=\"58 R H-TDK\"U07 KW8 E*6VPM:$+)W 9[CS\\O*OE_I X8 MZKQ;9;,:Z( $;0P%H? :0I\"%DJ0O.0 D8P% \\_9BLKJVY6W3L]N+&3)N10-A*5+) X5M!( 2D=SR3G.>^.!6)T-U9;U>Y?I5GMC 7(5$D(=B-1I:C(7\\!2IIP M$E04E61@]AVKNR'41=-2Q+>]PAS IA*GEI&\\' 59\\*KI2=W=R:_ M]%6-*2FK,HRZ]4;)$C7]7X-?EVZ3A :?TD$.F4AQYQ3\"5+1^+;43@?$ :P.B;+ HN,O( N3J?;F-1661 M;%SI+KZV4K2%N)&#QL6H^:203COP>]02%JMS34BT*_!EN=D++B79:2H%([[S M^^.>.YX578NC]_U(B0S$G->&]A+CBVMH*1C\"6\\#CA/F?.L!X63Q/3[,SYRGT MBE>R(Y9+!$T]=PS#:+LE.&S+4L[5C)\"CV['(J,=0].M:?OR$LOQ'Y$IQ;J41 MTD;&QYDD?(_FJQ=.6Y:(I W.1GS^7>H/K1F3JN0W, K*5;M.Z>Y M\\-;FP@J(4#YY ^^NQ:8DF1,FW*4C>PAK\"&D** !C\" \">34A=O*;+!8BR74B>P I2;?$CLP$N)\\50W!2B C&T#;DG&0,5'^H%\\5)NCK$QM\"%1&1A\"7 M?49'.>3Y5G]!4K5,L]BDZ52M-1GL?NL]0-3YJ$QUJ6M+99#O&Y)SGDC@BOUN MUN7&.VIIYV7+2V5NHV@A*1\\_.LCH_I#;KO8D2')R%W1]Q\"T*:RZA+9\\BD KK%5\"1.> X; \">>>Q^$@>HJT]-BW:LT8J.F4XW=HI_O4D%:\" [3A*?: ,5-!+H5P E0J]0F9VKWV(:G'F0E*I M\"I&Y *R,D@#G&, N9]IU!( M7J=EQ /M-7:%*4I.K'FMKHEITV^TD?%WU#8;??THCPW2ZA M7A*#B\\LH\\LCG.?.NS%O*8LE,>*$W'QBE3RE A+?Q8W=\\9'SI>H=NUDAM;($9 M#(2X6VDI&[=\\O,\\BHIKK3S.D@YR^Y'D(_%IX2TVKU)_*/!.*U8PI5&J [,1&4.-OI#BHSA M*@O'J?+[!4-MLT +;9)4'&]BG,>IY(]\":Y;M%:@GWL Y *Q+]VF7._(?6I( M0,);;)RE*>0 >>3S4_AVB'>H=M; HU=[3:Y \\HQJQO:QV+LI^3;6(:WO%*7,*VI R M1]G>IWH>TNW!,:0ZP'$I3X7(\\L ,8^ZI(3A*/8+,)0FKQ.KH;I2[(N$- MMY1,A\\G ?OKYN,E4R:(X3P>_H?LK8P]/*LS+].-CI1E;]REH&P=LU$=:W5+[:VE M.I;9;&YP_8 579+)I:D*ZLZZ-^=1;X+H 3,;*(9@.A MQ+*0=Z@,D YX[I_3S70?6AM*2^@N>\"2 DN'CR!Q79MEXAVVVSFI\"7527#O;8 M4 Q(UZCNUH:\\=A*I3\"DA:HCH2 MLI(^P$$Y_-\\ZDUG MU=#3;V5*;2E2TI5L:\"' GX0,9('/&?OJKGK[>IJ42X:5F.D%A*4I 2 KL\"14 MN9]_M,=F,[':+J4 K.002>^..U9E:A97TOYB\"4$>]5?*N]?5?*N]>N-4_*^Z M^*^Z 4I2@/BE*4 I2E *4I0'T.U?M?@[5^T I2E *4I0\"E*4 I2E *_#VK]K M\\/:@/FE*4 I2E *4I0\"E*4 I2E *4I0\"E*4 I2E *4I0\"E*4 I2E *4I0'W2 ME* 4I2@%*4H!2E* 4I2@%*4H!2E* 4I2@%*4H!2E* 4I2@%*4H!2E* 4I2@% M*4H!2E* 4I2@%*4H!2E* 4I2@%*4H!2E* 4I2@%*4H#XI2E *4I0\"E*4 I2E M *4I0\"E*4 I2E *4I0\"E*4 I2E *4I0\"E*4 KQ=^D5M[K'M/ZR==A-LH T3+O*GD)AN6N.@MHW!1* 4IV\\COP?.I'9TQC,V2FB&0@_BQP >>R')\"TI 4H(!&\"3V!^ZI:_\"AV2.\\J=!:?94M02VCETJ(&\">?3)KFKB,LL MBW.:F)499(F1TA*MVF6BS&C(:E/ %,H_\"H\\?5QYC[ZDW['8%Q@/P'D)DW* >P&.:SL1\"3DE3O 'F M?EYU8UF?T]>K4PTY#?AP9\"U(C29#@:*U9X4K' R\"?+''K4>UK#B6+4;4&%.8 M 1K6Q]I57FZ-IW/J+;D-Q6&F0MJ.O %\\?$H]_NJT>HK$6QVHH5%V(D?WPRZAP[QE7.].2!597A M\\W.$%-I*D@Y *\\ $#R35W 1LND[]RQPZ#_\\ )WLP[,=U3R?\"4E2R WX3(6DE2B,;U YW9^6*CL6%+C.LKD(2&E\\@JS@BI4[,A1Y(6(3 M2X04,,E95M!&\",]ZVI235EJ>@DU+8R$-XO6:2N0ZI+\",?C G.0?GY@^M1+4T M1I$]#@7\\2DCA)]!P3VJ2W74HDVU-ML\\21!0-N&W2#XR M0B= ,'R%04X/,Y;$:6MSFM;\"XH>F*BJ 2 _/S/8GU\\JZ%XU=;_P -VQ! M,Y''!X[\"L%J3J7/CVZ)#CR'WG4Y=>=Y2#E( QC[,Y\\_.I/K36L.Y0$0I#,J0 MLCX913Y\\8\"CQQ_56)BPYVHX8LXFM6SQF$G=*2#D E.T'ZR>.?/@'CM5JC).G M&59:%NE/LJ55;'WI'52I\\J(Z64SI;Q0VLEPD'/ =H([G X_WUANF6GIFA7YJ926Y\\=]*D-N,)*O\"/'Q)*L '.WMR M<>56>UJ POHN+ZEL^[.N-N.H1E\" DK.,\\!1R/(^?/:J&(JRHUU.CR,W$UG M3Q$9TBK=$ZN3I]YJW\"W-.2'>4OJ!.!W*-H[@@=_+':IA>+T\\_+9U#,:9CO(2 M66T,$[E ]BI6?D1VSQ4)L.B')_4R%*B2'7(\\M\"G%!S!VME/&21@!7.*S6H'I MTN>_%E)CM*G-.^ZJP?!0$JP$\\]CQ^8YSFOM>$)5,ZW:U.JD$ZRG#GO\\ (_6; MMJ+42PS%N262X#N4K! 0,D#/GCGGS[59&IM-JOFEX2;[>'[99V=A?+8&%.#@ M%)/E\\1['^L56>FHT_3&H&G(T1R6PZ6VY;R&5*;9\"0I*L8SY$FN3J! I'?P:'6E(:43X(3CLKTP> ,??6?5HYZ\\8TVDEK>WY> 2X%[QG MX0 >P'IFK&D:EL>H&94.2E4>6@%/O,-I!:4ODI.%$ $]L3X3B5 )=658!R!V\\JMO0MIN,&$Q=+DZED0@Y&0\\C)4K(( M&#PE2?B4,@YSGTJ#$THQUB__ &5JU.,7=&47I&WZ*T)J* S;&[G(NSB'X+RE MDB$X%G84 CDX6K'Q#D9YQQSL3&8\\A3 PQD+4@?O>2$G!! M^=59JWJNQ=XUZCMV]9:EMM,M%[ 4SL(W :R4O5-J=LTA^++\"%AX^\"RVDAY7;&W!XQD_FJJ68SJK;N2HY M+P\"%*21X*L'D'MY\\DC@]JD,VR39;\\4>\\>/.V9:=9=3N7G]]C!)_/4\\L-33OL M69X6G%W6AG=$V6?=K@N'#3(E^*VM0?4\"O*B. H=NY'/VUE(?3LZCL=W0Y=GF M;M! E]3OO+6J%#;=84?%\\)#:/@ V 7*N-RM$IMKW8>&X& 78S MRU98_3^=:O $7:UNID+=\\)_+BD M)&2GLCZH[#CSJ+6[J% N _!]>^*YI&K)-^ MFQEN^&BU^$@H9=44?%NSE12\"2>_;%94Z-3I'42MW\\_849TY9[K0[&N];VV=; MGM.R&)27KBD*;>DL I(Q@EL9)!/KWYKJ=,-'QM.WUZ&W-D-.^ %J;DJQGD$@ MC Y8FE\"DHQTN8S6$.S0)*93;RW)C8 M&TI1P5 8^$=U'MD UQZ0VSWR;= ?/D^ M59JG_ BI)V>SL5V]-2634,RRI;[#37@)\\53R%Y*.XXRG'WU0_4#3USU9JMU: M6W+PI;*68*FL9 S^4$^6 1P20KBNT66X MMQ>EI7%9:E.EIIMCE11M'U B3W'TIWNM@) 3P=HQ\\0'R/ .XY MK8GK+;) 1\\AW_ *JM6P:)NSD> M&;VXY']V*7&E-*3\\*N^#Z 1V[UE+7'AL6U 4MI21M7E3N M 4;1Q@>AXJBNC%LEW\" J]7!+K2K@L+9;[@#. D?+D5MYI>PMZ>LK+2$>&LI^ MH#DC/.,GTKU&\"P?1Q3D;F&PW105SFN3R(K28[:5;$ )X\\ZQ:\\(2Y)7M2\"\"$I M]/3'K7*H*FR5*'#2202KS]34?UA=51D)CM%(6X0E.3@ ?.]QU9+:4JW;$YX&?/[:NWVD=;. M6R6]IZ*ZIEQ \"GDI;\"@Z%#/UCSQQ6LD^>I4AMQ\"2R&^-V23^FJLWFEIL1MYF M96ZMS([BD.-!( PR!4;>19F1MVU.?2^J)UC=6W M%C&:)+FY.!N4H#(...,@8J?!R?( 4K:\" !L&#L_S3\\Q7 &R%C.!YUY[$XB#=TC,J8A7T1[58K\\/> MOJOE7>O8&X?E?6*^:^Z _,4Q7[2@/BE*4 I2E *4I0'T.U?M?@[5^T I2E * M4I0\"E*4 I2E *_#VK]K\\/:@/FE*4 I2E *4I0\"E*4 I2E *4I0\"E*4 I2E * M4I0\"E*4 I2E *4I0'W2E* 4I2@%*4H!2E* 4I2@%*4H!2E* 4I2@%*4H!2E* M 4I2@%*4H!2E* 4I2@%*4H!2E* 4I2@%*4H!2E* 4I2@%*4H!2E* 4I2@%*4 MH#XI2E *4I0\"E*4 I2E *4I0\"E*4 I2E *4I0\"E*4 I2E *4I0\"E*4 KQ>]O MW5U^U![4&IX5]B,6QN(AN%&;9 +OMU3+K^W M;J>/ ENZ+0PPZZ?QC\"OQZCV&,_/^VH;J:P,Z6U W SW[$BJH MNEO=LUS=A[U%M\"_A\"E9XKF$J6(U6YS3G3Q\"36X;EONRY*=RT-N+W+:W82>>, MXKNL1?>WV4.*5M&2$((/GYUAT* E=>U7V,&TS0XD3&U8#+@3MQV!-1 M1IV6A'&G9%F:0NFIY,DZ =7';= E>9XFH0G> [+C.H*4)4/R>1Y?*J]O]B3;G(82,-+W*;P M , @?+XN:U7UPBX6F= M:VI7CMVAY/BQ58^':1GRS@XQQ\\Z[X9B'7BN5D6,*IMQCRL?,A+D1J')6$+BE M2@K*C\\!Q]4]L>O%=*WJBS(SSSC\"DG.7%*XS]F.U+S/6PE%N:>2_%!2XTDJ^! M:R/,'N1DCFL?;[B[$?4U((;0-R5)[I[>G;\\U>CIKLW->E]FYEY,-R7+?E%/B MI\" 0LG 6^:9$=U+3J%_!L^$8(]/TU@%: M%O5T9FW*/&,UF.GQ7EH6#L2.-Q& 6V%I4$M@\\G MD9/'E6>C-/76\\AZ$ZZVA:4J#/8;CP =1K3MWALV>1!D%N\"K:I0=6?KJ] M>.WIBN3IIJI&G;G*>E;74>'O;)&2\"#V0#P /J2[I7.8$1CQ$J\"U?$K@$8W =CFL;J*2O4\"T.()*F\\A#(;\"01SS@> M>./NJI3IRC+MJURO&FXR>=699]ST>W,B,(D):Q*0AX/-O)40#R,[3@GGSYK MWS1?A69#PE>Z2&BHMR]O^&203M.3@=^V!YU\"AJJY:6;:3*?)2L I0!O6$@8 MP3]7Y5([+J.R:BUPVNX3+Q%TN&@[+:D.8/BA(!VI!/!( 'GS4\"I5J4 >ZB\",YSZUD-1:,EO66:M M*W5);C/R7VG%81X24?&E/F2> !SW%; Z#NUGFVQ#-LB! :=O M=Y78E,R;9*E,M)07T;?=LI^$]^Q2O :M\"3>+3;K%=&I >TW' MD1XK+!1.*R70@C *LXP#]8 9\\^]67H>.U;G'D087NB \"2 M/MQWK,-Z9EOW*:BZ-QYUGD>(A!&%*2E2@ (IT*TG)67=S9% M'&N%5NVBY +X\"DOJ^+?@D;3@;ACC(_P!^*SM-N_\" 'M*U%) W#:1DYJF]1Z XY]?7RJ8=%XLV^,3HMV3*N%I2L)+#\"]KI4 +G?7FS;O':1XA6A\"AE2?@R3QD=JFH+,E-: MIDM)7:;U1!-0+MT9N&F,TX)?A*$Q+R )22 II*L@@ M'Y\\#M6I=25HLT%;_ $LS;]VG1+@ZA\"E(;=/AEL(PEP9X^''/)_/5K=(=#,0[ MFU>KHLKF-_\"F V HH)(VGY8SG[ZJR))>N#@?4N/$?)\"@X\\HDXQVR>WV\\>52R M\"[/>$=,54EEY;H:4L94E7ED9SS\\_+%9V+3G3 \"RTGP79$HAQ3H/'F3C[3CN:B]FTG,U'M>CW-N'%C/( MVL &C: \\\\I3A92[",
+    "predatoryFinancing": null,
+    "sector": "Metals & Mining",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Quebec, Canada (via Vancouver, British Columbia, Canada)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
+    "deterministicPattern": "Clinical Success / Milestone",
+    "deterministicMechanism": "Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.",
+    "deterministicPhrase": "[Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.]",
+    "recordedAt": "2026-04-10T14:22:49.442Z",
+    "recordId": "NMG-1775830969442",
+    "expiresAt": "2026-04-15T14:22:49.442Z",
+    "direction": "LONG",
+    "highest5Day": 2.275,
+    "highest5DayPercent": 13.47,
+    "lowest5Day": 1.83,
+    "lowest5DayPercent": -8.73
   }
 ]

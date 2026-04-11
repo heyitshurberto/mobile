@@ -1,0 +1,6 @@
+CIK,Ticker,Company Name,Price,Incorporated,Located,Market Cap,Float,Shares Outstanding,S/O Ratio,F/AV,Direction,FTD,Volume,Avg Volume,Sector,News,Skip Reason,Timestamp
+1648416,RACE,Ferrari N.V.,352.86,Spain,Italy,62749769728,17494660,176490100,9.91%,22.35,LONG,4352,269046,782919,Automobiles,Stock Buyback,"Location not whitelisted (Madrid, Spain, Milan, Italy)",1775837236000
+314590,SSL,SASOL LTD,12.77,South Africa,South Africa,8141356032,N/A,631206335,N/A,N/A,LONG,58727,1255915,2765185,Chemicals,Press Release,"Location not whitelisted (Johannesburg, South Africa, Johannesburg, South Africa)",1775838611000
+1516912,OBK,"Origin Bancorp, Inc.",44.78,Louisiana,Louisiana,1387450624,N/A,30981298,N/A,N/A,LONG,2124,51975,217222,Banking,Unregistered Equity Sales,"Location not whitelisted (Louisiana, Louisiana)",1775839359000
+1756607,EQX,Equinox Gold Corp.,15.03,Canada,Canada,11860791296,N/A,789141211,N/A,N/A,LONG,49472,3147160,10773016,Metals & Mining,Clinical Success,Not enough signal weight,1775839419000
+1787518,DFNS,T3 Defense Inc.,0.4767,Delaware,New York,14780689,1250000,31006270,4.03%,0.66,SHORT,284446,1691953,1883229,Technology,Convertible Debt; Asset Disposition; Unregistered Equity Sales,Not enough signal weight,1775839817000

@@ -24,28 +24,29 @@ if (fs.existsSync('.env')) {
   });
 }
 
+// Configuration object - all adjustable parameters for system behavior
 const CONFIG = {
   // Alert filtering criteria
-  FILE_TIME: 1,                     // Minutes retro to fetch filings
-  MIN_ALERT_VOLUME: 1000,           // Capture initial filing
-  STRONG_SIGNAL_MIN_VOLUME: 500,    // Very early for strong catalysts
-  MAX_FLOAT_6K: 50000000,           // Max float size for 6-K (50M limit)
-  MAX_FLOAT_8K: 75000000,           // Max float size for 8-K (75M limit)
-  MAX_FAV_RATIO: 90,                // Max F/AV ratio for alerts (filtering out mega floats)
-  PERSONAL_ALERT_MAX_FLOAT: 25000000, // Max float for personal alerts (25M)
-  ALLOWED_COUNTRIES: ['israel', 'texas', 'china', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'delaware'], // Allowed incorporation/located countries
-  CTB_WATCHLIST: ['CZOOF', 'VSA', 'ARTL', 'ELAB', 'RENX', 'RMSG', 'ONCO', 'FABTQ', 'FCUV', 'IONM', 'ATPC', 'KIDZ', 'NMHI', 'MOTS', 'SMX', 'GLND', 'AGPU', 'SEELQ', 'CHNR', 'NEPTF', 'AGILQ', 'CYCN', 'BFRG', 'EICA', 'HOOZ'], // High CTB stocks (CTB > 250%, Availability tracked) - updated from IBorrowDesk Apr 09 2026
+  FILE_TIME: 1,                     // Historical lookback window in minutes for filing discovery
+  MIN_ALERT_VOLUME: 1000,           // Minimum volume threshold for initial alert trigger
+  STRONG_SIGNAL_MIN_VOLUME: 500,    // Volume threshold for high-confidence signal detection
+  MAX_FLOAT_6K: 50000000,           // Maximum float size threshold for 6-K filings
+  MAX_FLOAT_8K: 75000000,           // Maximum float size threshold for 8-K filings
+  MAX_FAV_RATIO: 90,                // Maximum float-to-average-volume ratio threshold
+  ALERT_MAX_FLOAT_THRESHOLD: 25000000, // Maximum float size for alert eligibility
+  ALLOWED_COUNTRIES: ['israel', 'texas', 'china', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'delaware'], // Whitelisted jurisdictions for company registration
+  CTB_WATCHLIST: ['CZOOF', 'VSA', 'ARTL', 'ELAB', 'RENX', 'RMSG', 'ONCO', 'FABTQ', 'FCUV', 'IONM', 'ATPC', 'KIDZ', 'NMHI', 'MOTS', 'SMX', 'GLND', 'AGPU', 'SEELQ', 'CHNR', 'NEPTF', 'AGILQ', 'CYCN', 'BFRG', 'EICA', 'HOOZ'], // Symbols with elevated cost-to-borrow values
   // Enable optimizations for Raspberry Pi devices
-  PI_MODE: true,              // Enable Pi optimizations          
-  REFRESH_PEAK: 1,            // 10s during trading hours (7am-10am ET)
-  REFRESH_NORMAL: 30000,      // 30s during trading hours (3:30am-6pm ET)
-  REFRESH_NIGHT: 300000,      // 5m outside trading hours (conserve power)
-  REFRESH_WEEKEND: 600000,    // 10m on weekends (very low activity)
-  YAHOO_TIMEOUT: 10000,       // Reduced from 10s for Pi performance
-  SEC_RATE_LIMIT: 5000,       // Minimum 5ms between SEC requests
-  SEC_FETCH_TIMEOUT: 10000,   // Increased to 10s for large SEC filings (was 5s causing timeouts)
-  MAX_COMBINED_SIZE: 100000,  // Reduced from 150k for Pi RAM
-  MAX_RETRY_ATTEMPTS: 7,      // Reduced from 7 for Pi resources
+  PI_MODE: true,              // Enable optimizations for resource-constrained environments          
+  REFRESH_PEAK: 1,            // Poll interval (ms) during peak market hours for real-time detection
+  REFRESH_NORMAL: 30000,      // Poll interval (ms) during standard market hours
+  REFRESH_NIGHT: 300000,      // Poll interval (ms) during off-hours for efficiency
+  REFRESH_WEEKEND: 600000,    // Poll interval (ms) on weekends with minimal market activity
+  YAHOO_TIMEOUT: 10000,       // Timeout duration (ms) for external data requests
+  SEC_RATE_LIMIT: 5000,       // Minimum interval (ms) between consecutive SEC API calls for rate limiting
+  SEC_FETCH_TIMEOUT: 10000,   // Timeout duration (ms) for SEC filing document retrieval
+  MAX_COMBINED_SIZE: 100000,  // Maximum aggregate data size (bytes) for batch processing
+  MAX_RETRY_ATTEMPTS: 7,      // Maximum retry count for failed API requests before abandoning
   // Log files
   ALERTS_FILE: 'logs/alert.json',      // File to store recent alerts
   STOCKS_FILE: 'logs/stocks.json',     // File to store all alerts
@@ -135,6 +136,7 @@ const rateLimit = {
 
 // Parse applicant/registrant name from SEC filing text - BULLETPROOF VERSION
 // SEC filings ALWAYS have company name in standardized headers
+// Company name extraction - parses SEC filing headers using multiple pattern matching strategies
 const parseApplicantName = (text) => {
   if (!text) return 'N/A';
   
@@ -209,12 +211,11 @@ const parseApplicantName = (text) => {
   return 'N/A';
 };
 
-// Extract the actual person/entity filing the document (not company name)
-// Look for "Applicant" or explicit filer signatures
+// Filer identity extraction - identifies individual or entity submitting the filing
 const parseFilerName = (text) => {
   if (!text) return null;
   
-  // Helper to validate if text looks like a real person/officer name
+  // Validation: Check if extracted text is a plausible name/identity
   const isValidName = (str) => {
     if (!str || str.length < 2 || str.length > 150) return false;
     
@@ -247,15 +248,14 @@ const parseFilerName = (text) => {
     return true;
   };
   
-  // Pattern 0: Former Name / Former Address if changed since last report
-  // This captures name changes for companies that changed names
+  // Identity source: Former company name if recently changed
   let formerMatch = text.match(/Former\s+(?:Name|Address)\s*(?:Changed\s+)?(?:Since\s+)?(?:Last\s+)?(?:Report|Submission)\s*[:\-]?\s*\n?\s*([^\n,]+?)(?:\n|$)/i);
   if (formerMatch && formerMatch[1]) {
     let formerName = formerMatch[1].trim().replace(/\s+/g, ' ');
     if (isValidName(formerName)) return formerName.substring(0, 150);
   }
   
-  // Pattern 0b: Alternative pattern - "Name Changed from" or "Previously known as"
+  // Identity source: Name change indicators
   let changedMatch = text.match(/(?:Name\s+)?(?:Changed|Previously|Formerly|Known)\s+(?:from|as)\s*[:\-]?\s*\n?\s*([^\n,]+?)(?:\n|$)/i);
   if (changedMatch && changedMatch[1]) {
     let changedName = changedMatch[1].trim().replace(/\s+/g, ' ');
@@ -308,6 +308,7 @@ const parseFilerName = (text) => {
   return null;
 };
 
+// Custodian detection - identifies major financial institutions in custody or transfer roles
 const detectCustodianBanks = (text) => {
   if (!text) return false;
   
@@ -404,10 +405,11 @@ const detectFormerNameHidden = (text) => {
 
 // Returns { direction: 'LONG' | 'SHORT', confidence: 0-1 }
 // SIMPLIFIED FOR AMM SPEED: Quick categorization based on catalyst strength
+// Trade direction analyzer - determines bullish/long vs bearish/short bias from signal pattern
 const determineDirection = (signals = [], country = '', float = null, soRatio = null, price = null) => {
   const signalArray = Array.isArray(signals) ? signals : (signals ? String(signals).split(',').map(s => s.trim()) : []);
   
-  // CRITICAL: Failed Trial signals (bearish - especially with high short float)
+  // Critical check: Failed trial signal analysis
   const hasFailedTrial = signalArray.includes('Failed Trial');
   const hasPostHocSalvage = signalArray.includes('Post-Hoc Salvage');
   
@@ -497,6 +499,7 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
 
 // Filing Time Multiplier - 1.2x boost for 30 mins before/after market open & close (9:30am & 4:00pm ET)
 // 30 mins before/after open = strongest potential for price moves
+// Filing time bonus calculator - adjusts alert weight based on market open/close timing
 const getFilingTimeMultiplier = (filingDateString) => {
   try {
     const filingTime = new Date(filingDateString);
@@ -584,6 +587,7 @@ const getGlobalAttentionBonus = (filingDateString) => {
 };
 
 
+// Structured logging - outputs timestamped events with severity levels for monitoring
 const log = (level, message) => {
   let titleColor = '\x1b[90m';
   let messageColor = '\x1b[32m';
@@ -700,6 +704,7 @@ const SEMANTIC_KEYWORDS = {
 
 // FINANCIAL RATIO PARSER - Extract & analyze balance sheet metrics
 // Financial ratio parser: extracts quantitative balance sheet metrics from filing text
+// Financial ratio parser - extracts balance sheet and solvency metrics from filing documents
 const parseFinancialRatios = (filingText) => {
   if (!filingText) return { signals: [], severity: 0 };
   
@@ -846,6 +851,7 @@ const detectBatchFiling = (allFilings) => {
 };
 
 // 3. Form 15 + Name Change Together - Shell recycling pattern
+// Shell company detection - identifies recycled entities with name/structure changes
 const detectShellRecycling = (text) => {
   if (!text) return null;
   const lowerText = text.toLowerCase();
@@ -1016,6 +1022,7 @@ const identifyPredatorLender = (text, buyerDescription) => {
 // UNIFIED PREDATORY FINANCING FILTER
 // Combines: (1) unregistered equity language, (2) known predator or dodgy LLC pattern
 // Works generically across any filing section, not limited to Item 3.02/7.01
+// Predatory financing detector - identifies dilutive capital raises and financing red flags
 const isPredatoryFinancingAlert = (text, buyerDescription = '') => {
   if (!text) return { isPredatory: false, reason: null };
   
@@ -1102,12 +1109,14 @@ const isPredatoryFinancingAlert = (text, buyerDescription = '') => {
   return { isPredatory: false, reason: 'Unregistered equity but buyer not predatory' };
 };
 
+// Signal detection engine - identifies market catalysts from filing text
 const parseSemanticSignals = (text) => {
   if (!text) return {};
   const lowerText = text.toLowerCase();
   const signals = {};
   
-  // CRITICAL: Check for failed trial indicators BEFORE parsing signals
+  // Validation: Detect negative clinical trial outcomes first
+  // Failed trials are significant bearish signals that override other factors
   const failedTrialIndicators = [
     /primary\s+endpoint\s+(?:was\s+)?not\s+met/i,
     /did\s+not\s+(?:show|demonstrate|achieve)\s+.*?(?:significant|efficacy|improvement)/i,
@@ -1119,7 +1128,7 @@ const parseSemanticSignals = (text) => {
   
   const hasFailedTrial = failedTrialIndicators.some(pattern => pattern.test(lowerText));
   
-  // CRITICAL: Check for post-hoc salvage analysis (p-hacking)
+  // Validation: Check for statistical analysis methodology flaws
   const postHocIndicators = [
     /post\s+hoc\s+(?:analysis|findings)/i,
     /unplanned\s+analysis/i,
@@ -1206,6 +1215,7 @@ const parseSemanticSignals = (text) => {
 };
 
 
+// Reverse split ratio extractor - parses stock consolidation ratios from filing text
 const extractReverseSplitRatio = (text) => {
   if (!text) return null;
   
@@ -1332,6 +1342,7 @@ const extractInsiderBuyingAmount = (text) => {
   return result;
 };
 
+// Pattern analyzer - maps signal combinations to high-confidence trade direction predictions
 const detectDeterministicPatterns = (semanticSignals) => {
   if (!semanticSignals || Object.keys(semanticSignals).length === 0) {
     return { pattern: null, mechanism: null };
@@ -1339,14 +1350,13 @@ const detectDeterministicPatterns = (semanticSignals) => {
   
   const signals = Object.keys(semanticSignals);
   
-  // VALIDATED PATTERNS FROM HISTORICAL DATA (42 winners analyzed)
-  // These patterns have proven track records from actual trading outcomes
+  // Signal categories: verified market catalysts for trading alerts
   
   const hasNasdaqDelisting = signals.includes('Nasdaq Delisting');
   const hasBidPriceDelisting = signals.includes('Bid Price Delisting');
   const hasReverseSpliEvent = signals.includes('Reverse Split Event');
   
-  // Note: Artificial Inflation category was deleted - reverse split signals handled via Reverse Split Event + Delisting categories
+  // Signal: Reverse split event detected
   
   // STRICT: Asset Disposition requires supporting signals (distress context)
   const hasAssetDisposition = signals.includes('Asset Disposition');
@@ -1384,7 +1394,7 @@ const detectDeterministicPatterns = (semanticSignals) => {
     };
   }
   
-  // Note: Share Consolidation deleted - reverse split delisting signals handled via Reverse Split Event + Delisting categories
+  // Signal: Corporate consolidation detected
   
   // M&A catalysts - STRICT: Merger/Acquisition only without other issues
   const hasMergerAcquisition = signals.includes('Merger/Acquisition');
@@ -1733,7 +1743,7 @@ const saveAlert = (alertData) => {
       ? alertData.intent.join('; ')
       : (alertData.intent ? String(alertData.intent) : 'Filing');
     
-    // Update alert data with skip reason showing it was alerted
+    // Collect bonus multiplier sources for alert metadata
     const bonusItems = [];
     if (alertData.hasTuesdayBonus) bonusItems.push('Tuesday 1.2x');
     if (alertData.custodianControl) {
@@ -2412,7 +2422,7 @@ const getFloatData = async (ticker) => {
   }
 };
 
-// Fetch quote data - only used as fallback when Yahoo/Finnhub fail
+// Alternative quote source - Financial Modeling Prep API for stock data fallback
 const getFMPQuote = async (ticker) => {
   try {
     const fmpKey = process.env.FMP_API_KEY;
@@ -2439,6 +2449,8 @@ const getFMPQuote = async (ticker) => {
   }
 };
 
+// SEC filing acquisition - fetches current 6-K and 8-K documents from SEC EDGAR feed
+// Processes filings through full analysis pipeline including signal detection
 async function fetchFilings() {
   const allFilings = [];
   
@@ -5521,7 +5533,7 @@ const renderLoginPage = () => `
 // Send OTP email
 const MAILTRAP_API_TOKEN = process.env.MAILTRAP_API_TOKEN || '';
 
-// Note: emailTransporter is already initialized above in the email setup section
+  // Email transporter initialization reference
 
 const sendMailtrapEmail = async (to, subject, html) => {
   if (!emailTransporter) {
@@ -5846,7 +5858,7 @@ const getContractTemplate = () => {
     version: '1.0',
     jurisdiction: 'Delaware law governs; DTSA applies federally; user retains consumer protection rights in home state',
     
-    // CRITICAL: Delaware UTSA statutory incorporation (upgraded from generic jurisdiction)
+    // Verify jurisdiction statutory compliance requirements
     delawareUTSA: {
       statute: 'Delaware Code Title 6, Chapter 20 (Uniform Trade Secrets Act)',
       venue: 'Court of Chancery of the State of Delaware',
@@ -5857,7 +5869,7 @@ const getContractTemplate = () => {
       attorneyFees: 'Prevailing party recovers all attorney fees and costs'
     },
     
-    // CRITICAL: DTSA statutory whistleblower immunity notice (required for enforcement validity)
+    // Verify whistleblower protection compliance requirements
     dtsaWhistleblowerNotice: {
       statutoryRequirement: '18 U.S.C. § 1833(b)(3)(B) - NOTICE REQUIRED FOR ENFORCEMENT',
       immunity: 'An individual shall not be held criminally or civilly liable under any Federal or State trade secret law for disclosure of a trade secret made in confidence to a government official or attorney solely for reporting/investigating suspected violation of law',
@@ -5866,7 +5878,7 @@ const getContractTemplate = () => {
       conspicuousNotice: '*** IMPORTANT: Federal law provides whistleblower protections for disclosure of trade secrets in connection with reporting potential illegal conduct. See 18 U.S.C. § 1833(b). ***'
     },
     
-    // CRITICAL: Personal jurisdiction consent clause (prevents international jurisdictional challenges)
+    // Verify jurisdiction consent requirements
     personalJurisdiction: {
       consentToJurisdiction: 'User CONSENTS to personal jurisdiction in Delaware for any dispute arising from this agreement',
       agentForService: 'User appoints Delaware Secretary of State as agent for service of process for any legal action related to this agreement',
@@ -5874,7 +5886,7 @@ const getContractTemplate = () => {
       effectivity: 'This consent is irrevocable and survives termination of all other terms'
     },
     
-    // CRITICAL: JAMS mandatory arbitration clause (faster, cheaper, more private than court)
+    // Verify dispute resolution requirements
     mandatoryArbitration: {
       mechanism: 'All disputes arising from or relating to this agreement shall be resolved through binding arbitration',
       forum: 'JAMS (Judicial Arbitration and Mediation Services) Comprehensive Arbitration Rules',
@@ -5891,7 +5903,7 @@ const getContractTemplate = () => {
       forumSelection: 'User waives right to court litigation and accepts binding arbitration as exclusive remedy'
     },
     
-    // CRITICAL: PepsiCo inevitable disclosure doctrine (prevents competitive employment)
+    // Verify proprietary information protection requirements
     inevitableDisclosure: {
       doctrine: 'PepsiCo, Inc. v. Redmond, 54 F.3d 1262 (7th Cir. 1995) - If user accepts employment with direct competitor, trade secrets will inevitably be disclosed',
       prohibition: 'User AGREES to 12-month post-termination injunction prohibiting employment with direct competitors in quant trading, algorithmic analysis, or signal generation',
@@ -6176,7 +6188,7 @@ const saveContractSignature = (sessionId, meta, userAgent) => {
           validationTimestamp: approvalTimestamp
         },
         
-        // CRITICAL UPGRADE #1: Delaware UTSA statutory incorporation
+        // Legal requirement upgrade: Statutory jurisdiction compliance
         delawareUTSACompliance: {
           statute: 'Delaware Code Title 6, Chapter 20',
           venue: 'Court of Chancery of the State of Delaware',
@@ -6187,7 +6199,7 @@ const saveContractSignature = (sessionId, meta, userAgent) => {
           attorneyFeesRecovery: 'Prevailing party recovers all attorney fees and costs'
         },
         
-        // CRITICAL UPGRADE #2: DTSA whistleblower immunity notice (REQUIRED for enforcement)
+        // Legal requirement upgrade: Whistleblower protection compliance
         dtsaWhistleblowerNotice: {
           statute: '18 U.S.C. § 1833(b)(3)(B)',
           legalRequirement: 'This notice is REQUIRED by federal statute and does not waive confidentiality',
@@ -6197,7 +6209,7 @@ const saveContractSignature = (sessionId, meta, userAgent) => {
           notice: '*** 18 U.S.C. § 1833(b) NOTICE: Whistleblower protections apply to reports of suspected legal violations. This notice is required by federal law. ***'
         },
         
-        // CRITICAL UPGRADE #3: Personal jurisdiction consent
+        // Legal requirement upgrade: Jurisdiction consent verification
         personalJurisdictionConsent: {
           consentToJurisdiction: 'User IRREVOCABLY CONSENTS to personal jurisdiction in Delaware for any dispute arising from this agreement',
           agentForService: 'User APPOINTS Delaware Secretary of State as agent for service of process - service on Secretary is valid and binding',
@@ -6206,7 +6218,7 @@ const saveContractSignature = (sessionId, meta, userAgent) => {
           internationalNotice: 'If user is outside US, this clause means you consent to Delaware courts even if you never visit US'
         },
         
-        // CRITICAL UPGRADE #4: JAMS mandatory arbitration (faster, cheaper, more private than court)
+        // Legal requirement upgrade: Dispute resolution framework
         mandatoryArbitration: {
           mechanism: 'ALL disputes resolved through BINDING ARBITRATION (not court)',
           forum: 'JAMS (Judicial Arbitration and Mediation Services) Comprehensive Arbitration Rules',
@@ -6222,7 +6234,7 @@ const saveContractSignature = (sessionId, meta, userAgent) => {
           barToLitigation: 'User WAIVES right to court litigation - binding arbitration is exclusive remedy'
         },
         
-        // CRITICAL UPGRADE #5: PepsiCo inevitable disclosure doctrine (prevents competitive employment)
+        // Legal requirement upgrade: Proprietary information protection
         inevitableDisclosureInjunction: {
           doctrine: 'PepsiCo, Inc. v. Redmond, 54 F.3d 1262 (7th Cir. 1995)',
           principle: 'If user accepts employment with direct competitor, trade secrets will inevitably be disclosed despite best efforts',
@@ -9215,17 +9227,18 @@ if (process.stdin.isTTY) {
           const startMin = 3.5 * 60; // 3:30am = 210 minutes
           const endMin = 18 * 60; // 6:00pm = 1080 minutes
           
-          // Convert to numeric values for calculations
+          // Data normalization: Convert string values to numeric types for filtering calculations
           const numFloat = (() => { const v = typeof float === 'number' ? float : (typeof float === 'string' && float !== 'N/A' ? parseFloat(float) : NaN); return isNaN(v) ? null : v; })();
           const numAvgVol = (() => { const v = typeof averageVolume === 'number' ? averageVolume : (typeof averageVolume === 'string' && averageVolume !== 'N/A' ? parseFloat(averageVolume) : NaN); return isNaN(v) ? 1 : v; })();
           
-          // Calculate F/AV early for logging (before it's used at line 8012)
+          // Liquidity metric: Float-to-average-volume ratio indicates share availability and price movement potential
           const favValue = numAvgVol > 0 ? (numFloat / numAvgVol) : 0;
           const fav = (favValue && favValue > 0) ? favValue.toFixed(2) : 'N/A';
           
-          // Get signal categories early for scoring function
+          // Signal aggregation: Extract all detected signals for filtering and scoring evaluation
           const signalCategories = Object.keys(semanticSignals || {});
           
+          // Pattern matching: Identify high-confidence trade scenarios from signal combinations
           const deterministic = detectDeterministicPatterns(semanticSignals);
           const deterministicPhrase = deterministic.mechanism ? `[${deterministic.mechanism}]` : '';
           
@@ -9511,7 +9524,7 @@ if (process.stdin.isTTY) {
           let validSignals = false;
           
           // Calculate core categories for all stocks (needed for logging and later checks)
-          const coreCategories = ['FDA Approved', 'FDA Breakthrough', 'Clinical Success', 'Clinical Milestone', 'Merger/Acquisition', 'Credit Default', 'Going Dark', 'Bankruptcy Filing', 'Auditor Change', 'Asset Disposition', 'Reverse Split Event', 'Commercial Inflection'];
+          const coreCategories = ['FDA Approved', 'FDA Breakthrough', 'Clinical Success', 'Clinical Milestone', 'Merger/Acquisition', 'Credit Default', 'Going Dark', 'Bankruptcy Filing', 'Auditor Change', 'Asset Disposition', 'Reverse Split Event', 'Commercial Inflection', 'Convertible Debt', 'Unregistered Equity Sales', 'Short Squeeze Potential', 'Failed Trial'];
           const hasCoreCategories = signalCategories.filter(cat => coreCategories.includes(cat)).length;
           const isDeterministic = hasCoreCategories >= 2;
           
@@ -9527,7 +9540,7 @@ if (process.stdin.isTTY) {
           }
           
           if (!validSignals) {
-            skipReason = `Not enough signal weight`;
+            skipReason = `Insufficient core signal categories (need 2+, found ${hasCoreCategories})`;
             const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
             const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
             log('INFO', `Links: ${secLink} ${tvLink}`);
