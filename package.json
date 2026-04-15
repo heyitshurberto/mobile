@@ -1,0 +1,39 @@
+{
+  "name": "sec-bot",
+  "type": "module",
+  "dependencies": {
+    "axios": "^1.13.2",
+    "bcrypt": "^6.0.0",
+    "bitcoinjs-lib": "^7.0.1",
+    "bs58": "^6.0.0",
+    "cheerio": "^1.1.2",
+    "chokidar": "^5.0.0",
+    "dotenv": "^17.2.4",
+    "elliptic": "^6.6.1",
+    "express": "^5.1.0",
+    "fast-xml-parser": "^4.3.6",
+    "fs": "^0.0.1-security",
+    "ipfs-core": "^0.18.1",
+    "node-fetch": "^2.7.0",
+    "nodemailer": "^6.10.1",
+    "p-limit": "^7.2.0",
+    "sqlite3": "^5.1.7",
+    "undici": "^5.29.0",
+    "yahoo-finance2": "^3.11.2"
+  },
+  "scripts": {
+    "start": "node --no-warnings --max-old-space-size=512 app.js",
+    "pi": "node --no-warnings --max-old-space-size=384 app.js"
+  },
+  "version": "1.0.0",
+  "main": "app.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^25.3.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}

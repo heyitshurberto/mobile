@@ -1,0 +1,22 @@
+# Environment variables (keep local, never push)
+.env
+
+# Node modules
+node_modules/
+
+bug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sensitive data
+*.key
+*.pem
+.env
