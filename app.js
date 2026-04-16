@@ -694,6 +694,9 @@ const SEMANTIC_KEYWORDS = {
   
   // Predatory Extraction Mechanics (Item 3.02)
   'Unregistered Equity Sales': ['Item 3.02', 'VIE', 'Item 7.01', 'registered direct offering', 'offering to certain investors', 'accredited investors', 'Rule 506(b)', 'unregistered', 'private placement', 'registered direct', 'issuable under', 'pre-funded warrants', 'purchase agreement', 'placement agent'],
+  'Regulation S Offering': ['Regulation S', 'Reg S', 'Rule 902', 'Non-U.S. Persons', 'Offshore Transaction', 'Offshore Purchaser', 'Foreign Purchaser'],
+  'Related-Party Transaction': ['Spouse Of', 'Family Member', 'Relative Of CEO', 'Relative Of The CEO', 'Controlled By', 'Related Party', 'Affiliate Transaction', 'Affiliate Of', 'Related Person', 'Family Relationship'],
+  'Offering At A Discount': ['Offering At A Discount', 'Priced At A Discount', 'Discount To Market', 'Discounted Offering', 'Sold At A Discount', 'Discounted Placement'],
 };
 
 // Financial ratio parser: extracts quantitative balance sheet metrics from filing text
@@ -931,7 +934,7 @@ const detectItem302HiddenBuyers = (text) => {
   if (!text) return null;
   const lowerText = text.toLowerCase();
   
-  const hasItem302 = /item\s+3\.02|unregistered.*equity|registered direct/.test(lowerText);
+  const hasItem302 = /item\s+3\.02|unregistered.*equity|registered direct|regulation\s*s|rule\s*902|offshore\s+transaction/i.test(lowerText);
   if (!hasItem302) return null;
   
   const buyerPatterns = [
@@ -939,6 +942,7 @@ const detectItem302HiddenBuyers = (text) => {
     /registered direct offering to\s+(.+?)(?:\.|,|$)/i,
     /purchasers?.*?identified in\s+(?:a confidential|schedule)/i,
     /buyer.*?is\s+(.+?)(?:\(|,|\.|$)/i,
+    /(?:spouse of|family member|relative of|affiliate of|controlled by)\s+(.+?)(?:\.|,|$)/i,
   ];
   
   let buyerDescription = 'Unknown Buyer';
@@ -1459,6 +1463,21 @@ const detectFinancingType = (text) => {
   // At-The-Market (opportunistic, dilutive)
   if (lowerText.includes('at-the-market') || lowerText.includes('atm offering')) {
     return { type: 'ATM Offering', multiplier: 0.95 };
+  }
+  
+  // Regulation S / offshore offering
+  if (/regulation\s*s|rule\s*902|offshore\s+transaction|offshore\s+purchaser|foreign\s+purchaser|non-?u\.s\.\s+persons/i.test(lowerText)) {
+    return { type: 'Regulation S Offering', multiplier: 0.90 };
+  }
+
+  // Related-party transaction warning
+  if (/spouse of|family member|relative of ceo|relative of the ceo|controlled by|related party|affiliate transaction|affiliate of|related person|family relationship/i.test(lowerText)) {
+    return { type: 'Related-Party Transaction', multiplier: 0.90 };
+  }
+  
+  // Discounted public offering
+  if (/offering at a discount|priced at a discount|discount to market|discounted offering|sold at a discount|discounted placement/i.test(lowerText)) {
+    return { type: 'Offering At A Discount', multiplier: 0.92 };
   }
   
   // Generic public offering
@@ -9128,7 +9147,7 @@ if (process.stdin.isTTY) {
             const sigKeys = Object.keys(semanticSignals || {});
             
             // Bearish signals that force SHORT regardless
-            const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Material Lawsuit', 'Going Dark', 'Convertible Debt', 'Executive Departure', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Failed Trial'];
+            const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Material Lawsuit', 'Going Dark', 'Convertible Debt', 'Executive Departure', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Failed Trial', 'Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount'];
             const bearishCount = sigKeys.filter(cat => bearishCats.includes(cat)).length;
             const bullishCats = ['Merger/Acquisition', 'FDA Approved', 'FDA Breakthrough', 'FDA Filing', 'Clinical Success', 'Clinical Milestone', 'DTC Eligible Restored', 'Government Contract', 'Partnership', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Unregistered Equity Sales', 'Insider Buying'];
             const bullishCount = sigKeys.filter(cat => bullishCats.includes(cat)).length;
@@ -9516,7 +9535,7 @@ if (process.stdin.isTTY) {
           let validSignals = false;
           
           // Calculate core categories for all stocks (needed for logging and later checks)
-          const coreCategories = ['FDA Approved', 'FDA Breakthrough', 'Clinical Success', 'Clinical Milestone', 'Merger/Acquisition', 'Credit Default', 'Going Dark', 'Bankruptcy Filing', 'Auditor Change', 'Asset Disposition', 'Reverse Split Event', 'Commercial Inflection', 'Convertible Debt', 'Unregistered Equity Sales', 'Short Squeeze Potential', 'Failed Trial'];
+          const coreCategories = ['FDA Approved', 'FDA Breakthrough', 'Clinical Success', 'Clinical Milestone', 'Merger/Acquisition', 'Credit Default', 'Going Dark', 'Bankruptcy Filing', 'Auditor Change', 'Asset Disposition', 'Reverse Split Event', 'Commercial Inflection', 'Convertible Debt', 'Unregistered Equity Sales', 'Short Squeeze Potential', 'Failed Trial', 'Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount'];
           const hasCoreCategories = signalCategories.filter(cat => coreCategories.includes(cat)).length;
           const isDeterministic = hasCoreCategories >= 2;
           
