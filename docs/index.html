@@ -22,6 +22,11 @@ table {
     body { font-size: 12px; }
     table { font-size: 11px; }
 }
+
+/* Zoom 10% more on PC/laptop only */
+@media (min-width: 769px) {
+    body { zoom: 110%; }
+}
 </style>
 <div style="position: absolute; top: 1px; left: 6px; display: flex; gap: 4px; align-items: center;" class="usersname-tag-desktop">
   <a href="#" onclick="customConfirm('Join the <b><i>Carlucci</i></b> Community?', 'https://discord.gg/5SQcvhfN'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 3px 3px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 23px; width: 22px; filter: brightness(0) saturate(100%);" id="tele-logo" class="social-icon"></a>
@@ -5076,6 +5081,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     </div>
                     <div>Volume: ${alert.currentVolume.toLocaleString()} (Avg: ${alert.averageVolume.toLocaleString()}) ${alert.volumeSpike ? '<span class="volume-spike"><i>' + volumeRatio + 'x</i></span>' : ''}</div>
                     <div>Float: ${alert.float.toLocaleString()} (S/O: ${alert.soRatio || 'N/A'})</div>
+                    <div>Sector: ${alert.sector || 'N/A'}</div>
                     <div class="timestamp" style="color: ${
                         alert.triggered ?
                         (this.isDarkMode() ?
