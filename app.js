@@ -9621,7 +9621,6 @@ if (process.stdin.isTTY) {
             cik: filing.cik,
             skipReason: skipReason,
             alertType: null,
-            filingText: text,
             predatoryFinancing: predatoryCheck.isPredatory ? {
               detected: true,
               predatorName: predatoryCheck.predatorName,
