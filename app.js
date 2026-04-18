@@ -9418,6 +9418,49 @@ if (process.stdin.isTTY) {
             continue;
           }
           
+          // Check minimum price filter - skip alerts for stocks below $0.10
+          const priceFloat = parseFloat(price) || 0;
+          if (priceFloat > 0 && priceFloat < 0.1) {
+            skipReason = `Price too low: $${priceFloat.toFixed(4)} below $0.10 minimum`;
+            const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
+            const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
+            log('INFO', `Links: ${secLink} ${tvLink}`);
+            log('SKIP', `$${ticker}, ${skipReason}`);
+            console.log('');
+            // Save to CSV with skip reason
+            try {
+              const ftdData = getFTDData(ticker) || 'N/A';
+              const csvData = {
+                ticker,
+                price,
+                short: shortOpportunity ? true : false,
+                marketCap: marketCap,
+                float: float,
+                sharesOutstanding: sharesOutstanding,
+                soRatio: soRatio,
+                ftd: ftdData,
+                volume: volume,
+                averageVolume: averageVolume,
+                incorporated: normalizedIncorporated,
+                located: normalizedLocated,
+                intent: semanticSignals && Object.keys(semanticSignals).length > 0 ? Object.keys(semanticSignals).join('; ') : null,
+                signals: semanticSignals,
+                filingDate: filing.updated,
+                cik: filing.cik,
+                sector: sectorDisplay,
+                fav: fav,
+                companyName: filerName || companyName || 'N/A',
+                skipReason: skipReason,
+                direction: shortOpportunity ? 'SHORT' : 'LONG',
+                isShort: shortOpportunity,
+              };
+              saveToCSV(csvData);
+            } catch (csvErr) {
+              log('ERROR', `CSV error: ${csvErr.message}`);
+            }
+            continue;
+          }
+          
           // Check float limits based on filing type
           if (float !== 'N/A' && typeof float === 'number') {
             const maxFloat = (filing.formType === '6-K' || filing.formType === '6-K/A') ? CONFIG.MAX_FLOAT_6K : CONFIG.MAX_FLOAT_8K;
