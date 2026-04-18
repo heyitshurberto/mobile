@@ -33,9 +33,9 @@ const CONFIG = {
   MAX_FLOAT_6K: 50000000,           // Maximum float size threshold for 6-K filings
   MAX_FLOAT_8K: 75000000,           // Maximum float size threshold for 8-K filings
   MAX_FAV_RATIO: 90,                // Maximum float-to-average-volume ratio threshold
-  ALERT_MAX_FLOAT_THRESHOLD: 25000000, // Maximum float size for alert eligibility
-  ALLOWED_COUNTRIES: ['israel', 'texas', 'china', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'delaware'], // Whitelisted jurisdictions for company registration
-  CTB_WATCHLIST: ['CZOOF', 'VSA', 'ARTL', 'ELAB', 'RENX', 'RMSG', 'ONCO', 'FABTQ', 'FCUV', 'IONM', 'ATPC', 'KIDZ', 'NMHI', 'MOTS', 'SMX', 'GLND', 'AGPU', 'SEELQ', 'CHNR', 'NEPTF', 'AGILQ', 'CYCN', 'BFRG', 'EICA', 'HOOZ'], // Symbols with elevated cost-to-borrow values
+  ALERT_MAX_FLOAT_THRESHOLD: 50000000, // Maximum float size for alert eligibility
+  ALLOWED_COUNTRIES: ['israel', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'delaware'], // Whitelisted jurisdictions for company registration
+  CTB_WATCHLIST: ['GITS', 'ARTL', 'VSA', 'FABTQ', 'MLEC', 'SST', 'EEIQ', 'ELAB', 'IONM', 'CZOOF', 'MASK', 'ONCO', 'FEED', 'GCTK', '4X0.GR', 'PLRZ', 'NMHI', 'MOTS', 'TMDE', 'FCUV', 'AGPU', 'SHPWQ', 'CHNR', 'BBGI', 'SEELQ'], // Symbols with elevated cost-to-borrow values
   // Enable optimizations for Raspberry Pi devices
   PI_MODE: true,              // Enable optimizations for resource-constrained environments          
   REFRESH_PEAK: 1,            // Poll interval (ms) during peak market hours for real-time detection
@@ -80,6 +80,30 @@ const CONFIG = {
   SMTP_USER: process.env.SMTP_USER || '',
   SMTP_PASS: process.env.SMTP_PASS || '',
   EMAIL_FROM: process.env.EMAIL_FROM || 'noreply@carluccicapital.co.uk'
+};
+
+// Daily alert counter - limits alerts to 9 per day, then only personal webhook
+let dailyAlertCount = 0;
+let lastAlertDate = new Date().toDateString();
+
+const resetDailyAlertCount = () => {
+  const today = new Date().toDateString();
+  if (today !== lastAlertDate) {
+    dailyAlertCount = 0;
+    lastAlertDate = today;
+    log('INFO', 'Daily alert counter reset to 0');
+  }
+};
+
+const isDailyLimitReached = () => {
+  resetDailyAlertCount();
+  return dailyAlertCount >= 9;
+};
+
+const incrementDailyAlertCount = () => {
+  resetDailyAlertCount();
+  dailyAlertCount++;
+  log('INFO', `Daily alert count: ${dailyAlertCount}/9`);
 };
 
 const originalLog = console.log;
@@ -1717,6 +1741,17 @@ const saveToCSV = (alertData) => {
 
 const saveAlert = (alertData) => {
   try {
+    // Check daily alert limit
+    if (isDailyLimitReached()) {
+      log('INFO', `Daily alert limit reached (${dailyAlertCount}/9), sending only to personal webhook`);
+      // Only send to personal webhook, skip JSON saving and dashboard
+      sendPersonalWebhook(alertData);
+      return;
+    }
+    
+    // Increment counter for valid alerts
+    incrementDailyAlertCount();
+    
     // saveAlert called
     let alerts = [];
     if (fs.existsSync(CONFIG.ALERTS_FILE)) {
@@ -3045,30 +3080,6 @@ const sendPersonalWebhook = (alertData) => {
     
     if (isWeekend || !isMarketHours) {
       log('INFO', `Skipping personal alert for $${alertData.ticker} - Outside market hours (${etTime.toLocaleString('en-US', { timeZone: 'America/New_York' })})`);
-      return;
-    }
-    
-    // Personal alert location whitelist: only send from specific jurisdictions
-    const personalAlertWhitelist = ['Delaware', 'Israel', 'China', 'Hong Kong', 'Singapore', 'Cayman Islands', 'BVI'];
-    let incorporatedJurisdiction = alertData.incorporated ? alertData.incorporated.trim() : '';
-    
-    // Personal alert float filter: max 25M float (BYPASSED for known predators)
-    const alertFloat = parseFloat(alertData.float) || 0;
-    const isKnownPredator = alertData.predatoryFinancing && alertData.predatoryFinancing.detected;
-    
-    if (!isKnownPredator && alertFloat > CONFIG.PERSONAL_ALERT_MAX_FLOAT && alertFloat !== 0) {
-      log('INFO', `Skipping personal alert for $${alertData.ticker} - float ${(alertFloat / 1000000).toFixed(1)}M exceeds personal alert limit of 25M`);
-      return;
-    }
-    
-    // Extract just the state/country name (handle cases like "Wilmington, Delaware" → "Delaware")
-    if (incorporatedJurisdiction.includes(',')) {
-      const parts = incorporatedJurisdiction.split(',').map(p => p.trim());
-      incorporatedJurisdiction = parts[parts.length - 1]; // Take last part (state/country)
-    }
-    
-    if (incorporatedJurisdiction && !personalAlertWhitelist.includes(incorporatedJurisdiction)) {
-      log('INFO', `Skipping personal alert for $${alertData.ticker} - jurisdiction '${incorporatedJurisdiction}' not whitelisted for personal alerts`);
       return;
     }
     
