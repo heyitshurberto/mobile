@@ -3450,29 +3450,6 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                         let peakPrice = stock.price;
                         let peakPercent = 0;
                         
-                        if (isShortPos) {
-                            // SHORT: lowest price is best outcome (profit)
-                            const lowest = parseFloat(quoteData.lowest || stock.lowest5Day || stock.price);
-                            peakPrice = lowest.toFixed(2);
-                            peakPercent = alertPrice > 0 ? ((alertPrice - lowest) / alertPrice) * 100 : 0;
-                        } else {
-                            // LONG: check highest first, but if that's 0% or equal to alert, show the worst case (lowest)
-                            const highest = parseFloat(quoteData.highest || stock.highest5Day || stock.price);
-                            const lowest = parseFloat(quoteData.lowest || stock.lowest5Day || stock.price);
-                            
-                            let highestPercent = alertPrice > 0 ? ((highest - alertPrice) / alertPrice) * 100 : 0;
-                            let lowestPercent = alertPrice > 0 ? ((lowest - alertPrice) / alertPrice) * 100 : 0;
-                            
-                            // Use the more extreme move (biggest profit or biggest loss)
-                            if (Math.abs(lowestPercent) > Math.abs(highestPercent)) {
-                                peakPrice = lowest.toFixed(2);
-                                peakPercent = lowestPercent;
-                            } else {
-                                peakPrice = highest.toFixed(2);
-                                peakPercent = highestPercent;
-                            }
-                        }
-                        
                         // Calculate days, hours and minutes remaining
                         let daysLeft = 0;
                         let hoursLeft = 0;
@@ -3495,6 +3472,43 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                             const minutesExpired = Math.floor((msExpired / (1000 * 60)) % 60);
                             expireText = daysExpired > 0 ? `expired ${daysExpired}d ${hoursExpired}h ago` : (hoursExpired > 0 ? `expired ${hoursExpired}h ${minutesExpired}m ago` : `expired ${minutesExpired}m ago`);
                           }
+                        }
+                        
+                        const isExpired = stock.expiresAt && new Date() > new Date(stock.expiresAt);
+                        
+                        if (isExpired) {
+                            // For expired alerts, use stored peak values
+                            if (isShortPos) {
+                                peakPrice = parseFloat(stock.lowest5Day || stock.price).toFixed(2);
+                                peakPercent = alertPrice > 0 ? ((alertPrice - parseFloat(stock.lowest5Day || stock.price)) / alertPrice) * 100 : 0;
+                            } else {
+                                peakPrice = parseFloat(stock.highest5Day || stock.price).toFixed(2);
+                                peakPercent = alertPrice > 0 ? ((parseFloat(stock.highest5Day || stock.price) - alertPrice) / alertPrice) * 100 : 0;
+                            }
+                        } else {
+                            // Live updates for active alerts
+                            if (isShortPos) {
+                                // SHORT: lowest price is best outcome (profit)
+                                const lowest = parseFloat(quoteData.lowest || stock.lowest5Day || stock.price);
+                                peakPrice = lowest.toFixed(2);
+                                peakPercent = alertPrice > 0 ? ((alertPrice - lowest) / alertPrice) * 100 : 0;
+                            } else {
+                                // LONG: check highest first, but if that's 0% or equal to alert, show the worst case (lowest)
+                                const highest = parseFloat(quoteData.highest || stock.highest5Day || stock.price);
+                                const lowest = parseFloat(quoteData.lowest || stock.lowest5Day || stock.price);
+                                
+                                let highestPercent = alertPrice > 0 ? ((highest - alertPrice) / alertPrice) * 100 : 0;
+                                let lowestPercent = alertPrice > 0 ? ((lowest - alertPrice) / alertPrice) * 100 : 0;
+                                
+                                // Use the more extreme move (biggest profit or biggest loss)
+                                if (Math.abs(lowestPercent) > Math.abs(highestPercent)) {
+                                    peakPrice = lowest.toFixed(2);
+                                    peakPercent = lowestPercent;
+                                } else {
+                                    peakPrice = highest.toFixed(2);
+                                    peakPercent = highestPercent;
+                                }
+                            }
                         }
                         
                         // Format percentage with proper sign
