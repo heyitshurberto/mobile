@@ -1998,11 +1998,7 @@ const updatePerformanceData = (alertData) => {
           }
         }
       } else {
-        // Reset 5-day peak/trough after 5 days
-        performanceData[ticker].highest5Day = currentPrice;
-        performanceData[ticker].lowest5Day = currentPrice;
-        performanceData[ticker].highest5DayPercent = 0;
-        performanceData[ticker].lowest5DayPercent = 0;
+        // Preserve expired trade peak values; do not overwrite the historical highest/lowest after expiry.
       }
     }
     
@@ -2142,6 +2138,11 @@ const syncAllPeakData = () => {
     // Update each stock with current price and peak data from quote.json
     stocks = stocks.map(stock => {
       if (quotes[stock.ticker]) {
+        const expiry = stock.expiresAt ? new Date(stock.expiresAt) : null;
+        if (expiry && expiry < new Date()) {
+          return stock; // Preserve peak values for expired trades
+        }
+
         const quoteData = quotes[stock.ticker];
         const alertPrice = stock.price || 0;
         const currentPrice = quoteData.current || quoteData.currentPrice || stock.price;
