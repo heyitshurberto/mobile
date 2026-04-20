@@ -31,7 +31,7 @@ const CONFIG = {
   MIN_ALERT_VOLUME: 1000,           // Minimum volume threshold for initial alert trigger
   STRONG_SIGNAL_MIN_VOLUME: 500,    // Volume threshold for high-confidence signal detection
   MAX_FLOAT_6K: 50000000,           // Maximum float size threshold for 6-K filings
-  MAX_FLOAT_8K: 75000000,           // Maximum float size threshold for 8-K filings
+  MAX_FLOAT_8K: 50000000,           // Maximum float size threshold for 8-K filings
   MAX_FAV_RATIO: 90,                // Maximum float-to-average-volume ratio threshold
   ALERT_MAX_FLOAT_THRESHOLD: 50000000, // Maximum float size for alert eligibility
   ALLOWED_COUNTRIES: ['israel', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'delaware'], // Whitelisted jurisdictions for company registration
