@@ -20,3 +20,6 @@ Thumbs.db
 *.key
 *.pem
 .env
+
+# Log files and data (keep local, never push)
+logs/
