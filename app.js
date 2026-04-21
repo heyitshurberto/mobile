@@ -9417,10 +9417,10 @@ if (process.stdin.isTTY) {
             continue;
           }
           
-          // Check minimum price filter - skip alerts for stocks below $0.10
+          // Check minimum price filter - skip alerts for stocks below $0.20
           const priceFloat = parseFloat(price) || 0;
-          if (priceFloat > 0 && priceFloat < 0.1) {
-            skipReason = `Price too low: $${priceFloat.toFixed(4)} below $0.10 minimum`;
+          if (priceFloat > 0 && priceFloat < 0.2) {
+            skipReason = `Price too low: $${priceFloat.toFixed(4)} below $0.20 minimum`;
             const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
             const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
             log('INFO', `Links: ${secLink} ${tvLink}`);
