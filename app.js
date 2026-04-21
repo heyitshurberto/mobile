@@ -1738,6 +1738,31 @@ const saveToCSV = (alertData) => {
   }
 };
 
+// Calculate expiry date based on day of week (3 days if Tue-Sun, 4 days if Monday, excluding weekends)
+const calculateExpiryDate = () => {
+  const now = new Date();
+  const dayOfWeek = now.getDay(); // 0 = Sunday, 1 = Monday, 2-6 = Tue-Sat
+  
+  // Determine business days to add: 4 if Monday, 3 if Tue-Sun
+  const businessDaysToAdd = dayOfWeek === 1 ? 4 : 3;
+  
+  let expiryDate = new Date(now);
+  let businessDaysAdded = 0;
+  
+  // Add days while skipping weekends
+  while (businessDaysAdded < businessDaysToAdd) {
+    expiryDate.setDate(expiryDate.getDate() + 1);
+    const newDayOfWeek = expiryDate.getDay();
+    
+    // Skip Saturday (6) and Sunday (0)
+    if (newDayOfWeek !== 0 && newDayOfWeek !== 6) {
+      businessDaysAdded++;
+    }
+  }
+  
+  return expiryDate;
+};
+
 const saveAlert = (alertData) => {
   try {
     // Check daily alert limit
@@ -1773,7 +1798,7 @@ const saveAlert = (alertData) => {
       ...alertData,
       recordedAt: new Date().toISOString(),
       recordId: `${alertData.ticker}-${Date.now()}`,
-      expiresAt: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
+      expiresAt: calculateExpiryDate().toISOString(),
       direction: direction,
       // Initialize correct fields based on position type
       // SHORT positions track lowest price/percentage, LONG tracks highest

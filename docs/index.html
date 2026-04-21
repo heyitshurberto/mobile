@@ -3076,6 +3076,31 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             return false;
         }
 
+        // Function to calculate expiry date (3 days if Tue-Sun, 4 days if Monday, excluding weekends)
+        function calculateExpiryDate() {
+            const now = new Date();
+            const dayOfWeek = now.getDay(); // 0 = Sunday, 1 = Monday, 2-6 = Tue-Sat
+            
+            // Determine business days to add: 4 if Monday, 3 if Tue-Sun
+            const businessDaysToAdd = dayOfWeek === 1 ? 4 : 3;
+            
+            let expiryDate = new Date(now);
+            let businessDaysAdded = 0;
+            
+            // Add days while skipping weekends
+            while (businessDaysAdded < businessDaysToAdd) {
+                expiryDate.setDate(expiryDate.getDate() + 1);
+                const newDayOfWeek = expiryDate.getDay();
+                
+                // Skip Saturday (6) and Sunday (0)
+                if (newDayOfWeek !== 0 && newDayOfWeek !== 6) {
+                    businessDaysAdded++;
+                }
+            }
+            
+            return expiryDate;
+        }
+
         // Function to calculate PnL
         function calculatePnL(alert) {
             if (!alert || !alert.ticker || !alert.alertPrice || !alert.currentPrice) return 0;
