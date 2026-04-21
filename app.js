@@ -9668,6 +9668,7 @@ if (process.stdin.isTTY) {
             incorporated: normalizedIncorporated,
             located: normalizedLocated,
             filingDate: filing.updated,
+            filingText: text,
             signals: semanticSignals,
             bonusSignals: bonusSignals,
             financialRatioSignals: financialRatioSignals,
