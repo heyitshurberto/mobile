@@ -19,5 +19,6 @@ Thumbs.db
 # Sensitive data
 *.key
 *.pem
-.env
 
+# Live data - never track in git
+/logs/
