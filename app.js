@@ -33,7 +33,6 @@ const CONFIG = {
   MAX_FLOAT_6K: 20000000,           // Maximum float size threshold for 6-K filings
   MAX_FLOAT_8K: 25000000,           // Maximum float size threshold for 8-K filings
   MAX_FAV_RATIO: 90,                // Maximum float-to-average-volume ratio threshold
-  ALERT_MAX_FLOAT_THRESHOLD: 50000000, // Maximum float size for alert eligibility
   ALLOWED_COUNTRIES: ['israel', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'delaware'], // Whitelisted jurisdictions for company registration
   CTB_WATCHLIST: ['GITS', 'ARTL', 'VSA', 'FABTQ', 'MLEC', 'SST', 'EEIQ', 'ELAB', 'IONM', 'CZOOF', 'MASK', 'ONCO', 'FEED', 'GCTK', '4X0.GR', 'PLRZ', 'NMHI', 'MOTS', 'TMDE', 'FCUV', 'AGPU', 'SHPWQ', 'CHNR', 'BBGI', 'SEELQ'], // Symbols with elevated cost-to-borrow values
   // Enable optimizations for Raspberry Pi devices
