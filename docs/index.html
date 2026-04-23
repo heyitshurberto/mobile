@@ -3937,7 +3937,11 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                     
                     smartLog('info', `Loaded ${alertData.length} alerts from alert.json`); // Log total count
 
-                    // Load performance/PnL data for reverse split adjustments
+                    // Filter out expired alerts first, then limit display to 9
+                    const now = new Date();
+                    const activeAlerts = alertData.filter(a => !a.expiresAt || new Date(a.expiresAt) > now);
+                    smartLog('info', `${activeAlerts.length} alerts still active (${alertData.length - activeAlerts.length} expired)`);
+                    const displayAlerts = activeAlerts.slice(-9);
                     let performanceData = {};
                     let stocksData = [];
                     try {
@@ -3973,15 +3977,15 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                         smartLog('warn', `Could not load stocks.json for peak data: ${err.message}`);
                     }
 
-                    // Process all alerts in chronological order
-                    alertData.sort((a, b) => new Date(b.alertDate) - new Date(a.alertDate));
+                    // Process only the 9 most recent alerts in chronological order
+                    displayAlerts.sort((a, b) => new Date(b.alertDate) - new Date(a.alertDate));
 
                     // Initialize monitoring for each alert
                     let loadedCount = 0;
                     let skippedCount = 0;
                     let errorCount = 0;
 
-                    for (const alert of alertData) {
+                    for (const alert of displayAlerts) {
                         try {
                             const price = parseFloat(alert.price);
 
@@ -4467,8 +4471,10 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     }
                     const alertData = await response.json();
 
-                    // Get only the most recent 50 alerts
-                    const recentAlerts = alertData.slice(-50);
+                    // Filter out expired alerts and get only the 9 most recent
+                    const now = new Date();
+                    const activeAlerts = alertData.filter(a => !a.expiresAt || new Date(a.expiresAt) > now);
+                    const recentAlerts = activeAlerts.slice(-9);
                     
                     const newAlertCards = [];
 

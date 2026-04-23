@@ -30,8 +30,8 @@ const CONFIG = {
   FILE_TIME: 1,                     // Historical lookback window in minutes for filing discovery
   MIN_ALERT_VOLUME: 1000,           // Minimum volume threshold for initial alert trigger
   STRONG_SIGNAL_MIN_VOLUME: 500,    // Volume threshold for high-confidence signal detection
-  MAX_FLOAT_6K: 20000000,           // Maximum float size threshold for 6-K filings
-  MAX_FLOAT_8K: 25000000,           // Maximum float size threshold for 8-K filings
+  MAX_FLOAT_6K: 10000000,           // Maximum float size threshold for 6-K filings
+  MAX_FLOAT_8K: 12500000,           // Maximum float size threshold for 8-K filings
   MAX_FAV_RATIO: 90,                // Maximum float-to-average-volume ratio threshold
   ALLOWED_COUNTRIES: ['israel', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'delaware'], // Whitelisted jurisdictions for company registration
   CTB_WATCHLIST: ['GITS', 'ARTL', 'VSA', 'FABTQ', 'MLEC', 'SST', 'EEIQ', 'ELAB', 'IONM', 'CZOOF', 'MASK', 'ONCO', 'FEED', 'GCTK', '4X0.GR', 'PLRZ', 'NMHI', 'MOTS', 'TMDE', 'FCUV', 'AGPU', 'SHPWQ', 'CHNR', 'BBGI', 'SEELQ'], // Symbols with elevated cost-to-borrow values
@@ -1874,7 +1874,19 @@ const saveAlert = (alertData) => {
     }
     
     alerts.push(enrichedData);
-    if (alerts.length > 1000) alerts = alerts.slice(-1000);
+    
+    // Remove expired alerts (keep non-expired ones only)
+    const now = new Date();
+    alerts = alerts.filter(a => {
+      if (a.expiresAt) {
+        return new Date(a.expiresAt) > now;
+      }
+      return true; // Keep if no expiry set
+    });
+    
+    // Keep up to 50 alerts (rolling window as old ones expire)
+    if (alerts.length > 50) alerts = alerts.slice(-50);
+    
     // writing alerts.json
     try {
       fs.writeFileSync(CONFIG.ALERTS_FILE, JSON.stringify(alerts, null, 2));
