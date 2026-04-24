@@ -2317,6 +2317,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                 font-size: 14px !important;
                 margin-left: -2px !important;
                 margin-right: 7.2px !important;
+                margin-top: 2px !important;
             }
         }
 
@@ -2327,7 +2328,17 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             }
         }
 
-        /* Apple mobile logo adjustment */
+        @media (max-width: 768px) {
+            #loading-screen {
+                transform: translateY(-10%) !important;
+            }
+            #loading-symbol {
+                font-size: 18px !important;
+            }
+            #loading-text {
+                font-size: 13px !important;
+            }
+        }
         @supports (-webkit-touch-callout: none) {
             @media (max-width: 768px) {
                 .logo {
@@ -2337,13 +2348,13 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         }
 
         @media (max-width: 768px) {
+            .stat-box > div:last-child {
+                font-size: calc(100% - 2px) !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
             .notification-panel {
-                position: fixed !important;
-                top: 79px !important;
-                right: 8px !important;
-                left: auto !important;
-                bottom: auto !important;
-                width: 90vw !important;
                 max-width: 290px !important;
                 max-height: 40vh !important;
                 margin-top: 0 !important;
