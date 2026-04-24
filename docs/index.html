@@ -2317,8 +2317,8 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                 font-size: 14px !important;
                 margin-left: -2px !important;
                 margin-right: 7.2px !important;
-                margin-top: 2px !important;
-                transform: translateX(2px) !important;
+                margin-top: 10px !important;
+                transform: translateX(4px) !important;
             }
         }
 
@@ -2326,12 +2326,13 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             .logo {
                 margin-top: 12px !important;
                 margin-left: 15px !important;
+                transform: translateX(2px) !important;
             }
         }
 
         @media (max-width: 768px) {
             #loading-screen {
-                transform: translateY(5%) !important;
+                transform: translateY(-5%) !important;
             }
             #loading-symbol {
                 font-size: 18px !important;
@@ -2350,7 +2351,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
 
         @media (max-width: 768px) {
             .stat-box > div:last-child {
-                font-size: calc(100% - 3px) !important;
+                font-size: 10px !important;
             }
         }
         
@@ -6236,10 +6237,6 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             });
         }
 
-
-
-
-
         // Update the showNotification method to add to history
         AlertDashboard.prototype.showNotification = function(message, type = 'info', link = null) {
             // Make sure type is correctly set based on message content
@@ -6663,7 +6660,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                         flex-shrink: 0;
                     ">
                         <h2 style="margin: 0; font-size: 13px; font-weight: 700; color: ${textColor}; letter-spacing: -0.3px;">
-                            Trading Analytics
+                            Alert Analytics
                         </h2>
                         <button onclick="this.closest('div').parentElement.parentElement.remove()" style="
                             background: none; border: none; font-size: 18px; cursor: pointer;
@@ -6677,7 +6674,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                         <div class="stat-card">
                             <h3>Core Metrics</h3>
                             <div class="trade-item">
-                                <span>Total Trades</span>
+                                <span>Total Alerts</span>
                                 <span class="trade-return">${totalTrades}</span>
                             </div>
                             <div class="trade-item">
@@ -6695,10 +6692,6 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             <div class="trade-item">
                                 <span>Avg Loss</span>
                                 <span class="trade-return" style="color: #ff3333;">${avgLoss.toFixed(2)}%</span>
-                            </div>
-                            <div class="trade-item">
-                                <span>Profit Factor</span>
-                                <span class="trade-return">${profitFactor.toFixed(2)}</span>
                             </div>
                         </div>
 
@@ -6839,6 +6832,6 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
     </div>
 
 <div style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 100%; text-align: center; padding: 2px 0; z-index: 10;" class="usersname-tag-mobile">
-  <a href="#" onclick="customConfirm('Visit <b><i>@cartelwrld</i></b> on X?', 'https://x.com/cartelwrld'); return false;" style="text-decoration: none; color: inherit; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; font-size: 11px; white-space: nowrap; display: inline-block; padding: 1px 1x; border-radius: 1px; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor=document.body.classList.contains('dark-mode')?'rgba(120,120,120,0.25)':'rgba(0,0,0,0.1)'" onmouseout="this.style.backgroundColor='transparent'">@cartelwrld</a></div>
+  <a href="#" onclick="customConfirm('Visit <b><i>@cartelwrld</i></b> on X?', 'https://x.com/cartelwrld'); return false;" style="text-decoration: none; color: inherit; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; font-size: 12px; white-space: nowrap; display: inline-block; padding: 1px 1x; border-radius: 1px; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor=document.body.classList.contains('dark-mode')?'rgba(120,120,120,0.25)':'rgba(0,0,0,0.1)'" onmouseout="this.style.backgroundColor='transparent'">@cartelwrld</a></div>
 </body>
 </html>
