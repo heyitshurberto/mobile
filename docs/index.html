@@ -2349,9 +2349,11 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             }
         }
 
-        @media (max-width: 768px) {
-            .stat-box > div:last-child {
-                font-size: calc(100% - 3px) !important;
+        @supports (-webkit-appearance: none) and (not (-webkit-touch-callout: none)) {
+            @media (max-width: 768px) {
+                .stat-box > div:last-child {
+                    font-size: calc(100% - 4px) !important;
+                }
             }
         }
         
