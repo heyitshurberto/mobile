@@ -6788,8 +6788,8 @@
     "recordId": "CUPR-1776777675897",
     "expiresAt": "2026-04-26T13:21:15.897Z",
     "direction": "SHORT",
-    "highest5Day": 0.295,
-    "highest5DayPercent": -11.7,
+    "highest5Day": 0.3073,
+    "highest5DayPercent": -8.02,
     "lowest5Day": 0.295,
     "lowest5DayPercent": 11.7
   },
@@ -6857,8 +6857,8 @@
     "recordId": "TNL-1776853923943",
     "expiresAt": "2026-04-27T10:32:03.943Z",
     "direction": "LONG",
-    "highest5Day": 64.21,
-    "highest5DayPercent": -15.68,
+    "highest5Day": 67.4,
+    "highest5DayPercent": -11.49,
     "lowest5Day": 64.21,
     "lowest5DayPercent": -15.68
   },
