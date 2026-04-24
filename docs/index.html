@@ -2312,19 +2312,19 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             padding-bottom: 8px;
         }
         
-        @supports (-webkit-touch-callout: none) {
+        @supports (-webkit-appearance: none) and (not (-webkit-touch-callout: none)) {
             @media (max-width: 768px) {
                 .dashboard-title {
                     font-size: 14px !important;
                     margin-left: -2px !important;
                     margin-right: 7.2px !important;
                     margin-top: 2px !important;
-                    transform: translateX(2px) !important;
+                    transform: translateX(1px) !important;
                 }
             }
         }
 
-        @supports (-webkit-touch-callout: none) {
+        @supports (-webkit-appearance: none) and (not (-webkit-touch-callout: none)) {
             @media (max-width: 768px) {
                 .logo {
                     margin-top: 12px !important;
@@ -2334,17 +2334,15 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             }
         }
 
-        @supports (-webkit-touch-callout: none) {
-            @media (max-width: 768px) {
-                #loading-screen {
-                    transform: translateY(-5%) !important;
-                }
-                #loading-symbol {
-                    font-size: 18px !important;
-                }
-                #loading-text {
-                    font-size: 13px !important;
-                }
+        @media (max-width: 768px) {
+            #loading-screen {
+                transform: translateY(-5%) !important;
+            }
+            #loading-symbol {
+                font-size: 18px !important;
+            }
+            #loading-text {
+                font-size: 13px !important;
             }
         }
         @supports (-webkit-touch-callout: none) {
@@ -6846,6 +6844,6 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
     </div>
 
 <div style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 100%; text-align: center; padding: 2px 0; z-index: 10;" class="usersname-tag-mobile">
-  <a href="#" onclick="customConfirm('Visit <b><i>@cartelwrld</i></b> on X?', 'https://x.com/cartelwrld'); return false;" style="text-decoration: none; color: inherit; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; font-size: 11px; white-space: nowrap; display: inline-block; padding: 1px 1x; border-radius: 1px; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor=document.body.classList.contains('dark-mode')?'rgba(120,120,120,0.25)':'rgba(0,0,0,0.1)'" onmouseout="this.style.backgroundColor='transparent'">@cartelwrld</a></div>
+  <a href="#" onclick="customConfirm('Visit <b><i>@cartelwrld</i></b> on X?', 'https://x.com/cartelwrld'); return false;" style="text-decoration: none; color: inherit; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; font-size: 12px; white-space: nowrap; display: inline-block; padding: 1px 1x; border-radius: 1px; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor=document.body.classList.contains('dark-mode')?'rgba(120,120,120,0.25)':'rgba(0,0,0,0.1)'" onmouseout="this.style.backgroundColor='transparent'">@cartelwrld</a></div>
 </body>
 </html>
