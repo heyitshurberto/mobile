@@ -6237,10 +6237,6 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             });
         }
 
-
-
-
-
         // Update the showNotification method to add to history
         AlertDashboard.prototype.showNotification = function(message, type = 'info', link = null) {
             // Make sure type is correctly set based on message content
@@ -6664,7 +6660,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                         flex-shrink: 0;
                     ">
                         <h2 style="margin: 0; font-size: 13px; font-weight: 700; color: ${textColor}; letter-spacing: -0.3px;">
-                            Trading Analytics
+                            Alert Analytics
                         </h2>
                         <button onclick="this.closest('div').parentElement.parentElement.remove()" style="
                             background: none; border: none; font-size: 18px; cursor: pointer;
@@ -6678,7 +6674,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                         <div class="stat-card">
                             <h3>Core Metrics</h3>
                             <div class="trade-item">
-                                <span>Total Trades</span>
+                                <span>Total Alerts</span>
                                 <span class="trade-return">${totalTrades}</span>
                             </div>
                             <div class="trade-item">
@@ -6696,10 +6692,6 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             <div class="trade-item">
                                 <span>Avg Loss</span>
                                 <span class="trade-return" style="color: #ff3333;">${avgLoss.toFixed(2)}%</span>
-                            </div>
-                            <div class="trade-item">
-                                <span>Profit Factor</span>
-                                <span class="trade-return">${profitFactor.toFixed(2)}</span>
                             </div>
                         </div>
 
