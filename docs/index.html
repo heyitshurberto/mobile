@@ -1030,13 +1030,11 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             font-weight: 500;
             margin-top: 8px;
             font-family: 'DejaVu Sans', sans-serif;
-            font-style: italic;
         }
         #last-update {
-            font-size: 12px !important;
+            font-size: 12.2px !important;
             font-weight: 500;
             font-family: 'Menlo', monospace !important;
-            font-style: italic !important;
         }
 
         body.dark-mode .stat-box {
@@ -2914,11 +2912,107 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         </style>
 </head>
 <body>
+        <div id="loading-screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #ffffff; z-index: 99999; transition: opacity 0.4s ease; font-family: 'Menlo', 'Monaco', monospace; opacity: 1; backdrop-filter: blur(8px);">
+            <div id="loading-symbol" style="font-size: 20px; color: #000000; letter-spacing: 0px; margin-bottom: 5px; transition: opacity 0.4s ease; opacity: 1;">Ж</div>
+            <div id="loading-text" style="font-size: 15px; color: #000000; letter-spacing: 1px; margin-bottom: 15px; transition: opacity 0.4s ease; opacity: 1;">CARLUCCI CAPITAL</div>
+            <div id="loading-bar-container" style="width: 200px; height: 2px; background: rgba(0, 0, 0, 0.1); border-radius: 1px; overflow: hidden; transition: opacity 0.4s ease; opacity: 1;">
+                <div id="loading-bar" style="width: 0%; height: 100%; background: #000000; border-radius: 1px; transition: width 0.3s ease;"></div>
+            </div>
+        </div>
+        <script>
+            // Apply dark mode theme immediately to prevent flash
+            (function() {
+                const savedTheme = localStorage.getItem('theme');
+                const isDarkMode = savedTheme === 'dark';
+                const screen = document.getElementById('loading-screen');
+                if (screen) {
+                    const symbol = screen.querySelector('div:first-child');
+                    const text = screen.querySelector('div:nth-child(2)');
+                    const barContainer = screen.querySelector('div:nth-child(3)');
+                    const bar = document.getElementById('loading-bar');
+                    
+                    if (isDarkMode) {
+                        screen.style.background = '#1a1a1a';
+                        if (symbol) symbol.style.color = '#ffffff';
+                        if (text) text.style.color = '#ffffff';
+                        if (barContainer) barContainer.style.background = 'rgba(255, 255, 255, 0.1)';
+                        if (bar) bar.style.background = '#ffffff';
+                    }
+                }
+            })();
+        </script>
+        <script>
+            // Detect dark mode and apply to loading screen
+            function applyLoadingTheme() {
+                const savedTheme = localStorage.getItem('theme');
+                const darkModeEnabled = savedTheme === 'dark';
+                const screen = document.getElementById('loading-screen');
+                const symbol = screen.querySelector('div:first-child');
+                const text = screen.querySelector('div:nth-child(2)');
+                const barContainer = screen.querySelector('div:nth-child(3)');
+                const bar = document.getElementById('loading-bar');
+                
+                if (darkModeEnabled) {
+                    screen.style.background = '#1a1a1a';
+                    symbol.style.color = '#ffffff';
+                    text.style.color = '#ffffff';
+                    barContainer.style.background = 'rgba(255, 255, 255, 0.1)';
+                    bar.style.background = '#ffffff';
+                } else {
+                    screen.style.background = '#ffffff';
+                    symbol.style.color = '#000000';
+                    text.style.color = '#000000';
+                    barContainer.style.background = 'rgba(0, 0, 0, 0.1)';
+                    bar.style.background = '#000000';
+                }
+            }
+            
+            applyLoadingTheme();
+            
+            // Animate progress bar
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                if (progress < 90) {
+                    progress += Math.random() * 30;
+                    if (progress > 90) progress = 90;
+                    document.getElementById('loading-bar').style.width = progress + '%';
+                }
+            }, 300);
+            
+            // Hide loading screen when dashboard is ready (800ms min)
+            let loadingStarted = Date.now();
+            function hideLoading() {
+                clearInterval(progressInterval);
+                const elapsed = Date.now() - loadingStarted;
+                const delay = Math.max(300 - elapsed, 0);
+                setTimeout(() => {
+                    const screen = document.getElementById('loading-screen');
+                    if (screen) {
+                        document.getElementById('loading-bar').style.width = '100%';
+                        setTimeout(() => {
+                            // Fade out elements with stagger
+                            const symbol = document.getElementById('loading-symbol');
+                            const text = document.getElementById('loading-text');
+                            const barContainer = document.getElementById('loading-bar-container');
+                            if (symbol) symbol.style.opacity = '0';
+                            if (text) text.style.opacity = '0';
+                            if (barContainer) barContainer.style.opacity = '0';
+                            setTimeout(() => {
+                                screen.style.transition = 'opacity 0.6s ease-out';
+                                screen.style.opacity = '0';
+                                screen.style.pointerEvents = 'none';
+                                setTimeout(() => screen.remove(), 600);
+                            }, 150);
+                        }, 300);
+                    }
+                }, delay);
+            }
+        </script>
         <div class="container">
             <div class="header">
                 <div class="header-top" style="margin-top:50px; margin-bottom:0px; margin-left: auto; margin-right: auto; display: flex; justify-content: center; align-items: center;">
                     <img src="logo.jpeg?t=${new Date().getTime()}" alt="Logo" class="logo" style="height: 40px; width: auto; transition: opacity 0.4s ease; margin-right: -3px; margin-left: 45px; margin-top: 2px; margin-bottom: 2px; transform: rotate(0deg); opacity: 0.7;" onload="this.style.opacity=0.75">
-                    <h1 style="color: #000000; font-size: 22px; font-family: 'Playfair Display', serif; font-weight: 500; letter-spacing: 0.4px; margin-left: -6px; margin-top: 4px; margin-bottom: 7px; opacity: 0.8;" class="dashboard-title">CARLUCCI CAPITAL</h1>
+                    <h1 style="color: #000000; font-size: 22px; font-family: 'Playfair Display', serif; font-weight: 500; letter-spacing: 0.4px; margin-left: -6px; margin-top: 3px; margin-bottom: 7px; opacity: 0.8;" class="dashboard-title">CARLUCCI CAPITAL</h1>
                 </div>
                 <div class="theme-toggle" onmousedown="event.stopPropagation(); toggleTheme();">
                     <svg class="theme-icon-light" viewBox="0 0 24 24">
@@ -3396,6 +3490,10 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             ])
                 .then(([stocks, quotes]) => {
                     const list = document.getElementById('notification-history-list');
+                    if (!list) {
+                        console.error('History list element not found');
+                        return;
+                    }
                     list.innerHTML = '';
                     
                     if (!stocks || !Array.isArray(stocks) || stocks.length === 0) {
@@ -3445,7 +3543,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                     const statsDiv = document.createElement('div');
                     const perfSign = parseFloat(avgPerformance) >= 0 ? '+' : '';
                     const perfColor = parseFloat(avgPerformance) > 0 ? '#00dd00' : parseFloat(avgPerformance) < 0 ? '#ff3333' : '#888';
-                    statsDiv.style.cssText = `padding: 12px 14px; border-radius: 6px; margin-bottom: 12px; border-left: 4px solid #00aa00;`;
+                    statsDiv.style.cssText = `padding: 12px 14px; border-radius: 6px; margin-bottom: 12px; border-left: 4px solid #00aa00; cursor: pointer; transition: background-color 0.2s ease; pointer-events: auto; position: relative; z-index: 10;`;
                     statsDiv.innerHTML = `
                         <div style="font-size: 13px; font-weight: 600; margin-bottom: 6px;">
                             All-Time Return: <span style="color: ${perfColor}; font-style: italic;">${perfSign}${avgPerformance}%</span>
@@ -3454,6 +3552,37 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                             Win Rate: <span style="color: ${perfColor}; font-style: italic;">${winRate}%</span> • Trades: ${winningTrades}W / ${totalTrades - winningTrades}L
                         </div>
                     `;
+                    
+                    // Add hover effect
+                    statsDiv.addEventListener('mouseenter', () => {
+                        const isDark = document.body.classList.contains('dark-mode');
+                        statsDiv.style.backgroundColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)';
+                    });
+                    statsDiv.addEventListener('mouseleave', () => {
+                        statsDiv.style.backgroundColor = '';
+                    });
+                    
+                    // Make clickable to show detailed stats
+                    statsDiv.addEventListener('click', (e) => {
+                        try {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            console.log('Stats div clicked - opening modal with', {
+                                totalTrades,
+                                winningTrades,
+                                avgPerformance,
+                                stocksCount: stocks.length
+                            });
+                            if (typeof showDetailedStatsModal === 'function') {
+                                showDetailedStatsModal(stocks, quotes, totalTrades, winningTrades, avgPerformance);
+                            } else {
+                                console.error('showDetailedStatsModal is not a function', typeof showDetailedStatsModal);
+                            }
+                        } catch (err) {
+                            console.error('Error in stats click handler:', err);
+                        }
+                    });
+                    
                     list.appendChild(statsDiv);
                     
                     stocks.slice().reverse().forEach(stock => {
@@ -4471,62 +4600,99 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     }
                     const alertData = await response.json();
 
-                    // Filter out expired alerts and get only the 9 most recent
+                    // Filter out expired alerts and get only the 9 most recent (syncing with backend cap)
                     const now = new Date();
                     const activeAlerts = alertData.filter(a => !a.expiresAt || new Date(a.expiresAt) > now);
                     const recentAlerts = activeAlerts.slice(-9);
                     
+                    // Build a set of tickers currently in the file for removal detection
+                    const fileTickersSet = new Set();
                     const newAlertCards = [];
 
-                    // Process new alerts without clearing existing ones
+                    // Process alerts from the file
                     for (const alert of recentAlerts) {
                         const alertKey = `${alert.ticker}-${alert.alertDate}-${alert.price}`;
+                        fileTickersSet.add(alert.ticker);
                         
-                        // Only add if we haven't seen this specific alert before
-                        if (!this.knownAlerts.has(alertKey)) {
-                            this.knownAlerts.add(alertKey);
+                        // Check if this alert already exists in our Map
+                        let existingAlert = null;
+                        if (this.alerts.has(alert.ticker)) {
+                            const tickerAlerts = this.alerts.get(alert.ticker);
+                            existingAlert = tickerAlerts.find(a => a.ticker === alert.ticker && a.alertDate === alert.alertDate);
+                        }
+                        
+                        if (existingAlert) {
+                            // Alert exists - preserve all tracking data, just update basic fields from file
+                            existingAlert.expiresAt = alert.expiresAt;
+                            existingAlert.price = alert.price;
+                            existingAlert.title = alert.title;
+                            existingAlert.signals = alert.signals;
+                            // DON'T touch: currentPrice, priceChange, peakPrice, lowPrice, performance
+                        } else {
+                            // NEW alert we haven't seen before
+                            const isNewAlert = !this.knownAlerts.has(alertKey);
                             
-                            // Create new alert object
-                            const newAlert = {
-                                ...alert,
-                                currentPrice: alert.price,
-                                alertPrice: parseFloat(alert.price),
-                                alertTime: alert.recordedAt ? new Date(alert.recordedAt) : new Date(),
-                                // Initialize peak and low to alert price - the baseline for tracking
-                                peakPrice: parseFloat(alert.price),
-                                lowPrice: parseFloat(alert.price),
-                                priceChange: 0,
-                                volumeSpike: false,
-                                triggered: false
-                            };
+                            if (isNewAlert) {
+                                this.knownAlerts.add(alertKey);
+                                
+                                // Create new alert object
+                                const newAlert = {
+                                    ...alert,
+                                    currentPrice: alert.price,
+                                    alertPrice: parseFloat(alert.price),
+                                    alertTime: alert.recordedAt ? new Date(alert.recordedAt) : new Date(),
+                                    peakPrice: parseFloat(alert.price),
+                                    lowPrice: parseFloat(alert.price),
+                                    priceChange: 0,
+                                    volumeSpike: false,
+                                    triggered: false
+                                };
 
-                            // Add to alerts map (keyed by ticker)
-                            if (!this.alerts.has(alert.ticker)) {
-                                this.alerts.set(alert.ticker, []);
+                                // Add to alerts map (keyed by ticker)
+                                if (!this.alerts.has(alert.ticker)) {
+                                    this.alerts.set(alert.ticker, []);
+                                }
+                                this.alerts.get(alert.ticker).push(newAlert);
+                                
+                                const alertCard = this.createAlertCard(newAlert);
+                                newAlertCards.push(alertCard);
+                                
+                                // Show notification for new alerts
+                                if (parseFloat(alert.signalScore) > 0.01) {
+                                    const position = Array.isArray(alert.isShort) ? (alert.isShort.length > 0 ? 'SHORT' : 'LONG') : (alert.isShort ? 'SHORT' : 'LONG');
+                                    const type = alert.isShort ? 'error' : 'success';
+                                    const ticker = `<b>$${alert.ticker}</b>`;
+                                    this.showNotification(`${ticker} ${position}`, type, alert.filingLink || '#');
+                                }
+                                
+                                smartLog('info', `New ticker found in alert.json: ${alert.ticker} @ $${alert.price}`);
                             }
-                            this.alerts.get(alert.ticker).push(newAlert);
-                            
-                            // Create card element (don't insert yet)
-                            const alertCard = this.createAlertCard(newAlert);
-                            newAlertCards.push(alertCard);
-                            
-                            // Show notification for all alerts
-                            if (parseFloat(alert.signalScore) > 0.01) {
-                                const position = Array.isArray(alert.isShort) ? (alert.isShort.length > 0 ? 'SHORT' : 'LONG') : (alert.isShort ? 'SHORT' : 'LONG');
-                                const type = alert.isShort ? 'error' : 'success';
-                                const ticker = `<b>$${alert.ticker}</b>`;
-                                this.showNotification(`${ticker} ${position}`, type, alert.filingLink || '#');
-                            }
-                            
-                            // Log new ticker
-                            smartLog('info', `New ticker found in alert.json: ${alert.ticker} @ $${alert.price}`);
                         }
                     }
 
-                    // Only update display if new alerts were found
+                    // Remove tickers that are no longer in the file (expired or removed by backend)
+                    const tickersToRemove = [];
+                    for (const [ticker, alerts] of this.alerts) {
+                        if (!fileTickersSet.has(ticker)) {
+                            tickersToRemove.push(ticker);
+                        }
+                    }
+                    
+                    // Remove expired tickers
+                    let hadRemovals = tickersToRemove.length > 0;
+                    tickersToRemove.forEach(ticker => {
+                        this.alerts.delete(ticker);
+                        smartLog('info', `Removing expired ticker: ${ticker}`);
+                    });
+                    
+                    // Only update display if new alerts were found or old ones expired
                     if (newAlertCards.length > 0) {
                         this.addNewAlertCards(newAlertCards);
+                    } else if (hadRemovals) {
+                        // Removals detected - update display to reflect
+                        this.updateDisplay();
                     }
+                    // Otherwise: no changes, don't touch the display
                     
                 } catch (error) {
                     console.error('Failed to check for new alerts:', error);
@@ -4989,7 +5155,8 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 // Sort alerts by most recent price movement initially
                 const sortedAlerts = Array.from(this.alerts.values())
                     .flat()
-                    .sort((a, b) => Math.abs(b.priceChange) - Math.abs(a.priceChange));
+                    .sort((a, b) => Math.abs(b.priceChange) - Math.abs(a.priceChange))
+                    .slice(-9);  // Cap to 9 most recent alerts for dashboard
                 
                 // Store all alerts for filtering
                 allAlerts = sortedAlerts;
@@ -5388,6 +5555,9 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 });
             }
             
+            // Cap to 9 alerts max for dashboard display
+            filteredAlerts = filteredAlerts.slice(-9);
+            
             // Re-render alerts
             renderFilteredAlerts();
             
@@ -5447,6 +5617,9 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             if (filterDir) filterDir.addEventListener('change', filterAndSortAlerts);
             if (sortBy) sortBy.addEventListener('change', filterAndSortAlerts);
             if (filterDate) filterDate.addEventListener('change', filterAndSortAlerts);
+            
+            // Hide loading screen when dashboard is ready
+            hideLoading();
         });
         
         // ===== PUSH NOTIFICATION FUNCTIONS =====
@@ -6236,6 +6409,360 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             if (totalMinutes < 570) return 'Pre-Market'; // before 9:30
             if (totalMinutes >= 570 && totalMinutes < 960) return 'Market Hours'; // 9:30-16:00
             return 'After Hours'; // after 16:00
+        }
+
+        function showDetailedStatsModal(stocks, quotes, totalTrades, winningTrades, avgPerformance) {
+            // Calculate detailed statistics
+            const tradeDetails = [];
+            let totalLongTrades = 0, totalShortTrades = 0;
+            let longWins = 0, shortWins = 0;
+            let bestTrade = { percent: -Infinity, ticker: '', type: '' };
+            let worstTrade = { percent: Infinity, ticker: '', type: '' };
+            let totalReturn = 0;
+
+            stocks.forEach(stock => {
+                const alertPrice = parseFloat(stock.price);
+                const isShort = stock.isShort === true;
+                const quoteData = quotes[stock.ticker] || {};
+                
+                let peakPercent = 0;
+                let peakPrice = alertPrice;
+                if (alertPrice > 0) {
+                    const highest = parseFloat(quoteData.highest || stock.highest5Day || stock.price);
+                    const lowest = parseFloat(quoteData.lowest || stock.lowest5Day || stock.price);
+                    
+                    if (isShort) {
+                        peakPercent = ((alertPrice - lowest) / alertPrice) * 100;
+                        peakPrice = lowest;
+                        totalShortTrades++;
+                        if (peakPercent > 0) shortWins++;
+                    } else {
+                        peakPercent = ((highest - alertPrice) / alertPrice) * 100;
+                        peakPrice = highest;
+                        totalLongTrades++;
+                        if (peakPercent > 0) longWins++;
+                    }
+                }
+                
+                if (!isNaN(peakPercent)) {
+                    totalReturn += peakPercent;
+                    
+                    const recordDate = new Date(stock.recordedAt);
+                    const now = new Date();
+                    const duration = Math.floor((now - recordDate) / (1000 * 60 * 60 * 24));
+                    
+                    // Track best and worst trades
+                    if (peakPercent > bestTrade.percent) {
+                        bestTrade = { 
+                            percent: peakPercent, 
+                            ticker: stock.ticker, 
+                            type: isShort ? 'SHORT' : 'LONG',
+                            companyName: stock.companyName || 'N/A',
+                            date: recordDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' })
+                        };
+                    }
+                    if (peakPercent < worstTrade.percent) {
+                        worstTrade = { 
+                            percent: peakPercent, 
+                            ticker: stock.ticker, 
+                            type: isShort ? 'SHORT' : 'LONG',
+                            companyName: stock.companyName || 'N/A',
+                            date: recordDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' })
+                        };
+                    }
+                    
+                    tradeDetails.push({
+                        ticker: stock.ticker,
+                        type: isShort ? 'SHORT' : 'LONG',
+                        entryPrice: alertPrice,
+                        peakPrice: peakPrice,
+                        return: peakPercent,
+                        date: recordDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' }),
+                        time: recordDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }),
+                        duration: duration === 0 ? 'Today' : duration === 1 ? 'Yesterday' : `${duration}d ago`,
+                        float: stock.float || 'N/A',
+                        sector: stock.sector || 'N/A',
+                        companyName: stock.companyName || 'N/A',
+                        peakDate: stock.peakDate || recordDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' })
+                    });
+                }
+            });
+
+            // Sort trades by return for top performers
+            const topPerformers = tradeDetails
+                .sort((a, b) => b.return - a.return)
+                .slice(0, 5);
+            
+            const worstPerformers = tradeDetails
+                .sort((a, b) => a.return - b.return)
+                .slice(0, 5);
+
+            // Calculate additional metrics
+            const losingTrades = totalTrades - winningTrades;
+            const avgWin = winningTrades > 0 ? tradeDetails.filter(t => t.return > 0).reduce((sum, t) => sum + t.return, 0) / winningTrades : 0;
+            const avgLoss = losingTrades > 0 ? tradeDetails.filter(t => t.return < 0).reduce((sum, t) => sum + t.return, 0) / losingTrades : 0;
+            const profitFactor = Math.abs(avgLoss) > 0 ? avgWin / Math.abs(avgLoss) : 0;
+
+            // Function to show trade detail popup
+            window.showTradeDetail = function(trade) {
+                const isDark = document.body.classList.contains('dark-mode');
+                const detailBg = document.createElement('div');
+                detailBg.style.cssText = `
+                    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                    background: rgba(0,0,0,0.5); backdrop-filter: blur(6px); z-index: 10002; display: flex;
+                    align-items: center; justify-content: center; cursor: pointer;
+                `;
+                
+                const detailBox = document.createElement('div');
+                detailBox.style.cssText = `
+                    background: ${isDark ? '#1e1e1e' : '#ffffff'}; border-radius: 12px;
+                    padding: 16px; max-width: 380px; width: 90%; cursor: default;
+                    border: 1px solid ${isDark ? '#333' : '#e5e7eb'}; box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+                `;
+                detailBox.innerHTML = `
+                    <div style="margin-bottom: 14px;">
+                        <div style="font-size: 14px; font-weight: 700; color: ${isDark ? '#fff' : '#000'}; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+                            <div>
+                                <span>$${trade.ticker}</span>
+                                <span style="font-size: 10px; opacity: 0.65;"> (${trade.companyName})</span>
+                            </div>
+                            <span style="cursor: pointer; opacity: 0.5; font-size: 20px;" onclick="this.closest('div').parentElement.remove()" style="cursor: pointer;">✕</span>
+                        </div>
+                        <div style="font-size: 11px; opacity: 0.80; font-style: italic; font-weight: 600; color: ${isDark ? '#bbb' : '#666'}; margin-bottom: 6px;">${trade.type}</div>
+                        <div style="font-size: 12px; font-weight: 600; color: ${trade.return > 0 ? '#00dd00' : '#ff3333'};">${trade.return > 0 ? '+' : ''}${trade.return.toFixed(2)}%</div>
+                    </div>
+                    <div style="font-size: 11px; opacity: 0.85; line-height: 1.7;">
+                        <div style="margin-bottom: 6px; display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'};">
+                            <div>
+                                <span style="opacity: 0.6;">Entry Price</span>
+                                <div style="font-size: 9px; opacity: 0.5; margin-top: 2px;">${trade.date}</div>
+                            </div>
+                            <span style="font-weight: 600;">$${trade.entryPrice.toFixed(2)}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <div>
+                                <span style="opacity: 0.6;">Peak Price</span>
+                                <div style="font-size: 9px; opacity: 0.5; margin-top: 2px;">${trade.peakDate}</div>
+                            </div>
+                            <span style="font-weight: 600;">$${trade.peakPrice.toFixed(2)}</span>
+                        </div>
+                    </div>
+                `;
+                
+                detailBg.appendChild(detailBox);
+                detailBg.addEventListener('click', (e) => {
+                    if (e.target === detailBg) detailBg.remove();
+                });
+                detailBox.addEventListener('click', (e) => e.stopPropagation());
+                document.body.appendChild(detailBg);
+            };
+
+            // Create modal HTML
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); z-index: 10001; display: flex;
+                align-items: center; justify-content: center; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                animation: modalFadeIn 0.3s ease-out; cursor: pointer;
+            `;
+            
+            const isDark = document.body.classList.contains('dark-mode');
+            const bgColor = isDark ? '#1e1e1e' : '#ffffff';
+            const textColor = isDark ? '#ffffff' : '#1a1a1a';
+            const borderColor = isDark ? '#333333' : '#e5e7eb';
+            const headerBg = isDark ? '#2a2a2a' : '#f9fafb';
+            const cardBg = isDark ? '#2a2a2a' : '#f8fafc';
+            
+            modal.innerHTML = `
+                <style>
+                    @keyframes modalFadeIn {
+                        from { opacity: 0; transform: scale(0.95); }
+                        to { opacity: 1; transform: scale(1); }
+                    }
+                    .stat-card {
+                        background: ${cardBg};
+                        border: 1px solid ${borderColor};
+                        border-radius: 10px;
+                        padding: 11px 13px;
+                        margin-bottom: 8px;
+                        box-shadow: none;
+                    }
+                    .stat-card h3 {
+                        margin: 0 0 8px 0;
+                        padding: 0;
+                        font-size: 11px;
+                        font-weight: 700;
+                        color: ${textColor};
+                        border-bottom: 1px solid ${borderColor};
+                        padding-bottom: 6px;
+                        text-transform: uppercase;
+                        letter-spacing: 0.5px;
+                        opacity: 0.85;
+                    }
+                    .trade-item {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 6px 0;
+                        border-bottom: 1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'};
+                        font-size: 11px;
+                    }
+                    .trade-item:last-child {
+                        border-bottom: none;
+                    }
+                    .trade-item span:first-child {
+                        opacity: 0.85;
+                    }
+                    .trade-ticker {
+                        font-weight: 600;
+                        color: ${textColor};
+                        font-size: 11px;
+                        cursor: pointer;
+                        transition: opacity 0.2s;
+                    }
+                    .trade-ticker:hover {
+                        opacity: 0.7;
+                    }
+                    .trade-type {
+                        font-size: 10px;
+                        opacity: 0.6;
+                        margin-left: 6px;
+                        font-weight: 500;
+                    }
+                    .trade-return {
+                        font-weight: 700;
+                        font-size: 11px;
+                    }
+                    .trade-detail-row {
+                        font-size: 10px;
+                        opacity: 0.7;
+                    }
+                </style>
+                <div style="
+                    background: ${bgColor}; border-radius: 14px; max-width: 464px; width: 96%;
+                    max-height: 82vh; box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+                    border: 1px solid ${borderColor}; animation: modalFadeIn 0.3s ease-out; cursor: default;
+                    display: flex; flex-direction: column;
+                ">
+                    <div style="
+                        padding: 14px 16px; border-bottom: 1px solid ${borderColor};
+                        background: ${headerBg}; border-radius: 14px 14px 0 0;
+                        display: flex; justify-content: space-between; align-items: center;
+                        flex-shrink: 0;
+                    ">
+                        <h2 style="margin: 0; font-size: 13px; font-weight: 700; color: ${textColor}; letter-spacing: -0.3px;">
+                            Trading Analytics
+                        </h2>
+                        <button onclick="this.closest('div').parentElement.parentElement.remove()" style="
+                            background: none; border: none; font-size: 18px; cursor: pointer;
+                            color: ${textColor}; opacity: 0.5; padding: 0; width: 24px; height: 24px;
+                            display: flex; align-items: center; justify-content: center;
+                            border-radius: 6px; transition: all 0.2s ease;
+                        " onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">✕</button>
+                    </div>
+                    <div style="padding: 14px; overflow-y: auto; flex: 1; min-height: 0;">
+                        <!-- Core Metrics -->
+                        <div class="stat-card">
+                            <h3>Core Metrics</h3>
+                            <div class="trade-item">
+                                <span>Total Trades</span>
+                                <span class="trade-return">${totalTrades}</span>
+                            </div>
+                            <div class="trade-item">
+                                <span>Win Rate</span>
+                                <span class="trade-return" style="color: ${parseFloat(winningTrades / totalTrades * 100) >= 50 ? '#00dd00' : '#ff3333'};">${(winningTrades / totalTrades * 100).toFixed(1)}%</span>
+                            </div>
+                            <div class="trade-item">
+                                <span>Wins / Losses</span>
+                                <span class="trade-return"><span style="color: #00dd00;">${winningTrades}W</span> / <span style="color: #ff3333;">${losingTrades}L</span></span>
+                            </div>
+                            <div class="trade-item">
+                                <span>Avg Win</span>
+                                <span class="trade-return" style="color: #00dd00;">+${avgWin.toFixed(2)}%</span>
+                            </div>
+                            <div class="trade-item">
+                                <span>Avg Loss</span>
+                                <span class="trade-return" style="color: #ff3333;">${avgLoss.toFixed(2)}%</span>
+                            </div>
+                            <div class="trade-item">
+                                <span>Profit Factor</span>
+                                <span class="trade-return">${profitFactor.toFixed(2)}</span>
+                            </div>
+                        </div>
+
+                        <!-- Best & Worst -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                            <div class="stat-card">
+                                <h3 style="margin-bottom: 8px; border-bottom: 1px solid #00dd00; padding-bottom: 6px;">Best Trade</h3>
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                                    <div style="flex: 1;">
+                                        <div style="font-size: 12px; font-weight: 700; color: ${textColor}; margin-bottom: 2px;">$${bestTrade.ticker} <span style="font-size: 10px; opacity: 0.65;">${bestTrade.companyName}</span></div>
+                                        <div style="font-size: 11px; opacity: 0.80; font-style: italic; font-weight: 600; color: ${isDark ? '#bbb' : '#666'};">${bestTrade.type}</div>
+                                    </div>
+                                    <div style="color: #00dd00; font-weight: 700; font-size: 13px; text-align: right;">+${bestTrade.percent.toFixed(2)}%</div>
+                                </div>
+                                <div style="font-size: 9px; opacity: 0.55;">${bestTrade.date}</div>
+                            </div>
+                            <div class="stat-card">
+                                <h3 style="margin-bottom: 8px; border-bottom: 1px solid #ff3333; padding-bottom: 6px;">Worst Trade</h3>
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                                    <div style="flex: 1;">
+                                        <div style="font-size: 12px; font-weight: 700; color: ${textColor}; margin-bottom: 2px;">$${worstTrade.ticker} <span style="font-size: 10px; opacity: 0.65;">${worstTrade.companyName}</span></div>
+                                        <div style="font-size: 11px; opacity: 0.80; font-style: italic; font-weight: 600; color: ${isDark ? '#bbb' : '#666'};">${worstTrade.type}</div>
+                                    </div>
+                                    <div style="color: #ff3333; font-weight: 700; font-size: 13px; text-align: right;">${worstTrade.percent.toFixed(2)}%</div>
+                                </div>
+                                <div style="font-size: 9px; opacity: 0.55;">${worstTrade.date}</div>
+                            </div>
+                        </div>
+
+                        <!-- Top Performers -->
+                        <div class="stat-card">
+                            <h3>Top Performers</h3>
+                            ${topPerformers.map(t => `
+                                <div class="trade-item" style="cursor: pointer; padding: 8px 0; flex-direction: column; align-items: flex-start; border-bottom: 1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}; transition: all 0.2s ease;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'" onclick="window.showTradeDetail(${JSON.stringify(t).replace(/"/g, '&quot;')})">
+                                    <div style="width: 100%; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+                                        <div>
+                                            <span class="trade-ticker" style="font-weight: 700;">$${t.ticker}</span>
+                                            <span style="font-size: 10px; opacity: 0.65;"> (${t.companyName})</span>
+                                            <span style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 600; margin-left: 4px; color: ${isDark ? '#bbb' : '#666'};">${t.type}</span>
+                                        </div>
+                                        <span class="trade-return" style="color: #00dd00; font-weight: 700; font-size: 12px;">+${t.return.toFixed(2)}%</span>
+                                    </div>
+                                    <div style="font-size: 8px; opacity: 0.55;">${t.date} • ${t.duration}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <!-- Worst Performers -->
+                        <div class="stat-card">
+                            <h3>Worst Performers</h3>
+                            ${worstPerformers.map(t => `
+                                <div class="trade-item" style="cursor: pointer; padding: 8px 0; flex-direction: column; align-items: flex-start; border-bottom: 1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}; transition: all 0.2s ease;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'" onclick="window.showTradeDetail(${JSON.stringify(t).replace(/"/g, '&quot;')})">
+                                    <div style="width: 100%; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+                                        <div>
+                                            <span class="trade-ticker" style="font-weight: 700;">$${t.ticker}</span>
+                                            <span style="font-size: 10px; opacity: 0.65;"> (${t.companyName})</span>
+                                            <span style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 600; margin-left: 4px; color: ${isDark ? '#bbb' : '#666'};">${t.type}</span>
+                                        </div>
+                                        <span class="trade-return" style="color: ${t.return > 0 ? '#00dd00' : '#ff3333'}; font-weight: 700; font-size: 12px;">${t.return > 0 ? '+' : ''}${t.return.toFixed(2)}%</span>
+                                    </div>
+                                    <div style="font-size: 8px; opacity: 0.55;">${t.date} • ${t.duration}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Close on background click
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+            
+            document.body.appendChild(modal);
         }
 
     </script>

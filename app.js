@@ -1884,8 +1884,8 @@ const saveAlert = (alertData) => {
       return true; // Keep if no expiry set
     });
     
-    // Keep up to 50 alerts (rolling window as old ones expire)
-    if (alerts.length > 50) alerts = alerts.slice(-50);
+    // Keep up to 9 alerts max (hard cap for dashboard)
+    if (alerts.length > 9) alerts = alerts.slice(-9);
     
     // writing alerts.json
     try {
