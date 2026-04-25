@@ -6535,7 +6535,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                                 <span>$${trade.ticker}</span>
                                 <span style="font-size: 10px; opacity: 0.65;"> (${trade.companyName})</span>
                             </div>
-                            <span style="cursor: pointer; opacity: 0.5; font-size: 20px;" onclick="this.closest('div').parentElement.remove()" style="cursor: pointer;">✕</span>
+                            <span style="cursor: pointer; opacity: 0.5; font-size: 20px; padding: 0; margin: -8px -8px -8px 0;" onclick="event.preventDefault(); event.stopPropagation(); this.closest('[data-detail-bg]').remove();">✕</span>
                         </div>
                         <div style="font-size: 11px; opacity: 0.80; font-style: italic; font-weight: 600; color: ${isDark ? '#bbb' : '#666'}; margin-bottom: 6px;">${trade.type}</div>
                         <div style="font-size: 12px; font-weight: 600; color: ${trade.return > 0 ? '#00dd00' : '#ff3333'};">${trade.return > 0 ? '+' : ''}${trade.return.toFixed(2)}%</div>
@@ -6558,6 +6558,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     </div>
                 `;
                 
+                detailBg.setAttribute('data-detail-bg', 'true');
                 detailBg.appendChild(detailBox);
                 detailBg.addEventListener('click', (e) => {
                     if (e.target === detailBg) detailBg.remove();
