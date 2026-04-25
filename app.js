@@ -34,7 +34,7 @@ const CONFIG = {
   MAX_FLOAT_8K: 12500000,           // Maximum float size threshold for 8-K filings
   MAX_FAV_RATIO: 90,                // Maximum float-to-average-volume ratio threshold
   ALLOWED_COUNTRIES: ['israel', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'delaware'], // Whitelisted jurisdictions for company registration
-  CTB_WATCHLIST: ['GITS', 'ARTL', 'VSA', 'FABTQ', 'MLEC', 'SST', 'EEIQ', 'ELAB', 'IONM', 'CZOOF', 'MASK', 'ONCO', 'FEED', 'GCTK', '4X0.GR', 'PLRZ', 'NMHI', 'MOTS', 'TMDE', 'FCUV', 'AGPU', 'SHPWQ', 'CHNR', 'BBGI', 'SEELQ'], // Symbols with elevated cost-to-borrow values
+  CTB_WATCHLIST: ['SMCZ', 'RMSG', 'VSA', 'MLEC', 'EEIQ', 'FABTQ', 'ARTL', 'CZOOF', 'IONM', 'TBIO', 'CMND', 'MASK', 'ONFO', 'VIVS', 'UCAR', 'KIDZ', 'PMAX', 'FEED', 'ELAB', 'RENX', 'NMHI', 'MOTS', 'PBM', 'TMDE', 'PLRZ'], // Symbols with elevated cost-to-borrow values from IBorrowDesk
   // Enable optimizations for Raspberry Pi devices
   PI_MODE: true,              // Enable optimizations for resource-constrained environments          
   REFRESH_PEAK: 1,            // Poll interval (ms) during peak market hours for real-time detection

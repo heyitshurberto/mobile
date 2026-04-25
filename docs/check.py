@@ -614,10 +614,10 @@ def main():
         sys.exit(1)
     
     print(f"\nAlerts ({len(tickers)})")
-    print("=" * 180)
-    header = f"{'Ticker':<8} {'Alert':<10} {'Current':<10} {'Peak':<10} {'Change':<8} {'Location':<15} {'Incorporated':<15} {'Float':<12} {'S/O%':<9} {'F/AV':<8} {'Buyer':<18} {'Signals':<35}"
+    print("=" * 220)
+    header = f"{'Ticker':<8} {'Alert':<10} {'Current':<10} {'Peak':<10} {'Change':<8} {'Direction':<10} {'Location':<15} {'Incorporated':<15} {'Float':<12} {'Shares Outstanding':<12} {'S/O%':<10} {'FTD':<10} {'Sector':<24} {'News':<60}"
     print(header)
-    print("=" * 180)
+    print("=" * 220)
     
     total_move = 0
     winners = 0
@@ -647,12 +647,16 @@ def main():
             skip_reason = skip_reason.split('(Bonus:')[0].strip()
         incorporated = ticker_rows[0].get('Incorporated', 'N/A')
         located = ticker_rows[0].get('Located', 'N/A')
-        filed_date = ticker_rows[0].get('Filed Date', 'N/A')
-        filed_time = ticker_rows[0].get('Filed Time', 'N/A')
-        if filed_date != 'N/A' and filed_time != 'N/A':
-            filed_display = f"{filed_date} {filed_time[:5]}"
-        else:
-            filed_display = filed_date[:10] if filed_date != 'N/A' else 'N/A'
+        # Timestamp is in milliseconds, convert to readable date
+        timestamp_ms = ticker_rows[0].get('Timestamp', '')
+        filed_display = 'N/A'
+        if timestamp_ms:
+            try:
+                from datetime import datetime
+                timestamp_sec = int(timestamp_ms) / 1000
+                filed_display = datetime.fromtimestamp(timestamp_sec).strftime('%Y-%m-%d')
+            except:
+                filed_display = 'N/A'
         
         # Fetch live prices from API
         current, high, low, request_count = fetch_stock_price(ticker, request_count)
@@ -689,10 +693,8 @@ def main():
             
             # Track big movers (10% +/- threshold) but exclude extreme outliers (700%+ = reverse split artifacts)
             if abs(move_pct) >= 10 and abs(move_pct) < 700:
-                # Use Catalyst for big movers display since Skip Reason column is malformed in CSV
-                catalyst_for_display = ticker_rows[0].get('Catalyst', skip_reason)
-                if '(Bonus:' in catalyst_for_display:
-                    catalyst_for_display = catalyst_for_display.split('(Bonus:')[0].strip()
+                # Use News for big movers display
+                catalyst_for_display = ticker_rows[0].get('News', skip_reason)
                 big_movers.append({
                     'ticker': ticker,
                     'alert_price': alert_price,
@@ -720,49 +722,33 @@ def main():
             direction = 'N/A'
         float_val = ticker_rows[0].get('Float', 'N/A')
         volume_val = ticker_rows[0].get('Volume', 'N/A')
-        avg_volume_val = ticker_rows[0].get('Average Volume', 'N/A')
         
-        # Calculate F/AV ratio (Float / Average Volume)
-        fav_ratio = 'N/A'
-        try:
-            if float_val != 'N/A' and avg_volume_val != 'N/A':
-                flt = float(float_val)
-                avg_vol = float(avg_volume_val)
-                if avg_vol > 0:
-                    fav_ratio = f"{(flt / avg_vol):.2f}x"
-        except (ValueError, TypeError):
-            pass
+        # Get FTD value
+        ftd_val = ticker_rows[0].get('FTD', 'N/A')
+        ftd_display = str(ftd_val) if ftd_val != 'N/A' else 'N/A'
         
-        # Extract signals/catalysts - only semantic signals, not form types
+        # Extract signals/catalysts from News column
         signals_display = 'N/A'
-        if 'Alert sent:' in skip_reason:
-            signal_part = skip_reason.split('Alert sent:')[1].split('(')[0].strip()
-            signal_part = signal_part.replace('[LONG]', '').replace('[SHORT]', '').strip()
-            # Remove form types (6-K, 8-K, Item numbers, etc)
-            import re
-            signal_part = re.sub(r'\b(?:6-K|8-K|S-\d|F-\d|13[GD]|Form D|EX-\d+\.\d+|Item \d+\.\d+|20-F)\b', '', signal_part, flags=re.IGNORECASE)
-            signal_part = re.sub(r',\s*,', ',', signal_part).strip(', ')
-            signals_display = signal_part if signal_part else 'N/A'
-        else:
-            # Try to get from Catalyst column
-            catalyst = ticker_rows[0].get('Catalyst', 'N/A')
-            if catalyst and catalyst != 'N/A':
-                signals_display = str(catalyst)
+        news = ticker_rows[0].get('News', 'N/A')
+        if news and news != 'N/A':
+            signals_display = str(news)
         
-        # Truncate signals to fit in 35 char column
-        signals_display = (signals_display[:32] + '...') if len(signals_display) > 35 else signals_display
-        
-        # Extract buyer from predatory financing if exists
-        buyer_display = 'N/A'
-        predatory_lender = ticker_rows[0].get('Predatory Lender', 'N/A')
-        if predatory_lender and predatory_lender != 'N/A':
-            buyer_display = predatory_lender[:16]  # Truncate buyer to fit column
+        # Extract sector info
+        sector = ticker_rows[0].get('Sector', 'N/A')
+        sector_display = (sector[:16] if sector != 'N/A' else 'N/A')
         
         # Truncate location and incorporated for display
         location_display = (located[:13] if located != 'N/A' else 'N/A')
         incorporated_display = (incorporated[:13] if incorporated != 'N/A' else 'N/A')
         
-        print(f"{ticker:<8} {alert_str:<10} {current_str:<10} {peak_str:<10} {move_str:<8} {location_display:<15} {incorporated_display:<15} {str(float_val):<12} {str(so_ratio):<9} {str(fav_ratio):<8} {buyer_display:<18} {signals_display}")
+        # Get direction
+        direction_display = direction if direction != 'N/A' else 'N/A'
+        
+        # Get Shares Outstanding
+        shares_outstanding = ticker_rows[0].get('Shares Outstanding', 'N/A')
+        so_display = str(shares_outstanding) if shares_outstanding != 'N/A' else 'N/A'
+        
+        print(f"{ticker:<8} {alert_str:<10} {current_str:<10} {peak_str:<10} {move_str:<8} {direction_display:<10} {location_display:<15} {incorporated_display:<15} {str(float_val):<12} {so_display:<12} {str(so_ratio):<9} {str(ftd_display):<8} {sector_display:<18} {signals_display}")
     
     print("=" * 180)
     avg_move = total_move / count if count > 0 else 0
