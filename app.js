@@ -30,7 +30,7 @@ const CONFIG = {
   FILE_TIME: 1,                     // Historical lookback window in minutes for filing discovery
   MIN_ALERT_VOLUME: 1000,           // Minimum volume threshold for initial alert trigger
   STRONG_SIGNAL_MIN_VOLUME: 500,    // Volume threshold for high-confidence signal detection
-  MAX_FLOAT_6K: 10000000,           // Maximum float size threshold for 6-K filings
+  MAX_FLOAT_6K: 7500000,           // Maximum float size threshold for 6-K filings
   MAX_FLOAT_8K: 12500000,           // Maximum float size threshold for 8-K filings
   MAX_FAV_RATIO: 90,                // Maximum float-to-average-volume ratio threshold
   ALLOWED_COUNTRIES: ['israel', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'delaware'], // Whitelisted jurisdictions for company registration
@@ -457,11 +457,11 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
   const hasHeavyweightBearish = heavyweightBearish.some(cat => signalArray.includes(cat));
   
   // Moderate bearish (only count when reinforced by heavyweight or structural signals)
-  const moderateBearish = ['Nasdaq Delisting', 'Bid Price Delisting', 'Reverse Split Event'];
+  const moderateBearish = ['Nasdaq Delisting', 'Bid Price Delisting'];
   const structuralBearish = ['Convertible Debt'];
   
   // Bullish signals (including confidence signals like buybacks)
-  const bullishSignals = ['Insider Buying', 'FDA Approved', 'Clinical Success', 'Clinical Milestone', 'Partnership', 'Licensing Deal', 'Government Contract', 'Stock Buyback', 'DTC Eligible Restored', 'Commercial Inflection'];
+  const bullishSignals = ['Insider Buying', 'Partnership', 'Licensing Deal', 'Government Contract', 'Stock Buyback', 'DTC Eligible Restored', 'Commercial Inflection'];
   
   // Asset Disposition is context-dependent: only bearish if paired with distress signals
   const hasAssetDisposition = signalArray.includes('Asset Disposition');
@@ -506,7 +506,7 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
   }
   
   // Fast-track pure growth catalysts (force LONG immediately) - only if no distress signals
-  const pureBullishCatalysts = ['FDA Approved', 'Clinical Success', 'Clinical Milestone', 'Partnership', 'Licensing Deal', 'Commercial Inflection', 'Government Contract'].some(cat => signalArray.includes(cat));
+  const pureBullishCatalysts = ['Partnership', 'Licensing Deal', 'Commercial Inflection', 'Government Contract'].some(cat => signalArray.includes(cat));
   if (pureBullishCatalysts && !hasHeavyweightBearish && moderateCount === 0 && !isDistressedDisposition) {
     return { direction: 'LONG', confidence: 0.80 };
   }
@@ -670,17 +670,10 @@ const SEMANTIC_KEYWORDS = {
 
   // M&A & Structural
   'Merger/Acquisition': ['Merger Agreement', 'Acquisition Agreement', 'Agreed To Acquire', 'Merger Consideration', 'Premium Valuation', 'Going Private', 'Take Private', 'Acquisition Closing', 'Closing Of Acquisition', 'Completed Acquisition', 'Definitive Agreement To Be Acquired', 'Material Definitive Agreement', 'Strategic Alternatives', 'Exploring Strategic Alternatives'],
-  
-  // Biotech FDA (Clinical & Regulatory)
-  'FDA Approved': ['FDA Approval', 'FDA Clearance', 'Approval Granted', 'Approval Letter', 'FDA Approves', 'FDA approved', 'EMA Approval', 'Post-Market Approval', 'PMA Approval', '510(k) Clearance', 'De Novo Clearance'],
-  'FDA Breakthrough': ['Breakthrough Therapy', 'Breakthrough Designation', 'Fast Track Designation', 'Priority Review', 'Priority Status'],
-  'FDA Filing': ['NDA Submission', 'NDA Filed', 'BLA Submission', 'BLA Filed', 'IND Application', 'Regulatory Filing'],
-  'Clinical Success': ['Positive Trial Results', 'Phase 3 Success', 'Topline Results Beat', 'Efficacy Demonstrated', 'Safety Profile Met', 'Positive Results', 'Phase 1', 'Phase 2', 'Phase 3', 'Trial Results', 'Efficacy', 'Safety Profile', 'Cohort Results', 'Primary Endpoint', 'Enrollment Complete', 'Data Readout', 'Topline Data', 'Meaningful Improvement', 'Beat Placebo', 'Mechanism Of Action', 'Biomarker', 'Favorable Safety', 'Separation From Placebo', 'Demonstrated Benefit', 'Clinical Benefit', 'Strong Efficacy', 'Primary Endpoint Met', 'Statistically Significant', 'Met Primary Endpoint', 'Positive Phase 3', 'Positive Topline Results'],
-  // Clinical Milestone': ['Phase Advancement', 'Phase 2 Initiation', 'Phase 3 Initiation', 'Enrollment Opened', 'Enrollment Initiated', 'Trial Initiation', 'Investigational New Drug', 'IND Application', 'NDA Filing', 'PMA Submission', 'Clinical Trial Site', 'Patient Enrollment', 'First Patient', 'Program Initiation', 'Patient Dosed', 'First Dose', 'Dose Escalation', 'Cohort Complete'],
-  
+    
   // CRITICAL: Failed Trial (BEARISH - distinct from positive clinical signals)
   'Failed Trial': ['Primary Endpoint Not Met', 'Did Not Meet Primary Endpoint', 'Primary Endpoint Missed', 'Failed To Meet Primary Endpoint', 'Primary Endpoint Failed', 'No Statistically Significant', 'Did Not Show Statistically Significant', 'Did Not Achieve Primary', 'Missed Primary Endpoint'],
-  'Post-Hoc Salvage': ['Post Hoc Analysis', 'Post-Hoc Analysis', 'Unplanned Analysis', 'Post Hoc Findings', 'Subset Analysis', 'Exploratory Analysis', 'Applied For Breakthrough', 'Awaiting FDA Feedback'],
+  'Post-Hoc Salvage': ['Post Hoc Analysis', 'Post-Hoc Analysis', 'Unplanned Analysis', 'Post Hoc Findings', 'Subset Analysis', 'Exploratory Analysis', 'Applied For Breakthrough'],
   
   // Capital & Dilution
   'Capital Raise': ['Oversubscribed', 'Institutional Participation', 'Lead Investor', 'Top-Tier Investor', 'Strategic Investor'],
@@ -699,7 +692,6 @@ const SEMANTIC_KEYWORDS = {
   'Going Dark': ['Form 15', 'Deregistration', 'Stop Reporting', 'Cease Reporting', 'Edgar Delisting', 'No Longer Report', 'Deregister', 'Terminate Registration', 'Exit From SEC Reporting', 'Shall No Longer File'],
   'Nasdaq Delisting': ['Nasdaq Deficiency', 'Listing Standards Warning', 'Nasdaq Notification', 'Delisting Determination', 'Nasdaq Letter', 'Delisting Risk', 'Delisting Threat', 'Received Notice Of Delisting', 'Notice Of Non-Compliance', 'Not In Compliance With Listing Requirements'],
   'Bid Price Delisting': ['Minimum Bid Price', 'Regained Compliance'],
-  'Reverse Split Event': ['Reverse Split Completed', 'Reverse Consolidation', 'Recent Consolidation', 'Reverse Split', 'Reverse Stock Split', 'Consolidation Of Shares', 'Stock Split Reverse', 'Share Consolidation Event', 'Split Reverse', 'Reverse Recapitalization'],
   'DTC Eligible Restored': ['DTC Eligible', 'DTC Chill Lifted', 'Eligibility Restored', 'DTC Restoration', 'Chill Status', 'Chill Removed', 'Resume Trading'],
   
   // Operational Catalysts
@@ -1134,7 +1126,6 @@ const parseSemanticSignals = (text) => {
   const lowerText = text.toLowerCase();
   const signals = {};
   
-  // Validation: Detect negative clinical trial outcomes first
   // Failed trials are significant bearish signals that override other factors
   const failedTrialIndicators = [
     /primary\s+endpoint\s+(?:was\s+)?not\s+met/i,
@@ -1164,39 +1155,9 @@ const parseSemanticSignals = (text) => {
       return regex.test(lowerText);
     });
     if (matches.length > 0) {
-      // FILTER: If Clinical Success detected but trial failed, remove it
-      if (category === 'Clinical Success' && hasFailedTrial) {
-        // Don't add this signal - trial actually failed
-        continue;
-      }
-      
-      // FILTER: If FDA Breakthrough detected, verify it's actually awarded (not just applied)
-      if (category === 'FDA Breakthrough') {
-        // Check if it says "applied for" or "pending" (not yet awarded)
-        const isAwarded = !(/applied\s+for|pending|waiting\s+for|awaiting\s+feedback|applied\s+and\s+waiting/i.test(lowerText));
-        if (!isAwarded) {
-          // FDA Breakthrough is only application, not award - don't add
-          continue;
-        }
-      }
-      
-      // FILTER: If FDA Approved detected, verify it's actually approved (not just applied)
-      if (category === 'FDA Approved') {
-        // Check if it says "applied for", "pending", or mentions approval letter/clearance actually received
-        const hasApprovalLanguage = /approval\s+(?:letter|granted)|FDA\s+(?:approves|approved|clearance|clears|cleared)/i.test(lowerText);
-        const hasApplicationLanguage = /applied\s+for|pending|waiting\s+for|awaiting|awaiting\s+feedback/i.test(lowerText);
-        
-        if (!hasApprovalLanguage || hasApplicationLanguage) {
-          // Not actually approved, just applied - don't add
-          continue;
-        }
-      }
-      
-      // FILTER: Capital preservation language indicates company distress
-      if (category === 'Clinical Success' || category === 'Partnership') {
+        if (category === 'Partnership') {
         const hasCapitalPreservation = /preserve\s+capital|evaluate\s+(?:all\s+)?options|strategic\s+(?:alternatives|opportunities|transactions)/i.test(lowerText);
         if (hasCapitalPreservation && hasFailedTrial) {
-          // Failed trial + capital preservation = zombie company, not a signal
           continue;
         }
       }
@@ -1214,16 +1175,6 @@ const parseSemanticSignals = (text) => {
     ].filter(Boolean);
   }
   
-  // VERIFY: FDA signals must be awards, not applications
-  // Remove any FDA signals if only applications are mentioned
-  const fda_applications = (text.match(/applied\s+(?:and\s+)?(?:for|to)\s+(?:breakthrough|fast\s+track)/gi) || []).length;
-  const fda_awards = (text.match(/FDA\s+(?:grants?|granted|approves?|approved|clearance|cleared|award|awarded)\s+(?:breakthrough|fast\s+track)/gi) || []).length;
-  
-  if (fda_applications > 0 && fda_awards === 0) {
-    // Only applications exist, no awards = remove FDA signals
-    delete signals['FDA Breakthrough'];
-    delete signals['FDA Approved'];
-  }
   
   // ADD FAILED TRIAL SIGNAL if detected (key insight for SHORT direction)
   if (hasFailedTrial) {
@@ -1231,68 +1182,6 @@ const parseSemanticSignals = (text) => {
   }
   
   return signals;
-};
-
-
-// Reverse split ratio extractor - parses stock consolidation ratios from filing text
-const extractReverseSplitRatio = (text) => {
-  if (!text) return null;
-  
-  // Priority 1: Look for explicit reverse split announcements with ratios
-  // Pattern: "reverse split of... at a ratio of 1-for-X" or "1-for-X reverse stock split"
-  let match = text.match(/reverse\s+(?:split|combination|consolidation).*?(?:ratio|at)\s+(?:of\s+)?1\s*(?:-|for)\s*(\d+)/i);
-  if (match && match[1]) {
-    return `1-for-${match[1]}`;
-  }
-  
-  // Priority 2: Look for "approved a ... 1-for-X" followed by "reverse"
-  match = text.match(/approved.*?1\s*(?:-|for)\s*(\d+)\s*.*?reverse/i);
-  if (match && match[1]) {
-    return `1-for-${match[1]}`;
-  }
-  
-  // Priority 3: Look for announcements with explicit ratio like "1-for-60"
-  match = text.match(/(?:announces?|announced)\s+(?:a\s+)?1\s*(?:-|for)\s*(\d+)\s+reverse/i);
-  if (match && match[1]) {
-    return `1-for-${match[1]}`;
-  }
-  
-  // Priority 4: Match "every X shares will be combined into one" pattern
-  match = text.match(/every\s+(\d+)\s+(?:shares|ordinary shares).*?(?:will\s+)?(?:be\s+)?combined?\s+into\s+(?:one|1)\s+(?:share|post)/i);
-  if (match && match[1]) {
-    return `1-for-${match[1]}`;
-  }
-  
-  // Priority 5: Context-aware 1-for-X match (avoids file numbers like 001-38857)
-  // Must have "reverse", "split", "consolidation", "combination", or "stock" nearby
-  match = text.match(/(reverse|split|consolidation|combination|stock)\s+.*?1\s*(?:-|for)\s*(\d{2,3})/i);
-  if (match && match[2]) {
-    const ratio = parseInt(match[2]);
-    // Validate it's a reasonable split ratio (between 2 and 1000. Not file number)
-    if (ratio >= 2 && ratio <= 1000) {
-      return `1-for-${match[2]}`;
-    }
-  }
-  
-  // Priority 6: Fallback - simple 1-for-X pattern anywhere in text (lenient)
-  match = text.match(/1\s*(?:-|for)\s*(\d+)\s+(?:reverse|split|consolidation)/i);
-  if (match && match[1]) {
-    const ratio = parseInt(match[1]);
-    if (ratio >= 2 && ratio <= 1000) {
-      return `1-for-${match[1]}`;
-    }
-  }
-  
-  // Priority 7: Last resort - any 1-for-X with 2+ digits (but not file numbers)
-  match = text.match(/1\s*(?:-|for)\s*(\d{2,})/);
-  if (match && match[1]) {
-    const ratio = parseInt(match[1]);
-    if (ratio >= 2 && ratio <= 10000) { // Allow up to 10000
-      return `1-for-${match[1]}`;
-    }
-  }
-  
-  return null;
 };
 
 // Extract Item Code context from filing (e.g., "Item 8.01", "Item 6.01")
@@ -1373,9 +1262,6 @@ const detectDeterministicPatterns = (semanticSignals) => {
   
   const hasNasdaqDelisting = signals.includes('Nasdaq Delisting');
   const hasBidPriceDelisting = signals.includes('Bid Price Delisting');
-  const hasReverseSpliEvent = signals.includes('Reverse Split Event');
-  
-  // Signal: Reverse split event detected
   
   // STRICT: Asset Disposition requires supporting signals (distress context)
   const hasAssetDisposition = signals.includes('Asset Disposition');
@@ -1398,23 +1284,8 @@ const detectDeterministicPatterns = (semanticSignals) => {
       direction: 'LONG'
     };
   }
-  
-  // STRICT: Clinical Success/Milestone requires 4+ signals minimum 
-  const hasClinicalSuccess = signals.includes('Clinical Success');
-  const hasClinicalMilestone = signals.includes('Clinical Milestone');
-  const hasFDAApproved = signals.includes('FDA Approved');
-  const hasFDAGranted = signals.includes('FDA Granted');
-  
-  if ((hasClinicalSuccess || hasClinicalMilestone) && signals.length >= 4) {
-    return {
-      pattern: 'Clinical Success / Milestone',
-      mechanism: 'Biotech positive trial data or clinical milestone = de-risking narrative. Reduces probability of drug failure, increases commercialization likelihood.',
-      direction: 'LONG'
-    };
-  }
-  
+    
   // Signal: Corporate consolidation detected
-  
   // M&A catalysts - STRICT: Merger/Acquisition only without other issues
   const hasMergerAcquisition = signals.includes('Merger/Acquisition');
   
@@ -1988,7 +1859,6 @@ const updatePerformanceData = (alertData) => {
         performance: 0,
         date: new Date().toISOString(),
         alertDate: new Date().toISOString(),
-        reverseSplitRatio: null
       };
     } else {
       // Update current price and track peaks/lows
@@ -2050,7 +1920,6 @@ const updatePerformanceData = (alertData) => {
       }
       
       performanceData[ticker].performance = parseFloat(percentChange.toFixed(2));
-      performanceData[ticker].reverseSplitRatio = null; // Can be updated if needed
     }
     
     // Write updated performance data (atomic write)
@@ -3184,8 +3053,7 @@ const sendPersonalWebhook = (alertData) => {
         setupTag = '\n★ Highest Probability Setup';
       }
     } else if (direction === 'LONG') {
-      const hasLongSetup = intents.includes('FDA Approved') &&
-                          intents.includes('Stock Buyback') &&
+      const hasLongSetup = intents.includes('Stock Buyback') &&
                           intents.includes('Partnership') &&
                           intents.includes('Capital Raise');
       if (hasLongSetup) {
@@ -4609,7 +4477,7 @@ const renderLoginPage = () => `
             <div style="font-weight: 400; font-style: italic; font-size: 14px; font-family: 'Menlo', 'Monaco', monospace;" id="landing-win-rate">-- %</div>
           </div>
           <div>
-            <div style="opacity: 0.7; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Total Trades</div>
+            <div style="opacity: 0.7; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Total Alerts</div>
             <div style="font-weight: 400; font-style: italic; font-size: 14px; font-family: 'Menlo', 'Monaco', monospace;" id="landing-total-trades">--</div>
           </div>
           <div>
@@ -8994,19 +8862,6 @@ if (process.stdin.isTTY) {
             }
             let newsDisplay = allKeywords.join(', ');
             
-            // If "Reverse Split Event" is detected, try to extract the ratio
-            if (Object.keys(semanticSignals).includes('Reverse Split Event')) {
-              const ratio = extractReverseSplitRatio(text);
-              if (ratio) {
-                // Replace in both the display and the actual signals array
-                newsDisplay = newsDisplay.replace(/1-for-/i, ratio + ' ');
-                // Also update the semanticSignals array to replace incomplete '1-for-' with complete ratio
-                semanticSignals['Reverse Split Event'] = semanticSignals['Reverse Split Event'].map(kw => 
-                  kw === '1-for-' ? ratio : kw
-                );
-              }
-            }
-            
             log('INFO', `News: ${newsDisplay}`);
           } else if (intent) {
             log('INFO', `News: Regulatory Update`);
@@ -9042,7 +8897,7 @@ if (process.stdin.isTTY) {
           const formsDisplay = otherForms.length > 0 ? otherForms.join(', ') : '';
           const itemsDisplay = otherItems.length > 0 ? otherItems.sort((a, b) => parseFloat(a) - parseFloat(b)).map(item => `Item ${item}`).join(', ') : '';
           
-          const bearishCategories = ['Bankruptcy Filing', 'Credit Default', 'Material Lawsuit', 'Going Dark', 'Asset Disposition', 'Convertible Debt', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Reverse Split Event', 'Executive Departure'];
+          const bearishCategories = ['Bankruptcy Filing', 'Credit Default', 'Material Lawsuit', 'Going Dark', 'Asset Disposition', 'Convertible Debt', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure'];
           const signalKeys = Object.keys(semanticSignals);
           
           let formLogMessage = '';
@@ -9197,7 +9052,7 @@ if (process.stdin.isTTY) {
             // Bearish signals that force SHORT regardless
             const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Material Lawsuit', 'Going Dark', 'Convertible Debt', 'Executive Departure', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Failed Trial', 'Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount'];
             const bearishCount = sigKeys.filter(cat => bearishCats.includes(cat)).length;
-            const bullishCats = ['Merger/Acquisition', 'FDA Approved', 'FDA Breakthrough', 'FDA Filing', 'Clinical Success', 'Clinical Milestone', 'DTC Eligible Restored', 'Government Contract', 'Partnership', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Unregistered Equity Sales', 'Insider Buying'];
+            const bullishCats = ['Merger/Acquisition', 'DTC Eligible Restored', 'Government Contract', 'Partnership', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Unregistered Equity Sales', 'Insider Buying'];
             const bullishCount = sigKeys.filter(cat => bullishCats.includes(cat)).length;
             const hasPartnership = sigKeys.includes('Partnership');
             
@@ -9205,11 +9060,10 @@ if (process.stdin.isTTY) {
             // When predator has equity (shares/warrants), they profit from bull catalyst before dumping
             const hasUnregisteredEquitySales = sigKeys.includes('Unregistered Equity Sales');
             const hasGoingConcern = sigKeys.includes('Going Concern');
-            const hasReverseSplit = sigKeys.includes('Reverse Split Event');
             
             // Bull trap extraction pattern:
             // 1. Item 3.02 unregistered equity (predator detection)
-            // 2. Going Concern + Reverse Split (distress signals)
+            // 2. Going Concern + distress signal (distress signals)
             // 3. BUT: Stock has positive catalyst that will drive it up short-term
             // 4. Predator dumps after stock runs (extraction play)
             // 5. EXCLUDE: Fatal signals like Credit Default, Bankruptcy (those override)
@@ -9226,14 +9080,13 @@ if (process.stdin.isTTY) {
               predatoryCheck = isPredatoryFinancingAlert(text, buyerDesc);
             }
             
-            if (!hasFatalBearish && hasUnregisteredEquitySales && (hasGoingConcern || hasReverseSplit)) {
+            if (!hasFatalBearish && hasUnregisteredEquitySales && hasGoingConcern) {
               if (predatoryCheck.isPredatory) {
                 // Check if text contains commodity/partnership bullish catalyst keywords
                 const bullishCatalystKeywords = [
                   /oil\s+(?:price|spill|leak|discovery|production)/i,
                   /partnership|merger|acquisition|strategic/i,
                   /contract|government|defense|military/i,
-                  /clinical.*success|fda.*approval|clinical.*data/i,
                   /revenue.*up|earnings.*beat|profit.*increase/i
                 ];
                 const hasBullishCatalyst = bullishCatalystKeywords.some(pattern => pattern.test(text));
@@ -9336,9 +9189,6 @@ if (process.stdin.isTTY) {
           // === LOG STOCK METRICS FOR ALL FILINGS (before validation checks) ===
           log('INFO', `Stock: $${ticker}, Price: ${priceDisplay}, Vol/Avg: ${volDisplay}/${avgDisplay}, MC: ${mcDisplay}, Float: ${floatDisplay}, S/O: ${soRatio}, F/AV: ${favLog}, ${directionLabel}`);
           
-          // Check for FDA Approvals and Chinese/Cayman reverse splits
-          const hasFDAApproval = signalCategories.some(cat => ['FDA Approved', 'FDA Breakthrough', 'FDA Filing'].includes(cat));
-          const isChinaOrCaymanReverseSplit = (normalizedIncorporated === 'China' || normalizedLocated === 'China' || normalizedIncorporated === 'Cayman Islands' || normalizedLocated === 'Cayman Islands') && signalCategories.includes('Reverse Split Event');
           if (!isOnCTBWatchlist && normalizedLocated === 'Unknown') {
             skipReason = 'No valid country';
             const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
@@ -9402,7 +9252,6 @@ if (process.stdin.isTTY) {
             const locatedMatch = CONFIG.ALLOWED_COUNTRIES.some(country => normalizedLocated.toLowerCase().includes(country));
             const isCaymanOrBVI = normalizedIncorporated.toLowerCase().includes('cayman') || normalizedLocated.toLowerCase().includes('cayman') || 
                                   normalizedIncorporated.toLowerCase().includes('virgin') || normalizedLocated.toLowerCase().includes('virgin');
-            const hasSPSignal = signalCategories.includes('Reverse Split Event') || signalCategories.includes('Nasdaq Delisting') || signalCategories.includes('Bid Price Delisting');
             
             if (filing.formType === '6-K' || filing.formType === '6-K/A') {
               // 6-K filings: Only allow whitelisted countries
@@ -9546,15 +9395,12 @@ if (process.stdin.isTTY) {
 
           // Determine volume threshold based on signal strength (bot-reactive detection)
           // HIGH-CONVICTION SIGNALS (bypass volume entirely):
-          // - Insider Buying + any bullish (FDA, Merger, Clinical, Contract, Buyback)
+          // - Insider Buying + any bullish catalyst
           // - Merger/Acquisition (bots trade immediately)
-          // - FDA Approved + Clinical Success combo
           // - Insider Block Buy (large position)
           const hasInsiderBuying = signalCategories.includes('Insider Buying');
           const hasInsiderBlockBuy = signalCategories.includes('Insider Buying');
           const hasMerger = signalCategories.includes('Merger/Acquisition');
-          const hasFDA = signalCategories.includes('FDA Approved') || signalCategories.includes('FDA Breakthrough');
-          const hasClinical = signalCategories.includes('Clinical Success') || signalCategories.includes('Clinical Milestone');
           const hasPartnership = signalCategories.includes('Partnership');
           const hasStockBuyback = signalCategories.includes('Stock Buyback');
           
@@ -9562,8 +9408,7 @@ if (process.stdin.isTTY) {
           const isHighConviction = 
             hasInsiderBlockBuy ||                                           // Large position = immediate bot action
             hasMerger ||                                                    // M&A = bots trade instantly
-            (hasFDA && hasClinical) ||                                      // FDA + clinical = biotech catalyst
-            (hasInsiderBlockBuy && (hasMerger || hasFDA || hasClinical || hasPartnership || hasStockBuyback)); // Insider accumulation + catalyst
+            (hasInsiderBlockBuy && (hasMerger || hasPartnership || hasStockBuyback)); // Insider accumulation + catalyst
           
           const volumeCheckLater = volumeValue;
           const avgVolumeValue = averageVolume !== 'N/A' ? parseFloat(averageVolume) : null;
@@ -9573,8 +9418,6 @@ if (process.stdin.isTTY) {
           let minVolumeThreshold;
           if (isHighConviction || volumeIs3xAverage) {
             minVolumeThreshold = 0; // Bypass volume gate for high-conviction signals
-          } else if (hasFDAApproval || hasClinical) {
-            minVolumeThreshold = 10000; // Biotech needs some volume confirmation
           } else if (signalCategories.length >= 2) {
             minVolumeThreshold = 5000; // Combo signals need moderate volume
           } else {
@@ -9626,7 +9469,7 @@ if (process.stdin.isTTY) {
           let validSignals = false;
           
           // Calculate core categories for all stocks (needed for logging and later checks)
-          const coreCategories = ['FDA Approved', 'FDA Breakthrough', 'Clinical Success', 'Clinical Milestone', 'Merger/Acquisition', 'Credit Default', 'Going Dark', 'Bankruptcy Filing', 'Auditor Change', 'Asset Disposition', 'Reverse Split Event', 'Commercial Inflection', 'Convertible Debt', 'Unregistered Equity Sales', 'Short Squeeze Potential', 'Failed Trial', 'Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount'];
+          const coreCategories = ['Merger/Acquisition', 'Credit Default', 'Going Dark', 'Bankruptcy Filing', 'Auditor Change', 'Asset Disposition', 'Commercial Inflection', 'Convertible Debt', 'Unregistered Equity Sales', 'Short Squeeze Potential', 'Failed Trial', 'Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount'];
           const hasCoreCategories = signalCategories.filter(cat => coreCategories.includes(cat)).length;
           const isDeterministic = hasCoreCategories >= 2;
           
@@ -9793,13 +9636,10 @@ if (process.stdin.isTTY) {
             const soNum = soRatioValue !== null ? parseFloat(soRatioValue) : 0;
             if (soNum > 70) {
               // High short interest = overcrowded unless catalyst is EXTREME
-              // Expanded extreme catalyst detection: FDA, M&A, first revenue, earnings surprise, major contracts, guidance changes
+              // Expanded extreme catalyst detection: M&A, first revenue, earnings surprise, major contracts, guidance changes
               const hasCriticalCatalyst = 
-                signalCategories.includes('FDA Approved') || 
-                signalCategories.includes('FDA Breakthrough') ||
                 (signalCategories.includes('Merger/Acquisition') && signalCategories.length >= 3) ||
                 signalCategories.includes('Commercial Inflection') || // First revenue/major milestone
-                signalCategories.includes('Clinical Success') || // Earnings surprise equivalent
                 signalCategories.includes('Government Contract') || // Major contract win
                 signalCategories.includes('Licensing Deal'); // Guidance/strategic change
               
@@ -9834,31 +9674,6 @@ if (process.stdin.isTTY) {
           const dayOfWeek = filingDateObj.getDay(); // 0 = Sunday, 1 = Monday, 2 = Tuesday, etc.
           const hasTuesdayBonus = dayOfWeek === 2;
           
-          // Detect reverse split ratio and reason
-          let reverseSplitRatio = null;
-          let reverseSplitReason = null;
-          if (Object.keys(semanticSignals).includes('Reverse Split Event')) {
-            const ratio = extractReverseSplitRatio(text);
-            if (ratio) {
-              // Keep the full "1-for-X" format, don't extract just the number
-              reverseSplitRatio = ratio;
-              
-              // Detect reason for split
-              const lowerText = text.toLowerCase();
-              if (lowerText.includes('nasdaq') && (lowerText.includes('bid') || lowerText.includes('price') || lowerText.includes('minimum'))) {
-                reverseSplitReason = 'Nasdaq minimum bid price requirement';
-              } else if (lowerText.includes('listing') && lowerText.includes('standard')) {
-                reverseSplitReason = 'Listing standard compliance';
-              } else if (lowerText.includes('consolidat')) {
-                reverseSplitReason = 'Share consolidation';
-              } else if (lowerText.includes('stock split')) {
-                reverseSplitReason = 'Stock split';
-              } else {
-                reverseSplitReason = 'Reverse stock split';
-              }
-            }
-          }
-          
           // Update alertData with additional properties
           alertData.sector = await getSectorFromFinnhub(ticker);
           alertData.hasTuesdayBonus = hasTuesdayBonus;
@@ -9867,8 +9682,6 @@ if (process.stdin.isTTY) {
           alertData.custodianName = custodianName;
           alertData.filingTimeMultiplier = filingTimeMultiplier;
           alertData.filingTimeBonus = filingTimeBonus;
-          alertData.reverseSplitRatio = reverseSplitRatio;
-          alertData.reverseSplitReason = reverseSplitReason;
           alertData.deterministicPattern = deterministic.pattern;
           alertData.deterministicMechanism = deterministic.mechanism;
           alertData.deterministicPhrase = deterministicPhrase;
