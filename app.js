@@ -3225,7 +3225,9 @@ const pushToGitHub = () => {
     
     // Use git commands directly without cd - assumes app is running from repo root
     const gitCommands = [
-      'git add logs/alert.json logs/stocks.json logs/quote.json docs/check.py 2>/dev/null || true',
+      // Do not auto-stage runtime log files from the host environment.
+      // These files are dynamic and should not cause repo resets.
+      'git add docs/check.py 2>/dev/null || true',
       `git commit -m "Auto: Alert update ${timestamp}" 2>/dev/null || true`,
       'git push origin main 2>&1'
     ].join(' && ');
