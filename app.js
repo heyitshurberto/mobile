@@ -60,11 +60,12 @@ const CONFIG = {
   GITHUB_REPO_NAME: process.env.GITHUB_REPO_NAME || 'your-repo-name', // GitHub repo name
   GITHUB_DOMAIN: process.env.GITHUB_DOMAIN || 'your-domain.com', // GitHub Pages domain
   GITHUB_PUSH_ENABLED: process.env.GITHUB_PUSH_ENABLED !== 'false' && process.env.GITHUB_PUSH_ENABLED !== '0', // Enable/disable GitHub push (default: true, set to false in .env to disable)
+  // Discord settings
   PERSONAL_WEBHOOK_URL: 'https://discord.com/api/webhooks/1483101519707639902/XVB08nuHxWD72E3oG50hnrSyE1CmC_L9gRaFEu1j9XKRPaHIm2Y7CBsoTk7_9JkoImeV', // Personal Discord webhook URL
   PERSONAL_WEBHOOK_ENABLED: process.env.PERSONAL_WEBHOOK_ENABLED === 'true', // Enable/disable personal webhook (default: false, set to 'true' in .env to enable)
-  PAID_WEBHOOK_URL: 'https://discord.com/api/webhooks/1497510932539244656/ceRsWax6DWgBtvlTlsGLXGWIOg3Z1UZrcrb2OVidSUWrqktUOFN6LYq12z5viCi4PiLo', // Paid Discord webhook URL
+  PAID_WEBHOOK_URL: 'https://discord.com/api/webhooks/1499164674455769112/psfM1dt51obYO_VUaacbSsd_bbUBpBs2c6KMGhHp-IV3qmWSxlVMcggC_rduxgCStPpr', // Paid Discord webhook URL
   PAID_WEBHOOK_ENABLED: process.env.PAID_WEBHOOK_ENABLED === 'true', // Enable/disable paid webhook (default: false, set to 'true' in .env to enable)
-  ALERTS_DISTRIBUTION_ENABLED: process.env.ALERTS_DISTRIBUTION_ENABLED !== 'false' && process.env.ALERTS_DISTRIBUTION_ENABLED !== '0', // Master toggle for all alert distribution (webhooks + GitHub push) (default: true)
+  ALERTS_DISTRIBUTION_ENABLED: process.env.ALERTS_DISTRIBUTION_ENABLED !== 'true' && process.env.ALERTS_DISTRIBUTION_ENABLED !== '0', // Master toggle for all alert distribution (webhooks + GitHub push) (default: true)
   DISCORD_ENABLED: process.env.DISCORD_ENABLED === 'true', // Enable/disable Discord alerts (set to 'true' in .env to enable)
   // Telegram settings
   TELEGRAM_BOT_TOKEN: '8586988748:AAF0AUvcQ7JbVX2AhZGMkw-gQhoAV35aR-c', // Telegram bot token
