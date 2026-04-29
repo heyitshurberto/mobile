@@ -1639,6 +1639,21 @@ const calculateExpiryDate = () => {
 
 const saveAlert = (alertData) => {
   try {
+    // Enforce tradable alert window: 9:00 AM - 4:00 PM ET on weekdays only.
+    const now = new Date();
+    const etTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+    const etHour = etTime.getHours();
+    const etMinutes = etTime.getMinutes();
+    const etTotalMin = etHour * 60 + etMinutes;
+    const dayOfWeek = etTime.getDay(); // 0=Sunday, 6=Saturday
+    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+    const isTradableWindow = !isWeekend && etTotalMin >= 540 && etTotalMin <= 960; // 9:00 AM - 4:00 PM ET
+
+    if (!isTradableWindow) {
+      log('INFO', `Skipping alert for $${alertData.ticker || 'UNKNOWN'} - outside tradable window (${etTime.toLocaleString('en-US', { timeZone: 'America/New_York' })})`);
+      return;
+    }
+
     // Check daily alert limit
     if (isDailyLimitReached()) {
       log('INFO', `Daily alert limit reached (${dailyAlertCount}/9), sending only to personal webhook`);
@@ -1750,10 +1765,10 @@ const saveAlert = (alertData) => {
     alerts.push(enrichedData);
     
     // Remove expired alerts (keep non-expired ones only)
-    const now = new Date();
+    const currentTime = new Date();
     alerts = alerts.filter(a => {
       if (a.expiresAt) {
-        return new Date(a.expiresAt) > now;
+        return new Date(a.expiresAt) > currentTime;
       }
       return true; // Keep if no expiry set
     });
@@ -3117,6 +3132,17 @@ ${secLink}`;
   } catch (err) {
     log('ERROR', `Personal webhook error: ${err.message}`);
   }
+};
+
+const isTradableWindowET = () => {
+  const now = new Date();
+  const etTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+  const etHour = etTime.getHours();
+  const etMinutes = etTime.getMinutes();
+  const etTotalMin = etHour * 60 + etMinutes;
+  const dayOfWeek = etTime.getDay();
+  const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+  return !isWeekend && etTotalMin >= 540 && etTotalMin <= 960;
 };
 
 const sendPaidWebhook = (alertData) => {
