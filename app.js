@@ -3278,7 +3278,7 @@ const pushToGitHub = () => {
     log('ERR', `Git operations failed: ${err.message}`);
   }
 
-  // Optional gist backup for stocks and alerts
+  // Optional gist backup for stocks, alerts, and CSV tracking data
   if (CONFIG.GITHUB_GIST_ENABLED && CONFIG.GITHUB_GIST_ID && CONFIG.GITHUB_GIST_TOKEN) {
     const gistFiles = {};
     try {
@@ -3290,6 +3290,11 @@ const pushToGitHub = () => {
       gistFiles['alert.json'] = { content: fs.readFileSync(CONFIG.ALERTS_FILE, 'utf8') };
     } catch (err) {
       log('WARN', `Gist backup: failed to read ${CONFIG.ALERTS_FILE}: ${err.message}`);
+    }
+    try {
+      gistFiles['track.csv'] = { content: fs.readFileSync(CONFIG.CSV_FILE, 'utf8') };
+    } catch (err) {
+      log('WARN', `Gist backup: failed to read ${CONFIG.CSV_FILE}: ${err.message}`);
     }
 
     if (Object.keys(gistFiles).length > 0) {
