@@ -4269,11 +4269,11 @@ const renderLoginPage = () => `
     }
     
     .notification-item:hover {
-      background-color: rgba(100, 150, 255, 0.06);
+      background-color: rgba(152, 152, 152, 0.06);
     }
 
     body.dark-mode .notification-item:hover {
-      background-color: rgba(100, 150, 255, 0.1);
+      background-color: rgba(99, 99, 99, 0.1);
     }
 
     body.dark-mode .notification-item {
@@ -4514,7 +4514,7 @@ const renderLoginPage = () => `
 <body>
   <div class="container" id="loginContainer">
     <div style="position: absolute; top: 10px; left: 10px; display: flex; gap: 9px; align-items: center;">
-      <a href="#" onclick="if(confirm('Visit the Community on Discord?')) window.open('https://discord.gg/5SQcvhfN', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 5px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 25px; width: 24px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
+      <a href="#" onclick="if(confirm('Visit the Ж Community on Discord?')) window.open('https://discord.gg/5SQcvhfN', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 5px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 25px; width: 24px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
       <a href="#" onclick="if(confirm('Visit @cartelwrld on X?')) window.open('https://x.com/cartelwrld', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 15px; width: 17px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
     </div>
     <div style="position: absolute; top: 15px; right: 15px; display: flex; gap: 12px; align-items: center;">
@@ -4548,7 +4548,7 @@ const renderLoginPage = () => `
     <!-- Email Entry Section -->
     <div class="section active" id="emailSection">
       <!-- Performance Stats Section - LOGIN PAGE ONLY -->
-      <div id="loginStatsBox" onclick="openStatsHistoryModal()" style="background: rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.06); border-radius: 6px; padding: 12px 16px; margin-bottom: 20px; font-size: 12px; display: block; cursor: pointer; transition: all 0.2s ease;" onmouseover="this.style.backgroundColor='rgba(0,0,0,0.04)'; this.style.borderColor='rgba(0,0,0,0.08)';" onmouseout="this.style.backgroundColor='rgba(0,0,0,0.02)'; this.style.borderColor='rgba(0,0,0,0.06)';">
+      <div id="loginStatsBox" onclick="openStatsHistoryModal()" style="background: rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.06); border-radius: 6px; padding: 12px 16px; margin-bottom: 20px; font-size: 12px; display: block; cursor: pointer; transition: all 0.2s ease;">
         <div style="display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
           <div>
             <div style="opacity: 0.7; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Win Rate</div>
@@ -7473,7 +7473,7 @@ app.get('/auth-verify', (req, res) => {
     }
     button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+      box-shadow: 0 10px 20px rgba(83, 83, 83, 0.3);
     }
     button:disabled {
       opacity: 0.5;

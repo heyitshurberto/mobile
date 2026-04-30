@@ -804,11 +804,11 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         }
         
         .stat-box {
-            border: 1px solid rgba(130,130,130,0.35);
-            padding: 10.75px;
+            border: 1px solid rgba(130,130,130,0.20);
+            padding: 11px;
             text-align: center;
-            background: #f8f8f8;
-            border-radius: 4px;
+            background: #fafafa;
+            border-radius: 6px;
             transition: background-color 0.2s ease, border-color 0.2s ease;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
@@ -1029,7 +1029,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             font-size: 13px;
             font-weight: 500;
             margin-top: 8px;
-            font-family: 'DejaVu Sans', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
         #last-update {
             font-size: 12.2px !important;
@@ -3360,31 +3360,21 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         function clearNotifications() {
             customConfirm('Clear all alerts?', null).then(confirmed => {
                 if (confirmed) {
-                    // Send request to clear alerts on server
-                    fetch('/api/clear-alerts', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' }
-                    }).then(res => res.json()).then(data => {
-                        // Clear only recent and inbox, NOT history
-                        const recentList = document.getElementById('notification-list');
-                        const inboxList = document.getElementById('notification-inbox-list');
-                        
-                        [recentList, inboxList].forEach(list => {
-                            list.innerHTML = '';
-                            const emptyState = document.createElement('div');
-                            emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
-                            emptyState.textContent = 'No alerts';
-                            list.appendChild(emptyState);
-                        });
-                        
-                        // Clear local storage
-                        localStorage.removeItem('recentAlerts');
-                        
-                        // Reload the page after 200ms to refresh everything
-                        setTimeout(() => {
-                            location.reload();
-                        }, 200);
-                    }).catch(err => console.error('Error clearing alerts:', err));
+                    // Only clear the local cached recent alerts, do not delete the source alert.json file.
+                    const recentList = document.getElementById('notification-list');
+                    recentList.innerHTML = '';
+                    const emptyState = document.createElement('div');
+                    emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
+                    emptyState.textContent = 'No alerts';
+                    recentList.appendChild(emptyState);
+
+                    // Mark the local cache as cleared and remove any stored recent alerts.
+                    localStorage.setItem('recentAlertsCleared', 'true');
+                    localStorage.removeItem('recentAlerts');
+                    
+                    // Update notification count and retain history/inbox data.
+                    notifications = [];
+                    updateNotificationCount();
                 }
             });
         }
@@ -3425,6 +3415,16 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         }
 
         function loadRecentAlerts() {
+            if (localStorage.getItem('recentAlertsCleared') === 'true') {
+                const list = document.getElementById('notification-list');
+                list.innerHTML = '';
+                const emptyState = document.createElement('div');
+                emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
+                emptyState.textContent = 'No recent alerts';
+                list.appendChild(emptyState);
+                updateNotificationCount();
+                return;
+            }
             const alertUrl = '/logs/alert.json';
             
             fetch(alertUrl)
@@ -3461,8 +3461,10 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                         const date = new Date(alert.recordedAt);
                         const dateStr = date.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' });
                         const timeStr = date.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
-                        const floatStr = alert.float && alert.float !== 'N/A' ? (alert.float / 1000000).toFixed(2) + 'm' : 'N/A';
-                        const soStr = alert.soRatio || 'N/A';
+                        const marketCapStr = alert.marketCap && alert.marketCap !== 'N/A' ? '$' + parseFloat(alert.marketCap).toLocaleString() : 'N/A';
+                        const ftdStr = alert.ftd !== false && alert.ftd !== null && alert.ftd !== undefined && alert.ftd !== 'False'
+                            ? (typeof alert.ftd === 'number' ? alert.ftd.toLocaleString() : alert.ftd)
+                            : 'False';
                         let insiderStr = 'N/A';
                         if (alert.insiderPercent && alert.insiderPercent !== 'N/A') {
                             const insiderVal = parseFloat(alert.insiderPercent) * 100;
@@ -3472,11 +3474,14 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                         const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${alert.cik}&type=6-K&dateb=&owner=exclude&count=100`;
                         const saLink = `https://www.stockanalysis.com/stocks/${alert.ticker.toLowerCase()}/`;
                         const direction = alert.isShort ? 'SHORT' : 'LONG';
+                        const sectorText = alert.sector && alert.sector !== 'N/A' ? alert.sector : 'N/A';
                         
                         item.innerHTML = `
-                            <div style="margin-bottom: 8px;"><b style="font-weight: 700;"></b> $${alert.ticker} <b style="font-weight: 700; font-style: italic;">${direction}</b> @ $${alert.price}</div>
-                            <div style="font-size: 11px; opacity: 0.77; margin-bottom: 4px;">Float: ${floatStr} | S/O: ${soStr}</div>
-                            <div style="margin-top: 2px; font-size: 10px; opacity: 0.5;">${dateStr} ${timeStr}</div>
+                            <div style="margin-bottom: 8px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+                                <span style="text-decoration: underline;">$${alert.ticker} <i style="font-weight: 700;">${direction}</i> @ $${alert.price} </span>
+                                <span style="font-size: 10px; opacity: 0.5; font-style: italic; white-space: nowrap;">${dateStr} ${timeStr}</span>
+                            </div>
+                            <div style="font-size: 11px; opacity: 0.77; margin-bottom: 4px;">Sector: ${sectorText} | Market Cap: ${marketCapStr} | FTD: ${ftdStr}</div>
                         `;
                         
                         item.addEventListener('click', () => {
@@ -3628,25 +3633,25 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                         let hoursLeft = 0;
                         let minutesLeft = 0;
                         let expireText = 'N/A';
+                        let expireLabel = '';
                         if (stock.expiresAt) {
                           const now = new Date();
                           const expiry = new Date(stock.expiresAt);
                           const msRemaining = expiry - now;
+                          const expiryDate = expiry.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' });
+                          const expiryTime = expiry.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
                           if (msRemaining > 0) {
                             daysLeft = Math.floor(msRemaining / (1000 * 60 * 60 * 24));
                             hoursLeft = Math.floor((msRemaining / (1000 * 60 * 60)) % 24);
                             minutesLeft = Math.floor((msRemaining / (1000 * 60)) % 60);
                             expireText = `${daysLeft}d ${hoursLeft}h ${minutesLeft}m`;
+                            expireLabel = `Expires: ${expireText}`;
                           } else {
-                            // Calculate time expired (negative remaining)
-                            const msExpired = Math.abs(msRemaining);
-                            const daysExpired = Math.floor(msExpired / (1000 * 60 * 60 * 24));
-                            const hoursExpired = Math.floor((msExpired / (1000 * 60 * 60)) % 24);
-                            const minutesExpired = Math.floor((msExpired / (1000 * 60)) % 60);
-                            expireText = daysExpired > 0 ? `expired ${daysExpired}d ${hoursExpired}h ago` : (hoursExpired > 0 ? `expired ${hoursExpired}h ${minutesExpired}m ago` : `expired ${minutesExpired}m ago`);
+                            expireText = `Expired: ${expiryDate} ${expiryTime}`;
+                            expireLabel = expireText;
                           }
                         }
-                        
+
                         const isExpired = stock.expiresAt && new Date() > new Date(stock.expiresAt);
                         
                         if (isExpired) {
@@ -3686,7 +3691,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                         
                         // Format percentage with proper sign
                         const percentSign = peakPercent >= 0 ? '+' : '';
-                        const peakDisplay = `Peak: $${peakPrice}   <b style="font-weight: 600;">${percentSign}${peakPercent.toFixed(2)}%</b> (Expires: ${expireText})`;
+                        const peakDisplay = `Peak: $${peakPrice}   <b style="font-weight: 600;">${percentSign}${peakPercent.toFixed(2)}%</b> (${expireLabel})`;
                         
                         // Determine color based on position type and performance
                         // For SHORT: positive peakPercent = profit (green), negative = loss (red)
@@ -3695,10 +3700,10 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                         let peakColor = peakPercent > 0 ? '#00aa00' : peakPercent < 0 ? '#ff4444' : 'inherit';
                         
                         item.innerHTML = `
-                            <div style="margin-bottom: 5px;"><b style="font-weight: 700;"></b> $${stock.ticker} <b style="font-weight: 700; font-style: italic;">${direction}</b> @ $${stock.price}</div>
-                            <div style="font-size: 10.5px; opacity: 0.6; margin-bottom: 3px;">Alert Time: ${dateStr} ${timeStr}</div>
+                            <div style="margin-bottom: 5px; text-decoration: underline;"><b style="font-weight: 700;"></b> $${stock.ticker} <b style="font-weight: 700; font-style: italic;">${direction}</b> @ $${stock.price}</div>
+                            <div style="font-size: 10.5px; opacity: 0.6; margin-bottom: 3px;">Date: ${dateStr} ${timeStr} UTC</div>
                             <div style="font-size: 11px; opacity: 0.9; color: ${peakColor}; font-style: italic;">${peakDisplay}</div>
-                        `
+                        `;
                         
                         item.addEventListener('click', () => {
                             customConfirm(`View details for <b><i>$${stock.ticker}</i></b>?`, saLink);
@@ -4331,7 +4336,7 @@ ${alert.signals && typeof alert.signals === 'object' && Object.keys(alert.signal
 </div>
 <div class="popup-section">
                                 <h4>Quote Metrics</h4>
-                                <pre style="margin-top: 4px; padding: 6px; border-radius: 4px; font-size: 11px; line-height: 1.4; font-family: monospace; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);"><span style="opacity: 0.7;">Market Cap:</span> ${alert.marketCap ? '$' + (alert.marketCap / 1000000).toFixed(2) + 'M' : 'N/A'}
+                                <pre style="margin-top: 4px; padding: 6px; border-radius: 4px; font-size: 11px; line-height: 1.4; font-family: monospace; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);"><span style="opacity: 0.7;">Market Cap:</span> ${alert.marketCap ? '$' + alert.marketCap.toLocaleString() : 'N/A'}
 <span style="opacity: 0.7;">Shares:</span> ${alert.sharesOutstanding ? alert.sharesOutstanding.toLocaleString() : 'N/A'}
 <span style="opacity: 0.7;">Float:</span> ${alert.float ? alert.float.toLocaleString() : 'N/A'}
 <span style="opacity: 0.7;">F/AV:</span> ${alert.fav || 'N/A'}
@@ -5049,6 +5054,17 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 let longCount = 0, longPL = 0;
                 let shortCount = 0, shortPL = 0;
                 let dataLoadedCount = 0;  // Track if prices have actually loaded
+
+                const allAlertsCount = Array.from(this.alerts.values()).flat().filter(alert => alert && Object.keys(alert).length > 0).length;
+                if (allAlertsCount === 0) {
+                    return {
+                        total: '0.00',
+                        longStr: '0.00',
+                        shortStr: '0.00',
+                        longCount: 0,
+                        shortCount: 0
+                    };
+                }
 
                 this.alerts.forEach(alerts => {
                     // Ensure we're working with an array
@@ -6473,7 +6489,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             ticker: stock.ticker, 
                             type: isShort ? 'SHORT' : 'LONG',
                             companyName: stock.companyName || 'N/A',
-                            date: recordDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' })
+                            date: recordDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' }) + ' ' + recordDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })
                         };
                     }
                     if (peakPercent < worstTrade.percent) {
@@ -6482,7 +6498,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             ticker: stock.ticker, 
                             type: isShort ? 'SHORT' : 'LONG',
                             companyName: stock.companyName || 'N/A',
-                            date: recordDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' })
+                            date: recordDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' }) + ' ' + recordDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })
                         };
                     }
                     
@@ -6493,7 +6509,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                         peakPrice: peakPrice,
                         return: peakPercent,
                         date: recordDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' }),
-                        time: recordDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }),
+                        time: recordDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false }),
                         duration: duration === 0 ? 'Today' : duration === 1 ? 'Yesterday' : `${duration}d ago`,
                         float: stock.float || 'N/A',
                         sector: stock.sector || 'N/A',
@@ -6534,7 +6550,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 const detailBox = document.createElement('div');
                 detailBox.style.cssText = `
                     background: ${isDark ? '#1e1e1e' : '#ffffff'}; border-radius: 12px;
-                    padding: 16px; max-width: 380px; width: 90%; cursor: default;
+                    padding: 16px; max-width: 380px; width: 90%; max-height: 72vh; overflow-y: auto; cursor: default;
                     border: 1px solid ${isDark ? '#333' : '#e5e7eb'}; box-shadow: 0 20px 40px rgba(0,0,0,0.25);
                     position: relative;
                 `;
@@ -6553,13 +6569,13 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                         <div style="font-size: 10px; opacity: 0.7; margin-bottom: 3px;">Float: ${trade.float.toLocaleString()}</div>
                         <div style="font-size: 10px; opacity: 0.7; margin-bottom: 3px;">Shares Outstanding: ${trade.sharesOutstanding.toLocaleString()}</div>
                         <div style="font-size: 10px; opacity: 0.7; margin-bottom: 7px;">Market Cap: ${trade.marketCap.toLocaleString()}</div>
-                        <div style="display: flex; justify-content: space-between; padding: 4px 0; border-top: 1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}; margin-top: 4px;">
+                        <div style="display: flex; justify-content: space-between; padding: 5px 0; border-top: 1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}; margin-top: 4px;">
                             <div>
-                                <span style="opacity: 0.6; font-size: 10px;">Price Change</span>
+                                <span style="font-size: 10px; font-weight: 400; color: ${isDark ? '#ccc' : '#666'}; opacity: 0.9;">Price Change</span>
                             </div>
-                            <span style="font-weight: 600; font-size: 10px;">$${trade.entryPrice.toFixed(2)} <span style="font-weight: 600;"> → $${trade.peakPrice.toFixed(2)}</span></span>
+                            <span style="font-family: 'DejaVu Sans Light', 'DejaVu Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 300; font-size: 10px; color: ${isDark ? '#f0f0f0' : '#4d4d4d'};">$${trade.entryPrice.toFixed(2)} <span style="color: ${isDark ? '#f0f0f0' : '#4d4d4d'}; font-weight: 300;"> → $${trade.peakPrice.toFixed(2)}</span></span>
                         </div>
-                        <div style="position: absolute; bottom: 7px; left: 16px; font-size: 9px; opacity: 0.5;">${trade.date}</div>
+                        <div style="position: absolute; bottom: 7px; left: 16px; font-size: 9px; opacity: 0.5;">${trade.date} ${trade.time}</div>
                     </div>
                 `;
             
@@ -6583,10 +6599,10 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             
             const isDark = document.body.classList.contains('dark-mode');
             const bgColor = isDark ? '#1e1e1e' : '#ffffff';
-            const textColor = isDark ? '#ffffff' : '#1a1a1a';
+            const textColor = isDark ? '#ffffff' : '#2c2c2c';
             const borderColor = isDark ? '#333333' : '#e5e7eb';
-            const headerBg = isDark ? '#2a2a2a' : '#f9fafb';
-            const cardBg = isDark ? '#404040' : '#f5f5f5';
+            const headerBg = isDark ? '#2a2a2a' : '#f7f7f9';
+            const cardBg = isDark ? '#3a3a3a' : '#f8f8fa';
             
             modal.innerHTML = `
                 <style>
@@ -6628,6 +6644,12 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     .trade-item span:first-child {
                         opacity: 0.85;
                     }
+                    .stat-card, .stat-card * {
+                        font-family: 'DejaVu Sans', 'DejaVu Sans Light', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                    }
+                    .stat-card {
+                        font-weight: 400;
+                    }
                     .trade-ticker {
                         font-weight: 600;
                         color: ${textColor};
@@ -6645,8 +6667,10 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                         font-weight: 500;
                     }
                     .trade-return {
-                        font-weight: 700;
+                        font-weight: 400;
                         font-size: 11px;
+                        color: ${isDark ? '#ddd' : '#333'};
+                        font-family: 'DejaVu Sans', 'DejaVu Sans Light', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
                     }
                     .trade-item:hover {
                         background: ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.02)'};
@@ -6657,6 +6681,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     }
                 </style>
                 <div style="
+                    font-family: 'DejaVu Sans', 'DejaVu Sans Light', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
                     background: ${bgColor}; border-radius: 14px; max-width: 464px; width: 96%;
                     max-height: 82vh; box-shadow: 0 20px 40px rgba(0,0,0,0.2);
                     border: 1px solid ${borderColor}; animation: modalFadeIn 0.3s ease-out; cursor: default;
@@ -6668,7 +6693,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                         display: flex; justify-content: space-between; align-items: center;
                         flex-shrink: 0;
                     ">
-                        <h2 style="margin: 0; font-size: 13px; font-weight: 700; color: ${textColor}; letter-spacing: -0.3px;">
+                        <h2 style="margin: 0; font-size: 13px; font-weight: 700; color: ${textColor}; letter-spacing: -0.3px;  font-family: "Söhne", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;">
                             Alert Summary
                         </h2>
                         <button onclick="this.closest('div').parentElement.parentElement.remove()" style="
@@ -6681,58 +6706,58 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     <div style="padding: 14px; overflow-y: auto; flex: 1; min-height: 0;">
                         <!-- Core Overview -->
                         <div class="stat-card core-overview">
-                            <h3>Trade Metrics</h3>
+                            <h3 style="font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Trade Metrics</h3>
                             <div class="trade-item">
                                 <span>Total Alerts</span>
                                 <span class="trade-return" style="font-style: italic;">${totalTrades}</span>
                             </div>
                             <div class="trade-item">
                                 <span>Win Rate</span>
-                                <span class="trade-return" style="color: ${parseFloat(winningTrades / totalTrades * 100) >= 50 ? '#00dd00' : '#ff3333'}; font-family: 'DejaVu Sans Mono', monospace;">${(winningTrades / totalTrades * 100).toFixed(1)}%</span>
+                                <span class="trade-return">${(winningTrades / totalTrades * 100).toFixed(1)}%</span>
                             </div>
                             <div class="trade-item">
                                 <span>Wins / Losses</span>
-                                <span class="trade-return"><span style="color: #00dd00;">${winningTrades}W</span> / <span style="color: #ff3333;">${losingTrades}L</span></span>
+                                <span class="trade-return">${winningTrades}W / ${losingTrades}L</span>
                             </div>
                             <div class="trade-item">
                                 <span>Avg Win</span>
-                                <span class="trade-return" style="color: #00dd00; font-family: 'DejaVu Sans Mono', monospace;">+${avgWin.toFixed(2)}%</span>
+                                <span class="trade-return">+${avgWin.toFixed(2)}%</span>
                             </div>
                             <div class="trade-item">
                                 <span>Avg Loss</span>
-                                <span class="trade-return" style="color: #ff3333; font-family: 'DejaVu Sans Mono', monospace;">${avgLoss.toFixed(2)}%</span>
+                                <span class="trade-return">${avgLoss.toFixed(2)}%</span>
                             </div>
                         </div>
 
                         <!-- Best & Worst -->
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
                             <div class="stat-card">
-                                <h3 style="margin-bottom: 8px; border-bottom: 1px solid #00dd00; padding-bottom: 6px; font-style: italic;">Best Play</h3>
+                                <h3 style="margin-bottom: 8px; border-bottom: 1px solid #00dd00; padding-bottom: 6px; font-style: italic; font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Best Play</h3>
                                 <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
                                     <div style="flex: 1;">
-                                        <div style="font-size: 12px; font-weight: 700; color: ${textColor}; margin-bottom: 2px;">$${bestTrade.ticker} <span style="font-size: 10px; opacity: 0.65;">${bestTrade.companyName}</span></div>
-                                        <div style="font-size: 11px; opacity: 0.80; font-style: italic; font-weight: 600; color: ${isDark ? '#bbb' : '#666'};">${bestTrade.type}</div>
+                                        <div style="font-size: 11px; font-weight: 700; color: ${textColor}; margin-bottom: 2px;">$${bestTrade.ticker} <span style="font-size: 9px; opacity: 0.65;">${bestTrade.companyName}</span></div>
+                                        <div style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 600; color: ${isDark ? '#bbb' : '#666'};">${bestTrade.type}</div>
                                     </div>
-                                    <div style="color: #00dd00; font-weight: 700; font-size: 13px; text-align: right; font-family: 'DejaVu Sans Mono', monospace;">+${bestTrade.percent.toFixed(2)}%</div>
+                                    <div style="color: #00dd00; font-size: 12px; text-align: right;">+${bestTrade.percent.toFixed(2)}%</div>
                                 </div>
-                                <div style="font-size: 9px; opacity: 0.55; font-style: italic;">${bestTrade.date}</div>
+                                <div style="font-size: 8px; opacity: 0.55; font-style: italic;">${bestTrade.date} UTC</div>
                             </div>
                             <div class="stat-card">
-                                <h3 style="margin-bottom: 8px; border-bottom: 1px solid #ff3333; padding-bottom: 6px; font-style: italic;">Worst Play</h3>
+                                <h3 style="margin-bottom: 8px; border-bottom: 1px solid #ff3333; padding-bottom: 6px; font-style: italic;  font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Worst Play</h3>
                                 <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
                                     <div style="flex: 1;">
-                                        <div style="font-size: 12px; font-weight: 700; color: ${textColor}; margin-bottom: 2px;">$${worstTrade.ticker} <span style="font-size: 10px; opacity: 0.65;">${worstTrade.companyName}</span></div>
-                                        <div style="font-size: 11px; opacity: 0.80; font-style: italic; font-weight: 600; color: ${isDark ? '#bbb' : '#666'};">${worstTrade.type}</div>
+                                        <div style="font-size: 11px; font-weight: 700; color: ${textColor}; margin-bottom: 2px;">$${worstTrade.ticker} <span style="font-size: 9px; opacity: 0.65;">${worstTrade.companyName}</span></div>
+                                        <div style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 600; color: ${isDark ? '#bbb' : '#666'};">${worstTrade.type}</div>
                                     </div>
-                                    <div style="color: #ff3333; font-weight: 700; font-size: 13px; text-align: right; font-family: 'DejaVu Sans Mono', monospace;">${worstTrade.percent.toFixed(2)}%</div>
+                                    <div style="color: #ff3333; font-size: 12px; text-align: right;">${worstTrade.percent.toFixed(2)}%</div>
                                 </div>
-                                <div style="font-size: 9px; opacity: 0.55; font-style: italic;">${worstTrade.date}</div>
+                                <div style="font-size: 8px; opacity: 0.55; font-style: italic;">${worstTrade.date} UTC</div>
                             </div>
                         </div>
 
                         <!-- Top Performers -->
                         <div class="stat-card">
-                            <h3 style="font-style: italic;">Top Performers</h3>
+                            <h3 style="font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Top Performers</h3>
                             ${topPerformers.map(t => `
                                 <div class="trade-item" style="cursor: pointer; padding: 8px 12px; flex-direction: column; align-items: flex-start; border-bottom: 1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}; transition: all 0.2s ease;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'" onclick="window.showTradeDetail(${JSON.stringify(t).replace(/"/g, '&quot;')})">
                                     <div style="width: 100%; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
@@ -6741,7 +6766,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                                             <span style="font-size: 10px; opacity: 0.65;"> (${t.companyName})</span>
                                             <span style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 600; margin-left: 4px; color: ${isDark ? '#bbb' : '#666'};">${t.type}</span>
                                         </div>
-                                        <span class="trade-return" style="color: #00dd00; font-weight: 700; font-size: 12px; font-style: italic; font-family: 'DejaVu Sans Mono', monospace;">+${t.return.toFixed(2)}%</span>
+                                        <span class="trade-return" style="color: #00dd00; font-size: 11px; font-style: italic;">+${t.return.toFixed(2)}%</span>
                                     </div>
                                     <div style="font-size: 8px; opacity: 0.55;"><span style="font-style: italic;">${t.date}</span> • ${t.duration}</div>
                                 </div>
@@ -6750,7 +6775,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
 
                         <!-- Worst Performers -->
                         <div class="stat-card">
-                            <h3 style="font-style: italic;">Worst Performers</h3>
+                            <h3 style="font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Worst Performers</h3>
                             ${worstPerformers.map(t => `
                                 <div class="trade-item" style="cursor: pointer; padding: 8px 12px; flex-direction: column; align-items: flex-start; border-bottom: 1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}; transition: all 0.2s ease;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'" onclick="window.showTradeDetail(${JSON.stringify(t).replace(/"/g, '&quot;')})">
                                     <div style="width: 100%; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
@@ -6759,7 +6784,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                                             <span style="font-size: 10px; opacity: 0.65;"> (${t.companyName})</span>
                                             <span style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 600; margin-left: 4px; color: ${isDark ? '#bbb' : '#666'};">${t.type}</span>
                                         </div>
-                                        <span class="trade-return" style="color: ${t.return > 0 ? '#00dd00' : '#ff3333'}; font-weight: 700; font-size: 12px; font-style: italic; font-family: 'DejaVu Sans Mono', monospace;">${t.return > 0 ? '+' : ''}${t.return.toFixed(2)}%</span>
+                                        <span class="trade-return" style="color: ${t.return > 0 ? '#00dd00' : '#ff3333'}; font-size: 11px; font-style: italic;">${t.return > 0 ? '+' : ''}${t.return.toFixed(2)}%</span>
                                     </div>
                                     <div style="font-size: 8px; opacity: 0.55;"><span style="font-style: italic;">${t.date}</span> • ${t.duration}</div>
                                 </div>
@@ -6783,11 +6808,11 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
     
     <!-- Push Notification Settings Modal -->
     <div id="pushNotificationModal" class="modal" style="display: none; background: rgba(0,0,0,0.7); z-index: 10000;">
-        <div id="pushNotifModalContent" class="modal-content" style="border-radius: 12px; max-width: 450px; width: 90%; background: #ffffff; border: 1px solid #ddd; display: flex; flex-direction: column; max-height: 75vh;">
+        <div id="pushNotifModalContent" class="modal-content" style="border-radius: 12px; max-width: 450px; width: 90%; background: #ffffff; border: 1px solid #ddd; display: flex; flex-direction: column; max-height: 62vh; overflow: hidden;">
             <div id="pushNotifHeader" class="modal-header" style="padding: 12px 16px; border-bottom: 1px solid #ddd; background: #ffffff;">
                 <h2 style="margin: 0; font-size: 15px; color: #333;">Push Notifications</h2>
             </div>
-            <div id="pushNotifContent" style="padding: 16px 20px; max-height: calc(80vh - 120px); overflow-y: auto; background: #ffffff; color: #333; flex-shrink: 1; min-height: 0;">
+            <div id="pushNotifContent" style="padding: 16px 20px; max-height: calc(62vh - 120px); overflow-y: auto; background: #ffffff; color: #333; flex-shrink: 1; min-height: 0;">
                 <div style="margin-bottom: 16px;">
                     <label style="display: block; margin-bottom: 10px; font-weight: 600; color: #333;">Search Ticker</label>
                     <input type="text" id="tickerSearch" placeholder="Search ticker (e.g., $AAPL)" style="padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px; width: 100%; font-size: 12px; box-sizing: border-box;">
