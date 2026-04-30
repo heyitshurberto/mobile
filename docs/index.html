@@ -6458,19 +6458,15 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 const quoteData = quotes[stock.ticker] || {};
                 
                 let peakPercent = 0;
-                let peakPrice = alertPrice;
+                let peakPrice = stock.peakPrice || alertPrice;
                 if (alertPrice > 0) {
-                    const highest = parseFloat(quoteData.highest || stock.highest5Day || stock.price);
-                    const lowest = parseFloat(quoteData.lowest || stock.lowest5Day || stock.price);
-                    
+                    // Use the actual peak price tracked since alert (not historical market data)
                     if (isShort) {
-                        peakPercent = ((alertPrice - lowest) / alertPrice) * 100;
-                        peakPrice = lowest;
+                        peakPercent = ((alertPrice - peakPrice) / alertPrice) * 100;
                         totalShortTrades++;
                         if (peakPercent > 0) shortWins++;
                     } else {
-                        peakPercent = ((highest - alertPrice) / alertPrice) * 100;
-                        peakPrice = highest;
+                        peakPercent = ((peakPrice - alertPrice) / alertPrice) * 100;
                         totalLongTrades++;
                         if (peakPercent > 0) longWins++;
                     }

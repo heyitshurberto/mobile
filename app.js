@@ -1761,6 +1761,7 @@ const saveAlert = (alertData) => {
       try {
         fs.writeFileSync(CONFIG.STOCKS_FILE, JSON.stringify(stocks, null, 2));
         log('INFO', `Saved to ${CONFIG.STOCKS_FILE}: ${alertData.ticker}`);
+        pushToGistOnly();
       } catch (writeErr) {
         log('ERR', `Failed to write ${CONFIG.STOCKS_FILE}: ${writeErr.message}`);
       }
@@ -2042,6 +2043,7 @@ const syncPeakDataToStocks = (ticker, peakData) => {
     });
     
     fs.writeFileSync(CONFIG.STOCKS_FILE, JSON.stringify(stocks, null, 2));
+    pushToGistOnly();
   } catch (err) {
     // Silent fail - don't spam logs for this background sync
   }
@@ -2117,6 +2119,7 @@ const syncAllPeakData = () => {
     });
     
     fs.writeFileSync(CONFIG.STOCKS_FILE, JSON.stringify(stocks, null, 2));
+    pushToGistOnly();
     
     // Also update quote.json with the most extreme move (best profit or worst loss)
     try {
@@ -3238,6 +3241,53 @@ const sendTelegramAlert = (alertData) => {
   }
 };
 
+// Push stocks.json to GitHub Gist backup (independent of main GitHub push)
+const pushToGistOnly = () => {
+  if (!CONFIG.GITHUB_GIST_ENABLED || !CONFIG.GITHUB_GIST_ID || !CONFIG.GITHUB_GIST_TOKEN) {
+    return;
+  }
+
+  const gistFiles = {};
+  try {
+    gistFiles['stocks.json'] = { content: fs.readFileSync(CONFIG.STOCKS_FILE, 'utf8') };
+  } catch (err) {
+    log('WARN', `Gist backup: failed to read ${CONFIG.STOCKS_FILE}: ${err.message}`);
+  }
+  try {
+    gistFiles['alert.json'] = { content: fs.readFileSync(CONFIG.ALERTS_FILE, 'utf8') };
+  } catch (err) {
+    log('WARN', `Gist backup: failed to read ${CONFIG.ALERTS_FILE}: ${err.message}`);
+  }
+  try {
+    gistFiles['track.csv'] = { content: fs.readFileSync(CONFIG.CSV_FILE, 'utf8') };
+  } catch (err) {
+    log('WARN', `Gist backup: failed to read ${CONFIG.CSV_FILE}: ${err.message}`);
+  }
+
+  if (Object.keys(gistFiles).length > 0) {
+    fetch(`https://api.github.com/gists/${CONFIG.GITHUB_GIST_ID}`, {
+      method: 'PATCH',
+      headers: {
+        Authorization: `token ${CONFIG.GITHUB_GIST_TOKEN}`,
+        'Content-Type': 'application/json',
+        'User-Agent': 'node.js'
+      },
+      body: JSON.stringify({ files: gistFiles })
+    })
+    .then(async res => {
+      if (!res.ok) {
+        const text = await res.text();
+        log('WARN', `Gist backup failed (${res.status}): ${text}`);
+      } else {
+        log('INFO', `Gist backup updated: ${CONFIG.GITHUB_GIST_ID}`);
+      }
+    })
+    .catch(err => {
+      log('WARN', `Gist backup error: ${err.message}`);
+    });
+  }
+};
+
 const pushToGitHub = () => {
   // Check if alert distribution is enabled
   if (!CONFIG.ALERTS_DISTRIBUTION_ENABLED) {
@@ -3276,49 +3326,6 @@ const pushToGitHub = () => {
     });
   } catch (err) {
     log('ERR', `Git operations failed: ${err.message}`);
-  }
-
-  // Optional gist backup for stocks, alerts, and CSV tracking data
-  if (CONFIG.GITHUB_GIST_ENABLED && CONFIG.GITHUB_GIST_ID && CONFIG.GITHUB_GIST_TOKEN) {
-    const gistFiles = {};
-    try {
-      gistFiles['stocks.json'] = { content: fs.readFileSync(CONFIG.STOCKS_FILE, 'utf8') };
-    } catch (err) {
-      log('WARN', `Gist backup: failed to read ${CONFIG.STOCKS_FILE}: ${err.message}`);
-    }
-    try {
-      gistFiles['alert.json'] = { content: fs.readFileSync(CONFIG.ALERTS_FILE, 'utf8') };
-    } catch (err) {
-      log('WARN', `Gist backup: failed to read ${CONFIG.ALERTS_FILE}: ${err.message}`);
-    }
-    try {
-      gistFiles['track.csv'] = { content: fs.readFileSync(CONFIG.CSV_FILE, 'utf8') };
-    } catch (err) {
-      log('WARN', `Gist backup: failed to read ${CONFIG.CSV_FILE}: ${err.message}`);
-    }
-
-    if (Object.keys(gistFiles).length > 0) {
-      fetch(`https://api.github.com/gists/${CONFIG.GITHUB_GIST_ID}`, {
-        method: 'PATCH',
-        headers: {
-          Authorization: `token ${CONFIG.GITHUB_GIST_TOKEN}`,
-          'Content-Type': 'application/json',
-          'User-Agent': 'node.js'
-        },
-        body: JSON.stringify({ files: gistFiles })
-      })
-      .then(async res => {
-        if (!res.ok) {
-          const text = await res.text();
-          log('WARN', `Gist backup failed (${res.status}): ${text}`);
-        } else {
-          log('INFO', `Gist backup updated: ${CONFIG.GITHUB_GIST_ID}`);
-        }
-      })
-      .catch(err => {
-        log('WARN', `Gist backup error: ${err.message}`);
-      });
-    }
   }
 };
 
