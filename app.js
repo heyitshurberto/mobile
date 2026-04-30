@@ -1654,7 +1654,7 @@ const saveAlert = (alertData) => {
     const isTradableWindow = !isWeekend && etTotalMin >= 540 && etTotalMin <= 960; // 9:00 AM - 4:00 PM ET
 
     if (!isTradableWindow) {
-      log('INFO', `Skipping alert for $${alertData.ticker || 'UNKNOWN'} - outside tradable window (${etTime.toLocaleString('en-US', { timeZone: 'America/New_York' })})`);
+      log('SKIP', `Skipping alert for $${alertData.ticker || 'UNKNOWN'} - outside tradable window (${etTime.toLocaleString('en-US', { timeZone: 'America/New_York' })})`);
       return;
     }
 
