@@ -6563,13 +6563,13 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             </div>
                             <span style="cursor: pointer; opacity: 0.5; font-size: 20px; padding: 0; margin: -8px -8px -8px 0;" onclick="event.preventDefault(); event.stopPropagation(); this.closest('[data-detail-bg]').remove();">✕</span>
                         </div>
-                        <div style="font-size: 12px; opacity: 0.80; font-style: italic; font-weight: 600; color: ${isDark ? '#bbb' : '#666'}; margin-bottom: 6px;">${trade.type}</div>
-                        <div style="font-size: 13px; font-weight: 600; color: ${trade.return > 0 ? '#00dd00' : '#ff3333'}; margin-bottom: 7px;">${trade.return > 0 ? '+' : ''}${trade.return.toFixed(2)}%</div>
-                        <div style="font-size: 10px; opacity: 0.7; margin-bottom: 3px;">Sector: ${trade.sector}</div>
-                        <div style="font-size: 10px; opacity: 0.7; margin-bottom: 3px;">Float: ${trade.float.toLocaleString()}</div>
-                        <div style="font-size: 10px; opacity: 0.7; margin-bottom: 3px;">Shares Outstanding: ${trade.sharesOutstanding.toLocaleString()}</div>
-                        <div style="font-size: 10px; opacity: 0.7; margin-bottom: 7px;">Market Cap: ${trade.marketCap.toLocaleString()}</div>
-                        <div style="display: flex; justify-content: space-between; padding: 5px 0; border-top: 1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}; margin-top: 4px;">
+                        <div style="font-size: 12px; opacity: 0.80; font-style: italic; font-weight: 600; color: ${isDark ? '#bbb' : '#666'}; margin-bottom: 4px;">${trade.type}</div>
+                        <div style="font-size: 14px; font-weight: 600; color: ${trade.return > 0 ? '#00dd00' : '#ff3333'}; margin-bottom: 9px;">${trade.return > 0 ? '+' : ''}${trade.return.toFixed(2)}%</div>
+                        <div style="font-size: 10px; opacity: 0.7; margin-bottom: 4px;">Sector: ${trade.sector}</div>
+                        <div style="font-size: 10px; opacity: 0.7; margin-bottom: 4px;">Float: ${trade.float.toLocaleString()}</div>
+                        <div style="font-size: 10px; opacity: 0.7; margin-bottom: 4px;">Shares Outstanding: ${trade.sharesOutstanding.toLocaleString()}</div>
+                        <div style="font-size: 10px; opacity: 0.7; margin-bottom: 8px;">Market Cap: ${trade.marketCap.toLocaleString()}</div>
+                        <div style="display: flex; justify-content: space-between; padding: 7px 0; border-top: 1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}; margin-top: 4px;">
                             <div>
                                 <span style="font-size: 10px; font-weight: 400; color: ${isDark ? '#ccc' : '#666'}; opacity: 0.9;">Price Change</span>
                             </div>
@@ -6693,7 +6693,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                         display: flex; justify-content: space-between; align-items: center;
                         flex-shrink: 0;
                     ">
-                        <h2 style="margin: 0; font-size: 13px; font-weight: 700; color: ${textColor}; letter-spacing: -0.3px;  font-family: "Söhne", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;">
+                        <h2 style="margin: 0; font-size: 13px; font-weight: 500; color: ${textColor}; letter-spacing: -0.3px;  font-family: "Söhne", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;">
                             Alert Summary
                         </h2>
                         <button onclick="this.closest('div').parentElement.parentElement.remove()" style="
@@ -6735,10 +6735,10 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                                 <h3 style="margin-bottom: 8px; border-bottom: 1px solid #00dd00; padding-bottom: 6px; font-style: italic; font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Best Play</h3>
                                 <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
                                     <div style="flex: 1;">
-                                        <div style="font-size: 11px; font-weight: 700; color: ${textColor}; margin-bottom: 2px;">$${bestTrade.ticker} <span style="font-size: 9px; opacity: 0.65;">${bestTrade.companyName}</span></div>
-                                        <div style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 600; color: ${isDark ? '#bbb' : '#666'};">${bestTrade.type}</div>
+                                        <div style="font-size: 11px; font-weight: 500; color: ${textColor}; margin-bottom: 2px;">$${bestTrade.ticker} - <span style="font-size: 10px; opacity: 0.65;">${bestTrade.companyName}</span></div>
+                                        <div style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 500; color: ${isDark ? '#bbb' : '#666'};">${bestTrade.type}</div>
                                     </div>
-                                    <div style="color: #00dd00; font-size: 12px; text-align: right;">+${bestTrade.percent.toFixed(2)}%</div>
+                                    <div style="color: #00dd00; font-size: 11px; text-align: right;">+${bestTrade.percent.toFixed(2)}%</div>
                                 </div>
                                 <div style="font-size: 8px; opacity: 0.55; font-style: italic;">${bestTrade.date} UTC</div>
                             </div>
@@ -6746,10 +6746,10 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                                 <h3 style="margin-bottom: 8px; border-bottom: 1px solid #ff3333; padding-bottom: 6px; font-style: italic;  font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Worst Play</h3>
                                 <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
                                     <div style="flex: 1;">
-                                        <div style="font-size: 11px; font-weight: 700; color: ${textColor}; margin-bottom: 2px;">$${worstTrade.ticker} <span style="font-size: 9px; opacity: 0.65;">${worstTrade.companyName}</span></div>
-                                        <div style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 600; color: ${isDark ? '#bbb' : '#666'};">${worstTrade.type}</div>
+                                        <div style="font-size: 11px; font-weight: 500; color: ${textColor}; margin-bottom: 2px;">$${worstTrade.ticker} - <span style="font-size: 10px; opacity: 0.65;">${worstTrade.companyName}</span></div>
+                                        <div style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 500; color: ${isDark ? '#bbb' : '#666'};">${worstTrade.type}</div>
                                     </div>
-                                    <div style="color: #ff3333; font-size: 12px; text-align: right;">${worstTrade.percent.toFixed(2)}%</div>
+                                    <div style="color: #ff3333; font-size: 11px; text-align: right;">${worstTrade.percent.toFixed(2)}%</div>
                                 </div>
                                 <div style="font-size: 8px; opacity: 0.55; font-style: italic;">${worstTrade.date} UTC</div>
                             </div>
@@ -6759,12 +6759,12 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                         <div class="stat-card">
                             <h3 style="font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Top Performers</h3>
                             ${topPerformers.map(t => `
-                                <div class="trade-item" style="cursor: pointer; padding: 8px 12px; flex-direction: column; align-items: flex-start; border-bottom: 1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}; transition: all 0.2s ease;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'" onclick="window.showTradeDetail(${JSON.stringify(t).replace(/"/g, '&quot;')})">
-                                    <div style="width: 100%; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+                                <div class="trade-item" style="cursor: pointer; padding: 13px 5px; flex-direction: column; align-items: flex-start; border-bottom: 1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}; transition: all 0.2s ease;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'" onclick="window.showTradeDetail(${JSON.stringify(t).replace(/"/g, '&quot;')})">
+                                    <div style="width: 100%; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px; margin-top: -5px;">
                                         <div>
-                                            <span class="trade-ticker" style="font-weight: 700;">$${t.ticker}</span>
+                                            <span class="trade-ticker" style="font-weight: 500;">$${t.ticker}</span>
                                             <span style="font-size: 10px; opacity: 0.65;"> (${t.companyName})</span>
-                                            <span style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 600; margin-left: 4px; color: ${isDark ? '#bbb' : '#666'};">${t.type}</span>
+                                            <span style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 500; margin-left: 4px; color: ${isDark ? '#bbb' : '#666'};">${t.type}</span>
                                         </div>
                                         <span class="trade-return" style="color: #00dd00; font-size: 11px; font-style: italic;">+${t.return.toFixed(2)}%</span>
                                     </div>
@@ -6777,12 +6777,12 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                         <div class="stat-card">
                             <h3 style="font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Worst Performers</h3>
                             ${worstPerformers.map(t => `
-                                <div class="trade-item" style="cursor: pointer; padding: 8px 12px; flex-direction: column; align-items: flex-start; border-bottom: 1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}; transition: all 0.2s ease;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'" onclick="window.showTradeDetail(${JSON.stringify(t).replace(/"/g, '&quot;')})">
-                                    <div style="width: 100%; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+                                <div class="trade-item" style="cursor: pointer; padding: 15px 5px; flex-direction: column; align-items: flex-start; border-bottom: 1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}; transition: all 0.2s ease;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'" onclick="window.showTradeDetail(${JSON.stringify(t).replace(/"/g, '&quot;')})">
+                                    <div style="width: 100%; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px; margin-top: -5px;">
                                         <div>
-                                            <span class="trade-ticker" style="font-weight: 700;">$${t.ticker}</span>
+                                            <span class="trade-ticker" style="font-weight: 500;">$${t.ticker}</span>
                                             <span style="font-size: 10px; opacity: 0.65;"> (${t.companyName})</span>
-                                            <span style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 600; margin-left: 4px; color: ${isDark ? '#bbb' : '#666'};">${t.type}</span>
+                                            <span style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 500; margin-left: 4px; color: ${isDark ? '#bbb' : '#666'};">${t.type}</span>
                                         </div>
                                         <span class="trade-return" style="color: ${t.return > 0 ? '#00dd00' : '#ff3333'}; font-size: 11px; font-style: italic;">${t.return > 0 ? '+' : ''}${t.return.toFixed(2)}%</span>
                                     </div>
