@@ -33,8 +33,8 @@ const CONFIG = {
   FILE_TIME: 1,                     // Historical lookback window in minutes for filing discovery
   MIN_ALERT_VOLUME: 1000,           // Minimum volume threshold for initial alert trigger
   STRONG_SIGNAL_MIN_VOLUME: 500,    // Volume threshold for high-confidence signal detection
-  MAX_FLOAT_6K: 2000000,           // Maximum float size threshold for 6-K filings
-  MAX_FLOAT_8K: 2500000,           // Maximum float size threshold for 8-K filings
+  MAX_FLOAT_6K: 50000000,           // Maximum float size threshold for 6-K filings
+  MAX_FLOAT_8K: 25000000,           // Maximum float size threshold for 8-K filings
   MAX_FAV_RATIO: 90,                // Maximum float-to-average-volume ratio threshold
   ALLOWED_COUNTRIES: ['israel', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'delaware'], // Whitelisted jurisdictions for company registration
   CTB_WATCHLIST: ['SMCZ', 'RMSG', 'VSA', 'MLEC', 'EEIQ', 'FABTQ', 'ARTL', 'CZOOF', 'IONM', 'TBIO', 'CMND', 'MASK', 'ONFO', 'VIVS', 'UCAR', 'KIDZ', 'PMAX', 'FEED', 'ELAB', 'RENX', 'NMHI', 'MOTS', 'PBM', 'TMDE', 'PLRZ'], // Symbols with elevated cost-to-borrow values from IBorrowDesk
