@@ -78,7 +78,7 @@ const CONFIG = {
   GITHUB_GIST_ID: process.env.GITHUB_GIST_ID || '', // GitHub gist ID for backup
   GITHUB_GIST_TOKEN: process.env.GITHUB_GIST_TOKEN || process.env.GITHUB_TOKEN || '', // Token with gist access
   // 2FA settings
-  TWO_FACTOR_ENABLED: true, // Set to false to disable 2FA approval gate (keep basic auth always on)
+  TWO_FACTOR_ENABLED: true, // Set to false to disable 2FA approval gate
   // Email authentication settings
   EMAIL_AUTH_ENABLED: true, // Use email-based auth instead of basic auth
   SMTP_HOST: process.env.SMTP_HOST || 'smtp.gmail.com',
