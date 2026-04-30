@@ -2366,6 +2366,7 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                 max-width: 290px !important;
                 max-height: 40vh !important;
                 margin-top: 0 !important;
+                top: 95px !important;
             }
             
             /* Make push notification modal smaller on mobile */
@@ -6793,6 +6794,13 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     </div>
                 </div>
             `;
+            
+            // Apply mobile sizing if on mobile
+            if (window.innerWidth <= 768) {
+                const modalContent = modal.querySelector('div');
+                modalContent.style.maxWidth = '371px';
+                modalContent.style.maxHeight = '65.6vh';
+            }
             
             // Close on background click
             modal.addEventListener('click', (e) => {
