@@ -6560,12 +6560,12 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                         <div style="font-size: 14px; font-weight: 700; color: ${isDark ? '#fff' : '#000'}; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
                             <div>
                                 <span>$${trade.ticker}</span>
-                                <span style="font-size: 12px; opacity: 0.65;"> (${trade.companyName})</span>
+                                <span style="font-size: 12px; opacity: 0.65; font-style: italic;"> (${trade.companyName})</span>
                             </div>
                             <span style="cursor: pointer; opacity: 0.5; font-size: 20px; padding: 0; margin: -8px -8px -8px 0;" onclick="event.preventDefault(); event.stopPropagation(); this.closest('[data-detail-bg]').remove();">✕</span>
                         </div>
-                        <div style="font-size: 12px; opacity: 0.80; font-style: italic; font-weight: 600; color: ${isDark ? '#bbb' : '#666'}; margin-bottom: 4px;">${trade.type}</div>
-                        <div style="font-size: 14px; font-weight: 600; color: ${trade.return > 0 ? '#00dd00' : '#ff3333'}; margin-bottom: 9px;">${trade.return > 0 ? '+' : ''}${trade.return.toFixed(2)}%</div>
+                        <div style="font-size: 12px; opacity: 0.80; font-weight: 600; color: ${isDark ? '#bbb' : '#666'}; margin-bottom: 4px;">${trade.type}</div>
+                        <div style="font-size: 14px; font-weight: 600; font-style: italic; color: ${trade.return > 0 ? '#00dd00' : '#ff3333'}; margin-bottom: 9px;">${trade.return > 0 ? '+' : ''}${trade.return.toFixed(2)}%</div>
                         <div style="font-size: 10px; opacity: 0.7; margin-bottom: 4px;">Sector: ${trade.sector}</div>
                         <div style="font-size: 10px; opacity: 0.7; margin-bottom: 4px;">Float: ${trade.float.toLocaleString()}</div>
                         <div style="font-size: 10px; opacity: 0.7; margin-bottom: 4px;">Shares Outstanding: ${trade.sharesOutstanding.toLocaleString()}</div>
@@ -6574,9 +6574,9 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             <div>
                                 <span style="font-size: 10px; font-weight: 400; color: ${isDark ? '#ccc' : '#666'}; opacity: 0.9;">Price Change</span>
                             </div>
-                            <span style="font-family: 'DejaVu Sans Light', 'DejaVu Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 300; font-size: 10px; color: ${isDark ? '#f0f0f0' : '#4d4d4d'};">$${trade.entryPrice.toFixed(2)} <span style="color: ${isDark ? '#f0f0f0' : '#4d4d4d'}; font-weight: 300;"> → $${trade.peakPrice.toFixed(2)}</span></span>
+                            <span style="font-family: 'DejaVu Sans Light', 'DejaVu Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 300; font-size: 10px; font-style: italic; color: ${isDark ? '#f0f0f0' : '#4d4d4d'};">$${trade.entryPrice.toFixed(2)} <span style="color: ${isDark ? '#f0f0f0' : '#4d4d4d'}; font-weight: 550;"> → $${trade.peakPrice.toFixed(2)}</span></span>
                         </div>
-                        <div style="position: absolute; bottom: 7px; left: 16px; font-size: 9px; opacity: 0.5;">${trade.date} ${trade.time}</div>
+                        <div style="position: absolute; bottom: 7px; left: 16px; font-size: 9px; opacity: 0.5; font-style: italic;">${trade.date} ${trade.time}</div>
                     </div>
                 `;
             
