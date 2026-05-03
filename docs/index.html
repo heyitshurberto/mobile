@@ -29,15 +29,17 @@ table {
 }
 
 /* Reduce dashboard scale on Apple tablet/iPad only */
-@media (max-width: 1024px) and (-webkit-touch-callout: none) {
-    body { zoom: 92%; }
+@media (min-width: 720px) and (max-width: 1200px) and (-webkit-touch-callout: none) {
+    body { zoom: 80%; }
 }
-@media (max-width: 768px) and (-webkit-touch-callout: none) {
-    body { zoom: 82%; }
+
+/* Keep phones at normal scale */
+@media (max-width: 719px) {
+    body { zoom: 100%; }
 }
 </style>
 <style>
-@media (min-width: 769px) and (max-width: 1024px) and (-webkit-touch-callout: none) {
+@media (min-width: 720px) and (max-width: 1200px) and (-webkit-touch-callout: none) {
     .stat-box {
         padding: 9px !important;
         font-size: 10px !important;
@@ -48,13 +50,24 @@ table {
     .stat-box > div:last-child {
         font-size: 8px !important;
     }
-    /* Increase touch targets for social icons on iPad */
-    .social-icon {
+    /* Increase touch targets for social icons on Apple tablet/iPad */
+    .social-icon,
+    .usersname-tag-desktop a,
+    .usersname-tag-mobile a {
         padding: 10px !important;
         min-width: 44px !important;
         min-height: 44px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        touch-action: manipulation !important;
     }
-    /* Zoom out 20% on iPad */
+    .usersname-tag-desktop,
+    .usersname-tag-mobile {
+        z-index: 10001 !important;
+        pointer-events: auto !important;
+    }
+    /* Zoom out 20% on Apple tablet/iPad */
     body {
         zoom: 80% !important;
     }
@@ -2395,10 +2408,14 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         
         @media (max-width: 768px) {
             .notification-panel {
-                max-width: 290px !important;
+                max-width: min(340px, calc(100% - 32px)) !important;
+                width: min(340px, calc(100% - 32px)) !important;
                 max-height: 40vh !important;
                 margin-top: 0 !important;
                 top: 95px !important;
+                left: 50% !important;
+                right: auto !important;
+                transform: translateX(-50%) !important;
             }
             
             /* Make push notification modal smaller on mobile */
@@ -3349,9 +3366,9 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             const panel = document.getElementById('notification-panel');
             const isVisible = panel.style.display === 'block';
 
-            // Only load alerts when opening, don't close dropdowns
+            // Only load recent alerts when opening, and always reset to the Recent tab
             if (!isVisible) {
-                loadRecentAlerts();
+                switchNotificationTab('recent');
             }
 
             // Toggle panel visibility with animation
