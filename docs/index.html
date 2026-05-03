@@ -39,14 +39,24 @@ table {
 <style>
 @media (min-width: 769px) and (max-width: 1024px) and (-webkit-touch-callout: none) {
     .stat-box {
-        padding: 10px !important;
-        font-size: 11px !important;
-    }
-    .stat-box > div:first-child {
+        padding: 9px !important;
         font-size: 10px !important;
     }
-    .stat-box > div:last-child {
+    .stat-box > div:first-child {
         font-size: 9px !important;
+    }
+    .stat-box > div:last-child {
+        font-size: 8px !important;
+    }
+    /* Increase touch targets for social icons on iPad */
+    .social-icon {
+        padding: 10px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+    }
+    /* Zoom out 20% on iPad */
+    body {
+        zoom: 80% !important;
     }
 }
 </style>

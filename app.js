@@ -107,6 +107,7 @@ let gistRateLimited = false;
 let gistRateLimitReset = 0;
 let gistLastPushAttempt = 0;
 let gistAuthFailed = false;
+let gistLastSuccessLog = 0;
 
 const isDailyLimitReached = () => {
   resetDailyAlertCount();
@@ -3335,7 +3336,11 @@ const pushToGistOnly = () => {
           log('WARN', `Gist backup failed (${res.status}): ${text}`);
         }
       } else {
-        log('INFO', `Gist backup updated: ${CONFIG.GITHUB_GIST_ID}`);
+        const now = Date.now();
+        if (now - gistLastSuccessLog > 3600000) { // Log success only once per hour
+          log('INFO', `Gist backup updated: ${CONFIG.GITHUB_GIST_ID}`);
+          gistLastSuccessLog = now;
+        }
       }
     })
     .catch(err => {
@@ -3693,7 +3698,7 @@ const renderLoginPage = () => `
       }
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 768px) and (-webkit-touch-callout: none) {
       body {
         zoom: 110%;
       }
@@ -4583,19 +4588,16 @@ const renderLoginPage = () => `
       }
     }
 
-    /* Increase zoom on Apple iPad only for login page */
-    @media (min-width: 769px) and (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
-      body { zoom: 110%; }
     }
   </style>
 </head>
 <body>
   <div class="container" id="loginContainer">
-    <div style="position: absolute; top: 10px; left: 10px; display: flex; gap: 9px; align-items: center;">
+    <div style="position: absolute; top: 5px; left: 10px; display: flex; gap: 9px; align-items: center;">
       <a href="#" onclick="if(confirm('Visit the Ж Community on Discord?')) window.open('https://discord.gg/5SQcvhfN', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 5px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 25px; width: 24px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
       <a href="#" onclick="if(confirm('Visit @cartelwrld on X?')) window.open('https://x.com/cartelwrld', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 15px; width: 17px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
     </div>
-    <div style="position: absolute; top: 15px; right: 15px; display: flex; gap: 12px; align-items: center;">
+    <div style="position: absolute; top: 10px; right: 15px; display: flex; gap: 12px; align-items: center;">
       <button id="requestAccessBtn" onclick="document.getElementById('requestAccessModal').classList.add('show')" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; padding: 8px 18px; background: linear-gradient(180deg, #888888 0%, #666666 100%); color: white; border-radius: 6px; font-size: 12px; font-weight: 500; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; letter-spacing: 0.3px; transition: all 0.3s ease; cursor: pointer; border: 1px solid #c0c0c0; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); white-space: nowrap;">Request Access</button>
       <button id="themeToggle" onclick="toggleTheme()" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; padding: 0; background: transparent; border: none; outline: none; cursor: pointer; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.10)'" onmouseout="this.style.transform='scale(1)'">
         <svg id="sunIcon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
