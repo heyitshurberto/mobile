@@ -3477,11 +3477,11 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             }
             const alertUrl = '/logs/alert.json';
             
-            fetch(alertUrl)
+            fetch(alertUrl, { cache: 'no-store' })
                 .then(r => {
                     if (!r.ok) {
                         // Fall back to GitHub
-                        return fetch('https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json');
+                        return fetch('https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json', { cache: 'no-store' });
                     }
                     return r;
                 })
