@@ -69,8 +69,8 @@ const CONFIG = {
   ALERTS_DISTRIBUTION_ENABLED: process.env.ALERTS_DISTRIBUTION_ENABLED !== 'true' && process.env.ALERTS_DISTRIBUTION_ENABLED !== '0', // Master toggle for all alert distribution (webhooks + GitHub push) (default: true)
   DISCORD_ENABLED: process.env.DISCORD_ENABLED === 'true', // Enable/disable Discord alerts (set to 'true' in .env to enable)
   // Telegram settings
-  TELEGRAM_BOT_TOKEN: '8586988748:AAF0AUvcQ7JbVX2AhZGMkw-gQhoAV35aR-c', // Telegram bot token
-  TELEGRAM_CHAT_ID: '-1003829490216', // Telegram chat ID for alerts
+  TELEGRAM_BOT_TOKEN: '', // Telegram bot token
+  TELEGRAM_CHAT_ID: '', // Telegram chat ID for alerts
   TELEGRAM_ENABLED: process.env.TELEGRAM_ENABLED === 'true', // Enable/disable Telegram alerts (set to 'true' in .env to enable)
   // Domain settings
   GITHUB_PAGES_ENABLED: process.env.GITHUB_PAGES_ENABLED !== 'false' && process.env.GITHUB_PAGES_ENABLED !== '0', // Enable/disable GitHub Pages domain push (default: true)
