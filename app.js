@@ -62,15 +62,15 @@ const CONFIG = {
   GITHUB_DOMAIN: process.env.GITHUB_DOMAIN || 'your-domain.com', // GitHub Pages domain
   GITHUB_PUSH_ENABLED: process.env.GITHUB_PUSH_ENABLED !== 'false' && process.env.GITHUB_PUSH_ENABLED !== '0', // Enable/disable GitHub push (default: true, set to false in .env to disable)
   // Discord settings
-  PERSONAL_WEBHOOK_URL: '', // Personal Discord webhook URL
+  PERSONAL_WEBHOOK_URL: 'https://discord.com/api/webhooks/1483101519707639902/XVB08nuHxWD72E3oG50hnrSyE1CmC_L9gRaFEu1j9XKRPaHIm2Y7CBsoTk7_9JkoImeV', // Personal Discord webhook URL
   PERSONAL_WEBHOOK_ENABLED: process.env.PERSONAL_WEBHOOK_ENABLED === 'true', // Enable/disable personal webhook (default: false, set to 'true' in .env to enable)
-  PAID_WEBHOOK_URL: '', // Paid Discord webhook URL
+  PAID_WEBHOOK_URL: 'https://discord.com/api/webhooks/1499164674455769112/psfM1dt51obYO_VUaacbSsd_bbUBpBs2c6KMGhHp-IV3qmWSxlVMcggC_rduxgCStPpr', // Paid Discord webhook URL
   PAID_WEBHOOK_ENABLED: process.env.PAID_WEBHOOK_ENABLED === 'true', // Enable/disable paid webhook (default: false, set to 'true' in .env to enable)
   ALERTS_DISTRIBUTION_ENABLED: process.env.ALERTS_DISTRIBUTION_ENABLED !== 'true' && process.env.ALERTS_DISTRIBUTION_ENABLED !== '0', // Master toggle for all alert distribution (webhooks + GitHub push) (default: true)
   DISCORD_ENABLED: process.env.DISCORD_ENABLED === 'true', // Enable/disable Discord alerts (set to 'true' in .env to enable)
   // Telegram settings
-  TELEGRAM_BOT_TOKEN: '', // Telegram bot token
-  TELEGRAM_CHAT_ID: '', // Telegram chat ID for alerts
+  TELEGRAM_BOT_TOKEN: '8586988748:AAF0AUvcQ7JbVX2AhZGMkw-gQhoAV35aR-c', // Telegram bot token
+  TELEGRAM_CHAT_ID: '-1003829490216', // Telegram chat ID for alerts
   TELEGRAM_ENABLED: process.env.TELEGRAM_ENABLED === 'true', // Enable/disable Telegram alerts (set to 'true' in .env to enable)
   // Domain settings
   GITHUB_PAGES_ENABLED: process.env.GITHUB_PAGES_ENABLED !== 'false' && process.env.GITHUB_PAGES_ENABLED !== '0', // Enable/disable GitHub Pages domain push (default: true)
@@ -106,7 +106,6 @@ const resetDailyAlertCount = () => {
 let gistRateLimited = false;
 let gistRateLimitReset = 0;
 let gistLastPushAttempt = 0;
-let gistAuthFailed = false;
 
 const isDailyLimitReached = () => {
   resetDailyAlertCount();
@@ -171,7 +170,7 @@ const rateLimit = {
   }
 };
 
-// Parse applicant/registrant name from SEC filing text
+// Parse applicant/registrant name from SEC filing text - BULLETPROOF VERSION
 // SEC filings ALWAYS have company name in standardized headers
 // Company name extraction - parses SEC filing headers using multiple pattern matching strategies
 const parseApplicantName = (text) => {
@@ -3271,10 +3270,6 @@ const pushToGistOnly = () => {
     return;
   }
 
-  if (gistAuthFailed) {
-    return; // Stop repeated gist backup attempts after auth failure
-  }
-
   // Check if currently rate limited
   const now = Date.now();
   if (gistRateLimited && now < gistRateLimitReset) {
@@ -3329,12 +3324,12 @@ const pushToGistOnly = () => {
             : now + (60 * 60 * 1000);
           log('WARN', `Gist backup rate limited, pausing until ${new Date(gistRateLimitReset).toISOString()}`);
         } else if (res.status === 403) {
-          gistAuthFailed = true;
-          log('WARN', `Gist backup disabled: invalid gist token or missing gist scope. Update GITHUB_GIST_TOKEN/GITHUB_GIST_ID and restart the app.`);
+          log('ERROR', `Gist backup failed: Token lacks gist permissions. Please create a new GitHub token with 'gist' scope at https://github.com/settings/tokens`);
         } else {
           log('WARN', `Gist backup failed (${res.status}): ${text}`);
         }
       } else {
+        log('INFO', `Gist backup updated: ${CONFIG.GITHUB_GIST_ID}`);
       }
     })
     .catch(err => {
@@ -3668,13 +3663,13 @@ const renderLoginPage = () => `
     }
     body {
       font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
-      background-color: #f5f5f5;
+      background-color: #f8f6f3;
       background-attachment: fixed;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
-      color: #333;
+      color: #2c2c2c;
       transition: background 0.3s ease, color 0.3s ease;
       position: relative;
       overflow: hidden;
@@ -4411,13 +4406,10 @@ const renderLoginPage = () => `
 
     /* Apple/Safari-specific fixes for landing page */
     @supports (-webkit-touch-callout: none) {
-      @media (min-width: 769px) and (max-width: 1024px) {
-        .container {
-          margin-top: -15px !important;
-          transform: translateY(-8%) !important;
-          padding: 6px 12px 16px 12px !important;
-          max-width: 340px !important;
-        }
+      .container {
+        margin-top: 45px !important;
+        padding: 6px 12px 16px 12px !important;
+        max-width: 340px !important;
       }
       
       /* Smaller top buttons on Apple */
@@ -4581,9 +4573,12 @@ const renderLoginPage = () => `
       }
     }
 
-    /* Increase zoom on Apple iPad only for login page */
-    @media (min-width: 769px) and (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
-      body { zoom: 110%; }
+    /* Increase zoom by 10% on Apple devices for login page */
+    @media (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+      body { zoom: 101.2%; }
+    }
+    @media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
+      body { zoom: 90.2%; }
     }
   </style>
 </head>
