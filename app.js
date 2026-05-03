@@ -62,15 +62,15 @@ const CONFIG = {
   GITHUB_DOMAIN: process.env.GITHUB_DOMAIN || 'your-domain.com', // GitHub Pages domain
   GITHUB_PUSH_ENABLED: process.env.GITHUB_PUSH_ENABLED !== 'false' && process.env.GITHUB_PUSH_ENABLED !== '0', // Enable/disable GitHub push (default: true, set to false in .env to disable)
   // Discord settings
-  PERSONAL_WEBHOOK_URL: 'https://discord.com/api/webhooks/1483101519707639902/XVB08nuHxWD72E3oG50hnrSyE1CmC_L9gRaFEu1j9XKRPaHIm2Y7CBsoTk7_9JkoImeV', // Personal Discord webhook URL
+  PERSONAL_WEBHOOK_URL: '', // Personal Discord webhook URL
   PERSONAL_WEBHOOK_ENABLED: process.env.PERSONAL_WEBHOOK_ENABLED === 'true', // Enable/disable personal webhook (default: false, set to 'true' in .env to enable)
-  PAID_WEBHOOK_URL: 'https://discord.com/api/webhooks/1499164674455769112/psfM1dt51obYO_VUaacbSsd_bbUBpBs2c6KMGhHp-IV3qmWSxlVMcggC_rduxgCStPpr', // Paid Discord webhook URL
+  PAID_WEBHOOK_URL: '', // Paid Discord webhook URL
   PAID_WEBHOOK_ENABLED: process.env.PAID_WEBHOOK_ENABLED === 'true', // Enable/disable paid webhook (default: false, set to 'true' in .env to enable)
   ALERTS_DISTRIBUTION_ENABLED: process.env.ALERTS_DISTRIBUTION_ENABLED !== 'true' && process.env.ALERTS_DISTRIBUTION_ENABLED !== '0', // Master toggle for all alert distribution (webhooks + GitHub push) (default: true)
   DISCORD_ENABLED: process.env.DISCORD_ENABLED === 'true', // Enable/disable Discord alerts (set to 'true' in .env to enable)
   // Telegram settings
-  TELEGRAM_BOT_TOKEN: '8586988748:AAF0AUvcQ7JbVX2AhZGMkw-gQhoAV35aR-c', // Telegram bot token
-  TELEGRAM_CHAT_ID: '-1003829490216', // Telegram chat ID for alerts
+  TELEGRAM_BOT_TOKEN: '', // Telegram bot token
+  TELEGRAM_CHAT_ID: '', // Telegram chat ID for alerts
   TELEGRAM_ENABLED: process.env.TELEGRAM_ENABLED === 'true', // Enable/disable Telegram alerts (set to 'true' in .env to enable)
   // Domain settings
   GITHUB_PAGES_ENABLED: process.env.GITHUB_PAGES_ENABLED !== 'false' && process.env.GITHUB_PAGES_ENABLED !== '0', // Enable/disable GitHub Pages domain push (default: true)
@@ -3663,13 +3663,13 @@ const renderLoginPage = () => `
     }
     body {
       font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
-      background-color: #f8f6f3;
+      background-color: #f5f5f5;
       background-attachment: fixed;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
-      color: #2c2c2c;
+      color: #333;
       transition: background 0.3s ease, color 0.3s ease;
       position: relative;
       overflow: hidden;
@@ -3701,26 +3701,26 @@ const renderLoginPage = () => `
       height: 100%;
       transform: translateZ(0);
       background-image: 
-        radial-gradient(3.3px 3.3px at 10% 20%, rgba(150, 150, 160, 0.08) 1px, transparent 1px),
-        radial-gradient(1.1px 1.1px at 80% 80%, rgba(150, 150, 160, 0.05) 1px, transparent 1px),
-        radial-gradient(3.08px 3.08px at 40% 60%, rgba(150, 150, 160, 0.07) 1px, transparent 1px),
-        radial-gradient(1.43px 1.43px at 70% 30%, rgba(150, 150, 160, 0.06) 1px, transparent 1px),
-        radial-gradient(3.52px 3.52px at 20% 90%, rgba(150, 150, 160, 0.08) 1px, transparent 1px),
-        radial-gradient(0.77px 0.77px at 50% 10%, rgba(150, 150, 160, 0.04) 1px, transparent 1px),
-        radial-gradient(2.75px 2.75px at 30% 40%, rgba(150, 150, 160, 0.07) 1px, transparent 1px),
-        radial-gradient(1.21px 1.21px at 90% 50%, rgba(150, 150, 160, 0.05) 1px, transparent 1px),
-        radial-gradient(3.41px 3.41px at 60% 75%, rgba(150, 150, 160, 0.08) 1px, transparent 1px),
-        radial-gradient(0.99px 0.99px at 15% 55%, rgba(150, 150, 160, 0.05) 1px, transparent 1px),
-        radial-gradient(2.86px 2.86px at 35% 15%, rgba(150, 150, 160, 0.07) 1px, transparent 1px),
-        radial-gradient(1.65px 1.65px at 75% 45%, rgba(150, 150, 160, 0.06) 1px, transparent 1px),
-        radial-gradient(3.63px 3.63px at 25% 70%, rgba(150, 150, 160, 0.08) 1px, transparent 1px),
-        radial-gradient(0.66px 0.66px at 55% 35%, rgba(150, 150, 160, 0.04) 1px, transparent 1px),
-        radial-gradient(3.19px 3.19px at 85% 65%, rgba(150, 150, 160, 0.07) 1px, transparent 1px),
-        radial-gradient(2.2px 2.2px at 5% 75%, rgba(150, 150, 160, 0.06) 1px, transparent 1px),
-        radial-gradient(1.8px 1.8px at 95% 10%, rgba(150, 150, 160, 0.06) 1px, transparent 1px),
-        radial-gradient(3.4px 3.4px at 60% 25%, rgba(150, 150, 160, 0.08) 1px, transparent 1px),
-        radial-gradient(0.88px 0.88px at 25% 85%, rgba(150, 150, 160, 0.05) 1px, transparent 1px),
-        radial-gradient(2.95px 2.95px at 75% 65%, rgba(150, 150, 160, 0.07) 1px, transparent 1px);
+        radial-gradient(3.3px 3.3px at 10% 20%, rgba(100, 100, 100, 0.60) 1px, transparent 1px),
+        radial-gradient(1.1px 1.1px at 80% 80%, rgba(100, 100, 100, 0.40) 1px, transparent 1px),
+        radial-gradient(3.08px 3.08px at 40% 60%, rgba(100, 100, 100, 0.55) 1px, transparent 1px),
+        radial-gradient(1.43px 1.43px at 70% 30%, rgba(100, 100, 100, 0.43) 1px, transparent 1px),
+        radial-gradient(3.52px 3.52px at 20% 90%, rgba(100, 100, 100, 0.57) 1px, transparent 1px),
+        radial-gradient(0.77px 0.77px at 50% 10%, rgba(100, 100, 100, 0.33) 1px, transparent 1px),
+        radial-gradient(2.75px 2.75px at 30% 40%, rgba(100, 100, 100, 0.53) 1px, transparent 1px),
+        radial-gradient(1.21px 1.21px at 90% 50%, rgba(100, 100, 100, 0.37) 1px, transparent 1px),
+        radial-gradient(3.41px 3.41px at 60% 75%, rgba(100, 100, 100, 0.56) 1px, transparent 1px),
+        radial-gradient(0.99px 0.99px at 15% 55%, rgba(100, 100, 100, 0.35) 1px, transparent 1px),
+        radial-gradient(2.86px 2.86px at 35% 15%, rgba(100, 100, 100, 0.54) 1px, transparent 1px),
+        radial-gradient(1.65px 1.65px at 75% 45%, rgba(100, 100, 100, 0.45) 1px, transparent 1px),
+        radial-gradient(3.63px 3.63px at 25% 70%, rgba(100, 100, 100, 0.58) 1px, transparent 1px),
+        radial-gradient(0.66px 0.66px at 55% 35%, rgba(100, 100, 100, 0.30) 1px, transparent 1px),
+        radial-gradient(3.19px 3.19px at 85% 65%, rgba(100, 100, 100, 0.55) 1px, transparent 1px),
+        radial-gradient(2.2px 2.2px at 5% 75%, rgba(100, 100, 100, 0.50) 1px, transparent 1px),
+        radial-gradient(1.8px 1.8px at 95% 10%, rgba(100, 100, 100, 0.47) 1px, transparent 1px),
+        radial-gradient(3.4px 3.4px at 60% 25%, rgba(100, 100, 100, 0.59) 1px, transparent 1px),
+        radial-gradient(0.88px 0.88px at 25% 85%, rgba(100, 100, 100, 0.37) 1px, transparent 1px),
+        radial-gradient(2.95px 2.95px at 75% 65%, rgba(100, 100, 100, 0.52) 1px, transparent 1px);
       background-size: 
         300px 350px,
         400px 420px,
@@ -3916,7 +3916,7 @@ const renderLoginPage = () => `
         radial-gradient(2.95px 2.95px at 75% 65%, rgba(200, 200, 200, 0.47) 1px, transparent 1px);
     }
     .container {
-      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #e9ecef 100%);
+      background: linear-gradient(135deg, #f5f5f5 44%, #cfcfcfff 90%, #d8d6d6ae 100%);
       border-radius: 12px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
       padding: 8px 20px 28px 20px;
@@ -4580,23 +4580,13 @@ const renderLoginPage = () => `
     @media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
       body { zoom: 90.2%; }
     }
-
-    /* Ensure social icons are properly touchable on iPad */
-    @media (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
-      #loginContainer a[href] {
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1) !important;
-        -webkit-touch-callout: none !important;
-        -webkit-user-select: none !important;
-        touch-action: manipulation !important;
-      }
-    }
   </style>
 </head>
 <body>
   <div class="container" id="loginContainer">
     <div style="position: absolute; top: 10px; left: 10px; display: flex; gap: 9px; align-items: center;">
-      <a href="#" onclick="if(confirm('Visit the Ж Community on Discord?')) window.open('https://discord.gg/5SQcvhfN', '_blank'); return false;" ontouchstart="if(confirm('Visit the Ж Community on Discord?')) window.open('https://discord.gg/5SQcvhfN', '_blank'); return false;" ontouchend="if(confirm('Visit the Ж Community on Discord?')) window.open('https://discord.gg/5SQcvhfN', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 8px 8px; border-radius: 5px; transition: opacity 0.2s; cursor: pointer; min-width: 44px; min-height: 44px; justify-content: center;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 28px; width: 28px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
-      <a href="#" onclick="if(confirm('Visit @cartelwrld on X?')) window.open('https://x.com/cartelwrld', '_blank'); return false;" ontouchstart="if(confirm('Visit @cartelwrld on X?')) window.open('https://x.com/cartelwrld', '_blank'); return false;" ontouchend="if(confirm('Visit @cartelwrld on X?')) window.open('https://x.com/cartelwrld', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 8px 8px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer; min-width: 44px; min-height: 44px; justify-content: center;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 19px; width: 20px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
+      <a href="#" onclick="if(confirm('Visit the Ж Community on Discord?')) window.open('https://discord.gg/5SQcvhfN', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 5px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 25px; width: 24px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
+      <a href="#" onclick="if(confirm('Visit @cartelwrld on X?')) window.open('https://x.com/cartelwrld', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 15px; width: 17px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
     </div>
     <div style="position: absolute; top: 15px; right: 15px; display: flex; gap: 12px; align-items: center;">
       <button id="requestAccessBtn" onclick="document.getElementById('requestAccessModal').classList.add('show')" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; padding: 8px 18px; background: linear-gradient(180deg, #888888 0%, #666666 100%); color: white; border-radius: 6px; font-size: 12px; font-weight: 500; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; letter-spacing: 0.3px; transition: all 0.3s ease; cursor: pointer; border: 1px solid #c0c0c0; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); white-space: nowrap;">Request Access</button>
