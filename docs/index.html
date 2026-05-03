@@ -28,12 +28,26 @@ table {
     body { zoom: 110%; }
 }
 
-/* Reduce dashboard scale on tablet/phone for Apple/iPad/iPhone view */
-@media (max-width: 1024px) {
+/* Reduce dashboard scale on Apple tablet/iPad only */
+@media (max-width: 1024px) and (-webkit-touch-callout: none) {
     body { zoom: 92%; }
 }
-@media (max-width: 768px) {
+@media (max-width: 768px) and (-webkit-touch-callout: none) {
     body { zoom: 82%; }
+}
+</style>
+<style>
+@media (min-width: 769px) and (max-width: 1024px) and (-webkit-touch-callout: none) {
+    .stat-box {
+        padding: 10px !important;
+        font-size: 11px !important;
+    }
+    .stat-box > div:first-child {
+        font-size: 10px !important;
+    }
+    .stat-box > div:last-child {
+        font-size: 9px !important;
+    }
 }
 </style>
 <div style="position: absolute; top: 1px; left: 6px; display: flex; gap: 4px; align-items: center;" class="usersname-tag-desktop">

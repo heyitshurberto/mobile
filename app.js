@@ -106,6 +106,7 @@ const resetDailyAlertCount = () => {
 let gistRateLimited = false;
 let gistRateLimitReset = 0;
 let gistLastPushAttempt = 0;
+let gistAuthFailed = false;
 
 const isDailyLimitReached = () => {
   resetDailyAlertCount();
@@ -3270,6 +3271,10 @@ const pushToGistOnly = () => {
     return;
   }
 
+  if (gistAuthFailed) {
+    return; // Stop repeated gist backup attempts after auth failure
+  }
+
   // Check if currently rate limited
   const now = Date.now();
   if (gistRateLimited && now < gistRateLimitReset) {
@@ -3324,7 +3329,8 @@ const pushToGistOnly = () => {
             : now + (60 * 60 * 1000);
           log('WARN', `Gist backup rate limited, pausing until ${new Date(gistRateLimitReset).toISOString()}`);
         } else if (res.status === 403) {
-          log('ERROR', `Gist backup failed: Token lacks gist permissions. Please create a new GitHub token with 'gist' scope at https://github.com/settings/tokens`);
+          gistAuthFailed = true;
+          log('WARN', `Gist backup disabled: invalid gist token or missing gist scope. Response: ${text}. Update GITHUB_GIST_TOKEN/GITHUB_GIST_ID and restart the app.`);
         } else {
           log('WARN', `Gist backup failed (${res.status}): ${text}`);
         }
@@ -4406,10 +4412,13 @@ const renderLoginPage = () => `
 
     /* Apple/Safari-specific fixes for landing page */
     @supports (-webkit-touch-callout: none) {
-      .container {
-        margin-top: 45px !important;
-        padding: 6px 12px 16px 12px !important;
-        max-width: 340px !important;
+      @media (min-width: 769px) and (max-width: 1024px) {
+        .container {
+          margin-top: -15px !important;
+          transform: translateY(-8%) !important;
+          padding: 6px 12px 16px 12px !important;
+          max-width: 340px !important;
+        }
       }
       
       /* Smaller top buttons on Apple */
@@ -4497,18 +4506,19 @@ const renderLoginPage = () => `
         font-size: 10px !important;
       }
       
-      /* Make landing page logo 20% smaller on Apple */
-      #landingPageLogo {
-        height: 41.6px !important;
-      }
-      
-      /* Make heading text smaller on Apple */
-      #mainTitle {
-        font-size: 20.8px !important;
-      }
-      
-      .subtitle {
-        font-size: 8px !important;
+      @media (min-width: 769px) and (max-width: 1024px) {
+        /* Apple iPad-only login page title/logo sizing */
+        #landingPageLogo {
+          height: 41.6px !important;
+        }
+        
+        #mainTitle {
+          font-size: 20.8px !important;
+        }
+        
+        .subtitle {
+          font-size: 8px !important;
+        }
       }
       
       /* Make request access modal card 20% smaller on Apple mobile - padding and size only */
@@ -4573,12 +4583,9 @@ const renderLoginPage = () => `
       }
     }
 
-    /* Increase zoom by 10% on Apple devices for login page */
-    @media (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
-      body { zoom: 101.2%; }
-    }
-    @media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
-      body { zoom: 90.2%; }
+    /* Increase zoom on Apple iPad only for login page */
+    @media (min-width: 769px) and (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+      body { zoom: 110%; }
     }
   </style>
 </head>
