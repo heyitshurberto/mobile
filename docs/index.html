@@ -3483,12 +3483,13 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                 return;
             }
             const alertUrl = '/logs/alert.json';
+            const fallbackUrl = 'https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json';
             
             fetch(alertUrl, { cache: 'no-store' })
+                .catch(() => fetch(fallbackUrl, { cache: 'no-store' }))
                 .then(r => {
                     if (!r.ok) {
-                        // Fall back to GitHub
-                        return fetch('https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json', { cache: 'no-store' });
+                        return fetch(fallbackUrl, { cache: 'no-store' });
                     }
                     return r;
                 })
