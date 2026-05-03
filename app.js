@@ -3905,26 +3905,26 @@ const renderLoginPage = () => `
     }
     body.dark-mode::after {
       background-image: 
-        radial-gradient(3.3px 3.3px at 10% 20%, rgba(245, 245, 245, 0.88) 1px, transparent 1px),
+        radial-gradient(3.3px 3.3px at 10% 20%, rgba(245, 245, 245, 0.90) 1px, transparent 1px),
         radial-gradient(1.1px 1.1px at 80% 80%, rgba(245, 245, 245, 0.68) 1px, transparent 1px),
-        radial-gradient(3.08px 3.08px at 40% 60%, rgba(245, 245, 245, 0.85) 1px, transparent 1px),
+        radial-gradient(3.08px 3.08px at 40% 60%, rgba(245, 245, 245, 0.86) 1px, transparent 1px),
         radial-gradient(1.43px 1.43px at 70% 30%, rgba(245, 245, 245, 0.66) 1px, transparent 1px),
-        radial-gradient(3.52px 3.52px at 20% 90%, rgba(245, 245, 245, 0.86) 1px, transparent 1px),
+        radial-gradient(3.52px 3.52px at 20% 90%, rgba(245, 245, 245, 0.87) 1px, transparent 1px),
         radial-gradient(0.77px 0.77px at 50% 10%, rgba(245, 245, 245, 0.58) 1px, transparent 1px),
         radial-gradient(2.75px 2.75px at 30% 40%, rgba(245, 245, 245, 0.84) 1px, transparent 1px),
         radial-gradient(1.21px 1.21px at 90% 50%, rgba(245, 245, 245, 0.62) 1px, transparent 1px),
         radial-gradient(3.41px 3.41px at 60% 75%, rgba(245, 245, 245, 0.86) 1px, transparent 1px),
         radial-gradient(0.99px 0.99px at 15% 55%, rgba(245, 245, 245, 0.64) 1px, transparent 1px),
-        radial-gradient(2.86px 2.86px at 35% 15%, rgba(245, 245, 245, 0.85) 1px, transparent 1px),
+        radial-gradient(2.86px 2.86px at 35% 15%, rgba(245, 245, 245, 0.86) 1px, transparent 1px),
         radial-gradient(1.65px 1.65px at 75% 45%, rgba(245, 245, 245, 0.67) 1px, transparent 1px),
-        radial-gradient(3.63px 3.63px at 25% 70%, rgba(245, 245, 245, 0.88) 1px, transparent 1px),
+        radial-gradient(3.63px 3.63px at 25% 70%, rgba(245, 245, 245, 0.89) 1px, transparent 1px),
         radial-gradient(0.66px 0.66px at 55% 35%, rgba(245, 245, 245, 0.56) 1px, transparent 1px),
-        radial-gradient(3.19px 3.19px at 85% 65%, rgba(245, 245, 245, 0.85) 1px, transparent 1px),
-        radial-gradient(2.2px 2.2px at 5% 75%, rgba(245, 245, 245, 0.78) 1px, transparent 1px),
-        radial-gradient(1.8px 1.8px at 95% 10%, rgba(245, 245, 245, 0.72) 1px, transparent 1px),
-        radial-gradient(3.4px 3.4px at 60% 25%, rgba(245, 245, 245, 0.89) 1px, transparent 1px),
+        radial-gradient(3.19px 3.19px at 85% 65%, rgba(245, 245, 245, 0.86) 1px, transparent 1px),
+        radial-gradient(2.2px 2.2px at 5% 75%, rgba(245, 245, 245, 0.79) 1px, transparent 1px),
+        radial-gradient(1.8px 1.8px at 95% 10%, rgba(245, 245, 245, 0.73) 1px, transparent 1px),
+        radial-gradient(3.4px 3.4px at 60% 25%, rgba(245, 245, 245, 0.90) 1px, transparent 1px),
         radial-gradient(0.88px 0.88px at 25% 85%, rgba(245, 245, 245, 0.66) 1px, transparent 1px),
-        radial-gradient(2.95px 2.95px at 75% 65%, rgba(245, 245, 245, 0.82) 1px, transparent 1px);
+        radial-gradient(2.95px 2.95px at 75% 65%, rgba(245, 245, 245, 0.83) 1px, transparent 1px);
     }
     .container {
       background: linear-gradient(135deg, #f5f5f5 44%, #cfcfcfff 90%, #d8d6d6ae 100%);
