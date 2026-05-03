@@ -170,7 +170,7 @@ const rateLimit = {
   }
 };
 
-// Parse applicant/registrant name from SEC filing text - BULLETPROOF VERSION
+// Parse applicant/registrant name from SEC filing text
 // SEC filings ALWAYS have company name in standardized headers
 // Company name extraction - parses SEC filing headers using multiple pattern matching strategies
 const parseApplicantName = (text) => {
