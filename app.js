@@ -4477,16 +4477,16 @@ const renderLoginPage = () => `
         font-size: 12px !important;
       }
       
-      /* Make stat boxes 20% smaller on Apple */
+      /* Make stat boxes 10% smaller on Apple */
       .stat-box {
-        padding: 8px !important;
-        font-size: 11px !important;
+        padding: 9px !important;
+        font-size: 11.7px !important;
       }
       
-      /* Make landing page login stats box 20% smaller on Apple */
+      /* Make landing page login stats box 10% smaller on Apple */
       #loginStatsBox {
-        padding: 9.6px 12.8px !important;
-        font-size: 10px !important;
+        padding: 10.8px 14.4px !important;
+        font-size: 10.8px !important;
       }
       
       #loginStatsBox div[style*="font-size: 10px"] {
@@ -4571,6 +4571,14 @@ const renderLoginPage = () => `
       body.dark-mode #statsHistoryModal {
         background-color: rgba(0, 0, 0, 0.9) !important;
       }
+    }
+
+    /* Increase zoom by 10% on Apple devices for login page */
+    @media (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+      body { zoom: 101.2%; }
+    }
+    @media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
+      body { zoom: 90.2%; }
     }
   </style>
 </head>
