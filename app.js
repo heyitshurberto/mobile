@@ -47,6 +47,7 @@ const CONFIG = {
   YAHOO_TIMEOUT: 10000,       // Timeout duration (ms) for external data requests
   SEC_RATE_LIMIT: 5000,       // Minimum interval (ms) between consecutive SEC API calls for rate limiting
   SEC_FETCH_TIMEOUT: 10000,   // Timeout duration (ms) for SEC filing document retrieval
+  GIST_MIN_PUSH_INTERVAL_MS: 30000, // Minimum interval (ms) between gist backup attempts to avoid repeated rate-limit retries
   MAX_COMBINED_SIZE: 100000,  // Maximum aggregate data size (bytes) for batch processing
   MAX_RETRY_ATTEMPTS: 7,      // Maximum retry count for failed API requests before abandoning
   // Log files
@@ -100,6 +101,11 @@ const resetDailyAlertCount = () => {
     log('INFO', 'Daily alert counter reset to 0');
   }
 };
+
+// Gist backup rate limit handling
+let gistRateLimited = false;
+let gistRateLimitReset = 0;
+let gistLastPushAttempt = 0;
 
 const isDailyLimitReached = () => {
   resetDailyAlertCount();
@@ -1687,17 +1693,19 @@ const saveAlert = (alertData) => {
     // Determine direction - use isShort flag from alertData
     const direction = alertData.isShort ? 'SHORT' : 'LONG';
     
+    // Exclude filingText from saved data to reduce file size and avoid clutter
+    const { filingText, ...alertDataWithoutFilingText } = alertData;
+    
     const enrichedData = {
-      ...alertData,
+      ...alertDataWithoutFilingText,
       recordedAt: new Date().toISOString(),
       recordId: `${alertData.ticker}-${Date.now()}`,
       expiresAt: calculateExpiryDate().toISOString(),
       direction: direction,
-      // Initialize correct fields based on position type
-      // SHORT positions track lowest price/percentage, LONG tracks highest
-      highest5Day: !alertData.isShort ? (alertData.price || 0) : 0,
+      // Initialize peak tracking fields - same for both LONG and SHORT
+      highest5Day: alertData.price || 0,
       highest5DayPercent: 0,
-      lowest5Day: alertData.isShort ? (alertData.price || 0) : 0,
+      lowest5Day: alertData.price || 0,
       lowest5DayPercent: 0,
       isShort: alertData.isShort
     };
@@ -1884,6 +1892,21 @@ const updatePerformanceData = (alertData) => {
         alertDate: new Date().toISOString(),
       };
     } else {
+      // Check if this is a NEW alert for the same ticker (different filing date)
+      const newAlertDate = new Date(alertData.filingDate || new Date());
+      const oldAlertDate = new Date(performanceData[ticker].alertDate || 0);
+      const isNewAlert = newAlertDate.getTime() !== oldAlertDate.getTime();
+      
+      if (isNewAlert) {
+        // NEW ALERT: Reset 5-day peak tracking to current price
+        performanceData[ticker].alert = currentPrice;
+        performanceData[ticker].highest5Day = currentPrice;
+        performanceData[ticker].lowest5Day = currentPrice;
+        performanceData[ticker].highest5DayPercent = 0;
+        performanceData[ticker].lowest5DayPercent = 0;
+        performanceData[ticker].alertDate = newAlertDate.toISOString();
+      }
+      
       // Update current price and track peaks/lows
       performanceData[ticker].short = alertData.isShort ? true : false;
       performanceData[ticker].current = currentPrice;
@@ -3247,6 +3270,21 @@ const pushToGistOnly = () => {
     return;
   }
 
+  // Check if currently rate limited
+  const now = Date.now();
+  if (gistRateLimited && now < gistRateLimitReset) {
+    return; // Skip backup while rate limited
+  } else if (gistRateLimited) {
+    gistRateLimited = false; // Reset after timeout
+    log('INFO', 'Gist backup rate limit reset, resuming backups');
+  }
+
+  // Enforce a sensible minimum interval between gist push attempts
+  if (now - gistLastPushAttempt < CONFIG.GIST_MIN_PUSH_INTERVAL_MS) {
+    return;
+  }
+  gistLastPushAttempt = now;
+
   const gistFiles = {};
   try {
     gistFiles['stocks.json'] = { content: fs.readFileSync(CONFIG.STOCKS_FILE, 'utf8') };
@@ -3277,7 +3315,19 @@ const pushToGistOnly = () => {
     .then(async res => {
       if (!res.ok) {
         const text = await res.text();
-        log('WARN', `Gist backup failed (${res.status}): ${text}`);
+        if (res.status === 403 && text.includes('API rate limit exceeded')) {
+          gistRateLimited = true;
+          const resetHeader = res.headers.get('x-ratelimit-reset');
+          const headerResetTime = resetHeader ? parseInt(resetHeader, 10) * 1000 : NaN;
+          gistRateLimitReset = !Number.isNaN(headerResetTime) && headerResetTime > now
+            ? headerResetTime
+            : now + (60 * 60 * 1000);
+          log('WARN', `Gist backup rate limited, pausing until ${new Date(gistRateLimitReset).toISOString()}`);
+        } else if (res.status === 403) {
+          log('ERROR', `Gist backup failed: Token lacks gist permissions. Please create a new GitHub token with 'gist' scope at https://github.com/settings/tokens`);
+        } else {
+          log('WARN', `Gist backup failed (${res.status}): ${text}`);
+        }
       } else {
         log('INFO', `Gist backup updated: ${CONFIG.GITHUB_GIST_ID}`);
       }
@@ -3634,6 +3684,12 @@ const renderLoginPage = () => `
         padding-bottom: max(20px, env(safe-area-inset-bottom));
         padding-left: max(20px, env(safe-area-inset-left));
         padding-right: max(20px, env(safe-area-inset-right));
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        zoom: 110%;
       }
     }
     body::after {
@@ -5325,7 +5381,8 @@ const renderLoginPage = () => `
 
       // Helper function to safely parse JSON with retry logic
       const safeJsonFetch = (url) => {
-        return fetch(url)
+        const noCacheUrl = url.includes('?') ? url + '&t=' + Date.now() : url + '?t=' + Date.now();
+        return fetch(noCacheUrl, { cache: 'no-store' })
           .then(r => r.text())
           .then(text => {
             if (!text || text.trim().length === 0) {
@@ -6727,6 +6784,9 @@ app.get('/logs/stocks.json', (req, res) => {
     if (fs.existsSync(CONFIG.STOCKS_FILE)) {
       const data = fs.readFileSync(CONFIG.STOCKS_FILE, 'utf8');
       res.setHeader('Content-Type', 'application/json');
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
       res.send(data);
     } else {
       res.json([]);
@@ -7194,7 +7254,15 @@ function logBreach(sessionId, breaches) {
 }
 
 // Serve static files from logs directory
-app.use('/logs', express.static('logs'));
+app.use('/logs', express.static('logs', {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.json') || path.endsWith('.csv')) {
+      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
+    }
+  }
+}));
 
 // Serve webm file from root BEFORE auth middleware
 app.use(express.static('.', {
@@ -7220,6 +7288,9 @@ app.get('/logs/alert.json', (req, res) => {
     if (fs.existsSync(CONFIG.ALERTS_FILE)) {
       const data = fs.readFileSync(CONFIG.ALERTS_FILE, 'utf8');
       res.setHeader('Content-Type', 'application/json');
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
       res.send(data);
     } else {
       res.json([]);
@@ -7235,6 +7306,9 @@ app.get('/logs/quote.json', (req, res) => {
     if (fs.existsSync(CONFIG.PERFORMANCE_FILE)) {
       const data = fs.readFileSync(CONFIG.PERFORMANCE_FILE, 'utf8');
       res.setHeader('Content-Type', 'application/json');
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
       res.send(data);
     } else {
       res.json({});
