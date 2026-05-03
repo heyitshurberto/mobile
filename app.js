@@ -107,7 +107,6 @@ let gistRateLimited = false;
 let gistRateLimitReset = 0;
 let gistLastPushAttempt = 0;
 let gistAuthFailed = false;
-let gistLastSuccessLog = 0;
 
 const isDailyLimitReached = () => {
   resetDailyAlertCount();
@@ -3331,16 +3330,11 @@ const pushToGistOnly = () => {
           log('WARN', `Gist backup rate limited, pausing until ${new Date(gistRateLimitReset).toISOString()}`);
         } else if (res.status === 403) {
           gistAuthFailed = true;
-          log('WARN', `Gist backup disabled: invalid gist token or missing gist scope. Response: ${text}. Update GITHUB_GIST_TOKEN/GITHUB_GIST_ID and restart the app.`);
+          log('WARN', `Gist backup disabled: invalid gist token or missing gist scope. Update GITHUB_GIST_TOKEN/GITHUB_GIST_ID and restart the app.`);
         } else {
           log('WARN', `Gist backup failed (${res.status}): ${text}`);
         }
       } else {
-        const now = Date.now();
-        if (now - gistLastSuccessLog > 3600000) { // Log success only once per hour
-          log('INFO', `Gist backup updated: ${CONFIG.GITHUB_GIST_ID}`);
-          gistLastSuccessLog = now;
-        }
       }
     })
     .catch(err => {
@@ -3698,7 +3692,7 @@ const renderLoginPage = () => `
       }
     }
 
-    @media (max-width: 719px) and (-webkit-touch-callout: none) {
+    @media (max-width: 768px) {
       body {
         zoom: 110%;
       }
@@ -3712,26 +3706,26 @@ const renderLoginPage = () => `
       height: 100%;
       transform: translateZ(0);
       background-image: 
-        radial-gradient(3.3px 3.3px at 10% 20%, rgba(60, 60, 60, 0.88) 1px, transparent 1px),
-        radial-gradient(1.1px 1.1px at 80% 80%, rgba(65, 65, 65, 0.72) 1px, transparent 1px),
-        radial-gradient(3.08px 3.08px at 40% 60%, rgba(58, 58, 58, 0.86) 1px, transparent 1px),
-        radial-gradient(1.43px 1.43px at 70% 30%, rgba(70, 70, 70, 0.64) 1px, transparent 1px),
-        radial-gradient(3.52px 3.52px at 20% 90%, rgba(62, 62, 62, 0.88) 1px, transparent 1px),
-        radial-gradient(0.77px 0.77px at 50% 10%, rgba(78, 78, 78, 0.55) 1px, transparent 1px),
-        radial-gradient(2.75px 2.75px at 30% 40%, rgba(67, 67, 67, 0.84) 1px, transparent 1px),
-        radial-gradient(1.21px 1.21px at 90% 50%, rgba(72, 72, 72, 0.58) 1px, transparent 1px),
-        radial-gradient(3.41px 3.41px at 60% 75%, rgba(61, 61, 61, 0.89) 1px, transparent 1px),
-        radial-gradient(0.99px 0.99px at 15% 55%, rgba(75, 75, 75, 0.53) 1px, transparent 1px),
-        radial-gradient(2.86px 2.86px at 35% 15%, rgba(66, 66, 66, 0.86) 1px, transparent 1px),
-        radial-gradient(1.65px 1.65px at 75% 45%, rgba(73, 73, 73, 0.68) 1px, transparent 1px),
-        radial-gradient(3.63px 3.63px at 25% 70%, rgba(60, 60, 60, 0.90) 1px, transparent 1px),
-        radial-gradient(0.66px 0.66px at 55% 35%, rgba(77, 77, 77, 0.47) 1px, transparent 1px),
-        radial-gradient(3.19px 3.19px at 85% 65%, rgba(63, 63, 63, 0.86) 1px, transparent 1px),
-        radial-gradient(2.2px 2.2px at 5% 75%, rgba(69, 69, 69, 0.80) 1px, transparent 1px),
-        radial-gradient(1.8px 1.8px at 95% 10%, rgba(65, 65, 65, 0.79) 1px, transparent 1px),
-        radial-gradient(3.4px 3.4px at 60% 25%, rgba(62, 62, 62, 0.91) 1px, transparent 1px),
-        radial-gradient(0.88px 0.88px at 25% 85%, rgba(76, 76, 76, 0.58) 1px, transparent 1px),
-        radial-gradient(2.95px 2.95px at 75% 65%, rgba(64, 64, 64, 0.87) 1px, transparent 1px);
+        radial-gradient(3.3px 3.3px at 10% 20%, rgba(100, 100, 100, 0.60) 1px, transparent 1px),
+        radial-gradient(1.1px 1.1px at 80% 80%, rgba(100, 100, 100, 0.40) 1px, transparent 1px),
+        radial-gradient(3.08px 3.08px at 40% 60%, rgba(100, 100, 100, 0.55) 1px, transparent 1px),
+        radial-gradient(1.43px 1.43px at 70% 30%, rgba(100, 100, 100, 0.43) 1px, transparent 1px),
+        radial-gradient(3.52px 3.52px at 20% 90%, rgba(100, 100, 100, 0.57) 1px, transparent 1px),
+        radial-gradient(0.77px 0.77px at 50% 10%, rgba(100, 100, 100, 0.33) 1px, transparent 1px),
+        radial-gradient(2.75px 2.75px at 30% 40%, rgba(100, 100, 100, 0.53) 1px, transparent 1px),
+        radial-gradient(1.21px 1.21px at 90% 50%, rgba(100, 100, 100, 0.37) 1px, transparent 1px),
+        radial-gradient(3.41px 3.41px at 60% 75%, rgba(100, 100, 100, 0.56) 1px, transparent 1px),
+        radial-gradient(0.99px 0.99px at 15% 55%, rgba(100, 100, 100, 0.35) 1px, transparent 1px),
+        radial-gradient(2.86px 2.86px at 35% 15%, rgba(100, 100, 100, 0.54) 1px, transparent 1px),
+        radial-gradient(1.65px 1.65px at 75% 45%, rgba(100, 100, 100, 0.45) 1px, transparent 1px),
+        radial-gradient(3.63px 3.63px at 25% 70%, rgba(100, 100, 100, 0.58) 1px, transparent 1px),
+        radial-gradient(0.66px 0.66px at 55% 35%, rgba(100, 100, 100, 0.30) 1px, transparent 1px),
+        radial-gradient(3.19px 3.19px at 85% 65%, rgba(100, 100, 100, 0.55) 1px, transparent 1px),
+        radial-gradient(2.2px 2.2px at 5% 75%, rgba(100, 100, 100, 0.50) 1px, transparent 1px),
+        radial-gradient(1.8px 1.8px at 95% 10%, rgba(100, 100, 100, 0.47) 1px, transparent 1px),
+        radial-gradient(3.4px 3.4px at 60% 25%, rgba(100, 100, 100, 0.59) 1px, transparent 1px),
+        radial-gradient(0.88px 0.88px at 25% 85%, rgba(100, 100, 100, 0.37) 1px, transparent 1px),
+        radial-gradient(2.95px 2.95px at 75% 65%, rgba(100, 100, 100, 0.52) 1px, transparent 1px);
       background-size: 
         300px 350px,
         400px 420px,
@@ -3905,26 +3899,26 @@ const renderLoginPage = () => `
     }
     body.dark-mode::after {
       background-image: 
-        radial-gradient(3.3px 3.3px at 10% 20%, rgba(245, 245, 245, 0.90) 1px, transparent 1px),
-        radial-gradient(1.1px 1.1px at 80% 80%, rgba(245, 245, 245, 0.68) 1px, transparent 1px),
-        radial-gradient(3.08px 3.08px at 40% 60%, rgba(245, 245, 245, 0.86) 1px, transparent 1px),
-        radial-gradient(1.43px 1.43px at 70% 30%, rgba(245, 245, 245, 0.66) 1px, transparent 1px),
-        radial-gradient(3.52px 3.52px at 20% 90%, rgba(245, 245, 245, 0.87) 1px, transparent 1px),
-        radial-gradient(0.77px 0.77px at 50% 10%, rgba(245, 245, 245, 0.58) 1px, transparent 1px),
-        radial-gradient(2.75px 2.75px at 30% 40%, rgba(245, 245, 245, 0.84) 1px, transparent 1px),
-        radial-gradient(1.21px 1.21px at 90% 50%, rgba(245, 245, 245, 0.62) 1px, transparent 1px),
-        radial-gradient(3.41px 3.41px at 60% 75%, rgba(245, 245, 245, 0.86) 1px, transparent 1px),
-        radial-gradient(0.99px 0.99px at 15% 55%, rgba(245, 245, 245, 0.64) 1px, transparent 1px),
-        radial-gradient(2.86px 2.86px at 35% 15%, rgba(245, 245, 245, 0.86) 1px, transparent 1px),
-        radial-gradient(1.65px 1.65px at 75% 45%, rgba(245, 245, 245, 0.67) 1px, transparent 1px),
-        radial-gradient(3.63px 3.63px at 25% 70%, rgba(245, 245, 245, 0.89) 1px, transparent 1px),
-        radial-gradient(0.66px 0.66px at 55% 35%, rgba(245, 245, 245, 0.56) 1px, transparent 1px),
-        radial-gradient(3.19px 3.19px at 85% 65%, rgba(245, 245, 245, 0.86) 1px, transparent 1px),
-        radial-gradient(2.2px 2.2px at 5% 75%, rgba(245, 245, 245, 0.79) 1px, transparent 1px),
-        radial-gradient(1.8px 1.8px at 95% 10%, rgba(245, 245, 245, 0.73) 1px, transparent 1px),
-        radial-gradient(3.4px 3.4px at 60% 25%, rgba(245, 245, 245, 0.90) 1px, transparent 1px),
-        radial-gradient(0.88px 0.88px at 25% 85%, rgba(245, 245, 245, 0.66) 1px, transparent 1px),
-        radial-gradient(2.95px 2.95px at 75% 65%, rgba(245, 245, 245, 0.83) 1px, transparent 1px);
+        radial-gradient(3.3px 3.3px at 10% 20%, rgba(200, 200, 200, 0.55) 1px, transparent 1px),
+        radial-gradient(1.1px 1.1px at 80% 80%, rgba(200, 200, 200, 0.35) 1px, transparent 1px),
+        radial-gradient(3.08px 3.08px at 40% 60%, rgba(200, 200, 200, 0.5) 1px, transparent 1px),
+        radial-gradient(1.43px 1.43px at 70% 30%, rgba(200, 200, 200, 0.38) 1px, transparent 1px),
+        radial-gradient(3.52px 3.52px at 20% 90%, rgba(200, 200, 200, 0.52) 1px, transparent 1px),
+        radial-gradient(0.77px 0.77px at 50% 10%, rgba(200, 200, 200, 0.28) 1px, transparent 1px),
+        radial-gradient(2.75px 2.75px at 30% 40%, rgba(200, 200, 200, 0.48) 1px, transparent 1px),
+        radial-gradient(1.21px 1.21px at 90% 50%, rgba(200, 200, 200, 0.32) 1px, transparent 1px),
+        radial-gradient(3.41px 3.41px at 60% 75%, rgba(200, 200, 200, 0.51) 1px, transparent 1px),
+        radial-gradient(0.99px 0.99px at 15% 55%, rgba(200, 200, 200, 0.3) 1px, transparent 1px),
+        radial-gradient(2.86px 2.86px at 35% 15%, rgba(200, 200, 200, 0.49) 1px, transparent 1px),
+        radial-gradient(1.65px 1.65px at 75% 45%, rgba(200, 200, 200, 0.4) 1px, transparent 1px),
+        radial-gradient(3.63px 3.63px at 25% 70%, rgba(200, 200, 200, 0.53) 1px, transparent 1px),
+        radial-gradient(0.66px 0.66px at 55% 35%, rgba(200, 200, 200, 0.25) 1px, transparent 1px),
+        radial-gradient(3.19px 3.19px at 85% 65%, rgba(200, 200, 200, 0.5) 1px, transparent 1px),
+        radial-gradient(2.2px 2.2px at 5% 75%, rgba(200, 200, 200, 0.45) 1px, transparent 1px),
+        radial-gradient(1.8px 1.8px at 95% 10%, rgba(200, 200, 200, 0.42) 1px, transparent 1px),
+        radial-gradient(3.4px 3.4px at 60% 25%, rgba(200, 200, 200, 0.54) 1px, transparent 1px),
+        radial-gradient(0.88px 0.88px at 25% 85%, rgba(200, 200, 200, 0.32) 1px, transparent 1px),
+        radial-gradient(2.95px 2.95px at 75% 65%, rgba(200, 200, 200, 0.47) 1px, transparent 1px);
     }
     .container {
       background: linear-gradient(135deg, #f5f5f5 44%, #cfcfcfff 90%, #d8d6d6ae 100%);
@@ -4511,19 +4505,18 @@ const renderLoginPage = () => `
         font-size: 10px !important;
       }
       
-      @media (min-width: 769px) and (max-width: 1024px) {
-        /* Apple iPad-only login page title/logo sizing */
-        #landingPageLogo {
-          height: 41.6px !important;
-        }
-        
-        #mainTitle {
-          font-size: 20.8px !important;
-        }
-        
-        .subtitle {
-          font-size: 8px !important;
-        }
+      /* Make landing page logo 20% smaller on Apple */
+      #landingPageLogo {
+        height: 41.6px !important;
+      }
+      
+      /* Make heading text smaller on Apple */
+      #mainTitle {
+        font-size: 20.8px !important;
+      }
+      
+      .subtitle {
+        font-size: 8px !important;
       }
       
       /* Make request access modal card 20% smaller on Apple mobile - padding and size only */
@@ -4588,18 +4581,21 @@ const renderLoginPage = () => `
       }
     }
 
+    /* Increase zoom on Apple iPad only for login page */
+    @media (min-width: 769px) and (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+      body { zoom: 110%; }
     }
   </style>
 </head>
 <body>
   <div class="container" id="loginContainer">
-    <div style="position: fixed; top: 8px; left: 12px; z-index: 10002; display: flex; gap: 9px; align-items: center;">
-      <a href="#" onclick="if(confirm('Visit the Ж Community on Discord?')) window.open('https://discord.gg/5SQcvhfN', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; padding: 8px; min-width: 44px; min-height: 44px; border-radius: 5px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 24px; width: 24px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
-      <a href="#" onclick="if(confirm('Visit @cartelwrld on X?')) window.open('https://x.com/cartelwrld', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; padding: 8px; min-width: 44px; min-height: 44px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 20px; width: 20px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
+    <div style="position: absolute; top: 10px; left: 10px; display: flex; gap: 9px; align-items: center;">
+      <a href="#" onclick="if(confirm('Visit the Ж Community on Discord?')) window.open('https://discord.gg/5SQcvhfN', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 5px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 25px; width: 24px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
+      <a href="#" onclick="if(confirm('Visit @cartelwrld on X?')) window.open('https://x.com/cartelwrld', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 15px; width: 17px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
     </div>
-    <div style="position: fixed; top: 10px; right: 15px; z-index: 10002; display: flex; gap: 12px; align-items: center;">
+    <div style="position: absolute; top: 15px; right: 15px; display: flex; gap: 12px; align-items: center;">
       <button id="requestAccessBtn" onclick="document.getElementById('requestAccessModal').classList.add('show')" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; padding: 8px 18px; background: linear-gradient(180deg, #888888 0%, #666666 100%); color: white; border-radius: 6px; font-size: 12px; font-weight: 500; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; letter-spacing: 0.3px; transition: all 0.3s ease; cursor: pointer; border: 1px solid #c0c0c0; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); white-space: nowrap;">Request Access</button>
-      <button id="themeToggle" onclick="toggleTheme()" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; min-width: 44px; min-height: 44px; padding: 0; background: transparent; border: none; outline: none; cursor: pointer; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.10)'" onmouseout="this.style.transform='scale(1)'">
+      <button id="themeToggle" onclick="toggleTheme()" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; padding: 0; background: transparent; border: none; outline: none; cursor: pointer; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.10)'" onmouseout="this.style.transform='scale(1)'">
         <svg id="sunIcon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
           <circle cx="12" cy="12" r="5"></circle>
           <line x1="12" y1="1" x2="12" y2="3"></line>
