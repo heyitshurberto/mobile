@@ -27,55 +27,10 @@ table {
 @media (min-width: 769px) {
     body { zoom: 110%; }
 }
-
-/* Reduce dashboard scale on Apple tablet/iPad only */
-@media (min-width: 720px) and (max-width: 1200px) and (-webkit-touch-callout: none) {
-    body { zoom: 80%; }
-}
-
-/* Keep phones at normal scale */
-@media (max-width: 719px) {
-    body { zoom: 100%; }
-}
-</style>
-<style>
-@media (min-width: 720px) and (max-width: 1200px) and (-webkit-touch-callout: none) {
-    .stat-box {
-        padding: 9px !important;
-        font-size: 10px !important;
-    }
-    .stat-box > div:first-child {
-        font-size: 9px !important;
-    }
-    .stat-box > div:last-child {
-        font-size: 8px !important;
-    }
-    /* Increase touch targets for social icons on Apple tablet/iPad */
-    .social-icon,
-    .usersname-tag-desktop a,
-    .usersname-tag-mobile a {
-        padding: 10px !important;
-        min-width: 44px !important;
-        min-height: 44px !important;
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        touch-action: manipulation !important;
-    }
-    .usersname-tag-desktop,
-    .usersname-tag-mobile {
-        z-index: 10001 !important;
-        pointer-events: auto !important;
-    }
-    /* Zoom out 20% on Apple tablet/iPad */
-    body {
-        zoom: 80% !important;
-    }
-}
 </style>
 <div style="position: absolute; top: 1px; left: 6px; display: flex; gap: 4px; align-items: center;" class="usersname-tag-desktop">
-  <a href="javascript:void(0)" onclick="customConfirm('Join the <b><i>Carlucci Ж</i></b> Community?', 'https://discord.gg/5SQcvhfN'); return false;" ontouchstart="customConfirm('Join the <b><i>Carlucci Ж</i></b> Community?', 'https://discord.gg/5SQcvhfN'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 3px 3px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 23px; width: 22px; filter: brightness(0) saturate(100%);" id="tele-logo" class="social-icon"></a>
-  <a href="javascript:void(0)" onclick="customConfirm('Visit <b><i>@cartelwrld</i></b> on X?', 'https://x.com/cartelwrld'); return false;" ontouchstart="customConfirm('Visit <b><i>@cartelwrld</i></b> on X?', 'https://x.com/cartelwrld'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 15px; width: 15px; filter: brightness(0) saturate(100%);" id="x-logo" class="social-icon"></a></div>
+  <a href="#" onclick="customConfirm('Join the <b><i>Carlucci Ж</i></b> Community?', 'https://discord.gg/5SQcvhfN'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 3px 3px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 23px; width: 22px; filter: brightness(0) saturate(100%);" id="tele-logo" class="social-icon"></a>
+  <a href="#" onclick="customConfirm('Visit <b><i>@cartelwrld</i></b> on X?', 'https://x.com/cartelwrld'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 15px; width: 15px; filter: brightness(0) saturate(100%);" id="x-logo" class="social-icon"></a></div>
 <script>
 function updateLogoDarkMode() {
   const isDarkMode = document.body.classList.contains('dark-mode');
@@ -2339,15 +2294,22 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             }
         }
 
-           .notification-panel {
-                max-width: min(340px, calc(100% - 32px)) !important;
-                width: min(340px, calc(100% - 32px)) !important;
-                max-height: 40vh !important;
-                margin-top: 0 !important;
-                top: 95px !important;
-                left: 50% !important;
-                right: auto !important;
-                transform: translateX(-50%) !important;
+        .notification-panel {
+            position: fixed;
+            top: 55px;
+            right: 20px;
+            width: 315px;
+            max-height: 80vh;
+            background: rgba(255,255,255,0.40);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            z-index: 9999;
+            display: none;
+            overflow-y: auto;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(224,224,224,0.4);
+            padding-bottom: 8px;
         }
         
         @media (max-width: 768px) {
@@ -2385,11 +2347,6 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                     margin-top: 9px !important;
                 }
             }
-            @media (min-width: 769px) and (max-width: 1024px) {
-                #loading-screen {
-                    transform: translateY(-8%) !important;
-                }
-            }
         }
 
         @media (min-width: 769px) {
@@ -2406,40 +2363,21 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         
         @media (max-width: 768px) {
             .notification-panel {
-                max-width: min(340px, calc(100% - 32px)) !important;
-                width: min(340px, calc(100% - 32px)) !important;
+                max-width: 290px !important;
                 max-height: 40vh !important;
                 margin-top: 0 !important;
                 top: 95px !important;
-                right: 10px !important;
-                left: auto !important;
-                transform: none !important;
             }
             
-            /* Make push notification modal centered on mobile */
+            /* Make push notification modal smaller on mobile */
             #pushNotificationModal {
-                position: fixed !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                bottom: 0 !important;
                 align-items: center !important;
                 justify-content: center !important;
-                display: flex !important;
-            }
-            #pushNotificationModal > div {
-                position: relative !important;
-                margin: 0 auto !important;
-                left: auto !important;
-                right: auto !important;
-                transform: none !important;
             }
             
             #pushNotifModalContent {
-                max-width: 85vw !important;
-                width: 85vw !important;
-                max-height: 50vh !important;
-                margin: 0 auto !important;
+                max-width: 90vw !important;
+                max-height: 45vh !important;
             }
             
             #pushNotifContent {
@@ -3379,9 +3317,9 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             const panel = document.getElementById('notification-panel');
             const isVisible = panel.style.display === 'block';
 
-            // Only load recent alerts when opening, and always reset to the Recent tab
+            // Only load alerts when opening, don't close dropdowns
             if (!isVisible) {
-                switchNotificationTab('recent');
+                loadRecentAlerts();
             }
 
             // Toggle panel visibility with animation
@@ -3488,24 +3426,17 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                 updateNotificationCount();
                 return;
             }
-            const timestamp = Date.now();
-            const alertUrl = '/logs/alert.json?t=' + timestamp;
-            const fallbackUrl = 'https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json?t=' + timestamp;
+            const alertUrl = '/logs/alert.json';
             
-            fetch(alertUrl, { cache: 'no-store' })
+            fetch(alertUrl)
                 .then(r => {
                     if (!r.ok) {
-                        return fetch(fallbackUrl, { cache: 'no-store' });
+                        // Fall back to GitHub
+                        return fetch('https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json');
                     }
                     return r;
                 })
-                .catch(() => fetch(fallbackUrl, { cache: 'no-store' }))
-                .then(r => {
-                    if (!r || !r.ok) {
-                        throw new Error('Failed to fetch recent alerts');
-                    }
-                    return r.json();
-                })
+                .then(r => r.json())
                 .then(alerts => {
                     const list = document.getElementById('notification-list');
                     list.innerHTML = '';
@@ -3575,12 +3506,12 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         }
 
         function loadHistoryAlerts() {
-            const stockUrl = '/logs/stocks.json?t=' + Date.now();
-            const quoteUrl = '/logs/quote.json?t=' + Date.now();
+            const stockUrl = '/logs/stocks.json';
+            const quoteUrl = '/logs/quote.json';
             
             Promise.all([
-                fetch(stockUrl, { cache: 'no-store' }).then(r => r.ok ? r : fetch('https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/stocks.json?t=' + Date.now())).then(r => r.json()),
-                fetch(quoteUrl, { cache: 'no-store' }).then(r => r.ok ? r.json() : {}).catch(() => ({}))
+                fetch(stockUrl).then(r => r.ok ? r : fetch('https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/stocks.json')).then(r => r.json()),
+                fetch(quoteUrl).then(r => r.ok ? r.json() : {}).catch(() => ({}))
             ])
                 .then(([stocks, quotes]) => {
                     const list = document.getElementById('notification-history-list');
@@ -3609,16 +3540,17 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                         const quoteData = quotes[stock.ticker] || {};
                         
                         let peakPercent = 0;
-                        let peakPrice = isShort ? stock.lowest5Day : stock.highest5Day;
-                        if (peakPrice === 0 || peakPrice === undefined) {
-                            peakPrice = alertPrice; // Fallback if no peak data
-                        }
                         if (alertPrice > 0) {
-                            // Use the actual peak price tracked since alert (not historical market data)
+                            // Use live quote data if available, otherwise fall back to stored percentages
+                            const highest = parseFloat(quoteData.highest || stock.highest5Day || stock.price);
+                            const lowest = parseFloat(quoteData.lowest || stock.lowest5Day || stock.price);
+                            
                             if (isShort) {
-                                peakPercent = ((alertPrice - peakPrice) / alertPrice) * 100;
+                                // SHORT profit = (alertPrice - lowestPrice) / alertPrice * 100
+                                peakPercent = ((alertPrice - lowest) / alertPrice) * 100;
                             } else {
-                                peakPercent = ((peakPrice - alertPrice) / alertPrice) * 100;
+                                // LONG profit = (highestPrice - alertPrice) / alertPrice * 100
+                                peakPercent = ((highest - alertPrice) / alertPrice) * 100;
                             }
                         }
                         
@@ -4184,11 +4116,11 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
 
                     // Load stocks.json to get peak prices (highest5Day)
                     try {
-                        const stockUrl = '/logs/stocks.json?t=' + Date.now();
-                        const stockResponse = await fetch(stockUrl, { cache: 'no-store' });
+                        const stockUrl = '/logs/stocks.json';
+                        const stockResponse = await fetch(stockUrl);
                         if (!stockResponse.ok) {
                             // Fall back to GitHub
-                            const githubResponse = await fetch('https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/stocks.json?t=' + Date.now());
+                            const githubResponse = await fetch('https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/stocks.json');
                             if (githubResponse.ok) {
                                 stocksData = await githubResponse.json();
                             }
@@ -6526,10 +6458,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 const quoteData = quotes[stock.ticker] || {};
                 
                 let peakPercent = 0;
-                let peakPrice = isShort ? stock.lowest5Day : stock.highest5Day;
-                if (peakPrice === 0 || peakPrice === undefined) {
-                    peakPrice = alertPrice; // Fallback if no peak data
-                }
+                let peakPrice = stock.peakPrice || alertPrice;
                 if (alertPrice > 0) {
                     // Use the actual peak price tracked since alert (not historical market data)
                     if (isShort) {
@@ -6631,7 +6560,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             </div>
                             <span style="cursor: pointer; opacity: 0.5; font-size: 20px; padding: 0; margin: -8px -8px -8px 0;" onclick="event.preventDefault(); event.stopPropagation(); this.closest('[data-detail-bg]').remove();">✕</span>
                         </div>
-                        <div style="font-size: 12px; opacity: 0.80; font-weight: 600; color: ${isDark ? '#ffffff' : '#666'}; margin-bottom: 4px;">${trade.type}</div>
+                        <div style="font-size: 12px; opacity: 0.80; font-weight: 600; color: ${isDark ? '#bbb' : '#666'}; margin-bottom: 4px;">${trade.type}</div>
                         <div style="font-size: 14px; font-weight: 600; font-style: italic; color: ${trade.return > 0 ? '#00dd00' : '#ff3333'}; margin-bottom: 9px;">${trade.return > 0 ? '+' : ''}${trade.return.toFixed(2)}%</div>
                         <div style="font-size: 10px; opacity: 0.7; margin-bottom: 4px;">Sector: ${trade.sector}</div>
                         <div style="font-size: 10px; opacity: 0.7; margin-bottom: 4px;">Float: ${trade.float.toLocaleString()}</div>
@@ -6832,7 +6761,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                                         <div>
                                             <span class="trade-ticker" style="font-weight: 500;">$${t.ticker}</span>
                                             <span style="font-size: 10px; opacity: 0.65;"> (${t.companyName})</span>
-                                            <span style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 600; margin-left: 4px; color: ${isDark ? '#ffffff' : '#666'};">${t.type}</span>
+                                            <span style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 500; margin-left: 4px; color: ${isDark ? '#bbb' : '#666'};">${t.type}</span>
                                         </div>
                                         <span class="trade-return" style="color: #00dd00; font-size: 11px; font-style: italic;">+${t.return.toFixed(2)}%</span>
                                     </div>
@@ -6850,7 +6779,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                                         <div>
                                             <span class="trade-ticker" style="font-weight: 500;">$${t.ticker}</span>
                                             <span style="font-size: 10px; opacity: 0.65;"> (${t.companyName})</span>
-                                            <span style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 600; margin-left: 4px; color: ${isDark ? '#ffffff' : '#666'};">${t.type}</span>
+                                            <span style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 500; margin-left: 4px; color: ${isDark ? '#bbb' : '#666'};">${t.type}</span>
                                         </div>
                                         <span class="trade-return" style="color: ${t.return > 0 ? '#00dd00' : '#ff3333'}; font-size: 11px; font-style: italic;">${t.return > 0 ? '+' : ''}${t.return.toFixed(2)}%</span>
                                     </div>
@@ -6882,12 +6811,12 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
     </script>
     
     <!-- Push Notification Settings Modal -->
-    <div id="pushNotificationModal" class="modal" style="display: none; background: rgba(0,0,0,0.7); z-index: 10000; align-items: center; justify-content: center; padding: 0 14px 18px; overflow-y: auto;">
-        <div id="pushNotifModalContent" class="modal-content" style="border-radius: 12px; max-width: 450px; width: 90%; background: #ffffff; border: 1px solid #ddd; display: flex; flex-direction: column; max-height: 55vh; overflow: hidden;">
+    <div id="pushNotificationModal" class="modal" style="display: none; background: rgba(0,0,0,0.7); z-index: 10000;">
+        <div id="pushNotifModalContent" class="modal-content" style="border-radius: 12px; max-width: 450px; width: 90%; background: #ffffff; border: 1px solid #ddd; display: flex; flex-direction: column; max-height: 62vh; overflow: hidden;">
             <div id="pushNotifHeader" class="modal-header" style="padding: 12px 16px; border-bottom: 1px solid #ddd; background: #ffffff;">
                 <h2 style="margin: 0; font-size: 15px; color: #333;">Push Notifications</h2>
             </div>
-            <div id="pushNotifContent" style="padding: 16px 20px; max-height: calc(55vh - 120px); overflow-y: auto; background: #ffffff; color: #333; flex-shrink: 1; min-height: 0;">
+            <div id="pushNotifContent" style="padding: 16px 20px; max-height: calc(62vh - 120px); overflow-y: auto; background: #ffffff; color: #333; flex-shrink: 1; min-height: 0;">
                 <div style="margin-bottom: 16px;">
                     <label style="display: block; margin-bottom: 10px; font-weight: 600; color: #333;">Search Ticker</label>
                     <input type="text" id="tickerSearch" placeholder="Search ticker (e.g., $AAPL)" style="padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px; width: 100%; font-size: 12px; box-sizing: border-box;">
