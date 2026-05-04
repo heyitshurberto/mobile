@@ -2339,22 +2339,15 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             }
         }
 
-        .notification-panel {
-            position: fixed;
-            top: 55px;
-            right: 20px;
-            width: 315px;
-            max-height: 80vh;
-            background: rgba(255,255,255,0.40);
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            z-index: 9999;
-            display: none;
-            overflow-y: auto;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(224,224,224,0.4);
-            padding-bottom: 8px;
+           .notification-panel {
+                max-width: min(340px, calc(100% - 32px)) !important;
+                width: min(340px, calc(100% - 32px)) !important;
+                max-height: 40vh !important;
+                margin-top: 0 !important;
+                top: 95px !important;
+                left: 50% !important;
+                right: auto !important;
+                transform: translateX(-50%) !important;
         }
         
         @media (max-width: 768px) {
