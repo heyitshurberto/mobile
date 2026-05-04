@@ -2418,9 +2418,9 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                 max-height: 40vh !important;
                 margin-top: 0 !important;
                 top: 95px !important;
-                left: 50% !important;
-                right: auto !important;
-                transform: translateX(-50%) !important;
+                right: 20px !important;
+                left: auto !important;
+                transform: none !important;
             }
             
             /* Make push notification modal smaller on mobile */
@@ -3487,18 +3487,24 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                 updateNotificationCount();
                 return;
             }
-            const alertUrl = '/logs/alert.json';
-            const fallbackUrl = 'https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json';
+            const timestamp = Date.now();
+            const alertUrl = '/logs/alert.json?t=' + timestamp;
+            const fallbackUrl = 'https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json?t=' + timestamp;
             
             fetch(alertUrl, { cache: 'no-store' })
-                .catch(() => fetch(fallbackUrl, { cache: 'no-store' }))
                 .then(r => {
                     if (!r.ok) {
                         return fetch(fallbackUrl, { cache: 'no-store' });
                     }
                     return r;
                 })
-                .then(r => r.json())
+                .catch(() => fetch(fallbackUrl, { cache: 'no-store' }))
+                .then(r => {
+                    if (!r || !r.ok) {
+                        throw new Error('Failed to fetch recent alerts');
+                    }
+                    return r.json();
+                })
                 .then(alerts => {
                     const list = document.getElementById('notification-list');
                     list.innerHTML = '';
