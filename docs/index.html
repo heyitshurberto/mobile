@@ -2415,30 +2415,39 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             .notification-panel {
                 max-width: min(340px, calc(100% - 32px)) !important;
                 width: min(340px, calc(100% - 32px)) !important;
-                max-height: 40vh !important;
+                max-height: 30vh !important;
                 margin-top: 0 !important;
                 top: 95px !important;
-                right: 20px !important;
+                right: 10px !important;
                 left: auto !important;
                 transform: none !important;
             }
             
-            /* Make push notification modal smaller on mobile */
+            /* Make push notification modal centered on mobile */
             #pushNotificationModal {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100vw !important;
+                height: 100vh !important;
                 align-items: center !important;
                 justify-content: center !important;
+                display: flex !important;
             }
             #pushNotificationModal > div {
-                margin: 0 auto !important;
+                position: relative !important;
+                margin: 0 !important;
                 left: auto !important;
                 right: auto !important;
+                top: auto !important;
+                bottom: auto !important;
                 transform: none !important;
             }
             
             #pushNotifModalContent {
-                max-width: 90vw !important;
-                max-height: 45vh !important;
-                margin: 0 auto !important;
+                max-width: 85vw !important;
+                width: 85vw !important;
+                max-height: 50vh !important;
             }
             
             #pushNotifContent {
@@ -3491,20 +3500,30 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             const alertUrl = '/logs/alert.json?t=' + timestamp;
             const fallbackUrl = 'https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json?t=' + timestamp;
             
-            fetch(alertUrl, { cache: 'no-store' })
-                .then(r => {
-                    if (!r.ok) {
+            Promise.resolve(
+                fetch(alertUrl, { cache: 'no-store' })
+                    .catch(e => {
+                        console.warn('Primary alert fetch failed:', e);
                         return fetch(fallbackUrl, { cache: 'no-store' });
-                    }
-                    return r;
-                })
-                .catch(() => fetch(fallbackUrl, { cache: 'no-store' }))
-                .then(r => {
-                    if (!r || !r.ok) {
-                        throw new Error('Failed to fetch recent alerts');
-                    }
-                    return r.json();
-                })
+                    })
+            )
+            .then(r => {
+                if (!r || !r.ok) {
+                    console.warn('Primary fetch not ok, trying fallback. Status:', r?.status);
+                    return fetch(fallbackUrl, { cache: 'no-store' });
+                }
+                return r;
+            })
+            .catch(e => {
+                console.error('First fallback failed:', e);
+                return fetch(fallbackUrl, { cache: 'no-store' });
+            })
+            .then(r => {
+                if (!r || !r.ok) {
+                    throw new Error('Failed to fetch recent alerts. Status: ' + r?.status);
+                }
+                return r.json();
+            })
                 .then(alerts => {
                     const list = document.getElementById('notification-list');
                     list.innerHTML = '';
