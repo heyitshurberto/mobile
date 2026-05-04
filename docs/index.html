@@ -2016,18 +2016,6 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             transform: translateX(0) skew(-2deg);
         }
 
-        @media (max-width: 768px) {
-            .notification {
-                top: 50% !important;
-                right: 10px !important;
-                left: auto !important;
-                transform: translateY(-50%) skew(-2deg) !important;
-                max-width: 280px !important;
-                min-width: 220px !important;
-                padding: 12px 14px !important;
-            }
-        }
-
         .notification.success {
             border-left: 4px solid #00cc00;
             background: rgba(240, 255, 240, 0.15);
@@ -2425,34 +2413,16 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         
         @media (max-width: 768px) {
             .notification-panel {
-                max-width: min(300px, calc(100% - 24px)) !important;
-                width: min(300px, calc(100% - 24px)) !important;
-                max-height: 35vh !important;
+                max-width: min(340px, calc(100% - 32px)) !important;
+                width: min(340px, calc(100% - 32px)) !important;
+                max-height: 40vh !important;
                 margin-top: 0 !important;
-                top: 88px !important;
-                right: 8px !important;
+                top: 95px !important;
+                right: 10px !important;
                 left: auto !important;
                 transform: none !important;
-                padding-bottom: 4px !important;
             }
-
-            .notification-panel-header {
-                padding: 8px 10px !important;
-            }
-
-            .notification-list {
-                padding: 8px 10px !important;
-            }
-
-            .notification-item {
-                padding: 6px 10px !important;
-                font-size: 12px !important;
-            }
-
-            .notification-tab {
-                font-size: 11px !important;
-            }
-
+            
             /* Make push notification modal centered on mobile */
             #pushNotificationModal {
                 position: fixed !important;
