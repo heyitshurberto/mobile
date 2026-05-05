@@ -4554,7 +4554,7 @@ const renderLoginPage = () => `
         #requestAccessModal > div {
           padding: 19.2px !important;
           max-width: 100% !important;
-          width: 90% !important;
+          width: 100% !important;
           font-size: 13px !important;
         }
         

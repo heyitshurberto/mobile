@@ -6917,83 +6917,6 @@
     "lowest5DayPercent": 36.11
   },
   {
-    "ticker": "OSRH",
-    "title": "8-K - OSR Holdings, Inc. (0001840425) (Filer)",
-    "companyName": "OSR Holdings, Inc.",
-    "filerName": null,
-    "price": 0.6924,
-    "fav": "9.59",
-    "volume": 223517938,
-    "averageVolume": 1040150,
-    "float": 9974728,
-    "sharesOutstanding": 33124755,
-    "soRatio": "30.11%",
-    "marketCap": 22935580,
-    "isShort": true,
-    "ftd": 433273,
-    "intent": "Merger/Acquisition, Underwritten Offering, Credit Default, Licensing Deal, Unregistered Equity Sales, Related-Party Transaction",
-    "incorporated": "Wilmington, Delaware",
-    "located": "Washington",
-    "filingDate": "2026-04-30T13:06:26-04:00",
-    "signals": {
-      "Merger/Acquisition": [
-        "Material Definitive Agreement"
-      ],
-      "Underwritten Offering": [
-        "IPO"
-      ],
-      "Credit Default": [
-        "Event Of Default"
-      ],
-      "Licensing Deal": [
-        "Exclusive License",
-        "License Agreement"
-      ],
-      "Unregistered Equity Sales": [
-        "Item 3.02: Agreement are fair",
-        "Shares: 10.0M"
-      ],
-      "Related-Party Transaction": [
-        "Controlled By",
-        "Related Party"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "formType": [
-      "8-K",
-      "S-1",
-      "S-4",
-      "EX-10.1",
-      "EX-10.2",
-      "Item 1.01",
-      "Item 7.01",
-      "Item 9.01"
-    ],
-    "cik": "1840425",
-    "skipReason": "",
-    "alertType": null,
-    "predatoryFinancing": null,
-    "sector": "Biotechnology",
-    "hasTuesdayBonus": false,
-    "custodianControl": true,
-    "custodianVerified": true,
-    "custodianName": "Washington (via Wilmington, Delaware)",
-    "filingTimeMultiplier": 1.05,
-    "filingTimeBonus": 1.05,
-    "deterministicPattern": "Credit Default (Covenant Breach)",
-    "deterministicMechanism": "Company in covenant breach with lenders = dilutive financing at distressed terms. Lenders have leverage.",
-    "deterministicPhrase": "[Company in covenant breach with lenders = dilutive financing at distressed terms. Lenders have leverage.]",
-    "recordedAt": "2026-04-30T17:07:11.234Z",
-    "recordId": "OSRH-1777568831234",
-    "expiresAt": "2026-05-05T17:07:11.234Z",
-    "direction": "SHORT",
-    "highest5Day": 0.6366,
-    "highest5DayPercent": -8.06,
-    "lowest5Day": 0.39,
-    "lowest5DayPercent": 43.67
-  },
-  {
     "ticker": "KEX",
     "title": "8-K - KIRBY CORP (0000056047) (Filer)",
     "companyName": "KIRBY CORP",
@@ -7057,8 +6980,8 @@
     "direction": "LONG",
     "highest5Day": 155.85,
     "highest5DayPercent": 5.14,
-    "lowest5Day": 145.22,
-    "lowest5DayPercent": -2.03
+    "lowest5Day": 144.14,
+    "lowest5DayPercent": -2.76
   },
   {
     "ticker": "SHPH",
@@ -7127,8 +7050,8 @@
     "recordId": "SHPH-1777641894154",
     "expiresAt": "2026-05-06T13:24:54.154Z",
     "direction": "SHORT",
-    "highest5Day": 0.6917,
-    "highest5DayPercent": -32.84,
+    "highest5Day": 0.6617,
+    "highest5DayPercent": -35.76,
     "lowest5Day": 0.6617,
     "lowest5DayPercent": 35.76
   }
