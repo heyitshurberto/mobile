@@ -28,9 +28,9 @@ table {
     body { zoom: 110%; }
 }
 
-/* iPad/tablet: 100% zoom */
+/* iPad/tablet: 90% zoom */
 @media (min-width: 769px) and (max-width: 1023px) {
-    body { zoom: 100%; }
+    body { zoom: 90%; }
 }
 </style>
 <div style="position: absolute; top: 1px; left: 6px; display: flex; gap: 4px; align-items: center;" class="usersname-tag-desktop">
@@ -3442,13 +3442,19 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                 .then(r => {
                     if (!r.ok) {
                         console.warn('Local alert.json failed: ' + r.status + ', trying GitHub');
-                        return fetch(fallbackUrl, { cache: 'no-store' });
+                        return fetch(fallbackUrl, { cache: 'no-store' }).then(r => {
+                            if (!r.ok) throw new Error('Fallback fetch failed: ' + r.status);
+                            return r.json();
+                        });
                     }
                     return r.json();
                 })
                 .catch(e => {
                     console.warn('Local fetch failed, trying GitHub:', e.message);
-                    return fetch(fallbackUrl, { cache: 'no-store' }).then(r => r.json());
+                    return fetch(fallbackUrl, { cache: 'no-store' }).then(r => {
+                        if (!r.ok) throw new Error('Fallback fetch failed: ' + r.status);
+                        return r.json();
+                    });
                 })
                 .then(alerts => {
                     if (!alerts) throw new Error('No alerts data');
