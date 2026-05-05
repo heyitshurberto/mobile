@@ -2347,6 +2347,19 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                     margin-top: 9px !important;
                 }
             }
+            @media (min-width: 769px) {
+                /* iPad ONLY - push notification modal dropdown opens lower (less far up) */
+                #pushNotificationModal {
+                    padding-top: 120px !important;
+                }
+                
+                /* iPad ONLY - main dashboard view zoomed out 20% */
+                .dashboard-container,
+                .dashboard {
+                    transform: scale(0.8) !important;
+                    transform-origin: top center !important;
+                }
+            }
         }
 
         @media (min-width: 769px) {
@@ -3432,40 +3445,22 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             const alertUrl = '/logs/alert.json?t=' + timestamp;
             const fallbackUrl = 'https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json?t=' + timestamp;
             
-            // Try local first, with better error handling
+            // Try local first, with fallback chain
             fetch(alertUrl, { cache: 'no-store' })
                 .then(r => {
                     if (!r.ok) {
-                        console.warn('Local alert.json failed with status ' + r.status + ', trying fallback');
+                        console.warn('Local alert.json failed: ' + r.status + ', trying GitHub');
                         return fetch(fallbackUrl, { cache: 'no-store' });
-                    }
-                    console.log('Local alert.json loaded successfully');
-                    return r;
-                })
-                .catch(e => {
-                    console.warn('Primary fetch error, trying fallback:', e.message);
-                    return fetch(fallbackUrl, { cache: 'no-store' });
-                })
-                .then(r => {
-                    if (!r || !r.ok) {
-                        console.error('Fallback fetch failed with status ' + (r?.status));
-                        throw new Error('All alert fetches failed');
                     }
                     return r.json();
                 })
                 .catch(e => {
-                    console.error('Failed to parse alert.json:', e);
-                    const list = document.getElementById('notification-list');
-                    list.innerHTML = '';
-                    const emptyState = document.createElement('div');
-                    emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
-                    emptyState.textContent = 'Error loading alerts';
-                    list.appendChild(emptyState);
-                    updateNotificationCount();
-                    return;
+                    console.warn('Local fetch failed, trying GitHub:', e.message);
+                    return fetch(fallbackUrl, { cache: 'no-store' }).then(r => r.json());
                 })
                 .then(alerts => {
-                    if (!alerts) return; // Already handled by catch
+                    if (!alerts) throw new Error('No alerts data');
+                    
                     const list = document.getElementById('notification-list');
                     list.innerHTML = '';
                     
@@ -3520,12 +3515,12 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                     });
                 })
                 .catch(e => {
-                    console.error('No recent alerts:', e);
+                    console.error('Failed to load alerts:', e);
                     const list = document.getElementById('notification-list');
                     list.innerHTML = '';
                     const emptyState = document.createElement('div');
                     emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
-                    emptyState.textContent = 'No recent alerts';
+                    emptyState.textContent = 'Error loading alerts';
                     list.appendChild(emptyState);
                     // Update notification count even on error
                     updateNotificationCount();
