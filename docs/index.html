@@ -28,7 +28,7 @@ table {
     body { zoom: 110%; }
 }
 
-/* iPad/tablet: 90% zoom */
+/* iPad/tablet: 90% zoom for better fit */
 @media (min-width: 769px) and (max-width: 1023px) {
     body { zoom: 90%; }
 }
@@ -3442,19 +3442,13 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                 .then(r => {
                     if (!r.ok) {
                         console.warn('Local alert.json failed: ' + r.status + ', trying GitHub');
-                        return fetch(fallbackUrl, { cache: 'no-store' }).then(r => {
-                            if (!r.ok) throw new Error('Fallback fetch failed: ' + r.status);
-                            return r.json();
-                        });
+                        return fetch(fallbackUrl, { cache: 'no-store' });
                     }
                     return r.json();
                 })
                 .catch(e => {
                     console.warn('Local fetch failed, trying GitHub:', e.message);
-                    return fetch(fallbackUrl, { cache: 'no-store' }).then(r => {
-                        if (!r.ok) throw new Error('Fallback fetch failed: ' + r.status);
-                        return r.json();
-                    });
+                    return fetch(fallbackUrl, { cache: 'no-store' }).then(r => r.json());
                 })
                 .then(alerts => {
                     if (!alerts) throw new Error('No alerts data');
@@ -4708,6 +4702,27 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                                     const type = alert.isShort ? 'error' : 'success';
                                     const ticker = `<b>$${alert.ticker}</b>`;
                                     this.showNotification(`${ticker} ${position}`, type, alert.filingLink || '#');
+                                    
+                                    // Also add to notification panel Recent tab for mobile
+                                    const recentList = document.getElementById('notification-list');
+                                    if (recentList) {
+                                        const date = new Date(alert.recordedAt || Date.now());
+                                        const dateStr = date.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' });
+                                        const timeStr = date.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
+                                        const marketCapStr = alert.marketCap && alert.marketCap !== 'N/A' ? '$' + parseFloat(alert.marketCap).toLocaleString() : 'N/A';
+                                        const ftdStr = alert.ftd !== false && alert.ftd !== null ? (typeof alert.ftd === 'number' ? alert.ftd.toLocaleString() : alert.ftd) : 'False';
+                                        const sectorText = alert.sector && alert.sector !== 'N/A' ? alert.sector : 'N/A';
+                                        
+                                        const item = document.createElement('div');
+                                        item.className = 'notification-item';
+                                        item.style.cursor = 'pointer';
+                                        item.innerHTML = `<div style="margin-bottom: 8px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px;"><span style="text-decoration: underline;">$${alert.ticker} <i style="font-weight: 700;">${position}</i> @ $${alert.price} </span><span style="font-size: 10px; opacity: 0.5; font-style: italic; white-space: nowrap;">${dateStr} ${timeStr} UTC</span></div><div style="font-size: 11px; opacity: 0.77; margin-bottom: 4px;">Sector: ${sectorText} | Market Cap: ${marketCapStr} | FTD: ${ftdStr} | F/AV: ${alert.fav || 'N/A'}x</div>`;
+                                        if (recentList.firstChild) {
+                                            recentList.insertBefore(item, recentList.firstChild);
+                                        } else {
+                                            recentList.appendChild(item);
+                                        }
+                                    }
                                 }
                                 
                                 smartLog('info', `New ticker found in alert.json: ${alert.ticker} @ $${alert.price}`);
