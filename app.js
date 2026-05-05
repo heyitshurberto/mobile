@@ -4586,7 +4586,7 @@ const renderLoginPage = () => `
       body { zoom: 100%; }
     }
     @media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
-      body { zoom: 90%; }
+      body { zoom: 100%; }
     }
   </style>
 </head>
