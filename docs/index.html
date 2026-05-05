@@ -24,13 +24,13 @@ table {
 }
 
 /* Zoom 10% more on PC/laptop only */
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 769px) {
     body { zoom: 110%; }
 }
 </style>
 <div style="position: absolute; top: 1px; left: 6px; display: flex; gap: 4px; align-items: center;" class="usersname-tag-desktop">
-<a href="#" onclick="event.preventDefault(); event.stopPropagation(); customConfirm('Join the <b><i>Carlucci Ж</i></b> Community?', 'https://discord.gg/5SQcvhfN'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 3px 3px; border-radius: 4px; transition: opacity 0.2s; touch-action: manipulation; -webkit-tap-highlight-color: transparent; -webkit-user-select: none; user-select: none;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'" ontouchstart="this.style.opacity='0.8'; event.stopPropagation();" ontouchend="this.style.opacity='1';"><img src="/docs/tele.png" alt="Discord" style="height: 23px; width: 22px; filter: brightness(0) saturate(100%); pointer-events: none; -webkit-user-drag: none; user-drag: none;" id="tele-logo" class="social-icon"></a>
-  <a href="#" onclick="event.preventDefault(); event.stopPropagation(); customConfirm('Visit <b><i>@cartelwrld</i></b> on X?', 'https://x.com/cartelwrld'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; touch-action: manipulation; -webkit-tap-highlight-color: transparent; -webkit-user-select: none; user-select: none;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'" ontouchstart="this.style.opacity='0.8'; event.stopPropagation();" ontouchend="this.style.opacity='1';"><img src="/docs/twit.png" alt="X" style="height: 15px; width: 15px; filter: brightness(0) saturate(100%); pointer-events: none; -webkit-user-drag: none; user-drag: none;" id="x-logo" class="social-icon"></a></div>
+  <a href="#" onclick="customConfirm('Join the <b><i>Carlucci Ж</i></b> Community?', 'https://discord.gg/5SQcvhfN'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 3px 3px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 23px; width: 22px; filter: brightness(0) saturate(100%);" id="tele-logo" class="social-icon"></a>
+  <a href="#" onclick="customConfirm('Visit <b><i>@cartelwrld</i></b> on X?', 'https://x.com/cartelwrld'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 15px; width: 15px; filter: brightness(0) saturate(100%);" id="x-logo" class="social-icon"></a></div>
 <script>
 function updateLogoDarkMode() {
   const isDarkMode = document.body.classList.contains('dark-mode');
@@ -2341,32 +2341,13 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                 font-size: 13px !important;
             }
         }
-@supports (-webkit-touch-callout: none) {
-    @media (max-width: 768px) {
-        .logo {
-            margin-top: 9px !important;
+        @supports (-webkit-touch-callout: none) {
+            @media (max-width: 768px) {
+                .logo {
+                    margin-top: 9px !important;
+                }
+            }
         }
-    }
-    @media (min-width: 769px) {
-        /* iPad ONLY: 20% ZOOMED OUT (-20%) */
-        body, .container, .dashboard, .dashboard-container {
-            transform: scale(0.8) !important;
-            transform-origin: top center !important;
-            width: 125% !important; /* Compensate for scale */
-            margin-left: -12.5% !important;
-        }
-        
-        /* iPad: Push notification modal adjustment */
-        #pushNotificationModal {
-            padding-top: 120px !important;
-        }
-        
-        /* iPad ONLY: Move loading screen content back down */
-        #loading-screen {
-            transform: translateY(0) !important;
-        }
-    }
-}
 
         @media (min-width: 769px) {
             #loading-screen {
@@ -3434,168 +3415,104 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
             }
         }
 
-// IndexedDB for mobile alert persistence
-let db = null;
-const DB_NAME = 'MobileAlertsDB';
-const DB_VERSION = 1;
-const ALERTS_STORE = 'recentAlerts';
-
-async function initDB() {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.open(DB_NAME, DB_VERSION);
-    request.onerror = () => reject(request.error);
-    request.onsuccess = () => {
-      db = request.result;
-      resolve(db);
-    };
-    request.onupgradeneeded = (e) => {
-      db = e.target.result;
-      if (!db.objectStoreNames.contains(ALERTS_STORE)) {
-        db.createObjectStore(ALERTS_STORE, { keyPath: 'timestamp' });
-      }
-    };
-  });
-}
-
-async function saveAlertsToDB(alerts) {
-  if (!db) await initDB();
-  const tx = db.transaction(ALERTS_STORE, 'readwrite');
-  const store = tx.objectStore(ALERTS_STORE);
-  alerts.forEach(alert => store.put({ ...alert, timestamp: Date.now() }));
-  return tx.complete;
-}
-
-async function loadAlertsFromDB() {
-  if (!db) await initDB();
-  return new Promise((resolve) => {
-    const tx = db.transaction(ALERTS_STORE, 'readonly');
-    const store = tx.objectStore(ALERTS_STORE);
-    const request = store.getAll();
-    request.onsuccess = () => resolve(request.result);
-    request.onerror = () => resolve([]);
-  });
-}
-
-function showLoadingState(list) {
-  list.innerHTML = '<div style="padding: 20px; text-align: center; opacity: 0.6;"><span>Loading alerts...</span></div>';
-}
-
-async function loadRecentAlerts() {
-  const list = document.getElementById('notification-list');
-  if (!list) return;
-  
-  // Show loading immediately
-  showLoadingState(list);
-  
-  if (localStorage.getItem('recentAlertsCleared') === 'true') {
-    const cached = await loadAlertsFromDB();
-    if (cached.length > 0) {
-      renderAlertsList(cached, list);
-      return;
-    }
-    list.innerHTML = '<div style="padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;">No recent alerts</div>';
-    updateNotificationCount();
-    return;
-  }
-  
-  // Multi-fallback fetch chain with retries
-  const endpoints = [
-    '/logs/alert.json',
-    'https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json',
-    'https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/alert.json'
-  ];
-  
-  for (let attempt = 0; attempt < 3; attempt++) {
-    try {
-      const timestamp = Date.now();
-      const url = `${endpoints[attempt % endpoints.length]}?t=${timestamp}`;
-      const response = await fetch(url, { 
-        cache: 'no-store',
-        mode: 'cors',
-        credentials: 'omit'
-      });
-      
-      if (response.ok) {
-        const alerts = await response.json();
-        if (Array.isArray(alerts) && alerts.length > 0) {
-          // Cache to localStorage + IndexedDB
-          localStorage.setItem('recentAlerts', JSON.stringify(alerts));
-          await saveAlertsToDB(alerts);
-          
-          renderAlertsList(alerts, list);
-          notifications = alerts;
-          updateNotificationCount();
-          return;
+        function loadRecentAlerts() {
+            if (localStorage.getItem('recentAlertsCleared') === 'true') {
+                const list = document.getElementById('notification-list');
+                list.innerHTML = '';
+                const emptyState = document.createElement('div');
+                emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
+                emptyState.textContent = 'No recent alerts';
+                list.appendChild(emptyState);
+                updateNotificationCount();
+                return;
+            }
+            
+            // Add cache bust to prevent stale alert.json from mobile cache
+            const timestamp = Date.now();
+            const alertUrl = '/logs/alert.json?t=' + timestamp;
+            const fallbackUrl = 'https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json?t=' + timestamp;
+            
+            // Try local first, with fallback chain
+            fetch(alertUrl, { cache: 'no-store' })
+                .then(r => {
+                    if (!r.ok) {
+                        console.warn('Local alert.json failed: ' + r.status + ', trying GitHub');
+                        return fetch(fallbackUrl, { cache: 'no-store' });
+                    }
+                    return r.json();
+                })
+                .catch(e => {
+                    console.warn('Local fetch failed, trying GitHub:', e.message);
+                    return fetch(fallbackUrl, { cache: 'no-store' }).then(r => r.json());
+                })
+                .then(alerts => {
+                    if (!alerts) throw new Error('No alerts data');
+                    
+                    const list = document.getElementById('notification-list');
+                    list.innerHTML = '';
+                    
+                    if (!Array.isArray(alerts) || alerts.length === 0) {
+                        const emptyState = document.createElement('div');
+                        emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
+                        emptyState.textContent = 'No recent alerts';
+                        list.appendChild(emptyState);
+                        updateNotificationCount();
+                        return;
+                    }
+                    
+                    // Update notifications array for badge count
+                    notifications = alerts;
+                    updateNotificationCount();
+                    
+                    alerts.slice(-20).reverse().forEach(alert => {
+                        const item = document.createElement('div');
+                        item.className = 'notification-item';
+                        item.style.cursor = 'pointer';
+                        const date = new Date(alert.recordedAt);
+                        const dateStr = date.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' });
+                        const timeStr = date.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
+                        const marketCapStr = alert.marketCap && alert.marketCap !== 'N/A' ? '$' + parseFloat(alert.marketCap).toLocaleString() : 'N/A';
+                        const ftdStr = alert.ftd !== false && alert.ftd !== null && alert.ftd !== undefined && alert.ftd !== 'False'
+                            ? (typeof alert.ftd === 'number' ? alert.ftd.toLocaleString() : alert.ftd)
+                            : 'False';
+                        let insiderStr = 'N/A';
+                        if (alert.insiderPercent && alert.insiderPercent !== 'N/A') {
+                            const insiderVal = parseFloat(alert.insiderPercent) * 100;
+                            insiderStr = !isNaN(insiderVal) ? insiderVal.toFixed(2) + '%' : 'N/A';
+                        }
+                        
+                        const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${alert.cik}&type=6-K&dateb=&owner=exclude&count=100`;
+                        const saLink = `https://www.stockanalysis.com/stocks/${alert.ticker.toLowerCase()}/`;
+                        const direction = alert.isShort ? 'SHORT' : 'LONG';
+                        const sectorText = alert.sector && alert.sector !== 'N/A' ? alert.sector : 'N/A';
+                        
+                        item.innerHTML = `
+                            <div style="margin-bottom: 8px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+                                <span style="text-decoration: underline;">$${alert.ticker} <i style="font-weight: 700;">${direction}</i> @ $${alert.price} </span>
+                                <span style="font-size: 10px; opacity: 0.5; font-style: italic; white-space: nowrap;">${dateStr} ${timeStr} UTC</span>
+                            </div>
+                            <div style="font-size: 11px; opacity: 0.77; margin-bottom: 4px;">Sector: ${sectorText} | Market Cap: ${marketCapStr} | FTD: ${ftdStr} | F/AV: ${alert.fav}x</div>
+                        `;
+                        
+                        item.addEventListener('click', () => {
+                            customConfirm(`View details for <b><i>$${alert.ticker}</i></b>?`, `${saLink}`);
+                        });
+                        
+                        list.appendChild(item);
+                    });
+                })
+                .catch(e => {
+                    console.error('Failed to load alerts:', e);
+                    const list = document.getElementById('notification-list');
+                    list.innerHTML = '';
+                    const emptyState = document.createElement('div');
+                    emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
+                    emptyState.textContent = 'Error loading alerts';
+                    list.appendChild(emptyState);
+                    // Update notification count even on error
+                    updateNotificationCount();
+                });
         }
-      }
-    } catch (e) {
-      console.warn(`Fetch attempt ${attempt + 1} failed:`, e.message);
-      await new Promise(r => setTimeout(r, 500 * Math.pow(2, attempt))); // Exponential backoff
-    }
-  }
-  
-  // All fetches failed - try localStorage then IndexedDB
-  let cachedAlerts = localStorage.getItem('recentAlerts');
-  if (cachedAlerts) {
-    try {
-      const parsed = JSON.parse(cachedAlerts);
-      if (Array.isArray(parsed)) {
-        renderAlertsList(parsed, list);
-        notifications = parsed;
-        updateNotificationCount();
-        return;
-      }
-    } catch (e) {}
-  }
-  
-  const dbAlerts = await loadAlertsFromDB();
-  if (dbAlerts.length > 0) {
-    renderAlertsList(dbAlerts, list);
-    notifications = dbAlerts;
-    updateNotificationCount();
-    return;
-  }
-  
-  // Final fallback - empty state
-  list.innerHTML = '<div style="padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;">No recent alerts</div>';
-  updateNotificationCount();
-}
-
-function renderAlertsList(alerts, list) {
-  list.innerHTML = '';
-  alerts.slice(-20).reverse().forEach(alert => {
-    const item = document.createElement('div');
-    item.className = 'notification-item';
-    item.style.cursor = 'pointer';
-    const date = new Date(alert.recordedAt);
-    const dateStr = date.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' });
-    const timeStr = date.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
-    const marketCapStr = alert.marketCap && alert.marketCap !== 'N/A' ? '$' + parseFloat(alert.marketCap).toLocaleString() : 'N/A';
-    const ftdStr = alert.ftd !== false && alert.ftd !== null && alert.ftd !== undefined && alert.ftd !== 'False'
-        ? (typeof alert.ftd === 'number' ? alert.ftd.toLocaleString() : alert.ftd)
-        : 'False';
-    const direction = alert.isShort ? 'SHORT' : 'LONG';
-    const sectorText = alert.sector && alert.sector !== 'N/A' ? alert.sector : 'N/A';
-    
-    item.innerHTML = `
-        <div style="margin-bottom: 8px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
-            <span style="text-decoration: underline;">$${alert.ticker} <i style="font-weight: 700;">${direction}</i> @ $${alert.price} </span>
-            <span style="font-size: 10px; opacity: 0.5; font-style: italic; white-space: nowrap;">${dateStr} ${timeStr} UTC</span>
-        </div>
-        <div style="font-size: 11px; opacity: 0.77; margin-bottom: 4px;">Sector: ${sectorText} | Market Cap: ${marketCapStr} | FTD: ${ftdStr} | F/AV: ${alert.fav}x</div>
-    `;
-    
-    item.addEventListener('click', () => {
-      customConfirm(`View details for <b><i>$${alert.ticker}</i></b>?`, `https://www.stockanalysis.com/stocks/${alert.ticker.toLowerCase()}/`);
-    });
-    
-    list.appendChild(item);
-  });
-}
-
-// Initialize IndexedDB on load
-document.addEventListener('DOMContentLoaded', initDB);
-
 
         function loadHistoryAlerts() {
             const stockUrl = '/logs/stocks.json';
