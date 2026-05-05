@@ -3328,6 +3328,7 @@ const pushToGistOnly = () => {
           log('WARN', `Gist backup failed (${res.status}): ${text}`);
         }
       } else {
+        log('INFO', 'Gist backup succeeded');
       }
     })
     .catch(err => {

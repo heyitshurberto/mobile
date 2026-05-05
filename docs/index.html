@@ -3426,27 +3426,54 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
                 updateNotificationCount();
                 return;
             }
-            const alertUrl = '/logs/alert.json';
             
-            fetch(alertUrl)
+            // Add cache bust to prevent stale alert.json from mobile cache
+            const timestamp = Date.now();
+            const alertUrl = '/logs/alert.json?t=' + timestamp;
+            const fallbackUrl = 'https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json?t=' + timestamp;
+            
+            // Try local first, with better error handling
+            fetch(alertUrl, { cache: 'no-store' })
                 .then(r => {
                     if (!r.ok) {
-                        // Fall back to GitHub
-                        return fetch('https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json');
+                        console.warn('Local alert.json failed with status ' + r.status + ', trying fallback');
+                        return fetch(fallbackUrl, { cache: 'no-store' });
                     }
+                    console.log('Local alert.json loaded successfully');
                     return r;
                 })
-                .then(r => r.json())
+                .catch(e => {
+                    console.warn('Primary fetch error, trying fallback:', e.message);
+                    return fetch(fallbackUrl, { cache: 'no-store' });
+                })
+                .then(r => {
+                    if (!r || !r.ok) {
+                        console.error('Fallback fetch failed with status ' + (r?.status));
+                        throw new Error('All alert fetches failed');
+                    }
+                    return r.json();
+                })
+                .catch(e => {
+                    console.error('Failed to parse alert.json:', e);
+                    const list = document.getElementById('notification-list');
+                    list.innerHTML = '';
+                    const emptyState = document.createElement('div');
+                    emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
+                    emptyState.textContent = 'Error loading alerts';
+                    list.appendChild(emptyState);
+                    updateNotificationCount();
+                    return;
+                })
                 .then(alerts => {
+                    if (!alerts) return; // Already handled by catch
                     const list = document.getElementById('notification-list');
                     list.innerHTML = '';
                     
-                    if (!alerts || !Array.isArray(alerts) || alerts.length === 0) {
+                    if (!Array.isArray(alerts) || alerts.length === 0) {
                         const emptyState = document.createElement('div');
                         emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
                         emptyState.textContent = 'No recent alerts';
                         list.appendChild(emptyState);
-                        // Update notification count even if no alerts
                         updateNotificationCount();
                         return;
                     }
@@ -6458,9 +6485,21 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 const quoteData = quotes[stock.ticker] || {};
                 
                 let peakPercent = 0;
-                let peakPrice = stock.peakPrice || alertPrice;
+                let peakPrice = stock.peakPrice;
+                
+                // If no tracked peakPrice, use highest/lowest from quote data
+                if (!peakPrice) {
+                    if (isShort) {
+                        peakPrice = parseFloat(quoteData.lowest || stock.lowest5Day || alertPrice);
+                    } else {
+                        peakPrice = parseFloat(quoteData.highest || stock.highest5Day || alertPrice);
+                    }
+                } else {
+                    peakPrice = parseFloat(peakPrice);
+                }
+                
                 if (alertPrice > 0) {
-                    // Use the actual peak price tracked since alert (not historical market data)
+                    // Use the actual peak price tracked since alert (or market data)
                     if (isShort) {
                         peakPercent = ((alertPrice - peakPrice) / alertPrice) * 100;
                         totalShortTrades++;
@@ -6761,7 +6800,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                                         <div>
                                             <span class="trade-ticker" style="font-weight: 500;">$${t.ticker}</span>
                                             <span style="font-size: 10px; opacity: 0.65;"> (${t.companyName})</span>
-                                            <span style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 500; margin-left: 4px; color: ${isDark ? '#bbb' : '#666'};">${t.type}</span>
+                                            <span style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 700; margin-left: 4px; color: ${isDark ? '#ffffff' : '#666'};">${t.type}</span>
                                         </div>
                                         <span class="trade-return" style="color: #00dd00; font-size: 11px; font-style: italic;">+${t.return.toFixed(2)}%</span>
                                     </div>
@@ -6779,7 +6818,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                                         <div>
                                             <span class="trade-ticker" style="font-weight: 500;">$${t.ticker}</span>
                                             <span style="font-size: 10px; opacity: 0.65;"> (${t.companyName})</span>
-                                            <span style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 500; margin-left: 4px; color: ${isDark ? '#bbb' : '#666'};">${t.type}</span>
+                                            <span style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 700; margin-left: 4px; color: ${isDark ? '#ffffff' : '#666'};">${t.type}</span>
                                         </div>
                                         <span class="trade-return" style="color: ${t.return > 0 ? '#00dd00' : '#ff3333'}; font-size: 11px; font-style: italic;">${t.return > 0 ? '+' : ''}${t.return.toFixed(2)}%</span>
                                     </div>
