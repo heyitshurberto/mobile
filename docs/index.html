@@ -24,7 +24,7 @@ table {
 }
 
 /* Zoom 10% more on PC/laptop only */
-@media (min-width: 769px) {
+@media (min-width: 769px) and (max-width: 1024px) {
     body { zoom: 110%; }
 }
 </style>
@@ -2367,12 +2367,6 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         }
     }
 }
-
-        @media (min-width: 769px) {
-            #loading-screen {
-                transform: translateY(-3%) !important;
-            }
-        }
 
         @media (max-width: 768px) {
             .stat-box > div:last-child {
