@@ -2368,10 +2368,19 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         
         @media (max-width: 768px) {
             .notification-panel {
-                max-width: 290px !important;
-                max-height: 40vh !important;
+                left: 10px !important;
+                right: auto !important;
+                width: calc(100vw - 20px) !important;
+                max-width: none !important;
+                max-height: 50vh !important;
                 margin-top: 0 !important;
                 top: 95px !important;
+            }
+            
+            .notification-list {
+                max-height: calc(50vh - 50px) !important;
+                overflow-y: auto !important;
+                display: block !important;
             }
             
             /* Make push notification modal smaller on mobile */
@@ -4702,27 +4711,6 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                                     const type = alert.isShort ? 'error' : 'success';
                                     const ticker = `<b>$${alert.ticker}</b>`;
                                     this.showNotification(`${ticker} ${position}`, type, alert.filingLink || '#');
-                                    
-                                    // Also add to notification panel Recent tab for mobile
-                                    const recentList = document.getElementById('notification-list');
-                                    if (recentList) {
-                                        const date = new Date(alert.recordedAt || Date.now());
-                                        const dateStr = date.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' });
-                                        const timeStr = date.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
-                                        const marketCapStr = alert.marketCap && alert.marketCap !== 'N/A' ? '$' + parseFloat(alert.marketCap).toLocaleString() : 'N/A';
-                                        const ftdStr = alert.ftd !== false && alert.ftd !== null ? (typeof alert.ftd === 'number' ? alert.ftd.toLocaleString() : alert.ftd) : 'False';
-                                        const sectorText = alert.sector && alert.sector !== 'N/A' ? alert.sector : 'N/A';
-                                        
-                                        const item = document.createElement('div');
-                                        item.className = 'notification-item';
-                                        item.style.cursor = 'pointer';
-                                        item.innerHTML = `<div style="margin-bottom: 8px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px;"><span style="text-decoration: underline;">$${alert.ticker} <i style="font-weight: 700;">${position}</i> @ $${alert.price} </span><span style="font-size: 10px; opacity: 0.5; font-style: italic; white-space: nowrap;">${dateStr} ${timeStr} UTC</span></div><div style="font-size: 11px; opacity: 0.77; margin-bottom: 4px;">Sector: ${sectorText} | Market Cap: ${marketCapStr} | FTD: ${ftdStr} | F/AV: ${alert.fav || 'N/A'}x</div>`;
-                                        if (recentList.firstChild) {
-                                            recentList.insertBefore(item, recentList.firstChild);
-                                        } else {
-                                            recentList.appendChild(item);
-                                        }
-                                    }
                                 }
                                 
                                 smartLog('info', `New ticker found in alert.json: ${alert.ticker} @ $${alert.price}`);
