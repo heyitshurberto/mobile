@@ -2368,19 +2368,10 @@ observer.observe(document.body, { attributes: true, attributeFilter: ['class'] }
         
         @media (max-width: 768px) {
             .notification-panel {
-                left: 8px !important;
-                right: auto !important;
-                width: calc(100vw - 20px) !important;
-                max-width: none !important;
-                max-height: 30vh !important;
+                max-width: 290px !important;
+                max-height: 40vh !important;
                 margin-top: 0 !important;
                 top: 95px !important;
-            }
-            
-            .notification-list {
-                max-height: calc(50vh - 50px) !important;
-                overflow-y: auto !important;
-                display: block !important;
             }
             
             /* Make push notification modal smaller on mobile */
