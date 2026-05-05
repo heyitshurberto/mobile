@@ -4583,10 +4583,10 @@ const renderLoginPage = () => `
 
     /* Increase zoom by 10% on Apple devices for login page */
     @media (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
-      body { zoom: 100%; }
+      body { zoom: 110.2%; }
     }
     @media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
-      body { zoom: 100%; }
+      body { zoom: 90.2%; }
     }
   </style>
 </head>
