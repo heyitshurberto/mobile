@@ -4404,7 +4404,16 @@ const renderLoginPage = () => `
     }
 
     /* Apple/Safari-specific fixes for landing page */
-    @supports (-webkit-touch-callout: none) {
+@supports (-webkit-touch-callout: none) {
+    @media (min-width: 769px) {
+      body {
+        transform: scale(1.2);
+        transform-origin: top center;
+      }
+      .container {
+        max-width: 340px !important;
+      }
+    }
       .container {
         margin-top: 45px !important;
         padding: 6px 12px 16px 12px !important;
