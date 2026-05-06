@@ -4403,7 +4403,7 @@ transform: scale(1.1);
       }
     }
 
-    /* Apple/Safari-specific fixes for landing page */
+    /* Apple/Safari-specific fixes for landing page view */
 @supports (-webkit-touch-callout: none) {
     @media (min-width: 769px) {
       /* Use zoom-like scaling without causing a “pinch/transform zoom” look */
