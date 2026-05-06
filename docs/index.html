@@ -28,12 +28,12 @@ table {
     body { zoom: 110%; }
 }
 
-/* iPad/tablet: 90% zoom for better fit */
+/* iPad/tablet: 100% zoom (10% more zoom) for better fit */
 @media (min-width: 769px) and (max-width: 1023px) {
-    body { zoom: 90%; }
+    body { zoom: 100%; }
 }
 </style>
-<div style="position: absolute; top: 1px; left: 6px; display: flex; gap: 4px; align-items: center;" class="usersname-tag-desktop">
+<div style="position: absolute; top: 1px; left: 6px; display: flex; gap: 4px; align-items: center; z-index: 100;" class="usersname-tag-desktop">
   <a href="#" id="social-tele" onclick="customConfirm('Join the <b><i>Carlucci Ж</i></b> Community?', 'https://discord.gg/5SQcvhfN'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 3px 3px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: manipulation;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 23px; width: 22px; filter: brightness(0) saturate(100%);" id="tele-logo" class="social-icon"></a>
   <a href="#" id="social-twit" onclick="customConfirm('Visit <b><i>@cartelwrld</i></b> on X?', 'https://x.com/cartelwrld'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: manipulation;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 15px; width: 15px; filter: brightness(0) saturate(100%);" id="x-logo" class="social-icon"></a></div>
 <script>
@@ -51,7 +51,7 @@ document.addEventListener('themechanged', updateLogoDarkMode);
 const observer = new MutationObserver(() => updateLogoDarkMode());
 observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
 
-// iPad touch event handlers for social buttons
+// iPad touch event handlers for social buttons and all buttons
 document.addEventListener('DOMContentLoaded', function() {
   const socialLinks = document.querySelectorAll('#social-tele, #social-twit');
   socialLinks.forEach(link => {
@@ -62,6 +62,20 @@ document.addEventListener('DOMContentLoaded', function() {
       this.style.opacity = '1';
     }, false);
     link.addEventListener('touchcancel', function(e) {
+      this.style.opacity = '1';
+    }, false);
+  });
+  
+  // Add touch event handlers for all buttons on iPad
+  const allButtons = document.querySelectorAll('button');
+  allButtons.forEach(btn => {
+    btn.addEventListener('touchstart', function(e) {
+      this.style.opacity = '0.7';
+    }, false);
+    btn.addEventListener('touchend', function(e) {
+      this.style.opacity = '1';
+    }, false);
+    btn.addEventListener('touchcancel', function(e) {
       this.style.opacity = '1';
     }, false);
   });
@@ -564,6 +578,18 @@ document.addEventListener('DOMContentLoaded', function() {
             cursor: pointer;
             position: relative;
             z-index: 3;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            touch-action: manipulation;
+            pointer-events: auto !important;
+        }
+
+        @media (min-width: 769px) and (max-width: 1023px) {
+            button {
+                pointer-events: auto !important;
+                -webkit-user-select: none;
+                touch-action: manipulation;
+            }
         }
 
         button:active {
@@ -669,6 +695,18 @@ document.addEventListener('DOMContentLoaded', function() {
             transition: background-color 0.02s ease, color 0.02s ease;
             scrollbar-gutter: stable;
             overflow-y: scroll;
+        }
+
+        @media (min-width: 769px) and (max-width: 1023px) {
+            body {
+                overflow-y: hidden !important;
+                height: 100vh !important;
+                overflow: hidden !important;
+                padding-top: 35px !important;
+            }
+            html {
+                overflow: hidden !important;
+            }
         }
 
         body.dark-mode {
@@ -3326,14 +3364,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         function updateTimeDisplay() {
             const now = new Date();
-            const nyTime = new Intl.DateTimeFormat('en-US', {
-                timeZone: 'America/New_York',
+            const thaiTime = new Intl.DateTimeFormat('en-US', {
+                timeZone: 'Asia/Bangkok',
                 hour: 'numeric',
                 minute: 'numeric',
                 second: 'numeric',
                 hour12: true
             }).format(now);
-            document.getElementById('time-display').textContent = nyTime + ' ET';
+            document.getElementById('time-display').textContent = thaiTime + ' ICT';
         }
 
         // Notification functions
