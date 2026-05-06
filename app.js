@@ -4057,6 +4057,12 @@ const renderLoginPage = () => `
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
       font-family: 'Poppins', sans-serif;
+      pointer-events: auto !important;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      touch-action: manipulation;
     }
     button:hover:not(:disabled) {
       transform: translateY(-2px);
@@ -4075,6 +4081,15 @@ const renderLoginPage = () => `
     }
     body.dark-mode button:hover:not(:disabled) {
       box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    @media (min-width: 769px) and (max-width: 1023px) {
+      button {
+        pointer-events: auto !important;
+        -webkit-user-select: none;
+        user-select: none;
+        touch-action: manipulation;
+      }
     }
     .legal {
       font-size: 10px;
@@ -4922,9 +4937,49 @@ const renderLoginPage = () => `
     
     // Load stats when page loads
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', loadLandingPerformanceStats);
+      document.addEventListener('DOMContentLoaded', function() {
+        loadLandingPerformanceStats();
+        
+        // Add touch event handlers for iPad buttons on landing page
+        const allButtons = document.querySelectorAll('button');
+        allButtons.forEach(btn => {
+          btn.style.pointerEvents = 'auto';
+          btn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.style.opacity = '0.8';
+          }, false);
+          btn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.style.opacity = '1';
+          }, false);
+          btn.addEventListener('touchcancel', function(e) {
+            this.style.opacity = '1';
+          }, false);
+        });
+      });
     } else {
       loadLandingPerformanceStats();
+      
+      // Add touch event handlers for iPad buttons on landing page
+      const allButtons = document.querySelectorAll('button');
+      allButtons.forEach(btn => {
+        btn.style.pointerEvents = 'auto';
+        btn.addEventListener('touchstart', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.style.opacity = '0.8';
+        }, false);
+        btn.addEventListener('touchend', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.style.opacity = '1';
+        }, false);
+        btn.addEventListener('touchcancel', function(e) {
+          this.style.opacity = '1';
+        }, false);
+      });
     }
     
     function sendCode() {
