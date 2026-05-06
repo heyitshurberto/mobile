@@ -4057,12 +4057,6 @@ const renderLoginPage = () => `
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
       font-family: 'Poppins', sans-serif;
-      pointer-events: auto !important;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      user-select: none;
-      -webkit-touch-callout: none;
-      touch-action: manipulation;
     }
     button:hover:not(:disabled) {
       transform: translateY(-2px);
@@ -4081,15 +4075,6 @@ const renderLoginPage = () => `
     }
     body.dark-mode button:hover:not(:disabled) {
       box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
-    }
-
-    @media (min-width: 769px) and (max-width: 1023px) {
-      button {
-        pointer-events: auto !important;
-        -webkit-user-select: none;
-        user-select: none;
-        touch-action: manipulation;
-      }
     }
     .legal {
       font-size: 10px;
@@ -4937,49 +4922,9 @@ const renderLoginPage = () => `
     
     // Load stats when page loads
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function() {
-        loadLandingPerformanceStats();
-        
-        // Add touch event handlers for iPad buttons on landing page
-        const allButtons = document.querySelectorAll('button');
-        allButtons.forEach(btn => {
-          btn.style.pointerEvents = 'auto';
-          btn.addEventListener('touchstart', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            this.style.opacity = '0.8';
-          }, false);
-          btn.addEventListener('touchend', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            this.style.opacity = '1';
-          }, false);
-          btn.addEventListener('touchcancel', function(e) {
-            this.style.opacity = '1';
-          }, false);
-        });
-      });
+      document.addEventListener('DOMContentLoaded', loadLandingPerformanceStats);
     } else {
       loadLandingPerformanceStats();
-      
-      // Add touch event handlers for iPad buttons on landing page
-      const allButtons = document.querySelectorAll('button');
-      allButtons.forEach(btn => {
-        btn.style.pointerEvents = 'auto';
-        btn.addEventListener('touchstart', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          this.style.opacity = '0.8';
-        }, false);
-        btn.addEventListener('touchend', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          this.style.opacity = '1';
-        }, false);
-        btn.addEventListener('touchcancel', function(e) {
-          this.style.opacity = '1';
-        }, false);
-      });
     }
     
     function sendCode() {
@@ -5416,7 +5361,7 @@ const renderLoginPage = () => `
       </div>
       <div id="statsHistoryList" style="max-height: 300px; overflow-y: auto; border: none; border-radius: 8px; margin-bottom: 12px; background: transparent;"></div>
       <div style="display: flex; gap: 12px;">
-        <button id="statsCloseBtn" class="close-button" onclick="closeStatsModal()" style="flex: 1; padding: 12px; background: #f0f0f0; color: #666; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; transition: background-color 0.2s, color 0.3s ease, border-color 0.3s ease; pointer-events: auto !important; user-select: none; touch-action: manipulation;">Close</button>
+        <button class="close-button" onclick="document.getElementById('statsHistoryModal').classList.remove('show')" style="flex: 1; padding: 12px; background: #f0f0f0; color: #666; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; transition: background-color 0.2s, color 0.3s ease, border-color 0.3s ease;">Close</button>
       </div>
     </div>
   </div>
@@ -5443,50 +5388,8 @@ const renderLoginPage = () => `
       }
     }
 
-    function closeStatsModal() {
-      const modal = document.getElementById('statsHistoryModal');
-      modal.classList.remove('show');
-      modal.style.display = 'none';
-    }
-    
-    // Add touch event handler for close button on mobile
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function() {
-        const closeBtn = document.getElementById('statsCloseBtn');
-        if (closeBtn) {
-          closeBtn.addEventListener('touchstart', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            this.style.opacity = '0.8';
-          }, false);
-          closeBtn.addEventListener('touchend', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            this.style.opacity = '1';
-            closeStatsModal();
-          }, false);
-        }
-      });
-    } else {
-      const closeBtn = document.getElementById('statsCloseBtn');
-      if (closeBtn) {
-        closeBtn.addEventListener('touchstart', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          this.style.opacity = '0.8';
-        }, false);
-        closeBtn.addEventListener('touchend', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          this.style.opacity = '1';
-          closeStatsModal();
-        }, false);
-      }
-    }
-
     function openStatsHistoryModal() {
       const modal = document.getElementById('statsHistoryModal');
-      modal.style.display = 'flex';
       if (!modal) {
         console.error('Stats history modal element not found');
         return;
