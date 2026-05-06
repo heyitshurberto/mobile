@@ -4132,7 +4132,7 @@ const renderLoginPage = () => `
       box-shadow: none !important;
     }
     #themeToggle:hover {
-      transform: scale(1.10);
+transform: scale(1.1);
     }
     #themeToggle:focus {
       outline: none !important;
@@ -4585,10 +4585,10 @@ const renderLoginPage = () => `
 
     /* Adjust zoom on Apple devices for login page */
     @media (min-width: 769px) and (max-width: 1023px) and (-webkit-min-device-pixel-ratio: 1) {
-      body { zoom: 100%; }
+      body { zoom: 90%; }
     }
     @media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
-      body { zoom: 100%; }
+      body { zoom: 110%; }
     }
   </style>
 </head>
