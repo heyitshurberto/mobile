@@ -4591,7 +4591,7 @@ const renderLoginPage = () => `
     }
     @media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
       body { 
-        transform: scale(1.1);
+        transform: scale(1);
         transform-origin: top center;
       }
     }
