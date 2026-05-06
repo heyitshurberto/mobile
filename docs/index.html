@@ -5675,7 +5675,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             
             if (filteredAlerts.length === 0) {
                 const isMobile = window.innerWidth <= 768;
-                const icon = isMobile ? '—' : '📫︎';
+                const icon = isMobile ? '—' : '—';
                 const isApple = /iPhone|iPad|iPod|Mac/.test(navigator.userAgent);
                 const topPos = isApple ? '83%' : '68%';
                 container.innerHTML = '<div style="position: absolute; left: 50%; top: ' + topPos + '; transform: translate(-50%, -50%); text-align: center; color: #999; font-size: 15px; white-space: nowrap;"><div style="margin-bottom: 3px; font-size: 30px;">' + icon + '</div><div>No Recent Alerts</div><div style="font-size: 12px; margin-top: 8px; opacity: 0.6;">Check back soon for new opportunities</div></div>';
