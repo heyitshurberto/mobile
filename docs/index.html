@@ -584,12 +584,6 @@ document.addEventListener('DOMContentLoaded', function() {
             cursor: pointer;
             position: relative;
             z-index: 3;
-            pointer-events: auto !important;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-            -webkit-touch-callout: none;
-            touch-action: manipulation;
         }
 
         button:active {
@@ -600,15 +594,6 @@ document.addEventListener('DOMContentLoaded', function() {
             background: #333;
             border-color: #555;
             color: #e0e0e0;
-        }
-        
-        @media (min-width: 769px) and (max-width: 1023px) {
-            button {
-                pointer-events: auto !important;
-                -webkit-user-select: none;
-                user-select: none;
-                touch-action: manipulation;
-            }
         }
         
         .trigger-alert {
@@ -2560,19 +2545,6 @@ document.addEventListener('DOMContentLoaded', function() {
             padding: 10px;
         }
 
-        @media (max-width: 768px) {
-            .notification-list {
-                display: block !important;
-                z-index: 10 !important;
-                position: relative !important;
-                pointer-events: auto !important;
-                width: 100% !important;
-                max-height: 60vh !important;
-                overflow-y: auto !important;
-                padding: 10px !important;
-            }
-        }
-
         .notification-item {
             padding: 8px 12px;
             cursor: pointer;
@@ -3461,9 +3433,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             
             if (tab === 'recent') {
-                recentList.style.display = 'block !important';
-                recentList.style.zIndex = '10';
-                recentList.style.pointerEvents = 'auto';
+                recentList.style.display = 'block';
                 historyList.style.display = 'none';
                 inboxList.style.display = 'none';
                 tabs[0].classList.add('active');
@@ -3471,9 +3441,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 loadRecentAlerts();
             } else if (tab === 'history') {
                 recentList.style.display = 'none';
-                historyList.style.display = 'block !important';
-                historyList.style.zIndex = '10';
-                historyList.style.pointerEvents = 'auto';
+                historyList.style.display = 'block';
                 inboxList.style.display = 'none';
                 tabs[1].classList.add('active');
                 tabs[1].style.color = '';
@@ -3481,9 +3449,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } else if (tab === 'inbox') {
                 recentList.style.display = 'none';
                 historyList.style.display = 'none';
-                inboxList.style.display = 'block !important';
-                inboxList.style.zIndex = '10';
-                inboxList.style.pointerEvents = 'auto';
+                inboxList.style.display = 'block';
                 tabs[2].classList.add('active');
                 tabs[2].style.color = '';
                 loadInboxMessages();
