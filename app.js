@@ -4407,7 +4407,7 @@ const renderLoginPage = () => `
     @media (min-width: 769px) {
       /* Use zoom-like scaling without causing a “pinch/transform zoom” look */
       body {
-        transform: scale(1.1);
+        transform: scale(1.0);
         transform-origin: top center;
       }
       .container {
@@ -4584,10 +4584,10 @@ const renderLoginPage = () => `
 
     /* Adjust zoom on Apple devices for login page */
     @media (min-width: 769px) and (max-width: 1023px) and (-webkit-min-device-pixel-ratio: 1) {
-      body { zoom: 90%; }
+      body { zoom: 100%; }
     }
     @media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
-      body { zoom: 110%; }
+      body { zoom: 100%; }
     }
   </style>
 </head>
