@@ -4489,7 +4489,7 @@ const renderLoginPage = () => `
       /* Make stat boxes 10% smaller on Apple */
       .stat-box {
         padding: 9px !important;
-        font-size: 11.7px !important;
+        font-size: 10px !important;
       }
       
       /* Make landing page login stats box 10% smaller on Apple */
@@ -4591,7 +4591,7 @@ const renderLoginPage = () => `
     }
     @media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
       body { 
-        transform: scale(1);
+        transform: scale(1.1);
         transform-origin: top center;
       }
     }
