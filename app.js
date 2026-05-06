@@ -5416,7 +5416,7 @@ const renderLoginPage = () => `
       </div>
       <div id="statsHistoryList" style="max-height: 300px; overflow-y: auto; border: none; border-radius: 8px; margin-bottom: 12px; background: transparent;"></div>
       <div style="display: flex; gap: 12px;">
-        <button class="close-button" onclick="document.getElementById('statsHistoryModal').classList.remove('show')" style="flex: 1; padding: 12px; background: #f0f0f0; color: #666; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; transition: background-color 0.2s, color 0.3s ease, border-color 0.3s ease;">Close</button>
+        <button id="statsCloseBtn" class="close-button" onclick="closeStatsModal()" style="flex: 1; padding: 12px; background: #f0f0f0; color: #666; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; transition: background-color 0.2s, color 0.3s ease, border-color 0.3s ease; pointer-events: auto !important; user-select: none; touch-action: manipulation;">Close</button>
       </div>
     </div>
   </div>
@@ -5443,8 +5443,50 @@ const renderLoginPage = () => `
       }
     }
 
+    function closeStatsModal() {
+      const modal = document.getElementById('statsHistoryModal');
+      modal.classList.remove('show');
+      modal.style.display = 'none';
+    }
+    
+    // Add touch event handler for close button on mobile
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        const closeBtn = document.getElementById('statsCloseBtn');
+        if (closeBtn) {
+          closeBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.style.opacity = '0.8';
+          }, false);
+          closeBtn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.style.opacity = '1';
+            closeStatsModal();
+          }, false);
+        }
+      });
+    } else {
+      const closeBtn = document.getElementById('statsCloseBtn');
+      if (closeBtn) {
+        closeBtn.addEventListener('touchstart', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.style.opacity = '0.8';
+        }, false);
+        closeBtn.addEventListener('touchend', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.style.opacity = '1';
+          closeStatsModal();
+        }, false);
+      }
+    }
+
     function openStatsHistoryModal() {
       const modal = document.getElementById('statsHistoryModal');
+      modal.style.display = 'flex';
       if (!modal) {
         console.error('Stats history modal element not found');
         return;
