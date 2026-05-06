@@ -4406,8 +4406,9 @@ const renderLoginPage = () => `
     /* Apple/Safari-specific fixes for landing page */
 @supports (-webkit-touch-callout: none) {
     @media (min-width: 769px) {
+      /* Use zoom-like scaling without causing a “pinch/transform zoom” look */
       body {
-        transform: scale(1.2);
+        transform: scale(1.1);
         transform-origin: top center;
       }
       .container {
@@ -4419,6 +4420,7 @@ const renderLoginPage = () => `
         padding: 6px 12px 16px 12px !important;
         max-width: 340px !important;
       }
+      
       
       /* Smaller top buttons on Apple */
       [style*="position: absolute; top: 10px; left: 10px"] {
