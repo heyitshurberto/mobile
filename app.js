@@ -4132,7 +4132,6 @@ const renderLoginPage = () => `
       box-shadow: none !important;
     }
     #themeToggle:hover {
-transform: scale(1.1);
     }
     #themeToggle:focus {
       outline: none !important;
@@ -4403,7 +4402,7 @@ transform: scale(1.1);
       }
     }
 
-    /* Apple/Safari-specific fixes for landing page view */
+    /* Apple/Safari-specific fixes for landing page */
 @supports (-webkit-touch-callout: none) {
     @media (min-width: 769px) {
       /* Use zoom-like scaling without causing a “pinch/transform zoom” look */
