@@ -3482,9 +3482,21 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     return r.json();
                 })
+                .then(r => {
+                    if (r instanceof Response) {
+                        if (!r.ok) {
+                            throw new Error('GitHub fallback fetch failed: ' + r.status);
+                        }
+                        return r.json();
+                    }
+                    return r;
+                })
                 .catch(e => {
                     console.warn('Local fetch failed, trying GitHub:', e.message);
-                    return fetch(fallbackUrl, { cache: 'no-store' }).then(r => r.json());
+                    return fetch(fallbackUrl, { cache: 'no-store' }).then(r => {
+                        if (!r.ok) throw new Error('GitHub fallback fetch failed: ' + r.status);
+                        return r.json();
+                    });
                 })
                 .then(alerts => {
                     if (!alerts) throw new Error('No alerts data');
