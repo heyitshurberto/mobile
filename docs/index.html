@@ -63,18 +63,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const socialLinks = document.querySelectorAll('#social-tele, #social-twit');
   socialLinks.forEach(link => {
     link.style.pointerEvents = 'auto';
-    link.addEventListener('touchstart', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
+    link.addEventListener('touchstart', function() {
       this.style.opacity = '0.6';
     }, false);
-    link.addEventListener('touchend', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
+    link.addEventListener('touchend', function() {
       this.style.opacity = '1';
     }, false);
-    link.addEventListener('touchcancel', function(e) {
-      e.preventDefault();
+    link.addEventListener('touchcancel', function() {
       this.style.opacity = '1';
     }, false);
   });
@@ -513,6 +508,298 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.appendChild(modal);
     }
 
+    // Open Multi Chart Modal for Dashboard Stocks
+    function openDashboardMultiChart() {
+        // Get current alert tickers from actual dashboard data.
+        let alerts = [];
+        if (window.alerts && Array.isArray(window.alerts)) {
+            alerts = window.alerts;
+        } else if (window.dashboard && window.dashboard.alerts instanceof Map) {
+            alerts = Array.from(window.dashboard.alerts.values()).flat();
+        }
+
+        const alertsByTicker = new Map();
+        const tickers = alerts.map(alert => {
+            if (alert && alert.ticker) {
+                alertsByTicker.set(alert.ticker, alert);
+                return alert.ticker;
+            }
+            return null;
+        }).filter(Boolean).slice(0, 6);
+        if (tickers.length === 0) {
+            if (window.dashboard && typeof window.dashboard.showNotification === 'function') {
+                window.dashboard.showNotification('No alerts to chart', 'info');
+            } else {
+                const fallback = document.createElement('div');
+                fallback.textContent = 'No alerts to chart';
+                fallback.style.position = 'fixed';
+                fallback.style.top = '20px';
+                fallback.style.right = '20px';
+                fallback.style.padding = '10px 14px';
+                fallback.style.background = 'rgba(0,0,0,0.7)';
+                fallback.style.color = '#fff';
+                fallback.style.borderRadius = '8px';
+                document.body.appendChild(fallback);
+                setTimeout(() => fallback.remove(), 3000);
+            }
+            return;
+        }
+
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        const modal = document.createElement('div');
+        modal.className = 'multi-chart-modal';
+        const bodyOverflowBackup = document.body.style.overflow;
+        const htmlOverflowBackup = document.documentElement.style.overflow;
+        const modalBg = isDarkMode ? 'rgba(0, 0, 0, 0.85)' : 'rgba(255, 255, 255, 0.85)';
+        const isMobile = window.innerWidth <= 768;
+        const modalPaddingTop = isMobile ? '14vh' : '80px';
+        const modalPadding = isMobile ? '10px' : '20px';
+
+        modal.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: ${modalBg};
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999999;
+            padding: ${modalPadding};
+            box-sizing: border-box;
+            overflow: hidden;
+        `;
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+
+        const container = document.createElement('div');
+        const containerShadow = isDarkMode ? '0 10px 40px rgba(0, 0, 0, 0.9)' : '0 10px 40px rgba(0, 0, 0, 0.2)';
+        const containerWidth = isMobile ? 'calc(100vw - 20px)' : '80vw';
+        const containerHeight = '80vh';
+
+        container.style.cssText = `
+            background: transparent;
+            border-radius: 12px;
+            width: ${containerWidth};
+            height: ${containerHeight};
+            display: flex;
+            flex-direction: column;
+            box-shadow: ${containerShadow};
+            box-sizing: border-box;
+            overflow: hidden;
+        `;
+
+        const header = document.createElement('div');
+        const headerBg = isDarkMode ? 'rgba(26, 26, 26, 0.95)' : 'rgba(250, 250, 250, 0.95)';
+        const headerBorder = isDarkMode ? 'rgba(51, 51, 51, 0.5)' : 'rgba(200, 200, 200, 0.5)';
+        const headerText = isDarkMode ? '#fff' : '#333';
+
+        header.style.cssText = `
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid ${headerBorder};
+            background: ${headerBg};
+            border-radius: 12px 12px 0 0;
+            position: relative;
+            gap: 12px;
+        `;
+        header.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0;">
+                <span style="font-weight: 600; color: ${headerText}; font-size: 16px; white-space: nowrap; opacity: 0.8;">Multi Chart Dashboard</span>
+                <button type="button" class="multi-chart-toggle-btn" style="padding: 8px 12px; border: 1px solid rgba(110,110,110,0.25); border-radius: 8px; background: transparent; color: ${headerText}; font-size: 13px; cursor: pointer;">Single View</button>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <button type="button" class="multi-chart-close-btn" style="padding: 8px 12px; border: 1px solid rgba(110,110,110,0.25); border-radius: 8px; background: transparent; color: ${headerText}; font-size: 14px; cursor: pointer;">Close</button>
+            </div>
+        `;
+
+        const chartsGrid = document.createElement('div');
+        const gridCols = isMobile ? '1fr' : 'repeat(auto-fit, minmax(360px, 1fr))';
+        chartsGrid.style.cssText = `
+            display: grid;
+            grid-template-columns: ${gridCols};
+            gap: 8px;
+            padding: 6px;
+            overflow-y: auto;
+            max-height: calc(90vh - 90px);
+            width: 99%;
+        `;
+
+        let viewMode = 'grid';
+        const closeModal = () => {
+            modal.remove();
+            document.body.style.overflow = bodyOverflowBackup || '';
+            document.documentElement.style.overflow = htmlOverflowBackup || '';
+        };
+
+        const toggleButton = header.querySelector('.multi-chart-toggle-btn');
+        const closeButton = header.querySelector('.multi-chart-close-btn');
+
+        const updateViewMode = (mode) => {
+            viewMode = mode;
+            if (mode === 'single') {
+                chartsGrid.style.gridTemplateColumns = '1fr';
+                chartsGrid.querySelectorAll('.multi-chart-item').forEach(item => {
+                    item.style.minHeight = isMobile ? 'calc(77vh)' : 'calc(65vh)';
+                    item.querySelector('[id^="multi_chart_"]').style.height = 'calc(60vh)';
+                });
+                toggleButton.textContent = 'Grid View';
+            } else {
+                chartsGrid.style.gridTemplateColumns = gridCols;
+                chartsGrid.querySelectorAll('.multi-chart-item').forEach(item => {
+                    item.style.minHeight = '300px';
+                    item.querySelector('[id^="multi_chart_"]').style.height = '250px';
+                });
+                toggleButton.textContent = 'Single View';
+            }
+        };
+
+        toggleButton.addEventListener('click', () => {
+            updateViewMode(viewMode === 'grid' ? 'single' : 'grid');
+        });
+        closeButton.addEventListener('click', closeModal);
+
+        // Create chart containers
+        tickers.forEach((ticker, index) => {
+            const chartContainer = document.createElement('div');
+            chartContainer.className = 'multi-chart-item';
+            chartContainer.draggable = true;
+            chartContainer.dataset.ticker = ticker;
+            chartContainer.dataset.index = index;
+
+            const chartBg = isDarkMode ? '#1a1a1a' : '#fff';
+            const chartBorder = isDarkMode ? 'rgba(68, 68, 68, 0.3)' : 'rgba(200, 200, 200, 0.3)';
+
+            chartContainer.style.cssText = `
+                background: ${chartBg};
+                border: 1px solid ${chartBorder};
+                border-radius: 8px;
+                overflow: hidden;
+                position: relative;
+                min-height: 300px;
+                cursor: move;
+                transition: all 0.2s ease;
+            `;
+
+            const chartHeader = document.createElement('div');
+            const alertData = alertsByTicker.get(ticker) || {};
+            const companyName = alertData.companyName || alertData.name || 'Unknown';
+            const direction = alertData.isShort === true || alertData.position === 'short' || alertData.side === 'SHORT' ? 'SHORT' : 'LONG';
+            const directionColor = direction === 'SHORT' ? '#ff5656' : '#2ea84f';
+            chartHeader.style.cssText = `
+                padding: 8px 12px;
+                background: ${headerBg};
+                border-bottom: 1px solid ${headerBorder};
+                color: ${headerText};
+                font-size: 14px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 10px;
+                flex-wrap: wrap;
+            `;
+            chartHeader.innerHTML = `
+                <span style="display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                    <span>$${ticker}</span>
+                    <span style="opacity: 0.55; font-size: 12px;">(${companyName})</span>
+                    <span style="font-weight: 700; font-style: italic; color: ${directionColor};">${direction}</span>
+                </span>
+                <span style="font-size: 12px; opacity: 0.6; cursor: pointer;" onclick="this.closest('.multi-chart-item').remove()">✕</span>
+            `;
+
+            const chartWrapper = document.createElement('div');
+            chartWrapper.style.cssText = `
+                height: 250px;
+                position: relative;
+            `;
+
+            const chartId = 'multi_chart_' + ticker + '_' + Date.now() + '_' + index;
+            chartWrapper.innerHTML = '<div id="' + chartId + '" style="width: 100%; height: 100%;"></div>';
+
+            chartContainer.appendChild(chartHeader);
+            chartContainer.appendChild(chartWrapper);
+            chartsGrid.appendChild(chartContainer);
+
+            // Load TradingView chart
+            setTimeout(() => {
+                const script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = 'https://s3.tradingview.com/tv.js';
+                script.onload = function() {
+                    new TradingView.widget({
+                        "autosize": true,
+                        "symbol": ticker,
+                        "interval": "60",
+                        "timezone": "Etc/UTC",
+                        "theme": isDarkMode ? "dark" : "light",
+                        "style": "1",
+                        "locale": "en",
+                        "toolbar_bg": isDarkMode ? "#1a1a1a" : "#f8f8f8",
+                        "enable_publishing": false,
+                        "allow_symbol_change": true,
+                        "container_id": chartId,
+                        "zoom": 0.75
+                    });
+                };
+                chartWrapper.appendChild(script);
+            }, 100 * index);  // Stagger loading
+        });
+
+        container.appendChild(header);
+        container.appendChild(chartsGrid);
+        modal.appendChild(container);
+
+        // Drag and drop functionality
+        let draggedElement = null;
+
+        chartsGrid.addEventListener('dragstart', (e) => {
+            draggedElement = e.target.closest('.multi-chart-item');
+            if (draggedElement) {
+                e.dataTransfer.effectAllowed = 'move';
+                draggedElement.style.opacity = '0.5';
+            }
+        });
+
+        chartsGrid.addEventListener('dragend', (e) => {
+            if (draggedElement) {
+                draggedElement.style.opacity = '1';
+                draggedElement = null;
+            }
+        });
+
+        chartsGrid.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+        });
+
+        chartsGrid.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const target = e.target.closest('.multi-chart-item');
+            if (draggedElement && target && draggedElement !== target) {
+                const allItems = Array.from(chartsGrid.children);
+                const draggedIndex = allItems.indexOf(draggedElement);
+                const targetIndex = allItems.indexOf(target);
+
+                if (draggedIndex < targetIndex) {
+                    chartsGrid.insertBefore(draggedElement, target.nextSibling);
+                } else {
+                    chartsGrid.insertBefore(draggedElement, target);
+                }
+            }
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        document.body.appendChild(modal);
+    }
+
     // Console filter to suppress DNS resolution logs for www.sec.gov
     (function() {
         const originalLog = console.log;
@@ -584,6 +871,9 @@ document.addEventListener('DOMContentLoaded', function() {
             cursor: pointer;
             position: relative;
             z-index: 3;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            -webkit-appearance: none;
         }
 
         button:active {
@@ -2276,11 +2566,6 @@ document.addEventListener('DOMContentLoaded', function() {
             stroke: #fff;
         }
 
-        .notification-history-icon:hover {
-            opacity: 1;
-            transform: scale(1.02);
-        }
-
         body.dark-mode .notification-history-icon:hover {
             opacity: 1;
             transform: scale(1.02);
@@ -2291,6 +2576,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         body.dark-mode .notification-history-icon {
+            opacity: 0.7;
             opacity: 0.7;
         }
 
@@ -2317,6 +2603,58 @@ document.addEventListener('DOMContentLoaded', function() {
 
         body.dark-mode .notification-count {
             background: #444444;
+        }
+
+        .multi-chart-icon {
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            opacity: 0.7;
+            transition: all 0.2s ease;
+            transform: scale(1);
+            border-radius: 50%;
+            margin-left: 8px;
+        }
+
+        .multi-chart-icon:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .multi-chart-icon:active {
+            transform: scale(0.95);
+        }
+
+        .multi-chart-icon {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+
+        body.dark-mode .multi-chart-icon {
+            color: #fff;
+        }
+
+        .multi-chart-icon:hover::after {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .multi-chart-icon {
+                width: 24px !important;
+                height: 24px !important;
+                margin-left: 6px !important;
+                font-size: 16px !important;
+            }
         }
 
         @media (max-width: 768px) {
@@ -2408,6 +2746,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 max-height: 40vh !important;
                 margin-top: 0 !important;
                 top: 95px !important;
+                position: fixed !important;
+                right: 10px !important;
+                left: auto !important;
             }
             
             /* Make push notification modal smaller on mobile */
@@ -2480,6 +2821,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 min-width: 80px !important;
                 padding: 6px 10px !important;
                 font-size: 12px !important;
+            }
+            
+            .multi-chart-modal {
+                padding-top: 15vh !important;
+            }
+            
+            .multi-chart-modal > div {
+                max-width: calc(100% - 10px) !important;
+            }
+            
+            .multi-chart-modal .multi-chart-item {
+                min-height: 250px !important;
+            }
+            
+            .multi-chart-modal [id^="multi_chart_"] {
+                height: 200px !important;
             }
         }
 
@@ -2973,7 +3330,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </style>
 </head>
 <body>
-        <div id="loading-screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #ffffff; z-index: 99999; transition: opacity 0.4s ease; font-family: 'Menlo', 'Monaco', monospace; opacity: 1; backdrop-filter: blur(8px);">
+        <div id="loading-screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 103%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #ffffff; z-index: 99999; transition: opacity 0.4s ease; font-family: 'Menlo', 'Monaco', monospace; opacity: 1; backdrop-filter: blur(8px);">
             <div id="loading-symbol" style="font-size: 20px; color: #000000; letter-spacing: 0px; margin-bottom: 5px; transition: opacity 0.4s ease; opacity: 1;">Ж</div>
             <div id="loading-text" style="font-size: 15px; color: #000000; letter-spacing: 1px; margin-bottom: 15px; transition: opacity 0.4s ease; opacity: 1;">CARLUCCI CAPITAL</div>
             <div id="loading-bar-container" style="width: 200px; height: 2px; background: rgba(0, 0, 0, 0.1); border-radius: 1px; overflow: hidden; transition: opacity 0.4s ease; opacity: 1;">
@@ -3122,6 +3479,11 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             <script>
             </script>
+            <div style="display: flex; justify-content: flex-start; margin-bottom: -8px; margin-top: -28px; margin-left: -10px;">
+                <div class="multi-chart-icon" onclick="openDashboardMultiChart()" title="Open Multi Chart View" style="line-height: 1;">
+🗠
+                </div>
+            </div>
             <div class="stats" style="margin-top: 15px;">
                 <div class="stat-box">
                     <div>Recent Alerts:</div>
@@ -3470,8 +3832,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Add cache bust to prevent stale alert.json from mobile cache
             const timestamp = Date.now();
-            const alertUrl = '/logs/alert.json?t=' + timestamp;
-            const fallbackUrl = 'https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json?t=' + timestamp;
+            const alertUrl = new URL('../logs/alert.json', window.location.href);
+            alertUrl.searchParams.set('t', timestamp);
+            const fallbackUrl = `https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json?t=${timestamp}`;
             
             // Try local first, with fallback chain
             fetch(alertUrl, { cache: 'no-store' })
@@ -5724,10 +6087,9 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             if (filterDir) filterDir.addEventListener('change', filterAndSortAlerts);
             if (sortBy) sortBy.addEventListener('change', filterAndSortAlerts);
             if (filterDate) filterDate.addEventListener('change', filterAndSortAlerts);
-            
-            // Hide loading screen when dashboard is ready
-            hideLoading();
         });
+
+        window.addEventListener('load', hideLoading);
         
         // ===== PUSH NOTIFICATION FUNCTIONS =====
         function openPushNotificationSettings() {
@@ -6773,7 +7135,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                         display: flex; justify-content: space-between; align-items: center;
                         flex-shrink: 0;
                     ">
-                        <h2 style="margin: 0; font-size: 13px; font-weight: 500; color: ${textColor}; letter-spacing: -0.3px;  font-family: "Söhne", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;">
+                        <h2 style="margin: 0; font-size: 13px; font-weight: 500; color: ${textColor}; opacity: 0.8; letter-spacing: -0.3px; font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
                             Alert Summary
                         </h2>
                         <button onclick="this.closest('div').parentElement.parentElement.remove()" style="
@@ -6896,7 +7258,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
     <!-- Push Notification Settings Modal -->
 <div id="pushNotificationModal" class="modal" style="display: none; background: rgba(0,0,0,0.7); z-index: 10000; align-items: flex-start; padding-top: 5%;">        <div id="pushNotifModalContent" class="modal-content" style="border-radius: 12px; max-width: 450px; width: 90%; background: #ffffff; border: 1px solid #ddd; display: flex; flex-direction: column; max-height: 62vh; overflow: hidden;">
             <div id="pushNotifHeader" class="modal-header" style="padding: 12px 16px; border-bottom: 1px solid #ddd; background: #ffffff;">
-                <h2 style="margin: 0; font-size: 15px; color: #333;">Push Notifications</h2>
+                <h2 style="margin: 0; font-size: 15px; color: #333; opacity: 0.8;">Push Notifications</h2>
             </div>
             <div id="pushNotifContent" style="padding: 16px 20px; max-height: calc(62vh - 120px); overflow-y: auto; background: #ffffff; color: #333; flex-shrink: 1; min-height: 0;">
                 <div style="margin-bottom: 16px;">

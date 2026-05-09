@@ -1872,7 +1872,7 @@ const updatePerformanceData = (alertData) => {
     }
     
     const ticker = alertData.ticker;
-    const currentPrice = parseFloat(alertData.price) || 0;
+    const currentPrice = 0;
     
     // Initialize or update ticker performance data
     if (!performanceData[ticker]) {
@@ -3328,7 +3328,6 @@ const pushToGistOnly = () => {
           log('WARN', `Gist backup failed (${res.status}): ${text}`);
         }
       } else {
-        log('INFO', 'Gist backup succeeded');
       }
     })
     .catch(err => {
@@ -3662,7 +3661,7 @@ const renderLoginPage = () => `
     }
     body {
       font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
-      background-color: #f8f6f3;
+      background-color: #edebe7f8;
       background-attachment: fixed;
       display: flex;
       justify-content: center;
@@ -3888,7 +3887,7 @@ const renderLoginPage = () => `
       100% { background-position: 290px -180px, 150px 95px, 370px -120px, 230px 105px, 110px 35px, 350px 115px, 190px -175px, 410px 55px, 70px -135px, 320px 135px; opacity: 0.16; }
     }
     body.dark-mode {
-      background-color: #0d0d0d;
+      background-color: #080808f7;
       color: #e0e0e0;
     }
     body.dark-mode::after {
