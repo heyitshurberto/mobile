@@ -7179,8 +7179,8 @@
     "recordId": "AUST-1778159281001",
     "expiresAt": "2026-05-12T13:08:01.001Z",
     "direction": "SHORT",
-    "highest5Day": 1.32,
-    "highest5DayPercent": -2.94,
+    "highest5Day": 1.385,
+    "highest5DayPercent": 1.84,
     "lowest5Day": 1.32,
     "lowest5DayPercent": 2.94
   },
@@ -7252,8 +7252,8 @@
     "recordId": "NHTC-1778179208629",
     "expiresAt": "2026-05-12T18:40:08.629Z",
     "direction": "SHORT",
-    "highest5Day": 3.085,
-    "highest5DayPercent": -3.44,
+    "highest5Day": 3.2,
+    "highest5DayPercent": 0.16,
     "lowest5Day": 3.085,
     "lowest5DayPercent": 3.44
   },
@@ -7326,8 +7326,8 @@
     "recordId": "AEIS-1778258122008",
     "expiresAt": "2026-05-13T16:35:22.008Z",
     "direction": "LONG",
-    "highest5Day": 350.23,
-    "highest5DayPercent": -2.51,
+    "highest5Day": 362.63,
+    "highest5DayPercent": 0.95,
     "lowest5Day": 350.23,
     "lowest5DayPercent": -2.51
   },
@@ -7399,8 +7399,8 @@
     "recordId": "STKE-1778267678846",
     "expiresAt": "2026-05-13T19:14:38.846Z",
     "direction": "SHORT",
-    "highest5Day": 1.5119,
-    "highest5DayPercent": -16.93,
+    "highest5Day": 1.86,
+    "highest5DayPercent": 2.2,
     "lowest5Day": 1.5119,
     "lowest5DayPercent": 16.93
   }
