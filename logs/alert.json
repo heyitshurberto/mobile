@@ -1,218 +1,351 @@
 [
   {
-    "ticker": "OSRH",
-    "title": "8-K - OSR Holdings, Inc. (0001840425) (Filer)",
-    "companyName": "OSR Holdings, Inc.",
+    "ticker": "HPP",
+    "title": "8-K - Hudson Pacific Properties, Inc. (0001482512) (Filer)",
+    "companyName": "Hudson Pacific Properties, Inc.",
     "filerName": null,
-    "price": 0.6924,
-    "fav": "9.59",
-    "volume": 223517938,
-    "averageVolume": 1040150,
-    "float": 9974728,
-    "sharesOutstanding": 33124755,
-    "soRatio": "30.11%",
-    "marketCap": 22935580,
-    "isShort": true,
-    "ftd": 433273,
-    "intent": "Merger/Acquisition, Underwritten Offering, Credit Default, Licensing Deal, Unregistered Equity Sales, Related-Party Transaction",
-    "incorporated": "Wilmington, Delaware",
-    "located": "Washington",
-    "filingDate": "2026-04-30T13:06:26-04:00",
-    "signals": {
-      "Merger/Acquisition": [
-        "Material Definitive Agreement"
-      ],
-      "Underwritten Offering": [
-        "IPO"
-      ],
-      "Credit Default": [
-        "Event Of Default"
-      ],
-      "Licensing Deal": [
-        "Exclusive License",
-        "License Agreement"
-      ],
-      "Unregistered Equity Sales": [
-        "Item 3.02: Agreement are fair",
-        "Shares: 10.0M"
-      ],
-      "Related-Party Transaction": [
-        "Controlled By",
-        "Related Party"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "formType": [
-      "8-K",
-      "S-1",
-      "S-4",
-      "EX-10.1",
-      "EX-10.2",
-      "Item 1.01",
-      "Item 7.01",
-      "Item 9.01"
-    ],
-    "cik": "1840425",
-    "skipReason": "",
-    "alertType": null,
-    "predatoryFinancing": null,
-    "sector": "Biotechnology",
-    "hasTuesdayBonus": false,
-    "custodianControl": true,
-    "custodianVerified": true,
-    "custodianName": "Washington (via Wilmington, Delaware)",
-    "filingTimeMultiplier": 1.05,
-    "filingTimeBonus": 1.05,
-    "deterministicPattern": "Credit Default (Covenant Breach)",
-    "deterministicMechanism": "Company in covenant breach with lenders = dilutive financing at distressed terms. Lenders have leverage.",
-    "deterministicPhrase": "[Company in covenant breach with lenders = dilutive financing at distressed terms. Lenders have leverage.]",
-    "recordedAt": "2026-04-30T17:07:11.234Z",
-    "recordId": "OSRH-1777568831234",
-    "expiresAt": "2026-05-05T17:07:11.234Z",
-    "direction": "SHORT",
-    "highest5Day": 0,
-    "highest5DayPercent": 0,
-    "lowest5Day": 0.6924,
-    "lowest5DayPercent": 0
-  },
-  {
-    "ticker": "KEX",
-    "title": "8-K - KIRBY CORP (0000056047) (Filer)",
-    "companyName": "KIRBY CORP",
-    "filerName": null,
-    "price": 148.235,
-    "fav": "9.08",
-    "volume": 523189,
-    "averageVolume": 704863,
-    "float": 6400000,
-    "sharesOutstanding": 53621000,
-    "soRatio": "11.94%",
-    "marketCap": 7948509184,
+    "price": 10.63,
+    "fav": "12.22",
+    "volume": 1871566,
+    "averageVolume": 1391468,
+    "float": 17000000,
+    "sharesOutstanding": 54242024,
+    "soRatio": "31.34%",
+    "marketCap": 583479296,
     "isShort": false,
-    "ftd": 9733,
-    "intent": "Stock Buyback, Commercial Inflection, Unregistered Equity Sales",
-    "incorporated": "Nevada",
-    "located": "Texas",
-    "filingDate": "2026-04-30T14:17:04-04:00",
+    "ftd": 1832,
+    "intent": "Asset Disposition, Partnership, Unregistered Equity Sales",
+    "incorporated": "Maryland",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-05-07T09:00:12-04:00",
     "signals": {
-      "Stock Buyback": [
-        "Share Repurchase"
-      ],
-      "Commercial Inflection": [
-        "Revenue Growth"
-      ],
-      "Unregistered Equity Sales": [
-        "Item 3.02: Unknown Buyer",
-        "Shares: 6.4M"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "formType": [
-      "8-K",
-      "Form D",
-      "EX-99.1",
-      "EX-10.1",
-      "EX-10.2",
-      "Item 2.02",
-      "Item 5.02",
-      "Item 5.07",
-      "Item 9.01"
-    ],
-    "cik": "56047",
-    "skipReason": "",
-    "alertType": null,
-    "predatoryFinancing": null,
-    "sector": "Marine",
-    "hasTuesdayBonus": false,
-    "custodianControl": true,
-    "custodianVerified": true,
-    "custodianName": "Texas (via Nevada)",
-    "filingTimeMultiplier": 1.1,
-    "filingTimeBonus": 1.1,
-    "deterministicPattern": null,
-    "deterministicMechanism": null,
-    "deterministicPhrase": "",
-    "recordedAt": "2026-04-30T18:17:44.902Z",
-    "recordId": "KEX-1777573064902",
-    "expiresAt": "2026-05-05T18:17:44.902Z",
-    "direction": "LONG",
-    "highest5Day": 148.235,
-    "highest5DayPercent": 0,
-    "lowest5Day": 0,
-    "lowest5DayPercent": 0
-  },
-  {
-    "ticker": "SHPH",
-    "title": "8-K - Shuttle Pharmaceuticals Holdings, Inc. (0001757499) (Filer)",
-    "companyName": "Shuttle Pharmaceuticals Holdings, Inc.",
-    "filerName": null,
-    "price": 1.03,
-    "fav": "9.37",
-    "volume": 2003746,
-    "averageVolume": 322938,
-    "float": 3024749,
-    "sharesOutstanding": 5546309,
-    "soRatio": "54.54%",
-    "marketCap": 5759028,
-    "isShort": true,
-    "ftd": 133663,
-    "intent": "Merger/Acquisition, Partnership, Unregistered Equity Sales, Regulation S Offering, Related-Party Transaction",
-    "incorporated": "Wilmington, Delaware",
-    "located": "Maryland",
-    "filingDate": "2026-05-01T09:23:59-04:00",
-    "signals": {
-      "Merger/Acquisition": [
-        "Merger Agreement",
-        "Merger Consideration",
-        "Material Definitive Agreement"
+      "Asset Disposition": [
+        "Disposition"
       ],
       "Partnership": [
         "Joint Venture"
       ],
       "Unregistered Equity Sales": [
-        "Item 3.02: a Governmental Authority; (c) any director",
-        "Discount: 90%",
-        "Shares: 0.0M"
+        "Item 7.01",
+        "issuable under"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {
+      "signals": [
+        "Leverage Concern - Debt/Equity Exceeds 2.0"
       ],
+      "severity": 0.65,
+      "isDeterministic": true
+    },
+    "formType": [
+      "8-K",
+      "EX-99.1",
+      "EX-99.2",
+      "Item 2.02",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "cik": "1482512",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Real Estate",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Maryland)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-05-07T13:01:00.809Z",
+    "recordId": "HPP-1778158860809",
+    "expiresAt": "2026-05-12T13:01:00.809Z",
+    "direction": "LONG",
+    "highest5Day": 10.63,
+    "highest5DayPercent": 0,
+    "lowest5Day": 10.63,
+    "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "AUST",
+    "title": "6-K - Austin Gold Corp. (0001817740) (Filer)",
+    "companyName": "Austin Gold Corp.",
+    "filerName": null,
+    "price": 1.36,
+    "fav": "38.28",
+    "volume": 44831,
+    "averageVolume": 187349,
+    "float": 7172158,
+    "sharesOutstanding": 13693001,
+    "soRatio": "52.38%",
+    "marketCap": 18622482,
+    "isShort": true,
+    "ftd": 65876,
+    "intent": "Regulation S Offering, Unregistered Equity Sales",
+    "incorporated": "Toronto, Canada",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-05-07T09:07:16-04:00",
+    "signals": {
       "Regulation S Offering": [
         "Regulation S"
       ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: Unknown Buyer",
+        "Shares: 7.2M"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "20-F",
+      "EX-99.1",
+      "EX-99.2"
+    ],
+    "cik": "1817740",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Metals & Mining",
+    "hasTuesdayBonus": false,
+    "custodianControl": false,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-05-07T13:08:01.001Z",
+    "recordId": "AUST-1778159281001",
+    "expiresAt": "2026-05-12T13:08:01.001Z",
+    "direction": "SHORT",
+    "highest5Day": 1.36,
+    "highest5DayPercent": 0,
+    "lowest5Day": 1.36,
+    "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "NHTC",
+    "title": "8-K - NATURAL HEALTH TRENDS CORP (0000912061) (Filer)",
+    "companyName": "NATURAL HEALTH TRENDS CORP",
+    "filerName": null,
+    "price": 3.195,
+    "fav": "41.33",
+    "volume": 14370,
+    "averageVolume": 26618,
+    "float": 1100000,
+    "sharesOutstanding": 8577848,
+    "soRatio": "12.82%",
+    "marketCap": 27406226,
+    "isShort": true,
+    "ftd": 369,
+    "intent": "Convertible Debt, Asset Disposition, Partnership, Related-Party Transaction, Unregistered Equity Sales",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-05-07T14:39:17-04:00",
+    "signals": {
+      "Convertible Debt": [
+        "Convertible Securities"
+      ],
+      "Asset Disposition": [
+        "Asset Sale",
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ],
       "Related-Party Transaction": [
-        "Controlled By"
+        "Family Member",
+        "Controlled By",
+        "Affiliate Of"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: the Company or any entity in which the Company has a significant ownership interest as determined by",
+        "Shares: 1.1M"
       ]
     },
     "bonusSignals": {},
     "financialRatioSignals": {},
     "formType": [
       "8-K",
-      "Item 1.01",
-      "Item 3.02",
-      "Item 7.01",
+      "13D",
+      "EX-10.1",
+      "Item 5.02",
+      "Item 5.07",
       "Item 9.01"
     ],
-    "cik": "1757499",
+    "cik": "912061",
     "skipReason": "",
     "alertType": null,
     "predatoryFinancing": null,
-    "sector": "Biotechnology",
+    "sector": "Consumer products",
     "hasTuesdayBonus": false,
     "custodianControl": true,
     "custodianVerified": true,
-    "custodianName": "Maryland (via Wilmington, Delaware)",
-    "filingTimeMultiplier": 1.2,
-    "filingTimeBonus": 1.2,
-    "deterministicPattern": null,
-    "deterministicMechanism": null,
-    "deterministicPhrase": "",
-    "recordedAt": "2026-05-01T13:24:54.153Z",
-    "recordId": "SHPH-1777641894154",
-    "expiresAt": "2026-05-06T13:24:54.154Z",
+    "custodianName": "Toronto, Canada (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.15,
+    "filingTimeBonus": 1.15,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-05-07T18:40:08.629Z",
+    "recordId": "NHTC-1778179208629",
+    "expiresAt": "2026-05-12T18:40:08.629Z",
     "direction": "SHORT",
-    "highest5Day": 0,
+    "highest5Day": 3.195,
     "highest5DayPercent": 0,
-    "lowest5Day": 1.03,
+    "lowest5Day": 3.195,
+    "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "AEIS",
+    "title": "8-K - ADVANCED ENERGY INDUSTRIES INC (0000927003) (Filer)",
+    "companyName": "ADVANCED ENERGY INDUSTRIES INC",
+    "filerName": null,
+    "price": 359.235,
+    "fav": "3.48",
+    "volume": 236271,
+    "averageVolume": 689870,
+    "float": 2400000,
+    "sharesOutstanding": 38030657,
+    "soRatio": "6.31%",
+    "marketCap": 13661941760,
+    "isShort": false,
+    "ftd": 2264,
+    "intent": "Merger/Acquisition, Asset Disposition, Commercial Inflection, Unregistered Equity Sales, Related-Party Transaction",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Colorado",
+    "filingDate": "2026-05-08T12:34:34-04:00",
+    "signals": {
+      "Merger/Acquisition": [
+        "Merger Agreement"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Commercial Inflection": [
+        "Revenue Growth"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: or is under common control with",
+        "Shares: 2.4M"
+      ],
+      "Related-Party Transaction": [
+        "Spouse Of",
+        "Controlled By",
+        "Affiliate Of"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "8-K",
+      "13D",
+      "EX-10.1",
+      "EX-3.1",
+      "Item 5.02",
+      "Item 5.03",
+      "Item 5.07",
+      "Item 9.01"
+    ],
+    "cik": "927003",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Electrical Equipment",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Colorado (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.05,
+    "filingTimeBonus": 1.05,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-05-08T16:35:22.008Z",
+    "recordId": "AEIS-1778258122008",
+    "expiresAt": "2026-05-13T16:35:22.008Z",
+    "direction": "LONG",
+    "highest5Day": 359.235,
+    "highest5DayPercent": 0,
+    "lowest5Day": 359.235,
+    "lowest5DayPercent": 0
+  },
+  {
+    "ticker": "STKE",
+    "title": "6-K - SOL Strategies Inc. (0001846839) (Filer)",
+    "companyName": "SOL Strategies Inc.",
+    "filerName": null,
+    "price": 1.82,
+    "fav": "81.97",
+    "volume": 397029,
+    "averageVolume": 236662,
+    "float": 19400079,
+    "sharesOutstanding": 32985155,
+    "soRatio": "58.81%",
+    "marketCap": 61282108,
+    "isShort": true,
+    "ftd": 12995,
+    "intent": "Convertible Debt, Credit Default, Asset Disposition, Partnership, Unregistered Equity Sales, Related-Party Transaction",
+    "incorporated": "Ottawa, Canada",
+    "located": "Ontario, Canada",
+    "filingDate": "2026-05-08T15:13:29-04:00",
+    "signals": {
+      "Convertible Debt": [
+        "Convertible Securities"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture",
+        "Partnership Agreement"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: Section 2"
+      ],
+      "Related-Party Transaction": [
+        "Spouse Of",
+        "Affiliate Of"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "20-F",
+      "Form D",
+      "EX-99.1",
+      "EX-99.2"
+    ],
+    "cik": "1846839",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Financial Services",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Ontario, Canada (via Ottawa, Canada)",
+    "filingTimeMultiplier": 1.15,
+    "filingTimeBonus": 1.15,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-05-08T19:14:38.846Z",
+    "recordId": "STKE-1778267678846",
+    "expiresAt": "2026-05-13T19:14:38.846Z",
+    "direction": "SHORT",
+    "highest5Day": 1.82,
+    "highest5DayPercent": 0,
+    "lowest5Day": 1.82,
     "lowest5DayPercent": 0
   }
 ]

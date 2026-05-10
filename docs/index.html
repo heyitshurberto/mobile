@@ -528,10 +528,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }).filter(Boolean).slice(0, 6);
         if (tickers.length === 0) {
             if (window.dashboard && typeof window.dashboard.showNotification === 'function') {
-                window.dashboard.showNotification('No alerts to chart', 'info');
+                window.dashboard.showNotification('No alerts to open multi chart view', 'info');
             } else {
                 const fallback = document.createElement('div');
-                fallback.textContent = 'No alerts to chart';
+                fallback.textContent = 'No alerts to open multi chart view';
                 fallback.style.position = 'fixed';
                 fallback.style.top = '20px';
                 fallback.style.right = '20px';
@@ -3481,7 +3481,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </script>
             <div style="display: flex; justify-content: flex-start; margin-bottom: -8px; margin-top: -28px; margin-left: -10px;">
                 <div class="multi-chart-icon" onclick="openDashboardMultiChart()" title="Open Multi Chart View" style="line-height: 1;">
-🗠
+↗
                 </div>
             </div>
             <div class="stats" style="margin-top: 15px;">
