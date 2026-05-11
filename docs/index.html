@@ -1217,9 +1217,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 width: 100%;
                 margin: 0 !important;
                 flex: 0 0 auto;
-                justify-content: center;
+                justify-content: flex-start;
                 order: 1;
-                margin-top: 8px !important;
+                margin-top: 6px !important;
             }
             
             .logo {
@@ -1259,14 +1259,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 align-items: center;
                 justify-content: flex-end;
                 gap: 4px;
-                position: static !important;
-                right: auto !important;
-                top: auto !important;
+                position: absolute !important;
+                right: 6px !important;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
                 white-space: nowrap;
                 width: auto;
                 margin: 0 !important;
                 flex-wrap: nowrap;
-                margin-top: 4px;
                 order: 3;
             }
             
@@ -1281,9 +1281,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 text-align: left;
                 justify-content: flex-start;
                 flex-wrap: nowrap;
-                order: unset;
+                order: -1;
                 white-space: nowrap;
                 overflow: hidden;
+                width: 100%;
             }
             
         .notification-history-icon {
@@ -1294,7 +1295,8 @@ document.addEventListener('DOMContentLoaded', function() {
             width: 28px !important;
             height: 28px !important;
             flex-shrink: 0;
-            margin-right: 8px !important;
+            margin-right: 20px !important;
+            margin-left: auto;
             position: relative;
         }            .notification-history-icon svg {
                 width: 18px !important;
@@ -3854,6 +3856,7 @@ document.addEventListener('DOMContentLoaded', function() {
         function loadRecentAlerts() {
             if (localStorage.getItem('recentAlertsCleared') === 'true') {
                 const list = document.getElementById('notification-list');
+                if (!list) return;
                 list.innerHTML = '';
                 const emptyState = document.createElement('div');
                 emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
@@ -3863,89 +3866,132 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Load alerts similar to loadInitialAlerts
-            (async () => {
-                let alertData = [];
-                let response;
-                
-                // Always try local endpoint first, regardless of hostname
-                const alertUrl = '/logs/alert.json';
-                
-                try {
-                    response = await fetch(alertUrl, { cache: 'no-store' });
-                    if (!response.ok) {
-                        console.error('Failed to fetch alert.json locally:', response.status, response.statusText);
-                        // Fall back to GitHub
-                        response = await fetch('https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/alert.json', { cache: 'no-store' });
+            // Get the list element
+            const list = document.getElementById('notification-list');
+            if (!list) {
+                console.error('notification-list element not found');
+                return;
+            }
+            
+            // Fetch alerts
+            Promise.resolve()
+                .then(async () => {
+                    let response, alertData = [];
+                    
+                    // Try local alert.json
+                    try {
+                        response = await fetch('/logs/alert.json?t=' + Date.now(), { cache: 'no-store' });
+                        if (response.ok) {
+                            alertData = await response.json();
+                            console.log('Loaded', alertData.length, 'alerts from local alert.json');
+                        }
+                    } catch (err) {
+                        console.warn('Local alert.json failed:', err.message);
                     }
                     
-                    if (response.ok) {
-                        alertData = await response.json();
-                    } else {
-                        alertData = [];
-                    }
-                } catch (err) {
-                    console.error('Error fetching alerts locally, trying GitHub:', err.message);
-                    // Fallback to GitHub
-                    try {
-                        const githubResponse = await fetch('https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json', { cache: 'no-store' });
-                        if (githubResponse.ok) {
-                            alertData = await githubResponse.json();
-                        } else {
-                            alertData = [];
+                    // If empty, try stocks.json
+                    if (!alertData || alertData.length === 0) {
+                        try {
+                            response = await fetch('/logs/stocks.json?t=' + Date.now(), { cache: 'no-store' });
+                            if (response.ok) {
+                                alertData = await response.json();
+                                console.log('Loaded', alertData.length, 'alerts from local stocks.json');
+                            }
+                        } catch (err) {
+                            console.warn('Local stocks.json failed:', err.message);
                         }
-                    } catch (gitErr) {
-                        console.error('GitHub fallback also failed:', gitErr.message);
-                        alertData = [];
                     }
-                }
-                
-                const list = document.getElementById('notification-list');
-                list.innerHTML = '';
-                
-                if (!Array.isArray(alertData) || alertData.length === 0) {
-                    const emptyState = document.createElement('div');
-                    emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
-                    emptyState.textContent = 'No recent alerts';
-                    list.appendChild(emptyState);
+                    
+                    // If still empty, try GitHub
+                    if (!alertData || alertData.length === 0) {
+                        try {
+                            response = await fetch('https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json?t=' + Date.now());
+                            if (response.ok) {
+                                alertData = await response.json();
+                                console.log('Loaded', alertData.length, 'alerts from GitHub');
+                            }
+                        } catch (err) {
+                            console.warn('GitHub fallback failed:', err.message);
+                        }
+                    }
+                    
+                    return alertData;
+                })
+                .then(alertData => {
+                    list.innerHTML = '';
+                    
+                    if (!alertData || !Array.isArray(alertData) || alertData.length === 0) {
+                        console.log('No alerts found, showing empty state');
+                        const emptyState = document.createElement('div');
+                        emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
+                        emptyState.textContent = 'No recent alerts';
+                        list.appendChild(emptyState);
+                        notifications = [];
+                        updateNotificationCount();
+                        return;
+                    }
+                    
+                    console.log('Total alerts:', alertData.length);
+                    
+                    // Sort by date and take recent ones
+                    const sorted = alertData.sort((a, b) => {
+                        const timeA = new Date(a.recordedAt || a.alertDate || 0);
+                        const timeB = new Date(b.recordedAt || b.alertDate || 0);
+                        return timeB - timeA;
+                    });
+                    
+                    const recentAlerts = sorted.slice(0, 20);
+                    console.log('Showing', recentAlerts.length, 'recent alerts');
+                    
+                    // Update notifications array
+                    notifications = recentAlerts.map(alert => ({
+                        id: alert.ticker + '-' + (alert.recordedAt || alert.alertDate || Date.now()),
+                        message: `${alert.ticker} ${alert.isShort ? 'SHORT' : 'LONG'} at $${alert.price}`,
+                        type: alert.isShort ? 'error' : 'success',
+                        timestamp: new Date(alert.recordedAt || alert.alertDate || Date.now()),
+                        link: `https://www.tradingview.com/chart/?symbol=${alert.ticker}`
+                    }));
+                    
                     updateNotificationCount();
-                    return;
-                }
-                
-                // Filter to recent alerts (last 24 hours or so)
-                const now = new Date();
-                const recentThreshold = 24 * 60 * 60 * 1000; // 24 hours
-                const recentAlerts = alertData.filter(a => {
-                    const alertTime = new Date(a.recordedAt || a.timestamp);
-                    return (now - alertTime) < recentThreshold;
-                }).slice(-20); // Last 20 recent alerts
-                
-                // Update notifications array for badge count
-                notifications = recentAlerts.map(alert => ({
-                    id: alert.ticker + '-' + (alert.recordedAt || alert.timestamp),
-                    message: `${alert.ticker} ${alert.isShort ? 'SHORT' : 'LONG'} at $${alert.price}`,
-                    type: alert.isShort ? 'error' : 'success',
-                    timestamp: new Date(alert.recordedAt || alert.timestamp),
-                    link: `https://www.tradingview.com/chart/?symbol=${alert.ticker}`
-                }));
-                
-                updateNotificationCount();
-                
-                // Populate the list
-                recentAlerts.forEach(alert => {
-                    const item = document.createElement('div');
-                    item.className = 'notification-item';
-                    item.style.cssText = 'padding: 8px 12px; border-bottom: 1px solid #eee; cursor: pointer;';
-                    item.innerHTML = `
-                        <div style="font-weight: bold;">${alert.ticker} ${alert.isShort ? 'SHORT' : 'LONG'}</div>
-                        <div style="font-size: 12px; opacity: 0.7;">$${alert.price} - ${formatAlertAge(new Date(alert.recordedAt || alert.timestamp))}</div>
-                    `;
-                    item.onclick = () => {
-                        window.open(`https://www.tradingview.com/chart/?symbol=${alert.ticker}`, '_blank');
-                    };
-                    list.appendChild(item);
+                    
+                    // Populate list
+                    recentAlerts.forEach((alert) => {
+                        const item = document.createElement('div');
+                        item.className = 'notification-item';
+                        item.style.cssText = 'padding: 8px 12px; border-bottom: 1px solid rgba(0,0,0,0.1); cursor: pointer; background: rgba(0,0,0,0.02);';
+                        
+                        const direction = alert.isShort ? 'SHORT' : 'LONG';
+                        const dirColor = alert.isShort ? '#ff4444' : '#00aa00';
+                        const alertTime = new Date(alert.recordedAt || alert.alertDate || Date.now());
+                        
+                        item.innerHTML = `
+                            <div style="font-weight: 600; margin-bottom: 4px;">
+                                <span style="color: ${dirColor};">$${alert.ticker}</span> 
+                                <span style="font-size: 11px; opacity: 0.7;">[${direction}]</span>
+                            </div>
+                            <div style="font-size: 11px; opacity: 0.8;">
+                                Entry: $${alert.price} • ${formatAlertAge(alertTime)}
+                            </div>
+                        `;
+                        
+                        item.onclick = () => {
+                            window.open(`https://www.tradingview.com/chart/?symbol=${alert.ticker}`, '_blank');
+                        };
+                        
+                        list.appendChild(item);
+                    });
+                    
+                    console.log('Recent alerts panel populated successfully');
+                })
+                .catch(err => {
+                    console.error('Error loading recent alerts:', err);
+                    list.innerHTML = '';
+                    const errorState = document.createElement('div');
+                    errorState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
+                    errorState.textContent = 'Error loading alerts';
+                    list.appendChild(errorState);
+                    updateNotificationCount();
                 });
-            })();
         }
 
         function loadHistoryAlerts() {
