@@ -1218,7 +1218,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 margin: 0 !important;
                 flex: 0 0 auto;
                 justify-content: flex-start;
-                order: 1;
+                order: 1 !important;
                 margin-top: 6px !important;
             }
             
@@ -1226,8 +1226,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 height: 18px !important;
                 width: auto !important;
                 margin-right: 8px;
-                margin-top: -8px !important;
-                transform: translateY(-3px) !important;
+                margin-top: 0 !important;
+                transform: translateY(0) !important;
             }
             
             .dashboard-title {
@@ -1256,18 +1256,15 @@ document.addEventListener('DOMContentLoaded', function() {
             
             .header-right {
                 display: flex !important;
-                align-items: center;
-                justify-content: flex-end;
-                gap: 4px;
-                position: absolute !important;
-                right: 6px !important;
-                top: 50% !important;
-                transform: translateY(-50%) !important;
-                white-space: nowrap;
-                width: auto;
+                align-items: center !important;
+                justify-content: space-between !important;
+                gap: 8px !important;
+                position: static !important;
+                width: 100% !important;
                 margin: 0 !important;
-                flex-wrap: nowrap;
-                order: 3;
+                padding: 0 4px !important;
+                order: -1 !important;
+                flex-wrap: nowrap !important;
             }
             
             .time-display {
@@ -1281,24 +1278,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 text-align: left;
                 justify-content: flex-start;
                 flex-wrap: nowrap;
-                order: -1;
+                order: 0 !important;
                 white-space: nowrap;
                 overflow: hidden;
-                width: 100%;
+                width: auto !important;
+                max-width: calc(100% - 40px) !important;
             }
             
-        .notification-history-icon {
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            font-size: 16px !important;
-            width: 28px !important;
-            height: 28px !important;
-            flex-shrink: 0;
-            margin-right: 20px !important;
-            margin-left: auto;
-            position: relative;
-        }            .notification-history-icon svg {
+            .notification-history-icon {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                font-size: 16px !important;
+                width: 28px !important;
+                height: 28px !important;
+                flex-shrink: 0;
+                margin-right: 0 !important;
+                margin-left: auto !important;
+                position: relative;
+            }            .notification-history-icon svg {
                 width: 18px !important;
                 height: 18px !important;
             }
@@ -3853,7 +3851,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        function loadRecentAlerts() {
+        async function loadRecentAlerts() {
             if (localStorage.getItem('recentAlertsCleared') === 'true') {
                 const list = document.getElementById('notification-list');
                 if (!list) return;
@@ -3862,136 +3860,100 @@ document.addEventListener('DOMContentLoaded', function() {
                 emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
                 emptyState.textContent = 'No recent alerts';
                 list.appendChild(emptyState);
+                notifications = [];
                 updateNotificationCount();
                 return;
             }
-            
-            // Get the list element
+
             const list = document.getElementById('notification-list');
             if (!list) {
                 console.error('notification-list element not found');
                 return;
             }
-            
-            // Fetch alerts
-            Promise.resolve()
-                .then(async () => {
-                    let response, alertData = [];
-                    
-                    // Try local alert.json
+            list.innerHTML = '';
+
+            const localPaths = ['/logs/alert.json', '../logs/alert.json', 'logs/alert.json'];
+            const fallbackUrls = [
+                'https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json',
+                'https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/alert.json'
+            ];
+
+            const tryFetchJson = async (urls) => {
+                for (const url of urls) {
                     try {
-                        response = await fetch('/logs/alert.json?t=' + Date.now(), { cache: 'no-store' });
-                        if (response.ok) {
-                            alertData = await response.json();
-                            console.log('Loaded', alertData.length, 'alerts from local alert.json');
-                        }
+                        const response = await fetch(url + '?t=' + Date.now(), { cache: 'no-store' });
+                        if (!response.ok) continue;
+                        const data = await response.json();
+                        if (Array.isArray(data) && data.length > 0) return data;
                     } catch (err) {
-                        console.warn('Local alert.json failed:', err.message);
+                        console.warn('Fetch failed for', url, err.message);
                     }
-                    
-                    // If empty, try stocks.json
-                    if (!alertData || alertData.length === 0) {
-                        try {
-                            response = await fetch('/logs/stocks.json?t=' + Date.now(), { cache: 'no-store' });
-                            if (response.ok) {
-                                alertData = await response.json();
-                                console.log('Loaded', alertData.length, 'alerts from local stocks.json');
-                            }
-                        } catch (err) {
-                            console.warn('Local stocks.json failed:', err.message);
-                        }
-                    }
-                    
-                    // If still empty, try GitHub
-                    if (!alertData || alertData.length === 0) {
-                        try {
-                            response = await fetch('https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json?t=' + Date.now());
-                            if (response.ok) {
-                                alertData = await response.json();
-                                console.log('Loaded', alertData.length, 'alerts from GitHub');
-                            }
-                        } catch (err) {
-                            console.warn('GitHub fallback failed:', err.message);
-                        }
-                    }
-                    
-                    return alertData;
-                })
-                .then(alertData => {
-                    list.innerHTML = '';
-                    
-                    if (!alertData || !Array.isArray(alertData) || alertData.length === 0) {
-                        console.log('No alerts found, showing empty state');
-                        const emptyState = document.createElement('div');
-                        emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
-                        emptyState.textContent = 'No recent alerts';
-                        list.appendChild(emptyState);
-                        notifications = [];
-                        updateNotificationCount();
-                        return;
-                    }
-                    
-                    console.log('Total alerts:', alertData.length);
-                    
-                    // Sort by date and take recent ones
-                    const sorted = alertData.sort((a, b) => {
-                        const timeA = new Date(a.recordedAt || a.alertDate || 0);
-                        const timeB = new Date(b.recordedAt || b.alertDate || 0);
-                        return timeB - timeA;
-                    });
-                    
-                    const recentAlerts = sorted.slice(0, 20);
-                    console.log('Showing', recentAlerts.length, 'recent alerts');
-                    
-                    // Update notifications array
-                    notifications = recentAlerts.map(alert => ({
-                        id: alert.ticker + '-' + (alert.recordedAt || alert.alertDate || Date.now()),
-                        message: `${alert.ticker} ${alert.isShort ? 'SHORT' : 'LONG'} at $${alert.price}`,
-                        type: alert.isShort ? 'error' : 'success',
-                        timestamp: new Date(alert.recordedAt || alert.alertDate || Date.now()),
-                        link: `https://www.tradingview.com/chart/?symbol=${alert.ticker}`
-                    }));
-                    
+                }
+                return null;
+            };
+
+            try {
+                let alertData = await tryFetchJson(localPaths);
+                if (!Array.isArray(alertData) || alertData.length === 0) {
+                    alertData = await tryFetchJson(fallbackUrls);
+                }
+
+                if (!Array.isArray(alertData) || alertData.length === 0) {
+                    const emptyState = document.createElement('div');
+                    emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
+                    emptyState.textContent = 'No recent alerts';
+                    list.appendChild(emptyState);
+                    notifications = [];
                     updateNotificationCount();
-                    
-                    // Populate list
-                    recentAlerts.forEach((alert) => {
-                        const item = document.createElement('div');
-                        item.className = 'notification-item';
-                        item.style.cssText = 'padding: 8px 12px; border-bottom: 1px solid rgba(0,0,0,0.1); cursor: pointer; background: rgba(0,0,0,0.02);';
-                        
-                        const direction = alert.isShort ? 'SHORT' : 'LONG';
-                        const dirColor = alert.isShort ? '#ff4444' : '#00aa00';
-                        const alertTime = new Date(alert.recordedAt || alert.alertDate || Date.now());
-                        
-                        item.innerHTML = `
-                            <div style="font-weight: 600; margin-bottom: 4px;">
-                                <span style="color: ${dirColor};">$${alert.ticker}</span> 
-                                <span style="font-size: 11px; opacity: 0.7;">[${direction}]</span>
-                            </div>
-                            <div style="font-size: 11px; opacity: 0.8;">
-                                Entry: $${alert.price} • ${formatAlertAge(alertTime)}
-                            </div>
-                        `;
-                        
-                        item.onclick = () => {
-                            window.open(`https://www.tradingview.com/chart/?symbol=${alert.ticker}`, '_blank');
-                        };
-                        
-                        list.appendChild(item);
-                    });
-                    
-                    console.log('Recent alerts panel populated successfully');
-                })
-                .catch(err => {
-                    console.error('Error loading recent alerts:', err);
-                    list.innerHTML = '';
-                    const errorState = document.createElement('div');
-                    errorState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
-                    errorState.textContent = 'Error loading alerts';
-                    list.appendChild(errorState);
-                    updateNotificationCount();
+                    return;
+                }
+
+                const sorted = alertData.slice().sort((a, b) => {
+                    const timeA = new Date(a.recordedAt || a.alertDate || a.filingDate || 0).getTime();
+                    const timeB = new Date(b.recordedAt || b.alertDate || b.filingDate || 0).getTime();
+                    return timeB - timeA;
                 });
+
+                const recentAlerts = sorted.slice(0, 20);
+                notifications = recentAlerts.map(alert => ({
+                    id: `${alert.ticker}-${alert.recordedAt || alert.alertDate || alert.filingDate || Date.now()}`,
+                    message: `${alert.ticker} ${alert.isShort ? 'SHORT' : 'LONG'} at $${alert.price}`,
+                    type: alert.isShort ? 'error' : 'success',
+                    timestamp: new Date(alert.recordedAt || alert.alertDate || alert.filingDate || Date.now()),
+                    link: `https://www.tradingview.com/chart/?symbol=${alert.ticker}`
+                }));
+
+                updateNotificationCount();
+
+                recentAlerts.forEach(alert => {
+                    const item = document.createElement('div');
+                    item.className = 'notification-item';
+                    item.style.cssText = 'padding: 10px 12px; border-bottom: 1px solid rgba(0,0,0,0.08); cursor: pointer; background: rgba(255,255,255,0.95);';
+                    const direction = alert.isShort ? 'SHORT' : 'LONG';
+                    const dirColor = alert.isShort ? '#ff4444' : '#00aa00';
+                    const alertTime = new Date(alert.recordedAt || alert.alertDate || alert.filingDate || Date.now());
+                    item.innerHTML = `
+                        <div style="display:flex; justify-content:space-between; gap:10px; align-items:center; margin-bottom:4px;">
+                            <span style="font-weight:700; color:${dirColor};">$${alert.ticker}</span>
+                            <span style="font-size:11px; opacity:0.7; white-space:nowrap;">${direction}</span>
+                        </div>
+                        <div style="font-size:11px; opacity:0.8; line-height:1.3;">$${alert.price} • ${formatAlertAge(alertTime)}</div>
+                    `;
+                    item.onclick = () => {
+                        window.open(`https://www.tradingview.com/chart/?symbol=${alert.ticker}`, '_blank');
+                    };
+                    list.appendChild(item);
+                });
+            } catch (err) {
+                console.error('Error loading recent alerts:', err);
+                list.innerHTML = '';
+                const errorState = document.createElement('div');
+                errorState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
+                errorState.textContent = 'Error loading alerts';
+                list.appendChild(errorState);
+                notifications = [];
+                updateNotificationCount();
+            }
         }
 
         function loadHistoryAlerts() {
