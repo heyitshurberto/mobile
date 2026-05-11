@@ -1200,12 +1200,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             .header {
-                flex-direction: column;
+                flex-direction: row;
                 align-items: flex-start;
                 padding: 6px 8px !important;
                 margin-bottom: 10px !important;
                 position: relative;
-                justify-content: flex-start;
+                justify-content: center;
                 gap: 4px;
                 flex-wrap: wrap;
             }
@@ -1217,17 +1217,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 width: 100%;
                 margin: 0 !important;
                 flex: 0 0 auto;
-                justify-content: flex-start;
-                order: 1 !important;
-                margin-top: 6px !important;
+                justify-content: center;
+                order: 1;
+                margin-top: 8px !important;
             }
             
             .logo {
                 height: 18px !important;
                 width: auto !important;
-                margin-right: 8px;
-                margin-top: 0 !important;
-                transform: translateY(0) !important;
+                margin-right: 6px;
+                margin-top: -8px !important;
+                transform: translateY(-3px) !important;
             }
             
             .dashboard-title {
@@ -1256,47 +1256,46 @@ document.addEventListener('DOMContentLoaded', function() {
             
             .header-right {
                 display: flex !important;
-                align-items: center !important;
-                justify-content: space-between !important;
-                gap: 8px !important;
+                align-items: center;
+                justify-content: flex-end;
+                gap: 4px;
                 position: static !important;
-                width: 100% !important;
-                margin: 0 !important;
-                padding: 0 4px !important;
-                order: -1 !important;
-                flex-wrap: nowrap !important;
-            }
-            
-            .time-display {
-                display: flex !important;
-                position: static !important;
-                top: auto !important;
                 right: auto !important;
-                font-size: 10px !important;
-                gap: 3px !important;
-                margin: 0 !important;
-                text-align: left;
-                justify-content: flex-start;
-                flex-wrap: nowrap;
-                order: 0 !important;
+                top: auto !important;
                 white-space: nowrap;
-                overflow: hidden;
-                width: auto !important;
-                max-width: calc(100% - 40px) !important;
+                width: auto;
+                margin: 0 !important;
+                flex-wrap: nowrap;
+                margin-top: 4px;
+                order: 3;
             }
             
-            .notification-history-icon {
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                font-size: 16px !important;
-                width: 28px !important;
-                height: 28px !important;
-                flex-shrink: 0;
-                margin-right: 0 !important;
-                margin-left: auto !important;
-                position: relative;
-            }            .notification-history-icon svg {
+        .time-display {
+            display: flex !important;
+            flex: 1 1 auto !important;
+            max-width: calc(100% - 60px) !important;
+            justify-content: flex-start !important;
+            align-items: center !important;
+            font-size: 11px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            order: 0 !important;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+        }
+            
+        .notification-history-icon {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 16px !important;
+            width: 28px !important;
+            height: 28px !important;
+            flex-shrink: 0;
+            margin-right: 8px !important;
+            position: relative;
+        }            .notification-history-icon svg {
                 width: 18px !important;
                 height: 18px !important;
             }
@@ -2567,58 +2566,20 @@ document.addEventListener('DOMContentLoaded', function() {
         
         @media (max-width: 768px) {
             .notification-history-icon {
-                width: 20px;
-                height: 20px;
+                width: 17px;
+                height: 17px;
             }
             
             .notification-history-icon svg {
-                width: 12px;
-                height: 12px;
+                width: 10px;
+                height: 10px;
             }
 
             .logo {
                 height: 24px !important;
                 margin-top: 0px !important;
-                margin-left: 26px !important;
+                margin-left: 25px !important;
                 margin-right: 0px !important;
-            }
-
-            .header-right {
-                display: flex !important;
-                align-items: center !important;
-                justify-content: space-between !important;
-                position: absolute !important;
-                top: 10px !important;
-                right: 58px !important;
-                left: 12px !important;
-                width: auto !important;
-                gap: 10px !important;
-                padding: 0 4px !important;
-                z-index: 10 !important;
-            }
-
-            .time-display {
-                display: flex !important;
-                flex: 1 1 auto !important;
-                max-width: calc(100% - 60px) !important;
-                justify-content: flex-start !important;
-                align-items: center !important;
-                font-size: 11px !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                order: 0 !important;
-                white-space: nowrap !important;
-                overflow: hidden !important;
-                text-overflow: ellipsis !important;
-            }
-
-            .notification-history-icon {
-                margin-left: 6px !important;
-                margin-right: 0 !important;
-            }
-
-            .multi-chart-icon {
-                margin-left: 15px !important;
             }
         }
         
@@ -3499,7 +3460,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </script>
         <div class="container">
             <div class="header">
-                <div class="header-top" style="margin-top:45px; margin-bottom:-8px; margin-left: auto; margin-right: auto; display: flex; justify-content: center; align-items: center;">
+                <div class="header-top" style="margin-top:65px; margin-bottom:10px; margin-left: auto; margin-right: auto; display: flex; justify-content: center; align-items: center;">
                     <img src="logo.jpeg?t=${new Date().getTime()}" alt="Logo" class="logo" style="height: 40px; width: auto; transition: opacity 0.4s ease; margin-right: -3px; margin-left: 45px; margin-top: 2px; margin-bottom: 2px; transform: rotate(0deg); opacity: 0.7;" onload="this.style.opacity=0.75">
                     <h1 style="color: #000000; font-size: 22px; font-family: 'Playfair Display', serif; font-weight: 500; letter-spacing: 0.4px; margin-left: -6px; margin-top: 3px; margin-bottom: 7px; opacity: 0.8;" class="dashboard-title">CARLUCCI CAPITAL</h1>
                 </div>
@@ -3889,109 +3850,127 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        async function loadRecentAlerts() {
+        function loadRecentAlerts() {
             if (localStorage.getItem('recentAlertsCleared') === 'true') {
                 const list = document.getElementById('notification-list');
-                if (!list) return;
                 list.innerHTML = '';
                 const emptyState = document.createElement('div');
                 emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
                 emptyState.textContent = 'No recent alerts';
                 list.appendChild(emptyState);
-                notifications = [];
                 updateNotificationCount();
                 return;
             }
+            
+            // Add cache bust to prevent stale alert.json from mobile cache
+            const timestamp = Date.now();
+            const alertUrl = new URL('/logs/alert.json', window.location.href);
+            alertUrl.searchParams.set('t', timestamp);
+            const fallbackUrl = `https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json?t=${timestamp}`;
+            const stockFallbackUrl = new URL('/logs/stocks.json', window.location.href);
+            stockFallbackUrl.searchParams.set('t', timestamp);
 
-            const list = document.getElementById('notification-list');
-            if (!list) {
-                console.error('notification-list element not found');
-                return;
-            }
-            list.innerHTML = '';
-
-            const localPaths = ['/logs/alert.json', '../logs/alert.json', 'logs/alert.json'];
-            const fallbackUrls = [
-                'https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json',
-                'https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/alert.json'
-            ];
-
-            const tryFetchJson = async (urls) => {
-                for (const url of urls) {
-                    try {
-                        const response = await fetch(url + '?t=' + Date.now(), { cache: 'no-store' });
-                        if (!response.ok) continue;
-                        const data = await response.json();
-                        if (Array.isArray(data) && data.length > 0) return data;
-                    } catch (err) {
-                        console.warn('Fetch failed for', url, err.message);
-                    }
+            const parseJsonResponse = (response) => {
+                if (!response.ok) {
+                    throw new Error(`Fetch failed: ${response.status}`);
                 }
-                return null;
+                return response.json();
             };
 
-            try {
-                let alertData = await tryFetchJson(localPaths);
-                if (!Array.isArray(alertData) || alertData.length === 0) {
-                    alertData = await tryFetchJson(fallbackUrls);
-                }
-
-                if (!Array.isArray(alertData) || alertData.length === 0) {
+            fetch(alertUrl, { cache: 'no-store' })
+                .then(parseJsonResponse)
+                .catch(() => {
+                    console.warn('alert.json fetch failed, trying stocks.json fallback');
+                    return fetch(stockFallbackUrl, { cache: 'no-store' });
+                })
+                .then(result => {
+                    if (result instanceof Response) {
+                        return parseJsonResponse(result);
+                    }
+                    return result;
+                })
+                .then(alerts => {
+                    if (!alerts || !Array.isArray(alerts) || alerts.length === 0) {
+                        console.warn('alert.json empty, trying GitHub fallback');
+                        return fetch(fallbackUrl, { cache: 'no-store' })
+                            .then(parseJsonResponse)
+                            .catch(() => {
+                                console.warn('GitHub fallback failed, using stocks.json fallback');
+                                return fetch(stockFallbackUrl, { cache: 'no-store' }).then(parseJsonResponse);
+                            });
+                    }
+                    return alerts;
+                })
+                .then(alerts => {
+                    if (!alerts) throw new Error('No alerts data');
+                    
+                    const list = document.getElementById('notification-list');
+                    list.innerHTML = '';
+                    
+                    if (!Array.isArray(alerts) || alerts.length === 0) {
+                        const emptyState = document.createElement('div');
+                        emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
+                        emptyState.textContent = 'No recent alerts';
+                        list.appendChild(emptyState);
+                        updateNotificationCount();
+                        return;
+                    }
+                    
+                    // Update notifications array for badge count
+                    notifications = alerts;
+                    updateNotificationCount();
+                    
+                    alerts.slice(-20).reverse().forEach(alert => {
+                        const item = document.createElement('div');
+                        item.className = 'notification-item';
+                        item.style.cursor = 'pointer';
+                        const date = new Date(alert.recordedAt || alert.timestamp || alert.date || new Date().toISOString());
+                        const dateStr = date.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' });
+                        const timeStr = date.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
+                        const marketCapStr = alert.marketCap && alert.marketCap !== 'N/A' ? '$' + parseFloat(alert.marketCap).toLocaleString() : 'N/A';
+                        const ftdStr = alert.ftd !== false && alert.ftd !== null && alert.ftd !== undefined && alert.ftd !== 'False'
+                            ? (typeof alert.ftd === 'number' ? alert.ftd.toLocaleString() : alert.ftd)
+                            : 'False';
+                        let insiderStr = 'N/A';
+                        if (alert.insiderPercent && alert.insiderPercent !== 'N/A') {
+                            const insiderVal = parseFloat(alert.insiderPercent) * 100;
+                            insiderStr = !isNaN(insiderVal) ? insiderVal.toFixed(2) + '%' : 'N/A';
+                        }
+                        
+                        const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${alert.cik}&type=6-K&dateb=&owner=exclude&count=100`;
+                        const saLink = `https://www.stockanalysis.com/stocks/${alert.ticker.toLowerCase()}/`;
+                        const direction = alert.isShort ? 'SHORT' : 'LONG';
+                        const companyName = alert.companyName || alert.name || 'N/A';
+                        const sectorText = alert.sector && alert.sector !== 'N/A' ? alert.sector : 'N/A';
+                        
+                        item.innerHTML = `
+                            <div style="margin-bottom: 8px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+                                <span style="text-decoration: underline;">
+                                    $${alert.ticker} <span style="opacity: 0.8; font-weight: 400;">(${companyName})</span> <i style="font-weight: 700;">${direction}</i> @ $${alert.price}
+                                </span>
+                                <span style="font-size: 10px; opacity: 0.5; font-style: italic; white-space: nowrap;">${dateStr} ${timeStr} UTC</span>
+                            </div>
+                            <div style="font-size: 11px; opacity: 0.77; margin-bottom: 4px;">Sector: ${sectorText} | Market Cap: ${marketCapStr} | FTD: ${ftdStr} | F/AV: ${alert.fav}x</div>
+                        `;
+                        
+                        item.addEventListener('click', () => {
+                            customConfirm(`View details for <b><i>$${alert.ticker}</i></b>?`, `${saLink}`);
+                        });
+                        
+                        list.appendChild(item);
+                    });
+                })
+                .catch(e => {
+                    console.error('Failed to load alerts:', e);
+                    const list = document.getElementById('notification-list');
+                    list.innerHTML = '';
                     const emptyState = document.createElement('div');
                     emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
-                    emptyState.textContent = 'No recent alerts';
+                    emptyState.textContent = 'Error loading alerts';
                     list.appendChild(emptyState);
-                    notifications = [];
+                    // Update notification count even on error
                     updateNotificationCount();
-                    return;
-                }
-
-                const sorted = alertData.slice().sort((a, b) => {
-                    const timeA = new Date(a.recordedAt || a.alertDate || a.filingDate || 0).getTime();
-                    const timeB = new Date(b.recordedAt || b.alertDate || b.filingDate || 0).getTime();
-                    return timeB - timeA;
                 });
-
-                const recentAlerts = sorted.slice(0, 20);
-                notifications = recentAlerts.map(alert => ({
-                    id: `${alert.ticker}-${alert.recordedAt || alert.alertDate || alert.filingDate || Date.now()}`,
-                    message: `${alert.ticker} ${alert.isShort ? 'SHORT' : 'LONG'} at $${alert.price}`,
-                    type: alert.isShort ? 'error' : 'success',
-                    timestamp: new Date(alert.recordedAt || alert.alertDate || alert.filingDate || Date.now()),
-                    link: `https://www.tradingview.com/chart/?symbol=${alert.ticker}`
-                }));
-
-                updateNotificationCount();
-
-                recentAlerts.forEach(alert => {
-                    const item = document.createElement('div');
-                    item.className = 'notification-item';
-                    item.style.cssText = 'padding: 10px 12px; border-bottom: 1px solid rgba(0,0,0,0.08); cursor: pointer; background: rgba(255,255,255,0.95);';
-                    const direction = alert.isShort ? 'SHORT' : 'LONG';
-                    const dirColor = alert.isShort ? '#ff4444' : '#00aa00';
-                    const alertTime = new Date(alert.recordedAt || alert.alertDate || alert.filingDate || Date.now());
-                    item.innerHTML = `
-                        <div style="display:flex; justify-content:space-between; gap:10px; align-items:center; margin-bottom:4px;">
-                            <span style="font-weight:700; color:${dirColor};">$${alert.ticker}</span>
-                            <span style="font-size:11px; opacity:0.7; white-space:nowrap;">${direction}</span>
-                        </div>
-                        <div style="font-size:11px; opacity:0.8; line-height:1.3;">$${alert.price} • ${formatAlertAge(alertTime)}</div>
-                    `;
-                    item.onclick = () => {
-                        window.open(`https://www.tradingview.com/chart/?symbol=${alert.ticker}`, '_blank');
-                    };
-                    list.appendChild(item);
-                });
-            } catch (err) {
-                console.error('Error loading recent alerts:', err);
-                list.innerHTML = '';
-                const errorState = document.createElement('div');
-                errorState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
-                errorState.textContent = 'Error loading alerts';
-                list.appendChild(errorState);
-                notifications = [];
-                updateNotificationCount();
-            }
         }
 
         function loadHistoryAlerts() {
@@ -4107,6 +4086,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         const dateStr = date.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' });
                         const timeStr = date.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
                         
+                        const companyName = stock.companyName || 'N/A';
                         const saLink = `https://www.stockanalysis.com/stocks/${stock.ticker.toLowerCase()}/`;
                         const direction = stock.isShort ? 'SHORT' : 'LONG';
                         
@@ -4190,7 +4170,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         let peakColor = peakPercent > 0 ? '#00aa00' : peakPercent < 0 ? '#ff4444' : 'inherit';
                         
                         item.innerHTML = `
-                            <div style="margin-bottom: 5px; text-decoration: underline;"><b style="font-weight: 700;"></b> $${stock.ticker} <b style="font-weight: 700; font-style: italic;">${direction}</b> @ $${stock.price}</div>
+                            <div style="margin-bottom: 5px; text-decoration: underline;"><b style="font-weight: 700;"></b> $${stock.ticker} <span style="opacity: 0.8; font-weight: 400;">(${companyName})</span> <b style="font-weight: 700; font-style: italic;">${direction}</b> @ $${stock.price}</div>
                             <div style="font-size: 10.5px; opacity: 0.6; margin-bottom: 3px;">Date: ${dateStr} ${timeStr} UTC</div>
                             <div style="font-size: 11px; opacity: 0.9; color: ${peakColor}; font-style: italic;">${peakDisplay}</div>
                         `;
