@@ -34,12 +34,12 @@ table {
 }
 </style>
 
-<div style="position: absolute; top: 1px; left: 6px; display: flex; gap: 4px; align-items: center;" class="usersname-tag-desktop">
-  <a href="#" id="social-tele" onclick="customConfirm('Join the <b><i>Carlucci Ж</i></b> Community?', 'https://discord.gg/5SQcvhfN'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 3px 3px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: manipulation;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">
+<div style="position: absolute; top: 1px; left: 6px; display: flex; gap: 4px; align-items: center; z-index: 9999;" class="usersname-tag-desktop">
+  <a href="javascript:void(0)" id="social-tele" role="button" tabindex="0" onclick="customConfirm('Join the <b><i>Carlucci Ж</i></b> Community?', 'https://discord.gg/5SQcvhfN'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 3px 3px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: manipulation; -webkit-tap-highlight-color: transparent; z-index: 9999;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">
     <img src="/docs/tele.png" alt="Discord" style="height: 23px; width: 22px; filter: brightness(0) saturate(100%);" id="tele-logo" class="social-icon">
   </a>
 
-  <a href="#" id="social-twit" onclick="customConfirm('Visit <b><i>@cartelwrld</i></b> on X?', 'https://x.com/cartelwrld'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: manipulation;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">
+  <a href="javascript:void(0)" id="social-twit" role="button" tabindex="0" onclick="customConfirm('Visit <b><i>@cartelwrld</i></b> on X?', 'https://x.com/cartelwrld'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: manipulation; -webkit-tap-highlight-color: transparent; z-index: 9999;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">
     <img src="/docs/twit.png" alt="X" style="height: 15px; width: 15px; filter: brightness(0) saturate(100%);" id="x-logo" class="social-icon">
   </a>
 </div>
@@ -63,15 +63,26 @@ document.addEventListener('DOMContentLoaded', function() {
   const socialLinks = document.querySelectorAll('#social-tele, #social-twit');
   socialLinks.forEach(link => {
     link.style.pointerEvents = 'auto';
+    link.style.touchAction = 'manipulation';
     link.addEventListener('touchstart', function() {
       this.style.opacity = '0.6';
     }, false);
-    link.addEventListener('touchend', function() {
+    link.addEventListener('touchend', function(e) {
       this.style.opacity = '1';
+      if (!e.defaultPrevented) {
+        e.preventDefault();
+        this.click();
+      }
     }, false);
     link.addEventListener('touchcancel', function() {
       this.style.opacity = '1';
     }, false);
+    link.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.click();
+      }
+    });
   });
   
   // Ensure all buttons are clickable on iPad
@@ -323,6 +334,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 resolve(false);
             };
 
+            const handleTouchYes = (e) => {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                handleYes(e);
+            };
+
+            const handleTouchNo = (e) => {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                handleNo(e);
+            };
+
             const handleKeyboard = (e) => {
                 if (e.key === 'Enter') {
                     e.preventDefault();
@@ -347,6 +374,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
             yesButton.addEventListener('click', handleYes);
             noButton.addEventListener('click', handleNo);
+            yesButton.addEventListener('touchend', handleTouchYes, { passive: false });
+            noButton.addEventListener('touchend', handleTouchNo, { passive: false });
             modal.addEventListener('click', handleModalClick);
             document.addEventListener('keydown', handleKeyboard);
             
@@ -577,13 +606,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const container = document.createElement('div');
         const containerShadow = isDarkMode ? '0 10px 40px rgba(0, 0, 0, 0.9)' : '0 10px 40px rgba(0, 0, 0, 0.2)';
-        const containerWidth = isMobile ? 'calc(100vw - 20px)' : '80vw';
+        const containerWidth = isMobile ? 'calc(100vw - 16px)' : '80vw';
         const containerHeight = '80vh';
 
         container.style.cssText = `
             background: transparent;
             border-radius: 12px;
             width: ${containerWidth};
+            max-width: 100%;
+            min-width: 0;
             height: ${containerHeight};
             display: flex;
             flex-direction: column;
@@ -610,7 +641,7 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         header.innerHTML = `
             <div style="display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0;">
-                <span style="font-weight: 600; color: ${headerText}; font-size: 14px; white-space: nowrap; opacity: 0.8;">Multi Chart Dashboard</span>
+                <span style="font-weight: 600; color: ${headerText}; font-size: 15px; white-space: nowrap; opacity: 0.8;">Multi Chart Dashboard</span>
                 <button type="button" class="multi-chart-toggle-btn" style="padding: 8px 12px; border: 1px solid rgba(110,110,110,0.25); border-radius: 8px; background: transparent; color: ${headerText}; font-size: 13px; cursor: pointer;">Single View</button>
             </div>
             <div style="display: flex; align-items: center; gap: 8px;">
@@ -624,10 +655,12 @@ document.addEventListener('DOMContentLoaded', function() {
             display: grid;
             grid-template-columns: ${gridCols};
             gap: 8px;
-            padding: 6px;
+            padding: 10px;
             overflow-y: auto;
             max-height: calc(90vh - 90px);
-            width: 99%;
+            width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
         `;
 
         let viewMode = 'grid';
@@ -684,6 +717,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 min-height: 300px;
                 cursor: move;
                 transition: all 0.2s ease;
+                width: 100%;
+                min-width: 0;
+                box-sizing: border-box;
             `;
 
             const chartHeader = document.createElement('div');
@@ -713,10 +749,8 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
 
             const chartWrapper = document.createElement('div');
-            chartWrapper.style.cssText = `
-                height: 250px;
-                position: relative;
-            `;
+            chartWrapper.style.cssText = 'width: 100%; height: 250px; position: relative; box-sizing: border-box;';
+            chartWrapper.style.minWidth = '0';
 
             const chartId = 'multi_chart_' + ticker + '_' + Date.now() + '_' + index;
             chartWrapper.innerHTML = '<div id="' + chartId + '" style="width: 100%; height: 100%;"></div>';
@@ -3481,7 +3515,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </script>
             <div style="display: flex; justify-content: flex-start; margin-bottom: -10px; margin-top: -30px; margin-left: -8px;">
                 <div class="multi-chart-icon" onclick="openDashboardMultiChart()" title="Open Multi Chart View" style="line-height: 1;">
-𝄜
+⫶☰
                 </div>
             </div>
             <div class="stats" style="margin-top: 15px;">
@@ -3832,34 +3866,42 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Add cache bust to prevent stale alert.json from mobile cache
             const timestamp = Date.now();
-            const alertUrl = new URL('../logs/alert.json', window.location.href);
+            const alertUrl = new URL('/logs/alert.json', window.location.href);
             alertUrl.searchParams.set('t', timestamp);
             const fallbackUrl = `https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json?t=${timestamp}`;
-            
-            // Try local first, with fallback chain
+            const stockFallbackUrl = new URL('/logs/stocks.json', window.location.href);
+            stockFallbackUrl.searchParams.set('t', timestamp);
+
+            const parseJsonResponse = (response) => {
+                if (!response.ok) {
+                    throw new Error(`Fetch failed: ${response.status}`);
+                }
+                return response.json();
+            };
+
             fetch(alertUrl, { cache: 'no-store' })
-                .then(r => {
-                    if (!r.ok) {
-                        console.warn('Local alert.json failed: ' + r.status + ', trying GitHub');
-                        return fetch(fallbackUrl, { cache: 'no-store' });
-                    }
-                    return r.json();
+                .then(parseJsonResponse)
+                .catch(() => {
+                    console.warn('alert.json fetch failed, trying stocks.json fallback');
+                    return fetch(stockFallbackUrl, { cache: 'no-store' });
                 })
-                .then(r => {
-                    if (r instanceof Response) {
-                        if (!r.ok) {
-                            throw new Error('GitHub fallback fetch failed: ' + r.status);
-                        }
-                        return r.json();
+                .then(result => {
+                    if (result instanceof Response) {
+                        return parseJsonResponse(result);
                     }
-                    return r;
+                    return result;
                 })
-                .catch(e => {
-                    console.warn('Local fetch failed, trying GitHub:', e.message);
-                    return fetch(fallbackUrl, { cache: 'no-store' }).then(r => {
-                        if (!r.ok) throw new Error('GitHub fallback fetch failed: ' + r.status);
-                        return r.json();
-                    });
+                .then(alerts => {
+                    if (!alerts || !Array.isArray(alerts) || alerts.length === 0) {
+                        console.warn('alert.json empty, trying GitHub fallback');
+                        return fetch(fallbackUrl, { cache: 'no-store' })
+                            .then(parseJsonResponse)
+                            .catch(() => {
+                                console.warn('GitHub fallback failed, using stocks.json fallback');
+                                return fetch(stockFallbackUrl, { cache: 'no-store' }).then(parseJsonResponse);
+                            });
+                    }
+                    return alerts;
                 })
                 .then(alerts => {
                     if (!alerts) throw new Error('No alerts data');
@@ -3884,7 +3926,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         const item = document.createElement('div');
                         item.className = 'notification-item';
                         item.style.cursor = 'pointer';
-                        const date = new Date(alert.recordedAt);
+                        const date = new Date(alert.recordedAt || alert.timestamp || alert.date || new Date().toISOString());
                         const dateStr = date.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' });
                         const timeStr = date.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
                         const marketCapStr = alert.marketCap && alert.marketCap !== 'N/A' ? '$' + parseFloat(alert.marketCap).toLocaleString() : 'N/A';
