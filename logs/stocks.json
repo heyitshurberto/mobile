@@ -7122,8 +7122,8 @@
     "direction": "LONG",
     "highest5Day": 12.27,
     "highest5DayPercent": 15.43,
-    "lowest5Day": 10.87,
-    "lowest5DayPercent": 2.26
+    "lowest5Day": 10.7,
+    "lowest5DayPercent": 0.66
   },
   {
     "ticker": "AUST",
@@ -7179,8 +7179,8 @@
     "recordId": "AUST-1778159281001",
     "expiresAt": "2026-05-12T13:08:01.001Z",
     "direction": "SHORT",
-    "highest5Day": 1.385,
-    "highest5DayPercent": 1.84,
+    "highest5Day": 1.36,
+    "highest5DayPercent": 0,
     "lowest5Day": 1.32,
     "lowest5DayPercent": 2.94
   },
@@ -7252,10 +7252,10 @@
     "recordId": "NHTC-1778179208629",
     "expiresAt": "2026-05-12T18:40:08.629Z",
     "direction": "SHORT",
-    "highest5Day": 3.2,
-    "highest5DayPercent": 0.16,
-    "lowest5Day": 3.085,
-    "lowest5DayPercent": 3.44
+    "highest5Day": 3.0872,
+    "highest5DayPercent": -3.37,
+    "lowest5Day": 3.06,
+    "lowest5DayPercent": 4.23
   },
   {
     "ticker": "AEIS",
@@ -7326,10 +7326,10 @@
     "recordId": "AEIS-1778258122008",
     "expiresAt": "2026-05-13T16:35:22.008Z",
     "direction": "LONG",
-    "highest5Day": 362.63,
-    "highest5DayPercent": 0.95,
-    "lowest5Day": 350.23,
-    "lowest5DayPercent": -2.51
+    "highest5Day": 354.15,
+    "highest5DayPercent": -1.42,
+    "lowest5Day": 350,
+    "lowest5DayPercent": -2.57
   },
   {
     "ticker": "STKE",
@@ -7399,9 +7399,211 @@
     "recordId": "STKE-1778267678846",
     "expiresAt": "2026-05-13T19:14:38.846Z",
     "direction": "SHORT",
-    "highest5Day": 1.86,
-    "highest5DayPercent": 2.2,
+    "highest5Day": 1.9346,
+    "highest5DayPercent": 6.3,
     "lowest5Day": 1.5119,
     "lowest5DayPercent": 16.93
+  },
+  {
+    "ticker": "MSW",
+    "title": "6-K - Ming Shing Group Holdings Ltd (0001956166) (Filer)",
+    "companyName": "Ming Shing Group Holdings Ltd",
+    "filerName": null,
+    "price": 1.76,
+    "fav": "57.60",
+    "volume": 39367,
+    "averageVolume": 79166,
+    "float": 4560200,
+    "sharesOutstanding": 12975000,
+    "soRatio": "35.15%",
+    "marketCap": 22836000,
+    "isShort": true,
+    "ftd": 907,
+    "intent": "Convertible Debt, Asset Disposition, Partnership, Regulation S Offering, Unregistered Equity Sales",
+    "incorporated": "Cayman Islands",
+    "located": "Hong Kong",
+    "filingDate": "2026-05-11T09:00:17-04:00",
+    "signals": {
+      "Convertible Debt": [
+        "Convertible Securities"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ],
+      "Regulation S Offering": [
+        "Regulation S"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: Unknown Buyer",
+        "Shares: 0.0M"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "20-F",
+      "EX-3.1"
+    ],
+    "cik": "1956166",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Construction",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Hong Kong (via Cayman Islands)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-05-11T13:01:02.168Z",
+    "recordId": "MSW-1778504462168",
+    "expiresAt": "2026-05-15T13:01:02.168Z",
+    "direction": "SHORT",
+    "highest5Day": 1.9499,
+    "highest5DayPercent": 10.79,
+    "lowest5Day": 1.64,
+    "lowest5DayPercent": 6.82
+  },
+  {
+    "ticker": "SITM",
+    "title": "8-K - SITIME Corp (0001451809) (Filer)",
+    "companyName": "SITIME Corp",
+    "filerName": null,
+    "price": 833.08,
+    "fav": "9.28",
+    "volume": 640055,
+    "averageVolume": 445006,
+    "float": 4130644,
+    "sharesOutstanding": 26396828,
+    "soRatio": "15.65%",
+    "marketCap": 21990670336,
+    "isShort": false,
+    "ftd": 1004,
+    "intent": "Commercial Inflection, Unregistered Equity Sales",
+    "incorporated": "Unknown",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-05-11T09:13:20-04:00",
+    "signals": {
+      "Commercial Inflection": [
+        "Cash Runway"
+      ],
+      "Unregistered Equity Sales": [
+        "purchase agreement"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "8-K",
+      "13D",
+      "Item 8.01"
+    ],
+    "cik": "1451809",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Semiconductors",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Unknown)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-05-11T13:13:55.809Z",
+    "recordId": "SITM-1778505235809",
+    "expiresAt": "2026-05-15T13:13:55.809Z",
+    "direction": "LONG",
+    "highest5Day": 859.41,
+    "highest5DayPercent": 3.16,
+    "lowest5Day": 810.8,
+    "lowest5DayPercent": -2.67
+  },
+  {
+    "ticker": "KZR",
+    "title": "8-K - Kezar Life Sciences, Inc. (0001645666) (Filer)",
+    "companyName": "Kezar Life Sciences, Inc.",
+    "filerName": null,
+    "price": 7.29,
+    "fav": "66.79",
+    "volume": 616015,
+    "averageVolume": 88755,
+    "float": 5927580,
+    "sharesOutstanding": 7387701,
+    "soRatio": "80.24%",
+    "marketCap": 53856340,
+    "isShort": true,
+    "ftd": 628,
+    "intent": "Merger/Acquisition, Going Dark, Asset Disposition, Partnership, Regulation S Offering, Unregistered Equity Sales",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-05-11T09:30:08-04:00",
+    "signals": {
+      "Merger/Acquisition": [
+        "Merger Agreement"
+      ],
+      "Going Dark": [
+        "Form 15",
+        "Deregistration"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ],
+      "Regulation S Offering": [
+        "Regulation S"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: Advisors LLC",
+        "Shares: 5.9M"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "8-K",
+      "EX-3.1",
+      "EX-3.2",
+      "Item 2.01",
+      "Item 3.01",
+      "Item 3.03",
+      "Item 5.01",
+      "Item 5.02",
+      "Item 5.03",
+      "Item 9.01"
+    ],
+    "cik": "1645666",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Biotechnology",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Wilmington, Delaware)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-05-11T13:31:11.083Z",
+    "recordId": "KZR-1778506271083",
+    "expiresAt": "2026-05-15T13:31:11.084Z",
+    "direction": "SHORT",
+    "highest5Day": 7.47,
+    "highest5DayPercent": 2.47,
+    "lowest5Day": 7.27,
+    "lowest5DayPercent": 0.27
   }
 ]
