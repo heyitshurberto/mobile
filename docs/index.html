@@ -2567,13 +2567,13 @@ document.addEventListener('DOMContentLoaded', function() {
         
         @media (max-width: 768px) {
             .notification-history-icon {
-                width: 17px;
-                height: 17px;
+                width: 20px;
+                height: 20px;
             }
             
             .notification-history-icon svg {
-                width: 10px;
-                height: 10px;
+                width: 12px;
+                height: 12px;
             }
 
             .logo {
@@ -2582,16 +2582,43 @@ document.addEventListener('DOMContentLoaded', function() {
                 margin-left: 26px !important;
                 margin-right: 0px !important;
             }
+
+            .header-right {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                position: absolute !important;
+                top: 10px !important;
+                right: 58px !important;
+                left: 12px !important;
+                width: auto !important;
+                gap: 10px !important;
+                padding: 0 4px !important;
+                z-index: 10 !important;
+            }
+
             .time-display {
                 display: flex !important;
-                width: auto !important;
-                max-width: calc(100% - 50px) !important;
+                flex: 1 1 auto !important;
+                max-width: calc(100% - 60px) !important;
                 justify-content: flex-start !important;
                 align-items: center !important;
                 font-size: 11px !important;
                 margin: 0 !important;
                 padding: 0 !important;
                 order: 0 !important;
+                white-space: nowrap !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+            }
+
+            .notification-history-icon {
+                margin-left: 6px !important;
+                margin-right: 0 !important;
+            }
+
+            .multi-chart-icon {
+                margin-left: 6px !important;
             }
         }
         
