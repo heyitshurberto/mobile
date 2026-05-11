@@ -2566,21 +2566,73 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         @media (max-width: 768px) {
-            .notification-history-icon {
-                width: 17px;
-                height: 17px;
+            .header {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 6px !important;
             }
-            
-            .notification-history-icon svg {
-                width: 10px;
-                height: 10px;
+
+            .header-right {
+                display: flex !important;
+                flex-direction: row !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                width: 100% !important;
+                position: static !important;
+                right: auto !important;
+                top: auto !important;
+                margin: 0 !important;
+                padding: 0 12px !important;
+                order: -1 !important;
+            }
+
+            .time-display {
+                display: flex !important;
+                width: auto !important;
+                max-width: calc(100% - 50px) !important;
+                justify-content: flex-start !important;
+                align-items: center !important;
+                font-size: 11px !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                order: 0 !important;
+            }
+
+            .header-top {
+                display: flex !important;
+                flex-direction: row !important;
+                align-items: center !important;
+                justify-content: flex-start !important;
+                width: 100% !important;
+                margin-top: 0 !important;
+                order: 1 !important;
             }
 
             .logo {
                 height: 24px !important;
-                margin-top: 0px !important;
-                margin-left: 25px !important;
-                margin-right: 0px !important;
+                margin-top: 0 !important;
+                margin-left: 0 !important;
+                margin-right: 6px !important;
+                transform: translateY(0) !important;
+            }
+
+            .dashboard-title {
+                font-size: 12px !important;
+                margin: 0 !important;
+                white-space: normal !important;
+            }
+
+            .notification-history-icon {
+                width: 28px !important;
+                height: 28px !important;
+                margin-left: auto !important;
+                margin-right: 0 !important;
+            }
+            
+            .notification-history-icon svg {
+                width: 18px !important;
+                height: 18px !important;
             }
         }
         
