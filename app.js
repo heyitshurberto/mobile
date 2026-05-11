@@ -4780,7 +4780,7 @@ const renderLoginPage = () => `
       }
     }
     
-    // Load theme on page load
+    // Load theme when page loads
     window.addEventListener('load', function() {
       const theme = localStorage.getItem('theme') || 'dark';
       const body = document.body;

@@ -3857,11 +3857,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     emptyState.textContent = 'No alerts';
                     recentList.appendChild(emptyState);
 
-                    // Mark the local cache as cleared and remove any stored recent alerts.
+                    // Mark the local cache as cleared and remove any stored recent alerts
                     localStorage.setItem('recentAlertsCleared', 'true');
                     localStorage.removeItem('recentAlerts');
                     
-                    // Update notification count and retain history/inbox data.
+                    // Update notification count and retain history/inbox data
                     notifications = [];
                     updateNotificationCount();
                 }
