@@ -1200,12 +1200,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             .header {
-                flex-direction: row;
+                flex-direction: column;
                 align-items: flex-start;
                 padding: 6px 8px !important;
                 margin-bottom: 10px !important;
                 position: relative;
-                justify-content: center;
+                justify-content: flex-start;
                 gap: 4px;
                 flex-wrap: wrap;
             }
@@ -3863,112 +3863,89 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Add cache bust to prevent stale alert.json from mobile cache
-            const timestamp = Date.now();
-            const alertUrl = new URL('/logs/alert.json', window.location.href);
-            alertUrl.searchParams.set('t', timestamp);
-            const fallbackUrl = `https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json?t=${timestamp}`;
-            const stockFallbackUrl = new URL('/logs/stocks.json', window.location.href);
-            stockFallbackUrl.searchParams.set('t', timestamp);
-
-            const parseJsonResponse = (response) => {
-                if (!response.ok) {
-                    throw new Error(`Fetch failed: ${response.status}`);
-                }
-                return response.json();
-            };
-
-            fetch(alertUrl, { cache: 'no-store' })
-                .then(parseJsonResponse)
-                .catch(() => {
-                    console.warn('alert.json fetch failed, trying stocks.json fallback');
-                    return fetch(stockFallbackUrl, { cache: 'no-store' });
-                })
-                .then(result => {
-                    if (result instanceof Response) {
-                        return parseJsonResponse(result);
-                    }
-                    return result;
-                })
-                .then(alerts => {
-                    if (!alerts || !Array.isArray(alerts) || alerts.length === 0) {
-                        console.warn('alert.json empty, trying GitHub fallback');
-                        return fetch(fallbackUrl, { cache: 'no-store' })
-                            .then(parseJsonResponse)
-                            .catch(() => {
-                                console.warn('GitHub fallback failed, using stocks.json fallback');
-                                return fetch(stockFallbackUrl, { cache: 'no-store' }).then(parseJsonResponse);
-                            });
-                    }
-                    return alerts;
-                })
-                .then(alerts => {
-                    if (!alerts) throw new Error('No alerts data');
-                    
-                    const list = document.getElementById('notification-list');
-                    list.innerHTML = '';
-                    
-                    if (!Array.isArray(alerts) || alerts.length === 0) {
-                        const emptyState = document.createElement('div');
-                        emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
-                        emptyState.textContent = 'No recent alerts';
-                        list.appendChild(emptyState);
-                        updateNotificationCount();
-                        return;
+            // Load alerts similar to loadInitialAlerts
+            (async () => {
+                let alertData = [];
+                let response;
+                
+                // Always try local endpoint first, regardless of hostname
+                const alertUrl = '/logs/alert.json';
+                
+                try {
+                    response = await fetch(alertUrl, { cache: 'no-store' });
+                    if (!response.ok) {
+                        console.error('Failed to fetch alert.json locally:', response.status, response.statusText);
+                        // Fall back to GitHub
+                        response = await fetch('https://raw.githubusercontent.com/heyitshurberto/sysd/main/logs/alert.json', { cache: 'no-store' });
                     }
                     
-                    // Update notifications array for badge count
-                    notifications = alerts;
-                    updateNotificationCount();
-                    
-                    alerts.slice(-20).reverse().forEach(alert => {
-                        const item = document.createElement('div');
-                        item.className = 'notification-item';
-                        item.style.cursor = 'pointer';
-                        const date = new Date(alert.recordedAt || alert.timestamp || alert.date || new Date().toISOString());
-                        const dateStr = date.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' });
-                        const timeStr = date.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
-                        const marketCapStr = alert.marketCap && alert.marketCap !== 'N/A' ? '$' + parseFloat(alert.marketCap).toLocaleString() : 'N/A';
-                        const ftdStr = alert.ftd !== false && alert.ftd !== null && alert.ftd !== undefined && alert.ftd !== 'False'
-                            ? (typeof alert.ftd === 'number' ? alert.ftd.toLocaleString() : alert.ftd)
-                            : 'False';
-                        let insiderStr = 'N/A';
-                        if (alert.insiderPercent && alert.insiderPercent !== 'N/A') {
-                            const insiderVal = parseFloat(alert.insiderPercent) * 100;
-                            insiderStr = !isNaN(insiderVal) ? insiderVal.toFixed(2) + '%' : 'N/A';
+                    if (response.ok) {
+                        alertData = await response.json();
+                    } else {
+                        alertData = [];
+                    }
+                } catch (err) {
+                    console.error('Error fetching alerts locally, trying GitHub:', err.message);
+                    // Fallback to GitHub
+                    try {
+                        const githubResponse = await fetch('https://raw.githubusercontent.com/heyitshurberto/mobile/main/logs/alert.json', { cache: 'no-store' });
+                        if (githubResponse.ok) {
+                            alertData = await githubResponse.json();
+                        } else {
+                            alertData = [];
                         }
-                        
-                        const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${alert.cik}&type=6-K&dateb=&owner=exclude&count=100`;
-                        const saLink = `https://www.stockanalysis.com/stocks/${alert.ticker.toLowerCase()}/`;
-                        const direction = alert.isShort ? 'SHORT' : 'LONG';
-                        const sectorText = alert.sector && alert.sector !== 'N/A' ? alert.sector : 'N/A';
-                        
-                        item.innerHTML = `
-                            <div style="margin-bottom: 8px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
-                                <span style="text-decoration: underline;">$${alert.ticker} <i style="font-weight: 700;">${direction}</i> @ $${alert.price} </span>
-                                <span style="font-size: 10px; opacity: 0.5; font-style: italic; white-space: nowrap;">${dateStr} ${timeStr} UTC</span>
-                            </div>
-                            <div style="font-size: 11px; opacity: 0.77; margin-bottom: 4px;">Sector: ${sectorText} | Market Cap: ${marketCapStr} | FTD: ${ftdStr} | F/AV: ${alert.fav}x</div>
-                        `;
-                        
-                        item.addEventListener('click', () => {
-                            customConfirm(`View details for <b><i>$${alert.ticker}</i></b>?`, `${saLink}`);
-                        });
-                        
-                        list.appendChild(item);
-                    });
-                })
-                .catch(e => {
-                    console.error('Failed to load alerts:', e);
-                    const list = document.getElementById('notification-list');
-                    list.innerHTML = '';
+                    } catch (gitErr) {
+                        console.error('GitHub fallback also failed:', gitErr.message);
+                        alertData = [];
+                    }
+                }
+                
+                const list = document.getElementById('notification-list');
+                list.innerHTML = '';
+                
+                if (!Array.isArray(alertData) || alertData.length === 0) {
                     const emptyState = document.createElement('div');
                     emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
-                    emptyState.textContent = 'Error loading alerts';
+                    emptyState.textContent = 'No recent alerts';
                     list.appendChild(emptyState);
-                    // Update notification count even on error
                     updateNotificationCount();
+                    return;
+                }
+                
+                // Filter to recent alerts (last 24 hours or so)
+                const now = new Date();
+                const recentThreshold = 24 * 60 * 60 * 1000; // 24 hours
+                const recentAlerts = alertData.filter(a => {
+                    const alertTime = new Date(a.recordedAt || a.timestamp);
+                    return (now - alertTime) < recentThreshold;
+                }).slice(-20); // Last 20 recent alerts
+                
+                // Update notifications array for badge count
+                notifications = recentAlerts.map(alert => ({
+                    id: alert.ticker + '-' + (alert.recordedAt || alert.timestamp),
+                    message: `${alert.ticker} ${alert.isShort ? 'SHORT' : 'LONG'} at $${alert.price}`,
+                    type: alert.isShort ? 'error' : 'success',
+                    timestamp: new Date(alert.recordedAt || alert.timestamp),
+                    link: `https://www.tradingview.com/chart/?symbol=${alert.ticker}`
+                }));
+                
+                updateNotificationCount();
+                
+                // Populate the list
+                recentAlerts.forEach(alert => {
+                    const item = document.createElement('div');
+                    item.className = 'notification-item';
+                    item.style.cssText = 'padding: 8px 12px; border-bottom: 1px solid #eee; cursor: pointer;';
+                    item.innerHTML = `
+                        <div style="font-weight: bold;">${alert.ticker} ${alert.isShort ? 'SHORT' : 'LONG'}</div>
+                        <div style="font-size: 12px; opacity: 0.7;">$${alert.price} - ${formatAlertAge(new Date(alert.recordedAt || alert.timestamp))}</div>
+                    `;
+                    item.onclick = () => {
+                        window.open(`https://www.tradingview.com/chart/?symbol=${alert.ticker}`, '_blank');
+                    };
+                    list.appendChild(item);
                 });
+            })();
         }
 
         function loadHistoryAlerts() {
