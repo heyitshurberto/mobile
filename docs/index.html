@@ -1272,11 +1272,12 @@ document.addEventListener('DOMContentLoaded', function() {
             
             .time-display {
                 display: flex !important;
-                position: static !important;
-                top: auto !important;
+                position: absolute !important;
+                top: 8px !important;
+                left: 10px !important;
                 right: auto !important;
                 font-size: 10px !important;
-                gap: 3px !important;
+                gap: 4px !important;
                 margin: 0 !important;
                 text-align: left;
                 justify-content: flex-start;
@@ -1284,6 +1285,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 order: unset;
                 white-space: nowrap;
                 overflow: hidden;
+                width: calc(100% - 80px) !important;
+                max-width: calc(100% - 80px) !important;
             }
             
         .notification-history-icon {
@@ -6521,9 +6524,9 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 second: '2-digit'
             });
 
-            // India time (Goa/Kolkata)
-            const indiaTime = now.toLocaleTimeString('en-IN', {
-                timeZone: 'Asia/Kolkata',
+            // Bankgog time (Bangkok/Thailand)
+            const bangkokTime = now.toLocaleTimeString('en-TH', {
+                timeZone: 'Asia/Bangkok',
                 hour12: false,
                 hour: '2-digit',
                 minute: '2-digit',
@@ -6531,7 +6534,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             });
 
             const timeDisplay = document.getElementById('time-display');
-            timeDisplay.innerHTML = `${ukDate} | UK: ${ukTime} | US: ${usTime} | IN: ${indiaTime}`;
+            timeDisplay.innerHTML = `${ukDate} | UK: ${ukTime} | US: ${usTime} | TH: ${bangkokTime}`;
         }
         
         // Helper function to format market cap string
