@@ -30,7 +30,7 @@ table {
 
 /* iPad/tablet: 90% zoom for better fit */
 @media (min-width: 769px) and (max-width: 1023px) {
-    body { zoom: 90%; }
+    body { zoom: 85%; }
 }
 </style>
 
@@ -1055,6 +1055,15 @@ document.addEventListener('DOMContentLoaded', function() {
             text-align: right;
             display: flex;
             gap: 15px;
+        }
+
+        @media (min-width: 768px) and (max-width: 1024px) {
+        .time-display {
+            left: 50% !important;
+            right: auto !important;
+            transform: translateX(-50%) !important;
+            text-align: center !important;
+            }
         }
         
         body.dark-mode .time-display {
