@@ -3962,7 +3962,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <span style="text-decoration: underline;">
                                     $${alert.ticker} <span style="opacity: 0.7; font-weight: 400;">(${companyName})</span> <i style="font-weight: 700;">${direction}</i> @ $${alert.price}
                                 </span>
-                                <span style="font-size: 10px; opacity: 0.5; font-style: italic; white-space: nowrap;">${dateStr} ${timeStr} UTC</span>
+                                <span style="font-size: 10px; opacity: 0.5; font-style: italic; font-weight: bold; white-space: nowrap;">Date: ${dateStr} ${timeStr} UTC</span>
                             </div>
                             <div style="font-size: 11px; opacity: 0.77; margin-bottom: 4px;">Sector: ${sectorText} | Market Cap: ${marketCapStr} | FTD: ${ftdStr} | F/AV: ${alert.fav}x</div>
                         `;
@@ -4185,7 +4185,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         item.innerHTML = `
                             <div style="margin-bottom: 5px; text-decoration: underline;"><b style="font-weight: 700;"></b> $${stock.ticker} <span style="opacity: 0.7; font-weight: 400;">(${companyName})</span> <b style="font-weight: 700; font-style: italic;">${direction}</b> @ $${stock.price}</div>
-                            <div style="font-size: 10.5px; opacity: 0.6; margin-bottom: 3px;">Date: ${dateStr} ${timeStr} UTC</div>
+                            <div style="font-size: 10.5px; opacity: 0.6; margin-bottom: 3px; font-weight: bold;">Date: ${dateStr} ${timeStr} UTC</div>
                             <div style="font-size: 11px; opacity: 0.9; color: ${peakColor}; font-style: italic;">${peakDisplay}</div>
                         `;
                         
