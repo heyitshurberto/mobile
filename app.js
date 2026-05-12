@@ -4529,32 +4529,20 @@ const renderLoginPage = () => `
         font-size: 17px !important;
       }
       
-      /* Hide floating particles on Apple */
+      /* Use the same floating particles on Apple as other devices */
       body::after {
-        display: none !important;
+        display: block !important;
       }
       
-      /* Apple: professional subtle background pattern */
+      /* Apple: keep primary background color identical to other devices */
       body {
-        background-color: #f2eee8 !important;
-        background-image:
-          linear-gradient(145deg, rgba(245, 238, 229, 0.95), rgba(231, 223, 214, 0.95)),
-          radial-gradient(circle at top left, rgba(255, 255, 255, 0.22), transparent 28%),
-          repeating-linear-gradient(135deg, rgba(255, 229, 183, 0.12), rgba(255, 229, 183, 0.12) 1px, transparent 1px, transparent 48px);
-        background-size: 100% 100%, 120% 120%, 48px 48px !important;
-        background-position: 0 0, -30px -30px, 0 0 !important;
-        background-repeat: repeat !important;
+        background-color: #f5f3eff8 !important;
+        background-image: none !important;
       }
       
       body.dark-mode {
-        background-color: #101115 !important;
-        background-image:
-          linear-gradient(145deg, rgba(20, 20, 22, 0.96), rgba(14, 14, 17, 0.96)),
-          radial-gradient(circle at top left, rgba(255, 220, 140, 0.12), transparent 24%),
-          repeating-linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.08) 1px, transparent 1px, transparent 54px);
-        background-size: 100% 100%, 120% 120%, 54px 54px !important;
-        background-position: 0 0, -30px -30px, 0 0 !important;
-        background-repeat: repeat !important;
+        background-color: #111214 !important;
+        background-image: none !important;
       }
       
       /* Mobile media query for request access modal */
