@@ -3690,6 +3690,12 @@ const renderLoginPage = () => `
         zoom: 100%;
       }
     }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      body {
+        zoom: 120%;
+      }
+    }
     body::after {
       content: '';
       position: fixed;
@@ -4529,20 +4535,24 @@ const renderLoginPage = () => `
         font-size: 17px !important;
       }
       
-      /* Use the same floating particles on Apple as other devices */
+      /* Hide floating particles on Apple */
       body::after {
-        display: block !important;
+        display: none !important;
       }
       
-      /* Apple: keep primary background color identical to other devices */
+      /* Apple: professional subtle background pattern */
       body {
-        background-color: #f5f3eff8 !important;
-        background-image: none !important;
+        background-color: #f5f5f5 !important;
+        background-image: radial-gradient(circle, rgba(200, 200, 200, 0.2) 1px, transparent 1px) !important;
+        background-size: 24px 24px !important;
+        background-position: 0 0 !important;
       }
       
       body.dark-mode {
-        background-color: #111214 !important;
-        background-image: none !important;
+        background-color: #1a1a1a !important;
+        background-image: radial-gradient(circle, rgba(80, 80, 80, 0.25) 1px, transparent 1px) !important;
+        background-size: 24px 24px !important;
+        background-position: 0 0 !important;
       }
       
       /* Mobile media query for request access modal */
