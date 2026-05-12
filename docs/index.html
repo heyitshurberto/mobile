@@ -751,10 +751,10 @@ document.addEventListener('DOMContentLoaded', function() {
             chartHeader.innerHTML = `
                 <span style="display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap;">
                     <span>$${ticker}</span>
-                    <span style="opacity: 0.55; font-size: 9px;">(${companyName})</span>
-                    <span style="font-weight: 700; font-size: 10px; font-style: italic; color: ${directionColor};">${direction}</span>
+                    <span style="opacity: 0.55; font-size: 10px;">(${companyName})</span>
+                    <span style="font-weight: 700; font-size: 12px; font-style: italic; color: ${directionColor};">${direction}</span>
                 </span>
-                <span style="font-size: 10px; opacity: 0.6; cursor: pointer;" onclick="this.closest('.multi-chart-item').remove()">✕</span>
+                <span style="font-size: 11px; opacity: 0.6; cursor: pointer;" onclick="this.closest('.multi-chart-item').remove()">✕</span>
             `;
 
             const chartWrapper = document.createElement('div');
