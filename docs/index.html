@@ -581,6 +581,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const htmlOverflowBackup = document.documentElement.style.overflow;
         const modalBg = isDarkMode ? 'rgba(0, 0, 0, 0.85)' : 'rgba(255, 255, 255, 0.85)';
         const isMobile = window.innerWidth <= 768;
+        const isIPhonePortrait = /iPhone/.test(navigator.userAgent) && window.innerWidth <= 767 && window.matchMedia('(orientation: portrait)').matches;
         const modalPaddingTop = isMobile ? '14vh' : '80px';
         const modalPadding = isMobile ? '10px' : '20px';
 
@@ -672,6 +673,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const toggleButton = header.querySelector('.multi-chart-toggle-btn');
         const closeButton = header.querySelector('.multi-chart-close-btn');
+        const viewLabel = (mode) => {
+            if (isIPhonePortrait) {
+                return mode === 'single' ? 'Single' : 'Grid';
+            }
+            return mode === 'single' ? 'Single View' : 'Grid View';
+        };
+
+        toggleButton.textContent = viewLabel('grid');
 
         const updateViewMode = (mode) => {
             viewMode = mode;
@@ -681,14 +690,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     item.style.minHeight = isMobile ? 'calc(77vh)' : 'calc(65vh)';
                     item.querySelector('[id^="multi_chart_"]').style.height = 'calc(60vh)';
                 });
-                toggleButton.textContent = 'Grid View';
+                toggleButton.textContent = viewLabel('grid');
             } else {
                 chartsGrid.style.gridTemplateColumns = gridCols;
                 chartsGrid.querySelectorAll('.multi-chart-item').forEach(item => {
                     item.style.minHeight = '300px';
                     item.querySelector('[id^="multi_chart_"]').style.height = '250px';
                 });
-                toggleButton.textContent = 'Single View';
+                toggleButton.textContent = viewLabel('single');
             }
         };
 
