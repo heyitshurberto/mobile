@@ -3461,7 +3461,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </script>
         <div class="container">
             <div class="header">
-                <div class="header-top" style="margin-top:52px; margin-bottom:4px; margin-left: auto; margin-right: auto; display: flex; justify-content: center; align-items: center;">
+                <div class="header-top" style="margin-top:52px; margin-bottom:2px; margin-left: auto; margin-right: auto; display: flex; justify-content: center; align-items: center;">
                     <img src="logo.jpeg?t=${new Date().getTime()}" alt="Logo" class="logo" style="height: 40px; width: auto; transition: opacity 0.4s ease; margin-right: -3px; margin-left: 45px; margin-top: 2px; margin-bottom: 2px; transform: rotate(0deg); opacity: 0.7;" onload="this.style.opacity=0.75">
                     <h1 style="color: #000000; font-size: 22px; font-family: 'Playfair Display', serif; font-weight: 500; letter-spacing: 0.4px; margin-left: -6px; margin-top: 3px; margin-bottom: 7px; opacity: 0.8;" class="dashboard-title">CARLUCCI CAPITAL</h1>
                 </div>
@@ -4944,15 +4944,11 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     }
                 }
 
-                // Check for new tickers in alert.json every 2 seconds
+                // Combine monitoring into single interval - runs every 5 seconds instead of every 2 to reduce CPU
                 setInterval(() => {
                     this.checkForNewAlerts();
-                }, 2000); // Check for new alerts every 2 seconds
-
-                // Then start the monitoring interval for price updates
-                setInterval(() => {
                     this.checkAllPrices();
-                }, 2000); // Check prices every 2 seconds
+                }, 5000); // Combined check every 5 seconds reduces CPU load
 
                 // Initial checks
                 this.checkForNewAlerts();
@@ -6121,17 +6117,19 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             filterAndSortAlerts();
         }
         
-        // Add event listeners to filter controls
+        // Add event listeners to filter controls with debouncing to prevent excessive DOM updates
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('search-ticker');
             const filterDir = document.getElementById('filter-direction');
             const sortBy = document.getElementById('sort-by');
             const filterDate = document.getElementById('filter-date');
             
-            if (searchInput) searchInput.addEventListener('input', filterAndSortAlerts);
-            if (filterDir) filterDir.addEventListener('change', filterAndSortAlerts);
-            if (sortBy) sortBy.addEventListener('change', filterAndSortAlerts);
-            if (filterDate) filterDate.addEventListener('change', filterAndSortAlerts);
+            const debouncedFilter = debounce(filterAndSortAlerts, 300);
+            
+            if (searchInput) searchInput.addEventListener('input', debouncedFilter);
+            if (filterDir) filterDir.addEventListener('change', debouncedFilter);
+            if (sortBy) sortBy.addEventListener('change', debouncedFilter);
+            if (filterDate) filterDate.addEventListener('change', debouncedFilter);
         });
 
         window.addEventListener('load', hideLoading);
@@ -6412,7 +6410,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 filterAndSortAlerts();
             }); // Load main alerts into dashboard
             updateTimeDisplay();
-            setInterval(updateTimeDisplay, 1000); // Update every second
+            setInterval(updateTimeDisplay, 5000); // Update every 5 seconds instead of every 1 to reduce CPU
 
             // Generate unique session ID
             let sessionId = localStorage.getItem('sessionId');
@@ -6660,14 +6658,14 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 </div>
             `).join('');
             
-            // Start auto-updating timestamps
+            // Start auto-updating timestamps every 30 seconds instead of constantly
             if (!window.timeUpdateInterval) {
                 window.timeUpdateInterval = setInterval(() => {
                     document.querySelectorAll('.notification-time').forEach(el => {
                         const timestamp = new Date(el.getAttribute('data-timestamp'));
                         el.textContent = formatNotificationTime(timestamp);
                     });
-                }, 1000);
+                }, 30000);
             }
             // Add custom confirm to each notification link
             Array.from(list.querySelectorAll('.notification-item')).forEach((item, idx) => {
