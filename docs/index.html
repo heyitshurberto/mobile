@@ -3941,11 +3941,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${alert.cik}&type=6-K&dateb=&owner=exclude&count=100`;
                         const saLink = `https://www.stockanalysis.com/stocks/${alert.ticker.toLowerCase()}/`;
                         const direction = alert.isShort ? 'SHORT' : 'LONG';
+                        const companyName = alert.companyName || alert.name || 'N/A';
                         const sectorText = alert.sector && alert.sector !== 'N/A' ? alert.sector : 'N/A';
                         
                         item.innerHTML = `
                             <div style="margin-bottom: 8px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
-                                <span style="text-decoration: underline;">$${alert.ticker} <i style="font-weight: 700;">${direction}</i> @ $${alert.price} </span>
+                                <span style="text-decoration: underline;">
+                                    $${alert.ticker} <span style="opacity: 0.8; font-weight: 400;">(${companyName})</span> <i style="font-weight: 700;">${direction}</i> @ $${alert.price}
+                                </span>
                                 <span style="font-size: 10px; opacity: 0.5; font-style: italic; white-space: nowrap;">${dateStr} ${timeStr} UTC</span>
                             </div>
                             <div style="font-size: 11px; opacity: 0.77; margin-bottom: 4px;">Sector: ${sectorText} | Market Cap: ${marketCapStr} | FTD: ${ftdStr} | F/AV: ${alert.fav}x</div>
