@@ -3693,7 +3693,7 @@ const renderLoginPage = () => `
 
     @media (min-width: 769px) and (max-width: 1024px) {
       body {
-        zoom: 150%;
+        zoom: 125%;
       }
     }
     body::after {
