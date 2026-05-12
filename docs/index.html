@@ -642,7 +642,7 @@ document.addEventListener('DOMContentLoaded', function() {
         header.innerHTML = `
             <div style="display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0;">
                 <span style="font-weight: 600; color: ${headerText}; font-size: 15px; white-space: nowrap; opacity: 0.8;">Multi Chart Dashboard</span>
-                <button type="button" class="multi-chart-toggle-btn" style="padding: 8px 12px; border: 1px solid rgba(110,110,110,0.25); border-radius: 8px; background: transparent; color: ${headerText}; font-size: 13px; cursor: pointer;">Single View</button>
+                <button type="button" class="multi-chart-toggle-btn" style="padding: 8px 14px; border: 1px solid rgba(110,110,110,0.25); border-radius: 8px; background: transparent; color: ${headerText}; font-size: 13px; cursor: pointer; white-space: nowrap; min-width: 118px;">Single View</button>
             </div>
             <div style="display: flex; align-items: center; gap: 8px;">
                 <button type="button" class="multi-chart-close-btn" style="padding: 8px 12px; border: 1px solid rgba(110,110,110,0.25); border-radius: 8px; background: transparent; color: ${headerText}; font-size: 14px; cursor: pointer;">Close</button>
@@ -2782,6 +2782,15 @@ document.addEventListener('DOMContentLoaded', function() {
             @media (max-width: 768px) {
                 .logo {
                     margin-top: 9px !important;
+                }
+            }
+            @media (max-width: 767px) and (max-device-width: 767px) and (orientation: portrait) {
+                .logo {
+                    margin-top: 18px !important;
+                }
+                .multi-chart-toggle-btn {
+                    white-space: nowrap !important;
+                    min-width: 118px !important;
                 }
             }
         }

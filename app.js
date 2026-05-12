@@ -5497,12 +5497,12 @@ const renderLoginPage = () => `
               filingDateTime = dateStr + ' ' + timeStr + ' UTC';
             }
             html += '<div class="notification-item">' +
-'<div class="title" style="font-weight: 600; font-size: 13px; color: ' + tickerColor + ';">$' + trade.ticker + ' / <i>' + direction + '</i></div>' +
-'<div style="font-size: 11px; opacity: 0.8; margin: 4px 0;">' +
-'<span>Alert: ' + alertPrice + ' → Peak: <strong>' + peakPrice + '</strong> <b><i style="color: ' + percentColor + ';">(' + peakChange + '%)</i></b></span>' +
-'</div>' +
-'<div class="time" style="font-size: 10px; margin-top: 4px;">' + filingDateTime + ' | ' + trade.companyName + '</div>' +
-'</div>';
+            '<div class="title" style="font-weight: 600; font-size: 13px; color: ' + tickerColor + ';">$' + trade.ticker + ' / <i>' + direction + '</i></div>' +
+            '<div style="font-size: 11px; opacity: 0.8; margin: 4px 0;">' +
+            '<span>Alert: ' + alertPrice + ' → Peak: <strong>' + peakPrice + '</strong> <b><i style="color: ' + percentColor + ';">(' + peakChange + '%)</i></b></span>' +
+            '</div>' +
+            '<div class="time" style="font-size: 10px; margin-top: 4px;">' + filingDateTime + ' | ' + trade.companyName + '</div>' +
+            '</div>';
           });
           html += '</div>';
           listContainer.innerHTML = html;
