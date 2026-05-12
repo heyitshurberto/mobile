@@ -4579,7 +4579,7 @@ const renderLoginPage = () => `
       
       /* History modal more apparent (darker background) on Apple */
       #statsHistoryModal {
-        zoom: 70%;
+        zoom: 78%;
         background-color: rgba(0, 0, 0, 0.8) !important;
       }
       
