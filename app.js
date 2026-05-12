@@ -4532,17 +4532,6 @@ const renderLoginPage = () => `
       /* Apple: keep floating particles enabled like desktop/Android */
       body::after {
         display: block !important;
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        transform: translateZ(0) !important;
-        pointer-events: none !important;
-        z-index: -1 !important;
-        animation-play-state: running !important;
-        background-repeat: repeat !important;
-        opacity: 0.85 !important;
       }
       
       /* Apple: subtle base background color only */
