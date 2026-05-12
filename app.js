@@ -4598,9 +4598,9 @@ const renderLoginPage = () => `
 </head>
 <body>
   <div class="container" id="loginContainer">
-    <div style="position: absolute; top: 10px; left: 10px; display: flex; gap: 9px; align-items: center; z-index: 9999;">
-      <a href="javascript:void(0)" role="button" tabindex="0" onclick="customConfirm('Visit the Ж Community on Discord?', 'https://discord.gg/5SQcvhfN'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 5px; transition: opacity 0.2s; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 25px; width: 24px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
-      <a href="javascript:void(0)" role="button" tabindex="0" onclick="customConfirm('Visit @cartelwrld on X?', 'https://x.com/cartelwrld'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 15px; width: 17px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
+    <div style="position: absolute; top: 10px; left: 10px; display: flex; gap: 9px; align-items: center;">
+      <a href="#" onclick="if(confirm('Visit the Ж Community on Discord?')) window.open('https://discord.gg/5SQcvhfN', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 5px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 25px; width: 24px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
+      <a href="#" onclick="if(confirm('Visit @cartelwrld on X?')) window.open('https://x.com/cartelwrld', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 15px; width: 17px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
     </div>
     <div style="position: absolute; top: 15px; right: 15px; display: flex; gap: 12px; align-items: center;">
       <button id="requestAccessBtn" onclick="document.getElementById('requestAccessModal').classList.add('show')" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; padding: 8px 18px; background: linear-gradient(180deg, #888888 0%, #666666 100%); color: white; border-radius: 6px; font-size: 12px; font-weight: 500; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; letter-spacing: 0.3px; transition: all 0.3s ease; cursor: pointer; border: 1px solid #c0c0c0; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); white-space: nowrap;">Request Access</button>
@@ -5382,94 +5382,9 @@ const renderLoginPage = () => `
     observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
     
     function customConfirm(message, url) {
-      return new Promise((resolve) => {
-        const existingModal = document.querySelector('.custom-confirm-modal');
-        if (existingModal) existingModal.remove();
-
-        const modal = document.createElement('div');
-        modal.className = 'custom-confirm-modal';
-        modal.style.cssText = 'position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.65); z-index: 100000; padding: 18px; box-sizing: border-box;';
-
-        const box = document.createElement('div');
-        box.style.cssText = 'background: #fff; color: #111; border-radius: 14px; width: 100%; max-width: 360px; padding: 20px; box-shadow: 0 24px 60px rgba(0,0,0,0.2); font-family: inherit;';
-
-        const messageDiv = document.createElement('div');
-        messageDiv.style.cssText = 'margin-bottom: 18px; font-size: 15px; line-height: 1.5;';
-        messageDiv.innerHTML = message;
-
-        const buttonsRow = document.createElement('div');
-        buttonsRow.style.cssText = 'display: flex; justify-content: flex-end; gap: 12px; flex-wrap: wrap;';
-
-        const yesBtn = document.createElement('button');
-        yesBtn.type = 'button';
-        yesBtn.id = 'confirmYesBtn';
-        yesBtn.textContent = 'Yes';
-        yesBtn.style.cssText = 'padding: 10px 14px; border: none; border-radius: 10px; background: #1d72f3; color: #fff; cursor: pointer; font-size: 13px;';
-
-        const noBtn = document.createElement('button');
-        noBtn.type = 'button';
-        noBtn.id = 'confirmNoBtn';
-        noBtn.textContent = 'No';
-        noBtn.style.cssText = 'padding: 10px 14px; border: none; border-radius: 10px; background: #f0f0f0; color: #111; cursor: pointer; font-size: 13px;';
-
-        buttonsRow.appendChild(yesBtn);
-        buttonsRow.appendChild(noBtn);
-        box.appendChild(messageDiv);
-        box.appendChild(buttonsRow);
-        modal.appendChild(box);
-
-        const cleanup = () => {
-          modal.remove();
-          document.removeEventListener('keydown', handleKeydown);
-        };
-
-        const handleYes = (event) => {
-          if (event) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-          cleanup();
-          if (url) {
-            window.open(url, '_blank');
-          }
-          resolve(true);
-        };
-
-        const handleNo = (event) => {
-          if (event) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-          cleanup();
-          resolve(false);
-        };
-
-        const handleKeydown = (event) => {
-          if (event.key === 'Enter') {
-            handleYes(event);
-          }
-          if (event.key === 'Escape') {
-            handleNo(event);
-          }
-        };
-
-        modal.addEventListener('click', (event) => {
-          if (event.target === modal) {
-            handleNo(event);
-          }
-        });
-
-        document.body.appendChild(modal);
-        document.addEventListener('keydown', handleKeydown);
-
-        const yesBtn = modal.querySelector('#confirmYesBtn');
-        const noBtn = modal.querySelector('#confirmNoBtn');
-        yesBtn.addEventListener('click', handleYes);
-        noBtn.addEventListener('click', handleNo);
-        yesBtn.addEventListener('touchend', handleYes, { passive: false });
-        noBtn.addEventListener('touchend', handleNo, { passive: false });
-        yesBtn.focus();
-      });
+      if (confirm(message)) {
+        window.open(url, '_blank');
+      }
     }
 
     function openStatsHistoryModal() {
