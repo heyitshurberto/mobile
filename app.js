@@ -62,15 +62,15 @@ const CONFIG = {
   GITHUB_DOMAIN: process.env.GITHUB_DOMAIN || 'your-domain.com', // GitHub Pages domain
   GITHUB_PUSH_ENABLED: process.env.GITHUB_PUSH_ENABLED !== 'false' && process.env.GITHUB_PUSH_ENABLED !== '0', // Enable/disable GitHub push (default: true, set to false in .env to disable)
   // Discord settings
-  PERSONAL_WEBHOOK_URL: '', // Personal Discord webhook URL
+  PERSONAL_WEBHOOK_URL: process.env.PERSONAL_WEBHOOK_URL || '', // Personal Discord webhook URL
   PERSONAL_WEBHOOK_ENABLED: process.env.PERSONAL_WEBHOOK_ENABLED === 'true', // Enable/disable personal webhook (default: false, set to 'true' in .env to enable)
-  PAID_WEBHOOK_URL: '', // Paid Discord webhook URL
+  PAID_WEBHOOK_URL: process.env.PAID_WEBHOOK_URL || '', // Paid Discord webhook URL
   PAID_WEBHOOK_ENABLED: process.env.PAID_WEBHOOK_ENABLED === 'true', // Enable/disable paid webhook (default: false, set to 'true' in .env to enable)
-  ALERTS_DISTRIBUTION_ENABLED: process.env.ALERTS_DISTRIBUTION_ENABLED !== 'true' && process.env.ALERTS_DISTRIBUTION_ENABLED !== '0', // Master toggle for all alert distribution (webhooks + GitHub push) (default: true)
+  ALERTS_DISTRIBUTION_ENABLED: process.env.ALERTS_DISTRIBUTION_ENABLED !== 'false' && process.env.ALERTS_DISTRIBUTION_ENABLED !== '0', // Master toggle for all alert distribution (webhooks + GitHub push) (default: true)
   DISCORD_ENABLED: process.env.DISCORD_ENABLED === 'true', // Enable/disable Discord alerts (set to 'true' in .env to enable)
   // Telegram settings
-  TELEGRAM_BOT_TOKEN: '', // Telegram bot token
-  TELEGRAM_CHAT_ID: '', // Telegram chat ID for alerts
+  TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN || '', // Telegram bot token
+  TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID || '', // Telegram chat ID for alerts
   TELEGRAM_ENABLED: process.env.TELEGRAM_ENABLED === 'true', // Enable/disable Telegram alerts (set to 'true' in .env to enable)
   // Domain settings
   GITHUB_PAGES_ENABLED: process.env.GITHUB_PAGES_ENABLED !== 'false' && process.env.GITHUB_PAGES_ENABLED !== '0', // Enable/disable GitHub Pages domain push (default: true)

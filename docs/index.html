@@ -640,12 +640,12 @@ document.addEventListener('DOMContentLoaded', function() {
             gap: 12px;
         `;
         header.innerHTML = `
-            <div style="display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0;">
+            <div style="display: flex; align-items: center; gap: 12px; flex: 1 1 auto; min-width: 0;">
                 <span style="font-weight: 600; color: ${headerText}; font-size: 15px; white-space: nowrap; opacity: 0.8;">Multi Chart Dashboard</span>
-                <button type="button" class="multi-chart-toggle-btn" style="padding: 8px 14px; border: 1px solid rgba(110,110,110,0.25); border-radius: 8px; background: transparent; color: ${headerText}; font-size: 13px; cursor: pointer; white-space: nowrap; min-width: 118px;">Single View</button>
+                <button type="button" class="multi-chart-toggle-btn" style="padding: 8px 14px; border: 1px solid rgba(110,110,110,0.25); border-radius: 8px; background: transparent; color: ${headerText}; font-size: 13px; cursor: pointer; white-space: nowrap; min-width: 120px; flex-shrink: 0;">Single View</button>
             </div>
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <button type="button" class="multi-chart-close-btn" style="padding: 8px 12px; border: 1px solid rgba(110,110,110,0.25); border-radius: 8px; background: transparent; color: ${headerText}; font-size: 14px; cursor: pointer;">Close</button>
+            <div style="display: flex; align-items: center; gap: 8px; flex: 0 0 auto;">
+                <button type="button" class="multi-chart-close-btn" style="padding: 8px 12px; border: 1px solid rgba(110,110,110,0.25); border-radius: 8px; background: transparent; color: ${headerText}; font-size: 14px; cursor: pointer; white-space: nowrap; flex-shrink: 0;">Close</button>
             </div>
         `;
 
@@ -2786,11 +2786,15 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             @media (max-width: 767px) and (max-device-width: 767px) and (orientation: portrait) {
                 .logo {
-                    margin-top: 18px !important;
+                    margin-top: 24px !important;
                 }
                 .multi-chart-toggle-btn {
                     white-space: nowrap !important;
-                    min-width: 118px !important;
+                    min-width: 130px !important;
+                }
+                .multi-chart-close-btn {
+                    white-space: nowrap !important;
+                    flex-shrink: 0 !important;
                 }
             }
         }
