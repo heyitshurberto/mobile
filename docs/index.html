@@ -3806,7 +3806,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     recentList.appendChild(emptyState);
 
                     // Mark the local cache as cleared and remove any stored recent alerts.
-                    localStorage.setItem('recentAlertsCleared', 'true');
                     localStorage.removeItem('recentAlerts');
                     
                     // Update notification count and retain history/inbox data.
@@ -3852,17 +3851,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         function loadRecentAlerts() {
-            if (localStorage.getItem('recentAlertsCleared') === 'true') {
-                const list = document.getElementById('notification-list');
-                list.innerHTML = '';
-                const emptyState = document.createElement('div');
-                emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
-                emptyState.textContent = 'No recent alerts';
-                list.appendChild(emptyState);
-                updateNotificationCount();
-                return;
-            }
-            
             // Add cache bust to prevent stale alert.json from mobile cache
             const timestamp = Date.now();
             const alertUrl = new URL('/logs/alert.json', window.location.href);
