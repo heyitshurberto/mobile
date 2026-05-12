@@ -4529,18 +4529,26 @@ const renderLoginPage = () => `
         font-size: 17px !important;
       }
       
-      /* Apple: keep floating particles enabled like desktop/Android */
+      /* Hide floating particles on Apple */
       body::after {
-        display: block !important;
+        display: none !important;
       }
       
-      /* Apple: subtle base background color only */
+      /* Apple: professional subtle background pattern */
       body {
         background-color: #f5f5f5 !important;
+        background-image: linear-gradient(180deg, rgba(248, 248, 248, 0.96), rgba(236, 236, 236, 0.96)),
+                          linear-gradient(90deg, rgba(255, 255, 255, 0.14) 1px, transparent 1px);
+        background-size: 100% 100%, 20px 20px !important;
+        background-position: 0 0 !important;
       }
       
       body.dark-mode {
-        background-color: #1a1a1a !important;
+        background-color: #111214 !important;
+        background-image: linear-gradient(180deg, rgba(24, 24, 24, 0.96), rgba(18, 18, 18, 0.96)),
+                          linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+        background-size: 100% 100%, 22px 22px !important;
+        background-position: 0 0 !important;
       }
       
       /* Mobile media query for request access modal */
