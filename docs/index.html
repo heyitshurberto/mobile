@@ -1512,10 +1512,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-                .alert-card,
-                .alert-card * {
-                    font-size: 9px !important;
-                    line-height: 1 !important;
+                .alerts-grid {
+                    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                    gap: 14px;
+                }
+                .alert-card {
+                    font-size: 13px !important;
+                    line-height: 1.2 !important;
                 }
             }
 
