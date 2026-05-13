@@ -2840,6 +2840,7 @@ document.addEventListener('DOMContentLoaded', function() {
             @media (max-width: 767px) and (max-device-width: 767px) and (orientation: portrait) {
                 .logo {
                     margin-top: 24px !important;
+                    transform: translateY(1px) !important;
                 }
                 .multi-chart-toggle-btn {
                     white-space: nowrap !important;
@@ -2848,6 +2849,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 .multi-chart-close-btn {
                     white-space: nowrap !important;
                     flex-shrink: 0 !important;
+                }
+            }
+            @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+                .logo {
+                    transform: translateY(-1px) !important;
                 }
             }
         }
