@@ -4615,7 +4615,7 @@ const renderLoginPage = () => `
 
     @media (min-width: 768px) and (max-width: 1024px) {
       #loginStatsBox div div:first-child {
-        font-size: 12px !important;
+        font-size: 14px !important;
       }
       #landing-win-rate, #landing-total-trades, #landing-best-trade {
         font-size: 12px !important;
