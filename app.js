@@ -4599,6 +4599,87 @@ const renderLoginPage = () => `
       }
     }
 
+    .custom-confirm-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.65);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        z-index: 999999999;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        pointer-events: all !important;
+    }
+    .custom-confirm-box {
+        position: relative;
+        background: rgba(255,255,255,0.90);
+        color: #111;
+        border-radius: 8px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        padding: 20px 24px;
+        width: 300px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: inherit;
+        border: 0.5px solid rgba(0,0,0,0.1);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        pointer-events: all !important;
+        z-index: 999999999;
+    }
+    .custom-confirm-buttons {
+        margin-top: 16px;
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        position: relative;
+        z-index: 999999999;
+    }
+    .custom-confirm-btn {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 4px;
+        background: #f0f0f0;
+        color: #111;
+        font-size: 12px;
+        cursor: pointer;
+        position: relative;
+        z-index: 999999999;
+        pointer-events: all !important;
+    }
+    .custom-confirm-btn:hover {
+        transform: translateY(-1px);
+        background: #e0e0e0;
+    }
+    .custom-confirm-btn:active {
+        transform: translateY(1px);
+    }
+    body.dark-mode .custom-confirm-box {
+        background: rgba(32, 32, 32, 0.83);
+        color: #eee;
+        border: 0.5px solid rgba(70, 70, 70, 0.4);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+    body.dark-mode .custom-confirm-btn {
+        background: #444;
+        color: #e0e0e0;
+    }
+    body.dark-mode .custom-confirm-btn:hover {
+        background: #555;
+    }
+    .custom-confirm-btn:focus {
+        outline: none;
+    }
+    .custom-confirm-btn:focus-visible {
+        outline: none;
+    }
+
     /* Adjust zoom on Apple devices for login page */
     @media (min-width: 769px) and (max-width: 1023px) and (-webkit-min-device-pixel-ratio: 1) {
       body { 
@@ -4631,8 +4712,8 @@ const renderLoginPage = () => `
 <body>
   <div class="container" id="loginContainer">
     <div style="position: absolute; top: 10px; left: 10px; display: flex; gap: 9px; align-items: center;">
-      <a href="#" onclick="if(confirm('Visit the Ж Community on Discord?')) window.open('https://discord.gg/5SQcvhfN', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 5px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 25px; width: 24px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
-      <a href="#" onclick="if(confirm('Visit @cartelwrld on X?')) window.open('https://x.com/cartelwrld', '_blank'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 15px; width: 17px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
+      <a href="#" onclick="customConfirm('Join the <b><i>Carlucci Ж</i></b> Community?', 'https://discord.gg/5SQcvhfN'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 5px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 25px; width: 24px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
+      <a href="#" onclick="customConfirm('Visit <b><i>@cartelwrld</i></b> on X?', 'https://x.com/cartelwrld'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 15px; width: 17px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
     </div>
     <div style="position: absolute; top: 15px; right: 15px; display: flex; gap: 12px; align-items: center;">
       <button id="requestAccessBtn" onclick="document.getElementById('requestAccessModal').classList.add('show')" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; padding: 8px 18px; background: linear-gradient(180deg, #888888 0%, #666666 100%); color: white; border-radius: 6px; font-size: 12px; font-weight: 500; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; letter-spacing: 0.3px; transition: all 0.3s ease; cursor: pointer; border: 1px solid #c0c0c0; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); white-space: nowrap;">Request Access</button>
@@ -5414,9 +5495,97 @@ const renderLoginPage = () => `
     observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
     
     function customConfirm(message, url) {
-      if (confirm(message)) {
-        window.open(url, '_blank');
-      }
+      return new Promise((resolve) => {
+        const existingModals = document.querySelectorAll('.custom-confirm-modal');
+        existingModals.forEach(modal => modal.remove());
+
+        const modal = document.createElement('div');
+        modal.className = 'custom-confirm-modal';
+        modal.style.zIndex = '999999999';
+        modal.innerHTML = '<div class="custom-confirm-box">' +
+          '<div>' + message + '</div>' +
+          '<div class="custom-confirm-buttons">' +
+            '<button type="button" class="custom-confirm-btn yes" id="custom-confirm-yes">Yes</button>' +
+            '<button type="button" class="custom-confirm-btn no" id="custom-confirm-no">No</button>' +
+          '</div>' +
+        '</div>';
+
+        const cleanup = () => {
+          modal.remove();
+          document.removeEventListener('keydown', handleKeyboard);
+          document.removeEventListener('click', handleModalClick);
+        };
+
+        const handleYes = (e) => {
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          cleanup();
+          if (url) {
+            window.open(url, '_blank');
+          }
+          resolve(true);
+        };
+
+        const handleNo = (e) => {
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          cleanup();
+          resolve(false);
+        };
+
+        const handleTouchYes = (e) => {
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          handleYes(e);
+        };
+
+        const handleTouchNo = (e) => {
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          handleNo(e);
+        };
+
+        const handleKeyboard = (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            handleYes(e);
+          }
+          if (e.key === 'Escape') {
+            e.preventDefault();
+            handleNo(e);
+          }
+        };
+
+        const handleModalClick = (e) => {
+          if (e.target === modal) {
+            e.preventDefault();
+            handleNo(e);
+          }
+        };
+
+        const yesButton = modal.querySelector('#custom-confirm-yes');
+        const noButton = modal.querySelector('#custom-confirm-no');
+
+        yesButton.addEventListener('click', handleYes);
+        noButton.addEventListener('click', handleNo);
+        yesButton.addEventListener('touchend', handleTouchYes, { passive: false });
+        noButton.addEventListener('touchend', handleTouchNo, { passive: false });
+        modal.addEventListener('click', handleModalClick);
+        document.addEventListener('keydown', handleKeyboard);
+
+        document.body.appendChild(modal);
+        requestAnimationFrame(() => {
+          yesButton.focus();
+        });
+      });
     }
 
     function openStatsHistoryModal() {
