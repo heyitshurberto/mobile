@@ -3980,7 +3980,7 @@ const renderLoginPage = () => `
     }
     @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
       h1 {
-        font-size: 38px !important;
+        font-size: 45px !important;
       }
     }
     #signupSection h1 {
