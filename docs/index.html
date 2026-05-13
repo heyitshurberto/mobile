@@ -680,7 +680,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return mode === 'single' ? 'Single View' : 'Grid View';
         };
 
-        toggleButton.textContent = viewLabel('grid');
+        toggleButton.textContent = viewLabel('single');
 
         const updateViewMode = (mode) => {
             viewMode = mode;
@@ -2910,7 +2910,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     flex-shrink: 0 !important;
                 }                                                      
                 .time-display {
-                    font-size: 9px !important;
+                    font-size: 8px !important;
                 }
             }
             @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
@@ -3024,11 +3024,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             .multi-chart-modal .multi-chart-item {
-                min-height: 250px !important;
+                min-height: auto;
             }
             
             .multi-chart-modal [id^="multi_chart_"] {
-                height: 200px !important;
+                height: auto;
             }
         }
 
