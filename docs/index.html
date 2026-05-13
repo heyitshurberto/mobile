@@ -688,7 +688,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (mode === 'single') {
                 chartsGrid.style.gridTemplateColumns = '1fr';
                 chartsGrid.querySelectorAll('.multi-chart-item').forEach(item => {
-                    item.style.minHeight = isMobile ? 'calc(90vh)' : 'calc(75vh)';
+                    item.style.minHeight = isMobile ? 'calc(77vh)' : 'calc(65vh)';
                     item.querySelector('[id^="multi_chart_"]').style.height = 'calc(60vh)';
                 });
                 toggleButton.textContent = viewLabel('grid');
