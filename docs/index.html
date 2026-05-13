@@ -581,7 +581,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const htmlOverflowBackup = document.documentElement.style.overflow;
         const modalBg = isDarkMode ? 'rgba(0, 0, 0, 0.85)' : 'rgba(255, 255, 255, 0.85)';
         const isMobile = window.innerWidth <= 768;
-        const isIPhonePortrait = /iPhone/.test(navigator.userAgent) && window.innerWidth <= 767 && window.matchMedia('(orientation: portrait)').matches;
+        const isPhonePortrait = isMobile && window.matchMedia('(orientation: portrait)').matches;
+        const isIPhonePortrait = /iPhone/.test(navigator.userAgent) && window.innerWidth <= 767 && isPhonePortrait;
         const modalPaddingTop = isMobile ? '14vh' : '80px';
         const modalPadding = isMobile ? '10px' : '20px';
 
@@ -694,8 +695,13 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 chartsGrid.style.gridTemplateColumns = gridCols;
                 chartsGrid.querySelectorAll('.multi-chart-item').forEach(item => {
-                    item.style.minHeight = '300px';
-                    item.querySelector('[id^="multi_chart_"]').style.height = '250px';
+                    if (isPhonePortrait) {
+                        item.style.minHeight = 'calc(80vh)';
+                        item.querySelector('[id^="multi_chart_"]').style.height = 'calc(65vh)';
+                    } else {
+                        item.style.minHeight = '300px';
+                        item.querySelector('[id^="multi_chart_"]').style.height = '250px';
+                    }
                 });
                 toggleButton.textContent = viewLabel('single');
             }
