@@ -581,8 +581,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const htmlOverflowBackup = document.documentElement.style.overflow;
         const modalBg = isDarkMode ? 'rgba(0, 0, 0, 0.85)' : 'rgba(255, 255, 255, 0.85)';
         const isMobile = window.innerWidth <= 768;
-        const isPhonePortrait = isMobile && window.matchMedia('(orientation: portrait)').matches;
-        const isIPhonePortrait = /iPhone/.test(navigator.userAgent) && window.innerWidth <= 767 && isPhonePortrait;
+        const isIPhonePortrait = /iPhone/.test(navigator.userAgent) && window.innerWidth <= 767 && window.matchMedia('(orientation: portrait)').matches;
         const modalPaddingTop = isMobile ? '14vh' : '80px';
         const modalPadding = isMobile ? '10px' : '20px';
 
@@ -695,13 +694,8 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 chartsGrid.style.gridTemplateColumns = gridCols;
                 chartsGrid.querySelectorAll('.multi-chart-item').forEach(item => {
-                    if (isPhonePortrait) {
-                        item.style.minHeight = 'calc(80vh)';
-                        item.querySelector('[id^="multi_chart_"]').style.height = 'calc(65vh)';
-                    } else {
-                        item.style.minHeight = '250px';
-                        item.querySelector('[id^="multi_chart_"]').style.height = '250px';
-                    }
+                    item.style.minHeight = '300px';
+                    item.querySelector('[id^="multi_chart_"]').style.height = '250px';
                 });
                 toggleButton.textContent = viewLabel('single');
             }
@@ -1309,12 +1303,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 margin-right: 8px;
                 margin-top: 28px !important;
                 transform: translateY(0px) !important;
-            }
-            
-            @media (max-width: 767px) and (orientation: portrait) {
-                .logo {
-                    margin-top: 27px !important;
-                }
             }
             
             .dashboard-title {
@@ -2920,9 +2908,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 .multi-chart-close-btn {
                     white-space: nowrap !important;
                     flex-shrink: 0 !important;
-                }
+                }                           
                 .time-display {
-                    font-size: 12px !important;
+                    font-size: 9px !important;
                 }
             }
             @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
