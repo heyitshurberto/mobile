@@ -4620,6 +4620,11 @@ const renderLoginPage = () => `
       #landing-win-rate, #landing-total-trades, #landing-best-trade {
         font-size: 13px !important;
       }
+      @media (min-width: 768px) and (max-width: 1024px) {
+        #mainSubtitle {
+          font-size: 12px !important;
+        }
+      }
     }
   </style>
 </head>

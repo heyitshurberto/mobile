@@ -2825,6 +2825,23 @@ document.addEventListener('DOMContentLoaded', function() {
             .dashboard-title {
                 margin-top: 21px !important;
             }
+            .header-top {
+                margin-top: 67px !important;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+            .header-top {
+                margin-top: 67px !important;
+            }
+        }
+
+        @media (max-width: 768px) and (orientation: landscape),
+               (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+            .dashboard-title {
+                position: relative !important;
+                top: 1px !important;
+            }
         }
 
         @media (max-width: 768px) {
