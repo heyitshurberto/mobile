@@ -1209,6 +1209,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
+        /* iPhone only - move logo up 1px */
+        @media (max-width: 767px) {
+            .logo {
+            margin-top: -1px !important;
+            }
+        }
+
         body.dark-mode .logo {
             filter: invert(100%);
         }
