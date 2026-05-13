@@ -5523,10 +5523,10 @@ const renderLoginPage = () => `
             }
             html += '<div class="notification-item">' +
             '<div class="title" style="font-weight: 400; font-size: 13px; color: ' + tickerColor + ';">$' + trade.ticker + ' / <i style="font-weight: 600;">' + direction + '</i></div>' +
-            '<div style="font-size: 11px; opacity: 0.98; margin: 4px 0;">' +
+            '<div style="font-size: 11px; opacity: 0.98; margin: -2px 0;">' +
             '<span>Alert: <strong>' + alertPrice + '</strong> → Peak: <strong>' + peakPrice + '</strong> <b><i style="color: ' + percentColor + ';">(' + peakChange + '%)</i></b></span>' +
             '</div>' +
-            '<div class="time" style="font-size: 10px; margin-top: 2px; opacity: 0.98;">' + filingDateTime + ' | ' + trade.companyName + '</div>' +
+            '<div class="time" style="font-size: 10px; margin-top: -2px; opacity: 0.98;">' + filingDateTime + ' | ' + trade.companyName + '</div>' +
             '</div>';
           });
           html += '</div>';
