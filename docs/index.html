@@ -688,19 +688,19 @@ document.addEventListener('DOMContentLoaded', function() {
             if (mode === 'single') {
                 chartsGrid.style.gridTemplateColumns = '1fr';
                 chartsGrid.querySelectorAll('.multi-chart-item').forEach(item => {
-                    item.style.minHeight = isMobile ? 'calc(77vh)' : 'calc(65vh)';
-                    item.querySelector('[id^="multi_chart_"]').style.height = 'calc(60vh)';
+                    item.style.setProperty('min-height', isMobile ? 'calc(77vh)' : 'calc(65vh)', 'important');
+                    item.querySelector('[id^="multi_chart_"]').style.setProperty('height', 'calc(60vh)', 'important');
                 });
                 toggleButton.textContent = viewLabel('grid');
             } else {
                 chartsGrid.style.gridTemplateColumns = gridCols;
                 chartsGrid.querySelectorAll('.multi-chart-item').forEach(item => {
                     if (isPhonePortrait) {
-                        item.style.minHeight = 'calc(80vh)';
-                        item.querySelector('[id^="multi_chart_"]').style.height = 'calc(65vh)';
+                        item.style.setProperty('min-height', 'calc(80vh)', 'important');
+                        item.querySelector('[id^="multi_chart_"]').style.setProperty('height', 'calc(65vh)', 'important');
                     } else {
-                        item.style.minHeight = '300px';
-                        item.querySelector('[id^="multi_chart_"]').style.height = '250px';
+                        item.style.setProperty('min-height', '300px', 'important');
+                        item.querySelector('[id^="multi_chart_"]').style.setProperty('height', '250px', 'important');
                     }
                 });
                 toggleButton.textContent = viewLabel('single');
@@ -1483,6 +1483,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 font-size: 7px !important;
             }
         }
+
+        @media (max-width: 767px) and (orientation: portrait) {
+            .logo {
+                margin-top: 27px !important;
+            }
+        }
+
+        @media (max-width: 767px) and (orientation: portrait) {
+            .multi-chart-modal .multi-chart-item {
+                min-height: 80vh !important;
+            }
+            .multi-chart-modal [id^="multi_chart_"] {
+                height: 65vh !important;
+            }
+        }
+
         .stat-box > div:first-child {
             font-size: 14px;
         }
@@ -2914,6 +2930,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 .multi-chart-close-btn {
                     white-space: nowrap !important;
                     flex-shrink: 0 !important;
+                }
+                .time-display {
+                    font-size: 12px !important;
                 }
             }
             @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
