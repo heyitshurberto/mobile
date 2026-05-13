@@ -3979,8 +3979,8 @@ const renderLoginPage = () => `
       }
     }
     @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
-      h1 {
-        font-size: 45px !important;
+      #mainTitle {
+        font-size: 30px !important;
       }
     }
     #signupSection h1 {
@@ -4524,6 +4524,12 @@ const renderLoginPage = () => `
       /* Make heading text smaller on Apple */
       #mainTitle {
         font-size: 20.8px !important;
+      }
+      
+      @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+        #mainTitle {
+          font-size: 30px !important;
+        }
       }
       
       .subtitle {
