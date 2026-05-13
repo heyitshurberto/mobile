@@ -688,19 +688,19 @@ document.addEventListener('DOMContentLoaded', function() {
             if (mode === 'single') {
                 chartsGrid.style.gridTemplateColumns = '1fr';
                 chartsGrid.querySelectorAll('.multi-chart-item').forEach(item => {
-                    item.style.setProperty('min-height', isMobile ? 'calc(77vh)' : 'calc(65vh)', 'important');
-                    item.querySelector('[id^="multi_chart_"]').style.setProperty('height', 'calc(60vh)', 'important');
+                    item.style.minHeight = isMobile ? 'calc(100vh)' : 'calc(81.25vh)';
+                    item.querySelector('[id^="multi_chart_"]').style.height = isMobile ? 'calc(81.25vh)' : 'calc(62.5vh)';
                 });
                 toggleButton.textContent = viewLabel('grid');
             } else {
                 chartsGrid.style.gridTemplateColumns = gridCols;
                 chartsGrid.querySelectorAll('.multi-chart-item').forEach(item => {
                     if (isPhonePortrait) {
-                        item.style.setProperty('min-height', 'calc(80vh)', 'important');
-                        item.querySelector('[id^="multi_chart_"]').style.setProperty('height', 'calc(65vh)', 'important');
+                        item.style.minHeight = 'calc(80vh)';
+                        item.querySelector('[id^="multi_chart_"]').style.height = 'calc(65vh)';
                     } else {
-                        item.style.setProperty('min-height', '300px', 'important');
-                        item.querySelector('[id^="multi_chart_"]').style.setProperty('height', '250px', 'important');
+                        item.style.minHeight = '300px';
+                        item.querySelector('[id^="multi_chart_"]').style.height = '250px';
                     }
                 });
                 toggleButton.textContent = viewLabel('single');
@@ -1311,6 +1311,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 transform: translateY(0px) !important;
             }
             
+            @media (max-width: 767px) and (orientation: portrait) {
+                .logo {
+                    margin-top: 27px !important;
+                }
+            }
+            
             .dashboard-title {
                 margin: 0 !important;
                 font-size: 10px !important;
@@ -1483,22 +1489,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 font-size: 7px !important;
             }
         }
-
-        @media (max-width: 767px) and (orientation: portrait) {
-            .logo {
-                margin-top: 27px !important;
-            }
-        }
-
-        @media (max-width: 767px) and (orientation: portrait) {
-            .multi-chart-modal .multi-chart-item {
-                min-height: 80vh !important;
-            }
-            .multi-chart-modal [id^="multi_chart_"] {
-                height: 65vh !important;
-            }
-        }
-
         .stat-box > div:first-child {
             font-size: 14px;
         }
