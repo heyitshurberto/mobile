@@ -1195,6 +1195,13 @@ document.addEventListener('DOMContentLoaded', function() {
             border-radius: 4px;
         }
 
+        /* iPad portrait only - move logo up 1px */
+        @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+        .logo {
+            margin-top: -1px !important;
+        }
+        }
+
         body.dark-mode .logo {
             filter: invert(100%);
         }
