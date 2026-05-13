@@ -1519,6 +1519,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
 
+            @media (min-width: 768px) and (max-width: 1024px) {
+                .core-overview .trade-item span,
+                .core-overview .trade-return,
+                .trade-item .trade-return,
+                .stat-card > div > div span,
+                .stat-card > div > div > span,
+                .stat-card > div[style*="color: #00dd00"],
+                .stat-card > div[style*="color: #ff3333"] {
+                    font-size: 1.2em !important;
+                }
+            }
+
             .alert-card-content {
                 transition: opacity 0.3s ease;
                 position: relative;
