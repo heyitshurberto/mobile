@@ -4662,7 +4662,7 @@ const renderLoginPage = () => `
             <div style="font-weight: 400; font-style: italic; font-size: 14px; font-family: 'Menlo', 'Monaco', monospace;" id="landing-total-trades">--</div>
           </div>
           <div>
-            <div style="opacity: 0.7; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Best Trade (5d)</div>
+            <div style="opacity: 0.7; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Best Alert (5d)</div>
             <div style="font-weight: 400; font-style: italic; font-size: 14px; color: #2a7f3c; font-family: 'Menlo', 'Monaco', monospace;" id="landing-best-trade">--</div>
           </div>
         </div>
