@@ -4618,7 +4618,7 @@ const renderLoginPage = () => `
         font-size: 12px !important;
       }
       #landing-win-rate, #landing-total-trades, #landing-best-trade {
-        font-size: 16px !important;
+        font-size: 13px !important;
       }
     }
   </style>
