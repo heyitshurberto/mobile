@@ -688,8 +688,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (mode === 'single') {
                 chartsGrid.style.gridTemplateColumns = '1fr';
                 chartsGrid.querySelectorAll('.multi-chart-item').forEach(item => {
-                    item.style.minHeight = isMobile ? 'calc(100vh)' : 'calc(81.25vh)';
-                    item.querySelector('[id^="multi_chart_"]').style.height = isMobile ? 'calc(81.25vh)' : 'calc(62.5vh)';
+                    item.style.minHeight = isMobile ? 'calc(77vh)' : 'calc(65vh)';
+                    item.querySelector('[id^="multi_chart_"]').style.height = 'calc(60vh)';
                 });
                 toggleButton.textContent = viewLabel('grid');
             } else {
@@ -3036,11 +3036,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             .multi-chart-modal .multi-chart-item {
-                min-height: 250px !important;
+                min-height: auto;
             }
             
             .multi-chart-modal [id^="multi_chart_"] {
-                height: 200px !important;
+                height: auto;
             }
         }
 
