@@ -4615,10 +4615,10 @@ const renderLoginPage = () => `
 
     @media (min-width: 768px) and (max-width: 1024px) {
       #loginStatsBox div div:first-child {
-        font-size: 12px !important;
+        font-size: 11px !important;
       }
       #landing-win-rate, #landing-total-trades, #landing-best-trade {
-        font-size: 12px !important;
+        font-size: 11px !important;
       }
     }
   </style>
@@ -4664,15 +4664,15 @@ const renderLoginPage = () => `
         <div style="display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
           <div>
             <div style="opacity: 0.7; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Win Rate</div>
-            <div style="font-weight: 400; font-style: italic; font-size: 14px; font-family: 'Menlo', 'Monaco', monospace;" id="landing-win-rate">-- %</div>
+            <div style="font-weight: 400; font-style: italic; font-family: 'Menlo', 'Monaco', monospace;" id="landing-win-rate">-- %</div>
           </div>
           <div>
             <div style="opacity: 0.7; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Total Alerts</div>
-            <div style="font-weight: 400; font-style: italic; font-size: 14px; font-family: 'Menlo', 'Monaco', monospace;" id="landing-total-trades">--</div>
+            <div style="font-weight: 400; font-style: italic; font-family: 'Menlo', 'Monaco', monospace;" id="landing-total-trades">--</div>
           </div>
           <div>
             <div style="opacity: 0.7; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Best Alert (5d)</div>
-            <div style="font-weight: 400; font-style: italic; font-size: 14px; color: #2a7f3c; font-family: 'Menlo', 'Monaco', monospace;" id="landing-best-trade">--</div>
+            <div style="font-weight: 400; font-style: italic; color: #2a7f3c; font-family: 'Menlo', 'Monaco', monospace;" id="landing-best-trade">--</div>
           </div>
         </div>
       </div>
