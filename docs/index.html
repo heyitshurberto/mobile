@@ -1411,13 +1411,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 font-size: 13px !important;
             }
             
-            /* Mobile popup styles */
-            .popup-content {
-                max-width: 95vw !important;
-                width: 95vw !important;
-                max-height: 85vh !important;
-                padding: 4px !important;
-            }
             
             .popup-content h3 {
                 font-size: 9px !important;
@@ -1516,6 +1509,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 transform: translate3d(0,0,0);
                 isolation: isolate;
                 font-size: 13px;
+            }
+
+            @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+                .alert-card,
+                .alert-card * {
+                    font-size: 0.8em !important;
+                    line-height: 1.2 !important;
+                }
             }
 
             .alert-card-content {
@@ -3146,20 +3147,6 @@ document.addEventListener('DOMContentLoaded', function() {
             background: rgba(255,255,255,0.1);
         }
 
-        /* iPad landscape: Make alert cards 10% smaller */
-        @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-            .alert-card {
-                transform: scale(0.9);
-                transform-origin: center;
-            }
-        }
-
-        /* Portrait: Zoom entire page to 90% */
-        @media (orientation: portrait) {
-            body {
-                zoom: 90%;
-            }
-        }
         </style>
         <!-- Flatpickr for custom date picker -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -3566,7 +3553,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </script>
         <div class="container">
             <div class="header">
-                <div class="header-top" style="margin-top:63px; margin-bottom:-2px; margin-left: auto; margin-right: auto; display: flex; justify-content: center; align-items: center;">
+                <div class="header-top" style="margin-top:62px; margin-bottom:-2px; margin-left: auto; margin-right: auto; display: flex; justify-content: center; align-items: center;">
                     <img src="logo.jpeg?t=${new Date().getTime()}" alt="Logo" class="logo" style="height: 40px; width: auto; transition: opacity 0.4s ease; margin-right: -3px; margin-left: 45px; margin-top: 2px; margin-bottom: 2px; transform: rotate(0deg); opacity: 0.7;" onload="this.style.opacity=0.75">
                     <h1 style="color: #000000; font-size: 22px; font-family: 'Playfair Display', serif; font-weight: 500; letter-spacing: 0.4px; margin-left: -7px; margin-top: 3px; margin-bottom: 7px; opacity: 0.8;" class="dashboard-title">CARLUCCI CAPITAL</h1>
                 </div>
