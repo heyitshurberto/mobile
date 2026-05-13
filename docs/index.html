@@ -688,7 +688,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (mode === 'single') {
                 chartsGrid.style.gridTemplateColumns = '1fr';
                 chartsGrid.querySelectorAll('.multi-chart-item').forEach(item => {
-                    item.style.minHeight = isMobile ? 'calc(77vh)' : 'calc(65vh)';
+                    item.style.minHeight = isMobile ? 'calc(90vh)' : 'calc(75vh)';
                     item.querySelector('[id^="multi_chart_"]').style.height = 'calc(60vh)';
                 });
                 toggleButton.textContent = viewLabel('grid');
@@ -1311,6 +1311,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 transform: translateY(0px) !important;
             }
             
+            @media (max-width: 767px) and (orientation: portrait) {
+                .logo {
+                    margin-top: 27px !important;
+                }
+            }
+            
             .dashboard-title {
                 margin: 0 !important;
                 font-size: 10px !important;
@@ -1483,13 +1489,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 font-size: 7px !important;
             }
         }
-
-        @media (max-width: 767px) and (orientation: portrait) {
-            .logo {
-                margin-top: 27px !important;
-            }
-        }
-
         .stat-box > div:first-child {
             font-size: 14px;
         }
@@ -2923,7 +2922,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     flex-shrink: 0 !important;
                 }
                 .time-display {
-                    font-size: 9px !important;
+                    font-size: 12px !important;
                 }
             }
             @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
@@ -3037,11 +3036,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             .multi-chart-modal .multi-chart-item {
-                min-height: auto;
+                min-height: 250px !important;
             }
             
             .multi-chart-modal [id^="multi_chart_"] {
-                height: auto;
+                height: 200px !important;
             }
         }
 
