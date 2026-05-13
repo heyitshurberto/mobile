@@ -5155,9 +5155,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     const plCount = document.getElementById('pl-count');
                     if (plCount) {
                         const totalSign = plStats.total > 0 ? '+' : '';
-                        const longSign = plStats.longStr && parseFloat(plStats.longStr) > 0 ? '+' : '';
-                        const shortSign = plStats.shortStr && parseFloat(plStats.shortStr) > 0 ? '+' : '';
-                        plCount.innerHTML = `${totalSign}${plStats.total}% <span style="font-size: 11.5px;">(L:${plStats.longCount}/${longSign}${plStats.longStr}% | S:${plStats.shortCount}/${shortSign}${plStats.shortStr}%)</span>`;
+                        plCount.innerHTML = `${totalSign}${plStats.total}%`;
                         plCount.style.color = plStats.total > 0 ?
                             (document.body.classList.contains('dark-mode') ? '#1fff1f' : '#00aa00') :
                             plStats.total < 0 ?
@@ -5313,9 +5311,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                         plCount.style.color = '#666';
                     } else {
                         const totalSign = parseFloat(plStats.total) > 0 ? '+' : '';
-                        const longSign = parseFloat(plStats.longStr) > 0 ? '+' : '';
-                        const shortSign = parseFloat(plStats.shortStr) > 0 ? '+' : '';
-                        plCount.innerHTML = `${totalSign}${plStats.total}% <span style="font-size: 11.5px;">(L:${plStats.longCount}/${longSign}${plStats.longStr}% | S:${plStats.shortCount}/${shortSign}${plStats.shortStr}%)</span>`;
+                        plCount.innerHTML = `${totalSign}${plStats.total}%`;
                         plCount.style.color = parseFloat(plStats.total) > 0 ? 
                             (document.body.classList.contains('dark-mode') ? '#1fff1f' : '#00aa00') : 
                             parseFloat(plStats.total) < 0 ? 
@@ -5735,10 +5731,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     plCount.style.color = '#666';
                 } else {
                     const totalSign = parseFloat(plStats.total) > 0 ? '+' : '';
-                    const longSign = parseFloat(plStats.longStr) > 0 ? '+' : '';
-                    const shortSign = parseFloat(plStats.shortStr) > 0 ? '+' : '';
-                    
-                    plCount.innerHTML = `${totalSign}${plStats.total}% <span style="font-size: 11.5px;">(L:${plStats.longCount}/${longSign}${plStats.longStr}% | S:${plStats.shortCount}/${shortSign}${plStats.shortStr}%)</span>`;
+                    plCount.innerHTML = `${totalSign}${plStats.total}%`;
                     plCount.style.color = parseFloat(plStats.total) > 0 ? 
                         (document.body.classList.contains('dark-mode') ? '#1fff1f' : '#00aa00') : 
                         parseFloat(plStats.total) < 0 ? 
