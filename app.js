@@ -1847,7 +1847,7 @@ const saveAlert = (alertData) => {
     log('ERROR', `Failed to save alert: ${err.message}`);
   }
   
-  pushToGitHub();
+  // Do NOT push to GitHub here - only push manually via separate git commands to avoid unwanted file updates
 };
 
 // Update performance tracking data for alerts (for HTML dashboard)
