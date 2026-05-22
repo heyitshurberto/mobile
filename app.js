@@ -1978,10 +1978,7 @@ const updatePerformanceData = (alertData) => {
       fs.writeFileSync(CONFIG.PERFORMANCE_FILE, JSON.stringify(performanceData, null, 2));
     }
     
-    // Auto-push quotes to GitHub if enabled
-    if (CONFIG.GITHUB_QUOTE_PUSH_ENABLED) {
-      pushToGitHub();
-    }
+    // Do NOT auto-push to GitHub - only manual pushes allowed
     
     // Sync peak data back to stocks.json
     syncPeakDataToStocks(ticker, performanceData[ticker]);
