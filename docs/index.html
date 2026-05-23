@@ -1209,10 +1209,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        /* iPhone only - move logo up 1px */
-        @media (max-width: 767px) {
+        /* iPhone portrait only - move logo up 1px */
+        @media (max-width: 767px) and (orientation: portrait) {
             .logo {
-            margin-top: -2px !important;
+            margin-top: -1px !important;
             }
         }
 
