@@ -8041,10 +8041,10 @@
     "recordId": "LPCN-1779109269727",
     "expiresAt": "2026-05-22T13:01:09.727Z",
     "direction": "SHORT",
-    "highest5Day": 1.81,
-    "highest5DayPercent": -19.91,
-    "lowest5Day": 1.81,
-    "lowest5DayPercent": 19.91
+    "highest5Day": 2.085,
+    "highest5DayPercent": -7.74,
+    "lowest5Day": 2.085,
+    "lowest5DayPercent": 7.74
   },
   {
     "ticker": "DBGI",
@@ -8171,10 +8171,10 @@
     "recordId": "ASRT-1779110665357",
     "expiresAt": "2026-05-22T13:24:25.357Z",
     "direction": "SHORT",
-    "highest5Day": 23.45,
-    "highest5DayPercent": 0.56,
-    "lowest5Day": 23.32,
-    "lowest5DayPercent": 0
+    "highest5Day": 23.46,
+    "highest5DayPercent": 0.6,
+    "lowest5Day": 23.31,
+    "lowest5DayPercent": 0.04
   },
   {
     "ticker": "ACNT",
@@ -8235,10 +8235,10 @@
     "recordId": "ACNT-1779117536348",
     "expiresAt": "2026-05-22T15:18:56.349Z",
     "direction": "LONG",
-    "highest5Day": 14.43,
-    "highest5DayPercent": 2.81,
-    "lowest5Day": 14.035,
-    "lowest5DayPercent": 0
+    "highest5Day": 13.125,
+    "highest5DayPercent": -6.48,
+    "lowest5Day": 13.125,
+    "lowest5DayPercent": -6.48
   },
   {
     "ticker": "DPRO",
@@ -8297,8 +8297,8 @@
     "direction": "LONG",
     "highest5Day": 6.245,
     "highest5DayPercent": 21.26,
-    "lowest5Day": 5.15,
-    "lowest5DayPercent": 0
+    "lowest5Day": 5.06,
+    "lowest5DayPercent": -1.75
   },
   {
     "ticker": "CSAI",
@@ -8361,10 +8361,10 @@
     "recordId": "CSAI-1779131202591",
     "expiresAt": "2026-05-22T19:06:42.591Z",
     "direction": "SHORT",
-    "highest5Day": 0.49,
-    "highest5DayPercent": -7.56,
-    "lowest5Day": 0.49,
-    "lowest5DayPercent": 7.56
+    "highest5Day": 0.6,
+    "highest5DayPercent": 13.19,
+    "lowest5Day": 0.4861,
+    "lowest5DayPercent": 8.3
   },
   {
     "ticker": "INM",
@@ -8443,10 +8443,10 @@
     "recordId": "INM-1779201205022",
     "expiresAt": "2026-05-22T14:33:25.022Z",
     "direction": "SHORT",
-    "highest5Day": 1.75,
-    "highest5DayPercent": 26.35,
-    "lowest5Day": 1.385,
-    "lowest5DayPercent": 0
+    "highest5Day": 1.79,
+    "highest5DayPercent": 29.24,
+    "lowest5Day": 1.31,
+    "lowest5DayPercent": 5.42
   },
   {
     "ticker": "CCHH",
@@ -8505,10 +8505,10 @@
     "recordId": "CCHH-1779282374929",
     "expiresAt": "2026-05-25T13:06:14.929Z",
     "direction": "SHORT",
-    "highest5Day": 0.3901,
-    "highest5DayPercent": -7.12,
-    "lowest5Day": 0.3901,
-    "lowest5DayPercent": 7.12
+    "highest5Day": 0.38,
+    "highest5DayPercent": -9.52,
+    "lowest5Day": 0.38,
+    "lowest5DayPercent": 9.52
   },
   {
     "ticker": "EVTV",
@@ -8587,10 +8587,10 @@
     "recordId": "EVTV-1779282950816",
     "expiresAt": "2026-05-25T13:15:50.817Z",
     "direction": "SHORT",
-    "highest5Day": 1.223,
-    "highest5DayPercent": -51.08,
-    "lowest5Day": 1.223,
-    "lowest5DayPercent": 51.08
+    "highest5Day": 2.1,
+    "highest5DayPercent": -16,
+    "lowest5Day": 2.1,
+    "lowest5DayPercent": 16
   },
   {
     "ticker": "AMAN",
@@ -8672,8 +8672,8 @@
     "recordId": "AMAN-1779369081665",
     "expiresAt": "2026-05-26T13:11:21.665Z",
     "direction": "SHORT",
-    "highest5Day": 10.23,
-    "highest5DayPercent": 1.29,
+    "highest5Day": 10.34,
+    "highest5DayPercent": 2.38,
     "lowest5Day": 10.1,
     "lowest5DayPercent": 0
   }
