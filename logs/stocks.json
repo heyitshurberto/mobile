@@ -8704,7 +8704,8 @@
     "filingTimeMultiplier": 1,
     "filingTimeBonus": 1,
     "recordedAt": "2026-05-26T10:04:07Z",
-    "direction": "NEUTRAL"
+    "direction": "NEUTRAL",
+    "companyName": "INTERGROUP CORP"
   },
   {
     "ticker": "SHPH",
@@ -8733,7 +8734,8 @@
     "filingTimeMultiplier": 1,
     "filingTimeBonus": 1,
     "recordedAt": "2026-05-27T13:00:53Z",
-    "direction": "NEUTRAL"
+    "direction": "NEUTRAL",
+    "companyName": "Shepherd Biotech Inc"
   },
   {
     "ticker": "MBRX",
@@ -8762,7 +8764,8 @@
     "filingTimeMultiplier": 1,
     "filingTimeBonus": 1,
     "recordedAt": "2026-05-29T13:26:58Z",
-    "direction": "NEUTRAL"
+    "direction": "NEUTRAL",
+    "companyName": "Microbrix Biotech Inc"
   },
   {
     "ticker": "SINT",
@@ -8791,7 +8794,8 @@
     "filingTimeMultiplier": 1,
     "filingTimeBonus": 1,
     "recordedAt": "2026-05-27T19:00:56Z",
-    "direction": "NEUTRAL"
+    "direction": "NEUTRAL",
+    "companyName": "Simtech International"
   },
   {
     "ticker": "BESS",
@@ -8820,7 +8824,8 @@
     "filingTimeMultiplier": 1,
     "filingTimeBonus": 1,
     "recordedAt": "2026-05-28T13:29:02Z",
-    "direction": "NEUTRAL"
+    "direction": "NEUTRAL",
+    "companyName": "Better Energy Systems"
   },
   {
     "ticker": "TBN",
@@ -8849,6 +8854,7 @@
     "filingTimeMultiplier": 1,
     "filingTimeBonus": 1,
     "recordedAt": "2026-05-28T14:24:27Z",
-    "direction": "NEUTRAL"
+    "direction": "NEUTRAL",
+    "companyName": "TBN Holdings"
   }
 ]
