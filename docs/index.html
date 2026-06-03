@@ -6824,6 +6824,22 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
 
         function updateNotificationPanel() {
             const list = document.getElementById('notification-list');
+            
+            // If no notifications, show empty state (unless mobile landscape)
+            if (!notifications || notifications.length === 0) {
+                const isMobile = window.innerWidth <= 768;
+                const isLandscape = (window.screen && window.screen.orientation) ? 
+                    window.screen.orientation.type.includes('landscape') : 
+                    (window.innerWidth > window.innerHeight);
+                
+                if (isMobile && isLandscape) {
+                    list.innerHTML = '';
+                } else {
+                    list.innerHTML = '<div style="padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;">No recent alerts</div>';
+                }
+                return;
+            }
+            
             list.innerHTML = notifications.map(n => `
                 <div class="notification-item ${n.type}" data-id="${n.id}">
                     <div class="notification-content">${n.message}</div>
