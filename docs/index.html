@@ -4064,10 +4064,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     list.innerHTML = '';
                     
                     if (!Array.isArray(alerts) || alerts.length === 0) {
-                        const emptyState = document.createElement('div');
-                        emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
-                        emptyState.textContent = 'No recent alerts';
-                        list.appendChild(emptyState);
+                        // Do not show the empty state on Android in landscape
+                        const userAgent = navigator.userAgent || '';
+                        const isAndroid = /Android/.test(userAgent);
+                        const isLandscape = window.innerWidth > window.innerHeight;
+                        
+                        if (!(isAndroid && isLandscape)) {
+                            const emptyState = document.createElement('div');
+                            emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
+                            emptyState.textContent = 'No recent alerts';
+                            list.appendChild(emptyState);
+                        }
                         updateNotificationCount();
                         return;
                     }
@@ -6242,7 +6249,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     topPos = '83%'; // iPhone: keep at current position
                 }
 
-                // If Android + landscape, do NOT show the empty-state message.
+                // If Android + landscape, do NOT show the message at all
                 if (isAndroid && isLandscape) {
                     container.innerHTML = '';
                 } else {
