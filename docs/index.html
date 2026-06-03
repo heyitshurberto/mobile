@@ -6235,8 +6235,10 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 
                 if (isIPad) {
                     topPos = '40%'; // iPad: move up significantly
+                } else if (isMobile && isLandscape) {
+                    topPos = '100%'; // Mobile landscape: move down
                 } else if (isIPhone) {
-                    topPos = isLandscape ? '96%' : '83%'; // iPhone landscape: moved down further
+                    topPos = '83%'; // iPhone portrait: keep at current position
                 }
                 
                 container.innerHTML = '<div style="position: absolute; left: 50%; top: ' + topPos + '; transform: translate(-50%, -50%); text-align: center; color: #999; font-size: 15px; white-space: nowrap;"><div style="margin-bottom: 3px; font-size: 30px;">' + icon + '</div><div>No Recent Alerts</div><div style="font-size: 12px; margin-top: 8px; opacity: 0.6;">Check back soon for new opportunities</div></div>';
