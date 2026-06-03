@@ -53,13 +53,12 @@ function updateLogoDarkMode() {
   if (xIcon) xIcon.style.filter = isDarkMode ? 'brightness(0) saturate(100%) invert(100%)' : 'brightness(0) saturate(100%)';
 }
 
-function isAndroidPhoneLandscape() {
-  const ua = navigator.userAgent || navigator.vendor || window.opera || '';
-  const isAndroid = /Android/i.test(ua);
-  const isTablet = /Tablet|iPad|Nexus 7|Nexus 10|SM-T|Kindle|Silk|PlayBook/i.test(ua);
-  const isPhone = isAndroid && !isTablet;
-  const isLandscape = (window.matchMedia && window.matchMedia('(orientation: landscape)').matches) || (window.innerWidth > window.innerHeight);
-  return isPhone && isLandscape;
+function isMobileLandscape() {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  const isLandscape = width > height;
+  const isMobile = width <= 768;
+  return isMobile && isLandscape;
 }
 
 window.addEventListener('load', updateLogoDarkMode);
@@ -4073,7 +4072,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     list.innerHTML = '';
                     
                     if (!Array.isArray(alerts) || alerts.length === 0) {
-                        if (!isAndroidPhoneLandscape()) {
+                        if (!isMobileLandscape()) {
                             const emptyState = document.createElement('div');
                             emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
                             emptyState.textContent = 'No recent alerts';
@@ -6236,7 +6235,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             container.innerHTML = '';
             
             if (filteredAlerts.length === 0) {
-                if (isAndroidPhoneLandscape()) {
+                if (isMobileLandscape()) {
                     container.innerHTML = '';
                     return;
                 }
@@ -6819,7 +6818,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             
             // If no notifications, show empty state (unless mobile landscape)
             if (!notifications || notifications.length === 0) {
-                if (isAndroidPhoneLandscape()) {
+                if (isMobileLandscape()) {
                     list.innerHTML = '';
                 } else {
                     list.innerHTML = '<div style="padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;">No recent alerts</div>';
