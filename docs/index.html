@@ -6242,16 +6242,20 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     topPos = '83%'; // iPhone: keep at current position
                 }
 
-                // If Android + landscape, lower it further
+                // If Android + landscape, position fixed near bottom so it's lower on the viewport
                 if (isAndroid && isLandscape) {
-                    topPos = '92%';
+                    container.innerHTML = '<div style="position: fixed; left: 50%; bottom: 8%; transform: translateX(-50%); text-align: center; color: #999; font-size: 15px; white-space: nowrap; z-index: 9999;">' +
+                        '<div style="margin-bottom: 3px; font-size: 30px;">' + icon + '</div>' +
+                        '<div>No Recent Alerts</div>' +
+                        '<div style="font-size: 12px; margin-top: 8px; opacity: 0.6;">Check back soon for new opportunities</div>' +
+                    '</div>';
+                } else {
+                    container.innerHTML = '<div style="position: absolute; left: 50%; top: ' + topPos + '; transform: translate(-50%, -50%); text-align: center; color: #999; font-size: 15px; white-space: nowrap;">' +
+                        '<div style="margin-bottom: 3px; font-size: 30px;">' + icon + '</div>' +
+                        '<div>No Recent Alerts</div>' +
+                        '<div style="font-size: 12px; margin-top: 8px; opacity: 0.6;">Check back soon for new opportunities</div>' +
+                    '</div>';
                 }
-
-                container.innerHTML = '<div style="position: absolute; left: 50%; top: ' + topPos + '; transform: translate(-50%, -50%); text-align: center; color: #999; font-size: 15px; white-space: nowrap;">' +
-                    '<div style="margin-bottom: 3px; font-size: 30px;">' + icon + '</div>' +
-                    '<div>No Recent Alerts</div>' +
-                    '<div style="font-size: 12px; margin-top: 8px; opacity: 0.6;">Check back soon for new opportunities</div>' +
-                '</div>';
                 return;
             }
             
