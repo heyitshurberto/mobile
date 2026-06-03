@@ -4066,8 +4066,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (!Array.isArray(alerts) || alerts.length === 0) {
                         // Do not show the empty state on Android in landscape
                         const userAgent = navigator.userAgent || '';
-                        const isAndroid = /Android/.test(userAgent);
-                        const isLandscape = window.innerWidth > window.innerHeight;
+                        const isAndroid = /Android|Adr/.test(userAgent);
+                        const isLandscape = (window.screen && window.screen.orientation) ? 
+                            window.screen.orientation.type.includes('landscape') : 
+                            (window.innerWidth > window.innerHeight);
                         
                         if (!(isAndroid && isLandscape)) {
                             const emptyState = document.createElement('div');
@@ -6235,10 +6237,12 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 // Show the "No Recent Alerts" empty state. Keep original behavior
                 // for non-Android devices; for Android in landscape, move it lower.
                 const userAgent = navigator.userAgent || '';
-                const isAndroid = /Android/.test(userAgent);
+                const isAndroid = /Android|Adr/.test(userAgent);
                 const isIPad = /iPad/.test(userAgent);
                 const isIPhone = /iPhone|iPod/.test(userAgent);
-                const isLandscape = window.innerWidth > window.innerHeight;
+                const isLandscape = (window.screen && window.screen.orientation) ? 
+                    window.screen.orientation.type.includes('landscape') : 
+                    (window.innerWidth > window.innerHeight);
 
                 const icon = '—';
                 // default positions from original logic
