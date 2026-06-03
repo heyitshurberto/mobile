@@ -4367,40 +4367,42 @@ document.addEventListener('DOMContentLoaded', function() {
             const storageKey = getInboxStorageKey();
             let messages = JSON.parse(localStorage.getItem(storageKey)) || [];
             
-            if (messages.length === 0) {
-                const welcomeMsg = {
-                    title: 'Welcome to Your Dashboard',
-                    message: 'This is your inbox where you can receive important notifications and updates about news, alerts, and system messages. Create new messages or delete ones you no longer need.',
-                    timestamp: new Date().toISOString()
-                };
-                messages.push(welcomeMsg);
-                localStorage.setItem(storageKey, JSON.stringify(messages));
+            if (filteredAlerts.length === 0) {
+                // Show the "No Recent Alerts" empty state.
+                // Preserve original behavior for most devices; for Android in
+                // landscape, use fixed positioning near the bottom.
+                const userAgent = navigator.userAgent || '';
+                const isAndroid = /Android/.test(userAgent) || /Adr/.test(userAgent);
+                const isIPad = /iPad/.test(userAgent);
+                const isIPhone = /iPhone|iPod/.test(userAgent);
+                const isLandscape = (typeof window.orientation !== 'undefined') ? Math.abs(window.orientation) === 90 : (window.innerWidth > window.innerHeight);
+
+                const icon = '—';
+                // default positions from original logic
+                let topPos = '68%';
+                if (isIPad) {
+                    topPos = '40%'; // iPad: move up significantly
+                } else if (isIPhone) {
+                    topPos = '83%'; // iPhone: keep at current position
+                }
+
+                if (isAndroid && isLandscape) {
+                    // Android landscape: use fixed bottom so it sits lower on screen
+                    container.innerHTML = '<div style="position: fixed; left: 50%; bottom: 8%; transform: translateX(-50%); text-align: center; color: #999; font-size: 15px; white-space: nowrap; z-index: 9999;">' +
+                        '<div style="margin-bottom: 3px; font-size: 30px;">' + icon + '</div>' +
+                        '<div>No Recent Alerts</div>' +
+                        '<div style="font-size: 12px; margin-top: 8px; opacity: 0.6;">Check back soon for new opportunities</div>' +
+                    '</div>';
+                } else {
+                    // Non-Android or portrait: original absolute positioning
+                    container.innerHTML = '<div style="position: absolute; left: 50%; top: ' + topPos + '; transform: translate(-50%, -50%); text-align: center; color: #999; font-size: 15px; white-space: nowrap;">' +
+                        '<div style="margin-bottom: 3px; font-size: 30px;">' + icon + '</div>' +
+                        '<div>No Recent Alerts</div>' +
+                        '<div style="font-size: 12px; margin-top: 8px; opacity: 0.6;">Check back soon for new opportunities</div>' +
+                    '</div>';
+                }
+                return;
             }
-            
-            messages.slice().reverse().forEach((msg, idx) => {
-                const item = document.createElement('div');
-                item.className = 'notification-item';
-                item.style.cssText = 'position: relative; padding: 10px; border: 1px solid rgba(0,0,0,0.1); margin-bottom: 8px;';
-                
-                const msgDate = new Date(msg.timestamp);
-                const timeStr = msgDate.toLocaleTimeString('en-US', { hour12: true, hour: '2-digit', minute: '2-digit' });
-                const dateStr = msgDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-                
-                item.innerHTML = `
-                    <div style="display: flex; justify-content: space-between; align-items: start;">
-                        <div style="flex: 1;">
-                            <div style="font-weight: 600; margin-bottom: 4px;">${msg.title}</div>
-                            <div style="font-size: 12px; opacity: 0.8; margin-bottom: 6px;">${msg.message}</div>
-                            <div style="font-size: 10px; opacity: 0.6;">${dateStr} at ${timeStr}</div>
-                        </div>
-                        <button onclick="deleteInboxMessage(${messages.length - 1 - idx})" style="background: none; border: none; color: #999; cursor: pointer; font-size: 16px; padding: 0; margin-left: 8px;">×</button>
-                    </div>
-                `;
-                
-                list.appendChild(item);
-            });
-            
-            const addBtn = document.createElement('div');
             addBtn.style.cssText = 'padding: 10px 10px 0 10px; text-align: center; border-top: 1px solid rgba(0,0,0,0.1); margin-top: 20px;';
             addBtn.innerHTML = `<button onclick="createNewMessage()" style="background: #0066cc; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 12px;">+ New Message</button>`;
             list.appendChild(addBtn);
