@@ -6225,21 +6225,28 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             container.innerHTML = '';
             
             if (filteredAlerts.length === 0) {
-                // Only show the "No Recent Alerts" empty state on Android in LANDSCAPE.
-                // For Android-landscape we move the message further down (was too high).
+                // Show the "No Recent Alerts" empty state. Keep original behavior
+                // for non-Android devices; for Android in landscape, move it lower.
                 const userAgent = navigator.userAgent || '';
                 const isAndroid = /Android/.test(userAgent);
+                const isIPad = /iPad/.test(userAgent);
+                const isIPhone = /iPhone|iPod/.test(userAgent);
                 const isLandscape = window.innerWidth > window.innerHeight;
 
-                if (!(isAndroid && isLandscape)) {
-                    // Do not inject the centered empty state for other devices — keep container empty
-                    container.innerHTML = '';
-                    return;
+                const icon = '—';
+                // default positions from original logic
+                let topPos = '68%';
+                if (isIPad) {
+                    topPos = '40%'; // iPad: move up significantly
+                } else if (isIPhone) {
+                    topPos = '83%'; // iPhone: keep at current position
                 }
 
-                // Android landscape: lower down so it's not too high on the page
-                const icon = '—';
-                const topPos = '92%';
+                // If Android + landscape, lower it further
+                if (isAndroid && isLandscape) {
+                    topPos = '92%';
+                }
+
                 container.innerHTML = '<div style="position: absolute; left: 50%; top: ' + topPos + '; transform: translate(-50%, -50%); text-align: center; color: #999; font-size: 15px; white-space: nowrap;">' +
                     '<div style="margin-bottom: 3px; font-size: 30px;">' + icon + '</div>' +
                     '<div>No Recent Alerts</div>' +
