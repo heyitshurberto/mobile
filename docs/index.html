@@ -109,6 +109,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 </style>
+    <style>
+    /* Hide JS-rendered empty-state on mobile landscape */
+    @media only screen and (max-width: 768px) and (orientation: landscape) {
+        .empty-state { display: none !important; }
+    }
+    </style>
     <title>Carlucci Capital</title>
     <!-- PWA meta tags and manifest -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -4072,6 +4078,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         if (!(isMobile && isLandscape)) {
                             const emptyState = document.createElement('div');
+                            emptyState.classList.add('empty-state');
                             emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
                             emptyState.textContent = 'No recent alerts';
                             list.appendChild(emptyState);
@@ -6254,7 +6261,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     topPos = '83%';
                 }
                 
-                container.innerHTML = '<div style="position: absolute; left: 50%; top: ' + topPos + '; transform: translate(-50%, -50%); text-align: center; color: #999; font-size: 15px; white-space: nowrap;">' +
+                container.innerHTML = '<div class="empty-state" style="position: absolute; left: 50%; top: ' + topPos + '; transform: translate(-50%, -50%); text-align: center; color: #999; font-size: 15px; white-space: nowrap;">' +
                     '<div style="margin-bottom: 3px; font-size: 30px;">' + icon + '</div>' +
                     '<div>No Recent Alerts</div>' +
                     '<div style="font-size: 12px; margin-top: 8px; opacity: 0.6;">Check back soon for new opportunities</div>' +
@@ -6827,11 +6834,11 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 const isMobile = width <= 768;
                 const isLandscape = width > height;
                 
-                if (isMobile && isLandscape) {
-                    list.innerHTML = '';
-                } else {
-                    list.innerHTML = '<div style="padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;">No recent alerts</div>';
-                }
+                    if (isMobile && isLandscape) {
+                        list.innerHTML = '';
+                    } else {
+                        list.innerHTML = '<div class="empty-state" style="padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;">No recent alerts</div>';
+                    }
                 return;
             }
             
