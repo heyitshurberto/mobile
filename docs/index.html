@@ -6251,8 +6251,8 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     topPos = '83%'; // iPhone: keep at current position
                 }
 
-                // If Android + landscape, do NOT show the message at all
-                if (isAndroid && isLandscape) {
+                // If landscape, do NOT show the message at all
+                if (isLandscape) {
                     container.innerHTML = '';
                 } else {
                     container.innerHTML = '<div style="position: absolute; left: 50%; top: ' + topPos + '; transform: translate(-50%, -50%); text-align: center; color: #999; font-size: 15px; white-space: nowrap;">' +
