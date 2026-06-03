@@ -32,13 +32,6 @@ table {
 @media (min-width: 769px) and (max-width: 1023px) {
     body { zoom: 90%; }
 }
-
-/* Only show empty alert messages in portrait mode */
-@media (orientation: landscape) {
-    .portrait-only.no-recent-alerts {
-        display: none !important;
-    }
-}
 </style>
 
 <div style="position: absolute; top: 1px; left: 6px; display: flex; gap: 4px; align-items: center; z-index: 9999;" class="usersname-tag-desktop">
@@ -4078,7 +4071,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         if (!isLandscape) {
                             const emptyState = document.createElement('div');
-                            emptyState.className = 'portrait-only no-recent-alerts';
                             emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
                             emptyState.textContent = 'No recent alerts';
                             list.appendChild(emptyState);
@@ -6263,7 +6255,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 if (isLandscape) {
                     container.innerHTML = '';
                 } else {
-                    container.innerHTML = '<div class="portrait-only no-recent-alerts" style="position: absolute; left: 50%; top: ' + topPos + '; transform: translate(-50%, -50%); text-align: center; color: #999; font-size: 15px; white-space: nowrap;">' +
+                    container.innerHTML = '<div style="position: absolute; left: 50%; top: ' + topPos + '; transform: translate(-50%, -50%); text-align: center; color: #999; font-size: 15px; white-space: nowrap;">' +
                         '<div style="margin-bottom: 3px; font-size: 30px;">' + icon + '</div>' +
                         '<div>No Recent Alerts</div>' +
                         '<div style="font-size: 12px; margin-top: 8px; opacity: 0.6;">Check back soon for new opportunities</div>' +
@@ -7096,29 +7088,6 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             if (totalMinutes >= 570 && totalMinutes < 960) return 'Market Hours'; // 9:30-16:00
             return 'After Hours'; // after 16:00
         }
-
-        function hideLandscapeEmptyAlerts() {
-            const isLandscape = (window.screen && window.screen.orientation) ?
-                window.screen.orientation.type.includes('landscape') :
-                (window.innerWidth > window.innerHeight);
-            if (!isLandscape) return;
-
-            const selectors = ['#notification-list', '#alerts-container', '.notification-list'];
-            selectors.forEach(selector => {
-                const root = document.querySelector(selector);
-                if (!root) return;
-                root.querySelectorAll('div').forEach(node => {
-                    const text = node.textContent || '';
-                    if (/No Recent Alerts|No recent alerts|Check back soon for new opportunities/i.test(text)) {
-                        node.remove();
-                    }
-                });
-            });
-        }
-
-        window.addEventListener('resize', hideLandscapeEmptyAlerts);
-        window.addEventListener('orientationchange', hideLandscapeEmptyAlerts);
-        window.addEventListener('load', hideLandscapeEmptyAlerts);
 
         function showDetailedStatsModal(stocks, quotes, totalTrades, winningTrades, avgPerformance) {
             // Calculate detailed statistics
