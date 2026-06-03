@@ -7089,6 +7089,29 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             return 'After Hours'; // after 16:00
         }
 
+        function hideLandscapeEmptyAlerts() {
+            const isLandscape = (window.screen && window.screen.orientation) ?
+                window.screen.orientation.type.includes('landscape') :
+                (window.innerWidth > window.innerHeight);
+            if (!isLandscape) return;
+
+            const selectors = ['#notification-list', '#alerts-container', '.notification-list'];
+            selectors.forEach(selector => {
+                const root = document.querySelector(selector);
+                if (!root) return;
+                root.querySelectorAll('div').forEach(node => {
+                    const text = node.textContent || '';
+                    if (/No Recent Alerts|No recent alerts|Check back soon for new opportunities/i.test(text)) {
+                        node.remove();
+                    }
+                });
+            });
+        }
+
+        window.addEventListener('resize', hideLandscapeEmptyAlerts);
+        window.addEventListener('orientationchange', hideLandscapeEmptyAlerts);
+        window.addEventListener('load', hideLandscapeEmptyAlerts);
+
         function showDetailedStatsModal(stocks, quotes, totalTrades, winningTrades, avgPerformance) {
             // Calculate detailed statistics
             const tradeDetails = [];
