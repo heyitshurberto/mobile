@@ -6234,26 +6234,23 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             container.innerHTML = '';
             
             if (filteredAlerts.length === 0) {
-                if (isMobileLandscape()) {
-                    container.innerHTML = '';
-                    return;
+                if (!isMobileLandscape()) {
+                    const icon = '—';
+                    let topPos = '68%';
+                    const isIPad = /iPad/.test(navigator.userAgent || '');
+                    const isIPhone = /iPhone|iPod/.test(navigator.userAgent || '');
+                    if (isIPad) {
+                        topPos = '40%';
+                    } else if (isIPhone) {
+                        topPos = '83%';
+                    }
+                    
+                    container.innerHTML = '<div style="position: absolute; left: 50%; top: ' + topPos + '; transform: translate(-50%, -50%); text-align: center; color: #999; font-size: 15px; white-space: nowrap;">' +
+                        '<div style="margin-bottom: 3px; font-size: 30px;">' + icon + '</div>' +
+                        '<div>No Recent Alerts</div>' +
+                        '<div style="font-size: 12px; margin-top: 8px; opacity: 0.6;">Check back soon for new opportunities</div>' +
+                    '</div>';
                 }
-                
-                const icon = '—';
-                let topPos = '68%';
-                const isIPad = /iPad/.test(navigator.userAgent || '');
-                const isIPhone = /iPhone|iPod/.test(navigator.userAgent || '');
-                if (isIPad) {
-                    topPos = '40%';
-                } else if (isIPhone) {
-                    topPos = '83%';
-                }
-                
-                container.innerHTML = '<div style="position: absolute; left: 50%; top: ' + topPos + '; transform: translate(-50%, -50%); text-align: center; color: #999; font-size: 15px; white-space: nowrap;">' +
-                    '<div style="margin-bottom: 3px; font-size: 30px;">' + icon + '</div>' +
-                    '<div>No Recent Alerts</div>' +
-                    '<div style="font-size: 12px; margin-top: 8px; opacity: 0.6;">Check back soon for new opportunities</div>' +
-                '</div>';
                 return;
             }
             
@@ -6817,10 +6814,10 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             
             // If no notifications, show empty state (unless mobile landscape)
             if (!notifications || notifications.length === 0) {
-                if (isMobileLandscape()) {
-                    list.innerHTML = '';
-                } else {
+                if (!isMobileLandscape()) {
                     list.innerHTML = '<div style="padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;">No recent alerts</div>';
+                } else {
+                    list.innerHTML = '';
                 }
                 return;
             }
