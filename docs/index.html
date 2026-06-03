@@ -1119,7 +1119,15 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        /* Removed unused separator styling - was causing line below Network Status */
+        .separator {
+            height: 0.25px;
+            background: #c0c0c0;
+            margin: 20px 0 5px 0;
+        }
+
+        body.dark-mode .separator {
+            background: #444;
+        }
 
         .header-top {
             display: flex;
@@ -1233,7 +1241,6 @@ document.addEventListener('DOMContentLoaded', function() {
             gap: 10px;
             margin-bottom: 5px;
             margin-top: -10px;
-            border-bottom: 1px solid rgba(120,120,120,0.15);
             padding-bottom: 20px;
         }
         
@@ -3688,6 +3695,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div id="status" class="status-online">Online: <span id="online-users">1</span></div>
                 </div>
             </div>
+            <div class="separator"></div>
             
             <!-- Search, Filter & Sort Controls -->
             <div class="alerts-controls" style="display: flex; gap: 8px; margin-bottom: 30px; flex-wrap: wrap; align-items: center;">
