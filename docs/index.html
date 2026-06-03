@@ -53,6 +53,16 @@ function updateLogoDarkMode() {
   if (xIcon) xIcon.style.filter = isDarkMode ? 'brightness(0) saturate(100%) invert(100%)' : 'brightness(0) saturate(100%)';
 }
 
+function isAndroidPhoneLandscape() {
+  const ua = navigator.userAgent || navigator.vendor || window.opera || '';
+  const isAndroid = /Android/i.test(ua);
+  const isTablet = /Tablet|iPad|Nexus 7|Nexus 10|SM-T|Kindle|Silk|PlayBook/i.test(ua);
+  const isMobile = /Mobi|Mobile/i.test(ua);
+  const isPhone = isAndroid && isMobile && !isTablet;
+  const isLandscape = (window.matchMedia && window.matchMedia('(orientation: landscape)').matches) || (window.innerWidth > window.innerHeight);
+  return isPhone && isLandscape;
+}
+
 window.addEventListener('load', updateLogoDarkMode);
 document.addEventListener('themechanged', updateLogoDarkMode);
 
@@ -4064,13 +4074,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     list.innerHTML = '';
                     
                     if (!Array.isArray(alerts) || alerts.length === 0) {
-                        // Check if mobile landscape - if so, stay empty
-                        const width = window.innerWidth;
-                        const height = window.innerHeight;
-                        const isMobile = width <= 768;
-                        const isLandscape = width > height;
-                        
-                        if (!(isMobile && isLandscape)) {
+                        if (!isAndroidPhoneLandscape()) {
                             const emptyState = document.createElement('div');
                             emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
                             emptyState.textContent = 'No recent alerts';
@@ -6233,13 +6237,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             container.innerHTML = '';
             
             if (filteredAlerts.length === 0) {
-                const width = window.innerWidth;
-                const height = window.innerHeight;
-                const isMobile = width <= 768;
-                const isLandscape = width > height;
-
-                // Only hide on mobile + landscape
-                if (isMobile && isLandscape) {
+                if (isAndroidPhoneLandscape()) {
                     container.innerHTML = '';
                     return;
                 }
@@ -6822,12 +6820,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             
             // If no notifications, show empty state (unless mobile landscape)
             if (!notifications || notifications.length === 0) {
-                const width = window.innerWidth;
-                const height = window.innerHeight;
-                const isMobile = width <= 768;
-                const isLandscape = width > height;
-                
-                if (isMobile && isLandscape) {
+                if (isAndroidPhoneLandscape()) {
                     list.innerHTML = '';
                 } else {
                     list.innerHTML = '<div style="padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;">No recent alerts</div>';
