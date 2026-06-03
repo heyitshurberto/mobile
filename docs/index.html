@@ -2850,9 +2850,6 @@ document.addEventListener('DOMContentLoaded', function() {
             .header-top {
                 margin-top: 14px !important;
             }
-            .alerts-controls {
-                margin-top: -1px !important;
-            }
         }
 
         @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
@@ -3033,6 +3030,12 @@ document.addEventListener('DOMContentLoaded', function() {
             
             .multi-chart-modal [id^="multi_chart_"] {
                 height: auto;
+            }
+        }
+
+        @media (max-width: 480px) and (orientation: portrait) {
+            #search-ticker {
+                margin-top: -1px !important;
             }
         }
 
