@@ -57,7 +57,8 @@ function isAndroidPhoneLandscape() {
   const ua = navigator.userAgent || navigator.vendor || window.opera || '';
   const isAndroid = /Android/i.test(ua);
   const isTablet = /Tablet|iPad|Nexus 7|Nexus 10|SM-T|Kindle|Silk|PlayBook/i.test(ua);
-  const isPhone = isAndroid && !isTablet;
+  const isMobile = /Mobi|Mobile/i.test(ua);
+  const isPhone = isAndroid && isMobile && !isTablet;
   const isLandscape = (window.matchMedia && window.matchMedia('(orientation: landscape)').matches) || (window.innerWidth > window.innerHeight);
   return isPhone && isLandscape;
 }
