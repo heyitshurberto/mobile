@@ -4064,13 +4064,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     list.innerHTML = '';
                     
                     if (!Array.isArray(alerts) || alerts.length === 0) {
-                        // Do not show the empty state on mobile in landscape only
-                        const isMobile = window.innerWidth <= 768;
-                        const isLandscape = (window.screen && window.screen.orientation) ? 
-                            window.screen.orientation.type.includes('landscape') : 
-                            (window.innerWidth > window.innerHeight);
+                        // Check if mobile landscape - if so, stay empty
+                        const width = window.innerWidth;
+                        const height = window.innerHeight;
+                        const isMobile = width <= 768;
+                        const isLandscape = width > height;
                         
-                        // Only hide if it's mobile AND landscape
                         if (!(isMobile && isLandscape)) {
                             const emptyState = document.createElement('div');
                             emptyState.style.cssText = 'padding: 20px; text-align: center; opacity: 0.6; font-size: 12px;';
@@ -6234,36 +6233,32 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             container.innerHTML = '';
             
             if (filteredAlerts.length === 0) {
-                // Show the "No Recent Alerts" empty state. Keep original behavior
-                // for non-Android devices; hide only on mobile in landscape.
-                const userAgent = navigator.userAgent || '';
-                const isAndroid = /Android|Adr/.test(userAgent);
-                const isIPad = /iPad/.test(userAgent);
-                const isIPhone = /iPhone|iPod/.test(userAgent);
-                const isMobile = window.innerWidth <= 768;
-                const isLandscape = (window.screen && window.screen.orientation) ? 
-                    window.screen.orientation.type.includes('landscape') : 
-                    (window.innerWidth > window.innerHeight);
-
-                const icon = '—';
-                // default positions from original logic
-                let topPos = '68%';
-                if (isIPad) {
-                    topPos = '40%'; // iPad: move up significantly
-                } else if (isIPhone) {
-                    topPos = '83%'; // iPhone: keep at current position
-                }
+                const width = window.innerWidth;
+                const height = window.innerHeight;
+                const isMobile = width <= 768;
+                const isLandscape = width > height;
 
                 // Only hide on mobile + landscape
                 if (isMobile && isLandscape) {
                     container.innerHTML = '';
-                } else {
-                    container.innerHTML = '<div style="position: absolute; left: 50%; top: ' + topPos + '; transform: translate(-50%, -50%); text-align: center; color: #999; font-size: 15px; white-space: nowrap;">' +
-                        '<div style="margin-bottom: 3px; font-size: 30px;">' + icon + '</div>' +
-                        '<div>No Recent Alerts</div>' +
-                        '<div style="font-size: 12px; margin-top: 8px; opacity: 0.6;">Check back soon for new opportunities</div>' +
-                    '</div>';
+                    return;
                 }
+                
+                const icon = '—';
+                let topPos = '68%';
+                const isIPad = /iPad/.test(navigator.userAgent || '');
+                const isIPhone = /iPhone|iPod/.test(navigator.userAgent || '');
+                if (isIPad) {
+                    topPos = '40%';
+                } else if (isIPhone) {
+                    topPos = '83%';
+                }
+                
+                container.innerHTML = '<div style="position: absolute; left: 50%; top: ' + topPos + '; transform: translate(-50%, -50%); text-align: center; color: #999; font-size: 15px; white-space: nowrap;">' +
+                    '<div style="margin-bottom: 3px; font-size: 30px;">' + icon + '</div>' +
+                    '<div>No Recent Alerts</div>' +
+                    '<div style="font-size: 12px; margin-top: 8px; opacity: 0.6;">Check back soon for new opportunities</div>' +
+                '</div>';
                 return;
             }
             
@@ -6827,10 +6822,10 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             
             // If no notifications, show empty state (unless mobile landscape)
             if (!notifications || notifications.length === 0) {
-                const isMobile = window.innerWidth <= 768;
-                const isLandscape = (window.screen && window.screen.orientation) ? 
-                    window.screen.orientation.type.includes('landscape') : 
-                    (window.innerWidth > window.innerHeight);
+                const width = window.innerWidth;
+                const height = window.innerHeight;
+                const isMobile = width <= 768;
+                const isLandscape = width > height;
                 
                 if (isMobile && isLandscape) {
                     list.innerHTML = '';
