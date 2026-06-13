@@ -1,250 +1,51 @@
 [
   {
-    "ticker": "SINT",
-    "title": "8-K - Sintx Technologies, Inc. (0001269026) (Filer)",
-    "companyName": "Sintx Technologies, Inc.",
+    "ticker": "GOAI",
+    "title": "8-K - Eva Live Inc (0001983736) (Filer)",
+    "companyName": "Eva Live Inc",
     "filerName": null,
-    "price": 1.9,
-    "fav": "51.99",
-    "volume": 489441,
-    "averageVolume": 36215,
-    "float": 1882845,
-    "sharesOutstanding": 4319279,
-    "soRatio": "43.59%",
-    "marketCap": 8206630,
-    "isShort": false,
-    "ftd": 9204,
-    "intent": "Merger/Acquisition, Unregistered Equity Sales",
-    "incorporated": "Wilmington, Delaware",
-    "located": "Utah",
-    "filingDate": "2026-06-03T09:30:19-04:00",
+    "price": 2.4591,
+    "fav": "29.81",
+    "volume": 158570,
+    "averageVolume": 257243,
+    "float": 7668266,
+    "sharesOutstanding": 36535389,
+    "soRatio": "20.99%",
+    "marketCap": 89844176,
+    "isShort": true,
+    "ftd": 16758,
+    "intent": "Commercial Inflection, Regulation S Offering, Unregistered Equity Sales",
+    "incorporated": "Nevada",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-06-10T09:35:15-04:00",
     "signals": {
-      "Merger/Acquisition": [
-        "Material Definitive Agreement"
+      "Commercial Inflection": [
+        "Letter Of Intent"
+      ],
+      "Regulation S Offering": [
+        "Regulation S"
       ],
       "Unregistered Equity Sales": [
-        "Item 3.02: Unknown Buyer",
-        "Shares: 1.9M"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "formType": [
-      "8-K",
-      "EX-4.1",
-      "EX-4.2",
-      "Item 1.01",
-      "Item 3.02",
-      "Item 8.01",
-      "Item 9.01"
-    ],
-    "cik": "1269026",
-    "skipReason": "",
-    "alertType": null,
-    "predatoryFinancing": null,
-    "sector": "Health Care",
-    "hasTuesdayBonus": false,
-    "custodianControl": true,
-    "custodianVerified": true,
-    "custodianName": "Utah (via Wilmington, Delaware)",
-    "filingTimeMultiplier": 1.2,
-    "filingTimeBonus": 1.2,
-    "deterministicPattern": "Merger/Acquisition",
-    "deterministicMechanism": "M&A catalyst = immediate upside catalyst. Market prices in deal value, synergies, and premium.",
-    "deterministicPhrase": "[M&A catalyst = immediate upside catalyst. Market prices in deal value, synergies, and premium.]",
-    "recordedAt": "2026-06-03T13:31:16.858Z",
-    "recordId": "SINT-1780493476858",
-    "expiresAt": "2026-06-08T13:31:16.858Z",
-    "direction": "LONG",
-    "highest5Day": 1.9,
-    "highest5DayPercent": 0,
-    "lowest5Day": 1.9,
-    "lowest5DayPercent": 0
-  },
-  {
-    "ticker": "KWM",
-    "title": "6-K - K Wave Media Ltd. (0002000756) (Filer)",
-    "companyName": "K Wave Media Ltd.",
-    "filerName": null,
-    "price": 0.223,
-    "fav": "6.66",
-    "volume": 736238,
-    "averageVolume": 665515,
-    "float": 4434068,
-    "sharesOutstanding": 68476338,
-    "soRatio": "6.48%",
-    "marketCap": 15270223,
-    "isShort": false,
-    "ftd": 15102,
-    "intent": "Asset Disposition, Unregistered Equity Sales",
-    "incorporated": "Cayman Islands",
-    "located": "Cayman Islands",
-    "filingDate": "2026-06-04T09:05:04-04:00",
-    "signals": {
-      "Asset Disposition": [
-        "Divesting",
-        "Disposition"
-      ],
-      "Unregistered Equity Sales": [
-        "purchase agreement"
+        "Item 3.02: addition will immediately expand Eva Live&rsquo;s execution muscle"
       ]
     },
     "bonusSignals": {},
     "financialRatioSignals": {},
     "formType": [
       "6-K",
+      "6-K/A",
+      "8-K",
       "20-F",
+      "20-F/A",
       "EX-99.1",
-      "EX-99.2"
+      "Item 8.01",
+      "Item 9.01"
     ],
-    "cik": "2000756",
+    "cik": "1983736",
     "skipReason": "",
     "alertType": null,
     "predatoryFinancing": null,
     "sector": "Media",
-    "hasTuesdayBonus": false,
-    "custodianControl": false,
-    "custodianVerified": false,
-    "custodianName": null,
-    "filingTimeMultiplier": 1.2,
-    "filingTimeBonus": 1.2,
-    "deterministicPattern": "Asset Disposition (Restructuring)",
-    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
-    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
-    "recordedAt": "2026-06-04T13:05:47.246Z",
-    "recordId": "KWM-1780578347246",
-    "expiresAt": "2026-06-09T13:05:47.246Z",
-    "direction": "LONG",
-    "highest5Day": 0.223,
-    "highest5DayPercent": 0,
-    "lowest5Day": 0.223,
-    "lowest5DayPercent": 0
-  },
-  {
-    "ticker": "AMCI",
-    "title": "8-K - AMC Robotics Corp (0001937891) (Filer)",
-    "companyName": "AMC Robotics Corp",
-    "filerName": null,
-    "price": 4.86,
-    "fav": "67.59",
-    "volume": 26207,
-    "averageVolume": 69842,
-    "float": 4720300,
-    "sharesOutstanding": 22600363,
-    "soRatio": "20.89%",
-    "marketCap": 109837776,
-    "isShort": true,
-    "ftd": 7673,
-    "intent": "Merger/Acquisition, Convertible Debt, Asset Disposition, Commercial Inflection, Unregistered Equity Sales, Regulation S Offering, Related-Party Transaction",
-    "incorporated": "Cayman Islands",
-    "located": "New York",
-    "filingDate": "2026-06-04T09:15:16-04:00",
-    "signals": {
-      "Merger/Acquisition": [
-        "Material Definitive Agreement"
-      ],
-      "Convertible Debt": [
-        "Convertible Securities"
-      ],
-      "Asset Disposition": [
-        "Disposition"
-      ],
-      "Commercial Inflection": [
-        "Letter Of Intent"
-      ],
-      "Unregistered Equity Sales": [
-        "Item 3.02: or is under common control with the Investor"
-      ],
-      "Regulation S Offering": [
-        "Regulation S"
-      ],
-      "Related-Party Transaction": [
-        "Controlled By"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "formType": [
-      "6-K",
-      "6-K/A",
-      "8-K",
-      "S-1",
-      "20-F",
-      "20-F/A",
-      "13D",
-      "Form D",
-      "EX-99.1",
-      "EX-10.1",
-      "Item 1.01",
-      "Item 9.01"
-    ],
-    "cik": "1937891",
-    "skipReason": "",
-    "alertType": null,
-    "predatoryFinancing": null,
-    "sector": "Electrical Equipment",
-    "hasTuesdayBonus": false,
-    "custodianControl": true,
-    "custodianVerified": true,
-    "custodianName": "New York (via Cayman Islands)",
-    "filingTimeMultiplier": 1.2,
-    "filingTimeBonus": 1.2,
-    "deterministicPattern": "Asset Disposition (Restructuring)",
-    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
-    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
-    "recordedAt": "2026-06-04T13:15:58.508Z",
-    "recordId": "AMCI-1780578958508",
-    "expiresAt": "2026-06-09T13:15:58.508Z",
-    "direction": "SHORT",
-    "highest5Day": 4.86,
-    "highest5DayPercent": 0,
-    "lowest5Day": 4.86,
-    "lowest5DayPercent": 0
-  },
-  {
-    "ticker": "IPW",
-    "title": "8-K - iPower Inc. (0001830072) (Filer)",
-    "companyName": "iPower Inc.",
-    "filerName": null,
-    "price": 3.44,
-    "fav": "3.74",
-    "volume": 116742,
-    "averageVolume": 159040,
-    "float": 595580,
-    "sharesOutstanding": 661240,
-    "soRatio": "90.07%",
-    "marketCap": 2274665,
-    "isShort": true,
-    "ftd": 66156,
-    "intent": "Regulation S Offering, Unregistered Equity Sales",
-    "incorporated": "Nevada",
-    "located": "Toronto, Canada",
-    "filingDate": "2026-06-04T09:20:15-04:00",
-    "signals": {
-      "Regulation S Offering": [
-        "Regulation S"
-      ],
-      "Unregistered Equity Sales": [
-        "Item 3.02: Unknown Buyer"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "formType": [
-      "6-K",
-      "6-K/A",
-      "8-K",
-      "20-F",
-      "20-F/A",
-      "EX-99.1",
-      "Item 8.01",
-      "Item 9.01"
-    ],
-    "cik": "1830072",
-    "skipReason": "",
-    "alertType": null,
-    "predatoryFinancing": null,
-    "sector": "Trading Companies & Distributors",
     "hasTuesdayBonus": false,
     "custodianControl": true,
     "custodianVerified": true,
@@ -254,143 +55,91 @@
     "deterministicPattern": null,
     "deterministicMechanism": null,
     "deterministicPhrase": "",
-    "recordedAt": "2026-06-04T13:20:46.034Z",
-    "recordId": "IPW-1780579246034",
-    "expiresAt": "2026-06-09T13:20:46.034Z",
+    "recordedAt": "2026-06-10T13:35:55.564Z",
+    "recordId": "GOAI-1781098555564",
+    "expiresAt": "2026-06-15T13:35:55.564Z",
     "direction": "SHORT",
-    "highest5Day": 3.44,
+    "highest5Day": 2.4591,
     "highest5DayPercent": 0,
-    "lowest5Day": 3.44,
+    "lowest5Day": 2.4591,
     "lowest5DayPercent": 0
   },
   {
-    "ticker": "CLMB",
-    "title": "8-K - Climb Global Solutions, Inc. (0000945983) (Filer)",
-    "companyName": "Climb Global Solutions, Inc.",
+    "ticker": "EDSA",
+    "title": "8-K - Edesa Biotech, Inc. (0001540159) (Filer)",
+    "companyName": "Edesa Biotech, Inc.",
     "filerName": null,
-    "price": 21.89,
-    "fav": "18.18",
-    "volume": 106467,
-    "averageVolume": 209522,
-    "float": 3810000,
-    "sharesOutstanding": 18597200,
-    "soRatio": "20.49%",
-    "marketCap": 407092704,
+    "price": 5.21,
+    "fav": "9.04",
+    "volume": 126973,
+    "averageVolume": 801253,
+    "float": 7245294,
+    "sharesOutstanding": 8891951,
+    "soRatio": "81.48%",
+    "marketCap": 46327064,
     "isShort": true,
-    "ftd": 30799,
-    "intent": "Accounting Restatement, Asset Disposition, Unregistered Equity Sales, Related-Party Transaction",
-    "incorporated": "Wilmington, Delaware",
-    "located": "New Jersey",
-    "filingDate": "2026-06-04T09:24:13-04:00",
+    "ftd": 163807,
+    "intent": "Merger/Acquisition, Going Dark, Asset Disposition, Partnership, Unregistered Equity Sales, Regulation S Offering, Related-Party Transaction",
+    "incorporated": "Toronto, Canada",
+    "located": "Ontario, Canada",
+    "filingDate": "2026-06-11T09:20:32-04:00",
     "signals": {
-      "Accounting Restatement": [
-        "Financial Restatement"
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Going Dark": [
+        "Deregister"
       ],
       "Asset Disposition": [
         "Disposition"
       ],
+      "Partnership": [
+        "Joint Venture"
+      ],
       "Unregistered Equity Sales": [
-        "Item 3.02: . For purposes of Section 12(b)",
-        "Discount: 100%",
-        "Shares: 3.8M"
+        "Item 3.02: defined in Rule 501"
+      ],
+      "Regulation S Offering": [
+        "Regulation S"
       ],
       "Related-Party Transaction": [
-        "Family Member"
+        "Controlled By",
+        "Related Party",
+        "Affiliate Of"
       ]
     },
     "bonusSignals": {},
     "financialRatioSignals": {},
     "formType": [
       "8-K",
-      "S-8",
+      "S-3",
       "EX-10.1",
-      "Item 5.02",
-      "Item 5.07",
+      "Item 1.01",
+      "Item 3.02",
+      "Item 7.01",
       "Item 9.01"
     ],
-    "cik": "945983",
+    "cik": "1540159",
     "skipReason": "",
     "alertType": null,
     "predatoryFinancing": null,
-    "sector": "Electrical Equipment",
+    "sector": "Biotechnology",
     "hasTuesdayBonus": false,
     "custodianControl": true,
     "custodianVerified": true,
-    "custodianName": "New Jersey (via Wilmington, Delaware)",
+    "custodianName": "Ontario, Canada (via Toronto, Canada)",
     "filingTimeMultiplier": 1.2,
     "filingTimeBonus": 1.2,
     "deterministicPattern": "Asset Disposition (Restructuring)",
     "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
     "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
-    "recordedAt": "2026-06-04T13:24:56.176Z",
-    "recordId": "CLMB-1780579496176",
-    "expiresAt": "2026-06-09T13:24:56.176Z",
+    "recordedAt": "2026-06-11T13:21:09.625Z",
+    "recordId": "EDSA-1781184069625",
+    "expiresAt": "2026-06-16T13:21:09.625Z",
     "direction": "SHORT",
-    "highest5Day": 21.89,
+    "highest5Day": 5.21,
     "highest5DayPercent": 0,
-    "lowest5Day": 21.89,
-    "lowest5DayPercent": 0
-  },
-  {
-    "ticker": "RGR",
-    "title": "8-K - STURM RUGER &amp; CO INC (0000095029) (Filer)",
-    "companyName": "STURM RUGER & CO INC",
-    "filerName": null,
-    "price": 39.365,
-    "fav": "88.48",
-    "volume": 39034,
-    "averageVolume": 157942,
-    "float": 13974819,
-    "sharesOutstanding": 15944253,
-    "soRatio": "87.65%",
-    "marketCap": 627645568,
-    "isShort": true,
-    "ftd": 347,
-    "intent": "Regulation S Offering, Unregistered Equity Sales",
-    "incorporated": "Wilmington, Delaware",
-    "located": "North Carolina",
-    "filingDate": "2026-06-04T15:26:17-04:00",
-    "signals": {
-      "Regulation S Offering": [
-        "Regulation S"
-      ],
-      "Unregistered Equity Sales": [
-        "Item 3.02: Unknown Buyer"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "formType": [
-      "6-K",
-      "6-K/A",
-      "8-K",
-      "S-3",
-      "S-4",
-      "20-F",
-      "20-F/A",
-      "Item 5.02"
-    ],
-    "cik": "95029",
-    "skipReason": "",
-    "alertType": null,
-    "predatoryFinancing": null,
-    "sector": "Leisure Products",
-    "hasTuesdayBonus": false,
-    "custodianControl": true,
-    "custodianVerified": true,
-    "custodianName": "North Carolina (via Wilmington, Delaware)",
-    "filingTimeMultiplier": 1.15,
-    "filingTimeBonus": 1.15,
-    "deterministicPattern": null,
-    "deterministicMechanism": null,
-    "deterministicPhrase": "",
-    "recordedAt": "2026-06-04T19:27:12.657Z",
-    "recordId": "RGR-1780601232657",
-    "expiresAt": "2026-06-09T19:27:12.657Z",
-    "direction": "SHORT",
-    "highest5Day": 39.365,
-    "highest5DayPercent": 0,
-    "lowest5Day": 39.365,
+    "lowest5Day": 5.21,
     "lowest5DayPercent": 0
   }
 ]
