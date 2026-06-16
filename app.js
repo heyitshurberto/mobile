@@ -31,14 +31,13 @@ if (fs.existsSync('.env')) {
 const CONFIG = {
   // Alert filtering criteria
   FILE_TIME: 1,                     // Historical lookback window in minutes for filing discovery
-  MIN_ALERT_VOLUME: 1000,           // Minimum volume threshold for initial alert trigger
-  STRONG_SIGNAL_MIN_VOLUME: 500,    // Volume threshold for high-confidence signal detection
-  MAX_FLOAT_6K: 50000000,           // Maximum float size threshold for 6-K filings
-  MAX_FLOAT_8K: 25000000,           // Maximum float size threshold for 8-K filings
-  MAX_FAV_RATIO: 90,                // Maximum float-to-average-volume ratio threshold
+  MIN_ALERT_VOLUME: 2500,           // Minimum volume threshold for initial alert trigger
+  STRONG_SIGNAL_MIN_VOLUME: 1000,    // Volume threshold for high-confidence signal detection
+  MAX_FLOAT_6K: 25000000,           // Maximum float size threshold for 6-K filings
+  MAX_FLOAT_8K: 15000000,           // Maximum float size threshold for 8-K filings
+  MAX_FAV_RATIO: 65,                // Maximum float-to-average-volume ratio threshold
   ALLOWED_COUNTRIES: ['israel', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'delaware'], // Whitelisted jurisdictions for company registration
-  CTB_WATCHLIST: ['BRAI', 'AMSS', 'MWC', 'SMCZ', 'MASK', 'HKIT', 'AMST', 'VCIG', 'DXST', 'FGL', 'FABTQ', 'CZOOF', 'OLOX', 'RUBI', 'PN', 'CODX', 'IOTR', 'LABT', 'SHPWQ', 'CMND', 'IONM', 'AEHL', 'PRFX', 'SBFM', 'MTVA'], // Symbols with elevated cost-to-borrow values from IBorrowDesk
-  // Enable optimizations for Raspberry Pi devices
+  CTB_WATCHLIST: ['ASTC', 'GITS', 'RMSG', 'AMSS', 'BRAI', 'MWC', 'HKIT', 'EDHL', 'ENVB', 'UBXG', 'CHAI', 'FABTQ', 'MASK', 'HCWB', 'ATPC', 'VCIG', 'CZOOF', 'STI', 'OLOX', 'CNSP', 'TGHL', 'FOXX', 'IONM', 'AEHL', 'NEXR'], // Symbols with elevated cost-to-borrow values from IBorrowDesk  // Enable optimizations for Raspberry Pi devices
   PI_MODE: true,              // Enable optimizations for resource-constrained environments          
   REFRESH_PEAK: 1,            // Poll interval (ms) during peak market hours for real-time detection
   REFRESH_NORMAL: 30000,      // Poll interval (ms) during standard market hours
@@ -9683,10 +9682,10 @@ if (process.stdin.isTTY) {
             continue;
           }
           
-          // Check minimum price filter - skip alerts for stocks below $0.20
+          // Check minimum price filter - skip alerts for stocks below $0.350
           const priceFloat = parseFloat(price) || 0;
-          if (priceFloat > 0 && priceFloat < 0.2) {
-            skipReason = `Price too low: $${priceFloat.toFixed(4)} below $0.20 minimum`;
+          if (priceFloat > 0 && priceFloat < 0.35) {
+            skipReason = `Price too low: $${priceFloat.toFixed(4)} below $0.35 minimum`;
             const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
             const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
             log('INFO', `Links: ${secLink} ${tvLink}`);
@@ -9905,7 +9904,7 @@ if (process.stdin.isTTY) {
             continue;
           }
 
-          // F/AV filtering: skip stocks exceeding max ratio (90x)
+          // F/AV filtering: skip stocks exceeding max ratio (65x)
           const favNum = parseFloat(fav) || 0;
           
           // Initialize alertData early to prevent uninitialized reference errors
@@ -9956,9 +9955,9 @@ if (process.stdin.isTTY) {
           
           // === TRADABILITY FILTERS ===
           
-          // 1. HARD REJECT: F/AV < 3x (untradeable, gets slipped on entry/exit)
-          if (favNum > 0 && favNum < 3) {
-            skipReason = `F/AV ${favNum.toFixed(2)}x below 3x minimum (untradeable liquidity)`;
+          // 1. HARD REJECT: F/AV < 5x (untradeable, gets slipped on entry/exit)
+          if (favNum > 0 && favNum < 5) {
+            skipReason = `F/AV ${favNum.toFixed(2)}x below 5x minimum (untradeable liquidity)`;
             saveToCSV({ ...alertData, skipReason });
             const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
             const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
@@ -9968,9 +9967,9 @@ if (process.stdin.isTTY) {
             continue;
           }
           
-          // 1b. HARD REJECT: F/AV > 100x (overextended blowoff, late entry, already crowded)
-          if (favNum > 100) {
-            skipReason = `F/AV ${favNum.toFixed(2)}x above 100x (overextended blowoff/meme volume)`;
+          // 1b. HARD REJECT: F/AV > 65x (overextended blowoff, late entry, already crowded)
+          if (favNum > 65) {
+            skipReason = `F/AV ${favNum.toFixed(2)}x above 65x (overextended blowoff/meme volume)`;
             saveToCSV({ ...alertData, skipReason });
             const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
             const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;

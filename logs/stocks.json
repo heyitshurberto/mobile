@@ -9189,10 +9189,10 @@
     "recordId": "GOAI-1781098555564",
     "expiresAt": "2026-06-15T13:35:55.564Z",
     "direction": "SHORT",
-    "highest5Day": 3.33,
-    "highest5DayPercent": 35.42,
-    "lowest5Day": 2.07,
-    "lowest5DayPercent": 15.82
+    "highest5Day": 2.81,
+    "highest5DayPercent": 14.27,
+    "lowest5Day": 2.37,
+    "lowest5DayPercent": 3.62
   },
   {
     "ticker": "ADIL",
@@ -9328,5 +9328,68 @@
     "highest5DayPercent": 7.03,
     "lowest5Day": 1.25,
     "lowest5DayPercent": 2.34
+  },
+  {
+    "ticker": "OMH",
+    "title": "6-K - Ohmyhome Ltd (0001944902) (Filer)",
+    "companyName": "Ohmyhome Ltd",
+    "filerName": null,
+    "price": 0.6498,
+    "fav": "79.64",
+    "volume": 33376,
+    "averageVolume": 165766,
+    "float": 13201234,
+    "sharesOutstanding": 22259591,
+    "soRatio": "59.31%",
+    "marketCap": 15011116,
+    "isShort": true,
+    "ftd": "N/A",
+    "intent": "Asset Disposition, Regulation S Offering, Related-Party Transaction, Unregistered Equity Sales",
+    "incorporated": "Cayman Islands",
+    "located": "Singapore",
+    "filingDate": "2026-06-15T09:15:01-04:00",
+    "signals": {
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Regulation S Offering": [
+        "Regulation S"
+      ],
+      "Related-Party Transaction": [
+        "Family Relationship"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: Unknown Buyer"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "20-F",
+      "EX-10.1"
+    ],
+    "cik": "1944902",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Real Estate",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Singapore (via Cayman Islands)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-06-15T13:15:46.926Z",
+    "recordId": "OMH-1781529346926",
+    "expiresAt": "2026-06-19T13:15:46.926Z",
+    "direction": "SHORT",
+    "highest5Day": 0.6495,
+    "highest5DayPercent": -0.05,
+    "lowest5Day": 0.6002,
+    "lowest5DayPercent": 7.63
   }
 ]
