@@ -518,7 +518,7 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
   }
   
   // Fast-track pure growth catalysts (force LONG immediately) - only if no distress signals
-  const pureBullishCatalysts = ['Partnership', 'Licensing Deal', 'Clinical Success', 'Commercial Inflection', 'Government Contract'].some(cat => signalArray.includes(cat));
+  const pureBullishCatalysts = ['Partnership', 'Licensing Deal', 'Commercial Inflection', 'Government Contract'].some(cat => signalArray.includes(cat));
   if (pureBullishCatalysts && !hasHeavyweightBearish && moderateCount === 0 && !isDistressedDisposition) {
     return { direction: 'LONG', confidence: 0.80 };
   }
