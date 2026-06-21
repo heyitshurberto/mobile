@@ -8111,6 +8111,73 @@
     "lowest5DayPercent": -2.79
   },
   {
+    "ticker": "CPOP",
+    "title": "6-K - Pop Culture Group Co., Ltd (0001807389) (Filer)",
+    "companyName": "Pop Culture Group Co., Ltd",
+    "filerName": null,
+    "price": 0.36,
+    "fav": "38.18",
+    "volume": 121262176,
+    "averageVolume": 147327,
+    "float": 5625571,
+    "sharesOutstanding": 71362733,
+    "soRatio": "7.88%",
+    "marketCap": 29498056,
+    "isShort": false,
+    "ftd": "N/A",
+    "intent": "Merger/Acquisition, Asset Disposition, Unregistered Equity Sales, Related-Party Transaction",
+    "incorporated": "Cayman Islands",
+    "located": "Shadong, China",
+    "filingDate": "2026-06-10T09:10:42-04:00",
+    "signals": {
+      "Merger/Acquisition": [
+        "Acquisition Agreement"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: Unknown Buyer",
+        "Discount: 90%",
+        "Shares: 0.9M"
+      ],
+      "Related-Party Transaction": [
+        "Related Party"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "S-8",
+      "F-3",
+      "20-F",
+      "EX-99.2"
+    ],
+    "cik": "1807389",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Media",
+    "hasTuesdayBonus": false,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Shadong, China (via Cayman Islands)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "deterministicPattern": "Asset Disposition (Restructuring)",
+    "deterministicMechanism": "Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.",
+    "deterministicPhrase": "[Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.]",
+    "recordedAt": "2026-06-10T13:11:50.414Z",
+    "recordId": "CPOP-1781097110414",
+    "expiresAt": "2026-06-15T13:11:50.414Z",
+    "direction": "LONG",
+    "highest5Day": 2.55,
+    "highest5DayPercent": 608.33,
+    "lowest5Day": 0.1736,
+    "lowest5DayPercent": -51.78
+  },
+  {
     "ticker": "BNAI",
     "title": "8-K - Brand Engagement Network Inc. (0001838163) (Filer)",
     "companyName": "Brand Engagement Network Inc.",
