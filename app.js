@@ -1990,6 +1990,16 @@ const updatePerformanceData = (alertData) => {
 // Sync peak price and % change to stocks.json for history display
 const syncPeakDataToStocks = (ticker, peakData) => {
   try {
+    // Load manual overrides (if any) so they take precedence over automated syncs
+    let overrides = {};
+    try {
+      if (fs.existsSync(CONFIG.OVERRIDES_FILE)) {
+        const ov = fs.readFileSync(CONFIG.OVERRIDES_FILE, 'utf8').trim();
+        if (ov) overrides = JSON.parse(ov);
+      }
+    } catch (e) {
+      overrides = {};
+    }
     if (!fs.existsSync(CONFIG.STOCKS_FILE)) return;
     
     const content = fs.readFileSync(CONFIG.STOCKS_FILE, 'utf8').trim();
@@ -2025,38 +2035,78 @@ const syncPeakDataToStocks = (ticker, peakData) => {
       if (stock.ticker === ticker) {
         const alertPrice = stock.price || 0;
         const isShort = stock.direction === 'SHORT' || stock.isShort === true;
-        
+
         let highestPercent = 0, lowestPercent = 0;
-        
+
+        // Determine if the alert is expired (so we can optionally record a final/close price)
+        const isExpired = !!stock.expiresAt && (new Date() > new Date(stock.expiresAt));
+
         if (isShort) {
           // SHORT: lowest price = profit, highest price = loss
           if (alertPrice > 0) {
             lowestPercent = parseFloat((((alertPrice - lowestPrice) / alertPrice) * 100).toFixed(2)); // profit when price down
             highestPercent = parseFloat((((highestPrice - alertPrice) / alertPrice) * 100).toFixed(2)); // loss when price up
           }
-          return {
-            ...stock,
-            highest5Day: highestPrice,
-            highest5DayPercent: highestPercent,
-            lowest5Day: lowestPrice,
-            lowest5DayPercent: lowestPercent,
-            isShort: true
-          };
         } else {
           // LONG: highest price = profit, lowest price = loss
           if (alertPrice > 0) {
             highestPercent = parseFloat((((highestPrice - alertPrice) / alertPrice) * 100).toFixed(2)); // profit when price up
             lowestPercent = parseFloat((((lowestPrice - alertPrice) / alertPrice) * 100).toFixed(2)); // loss when price down
           }
-          return {
-            ...stock,
-            highest5Day: highestPrice,
-            highest5DayPercent: highestPercent,
-            lowest5Day: lowestPrice,
-            lowest5DayPercent: lowestPercent,
-            isShort: false
-          };
         }
+
+        // Build the updated stock object and include peak data
+        const updated = {
+          ...stock,
+          highest5Day: highestPrice,
+          highest5DayPercent: highestPercent,
+          lowest5Day: lowestPrice,
+          lowest5DayPercent: lowestPercent,
+          isShort: !!isShort
+        };
+
+        // Apply manual override if present for this ticker (manual overrides always take precedence).
+        // Accept a full pasted stock JSON object in overrides.json — merge any keys provided.
+        const tickerOverride = (overrides && overrides[ticker]) ? overrides[ticker] : null;
+        if (tickerOverride) {
+          try {
+            // Only accept numeric overrides for highest5Day and lowest5Day.
+            if (tickerOverride.highest5Day !== undefined && tickerOverride.highest5Day !== null) {
+              const v = Number(tickerOverride.highest5Day);
+              if (!Number.isNaN(v)) updated.highest5Day = v;
+            }
+            if (tickerOverride.lowest5Day !== undefined && tickerOverride.lowest5Day !== null) {
+              const v = Number(tickerOverride.lowest5Day);
+              if (!Number.isNaN(v)) updated.lowest5Day = v;
+            }
+            // Mark that this entry came from an override file
+            if (tickerOverride.highest5Day !== undefined || tickerOverride.lowest5Day !== undefined) {
+              updated.manualOverride = true;
+              updated.overrideSource = 'overrides.json';
+            }
+          } catch (e) {
+            // ignore parse errors and continue
+          }
+        }
+
+        // If the alert is expired and we don't already have a final/close price, persist it.
+        // Use the last known currentPrice (from performance/quote data) as the final price.
+        if (isExpired) {
+          try {
+            const lastPrice = parseFloat(currentPrice) || parseFloat(stock.current) || parseFloat(stock.price) || 0;
+            if (!updated.finalPrice && lastPrice > 0) {
+              // finalPercent calculation: for SHORT invert sign so profit when price down
+              let finalPercent = (lastPrice - alertPrice) / alertPrice * 100;
+              if (isShort) finalPercent = -finalPercent;
+              updated.finalPrice = parseFloat(lastPrice.toFixed(4));
+              updated.finalPercent = parseFloat(finalPercent.toFixed(2));
+            }
+          } catch (e) {
+            // ignore and continue with peak values
+          }
+        }
+
+        return updated;
       }
       return stock;
     });
