@@ -85,7 +85,7 @@ const CONFIG = {
   SMTP_PORT: process.env.SMTP_PORT || 587,
   SMTP_USER: process.env.SMTP_USER || '',
   SMTP_PASS: process.env.SMTP_PASS || '',
-  EMAIL_FROM: process.env.EMAIL_FROM || 'noreply@carluccicapital.co.uk'
+  EMAIL_FROM: process.env.EMAIL_FROM || 'noreply@pleromics.com'
 };
 
 // Daily alert counter - limits alerts to 9 per day, then only personal webhook
@@ -4759,8 +4759,8 @@ const renderLoginPage = () => `
 <body>
   <div class="container" id="loginContainer">
     <div style="position: absolute; top: 10px; left: 10px; display: flex; gap: 9px; align-items: center;">
-      <a href="#" onclick="customConfirm('Join the <b><i>Carlucci Ж</i></b> Community?', 'https://discord.gg/5SQcvhfN'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 5px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 25px; width: 24px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
-      <a href="#" onclick="customConfirm('Visit <b><i>@cartelwrld</i></b> on X?', 'https://x.com/cartelwrld'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 15px; width: 17px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
+      <a href="#" onclick="customConfirm('Join the <b><i>Pleromics Ж</i></b> Community?', 'https://discord.gg/5SQcvhfN'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 5px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 25px; width: 24px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
+      <a href="#" onclick="customConfirm('Visit <b><i>@pleromics</i></b> on X?', 'https://x.com/pleromics'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 15px; width: 17px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
     </div>
     <div style="position: absolute; top: 15px; right: 15px; display: flex; gap: 12px; align-items: center;">
       <button id="requestAccessBtn" onclick="document.getElementById('requestAccessModal').classList.add('show')" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; padding: 8px 18px; background: linear-gradient(180deg, #888888 0%, #666666 100%); color: white; border-radius: 6px; font-size: 12px; font-weight: 500; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; letter-spacing: 0.3px; transition: all 0.3s ease; cursor: pointer; border: 1px solid #c0c0c0; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); white-space: nowrap;">Request Access</button>
@@ -4782,9 +4782,9 @@ const renderLoginPage = () => `
       </button>
     </div>
     <div style="display: flex; justify-content: center; margin-bottom: 10px; margin-top: 15px;">
-      <img id="landingPageLogo" src="/docs/logo.jpeg" alt="Carlucci Capital" style="height: 42px; width: auto; object-fit: contain; opacity: 0.8; margin-right: -6px;">
+      <img id="landingPageLogo" src="/docs/logo.jpeg" alt="Pleromic Capital" style="height: 42px; width: auto; object-fit: contain; opacity: 0.8; margin-right: -6px;">
     </div>
-    <h1 id="mainTitle" style="color: #3a3a3a; font-size: 28px; font-family: 'Playfair Display', serif; font-weight: 500; letter-spacing: 0.4px; margin-left: -16px; margin-top: 0px; margin-bottom: 2px; transition: color 0.3s ease;">CARLUCCI CAPITAL</h1>
+    <h1 id="mainTitle" style="color: #3a3a3a; font-size: 28px; font-family: 'Playfair Display', serif; font-weight: 500; letter-spacing: 0.4px; margin-left: -16px; margin-top: 0px; margin-bottom: 2px; transition: color 0.3s ease;">Pleromic Capital</h1>
     <p class="subtitle" id="mainSubtitle" style="margin-top: 2px; margin-bottom: 5px; opacity: 0.55; font-size: 12px; color: #666; transition: color 0.3s ease;">Secure Access Portal</p>
     
     <div class="error" id="error"></div>
@@ -5248,7 +5248,7 @@ const renderLoginPage = () => `
     function backToLogin() {
       document.getElementById('signupSection').classList.remove('active');
       document.getElementById('emailSection').classList.add('active');
-      document.getElementById('pageTitle').textContent = "Carlucci Capital";
+      document.getElementById('pageTitle').textContent = "Pleromic Capital";
       document.querySelector('.subtitle').style.display = 'block';
       const error = document.getElementById('error');
       const success = document.getElementById('success');
@@ -5493,7 +5493,7 @@ const renderLoginPage = () => `
   <div id="requestAccessModal">
     <div id="modalContent">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-        <img src="/logo.jpeg" alt="Carlucci Capital" class="modal-logo" style="height: 35px; width: auto; opacity: 0.8;">
+        <img src="/logo.jpeg" alt="Pleromic Capital" class="modal-logo" style="height: 35px; width: auto; opacity: 0.8;">
         <h2 id="modalTitle" style="font-size: 18px; color: #2c2c2c; margin: 0; font-family: 'Poppins', sans-serif; font-weight: 600; transition: color 0.3s ease;">Membership Access</h2>
       </div>
       <p id="modalDescription" style="color: #666; font-size: 13px; margin-bottom: 20px; font-family: 'Poppins', sans-serif; transition: color 0.3s ease;">Submit your information and we'll review your application within 24 hours.</p>
@@ -5882,7 +5882,7 @@ const sendMailtrapEmail = async (to, subject, html) => {
   
   try {
     const info = await emailTransporter.sendMail({
-      from: CONFIG.EMAIL_FROM || 'noreply@carluccicapital.co.uk',
+      from: CONFIG.EMAIL_FROM || 'noreply@pleromics.com',
       to: to,
       subject: subject,
       html: html
@@ -5900,8 +5900,8 @@ const sendOTPEmail = async (email, otp) => {
 <html>
 <body style="font-family: Arial, sans-serif; color: #333;">
   <div style="max-width: 600px; margin: 0 auto;">
-    <h2 style="color: #667eea; font-family: 'El Messiri', serif;">Carlucci Capital</h2>
-    <p>You requested access to the Carlucci Capital portal.</p>
+    <h2 style="color: #667eea; font-family: 'El Messiri', serif;">Pleromic Capital</h2>
+    <p>You requested access to the Pleromic Capital portal.</p>
     <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
       <p style="font-size: 12px; color: #999;">Your access code:</p>
       <p style="font-size: 32px; font-weight: bold; color: #667eea; letter-spacing: 4px;">${otp}</p>
@@ -8751,7 +8751,7 @@ app.post('/api/send-message', async (req, res) => {
     const cookies = parseCookies(req.headers.cookie || '');
     const sessionId = cookies.sid;
     const sessionData = pendingLogins.get(sessionId);
-    const userEmail = 'carluccicapital@gmail.com';
+    const userEmail = 'pleroma@atomicmail.io';
 
     const html = `
 <html>
@@ -8762,7 +8762,7 @@ app.post('/api/send-message', async (req, res) => {
       <h3 style="color: #667eea; margin-top: 0;">${title}</h3>
       <p style="line-height: 1.6; white-space: pre-wrap;">${message}</p>
     </div>
-    <p style="font-size: 11px; color: #999;">Sent from Carlucci Capital Dashboard</p>
+    <p style="font-size: 11px; color: #999;">Sent from Pleromic Capital Dashboard</p>
   </div>
 </body>
 </html>
@@ -8862,7 +8862,7 @@ app.post('/api/send-access-request', async (req, res) => {
     }
 
     // Business email to send to
-    const businessEmail = 'carluccicapital@gmail.com';
+    const businessEmail = 'pleroma@atomicmail.io';
     
     const html = `
 <html>
@@ -8870,7 +8870,7 @@ app.post('/api/send-access-request', async (req, res) => {
   <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
     <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
       <h2 style="color: #2c2c2c; margin-bottom: 5px;">New Access Request</h2>
-      <p style="color: #999; margin-top: 0; font-size: 13px;">From Carlucci Capital Portal</p>
+      <p style="color: #999; margin-top: 0; font-size: 13px;">From Pleromic Capital Portal</p>
       <hr style="border: none; border-top: 2px solid #f0f0f0; margin: 20px 0;">
       
       <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
@@ -9019,7 +9019,7 @@ setInterval(syncAllPeakData, 10000);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
-  log('INFO', `App: Dashboard online at https://www.carluccicapital.co.uk & http://localhost:${PORT}`);
+  log('INFO', `App: Dashboard online at https://www.pleromics.com & http://localhost:${PORT}`);
 });
 
 // Initialize readline for terminal commands if interactive
