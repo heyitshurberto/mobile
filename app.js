@@ -4782,7 +4782,7 @@ const renderLoginPage = () => `
       </button>
     </div>
     <div style="display: flex; justify-content: center; margin-bottom: 10px; margin-top: 15px;">
-      <img id="landingPageLogo" src="/docs/logo.jpeg" alt="Pleromic Capital" style="height: 42px; width: auto; object-fit: contain; opacity: 0.8; margin-right: -6px;">
+      <img id="landingPageLogo" src="/docs/logo.jpeg" alt="Pleromic Capital" style="height: 48px; width: auto; object-fit: contain; opacity: 0.8; margin-right: -6px;">
     </div>
     <h1 id="mainTitle" style="color: #3a3a3a; font-size: 28px; font-family: 'Playfair Display', serif; font-weight: 500; letter-spacing: 0.4px; margin-left: -16px; margin-top: 0px; margin-bottom: 2px; transition: color 0.3s ease;">Pleromic Capital</h1>
     <p class="subtitle" id="mainSubtitle" style="margin-top: 2px; margin-bottom: 5px; opacity: 0.55; font-size: 12px; color: #666; transition: color 0.3s ease;">Secure Access Portal</p>
@@ -5493,7 +5493,7 @@ const renderLoginPage = () => `
   <div id="requestAccessModal">
     <div id="modalContent">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-        <img src="/logo.jpeg" alt="Pleromic Capital" class="modal-logo" style="height: 35px; width: auto; opacity: 0.8;">
+        <img src="/logo.jpeg" alt="Pleromic Capital" class="modal-logo" style="height: 35px; width: auto; margin-top: -10px; opacity: 0.8;">
         <h2 id="modalTitle" style="font-size: 18px; color: #2c2c2c; margin: 0; font-family: 'Poppins', sans-serif; font-weight: 600; transition: color 0.3s ease;">Membership Access</h2>
       </div>
       <p id="modalDescription" style="color: #666; font-size: 13px; margin-bottom: 20px; font-family: 'Poppins', sans-serif; transition: color 0.3s ease;">Submit your information and we'll review your application within 24 hours.</p>
@@ -5515,7 +5515,7 @@ const renderLoginPage = () => `
   <!-- Stats History Modal -->
   <div id="statsHistoryModal">
     <div id="statsModalContent">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
         <h2 id="statsModalTitle" style="font-size: 16px; color: #2c2c2c; margin: 0; font-family: 'Poppins', sans-serif; font-weight: 600; transition: color 0.3s ease;">Recent History</h2>
       </div>
       <div id="statsHistoryList" style="max-height: 300px; overflow-y: auto; border: none; border-radius: 8px; margin-bottom: 12px; background: transparent;"></div>
