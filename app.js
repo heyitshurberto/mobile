@@ -33,8 +33,8 @@ const CONFIG = {
   FILE_TIME: 1,                     // Historical lookback window in minutes for filing discovery
   MIN_ALERT_VOLUME: 2500,           // Minimum volume threshold for initial alert trigger
   STRONG_SIGNAL_MIN_VOLUME: 1000,    // Volume threshold for high-confidence signal detection
-  MAX_FLOAT_6K: 20000000,           // Maximum float size threshold for 6-K filings
-  MAX_FLOAT_8K: 10000000,           // Maximum float size threshold for 8-K filings
+  MAX_FLOAT_6K: 25000000,           // Maximum float size threshold for 6-K filings
+  MAX_FLOAT_8K: 15000000,           // Maximum float size threshold for 8-K filings
   MAX_FAV_RATIO: 70,                // Maximum float-to-average-volume ratio threshold
   ALLOWED_COUNTRIES: ['israel', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'delaware'], // Whitelisted jurisdictions for company registration
   CTB_WATCHLIST: ['ASTC', 'GITS', 'RMSG', 'AMSS', 'BRAI', 'MWC', 'HKIT', 'EDHL', 'ENVB', 'UBXG', 'CHAI', 'FABTQ', 'MASK', 'HCWB', 'ATPC', 'VCIG', 'CZOOF', 'STI', 'OLOX', 'CNSP', 'TGHL', 'FOXX', 'IONM', 'AEHL', 'NEXR'], // Symbols with elevated cost-to-borrow values from IBorrowDesk  // Enable optimizations for Raspberry Pi devices
@@ -9898,7 +9898,7 @@ if (process.stdin.isTTY) {
           let validSignals = false;
           
           // Calculate core categories for all stocks (needed for logging and later checks)
-          const coreCategories = ['Merger/Acquisition', 'Credit Default', 'Going Dark', 'Bankruptcy Filing', 'Auditor Change', 'Asset Disposition', 'Commercial Inflection', 'Convertible Debt', 'Unregistered Equity Sales', 'Short Squeeze Potential', 'Failed Trial', 'Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount'];
+          const coreCategories = ['Merger/Acquisition', 'Credit Default', 'Going Dark', 'Bankruptcy Filing', 'Auditor Change', 'Asset Disposition', 'Commercial Inflection', 'Convertible Debt', 'Short Squeeze Potential', 'Failed Trial', 'Related-Party Transaction', 'Offering At A Discount'];
           const hasCoreCategories = signalCategories.filter(cat => coreCategories.includes(cat)).length;
           const isDeterministic = hasCoreCategories >= 2;
           

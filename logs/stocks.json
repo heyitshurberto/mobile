@@ -8048,5 +8048,66 @@
     "highest5DayPercent": -15.7,
     "lowest5Day": 18.52,
     "lowest5DayPercent": 15.7
+  },
+  {
+    "ticker": "SILC",
+    "title": "6-K - SILICOM LTD. (0000916793) (Filer)",
+    "companyName": "SILICOM LTD.",
+    "filerName": null,
+    "price": 41.93,
+    "fav": "37.80",
+    "volume": 195049,
+    "averageVolume": 142180,
+    "float": 5374647,
+    "sharesOutstanding": 5747611,
+    "soRatio": "93.51%",
+    "marketCap": 240997328,
+    "isShort": true,
+    "ftd": 5404,
+    "intent": "Commercial Inflection, Regulation S Offering, Unregistered Equity Sales",
+    "incorporated": "Unknown",
+    "located": "Tel Aviv, Israel",
+    "filingDate": "2026-06-30T09:02:04-04:00",
+    "signals": {
+      "Commercial Inflection": [
+        "Revenue Growth"
+      ],
+      "Regulation S Offering": [
+        "Regulation S"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: Unknown Buyer"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "S-9",
+      "20-F",
+      "EX-99.1"
+    ],
+    "cik": "916793",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Communications",
+    "hasTuesdayBonus": true,
+    "custodianControl": true,
+    "custodianVerified": true,
+    "custodianName": "Tel Aviv, Israel (via Unknown)",
+    "filingTimeMultiplier": 1.2,
+    "filingTimeBonus": 1.2,
+    "deterministicPattern": null,
+    "deterministicMechanism": null,
+    "deterministicPhrase": "",
+    "recordedAt": "2026-06-30T13:02:46.920Z",
+    "recordId": "SILC-1782824566920",
+    "expiresAt": "2026-07-03T13:02:46.920Z",
+    "direction": "SHORT",
+    "highest5Day": 52.95,
+    "highest5DayPercent": 26.28,
+    "lowest5Day": 39.1,
+    "lowest5DayPercent": 6.75
   }
 ]
