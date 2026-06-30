@@ -3246,7 +3246,7 @@ const sendPaidWebhook = (alertData) => {
     const sideEmoji = direction === 'SHORT' ? '▼ SHORT' : '▲ LONG';
     
     // PAID WEBHOOK: Telegram style (clean, minimal, no branding)
-    const paidAlertContent = `Ж NEW ALERT: $${ticker}\n${sideEmoji}\n\nEntry: ${priceDisplay}\nFloat: ${floatDisplay}\nVolume: ${volumeDisplay} (Avg: ${avgVolDisplay})\nS/O: ${alertData.soRatio || 'N/A'}\nMarket Cap: ${marketCapDisplay}\n\nhttps://www.tradingview.com/chart/?symbol=${ticker}`;
+    const paidAlertContent = `Ψ NEW ALERT: $${ticker}\n${sideEmoji}\n\nEntry: ${priceDisplay}\nFloat: ${floatDisplay}\nVolume: ${volumeDisplay} (Avg: ${avgVolDisplay})\nS/O: ${alertData.soRatio || 'N/A'}\nMarket Cap: ${marketCapDisplay}\n\nhttps://www.tradingview.com/chart/?symbol=${ticker}`;
     
     
     const paidMsg = { content: paidAlertContent };
@@ -4759,7 +4759,7 @@ const renderLoginPage = () => `
 <body>
   <div class="container" id="loginContainer">
     <div style="position: absolute; top: 10px; left: 10px; display: flex; gap: 9px; align-items: center;">
-      <a href="#" onclick="customConfirm('Join the <b><i>Pleromics Ж</i></b> Community?', 'https://discord.gg/fGaje7478P'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 5px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 25px; width: 24px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
+      <a href="#" onclick="customConfirm('Join the <b><i>Pleromics Ψ</i></b> Community?', 'https://discord.gg/fGaje7478P'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 5px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/tele.png" alt="Discord" style="height: 25px; width: 24px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
       <a href="#" onclick="customConfirm('Visit <b><i>@pleromics</i></b> on X?', 'https://x.com/pleromics'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 4px 4px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'"><img src="/docs/twit.png" alt="X" style="height: 15px; width: 17px; filter: brightness(0) saturate(100%);" class="social-logo"></a>
     </div>
     <div style="position: absolute; top: 15px; right: 15px; display: flex; gap: 12px; align-items: center;">
