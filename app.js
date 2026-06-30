@@ -502,19 +502,16 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
     return { direction: 'SHORT', confidence: 0.65 };
   }
   
-  // M&A logic: check if distressed or healthy
+  // M&A logic: always LONG unless the acquisition is stressed
+  // M&A with stress (Credit Default, Bankruptcy Filing, Going Dark, Failed Trial) = SHORT
+  // M&A without stress (dilution, clinical, partnership, normal deals) = LONG
   const hasMergerAcquisition = signalArray.includes('Merger/Acquisition');
   if (hasMergerAcquisition) {
-    // M&A + distressed signals = SHORT (desperate acquisition)
-    if (heavyweightCount >= 1 || isDistressedDisposition || totalBearish >= 3) {
+    const isStressMAndA = ['Credit Default', 'Bankruptcy Filing', 'Going Dark'].some(cat => signalArray.includes(cat)) || hasFailedTrial;
+    if (isStressMAndA) {
       return { direction: 'SHORT', confidence: 0.75 };
     }
-    // M&A + 2+ bullish signals = LONG (healthy strategic acquisition)
-    if (bullishCount >= 2) {
-      return { direction: 'LONG', confidence: 0.80 };
-    }
-    // M&A alone or with minimal signals = LONG (default strategic move)
-    return { direction: 'LONG', confidence: 0.70 };
+    return { direction: 'LONG', confidence: 0.75 };
   }
   
   // Fast-track pure growth catalysts (force LONG immediately) - only if no distress signals
@@ -9557,6 +9554,17 @@ if (process.stdin.isTTY) {
             if (signalKeys.length > 0) {
               const intentPrefix = shortOpportunity ? 'Short' : (longOpportunity ? 'Long' : 'Neutral');
               log('INFO', `${intentPrefix}: ${signalKeys.join(', ')}`);
+            }
+
+            // Skip dilution-only SHORT candidates unless there is a stress signal.
+            const dilutionSignals = ['Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount', 'Unregistered Equity Sales'];
+            const stressSignals = ['Credit Default', 'Bankruptcy Filing', 'Going Dark', 'Failed Trial', 'Accounting Restatement', 'Auditor Change'];
+            const hasDilutionOnlyShort = shortOpportunity && dilutionSignals.some(cat => signalKeys.includes(cat)) && !stressSignals.some(cat => signalKeys.includes(cat));
+            if (hasDilutionOnlyShort) {
+              skipReason = 'Dilution without stress — skipping SHORT';
+              log('SKIP', `$${ticker}, ${skipReason}`);
+              console.log('');
+              continue;
             }
           }
           
