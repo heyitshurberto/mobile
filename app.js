@@ -4779,7 +4779,7 @@ const renderLoginPage = () => `
       </button>
     </div>
     <div style="display: flex; justify-content: center; margin-bottom: 10px; margin-top: 15px;">
-      <img id="landingPageLogo" src="/docs/logo.jpeg" alt="Pleromic Capital" style="height: 48px; width: auto; object-fit: contain; opacity: 0.8; margin-right: -6px;">
+      <img id="landingPageLogo" src="/docs/logo.jpeg" alt="Pleromic Capital" style="height: 45px; width: auto; object-fit: contain; opacity: 0.8; margin-right: -6px;">
     </div>
     <h1 id="mainTitle" style="color: #3a3a3a; font-size: 28px; font-family: 'Playfair Display', serif; font-weight: 500; letter-spacing: 0.4px; margin-left: -16px; margin-top: 0px; margin-bottom: 2px; transition: color 0.3s ease;">Pleromic Capital</h1>
     <p class="subtitle" id="mainSubtitle" style="margin-top: 2px; margin-bottom: 5px; opacity: 0.55; font-size: 12px; color: #666; transition: color 0.3s ease;">Secure Access Portal</p>
