@@ -52,6 +52,7 @@ const CONFIG = {
   // Log files
   ALERTS_FILE: 'logs/alert.json',      // File to store recent alerts
   STOCKS_FILE: 'logs/stocks.json',     // File to store all alerts
+  OVERRIDES_FILE: 'logs/overrides.json', // File for manual peak price overrides
   PERFORMANCE_FILE: 'logs/quote.json', // File to store performance data
   CSV_FILE: 'logs/track.csv',          // File to store CSV export of all alerts
   // GitHub & Webhook settings
@@ -1023,6 +1024,15 @@ const identifyPredatorLender = (text, buyerDescription) => {
     'Roth Capital': ['roth capital', 'roth ch'],
     'B. Riley': ['b. riley', 'b riley'],
     'Needham': ['needham capital', 'needham securities'],
+    'Armistice Capital': ['armistice capital'],
+    'Lind Global Macro Fund': ['lind global macro fund'],
+    'Heights Capital Management': ['heights capital management'],
+    'Hudson Bay Capital': ['hudson bay capital'],
+    'Sabby Management': ['sabby management'],
+    'Intracoastal Capital': ['intracoastal capital'],
+    'Anson Funds': ['anson funds'],
+    'L1 Capital': ['l1 capital'],
+    'Empery Asset Management': ['empery asset management'],
   };
   
   for (const [predatorName, keywords] of Object.entries(PREDATOR_KEYWORDS)) {
@@ -1086,6 +1096,15 @@ const isPredatoryFinancingAlert = (text, buyerDescription = '') => {
     'Roth Capital': ['roth capital', 'roth ch'],
     'B. Riley': ['b. riley', 'b riley'],
     'Needham': ['needham capital', 'needham securities'],
+    'Armistice Capital': ['armistice capital'],
+    'Lind Global Macro Fund': ['lind global macro fund'],
+    'Heights Capital Management': ['heights capital management'],
+    'Hudson Bay Capital': ['hudson bay capital'],
+    'Sabby Management': ['sabby management'],
+    'Intracoastal Capital': ['intracoastal capital'],
+    'Anson Funds': ['anson funds'],
+    'L1 Capital': ['l1 capital'],
+    'Empery Asset Management': ['empery asset management'],
     'KF Business Ventures': ['kf business ventures', 'kf business']
   };
   
@@ -2130,6 +2149,17 @@ const syncAllPeakData = () => {
     
     if (!Array.isArray(stocks) || typeof quotes !== 'object') return;
     
+    // Load manual overrides (if any) so they take precedence over automated syncs
+    let overrides = {};
+    try {
+      if (fs.existsSync(CONFIG.OVERRIDES_FILE)) {
+        const ov = fs.readFileSync(CONFIG.OVERRIDES_FILE, 'utf8').trim();
+        if (ov) overrides = JSON.parse(ov);
+      }
+    } catch (e) {
+      overrides = {};
+    }
+    
     // Update each stock with current price and peak data from quote.json
     stocks = stocks.map(stock => {
       if (quotes[stock.ticker]) {
@@ -2142,8 +2172,21 @@ const syncAllPeakData = () => {
         const alertPrice = stock.price || 0;
         const currentPrice = quoteData.current || quoteData.currentPrice || stock.price;
         const isShort = stock.direction === 'SHORT' || stock.isShort === true;
-        const highestPrice = quoteData.highest || currentPrice;
-        const lowestPrice = quoteData.lowest || currentPrice;
+        let highestPrice = quoteData.highest || currentPrice;
+        let lowestPrice = quoteData.lowest || currentPrice;
+        
+        // Apply manual overrides if present for this ticker
+        const tickerOverride = (overrides && overrides[stock.ticker]) ? overrides[stock.ticker] : null;
+        if (tickerOverride) {
+          if (tickerOverride.highest5Day !== undefined && tickerOverride.highest5Day !== null) {
+            const v = Number(tickerOverride.highest5Day);
+            if (!Number.isNaN(v)) highestPrice = v;
+          }
+          if (tickerOverride.lowest5Day !== undefined && tickerOverride.lowest5Day !== null) {
+            const v = Number(tickerOverride.lowest5Day);
+            if (!Number.isNaN(v)) lowestPrice = v;
+          }
+        }
         
         if (isShort) {
           // SHORT: lowest price = profit, highest price = loss
@@ -2159,7 +2202,8 @@ const syncAllPeakData = () => {
             highest5DayPercent: highestPercent,
             lowest5Day: lowestPrice,
             lowest5DayPercent: lowestPercent,
-            isShort: true
+            isShort: true,
+            ...(tickerOverride && (tickerOverride.highest5Day !== undefined || tickerOverride.lowest5Day !== undefined) && { manualOverride: true, overrideSource: 'overrides.json' })
           };
         } else {
           // LONG: show the most extreme move (biggest profit OR biggest loss)
@@ -2177,7 +2221,8 @@ const syncAllPeakData = () => {
             highest5DayPercent: highestPercent,
             lowest5Day: lowestPrice,
             lowest5DayPercent: lowestPercent,
-            isShort: false
+            isShort: false,
+            ...(tickerOverride && (tickerOverride.highest5Day !== undefined || tickerOverride.lowest5Day !== undefined) && { manualOverride: true, overrideSource: 'overrides.json' })
           };
         }
       }

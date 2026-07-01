@@ -4327,7 +4327,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         const isExpired = stock.expiresAt && new Date() > new Date(stock.expiresAt);
                         
-                        if (isExpired) {
+                        // Prefer backend-calculated peak values (which include manual overrides from overrides.json)
+                        let useBackendPeak = false;
+                        
+                        if (stock.highest5Day !== undefined && stock.highest5DayPercent !== undefined) {
+                            // Backend has calculated the peak (possibly from manual override)
+                            peakPrice = parseFloat(stock.highest5Day || stock.price).toFixed(2);
+                            peakPercent = stock.highest5DayPercent;
+                            
+                            // For SHORT trades, invert the sign (stock going up = loss for short)
+                            if (stock.direction === 'SHORT') {
+                                peakPercent = -peakPercent;
+                            }
+                            useBackendPeak = true;
+                        } else if (isExpired) {
                             // For expired alerts, use stored peak values
                             if (isShortPos) {
                                 peakPrice = parseFloat(stock.lowest5Day || stock.price).toFixed(2);

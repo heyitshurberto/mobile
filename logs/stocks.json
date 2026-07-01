@@ -8107,7 +8107,9 @@
     "direction": "SHORT",
     "highest5Day": 52.95,
     "highest5DayPercent": 26.28,
-    "lowest5Day": 39.1,
-    "lowest5DayPercent": 6.75
+    "lowest5Day": 41.93,
+    "lowest5DayPercent": 0,
+    "manualOverride": true,
+    "overrideSource": "overrides.json"
   }
 ]
