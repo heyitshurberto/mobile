@@ -4834,24 +4834,6 @@ const renderLoginPage = () => `
     
     <!-- Email Entry Section -->
     <div class="section active" id="emailSection">
-      <!-- Performance Stats Section - LOGIN PAGE ONLY -->
-      <div id="loginStatsBox" onclick="openStatsHistoryModal()" style="background: rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.06); border-radius: 6px; padding: 12px 16px; margin-bottom: 20px; font-size: 12px; display: block; cursor: pointer; transition: all 0.2s ease;">
-        <div style="display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
-          <div>
-            <div style="opacity: 0.7; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Win Rate</div>
-            <div style="font-weight: 400; font-style: italic; font-family: 'Menlo', 'Monaco', monospace;" id="landing-win-rate">-- %</div>
-          </div>
-          <div>
-            <div style="opacity: 0.7; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Total Alerts</div>
-            <div style="font-weight: 400; font-style: italic; font-family: 'Menlo', 'Monaco', monospace;" id="landing-total-trades">--</div>
-          </div>
-          <div>
-            <div style="opacity: 0.7; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Best Alert (5d)</div>
-            <div style="font-weight: 400; font-style: italic; color: #2a7f3c; font-family: 'Menlo', 'Monaco', monospace;" id="landing-best-trade">--</div>
-          </div>
-        </div>
-      </div>
-      
       <input type="email" id="email" placeholder="Enter your email" autocomplete="off" style="margin-bottom: 12px;">
       <input type="password" id="password" placeholder="Enter your password" autocomplete="off" style="margin-bottom: 12px;">
       <input type="text" id="code" placeholder="Access code" autocomplete="off" style="margin-bottom: 12px;">
@@ -5090,43 +5072,6 @@ const renderLoginPage = () => `
     For now: Admin manually generates codes and shares via secure channel
     */
     
-    // Load landing page performance stats
-    function loadLandingPerformanceStats() {
-      console.log('Loading performance stats...');
-      fetch('/api/performance-summary')
-        .then(r => {
-          console.log('Response status:', r.status);
-          return r.json();
-        })
-        .then(data => {
-          console.log('Performance data received:', data);
-          if (data && data.totalTrades > 0) {
-            console.log('Setting stats - winRate:', data.winRate, 'totalTrades:', data.totalTrades);
-            document.getElementById('landing-win-rate').textContent = data.winRate + '%';
-            document.getElementById('landing-total-trades').textContent = data.totalTrades;
-            
-            if (data.bestPerformer) {
-              const peak = data.bestPerformer.peak5Day;
-              const direction = data.bestPerformer.direction === 'SHORT' ? '↓' : '↑';
-              const tickerText = '$' + data.bestPerformer.ticker + ' ' + direction + ' ' + Math.abs(peak).toFixed(1) + '%';
-              console.log('Setting best trade:', tickerText);
-              document.getElementById('landing-best-trade').textContent = tickerText;
-            }
-          } else {
-            console.log('No trade data available');
-          }
-        })
-        .catch(err => {
-          console.error('Error loading performance stats:', err);
-        });
-    }
-    
-    // Load stats when page loads
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', loadLandingPerformanceStats);
-    } else {
-      loadLandingPerformanceStats();
-    }
     
     function sendCode() {
       const btn = document.querySelector('button[onclick="sendCode()"]');
