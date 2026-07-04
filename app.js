@@ -9896,7 +9896,7 @@ if (process.stdin.isTTY) {
           let validSignals = false;
           
           // Calculate core categories for all stocks (needed for logging and later checks)
-          const coreCategories = ['Merger/Acquisition', 'Credit Default', 'Going Dark', 'Bankruptcy Filing', 'Auditor Change', 'Asset Disposition', 'Commercial Inflection', 'Convertible Debt', 'Short Squeeze Potential', 'Failed Trial'];
+          const coreCategories = ['Merger/Acquisition', 'Credit Default', 'Going Dark', 'Regulation S Offering', 'Bankruptcy Filing', 'Auditor Change', 'Asset Disposition', 'Commercial Inflection', 'Convertible Debt', 'Short Squeeze Potential', 'Failed Trial'];
           const hasCoreCategories = signalCategories.filter(cat => coreCategories.includes(cat)).length;
           const isDeterministic = hasCoreCategories >= 2;
           
