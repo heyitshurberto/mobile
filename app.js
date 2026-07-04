@@ -33,11 +33,11 @@ const CONFIG = {
   FILE_TIME: 1,                     // Historical lookback window in minutes for filing discovery
   MIN_ALERT_VOLUME: 2500,           // Minimum volume threshold for initial alert trigger
   STRONG_SIGNAL_MIN_VOLUME: 1000,    // Volume threshold for high-confidence signal detection
-  MAX_FLOAT_6K: 25000000,           // Maximum float size threshold for 6-K filings
-  MAX_FLOAT_8K: 15000000,           // Maximum float size threshold for 8-K filings
+  MAX_FLOAT_6K: 20000000,           // Maximum float size threshold for 6-K filings
+  MAX_FLOAT_8K: 12500000,           // Maximum float size threshold for 8-K filings
   MAX_FAV_RATIO: 70,                // Maximum float-to-average-volume ratio threshold
   ALLOWED_COUNTRIES: ['israel', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'delaware'], // Whitelisted jurisdictions for company registration
-  CTB_WATCHLIST: ['ASTC', 'GITS', 'RMSG', 'AMSS', 'BRAI', 'MWC', 'HKIT', 'EDHL', 'ENVB', 'UBXG', 'CHAI', 'FABTQ', 'MASK', 'HCWB', 'ATPC', 'VCIG', 'CZOOF', 'STI', 'OLOX', 'CNSP', 'TGHL', 'FOXX', 'IONM', 'AEHL', 'NEXR'], // Symbols with elevated cost-to-borrow values from IBorrowDesk  // Enable optimizations for Raspberry Pi devices
+  CTB_WATCHLIST: ['ASTC','GITS','RMSG','AMSS','BRAI','MWC','HKIT','EDHL','ENVB','UBXG','CHAI','FABTQ','MASK','HCWB','ATPC','VCIG','CZOOF','STI','OLOX','CNSP','TGHL','FOXX','IONM','AEHL','NEXR','BJDX','TNON','JEM','RGNT','CELZ','ILLR','WCT','GLXG','SLXN','SMCZ','VSME','VIVS','USDE','FRTT'], // Symbols with elevated cost-to-borrow values from IBorrowDesk
   PI_MODE: true,              // Enable optimizations for resource-constrained environments          
   REFRESH_PEAK: 1,            // Poll interval (ms) during peak market hours for real-time detection
   REFRESH_NORMAL: 30000,      // Poll interval (ms) during standard market hours
@@ -685,6 +685,11 @@ const SEMANTIC_KEYWORDS = {
   'Failed Trial': ['Primary Endpoint Not Met', 'Did Not Meet Primary Endpoint', 'Primary Endpoint Missed', 'Failed To Meet Primary Endpoint', 'Primary Endpoint Failed', 'No Statistically Significant', 'Did Not Show Statistically Significant', 'Did Not Achieve Primary', 'Missed Primary Endpoint'],
   'Post-Hoc Salvage': ['Post Hoc Analysis', 'Post-Hoc Analysis', 'Unplanned Analysis', 'Post Hoc Findings', 'Subset Analysis', 'Exploratory Analysis', 'Applied For Breakthrough'],
   
+  // Clinical / Regulatory (Bullish)
+  'Clinical Success': ['Positive Results', 'Phase 1', 'Phase 2', 'Phase 3', 'Trial Results', 'Efficacy', 'Safety Profile', 'Primary Endpoint', 'Topline Data', 'Favorable Safety', 'Positive Topline Results', 'Statistically Significant', 'Met Primary Endpoint', 'Positive Phase 3', 'Primary Endpoint Met', 'Clinical Benefit'],
+  'Clinical Milestone': ['Phase Advancement', 'Phase 2 Initiation', 'Phase 3 Initiation', 'Enrollment Opened', 'Enrollment Initiated', 'Trial Initiation', 'Investigational New Drug', 'IND Application', 'NDA Filing', 'PMA Submission', 'Clinical Trial Site', 'Patient Enrollment', 'First Patient', 'Program Initiation', 'Patient Dosed', 'First Dose', 'Dose Escalation', 'Cohort Complete', 'Patient Enrollment', 'Investigational New Drug', 'First Patient', 'Patient Dosed', 'First Dose', 'Dose Escalation', 'Program Initiation', 'Trial Initiation', 'IND Application'],
+  'FDA Approved': ['FDA Approval', 'FDA approved', 'FDA clearance', 'FDA Clearance', 'Approval Granted', 'NDA Submission', 'BLA Submission', 'Priority Review', 'Fast Track Designation', 'Breakthrough Designation'],
+
   // Capital & Dilution
   'Capital Raise': ['Oversubscribed', 'Institutional Participation', 'Lead Investor', 'Top-Tier Investor', 'Strategic Investor'],
   'Underwritten Offering': ['Bought Deal', 'Underwriter Commitment', 'Underwritten Bought Deal', 'IPO', 'IPO Underwritten'],
@@ -692,20 +697,20 @@ const SEMANTIC_KEYWORDS = {
   
   // Distress & Legal
   'Bankruptcy Filing': ['Bankruptcy Protection', 'Chapter 11 Filing', 'Chapter 7 Filing', 'Insolvency Proceedings', 'Creditor Protection'],
-  'Credit Default': ['Loan Default', 'Debt Covenant Breach', 'Event Of Default', 'Credit Agreement Violation', 'Covenant Breach', 'Default Event', 'Acceleration Of Debt', 'Mandatory Prepayment'],
+  'Credit Default': ['Loan Default', 'Debt Covenant Breach', 'Event Of Default', 'Credit Agreement Violation', 'Covenant Breach', 'Default Event', 'Acceleration Of Debt', 'Mandatory Prepayment', 'Covenant Violation', 'Is In Default', 'Notice Of Default', 'Default Has Occurred', 'Declared An Event Of Default', 'Default Under The', 'Constitutes A Default'],
   'Accounting Restatement': ['Financial Restatement', 'Audit Non-Reliance', 'Material Weakness', 'Control Deficiency', 'Audit Adjustment', 'Non-Reliance On Previously Issued Financial Statements', 'Previously Issued Financial Statements', 'Substantial Doubt About Ability To Continue As A Going Concern', 'Going Concern Uncertainty', 'Substantial Doubt'],
   'Auditor Change': ['Auditor Resigned', 'Audit Firm Changed', 'Auditor Departure', 'Internal Controls Weakness', 'Auditor No Longer', 'Changes Auditor', 'Change Of Auditor'],
   'Material Lawsuit': ['Material Litigation', 'Lawsuit Filed', 'Major Lawsuit', 'SEC Investigation', 'DOJ Investigation'],
   'Regulatory Breach': ['Regulatory Violation', 'FDA Warning', 'Product Recall', 'Safety Recall', 'Warning Letter'],
   
   // Structural Events
-  'Going Dark': ['Form 15', 'Deregistration', 'Stop Reporting', 'Cease Reporting', 'Edgar Delisting', 'No Longer Report', 'Deregister', 'Terminate Registration', 'Exit From SEC Reporting', 'Shall No Longer File'],
+  'Going Dark': ['Form 15', 'Deregistration', 'Stop Reporting', 'Cease Reporting', 'Edgar Delisting', 'No Longer Report', 'Deregister', 'Terminate Registration', 'Exit From SEC Reporting', 'Shall No Longer File', 'Deregistered'],
   'Nasdaq Delisting': ['Nasdaq Deficiency', 'Listing Standards Warning', 'Nasdaq Notification', 'Delisting Determination', 'Nasdaq Letter', 'Delisting Risk', 'Delisting Threat', 'Received Notice Of Delisting', 'Notice Of Non-Compliance', 'Not In Compliance With Listing Requirements'],
   'Bid Price Delisting': ['Minimum Bid Price', 'Regained Compliance'],
   'DTC Eligible Restored': ['DTC Eligible', 'DTC Chill Lifted', 'Eligibility Restored', 'DTC Restoration', 'Chill Status', 'Chill Removed', 'Resume Trading'],
   
   // Operational Catalysts
-  'Asset Disposition': ['Asset Sale', 'Asset Disposition', 'Business Disposition', 'Sold Assets', 'Divesting', 'Asset Divestiture', 'Strategic Sale', 'Sale Of Assets', 'Disposition', 'Divested'],
+  'Asset Disposition': ['Asset Sale', 'Asset Disposition', 'Business Disposition', 'Sold Assets', 'Divesting', 'Asset Divestiture', 'Strategic Sale', 'Sale Of Assets', 'Disposition', 'Divested', 'Business Disposition'],
   'Stock Buyback': ['Share Repurchase', 'Buyback Authorization', 'Accelerated Buyback', 'Repurchase Program'],
   'Executive Departure': ['CEO Departed', 'CFO Departed', 'CEO Resigned', 'Chief Officer Left', 'CEO Resignation', 'CFO Departure', 'Stepped Down', 'Stepped Down From Role', 'Step Down', 'Planned Leadership Transition'],
   
@@ -719,7 +724,7 @@ const SEMANTIC_KEYWORDS = {
   
   // Predatory Extraction Mechanics (Item 3.02)
   'Unregistered Equity Sales': ['Item 3.02', 'VIE', 'Item 7.01', 'registered direct offering', 'offering to certain investors', 'accredited investors', 'Rule 506(b)', 'unregistered', 'private placement', 'registered direct', 'issuable under', 'pre-funded warrants', 'purchase agreement', 'placement agent'],
-  'Regulation S Offering': ['Regulation S', 'Reg S', 'Rule 902', 'Non-U.S. Persons', 'Offshore Transaction', 'Offshore Purchaser', 'Foreign Purchaser'],
+  'Regulation S Offering': ['Regulation S', 'Reg S', 'Rule 902', 'Non-U.S. Persons', 'Offshore Transaction', 'Offshore Purchaser', 'Foreign Purchaser', 'Offshore Purchaser', 'Offshore Transaction'],
   'Related-Party Transaction': ['Spouse Of', 'Family Member', 'Relative Of CEO', 'Relative Of The CEO', 'Controlled By', 'Related Party', 'Affiliate Transaction', 'Affiliate Of', 'Related Person', 'Family Relationship'],
   'Offering At A Discount': ['Offering At A Discount', 'Priced At A Discount', 'Discount To Market', 'Discounted Offering', 'Sold At A Discount', 'Discounted Placement'],
 };
@@ -9466,9 +9471,9 @@ if (process.stdin.isTTY) {
             const sigKeys = Object.keys(semanticSignals || {});
             
             // Bearish signals that force SHORT regardless
-            const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Material Lawsuit', 'Going Dark', 'Convertible Debt', 'Executive Departure', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Failed Trial', 'Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount'];
+            const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Regulatory Breach', 'Accounting Restatement', 'Auditor Change', 'Material Lawsuit', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure', 'Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount'];
             const bearishCount = sigKeys.filter(cat => bearishCats.includes(cat)).length;
-            const bullishCats = ['Merger/Acquisition', 'DTC Eligible Restored', 'Government Contract', 'Partnership', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Unregistered Equity Sales', 'Insider Buying'];
+            const bullishCats = ['Merger/Acquisition', 'Clinical Success', 'Clinical Milestone', 'FDA Approved', 'DTC Eligible Restored', 'Government Contract', 'Partnership', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Unregistered Equity Sales', 'Insider Buying'];
             const bullishCount = sigKeys.filter(cat => bullishCats.includes(cat)).length;
             const hasPartnership = sigKeys.includes('Partnership');
             
@@ -9896,9 +9901,25 @@ if (process.stdin.isTTY) {
           let validSignals = false;
           
           // Calculate core categories for all stocks (needed for logging and later checks)
-          const coreCategories = ['Merger/Acquisition', 'Credit Default', 'Going Dark', 'Regulation S Offering', 'Bankruptcy Filing', 'Auditor Change', 'Asset Disposition', 'Commercial Inflection', 'Convertible Debt', 'Short Squeeze Potential', 'Failed Trial'];
+          const coreCategories = [
+            'Merger/Acquisition',
+            'Credit Default',
+            'Going Dark',
+            'Bankruptcy Filing',
+            'Auditor Change',
+            'Asset Disposition',
+            'Convertible Debt',
+            'Failed Trial',
+            'Accounting Restatement',
+            'Regulatory Breach',
+            'Unregistered Equity Sales',
+            'Clinical Success',
+            'Clinical Milestone',
+            'FDA Approved'
+          ];
+
           const hasCoreCategories = signalCategories.filter(cat => coreCategories.includes(cat)).length;
-          const isDeterministic = hasCoreCategories >= 2;
+          const meetsCoreThreshold = hasCoreCategories >= 2;
           
           // CTB stocks bypass signal validation - only fundamental filters apply
           if (isOnCTBWatchlist) {
@@ -9906,7 +9927,7 @@ if (process.stdin.isTTY) {
           } else {
             // For non-CTB: Require minimum signal quality
             // Need at least 2 core categories OR deterministic pattern to qualify
-            if (hasCoreCategories >= 2 || isDeterministic) {
+            if (meetsCoreThreshold || deterministic.pattern !== null) {
               validSignals = true;
             }
           }
