@@ -675,6 +675,29 @@ if (!fs.existsSync('logs')) {
   }
 }
 
+// Ensure expected log files exist with safe defaults to avoid ENOENT on fresh containers
+try {
+  const ensureFile = (p, content) => {
+    try {
+      if (!fs.existsSync(p)) {
+        fs.writeFileSync(p, content);
+      }
+    } catch (e) {
+      console.error(`Failed to create ${p}: ${e.message}`);
+    }
+  };
+
+  ensureFile(CONFIG.ALERTS_FILE, '[]');
+  ensureFile(CONFIG.STOCKS_FILE, '[]');
+  ensureFile(CONFIG.PERFORMANCE_FILE, '{}');
+  ensureFile(CONFIG.OVERRIDES_FILE, '{}');
+  // CSV header used elsewhere
+  const csvHeader = 'CIK,Ticker,Company Name,Price,Incorporated,Located,Market Cap,Float,Shares Outstanding,S/O Ratio,F/AV,Direction,FTD,Volume,Avg Volume,Sector,News,Skip Reason,Timestamp\\n';
+  ensureFile(CONFIG.CSV_FILE, csvHeader);
+} catch (e) {
+  console.error('Log file initialization error:', e.message);
+}
+
 const FORM_TYPES = ['6-K', '6-K/A', '8-K', '8-K/A', 'S-1', 'S-3', 'S-4', 'S-8', 'F-1', 'F-3', '	SC TO-C', 'SC14D9C', 'S-9', 'F-4', 'FWG', '424B1', '424B2', '424B3', '424B4', '424B5', '424H8', '20-F', '20-F/A', '13G', '13G/A', '13D', '13D/A', 'Form D', 'EX-99.1', 'EX-99.2', 'EX-10.1', 'EX-10.2', 'EX-3.1', 'EX-3.2', 'EX-4.1', 'EX-4.2', 'EX-10.3', 'EX-1.1', 'Item 1.01', 'Item 1.02', 'Item 1.03', 'Item 1.04', 'Item 1.05', 'Item 2.01', 'Item 2.02', 'Item 2.03', 'Item 2.04', 'Item 2.05', 'Item 2.06', 'Item 3.01', 'Item 3.02', 'Item 3.03', 'Item 4.01', 'Item 5.01', 'Item 5.02', 'Item 5.03', 'Item 5.04', 'Item 5.05', 'Item 5.06', 'Item 5.07', 'Item 5.08', 'Item 5.09', 'Item 5.10', 'Item 5.11', 'Item 5.12', 'Item 5.13', 'Item 5.14', 'Item 5.15', 'Item 6.01', 'Item 7.01', 'Item 8.01', 'Item 9.01'];
 const SEMANTIC_KEYWORDS = {
 
