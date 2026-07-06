@@ -36,7 +36,7 @@ const CONFIG = {
   MAX_FLOAT_6K: 20000000,           // Maximum float size threshold for 6-K filings
   MAX_FLOAT_8K: 12500000,           // Maximum float size threshold for 8-K filings
   MAX_FAV_RATIO: 70,                // Maximum float-to-average-volume ratio threshold
-  ALLOWED_COUNTRIES: ['israel', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'delaware'], // Whitelisted jurisdictions for company registration
+  ALLOWED_COUNTRIES: ['israel', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'nevada', 'delaware'], // Whitelisted jurisdictions for company registration
   CTB_WATCHLIST: ['ASTC','GITS','RMSG','AMSS','BRAI','MWC','HKIT','EDHL','ENVB','UBXG','CHAI','FABTQ','MASK','HCWB','ATPC','VCIG','CZOOF','STI','OLOX','CNSP','TGHL','FOXX','IONM','AEHL','NEXR','BJDX','TNON','JEM','RGNT','CELZ','ILLR','WCT','GLXG','SLXN','SMCZ','VSME','VIVS','USDE','FRTT'], // Symbols with elevated cost-to-borrow values from IBorrowDesk
   PI_MODE: true,              // Enable optimizations for resource-constrained environments          
   REFRESH_PEAK: 1,            // Poll interval (ms) during peak market hours for real-time detection
