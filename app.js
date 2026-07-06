@@ -2303,17 +2303,22 @@ const getFTDData = (ticker) => {
 const getSectorFromFinnhub = async (ticker) => {
   try {
     const finnhubKey = process.env.FINNHUB_API_KEY;
-    if (!finnhubKey) return null;
-    
-    const res = await fetchWithTimeout(`https://finnhub.io/api/v1/stock/profile2?symbol=${ticker}&token=${finnhubKey}`, 5000);
-    if (!res.ok) return null;
-    
-    const data = await res.json();
-    if (data.finnhubIndustry) {
-      return data.finnhubIndustry;
+    if (!finnhubKey) {
+      log('WARN', `FINNHUB_API_KEY missing; cannot fetch sector for ${ticker}`);
+      return null;
     }
-    return null;
+
+    const res = await fetchWithTimeout(`https://finnhub.io/api/v1/stock/profile2?symbol=${ticker}&token=${finnhubKey}`, 5000);
+    if (!res.ok) {
+      const body = await res.text().catch(() => '');
+      log('WARN', `Finnhub sector lookup failed for ${ticker}: ${res.status} ${res.statusText}${body ? ` - ${body.slice(0,200)}` : ''}`);
+      return null;
+    }
+
+    const data = await res.json();
+    return data.finnhubIndustry || data.industry || data.sector || null;
   } catch (e) {
+    log('WARN', `Finnhub sector lookup error for ${ticker}: ${e.message}`);
     return null;
   }
 };
@@ -9344,12 +9349,15 @@ if (process.stdin.isTTY) {
           try {
             const sectorData = await Promise.race([
               getSectorFromFinnhub(ticker),
-              new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 3000))
+              new Promise((_, reject) => setTimeout(() => reject(new Error('Sector lookup timeout')), 5000))
             ]);
             if (sectorData) {
               sectorDisplay = sectorData;
             }
           } catch (e) {
+            if (e.message.includes('Sector lookup timeout')) {
+              log('WARN', `Sector lookup timed out for ${ticker}`);
+            }
             sectorDisplay = 'N/A';
           }
           log('INFO', `Sector: ${sectorDisplay}`);
