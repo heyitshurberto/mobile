@@ -10055,14 +10055,37 @@ if (process.stdin.isTTY) {
           
           // === TRADABILITY FILTERS ===
           
-          // 1. HARD REJECT: F/AV < 5x (untradeable, gets slipped on entry/exit)
-          if (favNum > 0 && favNum < 5) {
-            skipReason = `F/AV ${favNum.toFixed(2)}x below 5x minimum (untradeable liquidity)`;
+          const isHighConvictionLong = !shortOpportunity && (
+            signalCategories.includes('Merger/Acquisition') ||
+            signalCategories.includes('Government Contract') ||
+            signalCategories.includes('Licensing Deal') ||
+            signalCategories.includes('Commercial Inflection') ||
+            signalCategories.includes('Stock Buyback') ||
+            deterministic.pattern !== null
+          );
+          const numFloatForFilter = numFloat || 0;
+          const isTightFloatMicrocap = numFloatForFilter > 0 && numFloatForFilter <= 15000000;
+          
+          // 1. HARD REJECT: F/AV < 3x (untradeable, gets slipped on entry/exit)
+          if (favNum > 0 && favNum < 3) {
+            skipReason = `F/AV ${favNum.toFixed(2)}x below 3x absolute minimum (untradeable liquidity)`;
             saveToCSV({ ...alertData, skipReason });
             const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
             const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
             log('INFO', `Links: ${secLink} ${tvLink}`);
-            log('SKIP', `$${ticker}, F/AV ${favNum.toFixed(2)}x - untradeable (need min 3x)`);
+            log('SKIP', `$${ticker}, F/AV ${favNum.toFixed(2)}x - untradeable (absolute minimum 3x)`);
+            console.log('');
+            continue;
+          }
+          
+          // 1a. CONDITIONAL REVIEW: F/AV 3-5x is acceptable for high-conviction long setups
+          if (favNum >= 3 && favNum < 5 && !isHighConvictionLong) {
+            skipReason = `F/AV ${favNum.toFixed(2)}x below the preferred 5x threshold for general alerts`;
+            saveToCSV({ ...alertData, skipReason });
+            const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
+            const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
+            log('INFO', `Links: ${secLink} ${tvLink}`);
+            log('SKIP', `$${ticker}, F/AV ${favNum.toFixed(2)}x - below preferred 5x threshold`);
             console.log('');
             continue;
           }
@@ -10083,7 +10106,7 @@ if (process.stdin.isTTY) {
           if (shortOpportunity === true) {
             const soNum = soRatioValue !== null ? parseFloat(soRatioValue) : 0;
             if (soNum < 10) {
-              skipReason = `SHORT signal but S/O ${soNum.toFixed(2)}% < 10% minimum (unborrow able)`;
+              skipReason = `SHORT signal but S/O ${soNum.toFixed(2)}% < 10% minimum (unborrowable)`;
               saveToCSV({ ...alertData, skipReason });
               const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
               const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
@@ -10094,10 +10117,11 @@ if (process.stdin.isTTY) {
             }
           }
           
-          // 3. LONG-SIDE S/O FLOOR: < 5% means no squeeze potential
+          // 3. LONG-SIDE S/O FLOOR: < 5% usually lacks squeeze depth, but tight-float micro-cap and high-confidence catalysts can still trade
           if (shortOpportunity !== true) {
             const soNum = soRatioValue !== null ? parseFloat(soRatioValue) : 0;
-            if (soNum < 5) {
+            const allowLowSO = isHighConvictionLong || (isTightFloatMicrocap && soNum < 5);
+            if (soNum < 5 && !allowLowSO) {
               skipReason = `LONG signal but S/O ${soNum.toFixed(2)}% < 5% (no squeeze potential)`;
               saveToCSV({ ...alertData, skipReason });
               const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
