@@ -3344,6 +3344,7 @@ const sendPersonalWebhook = (alertData) => {
 
 **Signals:** ${reason}
 **Industry:** ${sectorDisplay}
+**Filer:** ${alertData.filerName || 'Not Applicable'}
 **Location:** ${locationDisplay}
 **Incorporation:** ${incorporationDisplay}
 **Float:** ${floatDisplay} / **S/O:** ${soDisplay}
