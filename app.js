@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import fetch from 'node-fetch';
 import { createRequire } from 'module';
 import { execSync } from 'child_process';
@@ -37,7 +38,7 @@ const CONFIG = {
   MAX_FLOAT_8K: 12500000,           // Maximum float size threshold for 8-K filings
   MAX_FAV_RATIO: 70,                // Maximum float-to-average-volume ratio threshold
   ALLOWED_COUNTRIES: ['israel', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'nevada', 'delaware'], // Whitelisted jurisdictions for company registration
-  CTB_WATCHLIST: ['ASTC','GITS','RMSG','AMSS','BRAI','MWC','HKIT','EDHL','ENVB','UBXG','CHAI','FABTQ','MASK','HCWB','ATPC','VCIG','CZOOF','STI','OLOX','CNSP','TGHL','FOXX','IONM','AEHL','NEXR','BJDX','TNON','JEM','RGNT','CELZ','ILLR','WCT','GLXG','SLXN','SMCZ','VSME','VIVS','USDE','FRTT'], // Symbols with elevated cost-to-borrow values from IBorrowDesk
+  CTB_WATCHLIST: ['ASTC','AMSS','ATPC','AZI','AEHL','BJDX','BOXL','BYAH','BRAI','CELZ','CHAI','CMND','CNSP','CZOOF','DCX','DXF','EHGO','EDHL','ENVB','FABTQ','FRTT','FOXX','GLXG','GITS','HKIT','HCWB','ICCM','ILLR','IONM','JEM','JXG','KIDZ','LGCL','LUCY','MASK','MWC','NCT','NEXR','NXTS','NXUS','OLOX','PMAX','RGNT','RMSG','SLBT','SLXN','SMCZ','SPRC','STI','TC','TNON','UBXG','VIVS','VCIG','VRAX','WCT','USDE'], // Symbols with elevated cost-to-borrow values from IBorrowDesk
   PI_MODE: true,              // Enable optimizations for resource-constrained environments          
   REFRESH_PEAK: 1,            // Poll interval (ms) during peak market hours for real-time detection
   REFRESH_NORMAL: 30000,      // Poll interval (ms) during standard market hours
@@ -54,7 +55,8 @@ const CONFIG = {
   STOCKS_FILE: 'logs/stocks.json',     // File to store all alerts
   OVERRIDES_FILE: 'logs/overrides.json', // File for manual peak price overrides
   PERFORMANCE_FILE: 'logs/quote.json', // File to store performance data
-  CSV_FILE: 'logs/track.csv',          // File to store CSV export of all alerts
+  CSV_DIR: process.env.CSV_DIR || process.env.PERSISTENT_DATA_DIR || null,
+  CSV_FILE: process.env.CSV_FILE || (process.env.CSV_DIR ? path.join(process.env.CSV_DIR, 'track.csv') : 'logs/track.csv'),
   // GitHub & Webhook settings
   GITHUB_REPO_PATH: process.env.GITHUB_REPO_PATH || process.cwd(), // Local path to GitHub repo (default: current working directory)
   GITHUB_USERNAME: process.env.GITHUB_USERNAME || 'your-github-username', // GitHub username
@@ -67,7 +69,9 @@ const CONFIG = {
   PAID_WEBHOOK_URL: process.env.PAID_WEBHOOK_URL || '', // Paid Discord webhook URL
   PAID_WEBHOOK_ENABLED: process.env.PAID_WEBHOOK_ENABLED === 'true', // Enable/disable paid webhook (default: false, set to 'true' in .env to enable)
   ALERTS_DISTRIBUTION_ENABLED: process.env.ALERTS_DISTRIBUTION_ENABLED !== 'false' && process.env.ALERTS_DISTRIBUTION_ENABLED !== '0', // Master toggle for all alert distribution (webhooks + GitHub push) (default: true)
-  DISCORD_ENABLED: process.env.DISCORD_ENABLED === 'true', // Enable/disable Discord alerts (set to 'true' in .env to enable)
+  PERSONAL_PRICE_MOVE_ALERT_ENABLED: process.env.PERSONAL_PRICE_MOVE_ALERT_ENABLED !== 'false' && process.env.PERSONAL_PRICE_MOVE_ALERT_ENABLED !== '0', // Enable/disable personal price move alerts (default: true)
+  PERSONAL_PRICE_MOVE_ALERT_THRESHOLD: parseFloat(process.env.PERSONAL_PRICE_MOVE_ALERT_THRESHOLD) || 8, // Percent move from alert price to trigger personal Discord alert
+  DISCORD_ENABLED: process.env.DISCORD_ENABLED === 'true', // Enable/disable Discord alerts (set to 'true' in .env to disable)
   // Telegram settings
   TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN || '', // Telegram bot token
   TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID || '', // Telegram chat ID for alerts
@@ -273,7 +277,7 @@ const parseFilerName = (text) => {
     
     // Reject street addresses (numbered streets, compass directions in addresses)
     if (/^\d+\s+(?:Front|Queen|Main|Broadway|Street|St\.|Avenue|Ave\.|Road|Rd\.|Suite|Apt\.|Floor|Circle|Drive|Lane|Place|Boulevard|Blvd|North|South|East|West|N\.|S\.|E\.|W\.)/i.test(str)) return false;
-    if (/Street|Avenue|Suite|Floor|Building|P\.O\.|Box\s+\d|Chicago|New York|London|Tokyo|Singapore|Toronto|Vancouver|Sydney|Hong Kong|India|Korea|Israel|Germany|France|UK|USA|Inc\.|Ltd\.|Corp\.|Company|plc|Corp|International|Inc|CORPORATION|HOLDINGS|MANAGEMENT|SYSTEMS/i.test(str)) return false;
+    if (/Street|Avenue|Suite|Floor|Building|P\.O\.|Box\s+\d|Chicago|New York|London|Tokyo|Singapore|Toronto|Vancouver|Sydney|Hong Kong|India|Korea|Israel|Germany|France|UK|USA/i.test(str)) return false;
     
     // Must have actual letters (not just numbers/symbols)
     if (!/[a-zA-Z]/.test(str)) return false;
@@ -298,15 +302,19 @@ const parseFilerName = (text) => {
     if (isValidName(changedName)) return changedName.substring(0, 150);
   }
   
-  // Pattern 1: Signature block - "Name: XXXXX" after /s/ or "By:" line
-  // Captures: "Name: Rajesh Magow" or "Name: Wes Levitt" or "Name: CHUN Sang Yung"
+  // Pattern 1: If the filing hides EIN details with an explicit Not Applicable placeholder, use that as the filer name.
+  if (/I\.R\.S\.\s*Employer\s*Identification\s*Number/i.test(text) && /Not\s+Applicable/i.test(text) && /Exact name of registrant as specified in its charter/i.test(text)) {
+    return 'Not Applicable';
+  }
+
+  // Pattern 2: Signature block - "Name: XXXXX" after /s/ or "By:" line
   let match = text.match(/Name\s*[:\-]\s*\n?\s*([^\n\/,]+?)(?:\n|$)/i);
   if (match && match[1]) {
     let name = match[1].trim().replace(/\s+/g, ' ');
     if (isValidName(name)) return name.substring(0, 150);
   }
   
-  // Pattern 2: "By: /s/ XXXXX" signature line - extract name after /s/
+  // Pattern 3: "By: /s/ XXXXX" signature line - extract name after /s/
   match = text.match(/By\s*:?\s*\/s\/\s*([^\n\/]+?)(?:\n|$)/i);
   if (match && match[1]) {
     let name = match[1].trim().replace(/\s+/g, ' ');
@@ -687,12 +695,20 @@ try {
     }
   };
 
+  const ensureDirForFile = (p) => {
+    const dir = path.dirname(p);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+  };
+
   ensureFile(CONFIG.ALERTS_FILE, '[]');
   ensureFile(CONFIG.STOCKS_FILE, '[]');
   ensureFile(CONFIG.PERFORMANCE_FILE, '{}');
   ensureFile(CONFIG.OVERRIDES_FILE, '{}');
   // CSV header used elsewhere
   const csvHeader = 'CIK,Ticker,Company Name,Price,Incorporated,Located,Market Cap,Float,Shares Outstanding,S/O Ratio,F/AV,Direction,FTD,Volume,Avg Volume,Sector,News,Skip Reason,Timestamp\\n';
+  ensureDirForFile(CONFIG.CSV_FILE);
   ensureFile(CONFIG.CSV_FILE, csvHeader);
 } catch (e) {
   console.error('Log file initialization error:', e.message);
@@ -1750,7 +1766,18 @@ const saveAlert = (alertData) => {
       highest5DayPercent: 0,
       lowest5Day: alertData.price || 0,
       lowest5DayPercent: 0,
-      isShort: alertData.isShort
+      isShort: alertData.isShort,
+      // Price tracking snapshots for retrospective analysis
+      priceAfter30m: null,
+      percentAfter30m: null,
+      priceAfter1h: null,
+      percentAfter1h: null,
+      priceAfter6h: null,
+      percentAfter6h: null,
+      priceAfter1d: null,
+      percentAfter1d: null,
+      priceAfter3d: null,
+      percentAfter3d: null
     };
     
     const reason = (alertData.intent && Array.isArray(alertData.intent)) 
@@ -1760,7 +1787,7 @@ const saveAlert = (alertData) => {
     // Collect bonus multiplier sources for alert metadata
     const bonusItems = [];
     if (alertData.hasTuesdayBonus) bonusItems.push('Tuesday 1.2x');
-    if (alertData.custodianControl) {
+    if (alertData.custodianName) {
       const custodianLabel = alertData.custodianVerified ? `${alertData.custodianName} 1.3x` : `${alertData.custodianName} 1.15x`;
       bonusItems.push(custodianLabel);
     }
@@ -1784,8 +1811,7 @@ const saveAlert = (alertData) => {
       financialRatioIndicator = ` (Financial Ratios - ${severityLevel}: ${ratioLabels})`;
     }
     const bonusIndicator = bonusItems.length > 0 ? ` (Bonus: ${bonusItems.join(' + ')})` : '';
-    const deterministicIndicator = alertData.deterministicPhrase ? ` ${alertData.deterministicPhrase}` : '';
-    alertData.skipReason = `Alert sent: [${direction}] ${reason}${financialRatioIndicator}${bonusIndicator}${deterministicIndicator}`;
+    alertData.skipReason = `Alert sent: [${direction}] ${reason}${financialRatioIndicator}${bonusIndicator}`;
     
     // Save to CSV for analysis (non-blocking)
     setImmediate(() => saveToCSV(alertData));
@@ -2202,6 +2228,39 @@ const syncAllPeakData = () => {
         const isShort = stock.direction === 'SHORT' || stock.isShort === true;
         let highestPrice = quoteData.highest || currentPrice;
         let lowestPrice = quoteData.lowest || currentPrice;
+
+        // If time windows have passed, snapshot the current price for each interval once.
+        const recordTime = stock.recordedAt ? new Date(stock.recordedAt).getTime() : null;
+        const nowTime = Date.now();
+        const recordAgeMs = recordTime ? nowTime - recordTime : null;
+        const snapshotPrice = currentPrice > 0 ? parseFloat(currentPrice) : null;
+
+        const percentChange = (price) => {
+          if (!alertPrice || !price) return null;
+          return parseFloat((((price - alertPrice) / alertPrice) * 100).toFixed(2));
+        };
+
+        const maybeSnapshot = (fieldPrice, fieldPercent, thresholdMs) => {
+          if (recordAgeMs !== null && recordAgeMs >= thresholdMs && fieldPrice == null && snapshotPrice !== null) {
+            return {
+              price: snapshotPrice,
+              percent: percentChange(snapshotPrice)
+            };
+          }
+          return null;
+        };
+        
+        const snapshot30m = maybeSnapshot(stock.priceAfter30m, stock.percentAfter30m, 30 * 60 * 1000);
+        const snapshot1h = maybeSnapshot(stock.priceAfter1h, stock.percentAfter1h, 60 * 60 * 1000);
+        const snapshot6h = maybeSnapshot(stock.priceAfter6h, stock.percentAfter6h, 6 * 60 * 60 * 1000);
+        const snapshot1d = maybeSnapshot(stock.priceAfter1d, stock.percentAfter1d, 24 * 60 * 60 * 1000);
+        const snapshot3d = maybeSnapshot(stock.priceAfter3d, stock.percentAfter3d, 3 * 24 * 60 * 60 * 1000);
+        
+        const priceMovePercent = percentChange(currentPrice);
+        const shouldSendPriceMoveAlert = priceMovePercent !== null && Math.abs(priceMovePercent) >= CONFIG.PERSONAL_PRICE_MOVE_ALERT_THRESHOLD && !stock.personalPriceAlertSent;
+        if (shouldSendPriceMoveAlert) {
+          sendPersonalPriceMoveAlert(stock, currentPrice, priceMovePercent);
+        }
         
         // Apply manual overrides if present for this ticker
         const tickerOverride = (overrides && overrides[stock.ticker]) ? overrides[stock.ticker] : null;
@@ -2230,6 +2289,18 @@ const syncAllPeakData = () => {
             highest5DayPercent: highestPercent,
             lowest5Day: lowestPrice,
             lowest5DayPercent: lowestPercent,
+            priceAfter30m: snapshot30m ? snapshot30m.price : stock.priceAfter30m,
+            percentAfter30m: snapshot30m ? snapshot30m.percent : stock.percentAfter30m,
+            priceAfter1h: snapshot1h ? snapshot1h.price : stock.priceAfter1h,
+            percentAfter1h: snapshot1h ? snapshot1h.percent : stock.percentAfter1h,
+            priceAfter6h: snapshot6h ? snapshot6h.price : stock.priceAfter6h,
+            percentAfter6h: snapshot6h ? snapshot6h.percent : stock.percentAfter6h,
+            priceAfter1d: snapshot1d ? snapshot1d.price : stock.priceAfter1d,
+            percentAfter1d: snapshot1d ? snapshot1d.percent : stock.percentAfter1d,
+            priceAfter3d: snapshot3d ? snapshot3d.price : stock.priceAfter3d,
+            percentAfter3d: snapshot3d ? snapshot3d.percent : stock.percentAfter3d,
+            personalPriceAlertSent: stock.personalPriceAlertSent || shouldSendPriceMoveAlert,
+            personalPriceAlertPercent: shouldSendPriceMoveAlert ? priceMovePercent : stock.personalPriceAlertPercent,
             isShort: true,
             ...(tickerOverride && (tickerOverride.highest5Day !== undefined || tickerOverride.lowest5Day !== undefined) && { manualOverride: true, overrideSource: 'overrides.json' })
           };
@@ -2249,6 +2320,18 @@ const syncAllPeakData = () => {
             highest5DayPercent: highestPercent,
             lowest5Day: lowestPrice,
             lowest5DayPercent: lowestPercent,
+            priceAfter30m: snapshot30m ? snapshot30m.price : stock.priceAfter30m,
+            percentAfter30m: snapshot30m ? snapshot30m.percent : stock.percentAfter30m,
+            priceAfter1h: snapshot1h ? snapshot1h.price : stock.priceAfter1h,
+            percentAfter1h: snapshot1h ? snapshot1h.percent : stock.percentAfter1h,
+            priceAfter6h: snapshot6h ? snapshot6h.price : stock.priceAfter6h,
+            percentAfter6h: snapshot6h ? snapshot6h.percent : stock.percentAfter6h,
+            priceAfter1d: snapshot1d ? snapshot1d.price : stock.priceAfter1d,
+            percentAfter1d: snapshot1d ? snapshot1d.percent : stock.percentAfter1d,
+            priceAfter3d: snapshot3d ? snapshot3d.price : stock.priceAfter3d,
+            percentAfter3d: snapshot3d ? snapshot3d.percent : stock.percentAfter3d,
+            personalPriceAlertSent: stock.personalPriceAlertSent || shouldSendPriceMoveAlert,
+            personalPriceAlertPercent: shouldSendPriceMoveAlert ? priceMovePercent : stock.personalPriceAlertPercent,
             isShort: false,
             ...(tickerOverride && (tickerOverride.highest5Day !== undefined || tickerOverride.lowest5Day !== undefined) && { manualOverride: true, overrideSource: 'overrides.json' })
           };
@@ -3194,7 +3277,7 @@ const sendPersonalWebhook = (alertData) => {
     // Build bonuses
     const bonusItems = [];
     if (alertData.hasTuesdayBonus) bonusItems.push('Tuesday 1.2x');
-    if (alertData.custodianControl) {
+    if (alertData.custodianName) {
       const custodianLabel = alertData.custodianVerified ? `${alertData.custodianName} 1.3x` : `${alertData.custodianName} 1.15x`;
       bonusItems.push(custodianLabel);
     }
@@ -3282,6 +3365,46 @@ ${secLink}`;
     }).catch(() => {});
   } catch (err) {
     log('ERROR', `Personal webhook error: ${err.message}`);
+  }
+};
+
+const sendPersonalPriceMoveAlert = (stock, currentPrice, percentMove) => {
+  try {
+    if (!CONFIG.ALERTS_DISTRIBUTION_ENABLED || !CONFIG.PERSONAL_WEBHOOK_ENABLED || !CONFIG.PERSONAL_PRICE_MOVE_ALERT_ENABLED) {
+      return;
+    }
+    if (!CONFIG.PERSONAL_WEBHOOK_URL) {
+      log('WARN', 'Personal webhook URL not configured');
+      return;
+    }
+
+    const now = new Date();
+    const etTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+    const etHour = etTime.getHours();
+    const etMinutes = etTime.getMinutes();
+    const dayOfWeek = etTime.getDay();
+    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+    const isMarketHours = (etHour >= 7 && (etHour > 7 || etMinutes >= 30)) && etHour < 16;
+    if (isWeekend || !isMarketHours) {
+      return;
+    }
+
+    const direction = percentMove > 0 ? 'up' : 'down';
+    const priceDisplay = currentPrice ? `$${parseFloat(currentPrice).toFixed(2)}` : 'N/A';
+    const alertPriceDisplay = stock.price ? `$${parseFloat(stock.price).toFixed(2)}` : 'N/A';
+    const percentDisplay = `${Math.abs(percentMove).toFixed(2)}%`;
+    const tradingViewLink = `https://www.tradingview.com/symbols/${stock.ticker}/`;
+    const status = `! ${stock.ticker} ${direction} ${percentDisplay} from ${alertPriceDisplay} now trading @ ${priceDisplay}\n${tradingViewLink}`;
+
+    const personalMsg = { content: status };
+    fetch(CONFIG.PERSONAL_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(personalMsg),
+      timeout: 5000
+    }).catch(() => {});
+  } catch (err) {
+    log('ERROR', `Personal price move webhook error: ${err.message}`);
   }
 };
 
@@ -10160,13 +10283,6 @@ if (process.stdin.isTTY) {
           }
           
           // Initialize custodian data
-          const custodianControl = normalizedIncorporated && normalizedLocated && normalizedIncorporated.toLowerCase() !== normalizedLocated.toLowerCase();
-          const isCustodianVerified = custodianControl;
-          let custodianName = null;
-          if (isCustodianVerified) {
-            custodianName = `${normalizedLocated} (via ${normalizedIncorporated})`;
-          }
-          
           const filingTimeMultiplier = getFilingTimeMultiplier(filing.updated);
           
           // Filing time bonus: stronger when filed near open/close (9:30am & 3:30pm ET)
@@ -10177,17 +10293,20 @@ if (process.stdin.isTTY) {
           const dayOfWeek = filingDateObj.getDay(); // 0 = Sunday, 1 = Monday, 2 = Tuesday, etc.
           const hasTuesdayBonus = dayOfWeek === 2;
           
+          const custodianInfo = detectCustodianBanks(text);
+          const custodianControl = Boolean(custodianInfo || (normalizedIncorporated && normalizedLocated && normalizedIncorporated.toLowerCase() !== normalizedLocated.toLowerCase()));
+          const isCustodianVerified = custodianInfo ? custodianInfo.verified : custodianControl;
+          let custodianName = custodianInfo ? custodianInfo.custodian : null;
+          if (!custodianName && custodianControl) {
+            custodianName = `${normalizedLocated} (via ${normalizedIncorporated})`;
+          }
+          
           // Update alertData with additional properties
           alertData.sector = await getSectorFromFinnhub(ticker);
           alertData.hasTuesdayBonus = hasTuesdayBonus;
-          alertData.custodianControl = custodianControl;
           alertData.custodianVerified = isCustodianVerified;
           alertData.custodianName = custodianName;
-          alertData.filingTimeMultiplier = filingTimeMultiplier;
           alertData.filingTimeBonus = filingTimeBonus;
-          alertData.deterministicPattern = deterministic.pattern;
-          alertData.deterministicMechanism = deterministic.mechanism;
-          alertData.deterministicPhrase = deterministicPhrase;
           
           // Only save alert if we got price, float, and S/O data
           if (price !== 'N/A' && float !== 'N/A' && soRatio !== 'N/A') {
