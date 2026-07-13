@@ -55,8 +55,10 @@ const CONFIG = {
   STOCKS_FILE: 'logs/stocks.json',     // File to store all alerts
   OVERRIDES_FILE: 'logs/overrides.json', // File for manual peak price overrides
   PERFORMANCE_FILE: 'logs/quote.json', // File to store performance data
-  CSV_DIR: process.env.CSV_DIR || process.env.PERSISTENT_DATA_DIR || null,
-  CSV_FILE: process.env.CSV_FILE || (process.env.CSV_DIR ? path.join(process.env.CSV_DIR, 'track.csv') : 'logs/track.csv'),
+  // Directory where CSV data should be written. Prefer env vars; fallback to /app/data when available (Docker/Railway volume).
+  CSV_DIR: process.env.CSV_DIR || process.env.PERSISTENT_DATA_DIR || (fs.existsSync('/app/data') ? '/app/data' : null),
+  // CSV file path: allow explicit override, otherwise use CSV_DIR/track.csv or default to logs/track.csv
+  CSV_FILE: process.env.CSV_FILE || (process.env.CSV_DIR || (fs.existsSync('/app/data') ? '/app/data' : null) ? path.join(process.env.CSV_DIR || '/app/data', 'track.csv') : 'logs/track.csv'),
   // GitHub & Webhook settings
   GITHUB_REPO_PATH: process.env.GITHUB_REPO_PATH || process.cwd(), // Local path to GitHub repo (default: current working directory)
   GITHUB_USERNAME: process.env.GITHUB_USERNAME || 'your-github-username', // GitHub username
