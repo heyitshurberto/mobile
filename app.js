@@ -56,9 +56,24 @@ const CONFIG = {
   OVERRIDES_FILE: 'logs/overrides.json', // File for manual peak price overrides
   PERFORMANCE_FILE: 'logs/quote.json', // File to store performance data
   // Directory where CSV data should be written. Prefer env vars; fallback to /app/data when available (Docker/Railway volume).
-  CSV_DIR: process.env.CSV_DIR || process.env.PERSISTENT_DATA_DIR || (fs.existsSync('/app/data') ? '/app/data' : null),
-  // CSV file path: allow explicit override, otherwise use CSV_DIR/track.csv or default to logs/track.csv
-  CSV_FILE: process.env.CSV_FILE || (process.env.CSV_DIR || (fs.existsSync('/app/data') ? '/app/data' : null) ? path.join(process.env.CSV_DIR || '/app/data', 'track.csv') : 'logs/track.csv'),
+  CSV_DIR: process.env.CSV_DIR || process.env.PERSISTENT_DATA_DIR || null,
+  // CSV file path: allow explicit override, otherwise try /app/data/track.csv if writable, else fall back to logs/track.csv.
+  CSV_FILE: (() => {
+    const explicitFile = process.env.CSV_FILE;
+    if (explicitFile) return explicitFile;
+
+    const candidateDir = process.env.CSV_DIR || process.env.PERSISTENT_DATA_DIR || '/app/data';
+    const candidateFile = path.join(candidateDir, 'track.csv');
+    try {
+      if (!fs.existsSync(candidateDir)) {
+        fs.mkdirSync(candidateDir, { recursive: true });
+      }
+      fs.accessSync(candidateDir, fs.constants.W_OK);
+      return candidateFile;
+    } catch (err) {
+      return 'logs/track.csv';
+    }
+  })(),
   // GitHub & Webhook settings
   GITHUB_REPO_PATH: process.env.GITHUB_REPO_PATH || process.cwd(), // Local path to GitHub repo (default: current working directory)
   GITHUB_USERNAME: process.env.GITHUB_USERNAME || 'your-github-username', // GitHub username
