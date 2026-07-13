@@ -10009,7 +10009,7 @@ if (process.stdin.isTTY) {
           if (isHighConviction || volumeIs3xAverage) {
             minVolumeThreshold = 0; // Bypass volume gate for high-conviction signals
           } else if (signalCategories.length >= 2) {
-            minVolumeThreshold = 5000; // Combo signals need moderate volume
+            minVolumeThreshold = 2500; // Combo signals need moderate volume
           } else {
             minVolumeThreshold = CONFIG.MIN_ALERT_VOLUME; // Single weak signal needs more volume
           }
