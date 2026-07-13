@@ -31,12 +31,12 @@ if (fs.existsSync('.env')) {
 // Configuration object - all adjustable parameters for system behavior
 const CONFIG = {
   // Alert filtering criteria
-  FILE_TIME: 1,                     // Historical lookback window in minutes for filing discovery
+  FILE_TIME: 10000,                     // Historical lookback window in minutes for filing discovery
   MIN_ALERT_VOLUME: 2000,           // Minimum volume threshold for initial alert trigger
   STRONG_SIGNAL_MIN_VOLUME: 1000,    // Volume threshold for high-confidence signal detection
   MAX_FLOAT_6K: 50000000,           // Maximum float size threshold for 6-K filings
   MAX_FLOAT_8K: 25000000,           // Maximum float size threshold for 8-K filings
-  MAX_FAV_RATIO: 90,                // Maximum float-to-average-volume ratio threshold
+  MAX_FAV_RATIO: 80,                // Maximum float-to-average-volume ratio threshold
   ALLOWED_COUNTRIES: ['israel', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'nevada', 'delaware'], // Whitelisted jurisdictions for company registration
   CTB_WATCHLIST: ['ASTC','AMSS','ATPC','AZI','AEHL','BJDX','BOXL','BYAH','BRAI','CELZ','CHAI','CMND','CNSP','CZOOF','DCX','DXF','EHGO','EDHL','ENVB','FABTQ','FRTT','FOXX','GLXG','GITS','HKIT','HCWB','ICCM','ILLR','IONM','JEM','JXG','KIDZ','LGCL','LUCY','MASK','MWC','NCT','NEXR','NXTS','NXUS','OLOX','PMAX','RGNT','RMSG','SLBT','SLXN','SMCZ','SPRC','STI','TC','TNON','UBXG','VIVS','VCIG','VRAX','WCT','USDE'], // Symbols with elevated cost-to-borrow values from IBorrowDesk
   PI_MODE: true,              // Enable optimizations for resource-constrained environments          
