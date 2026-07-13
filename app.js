@@ -31,12 +31,12 @@ if (fs.existsSync('.env')) {
 // Configuration object - all adjustable parameters for system behavior
 const CONFIG = {
   // Alert filtering criteria
-  FILE_TIME: 1,                     // Historical lookback window in minutes for filing discovery
-  MIN_ALERT_VOLUME: 2500,           // Minimum volume threshold for initial alert trigger
+  FILE_TIME: 10000,                     // Historical lookback window in minutes for filing discovery
+  MIN_ALERT_VOLUME: 2000,           // Minimum volume threshold for initial alert trigger
   STRONG_SIGNAL_MIN_VOLUME: 1000,    // Volume threshold for high-confidence signal detection
   MAX_FLOAT_6K: 50000000,           // Maximum float size threshold for 6-K filings
   MAX_FLOAT_8K: 25000000,           // Maximum float size threshold for 8-K filings
-  MAX_FAV_RATIO: 70,                // Maximum float-to-average-volume ratio threshold
+  MAX_FAV_RATIO: 90,                // Maximum float-to-average-volume ratio threshold
   ALLOWED_COUNTRIES: ['israel', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'nevada', 'delaware'], // Whitelisted jurisdictions for company registration
   CTB_WATCHLIST: ['ASTC','AMSS','ATPC','AZI','AEHL','BJDX','BOXL','BYAH','BRAI','CELZ','CHAI','CMND','CNSP','CZOOF','DCX','DXF','EHGO','EDHL','ENVB','FABTQ','FRTT','FOXX','GLXG','GITS','HKIT','HCWB','ICCM','ILLR','IONM','JEM','JXG','KIDZ','LGCL','LUCY','MASK','MWC','NCT','NEXR','NXTS','NXUS','OLOX','PMAX','RGNT','RMSG','SLBT','SLXN','SMCZ','SPRC','STI','TC','TNON','UBXG','VIVS','VCIG','VRAX','WCT','USDE'], // Symbols with elevated cost-to-borrow values from IBorrowDesk
   PI_MODE: true,              // Enable optimizations for resource-constrained environments          
@@ -9602,6 +9602,10 @@ if (process.stdin.isTTY) {
           // Check if stock is on CTB watchlist early - will skip non-fundamental filters
           const isOnCTBWatchlist = CONFIG.CTB_WATCHLIST.includes(ticker.toUpperCase());
           
+          // Data normalization for volume/float-based logging and filtering
+          const numFloat = (() => { const v = typeof float === 'number' ? float : (typeof float === 'string' && float !== 'N/A' ? parseFloat(float) : NaN); return isNaN(v) ? null : v; })();
+          const numAvgVol = (() => { const v = typeof averageVolume === 'number' ? averageVolume : (typeof averageVolume === 'string' && averageVolume !== 'N/A' ? parseFloat(averageVolume) : NaN); return isNaN(v) ? 1 : v; })();
+          
           let shortOpportunity = null;
           let longOpportunity = null;
           let predatoryCheck = { isPredatory: false, predatorName: null, reason: null };
@@ -9713,10 +9717,6 @@ if (process.stdin.isTTY) {
           const etTotalMin = etHour * 60 + etMin;
           const startMin = 3.5 * 60; // 3:30am = 210 minutes
           const endMin = 18 * 60; // 6:00pm = 1080 minutes
-          
-          // Data normalization: Convert string values to numeric types for filtering calculations
-          const numFloat = (() => { const v = typeof float === 'number' ? float : (typeof float === 'string' && float !== 'N/A' ? parseFloat(float) : NaN); return isNaN(v) ? null : v; })();
-          const numAvgVol = (() => { const v = typeof averageVolume === 'number' ? averageVolume : (typeof averageVolume === 'string' && averageVolume !== 'N/A' ? parseFloat(averageVolume) : NaN); return isNaN(v) ? 1 : v; })();
           
           // Liquidity metric: Float-to-average-volume ratio indicates share availability and price movement potential
           const favValue = numAvgVol > 0 ? (numFloat / numAvgVol) : 0;
@@ -9880,10 +9880,10 @@ if (process.stdin.isTTY) {
             continue;
           }
           
-          // Check minimum price filter - skip alerts for stocks below $0.350
+          // Check minimum price filter - skip alerts for stocks below $0.2
           const priceFloat = parseFloat(price) || 0;
-          if (priceFloat > 0 && priceFloat < 0.35) {
-            skipReason = `Price too low: $${priceFloat.toFixed(4)} below $0.35 minimum`;
+          if (priceFloat > 0 && priceFloat < 0.2) {
+            skipReason = `Price too low: $${priceFloat.toFixed(4)} below $0.2 minimum`;
             const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
             const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
             log('INFO', `Links: ${secLink} ${tvLink}`);
@@ -9996,12 +9996,12 @@ if (process.stdin.isTTY) {
           if (isHighConviction || volumeIs3xAverage) {
             minVolumeThreshold = 0; // Bypass volume gate for high-conviction signals
           } else if (signalCategories.length >= 2) {
-            minVolumeThreshold = 2500; // Combo signals need moderate volume
+            minVolumeThreshold = 2000; // Combo signals need moderate volume
           } else {
             minVolumeThreshold = CONFIG.MIN_ALERT_VOLUME; // Single weak signal needs more volume
           }
           
-          // Check volume (skip for high-conviction or 3x average)
+          // Check volume
           if (minVolumeThreshold > 0 && volumeCheckLater !== null && volumeCheckLater < minVolumeThreshold) {
             skipReason = `Volume ${volumeCheckLater.toLocaleString('en-US')} below ${(minVolumeThreshold / 1000).toFixed(0)}k minimum`;
             const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
@@ -10058,6 +10058,7 @@ if (process.stdin.isTTY) {
             'Accounting Restatement',
             'Regulatory Breach',
             'Unregistered Equity Sales',
+            'Acquisition Agreement',
             'Clinical Success',
             'Clinical Milestone',
             'FDA Approved'
@@ -10180,9 +10181,9 @@ if (process.stdin.isTTY) {
           const numFloatForFilter = numFloat || 0;
           const isTightFloatMicrocap = numFloatForFilter > 0 && numFloatForFilter <= 15000000;
           
-          // 1. HARD REJECT: F/AV < 3x (untradeable, gets slipped on entry/exit)
-          if (favNum > 0 && favNum < 3) {
-            skipReason = `F/AV ${favNum.toFixed(2)}x below 3x absolute minimum (untradeable liquidity)`;
+          // 1. HARD REJECT: F/AV < 1.2x (untradeable, gets slipped on entry/exit)
+          if (favNum > 0 && favNum < 1.2) {
+            skipReason = `F/AV ${favNum.toFixed(2)}x below 1.2x absolute minimum (untradeable liquidity)`;
             saveToCSV({ ...alertData, skipReason });
             const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
             const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
