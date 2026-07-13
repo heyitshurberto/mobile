@@ -1708,20 +1708,7 @@ const calculateExpiryDate = () => {
 
 const saveAlert = (alertData) => {
   try {
-    // Enforce tradable alert window: 9:00 AM - 4:00 PM ET on weekdays only.
-    const now = new Date();
-    const etTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
-    const etHour = etTime.getHours();
-    const etMinutes = etTime.getMinutes();
-    const etTotalMin = etHour * 60 + etMinutes;
-    const dayOfWeek = etTime.getDay(); // 0=Sunday, 6=Saturday
-    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
-    const isTradableWindow = !isWeekend && etTotalMin >= 540 && etTotalMin <= 960; // 9:00 AM - 4:00 PM ET
-
-    if (!isTradableWindow) {
-      log('SKIP', `$${alertData.ticker || 'UNKNOWN'}, outside tradable window (${etTime.toLocaleString('en-US', { timeZone: 'America/New_York' })})`);
-      return;
-    }
+    // Dashboard alerts do not enforce a timeframe. Personal Discord alerts still follow market hours.
 
     // Check daily alert limit
     if (isDailyLimitReached()) {
