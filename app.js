@@ -2941,7 +2941,6 @@ async function getFilingText(indexUrl) {
           
           if (combinedText.length > MAX_COMBINED_SIZE) break;
         } catch (docErr) {
-          log('DEBUG', `Document fetch error for ${fullUrl}: ${docErr.message}`);
           continue;
         }
       }
@@ -3521,7 +3520,7 @@ const pushToGistOnly = () => {
     return; // Skip backup while rate limited
   } else if (gistRateLimited) {
     gistRateLimited = false; // Reset after timeout
-    log('INFO', 'Gist backup rate limit reset, resuming backups');
+    // Suppress verbose rate limit reset message to reduce log noise
   }
 
   // Enforce a sensible minimum interval between gist push attempts
@@ -9700,11 +9699,13 @@ if (process.stdin.isTTY) {
             }
             // If no signals, leave both null for "N/A"
             
-            // Log the intent prefix based on actual SHORT/LONG determination
-            if (signalKeys.length > 0) {
-              const intentPrefix = shortOpportunity ? 'Short' : (longOpportunity ? 'Long' : 'Neutral');
-              log('INFO', `${intentPrefix}: ${signalKeys.join(', ')}`);
-            }
+            // NOTE: Intent prefix logging removed - was creating noise for skipped stocks.
+            // Only Stock metrics needed for all filings (intent is redundant with News line).
+
+            // Calculate and log Stock metrics early (before any skip logic) for all stocks
+            const favValueForLog = numAvgVol > 0 && numFloat ? (numFloat / numAvgVol).toFixed(2) : 'N/A';
+            const directionLabelEarly = shortOpportunity ? 'SHORT' : (longOpportunity ? 'LONG' : 'N/A');
+            log('INFO', `Stock: $${ticker}, Price: ${priceDisplay}, Vol/Avg: ${volDisplay}/${avgDisplay}, MC: ${mcDisplay}, Float: ${floatDisplay}, S/O: ${soRatio}, F/AV: ${favValueForLog}, ${directionLabelEarly}`);
 
             // Skip dilution-only SHORT candidates unless there is a stress signal.
             const dilutionSignals = ['Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount', 'Unregistered Equity Sales'];
@@ -9733,6 +9734,12 @@ if (process.stdin.isTTY) {
           // Liquidity metric: Float-to-average-volume ratio indicates share availability and price movement potential
           const favValue = numAvgVol > 0 ? (numFloat / numAvgVol) : 0;
           const fav = (favValue && favValue > 0) ? favValue.toFixed(2) : 'N/A';
+          
+          // Log Stock metrics for CTB stocks that didn't log earlier (they skip SHORT/LONG determination)
+          if (isOnCTBWatchlist) {
+            const favValueForLog = fav !== 'N/A' ? fav : 'N/A';
+            log('INFO', `Stock: $${ticker}, Price: ${priceDisplay}, Vol/Avg: ${volDisplay}/${avgDisplay}, MC: ${mcDisplay}, Float: ${floatDisplay}, S/O: ${soRatio}, F/AV: ${favValueForLog}, N/A`);
+          }
           
           // Signal aggregation: Extract all detected signals for filtering and scoring evaluation
           const signalCategories = Object.keys(semanticSignals || {});
@@ -9770,11 +9777,7 @@ if (process.stdin.isTTY) {
             }
           }
 
-          const directionLabel = shortOpportunity ? 'SHORT' : (longOpportunity ? 'LONG' : 'N/A');
-          const favLog = fav !== 'N/A' ? fav : 'N/A';
-          
-          // === LOG STOCK METRICS FOR ALL FILINGS (before validation checks) ===
-          log('INFO', `Stock: $${ticker}, Price: ${priceDisplay}, Vol/Avg: ${volDisplay}/${avgDisplay}, MC: ${mcDisplay}, Float: ${floatDisplay}, S/O: ${soRatio}, F/AV: ${favLog}, ${directionLabel}`);
+          // Stock metrics already logged above before skip logic; skip duplicate logging here
           
           if (!isOnCTBWatchlist && normalizedLocated === 'Unknown') {
             skipReason = 'No valid country';
