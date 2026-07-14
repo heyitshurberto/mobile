@@ -119,7 +119,6 @@ const resetDailyAlertCount = () => {
   if (today !== lastAlertDate) {
     dailyAlertCount = 0;
     lastAlertDate = today;
-    log('INFO', 'Daily alert counter reset to 0');
   }
 };
 
@@ -136,7 +135,6 @@ const isDailyLimitReached = () => {
 const incrementDailyAlertCount = () => {
   resetDailyAlertCount();
   dailyAlertCount++;
-  log('INFO', `Daily alert count: ${dailyAlertCount}/9`);
 };
 
 const originalLog = console.log;
@@ -10197,13 +10195,13 @@ if (process.stdin.isTTY) {
           const isTightFloatMicrocap = numFloatForFilter > 0 && numFloatForFilter <= 15000000;
           
           // 1. HARD REJECT: F/AV < 1.2x (untradeable, gets slipped on entry/exit)
-          if (favNum > 0 && favNum < 1.2) {
-            skipReason = `F/AV ${favNum.toFixed(2)}x below 1.2x absolute minimum (untradeable liquidity)`;
+          if (favNum > 0 && favNum < 1) {
+            skipReason = `F/AV ${favNum.toFixed(2)}x below 1x absolute minimum (untradeable liquidity)`;
             saveToCSV({ ...alertData, skipReason });
             const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
             const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
             log('INFO', `Links: ${secLink} ${tvLink}`);
-            log('SKIP', `$${ticker}, F/AV ${favNum.toFixed(2)}x - untradeable (absolute minimum 3x)`);
+            log('SKIP', `$${ticker}, F/AV ${favNum.toFixed(2)}x - untradeable (absolute minimum 1x)`);
             console.log('');
             continue;
           }
