@@ -423,7 +423,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Open TradingView in a modal popup on the dashboard
-    function openTradingViewModal(ticker, exchange, companyName) {
+    function openTradingViewModal(ticker, exchange, companyName, direction = 'LONG', alertPrice = 'N/A') {
         const tvSymbol = getTradingViewSymbol(ticker, exchange);
         const isDarkMode = document.body.classList.contains('dark-mode');
         const modal = document.createElement('div');
@@ -478,6 +478,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const headerBg = isDarkMode ? 'rgba(26, 26, 26, 0.90)' : 'rgba(240, 240, 240, 0.94)';
         const headerBorder = isDarkMode ? 'rgba(51, 51, 51, 0.5)' : 'rgba(100, 100, 100, 0.28)';
         const headerText = isDarkMode ? '#fff' : '#4a4a4a';
+        const directionColor = direction === 'SHORT' ? '#ff5656' : '#2ea84f';
         header.style.cssText = `
             display: flex;
             justify-content: center;
@@ -491,7 +492,12 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         header.innerHTML = `
             <div style="position: absolute; left: 23px; font-size: 16px; opacity: 0.5;">Ψ</div>
-            <div style="font-weight: 600; color: ${headerText}; font-size: 14px;">$${ticker} <span style="opacity: 0.6;">(${companyName || 'N/A'})</span></div>
+            <div style="font-weight: 600; color: ${headerText}; font-size: 14px; display: inline-flex; align-items: center; gap: 6px;">
+                <span>$${ticker}</span>
+                <span style="opacity: 0.6; font-size: 12px;">(${companyName || 'N/A'})</span>
+                <span style="font-size: 12px; font-style: italic; opacity: 0.8;">@ ${alertPrice}</span>
+                <span style="font-weight: 700; font-size: 12px; font-style: italic; color: ${directionColor};">${direction}</span>
+            </div>
             <button onclick="this.closest('.trading-view-modal').remove()" style="position: absolute; right: 16px; background: none; border: none; color: ${isDarkMode ? '#999' : '#555'}; cursor: pointer; font-size: 20px; padding: 0;">×</button>
         `;
         
@@ -760,6 +766,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const chartHeader = document.createElement('div');
             const alertData = alertsByTicker.get(ticker) || {};
             const companyName = alertData.companyName || alertData.name || 'Unknown';
+            const alertPriceValue = alertData.alertPrice || alertData.price || alertData.currentPrice || null;
+            const alertPriceText = alertPriceValue !== null && alertPriceValue !== undefined ? `$${parseFloat(alertPriceValue).toFixed(4)}` : 'N/A';
             const direction = alertData.isShort === true || alertData.position === 'short' || alertData.side === 'SHORT' ? 'SHORT' : 'LONG';
             const directionColor = direction === 'SHORT' ? '#ff5656' : '#2ea84f';
             chartHeader.style.cssText = `
@@ -776,7 +784,7 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
             chartHeader.innerHTML = `
                 <span style="display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-                    <span>$${ticker}</span>
+                    <span>$${ticker} <i style="font-size: 12px; font-style: italic; opacity: 0.8;">@ ${alertPriceText}</i></span>
                     <span style="opacity: 0.55; font-size: 10px;">(${companyName})</span>
                     <span style="font-weight: 700; font-size: 12px; font-style: italic; color: ${directionColor};">${direction}</span>
                 </span>
@@ -3673,7 +3681,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="container">
             <div class="header">
                 <div class="header-top" style="margin-top:70px; margin-bottom:-4px; margin-left: auto; margin-right: auto; display: flex; justify-content: center; align-items: center;">
-                    <img src="logo.jpeg?t=${new Date().getTime()}" alt="Logo" class="logo" style="height: 32px; width: auto; transition: opacity 0.4s ease; margin-right: -34x; margin-left: 35px; margin-top: -6px; margin-bottom: 2px; transform: rotate(0deg); opacity: 0.7;" onload="this.style.opacity=0.75">
+                    <img src="logo.jpeg?t=${new Date().getTime()}" alt="Logo" class="logo" style="height: 30px; width: auto; transition: opacity 0.4s ease; margin-right: -34x; margin-left: 35px; margin-top: -6px; margin-bottom: 2px; transform: rotate(0deg); opacity: 0.7;" onload="this.style.opacity=0.75">
                     <h1 style="color: #000000; font-size: 22px; font-family: 'Playfair Display', serif; font-weight: 500; letter-spacing: 0.4px; margin-left: -7px; margin-top: 3px; margin-bottom: 7px; opacity: 0.8;" class="dashboard-title">Pleromic Capital</h1>
                 </div>
                 <div class="theme-toggle" onmousedown="event.stopPropagation(); toggleTheme();">
@@ -4984,6 +4992,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 
                 const priceMove = (alert.currentPrice - alert.alertPrice).toFixed(4);
+                const alertPriceValue = alert.alertPrice !== undefined && alert.alertPrice !== null ? alert.alertPrice : (alert.price !== undefined && alert.price !== null ? alert.price : (alert.currentPrice !== undefined && alert.currentPrice !== null ? alert.currentPrice : null));
+                const alertPriceDisplay = alertPriceValue !== null ? `$${parseFloat(alertPriceValue).toFixed(2)}` : 'N/A';
                 
                 // Clean title by removing form types (8-K, 6-K, /A)
                 let cleanTitle = alert.title || '';
@@ -5057,7 +5067,9 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                                 const ticker = '${alert.ticker}';
                                 const exchange = '${alert.exchange || 'NASDAQ'}';
                                 const companyName = '${alert.companyName || 'N/A'}';
-                                openTradingViewModal(ticker, exchange, companyName);
+                                const direction = ${alert.isShort === true || alert.position === 'short' || alert.side === 'SHORT' ? `'SHORT'` : `'LONG'`};
+                                const alertPrice = '${alertPriceDisplay}';
+                                openTradingViewModal(ticker, exchange, companyName, direction, alertPrice);
                             })()">TradingView</button>
                             <button onclick="(() => {
                                 customConfirm(\`View Financials for <b><i>${alert.ticker}</i></b>?\`, \`https://stockanalysis.com/stocks/${alert.ticker}/statistics/\`);
@@ -6020,7 +6032,9 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             const ticker = '${alert.ticker}';
                             const exchange = '${alert.exchange || 'NASDAQ'}';
                             const companyName = '${alert.companyName || 'N/A'}';
-                            openTradingViewModal(ticker, exchange, companyName);
+                            const direction = ${alert.isShort === true || alert.position === 'short' || alert.side === 'SHORT' ? `'SHORT'` : `'LONG'`};
+                            const alertPrice = '$${parseFloat(alert.alertPrice).toFixed(2)}';
+                            openTradingViewModal(ticker, exchange, companyName, direction, alertPrice);
                         })()">TradingView</button>
                         <button type="button" class="link-button" onclick="(() => {
                             event.stopPropagation();

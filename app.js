@@ -3393,11 +3393,11 @@ const sendPersonalPriceMoveAlert = (stock, currentPrice, percentMove) => {
     }
 
     const direction = percentMove > 0 ? 'up' : 'down';
-    const priceDisplay = currentPrice ? `$${parseFloat(currentPrice).toFixed(2)}` : 'N/A';
-    const alertPriceDisplay = stock.price ? `$${parseFloat(stock.price).toFixed(2)}` : 'N/A';
-    const percentDisplay = `${Math.abs(percentMove).toFixed(2)}%`;
+    const priceDisplay = currentPrice ? `**$${parseFloat(currentPrice).toFixed(2)}**` : 'N/A';
+    const alertPriceDisplay = stock.price ? `**$${parseFloat(stock.price).toFixed(2)}**` : 'N/A';
+    const percentDisplay = `**${Math.abs(percentMove).toFixed(2)}%**`;
     const tradingViewLink = `https://www.tradingview.com/symbols/${stock.ticker}/`;
-    const status = `! ${stock.ticker} ${direction} ${percentDisplay} from ${alertPriceDisplay} now trading @ ${priceDisplay}\n${tradingViewLink}`;
+    const status = `🕭 **$${stock.ticker}** is ${direction} ${percentDisplay} from ${alertPriceDisplay} now trading @ ${priceDisplay}\n${tradingViewLink}`;
 
     const personalMsg = { content: status };
     fetch(CONFIG.PERSONAL_WEBHOOK_URL, {
@@ -4981,7 +4981,7 @@ const renderLoginPage = () => `
       </button>
     </div>
     <div style="display: flex; justify-content: center; margin-bottom: 10px; margin-top: 15px;">
-      <img id="landingPageLogo" src="/docs/logo.jpeg" alt="Pleromic Capital" style="height: 45px; width: auto; object-fit: contain; opacity: 0.8; margin-right: -6px;">
+      <img id="landingPageLogo" src="/docs/logo.jpeg" alt="Pleromic Capital" style="height: 41px; width: auto; object-fit: contain; opacity: 0.8; margin-right: -9px;">
     </div>
     <h1 id="mainTitle" style="color: #3a3a3a; font-size: 28px; font-family: 'Playfair Display', serif; font-weight: 500; letter-spacing: 0.4px; margin-left: -16px; margin-top: 0px; margin-bottom: 2px; transition: color 0.3s ease;">Pleromic Capital</h1>
     <p class="subtitle" id="mainSubtitle" style="margin-top: 2px; margin-bottom: 5px; opacity: 0.55; font-size: 12px; color: #666; transition: color 0.3s ease;">Secure Access Portal</p>
@@ -9303,6 +9303,15 @@ if (process.stdin.isTTY) {
           }
           
           let semanticSignals = parseSemanticSignals(text);
+
+          // Explicit PIPE detection: match the literal token as a whole word
+          // Use word boundaries to avoid matching substrings like "larp"
+          try {
+            if (/\bPIPE\b/i.test(text) || /private investment in public equity/i.test(text)) {
+              if (!semanticSignals['PIPE']) semanticSignals['PIPE'] = [];
+              semanticSignals['PIPE'].push('PIPE');
+            }
+          } catch (e) {}
           
           // Extract financial ratio signals - bankruptcy indicators
           const financialRatioData = parseFinancialRatios(text);
@@ -9680,9 +9689,9 @@ if (process.stdin.isTTY) {
               }
             }
             
-            const dilutionSignals = ['Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount', 'Unregistered Equity Sales'];
+            const dilutionSignals = ['Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount', 'Unregistered Equity Sales', 'PIPE'];
             const stressSignals = ['Credit Default', 'Bankruptcy Filing', 'Going Dark', 'Failed Trial', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure'];
-            const weakBearishSignals = ['Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount'];
+            const weakBearishSignals = ['Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount', 'PIPE'];
             const hasOnlyWeakBearish = bearishCount > 0 && sigKeys.some(cat => weakBearishSignals.includes(cat)) && !sigKeys.some(cat => stressSignals.includes(cat) || ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure'].includes(cat));
             const hasStrongBullish = bullishCount >= 2 || ['Merger/Acquisition', 'Clinical Success', 'Government Contract', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Insider Buying', 'Partnership'].some(cat => sigKeys.includes(cat));
 
