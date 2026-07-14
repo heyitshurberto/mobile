@@ -3397,7 +3397,7 @@ const sendPersonalPriceMoveAlert = (stock, currentPrice, percentMove) => {
     const alertPriceDisplay = stock.price ? `**$${parseFloat(stock.price).toFixed(2)}**` : 'N/A';
     const percentDisplay = `**${Math.abs(percentMove).toFixed(2)}%**`;
     const tradingViewLink = `https://www.tradingview.com/symbols/${stock.ticker}/`;
-    const status = `🕭 **$${stock.ticker}** is ${direction} ${percentDisplay} from ${alertPriceDisplay} now trading @ ${priceDisplay}\n${tradingViewLink}`;
+    const status = `↳ **$${stock.ticker}** is ${direction} ${percentDisplay} from ${alertPriceDisplay} now trading @ ${priceDisplay}\n${tradingViewLink}`;
 
     const personalMsg = { content: status };
     fetch(CONFIG.PERSONAL_WEBHOOK_URL, {
@@ -4769,7 +4769,7 @@ const renderLoginPage = () => `
       /* iPad portrait only: shift landing page logo 4px left */
       @media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
         #landingPageLogo {
-          margin-left: -11px !important;
+          margin-left: -10px !important;
         }
       }
 
