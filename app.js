@@ -36,8 +36,8 @@ const CONFIG = {
   STRONG_SIGNAL_MIN_VOLUME: 1000,    // Volume threshold for high-confidence signal detection
   MAX_FLOAT_6K: 50000000,           // Maximum float size threshold for 6-K filings
   MAX_FLOAT_8K: 25000000,           // Maximum float size threshold for 8-K filings
-  MAX_FAV_RATIO: 80,                // Maximum float-to-average-volume ratio threshold
-  ALLOWED_COUNTRIES: ['israel', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'nevada', 'delaware'], // Whitelisted jurisdictions for company registration
+  MAX_FAV_RATIO: 200,                // Maximum float-to-average-volume ratio threshold
+  ALLOWED_COUNTRIES: ['israel', 'new york', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'nevada', 'delaware'], // Whitelisted jurisdictions for company registration
   CTB_WATCHLIST: ['ASTC','AMSS','ATPC','AZI','AEHL','BJDX','BOXL','BYAH','BRAI','CELZ','CHAI','CMND','CNSP','CZOOF','DCX','DXF','EHGO','EDHL','ENVB','FABTQ','FRTT','FOXX','GLXG','GITS','HKIT','HCWB','ICCM','ILLR','IONM','JEM','JXG','KIDZ','LGCL','LUCY','MASK','MWC','NCT','NEXR','NXTS','NXUS','OLOX','PMAX','RGNT','RMSG','SLBT','SLXN','SMCZ','SPRC','STI','TC','TNON','UBXG','VIVS','VCIG','VRAX','WCT','USDE'], // Symbols with elevated cost-to-borrow values from IBorrowDesk
   PI_MODE: true,              // Enable optimizations for resource-constrained environments          
   REFRESH_PEAK: 1,            // Poll interval (ms) during peak market hours for real-time detection
@@ -9679,17 +9679,28 @@ if (process.stdin.isTTY) {
               }
             }
             
+            const dilutionSignals = ['Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount', 'Unregistered Equity Sales'];
+            const stressSignals = ['Credit Default', 'Bankruptcy Filing', 'Going Dark', 'Failed Trial', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure'];
+            const weakBearishSignals = ['Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount'];
+            const hasOnlyWeakBearish = bearishCount > 0 && sigKeys.some(cat => weakBearishSignals.includes(cat)) && !sigKeys.some(cat => stressSignals.includes(cat) || ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure'].includes(cat));
+            const hasStrongBullish = bullishCount >= 2 || ['Merger/Acquisition', 'Clinical Success', 'Government Contract', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Insider Buying', 'Partnership'].some(cat => sigKeys.includes(cat));
+
             // Determine SHORT or LONG - bullish signals that drive price up should override single bearish signals
             // But NOT if it's a bull trap extraction (handle separately above)
             if (!isBullTrapExtraction) {
-              if (bearishCount >= 2) {
+              if (bearishCount >= 2 && !hasOnlyWeakBearish) {
                 shortOpportunity = true;
               } else if (bearishCount > 0 && bullishCount >= 2) {
                 // Strong bullish signals (2+) override single bearish signals - use bullish
                 longOpportunity = true;
               } else if (bearishCount > 0 && bullishCount > 0) {
-                // Single bearish + single bullish: default to SHORT to avoid false LONG calls
-                shortOpportunity = true;
+                if (hasOnlyWeakBearish && hasStrongBullish) {
+                  longOpportunity = true;
+                } else if (hasStrongBullish && !sigKeys.some(cat => ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure'].includes(cat))) {
+                  longOpportunity = true;
+                } else {
+                  shortOpportunity = true;
+                }
               } else if (bearishCount > 0) {
                 shortOpportunity = true;
               } else if (bullishCount >= 2) {
@@ -9712,8 +9723,6 @@ if (process.stdin.isTTY) {
             log('INFO', `Stock: $${ticker}, Price: ${priceDisplay}, Vol/Avg: ${volDisplay}/${avgDisplay}, MC: ${mcDisplay}, Float: ${floatDisplay}, S/O: ${soRatio}, F/AV: ${favValueForLog}, ${directionLabelEarly}`);
 
             // Skip dilution-only SHORT candidates unless there is a stress signal.
-            const dilutionSignals = ['Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount', 'Unregistered Equity Sales'];
-            const stressSignals = ['Credit Default', 'Bankruptcy Filing', 'Going Dark', 'Failed Trial', 'Accounting Restatement', 'Auditor Change'];
             const hasDilutionOnlyShort = shortOpportunity && dilutionSignals.some(cat => signalKeys.includes(cat)) && !stressSignals.some(cat => signalKeys.includes(cat));
             if (hasDilutionOnlyShort) {
               skipReason = 'Dilution without stress — skipping SHORT';
@@ -10194,14 +10203,14 @@ if (process.stdin.isTTY) {
           const numFloatForFilter = numFloat || 0;
           const isTightFloatMicrocap = numFloatForFilter > 0 && numFloatForFilter <= 15000000;
           
-          // 1. HARD REJECT: F/AV < 1.2x (untradeable, gets slipped on entry/exit)
-          if (favNum > 0 && favNum < 1) {
-            skipReason = `F/AV ${favNum.toFixed(2)}x below 1x absolute minimum (untradeable liquidity)`;
+          // 1. HARD REJECT: F/AV (untradeable, gets slipped on entry/exit)
+          if (favNum > 0 && favNum < 0.2) {
+            skipReason = `F/AV ${favNum.toFixed(2)}x below absolute minimum (untradeable liquidity)`;
             saveToCSV({ ...alertData, skipReason });
             const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
             const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
             log('INFO', `Links: ${secLink} ${tvLink}`);
-            log('SKIP', `$${ticker}, F/AV ${favNum.toFixed(2)}x - untradeable (absolute minimum 1x)`);
+            log('SKIP', `$${ticker}, F/AV ${favNum.toFixed(2)}x - untradeable (absolute minimum)`);
             console.log('');
             continue;
           }
