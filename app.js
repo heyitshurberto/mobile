@@ -4776,7 +4776,7 @@ const renderLoginPage = () => `
       /* iPad landscape only: shift landing page logo 3px left */
       @media screen and (min-width: 1024px) and (max-width: 1366px) and (orientation: landscape) {
         #landingPageLogo {
-          margin-left: -10px !important;
+          margin-left: -11px !important;
         }
       }
       
