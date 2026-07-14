@@ -4764,8 +4764,7 @@ const renderLoginPage = () => `
       /* Make landing page logo 20% smaller on Apple */
       #landingPageLogo {
         height: 41.6px !important;
-      }
-
+      }11
       /* iPad portrait only: shift landing page logo 4px left */
       @media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
         #landingPageLogo {
