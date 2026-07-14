@@ -3571,9 +3571,7 @@ const pushToGistOnly = () => {
             ? headerResetTime
             : now + (60 * 60 * 1000);
         } else if (res.status === 403) {
-          log('ERROR', `Gist backup failed: Token lacks gist permissions. Please create a new GitHub token with 'gist' scope at https://github.com/settings/tokens`);
         } else {
-          log('WARN', `Gist backup failed (${res.status}): ${text}`);
         }
       } else {
       }
