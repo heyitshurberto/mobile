@@ -1229,17 +1229,17 @@ document.addEventListener('DOMContentLoaded', function() {
             border-radius: 4px;
         }
 
-        /* iPad portrait only - move logo up 1px */
+        /* iPad portrait only - move logo up 2px */
         @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
-        .logo {
-            margin-top: -1px !important;
+            .logo {
+                margin-top: -2px !important;
             }
         }
 
-        /* iPad landscape only - move logo up 1px */
+        /* iPad landscape only - keep landscape unchanged */
         @media (min-width: 1024px) and (max-width: 1194px) and (orientation: landscape) {
             .logo {
-            margin-top: -2px !important;
+                margin-top: -2px !important;
             }
         }
 

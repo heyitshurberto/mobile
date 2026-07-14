@@ -4765,6 +4765,13 @@ const renderLoginPage = () => `
       #landingPageLogo {
         height: 41.6px !important;
       }
+
+      /* iPad view only: shift landing page logo 4px left */
+      @media screen and (min-width: 768px) and (max-width: 1024px) {
+        #landingPageLogo {
+          margin-left: -4px !important;
+        }
+      }
       
       /* Make heading text smaller on Apple */
       #mainTitle {
