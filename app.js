@@ -4766,10 +4766,10 @@ const renderLoginPage = () => `
         height: 41.6px !important;
       }
 
-      /* iPad view only: shift landing page logo 4px left */
-      @media screen and (min-width: 768px) and (max-width: 1024px) {
+      /* iPad portrait only: shift landing page logo 4px left */
+      @media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
         #landingPageLogo {
-          margin-left: -4px !important;
+          margin-left: -7px !important;
         }
       }
       
