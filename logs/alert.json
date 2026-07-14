@@ -1,1 +1,479 @@
-[]
+[
+  {
+    "ticker": "FLYX",
+    "title": "8-K - FLYEXCLUSIVE INC. (0001843973) (Filer)",
+    "companyName": "FLYEXCLUSIVE INC.",
+    "filerName": null,
+    "price": 1.58,
+    "fav": "11.97",
+    "volume": 135571,
+    "averageVolume": 592714,
+    "float": 7096117,
+    "sharesOutstanding": 46104300,
+    "soRatio": "15.39%",
+    "marketCap": 151734208,
+    "isShort": false,
+    "ftd": 75003,
+    "intent": "Merger/Acquisition, Underwritten Offering, Asset Disposition",
+    "incorporated": "Wilmington, Delaware",
+    "located": "North Carolina",
+    "filingDate": "2026-07-14T08:59:23-04:00",
+    "signals": {
+      "Merger/Acquisition": [
+        "Merger Agreement",
+        "Merger Consideration",
+        "Material Definitive Agreement"
+      ],
+      "Underwritten Offering": [
+        "IPO"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "8-K",
+      "FWG",
+      "EX-99.1",
+      "EX-10.1",
+      "Item 1.01",
+      "Item 2.01",
+      "Item 9.01"
+    ],
+    "cik": "1843973",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Airlines",
+    "hasTuesdayBonus": true,
+    "custodianVerified": true,
+    "custodianName": "North Carolina (via Wilmington, Delaware)",
+    "filingTimeBonus": 1.15,
+    "recordedAt": "2026-07-14T13:00:01.448Z",
+    "recordId": "FLYX-1784034001448",
+    "expiresAt": "2026-07-17T13:00:01.448Z",
+    "direction": "LONG",
+    "highest5Day": 1.58,
+    "highest5DayPercent": 0,
+    "lowest5Day": 1.58,
+    "lowest5DayPercent": 0,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null
+  },
+  {
+    "ticker": "NWGL",
+    "title": "6-K - CL Workshop Group Ltd (0001948294) (Filer)",
+    "companyName": "CL Workshop Group Ltd",
+    "filerName": null,
+    "price": 0.249,
+    "fav": "5.51",
+    "volume": 331127,
+    "averageVolume": 2233886,
+    "float": 12300000,
+    "sharesOutstanding": 4936559,
+    "soRatio": "249.2%",
+    "marketCap": 4121738,
+    "isShort": false,
+    "ftd": 450715,
+    "intent": "Asset Disposition, Licensing Deal, Unregistered Equity Sales, Regulation S Offering",
+    "incorporated": "Hong Kong",
+    "located": "Macau",
+    "filingDate": "2026-07-14T09:09:57-04:00",
+    "signals": {
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Licensing Deal": [
+        "Exclusive License"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: Agreement",
+        "Shares: 12.3M"
+      ],
+      "Regulation S Offering": [
+        "Regulation S"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "20-F",
+      "EX-10.1",
+      "EX-4.1"
+    ],
+    "cik": "1948294",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Paper & Forest",
+    "hasTuesdayBonus": true,
+    "custodianVerified": true,
+    "custodianName": "BNY Mellon",
+    "filingTimeBonus": 1.2,
+    "recordedAt": "2026-07-14T13:10:35.309Z",
+    "recordId": "NWGL-1784034635309",
+    "expiresAt": "2026-07-17T13:10:35.309Z",
+    "direction": "LONG",
+    "highest5Day": 0.249,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0.249,
+    "lowest5DayPercent": 0,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null
+  },
+  {
+    "ticker": "XOMA",
+    "title": "8-K - XOMA Royalty Corp (0000791908) (Filer)",
+    "companyName": "XOMA Royalty Corp",
+    "filerName": null,
+    "price": 40.17,
+    "fav": "53.23",
+    "volume": 4217188,
+    "averageVolume": 332104,
+    "float": 17678742,
+    "sharesOutstanding": 17678742,
+    "soRatio": "100.0%",
+    "marketCap": 710155008,
+    "isShort": true,
+    "ftd": 495,
+    "intent": "Merger/Acquisition, Clinical Success, Contingent Value Rights, Going Dark, Asset Disposition, Regulation S Offering, Unregistered Equity Sales",
+    "incorporated": "Nevada",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-07-14T09:10:21-04:00",
+    "signals": {
+      "Merger/Acquisition": [
+        "Merger Agreement",
+        "Merger Consideration",
+        "Material Definitive Agreement"
+      ],
+      "Clinical Success": [
+        "Efficacy"
+      ],
+      "Contingent Value Rights": [
+        "Contingent Value Rights",
+        "CVR",
+        "contingent payments"
+      ],
+      "Going Dark": [
+        "Form 15",
+        "Deregister"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Regulation S Offering": [
+        "Regulation S"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: Unknown Buyer",
+        "Shares: 17.7M"
+      ]
+    },
+    "bonusSignals": {
+      "Shell Recycling": "Shell Recycling"
+    },
+    "financialRatioSignals": {},
+    "formType": [
+      "8-K",
+      "EX-99.1",
+      "Item 1.01",
+      "Item 1.02",
+      "Item 2.01",
+      "Item 3.01",
+      "Item 3.03",
+      "Item 5.01",
+      "Item 5.02",
+      "Item 5.07",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "cik": "791908",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Biotechnology",
+    "hasTuesdayBonus": true,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Nevada)",
+    "filingTimeBonus": 1.2,
+    "recordedAt": "2026-07-14T13:11:00.331Z",
+    "recordId": "XOMA-1784034660331",
+    "expiresAt": "2026-07-17T13:11:00.331Z",
+    "direction": "SHORT",
+    "highest5Day": 40.17,
+    "highest5DayPercent": 0,
+    "lowest5Day": 40.17,
+    "lowest5DayPercent": 0,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null
+  },
+  {
+    "ticker": "CRMT",
+    "title": "8-K - AMERICAS CARMART INC (0000799850) (Filer)",
+    "companyName": "AMERICAS CARMART INC",
+    "filerName": null,
+    "price": 3.02,
+    "fav": "5.27",
+    "volume": 515214,
+    "averageVolume": 1575118,
+    "float": 8305520,
+    "sharesOutstanding": 8302450,
+    "soRatio": "100.0%",
+    "marketCap": 25073398,
+    "isShort": false,
+    "ftd": 30481,
+    "intent": "Merger/Acquisition, Accounting Restatement, Commercial Inflection, Unregistered Equity Sales",
+    "incorporated": "Texas",
+    "located": "Arkansas",
+    "filingDate": "2026-07-14T09:15:30-04:00",
+    "signals": {
+      "Merger/Acquisition": [
+        "Strategic Alternatives"
+      ],
+      "Accounting Restatement": [
+        "Material Weakness",
+        "Substantial Doubt"
+      ],
+      "Commercial Inflection": [
+        "Revenue Growth"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: Unknown Buyer",
+        "Shares: 0.0M"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "8-K",
+      "EX-99.1",
+      "Item 2.02",
+      "Item 9.01"
+    ],
+    "cik": "799850",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Retail",
+    "hasTuesdayBonus": true,
+    "custodianVerified": true,
+    "custodianName": "Arkansas (via Texas)",
+    "filingTimeBonus": 1.2,
+    "recordedAt": "2026-07-14T13:16:16.235Z",
+    "recordId": "CRMT-1784034976235",
+    "expiresAt": "2026-07-17T13:16:16.235Z",
+    "direction": "LONG",
+    "highest5Day": 3.02,
+    "highest5DayPercent": 0,
+    "lowest5Day": 3.02,
+    "lowest5DayPercent": 0,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null
+  },
+  {
+    "ticker": "LGND",
+    "title": "8-K - LIGAND PHARMACEUTICALS INC (0000886163) (Filer)",
+    "companyName": "LIGAND PHARMACEUTICALS INC",
+    "filerName": null,
+    "price": 309.25,
+    "fav": "59.40",
+    "volume": 245695,
+    "averageVolume": 329032,
+    "float": 19545483,
+    "sharesOutstanding": 20041061,
+    "soRatio": "97.53%",
+    "marketCap": 6197698048,
+    "isShort": true,
+    "ftd": 5619,
+    "intent": "Merger/Acquisition, Clinical Success, Contingent Value Rights, Credit Default, Asset Disposition, Unregistered Equity Sales, Regulation S Offering",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-07-14T09:20:16-04:00",
+    "signals": {
+      "Merger/Acquisition": [
+        "Merger Agreement",
+        "Merger Consideration",
+        "Material Definitive Agreement"
+      ],
+      "Clinical Success": [
+        "Efficacy"
+      ],
+      "Contingent Value Rights": [
+        "Contingent Value Rights",
+        "CVR",
+        "contingent payments"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: Unknown Buyer"
+      ],
+      "Regulation S Offering": [
+        "Regulation S"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "8-K",
+      "EX-99.1",
+      "Item 1.01",
+      "Item 2.01",
+      "Item 2.03",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "cik": "886163",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Pharmaceuticals",
+    "hasTuesdayBonus": true,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Wilmington, Delaware)",
+    "filingTimeBonus": 1.2,
+    "recordedAt": "2026-07-14T13:20:51.662Z",
+    "recordId": "LGND-1784035251662",
+    "expiresAt": "2026-07-17T13:20:51.662Z",
+    "direction": "SHORT",
+    "highest5Day": 309.25,
+    "highest5DayPercent": 0,
+    "lowest5Day": 309.25,
+    "lowest5DayPercent": 0,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null
+  },
+  {
+    "ticker": "GNPX",
+    "title": "8-K - Genprex, Inc. (0001595248) (Filer)",
+    "companyName": "Genprex, Inc.",
+    "filerName": null,
+    "price": 0.5352,
+    "fav": "17.68",
+    "volume": 91984,
+    "averageVolume": 628303,
+    "float": 11108577,
+    "sharesOutstanding": 10927213,
+    "soRatio": "101.7%",
+    "marketCap": 5848244,
+    "isShort": true,
+    "ftd": 85749,
+    "intent": "Clinical Success, Clinical Milestone, FDA Approved, Nasdaq Delisting, Bid Price Delisting, Unregistered Equity Sales",
+    "incorporated": "Texas",
+    "located": "Texas",
+    "filingDate": "2026-07-14T09:23:23-04:00",
+    "signals": {
+      "Clinical Success": [
+        "Phase 1",
+        "Phase 2",
+        "Efficacy",
+        "Primary Endpoint"
+      ],
+      "Clinical Milestone": [
+        "Dose Escalation",
+        "Dose Escalation"
+      ],
+      "FDA Approved": [
+        "Fast Track Designation"
+      ],
+      "Nasdaq Delisting": [
+        "Delisting Determination"
+      ],
+      "Bid Price Delisting": [
+        "Minimum Bid Price"
+      ],
+      "Unregistered Equity Sales": [
+        "VIE",
+        "Item 7.01"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "8-K",
+      "S-3",
+      "EX-99.1",
+      "EX-3.1",
+      "Item 3.03",
+      "Item 5.03",
+      "Item 7.01",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "cik": "1595248",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Biotechnology",
+    "hasTuesdayBonus": true,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeBonus": 1.2,
+    "recordedAt": "2026-07-14T13:24:11.329Z",
+    "recordId": "GNPX-1784035451329",
+    "expiresAt": "2026-07-17T13:24:11.329Z",
+    "direction": "SHORT",
+    "highest5Day": 0.5352,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0.5352,
+    "lowest5DayPercent": 0,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null
+  }
+]
