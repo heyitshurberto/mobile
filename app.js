@@ -748,6 +748,7 @@ const SEMANTIC_KEYWORDS = {
   'Capital Raise': ['Oversubscribed', 'Institutional Participation', 'Lead Investor', 'Top-Tier Investor', 'Strategic Investor'],
   'Underwritten Offering': ['Bought Deal', 'Underwriter Commitment', 'Underwritten Bought Deal', 'IPO', 'IPO Underwritten'],
   'Convertible Debt': ['Convertible Bonds', 'Convertible Notes', 'Convertible Securities'],
+  'Contingent Value Rights': ['Contingent Value Rights', 'CVR', 'contingent payments', 'shareholder value rights', 'legacy asset monetization'],
   
   // Distress & Legal
   'Bankruptcy Filing': ['Bankruptcy Protection', 'Chapter 11 Filing', 'Chapter 7 Filing', 'Insolvency Proceedings', 'Creditor Protection'],
@@ -9631,7 +9632,7 @@ if (process.stdin.isTTY) {
             // Bearish signals that force SHORT regardless
             const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Regulatory Breach', 'Accounting Restatement', 'Auditor Change', 'Material Lawsuit', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure', 'Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount'];
             const bearishCount = sigKeys.filter(cat => bearishCats.includes(cat)).length;
-            const bullishCats = ['Merger/Acquisition', 'Clinical Success', 'Clinical Milestone', 'FDA Approved', 'DTC Eligible Restored', 'Government Contract', 'Partnership', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Unregistered Equity Sales', 'Insider Buying'];
+            const bullishCats = ['Merger/Acquisition', 'Clinical Success', 'Clinical Milestone', 'FDA Approved', 'DTC Eligible Restored', 'Government Contract', 'Partnership', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Unregistered Equity Sales', 'Insider Buying', 'Contingent Value Rights'];
             const bullishCount = sigKeys.filter(cat => bullishCats.includes(cat)).length;
             const hasPartnership = sigKeys.includes('Partnership');
             
@@ -10083,7 +10084,7 @@ if (process.stdin.isTTY) {
             'Acquisition Agreement',
             'Clinical Success',
             'Clinical Milestone',
-            'FDA Approved'
+            'Contingent Value Rights'
           ];
 
           const hasCoreCategories = signalCategories.filter(cat => coreCategories.includes(cat)).length;
