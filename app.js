@@ -3397,8 +3397,8 @@ const sendPersonalPriceMoveAlert = (stock, currentPrice, percentMove) => {
     const alertPriceDisplay = stock.price ? `**$${parseFloat(stock.price).toFixed(2)}**` : 'N/A';
     const percentDisplay = `**${Math.abs(percentMove).toFixed(2)}%**`;
     const tradingViewLink = `https://www.tradingview.com/symbols/${stock.ticker}/`;
-    const sideLabel = stock.direction === 'SHORT' || stock.isShort === true ? ' (SHORT)'
-      : stock.direction === 'LONG' || stock.isShort === false ? ' (LONG)'
+    const sideLabel = stock.direction === 'SHORT' || stock.isShort === true ? ' (*SHORT*)'
+      : stock.direction === 'LONG' || stock.isShort === false ? ' (*LONG*)'
       : '';
     const status = `↳ **$${stock.ticker}**${sideLabel} is ${direction} ${percentDisplay} from ${alertPriceDisplay} now trading @ ${priceDisplay}\n${tradingViewLink}`;
 
