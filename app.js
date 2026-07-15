@@ -733,7 +733,7 @@ const FORM_TYPES = ['6-K', '6-K/A', '8-K', '8-K/A', 'S-1', 'S-3', 'S-4', 'S-8', 
 const SEMANTIC_KEYWORDS = {
 
   // M&A & Structural
-  'Merger/Acquisition': ['Merger Agreement', 'Acquisition Agreement', 'Agreed To Acquire', 'Premium Valuation', 'Going Private', 'Take Private', 'Acquisition Closing', 'Closing Of Acquisition', 'Completed Acquisition', 'Definitive Agreement To Be Acquired', 'Material Definitive Agreement', 'Strategic Alternatives', 'Exploring Strategic Alternatives'],
+  'Merger/Acquisition': ['Acquisition Agreement', 'Agreed To Acquire', 'Premium Valuation', 'Going Private', 'Take Private', 'Acquisition Closing', 'Closing Of Acquisition', 'Completed Acquisition', 'Definitive Agreement To Be Acquired', 'Material Definitive Agreement', 'Strategic Alternatives', 'Exploring Strategic Alternatives'],
     
   // Failed Trial
   'Failed Trial': ['Primary Endpoint Not Met', 'Did Not Meet Primary Endpoint', 'Primary Endpoint Missed', 'Failed To Meet Primary Endpoint', 'Primary Endpoint Failed', 'No Statistically Significant', 'Did Not Show Statistically Significant', 'Did Not Achieve Primary', 'Missed Primary Endpoint'],
