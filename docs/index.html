@@ -586,7 +586,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return alert.ticker;
             }
             return null;
-        }).filter(Boolean).slice(0, 6);
+        }).filter(Boolean).slice(0, 12);
         if (tickers.length === 0) {
             if (window.dashboard && typeof window.dashboard.showNotification === 'function') {
                 window.dashboard.showNotification('No alerts to open multi chart view', 'info');
@@ -4784,11 +4784,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     smartLog('info', `Loaded ${alertData.length} alerts from alert.json`); // Log total count
 
-                    // Filter out expired alerts first, then limit display to 9
+                    // Filter out expired alerts first, then limit display to 12
                     const now = new Date();
                     const activeAlerts = alertData.filter(a => !a.expiresAt || new Date(a.expiresAt) > now);
                     smartLog('info', `${activeAlerts.length} alerts still active (${alertData.length - activeAlerts.length} expired)`);
-                    const displayAlerts = activeAlerts.slice(-9);
+                    const displayAlerts = activeAlerts.slice(-12);
                     let performanceData = {};
                     let stocksData = [];
                     try {
@@ -4824,7 +4824,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         smartLog('warn', `Could not load stocks.json for peak data: ${err.message}`);
                     }
 
-                    // Process only the 9 most recent alerts in chronological order
+                    // Process only the 12 most recent alerts in chronological order
                     displayAlerts.sort((a, b) => new Date(b.alertDate) - new Date(a.alertDate));
 
                     // Initialize monitoring for each alert
@@ -5316,10 +5316,10 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     }
                     const alertData = await response.json();
 
-                    // Filter out expired alerts and get only the 9 most recent (syncing with backend cap)
+                    // Filter out expired alerts and get only the 12 most recent (syncing with backend cap)
                     const now = new Date();
                     const activeAlerts = alertData.filter(a => !a.expiresAt || new Date(a.expiresAt) > now);
-                    const recentAlerts = activeAlerts.slice(-9);
+                    const recentAlerts = activeAlerts.slice(-12);
                     
                     // Build a set of tickers currently in the file for removal detection
                     const fileTickersSet = new Set();
@@ -5878,7 +5878,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 const sortedAlerts = Array.from(this.alerts.values())
                     .flat()
                     .sort((a, b) => Math.abs(b.priceChange) - Math.abs(a.priceChange))
-                    .slice(-9);  // Cap to 9 most recent alerts for dashboard
+                    .slice(-12);  // Cap to 12 most recent alerts for dashboard
                 
                 // Store all alerts for filtering
                 allAlerts = sortedAlerts;
@@ -6279,8 +6279,8 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 });
             }
             
-            // Cap to 9 alerts max for dashboard display
-            filteredAlerts = filteredAlerts.slice(-9);
+            // Cap to 12 alerts max for dashboard display
+            filteredAlerts = filteredAlerts.slice(-12);
             
             // Re-render alerts
             renderFilteredAlerts();
