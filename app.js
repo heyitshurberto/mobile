@@ -34,8 +34,8 @@ const CONFIG = {
   FILE_TIME: 1,                     // Historical lookback window in minutes for filing discovery
   MIN_ALERT_VOLUME: 2000,           // Minimum volume threshold for initial alert trigger
   STRONG_SIGNAL_MIN_VOLUME: 1000,    // Volume threshold for high-confidence signal detection
-  MAX_FLOAT_6K: 50000000,           // Maximum float size threshold for 6-K filings
-  MAX_FLOAT_8K: 25000000,           // Maximum float size threshold for 8-K filings
+  MAX_FLOAT_6K: 25000000,           // Maximum float size threshold for 6-K filings
+  MAX_FLOAT_8K: 20000000,           // Maximum float size threshold for 8-K filings
   MAX_FAV_RATIO: 200,                // Maximum float-to-average-volume ratio threshold
   ALLOWED_COUNTRIES: ['israel', 'new york', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'nevada', 'delaware'], // Whitelisted jurisdictions for company registration
   CTB_WATCHLIST: ['ASTC','AMSS','ATPC','AZI','AEHL','BJDX','BOXL','BYAH','BRAI','CELZ','CHAI','CMND','CNSP','CZOOF','DCX','DXF','EHGO','EDHL','ENVB','FABTQ','FRTT','FOXX','GLXG','GITS','HKIT','HCWB','ICCM','ILLR','IONM','JEM','JXG','KIDZ','LGCL','LUCY','MASK','MWC','NCT','NEXR','NXTS','NXUS','OLOX','PMAX','RGNT','RMSG','SLBT','SLXN','SMCZ','SPRC','STI','TC','TNON','UBXG','VIVS','VCIG','VRAX','WCT','USDE'], // Symbols with elevated cost-to-borrow values from IBorrowDesk
@@ -733,22 +733,21 @@ const FORM_TYPES = ['6-K', '6-K/A', '8-K', '8-K/A', 'S-1', 'S-3', 'S-4', 'S-8', 
 const SEMANTIC_KEYWORDS = {
 
   // M&A & Structural
-  'Merger/Acquisition': ['Merger Agreement', 'Acquisition Agreement', 'Agreed To Acquire', 'Merger Consideration', 'Premium Valuation', 'Going Private', 'Take Private', 'Acquisition Closing', 'Closing Of Acquisition', 'Completed Acquisition', 'Definitive Agreement To Be Acquired', 'Material Definitive Agreement', 'Strategic Alternatives', 'Exploring Strategic Alternatives'],
+  'Merger/Acquisition': ['Merger Agreement', 'Acquisition Agreement', 'Agreed To Acquire', 'Premium Valuation', 'Going Private', 'Take Private', 'Acquisition Closing', 'Closing Of Acquisition', 'Completed Acquisition', 'Definitive Agreement To Be Acquired', 'Material Definitive Agreement', 'Strategic Alternatives', 'Exploring Strategic Alternatives'],
     
-  // CRITICAL: Failed Trial (BEARISH - distinct from positive clinical signals)
+  // Failed Trial
   'Failed Trial': ['Primary Endpoint Not Met', 'Did Not Meet Primary Endpoint', 'Primary Endpoint Missed', 'Failed To Meet Primary Endpoint', 'Primary Endpoint Failed', 'No Statistically Significant', 'Did Not Show Statistically Significant', 'Did Not Achieve Primary', 'Missed Primary Endpoint'],
   'Post-Hoc Salvage': ['Post Hoc Analysis', 'Post-Hoc Analysis', 'Unplanned Analysis', 'Post Hoc Findings', 'Subset Analysis', 'Exploratory Analysis', 'Applied For Breakthrough'],
   
-  // Clinical / Regulatory (Bullish)
-  'Clinical Success': ['Positive Results', 'Phase 1', 'Phase 2', 'Phase 3', 'Trial Results', 'Efficacy', 'Safety Profile', 'Primary Endpoint', 'Topline Data', 'Favorable Safety', 'Positive Topline Results', 'Statistically Significant', 'Met Primary Endpoint', 'Positive Phase 3', 'Primary Endpoint Met', 'Clinical Benefit'],
-  'Clinical Milestone': ['Phase Advancement', 'Phase 2 Initiation', 'Phase 3 Initiation', 'Enrollment Opened', 'Enrollment Initiated', 'Trial Initiation', 'Investigational New Drug', 'IND Application', 'NDA Filing', 'PMA Submission', 'Clinical Trial Site', 'Patient Enrollment', 'First Patient', 'Program Initiation', 'Patient Dosed', 'First Dose', 'Dose Escalation', 'Cohort Complete', 'Patient Enrollment', 'Investigational New Drug', 'First Patient', 'Patient Dosed', 'First Dose', 'Dose Escalation', 'Program Initiation', 'Trial Initiation', 'IND Application'],
-  'FDA Approved': ['FDA Approval', 'FDA approved', 'FDA clearance', 'FDA Clearance', 'Approval Granted', 'NDA Submission', 'BLA Submission', 'Priority Review', 'Fast Track Designation', 'Breakthrough Designation'],
+  // Clinical / Regulatory
+  'Clinical Success': ['Priority Review', 'Fast Track Designation', 'Breakthrough Designation', 'Phase 3', 'Primary Endpoint', 'Topline Data', 'Statistically Significant', 'Met Primary Endpoint', 'Positive Phase 3', 'Primary Endpoint Met'],
+  'Clinical Milestone': ['Phase Advancement', 'Phase 3 Initiation', 'Enrollment Opened', 'Enrollment Initiated', 'NDA Filing', 'PMA Submission', 'Program Initiation', 'Dose Escalation', 'Cohort Complete'],
 
   // Capital & Dilution
   'Capital Raise': ['Oversubscribed', 'Institutional Participation', 'Lead Investor', 'Top-Tier Investor', 'Strategic Investor'],
-  'Underwritten Offering': ['Bought Deal', 'Underwriter Commitment', 'Underwritten Bought Deal', 'IPO', 'IPO Underwritten'],
+  'Underwritten Offering': ['Bought Deal', 'Underwriter Commitment', 'Underwritten Bought Deal', 'IPO Underwritten'],
   'Convertible Debt': ['Convertible Bonds', 'Convertible Notes', 'Convertible Securities'],
-  'Contingent Value Rights': ['Contingent Value Rights', 'CVR', 'contingent payments', 'shareholder value rights', 'legacy asset monetization'],
+  'Contingent Value Rights': ['Contingent Value Rights', 'CVR', 'Contingent Payments', 'Shareholder Value Rights', 'Legacy Asset Monetization'],
   
   // Distress & Legal
   'Bankruptcy Filing': ['Bankruptcy Protection', 'Chapter 11 Filing', 'Chapter 7 Filing', 'Insolvency Proceedings', 'Creditor Protection'],
@@ -759,7 +758,7 @@ const SEMANTIC_KEYWORDS = {
   'Regulatory Breach': ['Regulatory Violation', 'FDA Warning', 'Product Recall', 'Safety Recall', 'Warning Letter'],
   
   // Structural Events
-  'Going Dark': ['Form 15', 'Deregistration', 'Stop Reporting', 'Cease Reporting', 'Edgar Delisting', 'No Longer Report', 'Deregister', 'Terminate Registration', 'Exit From SEC Reporting', 'Shall No Longer File', 'Deregistered'],
+  'Going Dark': ['Form 15', 'Deregistration', 'Stop Reporting', 'Cease Reporting', 'Edgar Delisting', 'No Longer Report', 'Terminate Registration', 'Exit From SEC Reporting', 'Shall No Longer File'],
   'Nasdaq Delisting': ['Nasdaq Deficiency', 'Listing Standards Warning', 'Nasdaq Notification', 'Delisting Determination', 'Nasdaq Letter', 'Delisting Risk', 'Delisting Threat', 'Received Notice Of Delisting', 'Notice Of Non-Compliance', 'Not In Compliance With Listing Requirements'],
   'Bid Price Delisting': ['Minimum Bid Price', 'Regained Compliance'],
   'DTC Eligible Restored': ['DTC Eligible', 'DTC Chill Lifted', 'Eligibility Restored', 'DTC Restoration', 'Chill Status', 'Chill Removed', 'Resume Trading'],
@@ -778,8 +777,8 @@ const SEMANTIC_KEYWORDS = {
   'Commercial Inflection': ['Customer Growth', 'Revenue Growth', 'Revenue Doubled', 'Revenue Doubled In', 'Commercial Traction', 'Commercial Momentum', 'POC Completed', 'Proof Of Concept Completed', 'Proof Of Concept', 'Letter Of Intent', 'LOI Signed', 'Commercial Pipeline Expansion', 'Commercial Pipeline', 'Operational Runway', 'Cash Runway', 'Strengthened Foundation', 'De-Risking', 'Strategic Validation', 'Ecosystem Expansion', 'Customer Count Increase', 'Active Customers', 'Revenue-Generating Shipments', 'Repeat Business'],
   
   // Predatory Extraction Mechanics (Item 3.02)
-  'Unregistered Equity Sales': ['Item 3.02', 'VIE', 'Item 7.01', 'registered direct offering', 'offering to certain investors', 'accredited investors', 'Rule 506(b)', 'unregistered', 'private placement', 'registered direct', 'issuable under', 'pre-funded warrants', 'purchase agreement', 'placement agent'],
-  'Regulation S Offering': ['Regulation S', 'Reg S', 'Rule 902', 'Non-U.S. Persons', 'Offshore Transaction', 'Offshore Purchaser', 'Foreign Purchaser', 'Offshore Purchaser', 'Offshore Transaction'],
+  'Unregistered Equity Sales': ['Item 3.02', 'Item 7.01', 'Registered Direct Offering', 'Offering to Certain Investors', 'Accredited Investors', 'Rule 506(b)', 'Private Placement', 'Registered Direct', 'Issuable Under', 'Pre-funded Warrants', 'Purchase Agreement', 'Placement Agent'],
+  'Regulation S Offering': ['Regulation S', 'Rule 902', 'Non-U.S. Persons', 'Offshore Transaction', 'Offshore Purchaser', 'Foreign Purchaser', 'Offshore Purchaser', 'Offshore Transaction'],
   'Related-Party Transaction': ['Spouse Of', 'Family Member', 'Relative Of CEO', 'Relative Of The CEO', 'Controlled By', 'Related Party', 'Affiliate Transaction', 'Affiliate Of', 'Related Person', 'Family Relationship'],
   'Offering At A Discount': ['Offering At A Discount', 'Priced At A Discount', 'Discount To Market', 'Discounted Offering', 'Sold At A Discount', 'Discounted Placement'],
 };
@@ -1217,7 +1216,7 @@ const parseSemanticSignals = (text) => {
   // Failed trials are significant bearish signals that override other factors
   const failedTrialIndicators = [
     /primary\s+endpoint\s+(?:was\s+)?not\s+met/i,
-    /did\s+not\s+(?:show|demonstrate|achieve)\s+.*?(?:significant|efficacy|improvement)/i,
+    /did\s+not\s+(?:show|demonstrate|achieve)\s+.*?(?:significant|improvement)/i,
     /failed\s+to\s+(?:meet|achieve|demonstrate)/i,
     /missed\s+(?:primary|primary\s+endpoint)/i,
     /primary\s+did\s+not\s+reach/i,
@@ -8942,72 +8941,6 @@ app.post('/api/send-message', async (req, res) => {
   }
 });
 
-/*
-╔══════════════════════════════════════════════════════════════════════════════╗
-║                  PAYMENT & ACCESS CODE DISTRIBUTION FLOW                     ║
-╚══════════════════════════════════════════════════════════════════════════════╝
-
-CURRENT ARCHITECTURE:
-1. User clicks "Request Access" button in login modal
-2. User fills form (name, email, interest message, optional source)
-3. Form submits to /api/send-access-request endpoint
-4. Email notification sent to business admin
-5. Admin manually reviews request and issues ACCESS CODE
-
-PAYMENT INTEGRATION (FUTURE):
-- Phase 1: Manual payment requests + admin code issuance (current)
-- Phase 2: Stripe payment integration
-  • Add "Get Premium Access" button to Request Access modal
-  • Redirect to Stripe Checkout session
-  • Webhook listens to payment.succeeded event
-  • Create random 12-char access code (uppercase alphanumeric)
-  • Email code to user automatically
-  • Store code in database with user email, payment date, expiry (180 days)
-
-CODE GENERATION ALGORITHM:
-  function generateAccessCode() {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    let code = '';
-    for (let i = 0; i < 12; i++) {
-      code += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return code;
-  }
-
-WEBHOOK HANDLER (Stripe):
-  app.post('/api/webhook/stripe-payment', (req, res) => {
-    const event = req.body;
-    if (event.type === 'payment_intent.succeeded') {
-      const email = event.data.object.customer_email;
-      const code = generateAccessCode();
-      saveAccessCode(email, code); // Save to database
-      sendCodeByEmail(email, code); // Send via SMTP
-      res.json({ received: true });
-    }
-  });
-
-CURRENT FLOW DATA:
-- Access requests stored as emails to admin
-- Codes issued manually via admin panel
-- No automatic tracking of who has codes
-- No code expiration management
-- No revenue attribution
-
-NEXT STEPS:
-1. Set up Stripe account and API keys
-2. Create /api/webhook/stripe-payment endpoint
-3. Add database table: access_codes (email, code, created_date, expires_date, payment_id)
-4. Update Request Access modal with pricing/subscribe button
-5. Implement automatic email delivery on payment confirmation
-
-SECURITY NOTES:
-- Codes are UPPERCASE ONLY (case-insensitive comparison on server)
-- 12 characters provides ~62^12 combinations (safe from brute force)
-- Trim whitespace before comparison
-- Require valid email format for code registration
-- Log all code generation and usage for audit
-*/
-
 app.post('/api/send-access-request', async (req, res) => {
   try {
     const { name, email, source, message } = req.body;
@@ -9658,7 +9591,7 @@ if (process.stdin.isTTY) {
             // Bearish signals that force SHORT regardless
             const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Regulatory Breach', 'Accounting Restatement', 'Auditor Change', 'Material Lawsuit', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure', 'Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount'];
             const bearishCount = sigKeys.filter(cat => bearishCats.includes(cat)).length;
-            const bullishCats = ['Merger/Acquisition', 'Clinical Success', 'Clinical Milestone', 'FDA Approved', 'DTC Eligible Restored', 'Government Contract', 'Partnership', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Unregistered Equity Sales', 'Insider Buying', 'Contingent Value Rights'];
+            const bullishCats = ['Merger/Acquisition', 'Clinical Success', 'Clinical Milestone', 'DTC Eligible Restored', 'Government Contract', 'Partnership', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Unregistered Equity Sales', 'Insider Buying', 'Contingent Value Rights'];
             const bullishCount = sigKeys.filter(cat => bullishCats.includes(cat)).length;
             const hasPartnership = sigKeys.includes('Partnership');
             
