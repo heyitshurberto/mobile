@@ -776,8 +776,8 @@ const SEMANTIC_KEYWORDS = {
   // Commercial Inflection & Traction (Growth Signals)
   'Commercial Inflection': ['Customer Growth', 'Revenue Growth', 'Revenue Doubled', 'Revenue Doubled In', 'Commercial Traction', 'Commercial Momentum', 'POC Completed', 'Proof Of Concept Completed', 'Proof Of Concept', 'Letter Of Intent', 'LOI Signed', 'Commercial Pipeline Expansion', 'Commercial Pipeline', 'Operational Runway', 'Cash Runway', 'Strengthened Foundation', 'De-Risking', 'Strategic Validation', 'Ecosystem Expansion', 'Customer Count Increase', 'Active Customers', 'Revenue-Generating Shipments', 'Repeat Business'],
   
-  // Predatory Extraction Mechanics (Item 3.02)
-  'Unregistered Equity Sales': ['Item 3.02', 'Item 7.01', 'Registered Direct Offering', 'Offering to Certain Investors', 'Accredited Investors', 'Rule 506(b)', 'Private Placement', 'Registered Direct', 'Issuable Under', 'Pre-funded Warrants', 'Purchase Agreement', 'Placement Agent'],
+  // Predatory Extraction Mechanics
+  'Unregistered Equity Sales': ['Registered Direct Offering', 'Offering to Certain Investors', 'Accredited Investors', 'Rule 506(b)', 'Private Placement', 'Registered Direct', 'Issuable Under', 'Pre-funded Warrants', 'Purchase Agreement', 'Placement Agent'],
   'Regulation S Offering': ['Regulation S', 'Rule 902', 'Non-U.S. Persons', 'Offshore Transaction', 'Offshore Purchaser', 'Foreign Purchaser', 'Offshore Purchaser', 'Offshore Transaction'],
   'Related-Party Transaction': ['Spouse Of', 'Family Member', 'Relative Of CEO', 'Relative Of The CEO', 'Controlled By', 'Related Party', 'Affiliate Transaction', 'Affiliate Of', 'Related Person', 'Family Relationship'],
   'Offering At A Discount': ['Offering At A Discount', 'Priced At A Discount', 'Discount To Market', 'Discounted Offering', 'Sold At A Discount', 'Discounted Placement'],
