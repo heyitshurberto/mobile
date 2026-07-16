@@ -3221,24 +3221,41 @@ const detectSEPAAgreement = (text, buyerDescription) => {
   };
 };
 
+  // Determine whether alerts are allowed at the current ET time.
+  // Allowed windows:
+  // - Mid-market: 9:30 AM ET (570) <= t < 16:00 (960)
+  // - Pre-market: 1 hour before open (8:30 AM ET / 510) <= t < 9:30 AM ET (570)
+  // Weekends are always disallowed.
+  function isAlertAllowedNow() {
+    const now = new Date();
+    const etTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+    const etHour = etTime.getHours();
+    const etMinutes = etTime.getMinutes();
+    const etTotalMin = etHour * 60 + etMinutes;
+    const dayOfWeek = etTime.getDay();
+    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+    if (isWeekend) return false;
+
+    const marketOpen = 9 * 60 + 30; // 570
+    const marketClose = 16 * 60; // 960
+    const preMarketAllowedStart = marketOpen - 60; // 510 (8:30 AM ET)
+
+    if (etTotalMin >= marketOpen && etTotalMin < marketClose) return true; // mid-market
+    if (etTotalMin >= preMarketAllowedStart && etTotalMin < marketOpen) return true; // 1 hour pre-open
+    return false;
+  }
+
 const sendPersonalWebhook = (alertData) => {
   try {
     // Check master toggle first
     if (!CONFIG.ALERTS_DISTRIBUTION_ENABLED) {
       return;
     }
-    
-    // Market hours check: only send personal alerts 7:30 AM - 4 PM ET, Mon-Fri
-    const now = new Date();
-    const etTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
-    const etHour = etTime.getHours();
-    const etMinutes = etTime.getMinutes();
-    const dayOfWeek = etTime.getDay(); // 0=Sunday, 6=Saturday
-    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
-    const isMarketHours = (etHour >= 7 && (etHour > 7 || etMinutes >= 30)) && etHour < 16; // 7:30 AM - 3:59 PM (market closes at 4 PM)
-    
-    if (isWeekend || !isMarketHours) {
-      log('INFO', `Skipping personal alert for $${alertData.ticker} - Outside market hours (${etTime.toLocaleString('en-US', { timeZone: 'America/New_York' })})`);
+    // Market-hours gating: allow alerts mid-market, or in the 1 hour pre-market window only
+    if (!isAlertAllowedNow()) {
+      const now = new Date();
+      const etTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+      log('INFO', `Skipping personal alert for $${alertData.ticker} - Outside allowed alert window (${etTime.toLocaleString('en-US', { timeZone: 'America/New_York' })})`);
       return;
     }
     
@@ -3386,8 +3403,7 @@ const sendPersonalPriceMoveAlert = (stock, currentPrice, percentMove) => {
     const etMinutes = etTime.getMinutes();
     const dayOfWeek = etTime.getDay();
     const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
-    const isMarketHours = (etHour >= 7 && (etHour > 7 || etMinutes >= 30)) && etHour < 16;
-    if (isWeekend || !isMarketHours) {
+    if (!isAlertAllowedNow()) {
       return;
     }
 
