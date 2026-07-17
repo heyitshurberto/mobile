@@ -2908,7 +2908,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         @media (max-width: 768px) {
             .logo {
-                margin-top: 22px !important;
+                margin-top: 23px !important;
                 margin-left: 18px !important;
                 transform: translateX(2px) !important;
             }
@@ -6449,23 +6449,13 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             
             localStorage.setItem('pushNotifSettings', JSON.stringify(settings));
             
-            // Request notification permission if enabling
-            if (settings.enabled && 'Notification' in window) {
-                if (Notification.permission === 'granted') {
-                    new Notification('Push Notifications Enabled', {
-                        body: `Threshold: ${settings.threshold}%`,
-                        icon: 'logo.jpeg'
-                    });
-                } else if (Notification.permission !== 'denied') {
-                    Notification.requestPermission().then(permission => {
-                        if (permission === 'granted') {
-                            new Notification('Push Notifications Enabled', {
-                                body: `Threshold: ${settings.threshold}%`,
-                                icon: 'logo.jpeg'
-                            });
-                        }
-                    });
-                }
+            // Do not prompt for browser notification permission automatically.
+            // If the site already has permission, notifications will work silently.
+            if (settings.enabled && 'Notification' in window && Notification.permission === 'granted') {
+                new Notification('Push Notifications Enabled', {
+                    body: `Threshold: ${settings.threshold}%`,
+                    icon: 'logo.jpeg'
+                });
             }
             
             closePushNotificationSettings();

@@ -783,6 +783,16 @@ const SEMANTIC_KEYWORDS = {
   'Offering At A Discount': ['Offering At A Discount', 'Priced At A Discount', 'Discount To Market', 'Discounted Offering', 'Sold At A Discount', 'Discounted Placement'],
 };
 
+const strongBearishSignals = [
+  'Unregistered Equity Sales',
+  'Convertible Debt',
+  'Regulation S Offering',
+  'PIPE',
+  'Related-Party Transaction',
+  'Credit Default',
+  'Accounting Restatement'
+];
+
 // Financial ratio parser: extracts quantitative balance sheet metrics from filing text
 // Financial ratio parser - extracts balance sheet and solvency metrics from filing documents
 const parseFinancialRatios = (filingText) => {
@@ -1723,7 +1733,14 @@ const calculateExpiryDate = () => {
 
 const saveAlert = (alertData) => {
   try {
-    // Dashboard alerts do not enforce a timeframe. Personal Discord alerts still follow market hours.
+    // Enforce market-hours gating for dashboard alerts too.
+    // Allowed windows: mid-market or 1-hour pre-market only.
+    if (!isAlertAllowedNow()) {
+      const now = new Date();
+      const etTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+      log('INFO', `Skipping dashboard alert for ${alertData.ticker} - Outside allowed alert window (${etTime.toLocaleString('en-US', { timeZone: 'America/New_York' })})`);
+      return;
+    }
 
     // Check daily alert limit
     if (isDailyLimitReached()) {
@@ -9605,9 +9622,9 @@ if (process.stdin.isTTY) {
             const sigKeys = Object.keys(semanticSignals || {});
             
             // Bearish signals that force SHORT regardless
-            const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Regulatory Breach', 'Accounting Restatement', 'Auditor Change', 'Material Lawsuit', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure', 'Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount'];
+            const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Regulatory Breach', 'Accounting Restatement', 'Auditor Change', 'Material Lawsuit', 'Nasdaq Delisting', 'Bid Price Delisting', 'Unregistered Equity Sales', 'Executive Departure', 'Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount'];
             const bearishCount = sigKeys.filter(cat => bearishCats.includes(cat)).length;
-            const bullishCats = ['Merger/Acquisition', 'Clinical Success', 'Clinical Milestone', 'DTC Eligible Restored', 'Government Contract', 'Partnership', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Unregistered Equity Sales', 'Insider Buying', 'Contingent Value Rights'];
+            const bullishCats = ['Merger/Acquisition', 'Clinical Success', 'Clinical Milestone', 'DTC Eligible Restored', 'Government Contract', 'Partnership', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Insider Buying', 'Contingent Value Rights'];
             const bullishCount = sigKeys.filter(cat => bullishCats.includes(cat)).length;
             const hasPartnership = sigKeys.includes('Partnership');
             
@@ -10358,21 +10375,94 @@ if (process.stdin.isTTY) {
                 alertData.skipReason = ''; // Clear skip reason - this is an alert
                 // OVERRIDE signal requirement for known predators
                 saveAlert(alertData);
-              } else if (nonNeutralSignals.length < 2 && !isDeterministic) {
-                // Non-CTB, non-predatory stocks with 0-1 signals AND no deterministic pattern = skip
-                // BUT 2+ signal combinations bypass this gate (combo trading signal)
-                alertData.skipReason = 'Insufficient Signal Combination (need 2+)';
-                // Save to CSV for later analysis only
-                saveToCSV(alertData);
-                const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
-                const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
-                log('INFO', `Links: ${secLink} ${tvLink}`);
-                log('SKIP', `$${ticker}, weak signal combo`);
-                console.log('');
-              } else {
-                // Check additional quality filters
+              } else if (!isDeterministic) {
+                const bearishSignalCategories = signalCategories.filter(cat => [
+                  'Bankruptcy Filing',
+                  'Going Dark',
+                  'Failed Trial',
+                  'Auditor Change',
+                  'Regulatory Breach',
+                  'Nasdaq Delisting',
+                  'Bid Price Delisting',
+                  'Executive Departure',
+                  'Material Lawsuit',
+                  'Asset Disposition',
+                  ...strongBearishSignals
+                ].includes(cat));
+                const bullishSignalCategories = signalCategories.filter(cat => [
+                  'Merger/Acquisition',
+                  'Clinical Success',
+                  'Clinical Milestone',
+                  'DTC Eligible Restored',
+                  'Government Contract',
+                  'Partnership',
+                  'Licensing Deal',
+                  'Stock Buyback',
+                  'Capital Raise',
+                  'Underwritten Offering',
+                  'Insider Buying',
+                  'Contingent Value Rights',
+                  'Commercial Inflection'
+                ].includes(cat));
 
-                  if (alertData.intent === 'neutral') {
+                const hasStrongBearish = bearishSignalCategories.some(cat => strongBearishSignals.includes(cat));
+                const sufficientBullish = bullishSignalCategories.length >= 2;
+                const sufficientBearish = bearishSignalCategories.length >= 3 || hasStrongBearish;
+
+                // === IMPROVED DIRECTION LOGIC ===
+                let shortOpportunity = false;
+                let direction = 'LONG';
+
+                if (hasStrongBearish || sufficientBearish) {
+                  shortOpportunity = true;
+                  direction = 'SHORT';
+                } else if (sufficientBullish) {
+                  direction = 'LONG';
+                } else {
+                  alertData.skipReason = 'Insufficient signal strength';
+                  saveToCSV(alertData);
+                  continue;
+                }
+
+                // Block any LONG that has strong bearish signals
+                if (direction === 'LONG' && hasStrongBearish) {
+                  alertData.skipReason = 'Strong bearish signal present - blocking LONG';
+                  saveToCSV(alertData);
+                  const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
+                  const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
+                  log('INFO', `Links: ${secLink} ${tvLink}`);
+                  log('SKIP', `$${ticker}, ${alertData.skipReason}`);
+                  console.log('');
+                  continue;
+                }
+
+                // For SHORTs - stricter filter to reduce weak ones like TGHL
+                if (direction === 'SHORT' && !sufficientBearish && !isOnCTBWatchlist && !predatoryCheck.isPredatory) {
+                  alertData.skipReason = 'Weak bearish combination for SHORT';
+                  saveToCSV(alertData);
+                  continue;
+                }
+
+                if (alertData.intent === 'neutral') {
+                  alertData.skipReason = 'Neutral Signal';
+                  saveToCSV(alertData);
+                } else if (Object.keys(semanticSignals).length < 1) {
+                  alertData.skipReason = 'No Signals';
+                  saveToCSV(alertData);
+                } else if (volume !== 'N/A' && parseFloat(volume) < 2000) {
+                  alertData.skipReason = 'Minimal Volume';
+                  saveToCSV(alertData);
+                } else {
+                  // All quality checks passed - SEND THE ALERT
+                  // Mark as alerted BEFORE saving (prevent concurrent duplicate processing)
+                  alertedTickers.add(ticker);
+                  alertData.alertType = null;
+                  alertData.direction = direction;
+                  alertData.isShort = shortOpportunity;
+                  saveAlert(alertData);
+                }
+              } else {
+                if (alertData.intent === 'neutral') {
                   alertData.skipReason = 'Neutral Signal';
                   saveToCSV(alertData);
                 } else if (Object.keys(semanticSignals).length < 1) {

@@ -9352,14 +9352,860 @@
     "recordId": "GCDT-1784211584423",
     "expiresAt": "2026-07-21T14:19:44.423Z",
     "direction": "LONG",
-    "highest5Day": 0.52,
-    "highest5DayPercent": -8.77,
-    "lowest5Day": 0.52,
-    "lowest5DayPercent": -8.77,
+    "highest5Day": 0.601,
+    "highest5DayPercent": 5.44,
+    "lowest5Day": 0.4581,
+    "lowest5DayPercent": -19.63,
     "priceAfter30m": 0.57,
     "percentAfter30m": 0,
     "priceAfter1h": 0.5235,
     "percentAfter1h": -8.16,
+    "priceAfter6h": 0.5081,
+    "percentAfter6h": -10.86,
+    "priceAfter1d": 0.465,
+    "percentAfter1d": -18.42,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "personalPriceAlertSent": true,
+    "personalPriceAlertPercent": -8.77
+  },
+  {
+    "ticker": "INBX",
+    "title": "8-K - Inhibrx Biosciences, Inc. (0002007919) (Filer)",
+    "companyName": "Inhibrx Biosciences, Inc.",
+    "filerName": null,
+    "price": 89.07,
+    "fav": "22.83",
+    "volume": 289083,
+    "averageVolume": 476088,
+    "float": 10867769,
+    "sharesOutstanding": 14671186,
+    "soRatio": "74.08%",
+    "marketCap": 1306762496,
+    "isShort": false,
+    "ftd": 4349,
+    "intent": "Merger/Acquisition, Credit Default, Unregistered Equity Sales",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-07-16T16:06:13-04:00",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Credit Default": [
+        "Event Of Default",
+        "Default Has Occurred"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: Unknown Buyer",
+        "Shares: 0.0M"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "8-K",
+      "S-4",
+      "F-1",
+      "FWG",
+      "EX-99.1",
+      "EX-10.1",
+      "Item 1.01",
+      "Item 2.03",
+      "Item 3.02",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "cik": "2007919",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Biotechnology",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Wilmington, Delaware)",
+    "filingTimeBonus": 1.2,
+    "recordedAt": "2026-07-16T20:07:08.891Z",
+    "recordId": "INBX-1784232428891",
+    "expiresAt": "2026-07-21T20:07:08.891Z",
+    "direction": "LONG",
+    "highest5Day": 85.21,
+    "highest5DayPercent": -4.33,
+    "lowest5Day": 85.21,
+    "lowest5DayPercent": -4.33,
+    "priceAfter30m": 89.07,
+    "percentAfter30m": 0,
+    "priceAfter1h": 89.07,
+    "percentAfter1h": 0,
+    "priceAfter6h": 89.07,
+    "percentAfter6h": 0,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "personalPriceAlertSent": false
+  },
+  {
+    "ticker": "YYAI",
+    "title": "8-K - AIRWA INC. (0001674440) (Filer)",
+    "companyName": "AIRWA INC.",
+    "filerName": null,
+    "price": 9.73,
+    "fav": "21.89",
+    "volume": 23780,
+    "averageVolume": 18313,
+    "float": 400885,
+    "sharesOutstanding": 1053561,
+    "soRatio": "38.05%",
+    "marketCap": 10251148,
+    "isShort": false,
+    "ftd": 4301,
+    "intent": "Asset Disposition, Partnership, Regulation S Offering, Related-Party Transaction, Unregistered Equity Sales",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Wilmington, Delaware",
+    "filingDate": "2026-07-16T16:10:18-04:00",
+    "signals": {
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ],
+      "Regulation S Offering": [
+        "Regulation S"
+      ],
+      "Related-Party Transaction": [
+        "Affiliate Of",
+        "Family Relationship"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: the Company"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "8-K",
+      "EX-10.1",
+      "EX-10.2",
+      "Item 5.02",
+      "Item 9.01"
+    ],
+    "cik": "1674440",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Leisure Products",
+    "hasTuesdayBonus": false,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeBonus": 1.2,
+    "recordedAt": "2026-07-16T20:10:55.025Z",
+    "recordId": "YYAI-1784232655025",
+    "expiresAt": "2026-07-21T20:10:55.025Z",
+    "direction": "LONG",
+    "highest5Day": 10.78,
+    "highest5DayPercent": 10.79,
+    "lowest5Day": 8.86,
+    "lowest5DayPercent": -8.94,
+    "priceAfter30m": 9.73,
+    "percentAfter30m": 0,
+    "priceAfter1h": 9.73,
+    "percentAfter1h": 0,
+    "priceAfter6h": 9.73,
+    "percentAfter6h": 0,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "personalPriceAlertSent": true,
+    "personalPriceAlertPercent": -8.94
+  },
+  {
+    "ticker": "ASPI",
+    "title": "8-K - ASP Isotopes Inc. (0001921865) (Filer)",
+    "companyName": "ASP Isotopes Inc.",
+    "filerName": null,
+    "price": 3.945,
+    "fav": "0.41",
+    "volume": 8063835,
+    "averageVolume": 4900255,
+    "float": 2000000,
+    "sharesOutstanding": 125903447,
+    "soRatio": "1.59%",
+    "marketCap": 496689088,
+    "isShort": false,
+    "ftd": 494574,
+    "intent": "Convertible Debt, Licensing Deal, Unregistered Equity Sales, Related-Party Transaction",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Texas",
+    "filingDate": "2026-07-16T16:15:46-04:00",
+    "signals": {
+      "Convertible Debt": [
+        "Convertible Notes"
+      ],
+      "Licensing Deal": [
+        "License Agreement"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: Unknown Buyer",
+        "Discount: 50%",
+        "Shares: 2.0M"
+      ],
+      "Related-Party Transaction": [
+        "Related Party"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "8-K",
+      "S-1",
+      "S-3",
+      "S-8",
+      "EX-99.1",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "cik": "1921865",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Chemicals",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Texas (via Wilmington, Delaware)",
+    "filingTimeBonus": 1.2,
+    "recordedAt": "2026-07-16T20:16:54.423Z",
+    "recordId": "ASPI-1784233014423",
+    "expiresAt": "2026-07-21T20:16:54.423Z",
+    "direction": "LONG",
+    "highest5Day": 4.36,
+    "highest5DayPercent": 10.52,
+    "lowest5Day": 3.61,
+    "lowest5DayPercent": -8.49,
+    "priceAfter30m": 3.945,
+    "percentAfter30m": 0,
+    "priceAfter1h": 3.945,
+    "percentAfter1h": 0,
+    "priceAfter6h": 3.945,
+    "percentAfter6h": 0,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "personalPriceAlertSent": true,
+    "personalPriceAlertPercent": -8.11
+  },
+  {
+    "ticker": "GCDT",
+    "title": "6-K/A - Green Circle Decarbonize Technology Ltd (0001926293) (Filer)",
+    "companyName": "Green Circle Decarbonize Technology Ltd",
+    "filerName": null,
+    "price": 0.5081,
+    "fav": "1.12",
+    "volume": 231290,
+    "averageVolume": 1818216,
+    "float": 2034085,
+    "sharesOutstanding": 12500000,
+    "soRatio": "16.27%",
+    "marketCap": 6351249,
+    "isShort": true,
+    "ftd": 828045,
+    "intent": "Convertible Debt, Credit Default, Asset Disposition, Partnership, Unregistered Equity Sales, Related-Party Transaction, PIPE",
+    "incorporated": "Cayman Islands",
+    "located": "Kowloon Bay, Hong Kong",
+    "filingDate": "2026-07-16T16:34:17-04:00",
+    "signals": {
+      "Convertible Debt": [
+        "Convertible Notes"
+      ],
+      "Credit Default": [
+        "Event Of Default",
+        "Mandatory Prepayment"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: or is under common control with the Holder",
+        "Discount: 20%"
+      ],
+      "Related-Party Transaction": [
+        "Controlled By",
+        "Affiliate Of"
+      ],
+      "PIPE": [
+        "PIPE"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "6-K/A",
+      "20-F",
+      "EX-4.1",
+      "EX-4.2"
+    ],
+    "cik": "1926293",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": null,
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Kowloon Bay, Hong Kong (via Cayman Islands)",
+    "filingTimeBonus": 1.2,
+    "recordedAt": "2026-07-16T20:35:12.791Z",
+    "recordId": "GCDT-1784234112791",
+    "expiresAt": "2026-07-21T20:35:12.791Z",
+    "direction": "SHORT",
+    "highest5Day": 0.601,
+    "highest5DayPercent": 18.28,
+    "lowest5Day": 0.4581,
+    "lowest5DayPercent": 9.84,
+    "priceAfter30m": 0.5081,
+    "percentAfter30m": 0,
+    "priceAfter1h": 0.5081,
+    "percentAfter1h": 0,
+    "priceAfter6h": 0.5081,
+    "percentAfter6h": 0,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "personalPriceAlertSent": true,
+    "personalPriceAlertPercent": -9.45
+  },
+  {
+    "ticker": "ARRY",
+    "title": "8-K - Array Technologies, Inc. (0001820721) (Filer)",
+    "companyName": "Array Technologies, Inc.",
+    "filerName": null,
+    "price": 6.25,
+    "fav": "1.71",
+    "volume": 4852088,
+    "averageVolume": 5850442,
+    "float": 10000000,
+    "sharesOutstanding": 153826378,
+    "soRatio": "6.50%",
+    "marketCap": 961414912,
+    "isShort": false,
+    "ftd": 123016,
+    "intent": "Merger/Acquisition, Convertible Debt, Asset Disposition, Partnership, Unregistered Equity Sales, Regulation S Offering",
+    "incorporated": "Wilmington, Delaware",
+    "located": "New Mexico",
+    "filingDate": "2026-07-16T16:46:07-04:00",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Convertible Debt": [
+        "Convertible Securities"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture",
+        "Strategic Alliance"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: due"
+      ],
+      "Regulation S Offering": [
+        "Regulation S"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "8-K",
+      "Item 1.01",
+      "Item 3.02",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "cik": "1820721",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Electrical Equipment",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "New Mexico (via Wilmington, Delaware)",
+    "filingTimeBonus": 1.2,
+    "recordedAt": "2026-07-16T20:47:02.467Z",
+    "recordId": "ARRY-1784234822467",
+    "expiresAt": "2026-07-21T20:47:02.467Z",
+    "direction": "LONG",
+    "highest5Day": 5.875,
+    "highest5DayPercent": -6,
+    "lowest5Day": 5.875,
+    "lowest5DayPercent": -6,
+    "priceAfter30m": 6.25,
+    "percentAfter30m": 0,
+    "priceAfter1h": 6.25,
+    "percentAfter1h": 0,
+    "priceAfter6h": 6.25,
+    "percentAfter6h": 0,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "personalPriceAlertSent": false
+  },
+  {
+    "ticker": "CABR",
+    "title": "8-K - Caring Brands, Inc. (0002020737) (Filer)",
+    "companyName": "Caring Brands, Inc.",
+    "filerName": null,
+    "price": 1.28,
+    "fav": "12.69",
+    "volume": 34361,
+    "averageVolume": 82940,
+    "float": 1052632,
+    "sharesOutstanding": 9091506,
+    "soRatio": "11.58%",
+    "marketCap": 11637127,
+    "isShort": false,
+    "ftd": 15641,
+    "intent": "Merger/Acquisition, Convertible Debt, Asset Disposition, Partnership, Unregistered Equity Sales, Regulation S Offering, Related-Party Transaction, PIPE",
+    "incorporated": "Nevada",
+    "located": "Florida",
+    "filingDate": "2026-07-16T17:12:45-04:00",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Convertible Debt": [
+        "Convertible Securities"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: or is under common control with a Person",
+        "Discount: 5%",
+        "Shares: 0.0M"
+      ],
+      "Regulation S Offering": [
+        "Regulation S"
+      ],
+      "Related-Party Transaction": [
+        "Controlled By",
+        "Affiliate Of"
+      ],
+      "PIPE": [
+        "PIPE"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "8-K",
+      "EX-10.1",
+      "EX-3.1",
+      "EX-4.1",
+      "Item 1.01",
+      "Item 3.02",
+      "Item 3.03",
+      "Item 9.01"
+    ],
+    "cik": "2020737",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Consumer products",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Florida (via Nevada)",
+    "filingTimeBonus": 1.15,
+    "recordedAt": "2026-07-16T21:13:54.698Z",
+    "recordId": "CABR-1784236434698",
+    "expiresAt": "2026-07-21T21:13:54.698Z",
+    "direction": "LONG",
+    "highest5Day": 1.34,
+    "highest5DayPercent": 4.69,
+    "lowest5Day": 1.2414,
+    "lowest5DayPercent": -3.02,
+    "priceAfter30m": 1.28,
+    "percentAfter30m": 0,
+    "priceAfter1h": 1.28,
+    "percentAfter1h": 0,
+    "priceAfter6h": 1.28,
+    "percentAfter6h": 0,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "personalPriceAlertSent": false
+  },
+  {
+    "ticker": "JSPR",
+    "title": "8-K - Jasper Therapeutics, Inc. (0001788028) (Filer)",
+    "companyName": "Jasper Therapeutics, Inc.",
+    "filerName": null,
+    "price": 0.774,
+    "fav": "24.67",
+    "volume": 795704,
+    "averageVolume": 558534,
+    "float": 13779087,
+    "sharesOutstanding": 28009802,
+    "soRatio": "49.19%",
+    "marketCap": 21679586,
+    "isShort": false,
+    "ftd": 11440,
+    "intent": "Merger/Acquisition, Clinical Success, Contingent Value Rights, Commercial Inflection, Unregistered Equity Sales, Regulation S Offering",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-07-16T17:15:34-04:00",
+    "signals": {
+      "Merger/Acquisition": [
+        "Strategic Alternatives"
+      ],
+      "Clinical Success": [
+        "Priority Review",
+        "Phase 3"
+      ],
+      "Contingent Value Rights": [
+        "CVR"
+      ],
+      "Commercial Inflection": [
+        "Cash Runway",
+        "Strengthened Foundation"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: Unknown Buyer",
+        "Shares: 0.0M"
+      ],
+      "Regulation S Offering": [
+        "Regulation S"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "6-K/A",
+      "8-K",
+      "20-F",
+      "20-F/A",
+      "EX-99.1",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "cik": "1788028",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Biotechnology",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Wilmington, Delaware)",
+    "filingTimeBonus": 1.15,
+    "recordedAt": "2026-07-16T21:16:47.867Z",
+    "recordId": "JSPR-1784236607867",
+    "expiresAt": "2026-07-21T21:16:47.867Z",
+    "direction": "LONG",
+    "highest5Day": 0.5807,
+    "highest5DayPercent": -24.97,
+    "lowest5Day": 0.5807,
+    "lowest5DayPercent": -24.97,
+    "priceAfter30m": 0.774,
+    "percentAfter30m": 0,
+    "priceAfter1h": 0.774,
+    "percentAfter1h": 0,
+    "priceAfter6h": 0.774,
+    "percentAfter6h": 0,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "personalPriceAlertSent": true,
+    "personalPriceAlertPercent": -9.74
+  },
+  {
+    "ticker": "CETY",
+    "title": "8-K - Clean Energy Technologies, Inc. (0001329606) (Filer)",
+    "companyName": "Clean Energy Technologies, Inc.",
+    "filerName": null,
+    "price": 1.03,
+    "fav": "33.28",
+    "volume": 184075,
+    "averageVolume": 67645,
+    "float": 2250941,
+    "sharesOutstanding": 12166106,
+    "soRatio": "18.50%",
+    "marketCap": 12531089,
+    "isShort": true,
+    "ftd": 10283,
+    "intent": "Accounting Restatement, Regulation S Offering, Unregistered Equity Sales",
+    "incorporated": "Nevada",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-07-16T17:17:27-04:00",
+    "signals": {
+      "Accounting Restatement": [
+        "Substantial Doubt"
+      ],
+      "Regulation S Offering": [
+        "Regulation S"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: Unknown Buyer"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "6-K/A",
+      "8-K",
+      "F-3",
+      "20-F",
+      "20-F/A",
+      "Item 4.01",
+      "Item 9.01"
+    ],
+    "cik": "1329606",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Energy",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Nevada)",
+    "filingTimeBonus": 1.15,
+    "recordedAt": "2026-07-16T21:18:18.043Z",
+    "recordId": "CETY-1784236698043",
+    "expiresAt": "2026-07-21T21:18:18.043Z",
+    "direction": "SHORT",
+    "highest5Day": 0.8655,
+    "highest5DayPercent": -15.97,
+    "lowest5Day": 0.8655,
+    "lowest5DayPercent": 15.97,
+    "priceAfter30m": 1.03,
+    "percentAfter30m": 0,
+    "priceAfter1h": 1.03,
+    "percentAfter1h": 0,
+    "priceAfter6h": 1.03,
+    "percentAfter6h": 0,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "personalPriceAlertSent": true,
+    "personalPriceAlertPercent": -15.53
+  },
+  {
+    "ticker": "POLA",
+    "title": "8-K - Polar Power, Inc. (0001622345) (Filer)",
+    "companyName": "Polar Power, Inc.",
+    "filerName": null,
+    "price": 1.61,
+    "fav": "26.14",
+    "volume": 27490,
+    "averageVolume": 191245,
+    "float": 5000000,
+    "sharesOutstanding": 3640159,
+    "soRatio": "137.4%",
+    "marketCap": 5860656,
+    "isShort": false,
+    "ftd": 23836,
+    "intent": "Asset Disposition, Partnership, Licensing Deal, Unregistered Equity Sales, Related-Party Transaction",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-07-16T17:28:19-04:00",
+    "signals": {
+      "Asset Disposition": [
+        "Asset Sale",
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture",
+        "Development Agreement"
+      ],
+      "Licensing Deal": [
+        "Exclusive License",
+        "License Agreement"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: the Holder",
+        "Discount: 4.99%",
+        "Shares: 0.0M"
+      ],
+      "Related-Party Transaction": [
+        "Affiliate Of"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "8-K",
+      "S-1",
+      "EX-3.1",
+      "Item 5.03",
+      "Item 9.01"
+    ],
+    "cik": "1622345",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Electrical Equipment",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Wilmington, Delaware)",
+    "filingTimeBonus": 1.15,
+    "recordedAt": "2026-07-16T21:29:08.064Z",
+    "recordId": "POLA-1784237348064",
+    "expiresAt": "2026-07-21T21:29:08.064Z",
+    "direction": "LONG",
+    "highest5Day": 1.5607,
+    "highest5DayPercent": -3.06,
+    "lowest5Day": 1.5607,
+    "lowest5DayPercent": -3.06,
+    "priceAfter30m": 1.61,
+    "percentAfter30m": 0,
+    "priceAfter1h": 1.61,
+    "percentAfter1h": 0,
+    "priceAfter6h": 1.61,
+    "percentAfter6h": 0,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "personalPriceAlertSent": false
+  },
+  {
+    "ticker": "UBXG",
+    "title": "6-K - MindForge Inc. (0001888525) (Filer)",
+    "companyName": "MindForge Inc.",
+    "filerName": "Jian Chen 2",
+    "price": 5.04,
+    "fav": "0.47",
+    "volume": 572312,
+    "averageVolume": 1269913,
+    "float": 593084,
+    "sharesOutstanding": 1511651,
+    "soRatio": "39.23%",
+    "marketCap": 9162881,
+    "isShort": false,
+    "ftd": 100933,
+    "intent": "Press Release",
+    "incorporated": "Cayman Islands",
+    "located": "China",
+    "filingDate": "2026-07-17T06:03:18-04:00",
+    "signals": {
+      "Press Release": [
+        "Press Release"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "20-F"
+    ],
+    "cik": "1888525",
+    "skipReason": "",
+    "alertType": "CTB Squeeze",
+    "predatoryFinancing": null,
+    "sector": "Technology",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "China (via Cayman Islands)",
+    "filingTimeBonus": 1.05,
+    "recordedAt": "2026-07-17T10:04:28.303Z",
+    "recordId": "UBXG-1784282668303",
+    "expiresAt": "2026-07-22T10:04:28.303Z",
+    "direction": "LONG",
+    "highest5Day": 6.47,
+    "highest5DayPercent": 28.37,
+    "lowest5Day": 4.86,
+    "lowest5DayPercent": -3.57,
+    "priceAfter30m": 5.04,
+    "percentAfter30m": 0,
+    "priceAfter1h": 5.04,
+    "percentAfter1h": 0,
+    "priceAfter6h": 5.0379,
+    "percentAfter6h": -0.04,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "personalPriceAlertSent": false
+  },
+  {
+    "ticker": "VIVS",
+    "title": "8-K - VivoSim Labs, INC. (0001497253) (Filer)",
+    "companyName": "VivoSim Labs, INC.",
+    "filerName": null,
+    "price": 0.6136,
+    "fav": "2.17",
+    "volume": 10295076,
+    "averageVolume": 2165008,
+    "float": 4705883,
+    "sharesOutstanding": 3494071,
+    "soRatio": "134.7%",
+    "marketCap": 2143962,
+    "isShort": false,
+    "ftd": 30565,
+    "intent": "Merger/Acquisition, Asset Disposition, Unregistered Equity Sales",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-07-17T08:45:07-04:00",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: Unknown Buyer",
+        "Shares: 4.7M"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "8-K",
+      "Form D",
+      "EX-4.1",
+      "EX-4.2",
+      "Item 1.01",
+      "Item 3.02",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "cik": "1497253",
+    "skipReason": "",
+    "alertType": "CTB Squeeze",
+    "predatoryFinancing": null,
+    "sector": "Biotechnology",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Wilmington, Delaware)",
+    "filingTimeBonus": 1.15,
+    "recordedAt": "2026-07-17T12:45:48.224Z",
+    "recordId": "VIVS-1784292348224",
+    "expiresAt": "2026-07-22T12:45:48.224Z",
+    "direction": "LONG",
+    "highest5Day": 0.5197,
+    "highest5DayPercent": -15.3,
+    "lowest5Day": 0.5197,
+    "lowest5DayPercent": -15.3,
+    "priceAfter30m": 0.6136,
+    "percentAfter30m": 0,
+    "priceAfter1h": 0.524,
+    "percentAfter1h": -14.6,
     "priceAfter6h": null,
     "percentAfter6h": null,
     "priceAfter1d": null,
@@ -9367,6 +10213,91 @@
     "priceAfter3d": null,
     "percentAfter3d": null,
     "personalPriceAlertSent": true,
-    "personalPriceAlertPercent": -8.77
+    "personalPriceAlertPercent": -9.83
+  },
+  {
+    "ticker": "OMH",
+    "title": "6-K - Ohmyhome Ltd (0001944902) (Filer)",
+    "companyName": "Ohmyhome Ltd",
+    "filerName": null,
+    "price": 0.275,
+    "fav": "20.79",
+    "volume": 261227,
+    "averageVolume": 256473,
+    "float": 5333331,
+    "sharesOutstanding": 22259591,
+    "soRatio": "23.96%",
+    "marketCap": 6352811,
+    "isShort": true,
+    "ftd": 393149,
+    "intent": "Merger/Acquisition, Credit Default, Partnership, Unregistered Equity Sales, Regulation S Offering, Related-Party Transaction",
+    "incorporated": "Cayman Islands",
+    "located": "Singapore",
+    "filingDate": "2026-07-17T09:00:19-04:00",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Credit Default": [
+        "Is In Default"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: or is under common control with a Person"
+      ],
+      "Regulation S Offering": [
+        "Regulation S",
+        "Rule 902",
+        "Non-U.S. Persons"
+      ],
+      "Related-Party Transaction": [
+        "Controlled By",
+        "Affiliate Of"
+      ]
+    },
+    "bonusSignals": {
+      "VStock": "VStock Setup",
+      "Third Party": [
+        "VStock Transfer"
+      ]
+    },
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "20-F",
+      "EX-10.1",
+      "EX-4.1"
+    ],
+    "cik": "1944902",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Real Estate",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Singapore (via Cayman Islands)",
+    "filingTimeBonus": 1.2,
+    "recordedAt": "2026-07-17T13:01:08.677Z",
+    "recordId": "OMH-1784293268677",
+    "expiresAt": "2026-07-22T13:01:08.677Z",
+    "direction": "SHORT",
+    "highest5Day": 0.321,
+    "highest5DayPercent": 16.73,
+    "lowest5Day": 0.23,
+    "lowest5DayPercent": 16.36,
+    "priceAfter30m": 0.275,
+    "percentAfter30m": 0,
+    "priceAfter1h": 0.275,
+    "percentAfter1h": 0,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "personalPriceAlertSent": true,
+    "personalPriceAlertPercent": -9.09
   }
 ]
