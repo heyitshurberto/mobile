@@ -35,10 +35,10 @@ const CONFIG = {
   MIN_ALERT_VOLUME: 2000,           // Minimum volume threshold for initial alert trigger
   STRONG_SIGNAL_MIN_VOLUME: 1000,    // Volume threshold for high-confidence signal detection
   MAX_FLOAT_6K: 25000000,           // Maximum float size threshold for 6-K filings
-  MAX_FLOAT_8K: 20000000,           // Maximum float size threshold for 8-K filings
+  MAX_FLOAT_8K: 50000000,           // Maximum float size threshold for 8-K filings
   MAX_FAV_RATIO: 200,                // Maximum float-to-average-volume ratio threshold
   ALLOWED_COUNTRIES: ['israel', 'new york', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'nevada', 'delaware'], // Whitelisted jurisdictions for company registration
-  CTB_WATCHLIST: ['ASTC','AMSS','ATPC','AZI','AEHL','BJDX','BOXL','BYAH','BRAI','CELZ','CHAI','CMND','CNSP','CZOOF','DCX','DXF','EHGO','EDHL','ENVB','FABTQ','FRTT','FOXX','GLXG','GITS','HKIT','HCWB','ICCM','ILLR','IONM','JEM','JXG','KIDZ','LGCL','LUCY','MASK','MWC','NCT','NEXR','NXTS','NXUS','OLOX','PMAX','RGNT','RMSG','SLBT','SLXN','SMCZ','SPRC','STI','TC','TNON','UBXG','VIVS','VCIG','VRAX','WCT','USDE'], // Symbols with elevated cost-to-borrow values from IBorrowDesk
+  CTB_WATCHLIST: ['PCLA','GITS','BRAI','TGHL','ZCMD','MWC','VTAK','CLRO','DSY','BJDX','DXST','RGNT','NCT','FABTQ','LGCL','JEM','CZOOF','EHGO','AFJK','AMSS','ATPC','SUNE','PRFX','HCWB'], // Symbols with elevated cost-to-borrow values from IBorrowDesk
   PI_MODE: true,              // Enable optimizations for resource-constrained environments          
   REFRESH_PEAK: 1,            // Poll interval (ms) during peak market hours for real-time detection
   REFRESH_NORMAL: 30000,      // Poll interval (ms) during standard market hours
@@ -10072,7 +10072,6 @@ if (process.stdin.isTTY) {
             'Failed Trial',
             'Accounting Restatement',
             'Regulatory Breach',
-            'Unregistered Equity Sales',
             'Acquisition Agreement',
             'Clinical Success',
             'Clinical Milestone',
@@ -10359,13 +10358,90 @@ if (process.stdin.isTTY) {
               // This filters down from 25+ alerts to ~3-5 high-confidence alerts
               const isDeterministic = deterministic.pattern !== null && deterministic.pattern !== undefined;
               
-              // CTB stocks override deterministic check - ANY filing triggers alert with CTB tag
+              // CTB stocks override deterministic check only when signal direction is valid
               if (isOnCTBWatchlist) {
-                // Mark as alerted BEFORE saving (prevent concurrent duplicate processing)
+                const ctbBearishSignalCategories = signalCategories.filter(cat => [
+                  'Bankruptcy Filing',
+                  'Going Dark',
+                  'Failed Trial',
+                  'Auditor Change',
+                  'Regulatory Breach',
+                  'Nasdaq Delisting',
+                  'Bid Price Delisting',
+                  'Executive Departure',
+                  'Material Lawsuit',
+                  'Asset Disposition',
+                  ...strongBearishSignals
+                ].includes(cat));
+                const ctbBullishSignalCategories = signalCategories.filter(cat => [
+                  'Merger/Acquisition',
+                  'Clinical Success',
+                  'Clinical Milestone',
+                  'DTC Eligible Restored',
+                  'Government Contract',
+                  'Partnership',
+                  'Licensing Deal',
+                  'Stock Buyback',
+                  'Capital Raise',
+                  'Underwritten Offering',
+                  'Insider Buying',
+                  'Contingent Value Rights',
+                  'Commercial Inflection'
+                ].includes(cat));
+
+                const ctbHasStrongBearish = ctbBearishSignalCategories.some(cat => strongBearishSignals.includes(cat));
+                const ctbSufficientBullish = ctbBullishSignalCategories.length >= 2;
+                const ctbSufficientBearish = ctbBearishSignalCategories.length >= 3 || ctbHasStrongBearish;
+                const ctbDilutionSignalCategories = signalCategories.filter(cat => [
+                  'Unregistered Equity Sales',
+                  'Regulation S Offering',
+                  'Convertible Debt',
+                  'Related-Party Transaction',
+                  'Offering At A Discount',
+                  'PIPE'
+                ].includes(cat));
+                const ctbHasDilutionOnly = ctbDilutionSignalCategories.length > 0 && ctbBullishSignalCategories.length === 0;
+
+                let ctbDirection = 'LONG';
+                shortOpportunity = false;
+
+                if (ctbHasStrongBearish || ctbSufficientBearish) {
+                  ctbDirection = 'SHORT';
+                  shortOpportunity = true;
+                } else if (!ctbSufficientBullish) {
+                  alertData.skipReason = 'CTB filter: insufficient signal strength';
+                  saveToCSV(alertData);
+                  continue;
+                }
+
+                if (ctbDirection === 'LONG' && ctbHasDilutionOnly) {
+                  alertData.skipReason = 'CTB filter: pure dilution without strong bullish catalyst';
+                  saveToCSV(alertData);
+                  continue;
+                }
+
+                if (ctbDirection === 'LONG' && ctbHasStrongBearish) {
+                  alertData.skipReason = 'CTB filter: strong bearish signal present - blocking LONG';
+                  saveToCSV(alertData);
+                  const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
+                  const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
+                  log('INFO', `Links: ${secLink} ${tvLink}`);
+                  log('SKIP', `$${ticker}, ${alertData.skipReason}`);
+                  console.log('');
+                  continue;
+                }
+
+                if (ctbDirection === 'SHORT' && !ctbSufficientBearish) {
+                  alertData.skipReason = 'CTB filter: weak bearish combination for SHORT';
+                  saveToCSV(alertData);
+                  continue;
+                }
+
                 alertedTickers.add(ticker);
-                alertData.alertType = 'CTB Squeeze'; // Tag as high-CTB setup
-                alertData.skipReason = ''; // Clear skip reason - this is an alert
-                // OVERRIDE normal filters for CTB watchlist stocks
+                alertData.alertType = 'CTB Squeeze';
+                alertData.skipReason = '';
+                alertData.direction = ctbDirection;
+                alertData.isShort = shortOpportunity;
                 saveAlert(alertData);
               } else if (predatoryCheck.isPredatory) {
                 // KNOWN PREDATOR OVERRIDE: Yorkville, Lincoln Park, etc. = auto-alert regardless of signal count

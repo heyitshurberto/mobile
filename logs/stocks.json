@@ -10299,5 +10299,87 @@
     "percentAfter3d": null,
     "personalPriceAlertSent": true,
     "personalPriceAlertPercent": -9.09
+  },
+  {
+    "ticker": "BGDE",
+    "title": "8-K - Big Digital Energy, Inc. (0001218683) (Filer)",
+    "companyName": "Big Digital Energy, Inc.",
+    "filerName": null,
+    "price": 5.71,
+    "fav": "21.49",
+    "volume": 93846,
+    "averageVolume": 167380,
+    "float": 3596531,
+    "sharesOutstanding": 5521252,
+    "soRatio": "65.14%",
+    "marketCap": 31526350,
+    "isShort": false,
+    "ftd": 18948,
+    "intent": "Merger/Acquisition, Asset Disposition, Partnership, Commercial Inflection, Regulation S Offering, Unregistered Equity Sales",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Pennsylvania",
+    "filingDate": "2026-07-20T08:35:36-04:00",
+    "signals": {
+      "Merger/Acquisition": [
+        "Material Definitive Agreement"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Partnership": [
+        "Joint Venture"
+      ],
+      "Commercial Inflection": [
+        "Revenue Growth"
+      ],
+      "Regulation S Offering": [
+        "Regulation S"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: Unknown Buyer"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "6-K/A",
+      "8-K",
+      "20-F",
+      "20-F/A",
+      "EX-99.1",
+      "Item 1.01",
+      "Item 2.01",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "cik": "1218683",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Technology",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Pennsylvania (via Wilmington, Delaware)",
+    "filingTimeBonus": 1.15,
+    "recordedAt": "2026-07-20T12:36:14.378Z",
+    "recordId": "BGDE-1784550974378",
+    "expiresAt": "2026-07-24T12:36:14.378Z",
+    "direction": "LONG",
+    "highest5Day": 5,
+    "highest5DayPercent": -12.43,
+    "lowest5Day": 5,
+    "lowest5DayPercent": -12.43,
+    "priceAfter30m": 5.71,
+    "percentAfter30m": 0,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "personalPriceAlertSent": false
   }
 ]
