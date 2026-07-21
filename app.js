@@ -3374,10 +3374,27 @@ const sendPersonalWebhook = (alertData) => {
     if (alertData.predatoryFinancing && alertData.predatoryFinancing.detected) {
       predatoryMessage = `**Buyer:** ${alertData.predatoryFinancing.predatorName}`;
     }
-    
+    // Build a detailed signals display: include category + parsed sub-items when available
+    let signalsDisplay = '';
+    if (alertData.signals && typeof alertData.signals === 'object' && Object.keys(alertData.signals).length > 0) {
+      const parts = [];
+      for (const [cat, details] of Object.entries(alertData.signals)) {
+        if (Array.isArray(details) && details.length > 0) {
+          parts.push(`${cat}: ${details.join('; ')}`);
+        } else if (details) {
+          parts.push(`${cat}: ${String(details)}`);
+        } else {
+          parts.push(cat);
+        }
+      }
+      signalsDisplay = parts.join('\n');
+    } else {
+      signalsDisplay = reason;
+    }
+
     const personalAlertContent = `${alertTypeDisplay}[${direction}] $${ticker} @ ${priceDisplay}${setupTag}
 
-**Signals:** ${reason}
+**Signals:**\n${signalsDisplay}
 **Industry:** ${sectorDisplay}
 **Filer:** ${alertData.filerName || 'Not Applicable'}
 **Location:** ${locationDisplay}
