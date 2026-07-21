@@ -138,7 +138,7 @@ const incrementDailyAlertCount = () => {
 };
 
 // ═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
-// ENGINE PHILOSOPHY: Market Structure Parser
+// PHILOSOPHY: Market Structure Parser
 // ═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 // The parser classifies MANAGEMENT ACTIONS, not whether news is "good" or "bad".
 // 
@@ -773,7 +773,7 @@ const SEMANTIC_KEYWORDS = {
   
   // FDA / Clinical = revenue becomes legal
   'Clinical Success': ['Priority Review', 'Fast Track Designation', 'Breakthrough Designation', 'Phase 3', 'Primary Endpoint', 'Topline Data', 'Statistically Significant', 'Met Primary Endpoint', 'Positive Phase 3', 'Primary Endpoint Met'],
-  'FDA Approved': ['FDA Approval', 'FDA approved', 'FDA approval'],
+  'FDA Approved': ['FDA Approval', 'FDA approved'],
   
   // Customer Relationship = revenue protected OR expanded (probably the biggest signal)
   'Customer Relationship': ['Largest Customer', 'Major Customer', 'Key Customer', 'Customer Renewal', 'Contract Extension', 'Retain At Least', 'Expected To Retain', 'Expanded Relationship', 'Expanded Agreement', 'Continued Provision Of Services', 'Extended The Term', 'Renewed Agreement', 'Additional Services', 'Increased Scope', 'Extended Services'],
@@ -929,6 +929,53 @@ const signalTiming = {
   'Merger/Acquisition': 'Immediate',         // deal closed, structure changed
   'Strategic Review': 'Future',              // exploring, no commitment yet
   'Asset Disposition': 'Mixed'               // sale agreed=immediate, pending=future
+};
+
+// Economic impact: describes how much the filing changes the future supply/demand equation.
+// These labels describe the signal's role, not price direction or probability.
+const signalImpact = {
+  // Structural: fundamentally changes valuation or the company's path.
+  'FDA Approved': 'Structural',
+  'Customer Relationship': 'Structural',
+  'Customer Loss': 'Structural',
+  'Revenue Secured': 'Structural',
+  'Revenue Loss': 'Structural',
+  'Failed Trial': 'Structural',
+  'Bankruptcy Filing': 'Structural',
+  'Credit Default': 'Structural',
+  'Offering At A Discount': 'Structural',
+  'Merger/Acquisition': 'Structural',
+  'Commercial Agreement': 'Structural',
+  'Government Contract': 'Structural',
+
+  // Material: meaningfully changes expected future buying or selling.
+  'Stock Buyback': 'Material',
+  'Commercial Inflection': 'Material',
+  'Strategic Review': 'Material',
+  'Asset Disposition': 'Material',
+  'Accounting Restatement': 'Material',
+  'Convertible Debt': 'Material',
+  'Underwritten Offering': 'Material',
+  'Unregistered Equity Sales': 'Material',
+  'Regulation S Offering': 'Material',
+  'Capital Raise': 'Material',
+  'Nasdaq Delisting': 'Material',
+
+  // Supporting: reinforces another catalyst but rarely wins alone.
+  'Partnership': 'Supporting',
+  'Licensing Deal': 'Supporting',
+  'Clinical Success': 'Supporting',
+  'Clinical Milestone': 'Supporting',
+  'DTC Eligible Restored': 'Supporting',
+  'Contingent Value Rights': 'Supporting',
+  'Executive Departure': 'Supporting',
+  'Auditor Change': 'Supporting',
+  'Related-Party Transaction': 'Supporting',
+  'Post-Hoc Salvage': 'Supporting',
+  'Bid Price Delisting': 'Supporting',
+  'Material Lawsuit': 'Supporting',
+  'Regulatory Breach': 'Supporting',
+  'Going Dark': 'Supporting'
 };
 
 // Financial ratio parser: extracts quantitative balance sheet metrics from filing text
@@ -3517,13 +3564,15 @@ const sendPersonalWebhook = (alertData) => {
       const sellPressure = [];
       const valueChange = [];
       const buildEntry = (category, details) => {
+        const impact = signalImpact[category] || 'Context';
+        const impactTag = ` [${impact}]`;
         if (Array.isArray(details) && details.length > 0) {
-          return `${category}: ${details.join('; ')}`;
+          return `${category}${impactTag}: ${details.join('; ')}`;
         }
         if (details) {
-          return `${category}: ${String(details)}`;
+          return `${category}${impactTag}: ${String(details)}`;
         }
-        return category;
+        return `${category}${impactTag}`;
       };
 
       const buyCategories = new Set([
