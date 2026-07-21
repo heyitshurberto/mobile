@@ -35,7 +35,7 @@ const CONFIG = {
   MIN_ALERT_VOLUME: 2000,           // Minimum volume threshold for initial alert trigger
   STRONG_SIGNAL_MIN_VOLUME: 1000,    // Volume threshold for high-confidence signal detection
   MAX_FLOAT_6K: 25000000,           // Maximum float size threshold for 6-K filings
-  MAX_FLOAT_8K: 50000000,           // Maximum float size threshold for 8-K filings
+  MAX_FLOAT_8K: 35000000,           // Maximum float size threshold for 8-K filings
   MAX_FAV_RATIO: 200,                // Maximum float-to-average-volume ratio threshold
   ALLOWED_COUNTRIES: ['israel', 'new york', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'nevada', 'delaware'], // Whitelisted jurisdictions for company registration
   CTB_WATCHLIST: ['PCLA','GITS','BRAI','TGHL','ZCMD','MWC','VTAK','CLRO','DSY','BJDX','DXST','RGNT','NCT','FABTQ','LGCL','JEM','CZOOF','EHGO','AFJK','AMSS','ATPC','SUNE','PRFX','HCWB'], // Symbols with elevated cost-to-borrow values from IBorrowDesk
@@ -136,6 +136,37 @@ const incrementDailyAlertCount = () => {
   resetDailyAlertCount();
   dailyAlertCount++;
 };
+
+// ═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+// ENGINE PHILOSOPHY: Market Structure Parser
+// ═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+// The parser classifies MANAGEMENT ACTIONS, not whether news is "good" or "bad".
+// 
+// Signals do NOT predict price.
+// Signals identify changes in supply, demand, or value change that may later move price.
+// Price is the market's reaction to changes in incentives—not the filing itself.
+//
+// ⚠ WARNING: Never trade the headline. Trade what the filing causes participants to do.
+//
+// THE THREE QUESTIONS:
+// 
+// BUY PRESSURE: Who now wants more chairs?
+//   → Creates new demand for shares (FDA Approval, Customer Retention, Contracts)
+//
+// SELL PRESSURE: Who is adding chairs or leaving the game?
+//   → New supply, forced selling, or weaker future cash flow (Equity offerings, Bankruptcy, Customer Loss, Failed Trials)
+//
+// VALUE CHANGE: Did the rules of the game change?
+//   → Changes company's future valuation (Strategic Review, Exec Departure, Asset Sale, M&A)
+//
+// MARKET STRUCTURE = BUY PRESSURE + SELL PRESSURE + VALUE CHANGE
+// Price = the market negotiating that new structure.
+//
+// TIMING: Immediate (today's supply/demand) vs Future (promised events)
+// Float = Magnitude Multiplier (decides *how violently*, not the direction)
+// 
+// Trading checklist: (1) Buy pressure? (2) Sell pressure? (3) Float magnitude? (4) Immediate or future?
+// ═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 
 const originalLog = console.log;
 const originalWarn = console.warn;
@@ -730,68 +761,175 @@ try {
 }
 
 const FORM_TYPES = ['6-K', '6-K/A', '8-K', '8-K/A', 'S-1', 'S-3', 'S-4', 'S-8', 'F-1', 'F-3', '	SC TO-C', 'SC14D9C', 'S-9', 'F-4', 'FWG', '424B1', '424B2', '424B3', '424B4', '424B5', '424H8', '20-F', '20-F/A', '13G', '13G/A', '13D', '13D/A', 'Form D', 'EX-99.1', 'EX-99.2', 'EX-10.1', 'EX-10.2', 'EX-3.1', 'EX-3.2', 'EX-4.1', 'EX-4.2', 'EX-10.3', 'EX-1.1', 'Item 1.01', 'Item 1.02', 'Item 1.03', 'Item 1.04', 'Item 1.05', 'Item 2.01', 'Item 2.02', 'Item 2.03', 'Item 2.04', 'Item 2.05', 'Item 2.06', 'Item 3.01', 'Item 3.02', 'Item 3.03', 'Item 4.01', 'Item 5.01', 'Item 5.02', 'Item 5.03', 'Item 5.04', 'Item 5.05', 'Item 5.06', 'Item 5.07', 'Item 5.08', 'Item 5.09', 'Item 5.10', 'Item 5.11', 'Item 5.12', 'Item 5.13', 'Item 5.14', 'Item 5.15', 'Item 6.01', 'Item 7.01', 'Item 8.01', 'Item 9.01'];
-const SEMANTIC_KEYWORDS = {
 
-  // M&A & Structural
-  'Merger/Acquisition': ['Acquisition Agreement', 'Agreed To Acquire', 'Premium Valuation', 'Going Private', 'Take Private', 'Acquisition Closing', 'Closing Of Acquisition', 'Completed Acquisition', 'Definitive Agreement To Be Acquired', 'Material Definitive Agreement', 'Strategic Alternatives', 'Exploring Strategic Alternatives'],
-    
-  // Failed Trial
+const SEMANTIC_KEYWORDS = {
+  // ═════════════════════════════════════════════════════════════════════════════
+  // PHILOSOPHY: "What management is actually doing"
+  // Not: "Find bullish words" But: "Find what actions increase/decrease cash flow"
+  // ═════════════════════════════════════════════════════════════════════════════
+  
+  // 🟢 BUY PRESSURE: Real actions that create demand for shares
+  // ═════════════════════════════════════════════════════════════════════════════
+  
+  // FDA / Clinical = revenue becomes legal
+  'Clinical Success': ['Priority Review', 'Fast Track Designation', 'Breakthrough Designation', 'Phase 3', 'Primary Endpoint', 'Topline Data', 'Statistically Significant', 'Met Primary Endpoint', 'Positive Phase 3', 'Primary Endpoint Met'],
+  'FDA Approved': ['FDA Approval', 'FDA approved', 'FDA approval'],
+  
+  // Customer Relationship = revenue protected OR expanded (probably the biggest signal)
+  'Customer Relationship': ['Largest Customer', 'Major Customer', 'Key Customer', 'Customer Renewal', 'Contract Extension', 'Retain At Least', 'Expected To Retain', 'Expanded Relationship', 'Expanded Agreement', 'Continued Provision Of Services', 'Extended The Term', 'Renewed Agreement', 'Additional Services', 'Increased Scope', 'Extended Services'],
+  
+  // Commercial agreement = binding commitment (only select ones)
+  'Commercial Agreement': ['Master Services Agreement', 'Commercial Agreement', 'Supply Agreement', 'Services Agreement', 'Framework Agreement'],
+  
+  // Revenue locked in
+  'Revenue Secured': ['Expected To Retain', 'Revenue Expected', 'Revenue Attributable', 'Revenue Backlog', 'Contract Backlog', 'Remaining Performance Obligation'],
+  
+  // Government / Partnership / Licensing
+  'Government Contract': ['Government Contract Award', 'Defense Contract', 'Federal Contract', 'DOD Contract', 'GSA Schedule', 'Federal Procurement'],
+  'Partnership': ['Strategic Partnership', 'Joint Venture', 'Partnership Agreement', 'Strategic Alliance', 'Development Agreement', 'Collaboration Agreement', 'Distribution Agreement', 'Co-Development Agreement'],
+  'Licensing Deal': ['Exclusive License', 'License Agreement', 'Technology License', 'IP Licensing'],
+  
+  // Capital return to shareholders
+  'Stock Buyback': ['Share Repurchase', 'Buyback Authorization', 'Accelerated Buyback', 'Repurchase Program'],
+  
+  // Commercial inflection with real traction
+  'Commercial Inflection': ['Customer Growth', 'Revenue Growth', 'Revenue Doubled', 'Revenue Doubled In', 'Commercial Traction', 'Commercial Momentum', 'POC Completed', 'Proof Of Concept Completed', 'Proof Of Concept', 'Letter Of Intent', 'LOI Signed', 'Commercial Pipeline Expansion', 'Commercial Pipeline', 'Operational Runway', 'Cash Runway', 'Strengthened Foundation', 'De-Risking', 'Strategic Validation', 'Ecosystem Expansion', 'Customer Count Increase', 'Active Customers', 'Revenue-Generating Shipments', 'Repeat Business', 'Signed Customer', 'Customer Win', 'Purchase Order', 'Purchase Orders', 'Multi-Year Contract', 'Awarded Contract', 'Production Order', 'Commercial Production'],
+  
+  // Structural positive
+  'DTC Eligible Restored': ['DTC Eligible', 'DTC Chill Lifted', 'Eligibility Restored', 'DTC Restoration', 'Chill Status', 'Chill Removed', 'Resume Trading'],
+  
+  // Clinical milestones
+  'Clinical Milestone': ['Phase Advancement', 'Phase 3 Initiation', 'Enrollment Opened', 'Enrollment Initiated', 'NDA Filing', 'PMA Submission', 'Program Initiation', 'Dose Escalation', 'Cohort Complete'],
+  
+  // ═════════════════════════════════════════════════════════════════════════════
+  // 🔴 SELL PRESSURE: Creates supply OR destroys future cash flow
+  // ═════════════════════════════════════════════════════════════════════════════
+  
+  // Customer loss = revenue destroyed
+  'Customer Loss': ['Customer Terminated', 'Termination Of Agreement', 'Loss Of Customer', 'Largest Customer Lost', 'Customer Transition', 'Transition To Other Providers', 'Will No Longer Provide', 'Reduction In Services'],
+  
+  // Revenue destruction
+  'Revenue Loss': ['Reduced Revenue', 'Revenue Decline', 'Lower Revenue', 'Decrease In Revenue', 'Revenue Reduction'],
+  
+  // Clinical failure = path to revenue blocked
   'Failed Trial': ['Primary Endpoint Not Met', 'Did Not Meet Primary Endpoint', 'Primary Endpoint Missed', 'Failed To Meet Primary Endpoint', 'Primary Endpoint Failed', 'No Statistically Significant', 'Did Not Show Statistically Significant', 'Did Not Achieve Primary', 'Missed Primary Endpoint'],
   'Post-Hoc Salvage': ['Post Hoc Analysis', 'Post-Hoc Analysis', 'Unplanned Analysis', 'Post Hoc Findings', 'Subset Analysis', 'Exploratory Analysis', 'Applied For Breakthrough'],
   
-  // Clinical / Regulatory
-  'Clinical Success': ['Priority Review', 'Fast Track Designation', 'Breakthrough Designation', 'Phase 3', 'Primary Endpoint', 'Topline Data', 'Statistically Significant', 'Met Primary Endpoint', 'Positive Phase 3', 'Primary Endpoint Met'],
-  'Clinical Milestone': ['Phase Advancement', 'Phase 3 Initiation', 'Enrollment Opened', 'Enrollment Initiated', 'NDA Filing', 'PMA Submission', 'Program Initiation', 'Dose Escalation', 'Cohort Complete'],
-
-  // Capital & Dilution
+  // Equity dilution = new share supply
+  'Convertible Debt': ['Convertible Bonds', 'Convertible Notes', 'Convertible Securities'],
+  'Unregistered Equity Sales': ['Registered Direct Offering', 'Offering to Certain Investors', 'Accredited Investors', 'Rule 506(b)', 'Private Placement', 'Registered Direct', 'Issuable Under', 'Pre-funded Warrants', 'Purchase Agreement', 'Placement Agent'],
+  'Regulation S Offering': ['Regulation S', 'Rule 902', 'Non-U.S. Persons', 'Offshore Transaction', 'Offshore Purchaser', 'Foreign Purchaser'],
+  'Related-Party Transaction': ['Spouse Of', 'Family Member', 'Relative Of CEO', 'Relative Of The CEO', 'Controlled By', 'Related Party', 'Affiliate Transaction', 'Affiliate Of', 'Related Person', 'Family Relationship'],
+  'Offering At A Discount': ['Offering At A Discount', 'Priced At A Discount', 'Discount To Market', 'Discounted Offering', 'Sold At A Discount', 'Discounted Placement'],
+  
+  // Capital raise = new share supply (even if credible)
   'Capital Raise': ['Oversubscribed', 'Institutional Participation', 'Lead Investor', 'Top-Tier Investor', 'Strategic Investor'],
   'Underwritten Offering': ['Bought Deal', 'Underwriter Commitment', 'Underwritten Bought Deal', 'IPO Underwritten'],
-  'Convertible Debt': ['Convertible Bonds', 'Convertible Notes', 'Convertible Securities'],
-  'Contingent Value Rights': ['Contingent Value Rights', 'CVR', 'Contingent Payments', 'Shareholder Value Rights', 'Legacy Asset Monetization'],
   
-  // Distress & Legal
+  // Distress = destroys future cash flow
   'Bankruptcy Filing': ['Bankruptcy Protection', 'Chapter 11 Filing', 'Chapter 7 Filing', 'Insolvency Proceedings', 'Creditor Protection'],
   'Credit Default': ['Loan Default', 'Debt Covenant Breach', 'Event Of Default', 'Credit Agreement Violation', 'Covenant Breach', 'Default Event', 'Acceleration Of Debt', 'Mandatory Prepayment', 'Covenant Violation', 'Is In Default', 'Notice Of Default', 'Default Has Occurred', 'Declared An Event Of Default', 'Default Under The', 'Constitutes A Default'],
+  
+  // Accounting failure = destroys trust in numbers
+  'Accounting Restatement': ['Financial Restatement', 'Audit Non-Reliance', 'Material Weakness', 'Control Deficiency', 'Audit Adjustment', 'Non-Reliance On Previously Issued Financial Statements', 'Previously Issued Financial Statements', 'Substantial Doubt About Ability To Continue As A Going Concern', 'Going Concern Uncertainty', 'Substantial Doubt'],
+  
+  // ═════════════════════════════════════════════════════════════════════════════
+  // 🟡 VALUE CHANGE: Changes company's future valuation
+  // ═════════════════════════════════════════════════════════════════════════════
+  
+  // Real M&A closing = company structure changes
+  'Merger/Acquisition': [
+    'Completed Acquisition', 'Acquisition Closing', 'Closing Of Acquisition', 'Take Private', 'Going Private', 'Definitive Agreement To Be Acquired', 'Acquisition Agreement'],
+  
+  // Exploring options = story changes (not yet committed)
+  'Strategic Review': ['Strategic Alternatives', 'Exploring Strategic Alternatives', 'Review Of Strategic Alternatives'],
+  
+  // Asset changes = business mix changes
+  'Asset Disposition': ['Asset Sale', 'Asset Disposition', 'Business Disposition', 'Sold Assets', 'Divesting', 'Asset Divestiture', 'Strategic Sale', 'Sale Of Assets', 'Disposition', 'Divested', 'Business Disposition'],
+  
+  // Governance/Legal shifts = trust/control shifts
   'Accounting Restatement': ['Financial Restatement', 'Audit Non-Reliance', 'Material Weakness', 'Control Deficiency', 'Audit Adjustment', 'Non-Reliance On Previously Issued Financial Statements', 'Previously Issued Financial Statements', 'Substantial Doubt About Ability To Continue As A Going Concern', 'Going Concern Uncertainty', 'Substantial Doubt'],
   'Auditor Change': ['Auditor Resigned', 'Audit Firm Changed', 'Auditor Departure', 'Internal Controls Weakness', 'Auditor No Longer', 'Changes Auditor', 'Change Of Auditor'],
-  'Material Lawsuit': ['Material Litigation', 'Lawsuit Filed', 'Major Lawsuit', 'SEC Investigation', 'DOJ Investigation'],
   'Regulatory Breach': ['Regulatory Violation', 'FDA Warning', 'Product Recall', 'Safety Recall', 'Warning Letter'],
+  'Material Lawsuit': ['Material Litigation', 'Lawsuit Filed', 'Major Lawsuit', 'SEC Investigation', 'DOJ Investigation'],
   
-  // Structural Events
+  // Leadership changes = strategic direction may change
+  'Executive Departure': ['CEO Departed', 'CFO Departed', 'CEO Resigned', 'Chief Officer Left', 'CEO Resignation', 'CFO Departure', 'Stepped Down', 'Stepped Down From Role', 'Step Down', 'Planned Leadership Transition'],
+  
+  // Delisting/Deregistration = company structure/access changes
   'Going Dark': ['Form 15', 'Deregistration', 'Stop Reporting', 'Cease Reporting', 'Edgar Delisting', 'No Longer Report', 'Terminate Registration', 'Exit From SEC Reporting', 'Shall No Longer File'],
   'Nasdaq Delisting': ['Nasdaq Deficiency', 'Listing Standards Warning', 'Nasdaq Notification', 'Delisting Determination', 'Nasdaq Letter', 'Delisting Risk', 'Delisting Threat', 'Received Notice Of Delisting', 'Notice Of Non-Compliance', 'Not In Compliance With Listing Requirements'],
   'Bid Price Delisting': ['Minimum Bid Price', 'Regained Compliance'],
-  'DTC Eligible Restored': ['DTC Eligible', 'DTC Chill Lifted', 'Eligibility Restored', 'DTC Restoration', 'Chill Status', 'Chill Removed', 'Resume Trading'],
   
-  // Operational Catalysts
-  'Asset Disposition': ['Asset Sale', 'Asset Disposition', 'Business Disposition', 'Sold Assets', 'Divesting', 'Asset Divestiture', 'Strategic Sale', 'Sale Of Assets', 'Disposition', 'Divested', 'Business Disposition'],
-  'Stock Buyback': ['Share Repurchase', 'Buyback Authorization', 'Accelerated Buyback', 'Repurchase Program'],
-  'Executive Departure': ['CEO Departed', 'CFO Departed', 'CEO Resigned', 'Chief Officer Left', 'CEO Resignation', 'CFO Departure', 'Stepped Down', 'Stepped Down From Role', 'Step Down', 'Planned Leadership Transition'],
-  
-  // Growth Catalysts (Press Release Quality)
-  'Partnership': ['Strategic Partnership', 'Joint Venture', 'Partnership Agreement', 'Strategic Alliance', 'Development Agreement'],
-  'Licensing Deal': ['Exclusive License', 'License Agreement', 'Technology License', 'IP Licensing'],
-  'Government Contract': ['Government Contract Award', 'Defense Contract', 'Federal Contract', 'DOD Contract', 'GSA Schedule', 'Federal Procurement'],
-  
-  // Commercial Inflection & Traction (Growth Signals)
-  'Commercial Inflection': ['Customer Growth', 'Revenue Growth', 'Revenue Doubled', 'Revenue Doubled In', 'Commercial Traction', 'Commercial Momentum', 'POC Completed', 'Proof Of Concept Completed', 'Proof Of Concept', 'Letter Of Intent', 'LOI Signed', 'Commercial Pipeline Expansion', 'Commercial Pipeline', 'Operational Runway', 'Cash Runway', 'Strengthened Foundation', 'De-Risking', 'Strategic Validation', 'Ecosystem Expansion', 'Customer Count Increase', 'Active Customers', 'Revenue-Generating Shipments', 'Repeat Business'],
-  
-  // Predatory Extraction Mechanics
-  'Unregistered Equity Sales': ['Registered Direct Offering', 'Offering to Certain Investors', 'Accredited Investors', 'Rule 506(b)', 'Private Placement', 'Registered Direct', 'Issuable Under', 'Pre-funded Warrants', 'Purchase Agreement', 'Placement Agent'],
-  'Regulation S Offering': ['Regulation S', 'Rule 902', 'Non-U.S. Persons', 'Offshore Transaction', 'Offshore Purchaser', 'Foreign Purchaser', 'Offshore Purchaser', 'Offshore Transaction'],
-  'Related-Party Transaction': ['Spouse Of', 'Family Member', 'Relative Of CEO', 'Relative Of The CEO', 'Controlled By', 'Related Party', 'Affiliate Transaction', 'Affiliate Of', 'Related Person', 'Family Relationship'],
-  'Offering At A Discount': ['Offering At A Discount', 'Priced At A Discount', 'Discount To Market', 'Discounted Offering', 'Sold At A Discount', 'Discounted Placement'],
+  // Contingent payments
+  'Contingent Value Rights': ['Contingent Value Rights', 'CVR', 'Contingent Payments', 'Shareholder Value Rights', 'Legacy Asset Monetization'],
 };
 
 const strongBearishSignals = [
   'Unregistered Equity Sales',
   'Convertible Debt',
   'Regulation S Offering',
-  'PIPE',
   'Related-Party Transaction',
   'Credit Default',
-  'Accounting Restatement'
+  'Accounting Restatement',
+  'Customer Loss',
+  'Revenue Loss',
+  'Failed Trial',
+  'Bankruptcy Filing',
+  'Post-Hoc Salvage',
+  'Offering At A Discount',
+  'Capital Raise',
+  'Underwritten Offering'
 ];
+
+// ╭──────────────────────────────────────────────────────────────────╮
+// Timing Metadata: Is this catalyst 'IMMEDIATE' or 'FUTURE'?
+// Markets discount future promises differently than present actions.
+// ╰──────────────────────────────────────────────────────────────────╯
+const signalTiming = {
+  // Immediate: Changes supply/demand TODAY
+  'FDA Approved': 'Immediate',              // revenue becomes legal NOW
+  'Clinical Success': 'Future',              // proves efficacy, still awaits FDA
+  'Clinical Milestone': 'Future',            // step toward future approval
+  'Customer Relationship': 'Immediate',     // revenue secured (not promised)
+  'Customer Loss': 'Immediate',              // revenue gone NOW
+  'Revenue Secured': 'Immediate',            // backlog locked in
+  'Revenue Loss': 'Immediate',               // cash gone NOW
+  'Failed Trial': 'Immediate',               // path to revenue blocked NOW
+  'Post-Hoc Salvage': 'Future',              // emergency salvage attempt
+  'Government Contract': 'Immediate',       // award granted
+  'Commercial Agreement': 'Mixed',           // varies: MOU=future, MSA=immediate
+  'Partnership': 'Future',                   // announced, not yet executing
+  'Licensing Deal': 'Immediate',             // deal closed with real IP
+  'Stock Buyback': 'Immediate',              // capital returned now
+  'Commercial Inflection': 'Mixed',          // LOI=future, PO shipped=immediate
+  'DTC Eligible Restored': 'Immediate',      // trading restored now
+  'Auditor Change': 'Immediate',             // auditor left now
+  'Regulatory Breach': 'Immediate',          // violation/warning issued now
+  'Material Lawsuit': 'Immediate',           // lawsuit filed/announced now
+  'Executive Departure': 'Immediate',        // executive gone now
+  'Going Dark': 'Immediate',                 // SEC reporting stops now
+  'Contingent Value Rights': 'Immediate',    // CVR terms set now
+  
+  // Equity dilution = new supply created TODAY
+  'Unregistered Equity Sales': 'Immediate', // offering priced, shares exist now
+  'Regulation S Offering': 'Immediate',     // offering executed now
+  'Convertible Debt': 'Future',              // dilution on conversion date
+  'Offering At A Discount': 'Immediate',    // shares issued at discount now
+  'Related-Party Transaction': 'Immediate', // insider sale already happened
+  'Capital Raise': 'Immediate',              // cash received, shares issued now
+  'Underwritten Offering': 'Immediate',     // offering closed, shares exist now
+  
+  // Distress = cash problem or insolvency NOW
+  'Bankruptcy Filing': 'Immediate',          // company in chapter 11 now
+  'Credit Default': 'Immediate',             // default event occurred now
+  'Accounting Restatement': 'Immediate',    // numbers can't be trusted now
+  
+  // Narrative = story changes TODAY, but impact TBD
+  'Merger/Acquisition': 'Immediate',         // deal closed, structure changed
+  'Strategic Review': 'Future',              // exploring, no commitment yet
+  'Asset Disposition': 'Mixed'               // sale agreed=immediate, pending=future
+};
 
 // Financial ratio parser: extracts quantitative balance sheet metrics from filing text
 // Financial ratio parser - extracts balance sheet and solvency metrics from filing documents
@@ -3374,28 +3512,115 @@ const sendPersonalWebhook = (alertData) => {
     if (alertData.predatoryFinancing && alertData.predatoryFinancing.detected) {
       predatoryMessage = `**Buyer:** ${alertData.predatoryFinancing.predatorName}`;
     }
-    // Build a detailed signals display: include category + parsed sub-items when available
-    let signalsDisplay = '';
-    if (alertData.signals && typeof alertData.signals === 'object' && Object.keys(alertData.signals).length > 0) {
-      const parts = [];
-      for (const [cat, details] of Object.entries(alertData.signals)) {
+    const categorizePressureBuckets = (signals = {}) => {
+      const buyPressure = [];
+      const sellPressure = [];
+      const valueChange = [];
+      const buildEntry = (category, details) => {
         if (Array.isArray(details) && details.length > 0) {
-          parts.push(`${cat}: ${details.join('; ')}`);
-        } else if (details) {
-          parts.push(`${cat}: ${String(details)}`);
+          return `${category}: ${details.join('; ')}`;
+        }
+        if (details) {
+          return `${category}: ${String(details)}`;
+        }
+        return category;
+      };
+
+      const buyCategories = new Set([
+        'FDA Approved',
+        'Clinical Success',
+        'Clinical Milestone',
+        'Customer Relationship',
+        'Commercial Agreement',
+        'Revenue Secured',
+        'Government Contract',
+        'Partnership',
+        'Licensing Deal',
+        'Stock Buyback',
+        'Commercial Inflection',
+        'DTC Eligible Restored'
+      ]);
+      const sellCategories = new Set([
+        'Customer Loss',
+        'Revenue Loss',
+        'Failed Trial',
+        'Post-Hoc Salvage',
+        'Convertible Debt',
+        'Unregistered Equity Sales',
+        'Regulation S Offering',
+        'Related-Party Transaction',
+        'Offering At A Discount',
+        'Capital Raise',
+        'Underwritten Offering',
+        'Bankruptcy Filing',
+        'Credit Default',
+        'Accounting Restatement'
+      ]);
+      const valueChangeCategories = new Set([
+        'Merger/Acquisition',
+        'Strategic Review',
+        'Asset Disposition',
+        'Accounting Restatement',
+        'Auditor Change',
+        'Regulatory Breach',
+        'Material Lawsuit',
+        'Executive Departure',
+        'Going Dark',
+        'Nasdaq Delisting',
+        'Bid Price Delisting',
+        'Contingent Value Rights'
+      ]);
+
+      for (const [cat, details] of Object.entries(signals)) {
+        const entry = buildEntry(cat, details);
+        if (buyCategories.has(cat)) {
+          buyPressure.push(entry);
+        } else if (sellCategories.has(cat)) {
+          sellPressure.push(entry);
+        } else if (valueChangeCategories.has(cat)) {
+          valueChange.push(entry);
         } else {
-          parts.push(cat);
+          valueChange.push(entry);
         }
       }
-      signalsDisplay = parts.join('\n');
+
+      return { buyPressure, sellPressure, valueChange };
+    };
+
+    const formatBucket = (title, items) => {
+      if (!items || items.length === 0) {
+        return `**${title}:**\n• None`;
+      }
+      return `**${title}:**\n${items.map(item => `• ${item}`).join('\n')}`;
+    };
+
+    let pressureDisplay = '';
+    if (alertData.signals && typeof alertData.signals === 'object' && Object.keys(alertData.signals).length > 0) {
+      const { buyPressure, sellPressure, valueChange } = categorizePressureBuckets(alertData.signals);
+      // Categorize signals by timing: Immediate changes today's supply/demand vs Future promises
+      const immediateSignals = Object.entries(alertData.signals || {}).filter(([cat]) => signalTiming[cat] === 'Immediate');
+      const futureSignals = Object.entries(alertData.signals || {}).filter(([cat]) => signalTiming[cat] === 'Future');
+      const mixedTimingSignals = Object.entries(alertData.signals || {}).filter(([cat]) => signalTiming[cat] === 'Mixed' || !signalTiming[cat]);
+      
+      const timingTag = immediateSignals.length > 0 && futureSignals.length === 0 ? ' [Immediate]' 
+                      : futureSignals.length > 0 && immediateSignals.length === 0 ? ' [Future]'
+                      : mixedTimingSignals.length > 0 || (immediateSignals.length > 0 && futureSignals.length > 0) ? ' [Mixed]'
+                      : '';
+      
+      pressureDisplay = [
+        formatBucket('Buy Pressure (New Demand)', buyPressure),
+        formatBucket('Sell Pressure (New Supply)', sellPressure),
+        formatBucket('Value Change (Future Valuation)', valueChange)
+      ].join('\n\n');
     } else {
-      signalsDisplay = reason;
+      pressureDisplay = `**Signals:**\n${reason}`;
     }
 
-    const personalAlertContent = `${alertTypeDisplay}[${direction}] $${ticker} @ ${priceDisplay}${setupTag}
+    const personalAlertContent = `${alertTypeDisplay}$${ticker} @ ${priceDisplay}${setupTag}${timingTag}
 
-**Signals:**\n${signalsDisplay}
-**Industry:** ${sectorDisplay}
+${pressureDisplay}
+**Sector:** ${sectorDisplay}
+**Industry:** ${alertData.industry || 'N/A'}
 **Filer:** ${alertData.filerName || 'Not Applicable'}
 **Location:** ${locationDisplay}
 **Incorporation:** ${incorporationDisplay}
