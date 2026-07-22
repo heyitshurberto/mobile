@@ -898,11 +898,11 @@ const signalTiming = {
   'Failed Trial': 'Immediate',               // path to revenue blocked NOW
   'Post-Hoc Salvage': 'Future',              // emergency salvage attempt
   'Government Contract': 'Immediate',       // award granted
-  'Commercial Agreement': 'Mixed',           // varies: MOU=future, MSA=immediate
+  'Commercial Agreement': 'Repricing',           // varies: MOU=future, MSA=immediate
   'Partnership': 'Future',                   // announced, not yet executing
   'Licensing Deal': 'Immediate',             // deal closed with real IP
   'Stock Buyback': 'Immediate',              // capital returned now
-  'Commercial Inflection': 'Mixed',          // LOI=future, PO shipped=immediate
+  'Commercial Inflection': 'Repricing',          // LOI=future, PO shipped=immediate
   'DTC Eligible Restored': 'Immediate',      // trading restored now
   'Auditor Change': 'Immediate',             // auditor left now
   'Regulatory Breach': 'Immediate',          // violation/warning issued now
@@ -928,7 +928,7 @@ const signalTiming = {
   // Narrative = story changes TODAY, but impact TBD
   'Merger/Acquisition': 'Immediate',         // deal closed, structure changed
   'Strategic Review': 'Future',              // exploring, no commitment yet
-  'Asset Disposition': 'Mixed'               // sale agreed=immediate, pending=future
+  'Asset Disposition': 'Repricing'               // sale agreed=immediate, pending=future
 };
 
 // Economic impact: describes how much the filing changes the future supply/demand equation.
@@ -3649,11 +3649,11 @@ const sendPersonalWebhook = (alertData) => {
       // Categorize signals by timing: Immediate changes today's supply/demand vs Future promises
       const immediateSignals = Object.entries(alertData.signals || {}).filter(([cat]) => signalTiming[cat] === 'Immediate');
       const futureSignals = Object.entries(alertData.signals || {}).filter(([cat]) => signalTiming[cat] === 'Future');
-      const mixedTimingSignals = Object.entries(alertData.signals || {}).filter(([cat]) => signalTiming[cat] === 'Mixed' || !signalTiming[cat]);
+      const RepricingTimingSignals = Object.entries(alertData.signals || {}).filter(([cat]) => signalTiming[cat] === 'Repricing' || !signalTiming[cat]);
       
       const timingTag = immediateSignals.length > 0 && futureSignals.length === 0 ? ' [Immediate]' 
                       : futureSignals.length > 0 && immediateSignals.length === 0 ? ' [Future]'
-                      : mixedTimingSignals.length > 0 || (immediateSignals.length > 0 && futureSignals.length > 0) ? ' [Mixed]'
+                      : RepricingTimingSignals.length > 0 || (immediateSignals.length > 0 && futureSignals.length > 0) ? ' [Repricing]'
                       : '';
       
       pressureDisplay = [
