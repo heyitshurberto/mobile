@@ -3667,8 +3667,8 @@ const sendPersonalWebhook = async (alertData) => {
       pressureDisplay = `**Signals:**\n${reason}`;
     }
 
-    const timingBadge = timingTag ? `***${timingTag.trim()}***` : '';
-    const personalAlertContent = `${alertTypeDisplay}$${ticker} @ ${priceDisplay}${setupTag}${timingBadge}
+    const timingBadge = timingTag ? `**${timingTag.trim()}**` : '';
+    const personalAlertContent = `${alertTypeDisplay}**$${ticker}** @ *${priceDisplay}*${setupTag}${timingBadge}
 
 ${pressureDisplay}
 
