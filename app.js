@@ -3659,9 +3659,9 @@ const sendPersonalWebhook = async (alertData) => {
                       : '';
       
       pressureDisplay = [
-        formatBucket('Buy Pressure (*New Demand*)', buyPressure),
-        formatBucket('Sell Pressure (*New Supply*)', sellPressure),
-        formatBucket('Value Change (*Future Valuation*)', valueChange)
+        formatBucket('**Buy Pressure (*New Demand*)**', buyPressure),
+        formatBucket('**Sell Pressure (*New Supply*)**', sellPressure),
+        formatBucket('**Value Change (*Future Valuation*)**', valueChange)
       ].join('\n\n');
     } else {
       pressureDisplay = `**Signals:**\n${reason}`;
