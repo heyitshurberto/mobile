@@ -221,5 +221,93 @@
     "percentAfter1d": null,
     "priceAfter3d": null,
     "percentAfter3d": null
+  },
+  {
+    "ticker": "CNTN",
+    "title": "8-K - Canton Strategic Holdings, Inc. (0001861657) (Filer)",
+    "companyName": "Canton Strategic Holdings, Inc.",
+    "filerName": null,
+    "price": 2.09,
+    "fav": "33.70",
+    "volume": 596911,
+    "averageVolume": 899988,
+    "float": 30328481,
+    "sharesOutstanding": 77122584,
+    "soRatio": "39.33%",
+    "marketCap": 161186192,
+    "isShort": true,
+    "ftd": 1857266,
+    "intent": "Partnership, Licensing Deal, Convertible Debt, Unregistered Equity Sales, Regulation S Offering, Related-Party Transaction, Credit Default, Asset Disposition",
+    "incorporated": "Wilmington, Delaware",
+    "located": "New Jersey",
+    "filingDate": "2026-07-23T08:40:28-04:00",
+    "signals": {
+      "Partnership": [
+        "Joint Venture"
+      ],
+      "Licensing Deal": [
+        "Exclusive License"
+      ],
+      "Convertible Debt": [
+        "Convertible Securities"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: affiliated with Vincent LoPriore"
+      ],
+      "Regulation S Offering": [
+        "Regulation S"
+      ],
+      "Related-Party Transaction": [
+        "Controlled By"
+      ],
+      "Credit Default": [
+        "Event Of Default",
+        "Mandatory Prepayment",
+        "Default Has Occurred"
+      ],
+      "Asset Disposition": [
+        "Sale Of Assets",
+        "Disposition"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "8-K",
+      "13D",
+      "EX-10.1",
+      "EX-10.2",
+      "Item 1.01",
+      "Item 2.01",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "cik": "1861657",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Biotechnology",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "New Jersey (via Wilmington, Delaware)",
+    "filingTimeBonus": 1.15,
+    "recordedAt": "2026-07-23T12:41:09.623Z",
+    "recordId": "CNTN-1784810469623",
+    "expiresAt": "2026-07-28T12:41:09.623Z",
+    "direction": "SHORT",
+    "highest5Day": 2.09,
+    "highest5DayPercent": 0,
+    "lowest5Day": 2.09,
+    "lowest5DayPercent": 0,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null
   }
 ]

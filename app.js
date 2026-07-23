@@ -3566,7 +3566,7 @@ const sendPersonalWebhook = async (alertData) => {
       const valueChange = [];
       const buildEntry = (category, details) => {
         const impact = signalImpact[category] || 'Context';
-        const impactTag = ` [${impact}]`;
+        const impactTag = ` ***[${impact}]***`;
         if (Array.isArray(details) && details.length > 0) {
           return `${category}${impactTag}: ${details.join('; ')}`;
         }
@@ -3659,17 +3659,19 @@ const sendPersonalWebhook = async (alertData) => {
                       : '';
       
       pressureDisplay = [
-        formatBucket('Buy Pressure (New Demand)', buyPressure),
-        formatBucket('Sell Pressure (New Supply)', sellPressure),
-        formatBucket('Value Change (Future Valuation)', valueChange)
+        formatBucket('Buy Pressure (*New Demand*)', buyPressure),
+        formatBucket('Sell Pressure (*New Supply*)', sellPressure),
+        formatBucket('Value Change (*Future Valuation*)', valueChange)
       ].join('\n\n');
     } else {
       pressureDisplay = `**Signals:**\n${reason}`;
     }
 
-    const personalAlertContent = `${alertTypeDisplay}$${ticker} @ ${priceDisplay}${setupTag}${timingTag}
+    const timingBadge = timingTag ? `***${timingTag.trim()}***` : '';
+    const personalAlertContent = `${alertTypeDisplay}$${ticker} @ ${priceDisplay}${setupTag}${timingBadge}
 
 ${pressureDisplay}
+
 **Sector:** ${sectorDisplay}
 **Industry:** ${alertData.industry || 'N/A'}
 **Filer:** ${alertData.filerName || 'Not Applicable'}
