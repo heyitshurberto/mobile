@@ -888,16 +888,16 @@ const strongBearishSignals = [
 // ╰──────────────────────────────────────────────────────────────────╯
 const signalTiming = {
   // Immediate: Changes supply/demand TODAY
-  'FDA Approved': 'Immediate',              // revenue becomes legal NOW
+  'FDA Approved': 'Immediate',               // revenue becomes legal NOW
   'Clinical Success': 'Future',              // proves efficacy, still awaits FDA
   'Clinical Milestone': 'Future',            // step toward future approval
-  'Customer Relationship': 'Immediate',     // revenue secured (not promised)
+  'Customer Relationship': 'Immediate',      // revenue secured (not promised)
   'Customer Loss': 'Immediate',              // revenue gone NOW
   'Revenue Secured': 'Immediate',            // backlog locked in
   'Revenue Loss': 'Immediate',               // cash gone NOW
   'Failed Trial': 'Immediate',               // path to revenue blocked NOW
   'Post-Hoc Salvage': 'Future',              // emergency salvage attempt
-  'Government Contract': 'Immediate',       // award granted
+  'Government Contract': 'Immediate',        // award granted
   'Commercial Agreement': 'Repricing',           // varies: MOU=future, MSA=immediate
   'Partnership': 'Future',                   // announced, not yet executing
   'Licensing Deal': 'Immediate',             // deal closed with real IP
@@ -914,16 +914,16 @@ const signalTiming = {
   // Equity dilution = new supply created TODAY
   'Unregistered Equity Sales': 'Immediate', // offering priced, shares exist now
   'Regulation S Offering': 'Immediate',     // offering executed now
-  'Convertible Debt': 'Future',              // dilution on conversion date
+  'Convertible Debt': 'Future',             // dilution on conversion date
   'Offering At A Discount': 'Immediate',    // shares issued at discount now
   'Related-Party Transaction': 'Immediate', // insider sale already happened
-  'Capital Raise': 'Immediate',              // cash received, shares issued now
+  'Capital Raise': 'Immediate',             // cash received, shares issued now
   'Underwritten Offering': 'Immediate',     // offering closed, shares exist now
   
   // Distress = cash problem or insolvency NOW
   'Bankruptcy Filing': 'Immediate',          // company in chapter 11 now
   'Credit Default': 'Immediate',             // default event occurred now
-  'Accounting Restatement': 'Immediate',    // numbers can't be trusted now
+  'Accounting Restatement': 'Immediate',     // numbers can't be trusted now
   
   // Narrative = story changes TODAY, but impact TBD
   'Merger/Acquisition': 'Immediate',         // deal closed, structure changed
@@ -3447,7 +3447,7 @@ const detectSEPAAgreement = (text, buyerDescription) => {
     return false;
   }
 
-const sendPersonalWebhook = (alertData) => {
+const sendPersonalWebhook = async (alertData) => {
   try {
     // Check master toggle first
     if (!CONFIG.ALERTS_DISTRIBUTION_ENABLED) {
@@ -3472,6 +3472,7 @@ const sendPersonalWebhook = (alertData) => {
     
     const { ticker, price, intent, incorporated, located } = alertData;
     const direction = alertData.direction || 'LONG';
+    const ftdValue = Number(alertData.ftdValue || 0);
     
     // Convert intent categories to actual semantic keywords from SEMANTIC_KEYWORDS mapping
     let semanticKeywords = [];
@@ -3644,16 +3645,17 @@ const sendPersonalWebhook = (alertData) => {
     };
 
     let pressureDisplay = '';
+    let timingTag = '';
     if (alertData.signals && typeof alertData.signals === 'object' && Object.keys(alertData.signals).length > 0) {
       const { buyPressure, sellPressure, valueChange } = categorizePressureBuckets(alertData.signals);
       // Categorize signals by timing: Immediate changes today's supply/demand vs Future promises
       const immediateSignals = Object.entries(alertData.signals || {}).filter(([cat]) => signalTiming[cat] === 'Immediate');
       const futureSignals = Object.entries(alertData.signals || {}).filter(([cat]) => signalTiming[cat] === 'Future');
-      const RepricingTimingSignals = Object.entries(alertData.signals || {}).filter(([cat]) => signalTiming[cat] === 'Repricing' || !signalTiming[cat]);
+      const mixedTimingSignals = Object.entries(alertData.signals || {}).filter(([cat]) => signalTiming[cat] === 'Repricing' || !signalTiming[cat]);
       
-      const timingTag = immediateSignals.length > 0 && futureSignals.length === 0 ? ' [Immediate]' 
+      timingTag = immediateSignals.length > 0 && futureSignals.length === 0 ? ' [Immediate]' 
                       : futureSignals.length > 0 && immediateSignals.length === 0 ? ' [Future]'
-                      : RepricingTimingSignals.length > 0 || (immediateSignals.length > 0 && futureSignals.length > 0) ? ' [Repricing]'
+                      : mixedTimingSignals.length > 0 || (immediateSignals.length > 0 && futureSignals.length > 0) ? ' [Repricing]'
                       : '';
       
       pressureDisplay = [
@@ -3684,14 +3686,20 @@ ${secLink}`;
     const personalMsg = { content: personalAlertContent };
     
     // Send to personal Discord webhook using node-fetch
-    fetch(CONFIG.PERSONAL_WEBHOOK_URL, {
+    const response = await fetch(CONFIG.PERSONAL_WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(personalMsg),
       timeout: 5000
-    }).catch(() => {});
+    });
+
+    if (!response.ok) {
+      log('WARN', `Personal Discord webhook returned ${response.status} for $${alertData.ticker}`);
+    } else {
+      log('INFO', `Personal Discord alert sent for $${alertData.ticker}`);
+    }
   } catch (err) {
-    log('ERROR', `Personal webhook error: ${err.message}`);
+    log('ERROR', `Personal webhook error for $${alertData.ticker}: ${err.message}`);
   }
 };
 
