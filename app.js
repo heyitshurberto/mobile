@@ -2435,7 +2435,10 @@ const syncAllPeakData = () => {
 
         // If time windows have passed, snapshot the current price for each interval once.
         const recordTime = stock.recordedAt ? new Date(stock.recordedAt).getTime() : null;
-        const nowTime = Date.now();
+        const now = new Date();
+        const dayOfWeek = now.getDay();
+        const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+        const nowTime = now.getTime();
         const recordAgeMs = recordTime ? nowTime - recordTime : null;
         const snapshotPrice = currentPrice > 0 ? parseFloat(currentPrice) : null;
 
@@ -2445,7 +2448,7 @@ const syncAllPeakData = () => {
         };
 
         const maybeSnapshot = (fieldPrice, fieldPercent, thresholdMs) => {
-          if (recordAgeMs !== null && recordAgeMs >= thresholdMs && fieldPrice == null && snapshotPrice !== null) {
+          if (recordAgeMs !== null && recordAgeMs >= thresholdMs && fieldPrice == null && snapshotPrice !== null && !isWeekend) {
             return {
               price: snapshotPrice,
               percent: percentChange(snapshotPrice)

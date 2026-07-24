@@ -7162,32 +7162,33 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 const quoteData = quotes[stock.ticker] || {};
                 
                 let peakPercent = 0;
-                let peakPrice = stock.peakPrice;
-                
-                // If no tracked peakPrice, use highest/lowest from quote data
-                if (!peakPrice) {
-                    if (isShort) {
-                        peakPrice = parseFloat(quoteData.lowest || stock.lowest5Day || alertPrice);
-                    } else {
-                        peakPrice = parseFloat(quoteData.highest || stock.highest5Day || alertPrice);
-                    }
-                } else {
-                    peakPrice = parseFloat(peakPrice);
-                }
-                
+                let bestPercent = 0;
+                let worstPercent = 0;
+                let bestPrice = alertPrice;
+                let worstPrice = alertPrice;
+                const quoteHighest = parseFloat(quoteData.highest || stock.highest5Day || alertPrice);
+                const quoteLowest = parseFloat(quoteData.lowest || stock.lowest5Day || alertPrice);
+
                 if (alertPrice > 0) {
-                    // Use the actual peak price tracked since alert (or market data)
                     if (isShort) {
-                        peakPercent = ((alertPrice - peakPrice) / alertPrice) * 100;
+                        bestPercent = ((alertPrice - quoteLowest) / alertPrice) * 100;
+                        worstPercent = ((alertPrice - quoteHighest) / alertPrice) * 100;
+                        bestPrice = quoteLowest;
+                        worstPrice = quoteHighest;
                         totalShortTrades++;
-                        if (peakPercent > 0) shortWins++;
+                        if (bestPercent > 0) shortWins++;
                     } else {
-                        peakPercent = ((peakPrice - alertPrice) / alertPrice) * 100;
+                        bestPercent = ((quoteHighest - alertPrice) / alertPrice) * 100;
+                        worstPercent = ((quoteLowest - alertPrice) / alertPrice) * 100;
+                        bestPrice = quoteHighest;
+                        worstPrice = quoteLowest;
                         totalLongTrades++;
-                        if (peakPercent > 0) longWins++;
+                        if (bestPercent > 0) longWins++;
                     }
+                    peakPercent = bestPercent;
+                    peakPrice = bestPrice;
                 }
-                
+
                 if (!isNaN(peakPercent)) {
                     totalReturn += peakPercent;
                     
@@ -7196,18 +7197,18 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     const duration = Math.floor((now - recordDate) / (1000 * 60 * 60 * 24));
                     
                     // Track best and worst trades
-                    if (peakPercent > bestTrade.percent) {
+                    if (bestPercent > bestTrade.percent) {
                         bestTrade = { 
-                            percent: peakPercent, 
+                            percent: bestPercent, 
                             ticker: stock.ticker, 
                             type: isShort ? 'SHORT' : 'LONG',
                             companyName: stock.companyName || 'N/A',
                             date: recordDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' }) + ' ' + recordDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })
                         };
                     }
-                    if (peakPercent < worstTrade.percent) {
+                    if (worstPercent < worstTrade.percent) {
                         worstTrade = { 
-                            percent: peakPercent, 
+                            percent: worstPercent, 
                             ticker: stock.ticker, 
                             type: isShort ? 'SHORT' : 'LONG',
                             companyName: stock.companyName || 'N/A',
@@ -7219,8 +7220,12 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                         ticker: stock.ticker,
                         type: isShort ? 'SHORT' : 'LONG',
                         entryPrice: alertPrice,
-                        peakPrice: peakPrice,
-                        return: peakPercent,
+                        peakPrice: bestPrice,
+                        return: bestPercent,
+                        bestReturn: bestPercent,
+                        worstReturn: worstPercent,
+                        bestPrice: bestPrice,
+                        worstPrice: worstPrice,
                         date: recordDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' }),
                         time: recordDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false }),
                         duration: duration === 0 ? 'Today' : duration === 1 ? 'Yesterday' : `${duration}d ago`,
@@ -7237,12 +7242,16 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
 
             // Sort trades by return for top performers
             const topPerformers = tradeDetails
-                .sort((a, b) => b.return - a.return)
-                .slice(0, 5);
+                .slice()
+                .sort((a, b) => b.bestReturn - a.bestReturn)
+                .slice(0, 5)
+                .map(t => ({ ...t, return: t.bestReturn, peakPrice: t.bestPrice }));
             
             const worstPerformers = tradeDetails
-                .sort((a, b) => a.return - b.return)
-                .slice(0, 5);
+                .slice()
+                .sort((a, b) => a.worstReturn - b.worstReturn)
+                .slice(0, 5)
+                .map(t => ({ ...t, return: t.worstReturn, peakPrice: t.worstPrice }));
 
             // Calculate additional metrics
             const losingTrades = totalTrades - winningTrades;
