@@ -4340,12 +4340,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         if (stock.highest5Day !== undefined && stock.highest5DayPercent !== undefined) {
                             // Backend has calculated the peak (possibly from manual override)
-                            peakPrice = parseFloat(stock.highest5Day || stock.price).toFixed(2);
-                            peakPercent = stock.highest5DayPercent;
-                            
-                            // For SHORT trades, invert the sign (stock going up = loss for short)
                             if (stock.direction === 'SHORT') {
-                                peakPercent = -peakPercent;
+                                peakPrice = parseFloat(stock.lowest5Day || stock.price).toFixed(2);
+                                peakPercent = stock.lowest5DayPercent || 0;
+                            } else {
+                                peakPrice = parseFloat(stock.highest5Day || stock.price).toFixed(2);
+                                peakPercent = stock.highest5DayPercent || 0;
                             }
                             useBackendPeak = true;
                         } else if (isExpired) {
