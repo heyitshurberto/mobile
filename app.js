@@ -3676,14 +3676,14 @@ const sendPersonalWebhook = async (alertData) => {
 
 ${pressureDisplay}
 
-**Sector:** ${sectorDisplay}
-**Filer:** ${alertData.filerName || 'Not Applicable'}
-**Location:** ${locationDisplay}
-**Incorporation:** ${incorporationDisplay}
-**Float:** ${floatDisplay} / **S/O:** ${soDisplay}
-**Volume:** Current: ${volumeDisplay} / **Average:** ${avgVolDisplay}
-**Market Cap:** ${marketCapDisplay}
-**F/AV:** ${favDisplay}
+Sector: **${sectorDisplay}**
+Filer: **${alertData.filerName || 'Not Applicable'}**
+Location: **${locationDisplay}**
+Incorporation: **${incorporationDisplay}**
+Float: **${floatDisplay}** / S/O: **${soDisplay}**
+Volume: Current: **${volumeDisplay}** / Average: **${avgVolDisplay}**
+Market Cap: **${marketCapDisplay}**
+F/AV: **${favDisplay}**
 ${predatoryMessage ? predatoryMessage + '\n' : ''}${sepaMessage ? sepaMessage + '\n' : ''}
 https://www.tradingview.com/chart/?symbol=${ticker}
 ${secLink}`;
