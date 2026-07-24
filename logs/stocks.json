@@ -10592,8 +10592,8 @@
     "recordId": "CNTN-1784810469623",
     "expiresAt": "2026-07-28T12:41:09.623Z",
     "direction": "SHORT",
-    "highest5Day": 2.06,
-    "highest5DayPercent": -1.44,
+    "highest5Day": 1.975,
+    "highest5DayPercent": -5.5,
     "lowest5Day": 1.975,
     "lowest5DayPercent": 5.5,
     "priceAfter30m": 2.09,
@@ -10602,6 +10602,89 @@
     "percentAfter1h": 0,
     "priceAfter6h": 2.06,
     "percentAfter6h": -1.44,
+    "priceAfter1d": 2.06,
+    "percentAfter1d": -1.44,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "personalPriceAlertSent": false
+  },
+  {
+    "ticker": "SST",
+    "title": "8-K - System1, Inc. (0001805833) (Filer)",
+    "companyName": "System1, Inc.",
+    "filerName": "Not Applicable",
+    "price": 1.81,
+    "fav": "17.83",
+    "volume": 33907,
+    "averageVolume": 443124,
+    "float": 7900179,
+    "sharesOutstanding": 8217390,
+    "soRatio": "96.14%",
+    "marketCap": 18111128,
+    "isShort": false,
+    "ftd": 81959,
+    "intent": "Partnership, Licensing Deal, Convertible Debt, Unregistered Equity Sales, Related-Party Transaction, Asset Disposition",
+    "incorporated": "Cayman Islands",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-07-24T09:07:17-04:00",
+    "signals": {
+      "Partnership": [
+        "Joint Venture"
+      ],
+      "Licensing Deal": [
+        "Exclusive License"
+      ],
+      "Convertible Debt": [
+        "Convertible Securities"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: or is under common control with the Person specified",
+        "Shares: 0.0M"
+      ],
+      "Related-Party Transaction": [
+        "Controlled By",
+        "Related Party"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "8-K",
+      "13D",
+      "EX-3.1",
+      "Item 3.03",
+      "Item 5.02",
+      "Item 5.03",
+      "Item 5.07",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "cik": "1805833",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Media",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Cayman Islands)",
+    "filingTimeBonus": 1.2,
+    "recordedAt": "2026-07-24T13:07:41.611Z",
+    "recordId": "SST-1784898461611",
+    "expiresAt": "2026-07-29T13:07:41.611Z",
+    "direction": "LONG",
+    "highest5Day": 1.6507,
+    "highest5DayPercent": -8.8,
+    "lowest5Day": 1.6507,
+    "lowest5DayPercent": -8.8,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
     "priceAfter1d": null,
     "percentAfter1d": null,
     "priceAfter3d": null,

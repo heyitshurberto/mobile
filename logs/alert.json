@@ -1,228 +1,5 @@
 [
   {
-    "ticker": "BGDE",
-    "title": "8-K - Big Digital Energy, Inc. (0001218683) (Filer)",
-    "companyName": "Big Digital Energy, Inc.",
-    "filerName": null,
-    "price": 5.71,
-    "fav": "21.49",
-    "volume": 93846,
-    "averageVolume": 167380,
-    "float": 3596531,
-    "sharesOutstanding": 5521252,
-    "soRatio": "65.14%",
-    "marketCap": 31526350,
-    "isShort": false,
-    "ftd": 18948,
-    "intent": "Merger/Acquisition, Asset Disposition, Partnership, Commercial Inflection, Regulation S Offering, Unregistered Equity Sales",
-    "incorporated": "Wilmington, Delaware",
-    "located": "Pennsylvania",
-    "filingDate": "2026-07-20T08:35:36-04:00",
-    "signals": {
-      "Merger/Acquisition": [
-        "Material Definitive Agreement"
-      ],
-      "Asset Disposition": [
-        "Disposition"
-      ],
-      "Partnership": [
-        "Joint Venture"
-      ],
-      "Commercial Inflection": [
-        "Revenue Growth"
-      ],
-      "Regulation S Offering": [
-        "Regulation S"
-      ],
-      "Unregistered Equity Sales": [
-        "Item 3.02: Unknown Buyer"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "formType": [
-      "6-K",
-      "6-K/A",
-      "8-K",
-      "20-F",
-      "20-F/A",
-      "EX-99.1",
-      "Item 1.01",
-      "Item 2.01",
-      "Item 7.01",
-      "Item 9.01"
-    ],
-    "cik": "1218683",
-    "skipReason": "",
-    "alertType": null,
-    "predatoryFinancing": null,
-    "sector": "Technology",
-    "hasTuesdayBonus": false,
-    "custodianVerified": true,
-    "custodianName": "Pennsylvania (via Wilmington, Delaware)",
-    "filingTimeBonus": 1.15,
-    "recordedAt": "2026-07-20T12:36:14.378Z",
-    "recordId": "BGDE-1784550974378",
-    "expiresAt": "2026-07-24T12:36:14.378Z",
-    "direction": "LONG",
-    "highest5Day": 5.71,
-    "highest5DayPercent": 0,
-    "lowest5Day": 5.71,
-    "lowest5DayPercent": 0,
-    "priceAfter30m": null,
-    "percentAfter30m": null,
-    "priceAfter1h": null,
-    "percentAfter1h": null,
-    "priceAfter6h": null,
-    "percentAfter6h": null,
-    "priceAfter1d": null,
-    "percentAfter1d": null,
-    "priceAfter3d": null,
-    "percentAfter3d": null
-  },
-  {
-    "ticker": "IEP",
-    "title": "8-K - ICAHN ENTERPRISES L.P. (0000813762) (Filer)",
-    "companyName": "ICAHN ENTERPRISES L.P.",
-    "filerName": null,
-    "price": 7.54,
-    "fav": "38.24",
-    "volume": 482879,
-    "averageVolume": 900919,
-    "float": 34447302,
-    "sharesOutstanding": 672050553,
-    "soRatio": "5.13%",
-    "marketCap": 5067261440,
-    "isShort": false,
-    "ftd": 64449,
-    "intent": "Merger/Acquisition, Unregistered Equity Sales, Regulation S Offering",
-    "incorporated": "Wilmington, Delaware",
-    "located": "Florida",
-    "filingDate": "2026-07-21T08:29:38-04:00",
-    "signals": {
-      "Merger/Acquisition": [
-        "Material Definitive Agreement"
-      ],
-      "Unregistered Equity Sales": [
-        "Item 3.02: HoldCo"
-      ],
-      "Regulation S Offering": [
-        "Regulation S"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "formType": [
-      "6-K",
-      "6-K/A",
-      "8-K",
-      "S-4",
-      "20-F",
-      "20-F/A",
-      "EX-99.1",
-      "Item 1.01",
-      "Item 7.01",
-      "Item 9.01"
-    ],
-    "cik": "813762",
-    "skipReason": "",
-    "alertType": null,
-    "predatoryFinancing": null,
-    "sector": "Industrial Conglomerates",
-    "hasTuesdayBonus": true,
-    "custodianVerified": true,
-    "custodianName": "Florida (via Wilmington, Delaware)",
-    "filingTimeBonus": 1.1,
-    "recordedAt": "2026-07-21T12:30:23.213Z",
-    "recordId": "IEP-1784637023213",
-    "expiresAt": "2026-07-24T12:30:23.213Z",
-    "direction": "LONG",
-    "highest5Day": 7.54,
-    "highest5DayPercent": 0,
-    "lowest5Day": 7.54,
-    "lowest5DayPercent": 0,
-    "priceAfter30m": null,
-    "percentAfter30m": null,
-    "priceAfter1h": null,
-    "percentAfter1h": null,
-    "priceAfter6h": null,
-    "percentAfter6h": null,
-    "priceAfter1d": null,
-    "percentAfter1d": null,
-    "priceAfter3d": null,
-    "percentAfter3d": null
-  },
-  {
-    "ticker": "FWRD",
-    "title": "8-K - FORWARD AIR CORP (0000912728) (Filer)",
-    "companyName": "FORWARD AIR CORP",
-    "filerName": null,
-    "price": 13.2,
-    "fav": "17.63",
-    "volume": 466374,
-    "averageVolume": 1391632,
-    "float": 24527938,
-    "sharesOutstanding": 31625046,
-    "soRatio": "77.56%",
-    "marketCap": 417450592,
-    "isShort": false,
-    "ftd": 473037,
-    "intent": "Merger/Acquisition, Asset Disposition, Unregistered Equity Sales",
-    "incorporated": "Wilmington, Delaware",
-    "located": "Texas",
-    "filingDate": "2026-07-21T08:56:52-04:00",
-    "signals": {
-      "Merger/Acquisition": [
-        "Strategic Alternatives"
-      ],
-      "Asset Disposition": [
-        "Strategic Sale"
-      ],
-      "Unregistered Equity Sales": [
-        "Item 3.02: Unknown Buyer"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "formType": [
-      "6-K",
-      "8-K",
-      "S-8",
-      "S-9",
-      "13D",
-      "EX-99.1",
-      "Item 7.01",
-      "Item 9.01"
-    ],
-    "cik": "912728",
-    "skipReason": "",
-    "alertType": null,
-    "predatoryFinancing": null,
-    "sector": "Logistics & Transportation",
-    "hasTuesdayBonus": true,
-    "custodianVerified": true,
-    "custodianName": "Texas (via Wilmington, Delaware)",
-    "filingTimeBonus": 1.15,
-    "recordedAt": "2026-07-21T12:57:39.064Z",
-    "recordId": "FWRD-1784638659064",
-    "expiresAt": "2026-07-24T12:57:39.064Z",
-    "direction": "LONG",
-    "highest5Day": 13.2,
-    "highest5DayPercent": 0,
-    "lowest5Day": 13.2,
-    "lowest5DayPercent": 0,
-    "priceAfter30m": null,
-    "percentAfter30m": null,
-    "priceAfter1h": null,
-    "percentAfter1h": null,
-    "priceAfter6h": null,
-    "percentAfter6h": null,
-    "priceAfter1d": null,
-    "percentAfter1d": null,
-    "priceAfter3d": null,
-    "percentAfter3d": null
-  },
-  {
     "ticker": "CNTN",
     "title": "8-K - Canton Strategic Holdings, Inc. (0001861657) (Filer)",
     "companyName": "Canton Strategic Holdings, Inc.",
@@ -298,6 +75,88 @@
     "highest5Day": 2.09,
     "highest5DayPercent": 0,
     "lowest5Day": 2.09,
+    "lowest5DayPercent": 0,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null
+  },
+  {
+    "ticker": "SST",
+    "title": "8-K - System1, Inc. (0001805833) (Filer)",
+    "companyName": "System1, Inc.",
+    "filerName": "Not Applicable",
+    "price": 1.81,
+    "fav": "17.83",
+    "volume": 33907,
+    "averageVolume": 443124,
+    "float": 7900179,
+    "sharesOutstanding": 8217390,
+    "soRatio": "96.14%",
+    "marketCap": 18111128,
+    "isShort": false,
+    "ftd": 81959,
+    "intent": "Partnership, Licensing Deal, Convertible Debt, Unregistered Equity Sales, Related-Party Transaction, Asset Disposition",
+    "incorporated": "Cayman Islands",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-07-24T09:07:17-04:00",
+    "signals": {
+      "Partnership": [
+        "Joint Venture"
+      ],
+      "Licensing Deal": [
+        "Exclusive License"
+      ],
+      "Convertible Debt": [
+        "Convertible Securities"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: or is under common control with the Person specified",
+        "Shares: 0.0M"
+      ],
+      "Related-Party Transaction": [
+        "Controlled By",
+        "Related Party"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "8-K",
+      "13D",
+      "EX-3.1",
+      "Item 3.03",
+      "Item 5.02",
+      "Item 5.03",
+      "Item 5.07",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "cik": "1805833",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Media",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Cayman Islands)",
+    "filingTimeBonus": 1.2,
+    "recordedAt": "2026-07-24T13:07:41.611Z",
+    "recordId": "SST-1784898461611",
+    "expiresAt": "2026-07-29T13:07:41.611Z",
+    "direction": "LONG",
+    "highest5Day": 1.81,
+    "highest5DayPercent": 0,
+    "lowest5Day": 1.81,
     "lowest5DayPercent": 0,
     "priceAfter30m": null,
     "percentAfter30m": null,

@@ -3569,7 +3569,7 @@ const sendPersonalWebhook = async (alertData) => {
       const valueChange = [];
       const buildEntry = (category, details) => {
         const impact = signalImpact[category] || 'Context';
-        const impactTag = ` ***[${impact}]***`;
+        const impactTag = ` **_${`[${impact}]`}_**`;
         if (Array.isArray(details) && details.length > 0) {
           return `${category}${impactTag}: ${details.join('; ')}`;
         }
@@ -3640,11 +3640,12 @@ const sendPersonalWebhook = async (alertData) => {
       return { buyPressure, sellPressure, valueChange };
     };
 
-    const formatBucket = (title, items) => {
+    const formatBucket = (title, subtitle, items) => {
+      const bucketLine = subtitle ? `**${title}** ${subtitle}` : `**${title}**`;
       if (!items || items.length === 0) {
-        return `**${title}:**\n• None`;
+        return `${bucketLine}\n• None`;
       }
-      return `**${title}:**\n${items.map(item => `• ${item}`).join('\n')}`;
+      return `${bucketLine}\n${items.map(item => `• ${item}`).join('\n')}`;
     };
 
     let pressureDisplay = '';
@@ -3662,16 +3663,16 @@ const sendPersonalWebhook = async (alertData) => {
                       : '';
       
       pressureDisplay = [
-        formatBucket('**Buy Pressure (*New Demand*)**', buyPressure),
-        formatBucket('**Sell Pressure (*New Supply*)**', sellPressure),
-        formatBucket('**Value Change (*Future Valuation*)**', valueChange)
+        formatBucket('Buy Pressure', '(*New Demand*)', buyPressure),
+        formatBucket('Sell Pressure', '(*New Supply*)', sellPressure),
+        formatBucket('Value Change', '(*Future Valuation*)', valueChange)
       ].join('\n\n');
     } else {
       pressureDisplay = `**Signals:**\n${reason}`;
     }
 
-    const timingBadge = timingTag ? `**${timingTag.trim()}**` : '';
-    const personalAlertContent = `${alertTypeDisplay}**$${ticker}** @ *${priceDisplay}*${setupTag}${timingBadge}
+    const timingBadge = timingTag ? ` **${timingTag.trim()}**` : '';
+    const personalAlertContent = `${alertTypeDisplay}**$${ticker}** @ *${priceDisplay}*${timingBadge}${setupTag}
 
 ${pressureDisplay}
 
