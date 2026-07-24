@@ -3677,7 +3677,6 @@ const sendPersonalWebhook = async (alertData) => {
 ${pressureDisplay}
 
 **Sector:** ${sectorDisplay}
-**Industry:** ${alertData.industry || 'N/A'}
 **Filer:** ${alertData.filerName || 'Not Applicable'}
 **Location:** ${locationDisplay}
 **Incorporation:** ${incorporationDisplay}
