@@ -1,80 +1,62 @@
 [
   {
-    "ticker": "CNTN",
-    "title": "8-K - Canton Strategic Holdings, Inc. (0001861657) (Filer)",
-    "companyName": "Canton Strategic Holdings, Inc.",
+    "ticker": "NIVF",
+    "title": "6-K - NewGenIvf Group Ltd (0001981662) (Filer)",
+    "companyName": "NewGenIvf Group Ltd",
     "filerName": null,
-    "price": 2.09,
-    "fav": "33.70",
-    "volume": 596911,
-    "averageVolume": 899988,
-    "float": 30328481,
-    "sharesOutstanding": 77122584,
-    "soRatio": "39.33%",
-    "marketCap": 161186192,
+    "price": 1.1,
+    "fav": "1.80",
+    "volume": 172793,
+    "averageVolume": 2078394,
+    "float": 3750000,
+    "sharesOutstanding": 3419922,
+    "soRatio": "109.7%",
+    "marketCap": 3761914,
     "isShort": true,
-    "ftd": 1857266,
-    "intent": "Partnership, Licensing Deal, Convertible Debt, Unregistered Equity Sales, Regulation S Offering, Related-Party Transaction, Credit Default, Asset Disposition",
-    "incorporated": "Wilmington, Delaware",
-    "located": "New Jersey",
-    "filingDate": "2026-07-23T08:40:28-04:00",
+    "ftd": 887427,
+    "intent": "Unregistered Equity Sales, Regulation S Offering, Credit Default, Nasdaq Delisting",
+    "incorporated": "Hong Kong",
+    "located": "W1",
+    "filingDate": "2026-07-27T08:30:01-04:00",
     "signals": {
-      "Partnership": [
-        "Joint Venture"
-      ],
-      "Licensing Deal": [
-        "Exclusive License"
-      ],
-      "Convertible Debt": [
-        "Convertible Securities"
-      ],
       "Unregistered Equity Sales": [
-        "Item 3.02: affiliated with Vincent LoPriore"
+        "Item 3.02: a &ldquo;Party&rdquo; and together the &ldquo;Parties&rdquo;"
       ],
       "Regulation S Offering": [
         "Regulation S"
       ],
-      "Related-Party Transaction": [
-        "Controlled By"
-      ],
       "Credit Default": [
-        "Event Of Default",
-        "Mandatory Prepayment",
-        "Default Has Occurred"
+        "Is In Default"
       ],
-      "Asset Disposition": [
-        "Sale Of Assets",
-        "Disposition"
+      "Nasdaq Delisting": [
+        "Delisting Determination"
       ]
     },
     "bonusSignals": {},
     "financialRatioSignals": {},
     "formType": [
-      "8-K",
-      "13D",
-      "EX-10.1",
-      "EX-10.2",
-      "Item 1.01",
-      "Item 2.01",
-      "Item 8.01",
-      "Item 9.01"
+      "6-K",
+      "20-F",
+      "Form D",
+      "EX-99.1",
+      "EX-10.1"
     ],
-    "cik": "1861657",
+    "cik": "1981662",
     "skipReason": "",
     "alertType": null,
     "predatoryFinancing": null,
-    "sector": "Biotechnology",
+    "sector": "Health Care",
     "hasTuesdayBonus": false,
     "custodianVerified": true,
-    "custodianName": "New Jersey (via Wilmington, Delaware)",
+    "custodianName": "W1 (via Hong Kong)",
     "filingTimeBonus": 1.15,
-    "recordedAt": "2026-07-23T12:41:09.623Z",
-    "recordId": "CNTN-1784810469623",
-    "expiresAt": "2026-07-28T12:41:09.623Z",
+    "recordedAt": "2026-07-27T12:30:56.313Z",
+    "recordId": "NIVF-1785155456313",
+    "expiresAt": "2026-07-31T12:30:56.313Z",
     "direction": "SHORT",
-    "highest5Day": 2.09,
+    "highest5Day": 1.1,
     "highest5DayPercent": 0,
-    "lowest5Day": 2.09,
+    "lowest5Day": 1.1,
     "lowest5DayPercent": 0,
     "priceAfter30m": null,
     "percentAfter30m": null,
@@ -88,75 +70,142 @@
     "percentAfter3d": null
   },
   {
-    "ticker": "SST",
-    "title": "8-K - System1, Inc. (0001805833) (Filer)",
-    "companyName": "System1, Inc.",
-    "filerName": "Not Applicable",
-    "price": 1.81,
-    "fav": "17.83",
-    "volume": 33907,
-    "averageVolume": 443124,
-    "float": 7900179,
-    "sharesOutstanding": 8217390,
-    "soRatio": "96.14%",
-    "marketCap": 18111128,
-    "isShort": false,
-    "ftd": 81959,
-    "intent": "Partnership, Licensing Deal, Convertible Debt, Unregistered Equity Sales, Related-Party Transaction, Asset Disposition",
-    "incorporated": "Cayman Islands",
-    "located": "Toronto, Canada",
-    "filingDate": "2026-07-24T09:07:17-04:00",
+    "ticker": "RBNE",
+    "title": "6-K - Robin Energy Ltd. (0002039060) (Filer)",
+    "companyName": "Robin Energy Ltd.",
+    "filerName": null,
+    "price": 3.2,
+    "fav": "29.15",
+    "volume": 832788,
+    "averageVolume": 102913,
+    "float": 3000000,
+    "sharesOutstanding": 582297,
+    "soRatio": "515.2%",
+    "marketCap": 1863350,
+    "isShort": true,
+    "ftd": 14760,
+    "intent": "Partnership, Unregistered Equity Sales, Related-Party Transaction, Credit Default, Regulatory Breach",
+    "incorporated": "Athens, Greece",
+    "located": "New York, United States",
+    "filingDate": "2026-07-27T09:11:10-04:00",
     "signals": {
       "Partnership": [
         "Joint Venture"
       ],
-      "Licensing Deal": [
-        "Exclusive License"
-      ],
-      "Convertible Debt": [
-        "Convertible Securities"
-      ],
       "Unregistered Equity Sales": [
-        "Item 3.02: or is under common control with the Person specified",
-        "Shares: 0.0M"
+        "Item 3.02: or is under common control with such Person as such terms are used in and construed under Rule 405 u",
+        "Shares: 0.8M"
       ],
       "Related-Party Transaction": [
         "Controlled By",
-        "Related Party"
+        "Affiliate Of"
       ],
-      "Asset Disposition": [
-        "Disposition"
+      "Credit Default": [
+        "Is In Default"
+      ],
+      "Regulatory Breach": [
+        "Warning Letter"
       ]
     },
     "bonusSignals": {},
     "financialRatioSignals": {},
     "formType": [
-      "8-K",
-      "13D",
-      "EX-3.1",
-      "Item 3.03",
-      "Item 5.02",
-      "Item 5.03",
-      "Item 5.07",
-      "Item 8.01",
-      "Item 9.01"
+      "6-K",
+      "S-3",
+      "F-3",
+      "20-F",
+      "EX-1.1"
     ],
-    "cik": "1805833",
+    "cik": "2039060",
     "skipReason": "",
     "alertType": null,
     "predatoryFinancing": null,
-    "sector": "Media",
+    "sector": "Marine",
     "hasTuesdayBonus": false,
     "custodianVerified": true,
-    "custodianName": "Toronto, Canada (via Cayman Islands)",
+    "custodianName": "New York, United States (via Athens, Greece)",
     "filingTimeBonus": 1.2,
-    "recordedAt": "2026-07-24T13:07:41.611Z",
-    "recordId": "SST-1784898461611",
-    "expiresAt": "2026-07-29T13:07:41.611Z",
-    "direction": "LONG",
-    "highest5Day": 1.81,
+    "recordedAt": "2026-07-27T13:11:57.168Z",
+    "recordId": "RBNE-1785157917168",
+    "expiresAt": "2026-07-31T13:11:57.168Z",
+    "direction": "SHORT",
+    "highest5Day": 3.2,
     "highest5DayPercent": 0,
-    "lowest5Day": 1.81,
+    "lowest5Day": 3.2,
+    "lowest5DayPercent": 0,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null
+  },
+  {
+    "ticker": "PAG",
+    "title": "8-K - PENSKE AUTOMOTIVE GROUP, INC. (0001019849) (Filer)",
+    "companyName": "PENSKE AUTOMOTIVE GROUP, INC.",
+    "filerName": null,
+    "price": 221.95,
+    "fav": "49.93",
+    "volume": 247646,
+    "averageVolume": 352485,
+    "float": 17598446,
+    "sharesOutstanding": 65749255,
+    "soRatio": "26.77%",
+    "marketCap": 14593047552,
+    "isShort": false,
+    "ftd": 52448,
+    "intent": "Stock Buyback, Merger/Acquisition, Unregistered Equity Sales",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Michigan",
+    "filingDate": "2026-07-29T12:04:41-04:00",
+    "signals": {
+      "Stock Buyback": [
+        "Repurchase Program"
+      ],
+      "Merger/Acquisition": [
+        "Take Private"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: Unknown Buyer",
+        "Shares: 0.3M"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {
+      "signals": [
+        "High Leverage - Debt/Equity Exceeds 3.0"
+      ],
+      "severity": 0.75,
+      "isDeterministic": true
+    },
+    "formType": [
+      "8-K",
+      "EX-99.1",
+      "Item 2.02",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "cik": "1019849",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Retail",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Michigan (via Wilmington, Delaware)",
+    "filingTimeBonus": 1.05,
+    "recordedAt": "2026-07-29T16:05:50.250Z",
+    "recordId": "PAG-1785341150250",
+    "expiresAt": "2026-08-03T16:05:50.250Z",
+    "direction": "LONG",
+    "highest5Day": 221.95,
+    "highest5DayPercent": 0,
+    "lowest5Day": 221.95,
     "lowest5DayPercent": 0,
     "priceAfter30m": null,
     "percentAfter30m": null,

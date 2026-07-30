@@ -34,11 +34,11 @@ const CONFIG = {
   FILE_TIME: 1,                     // Historical lookback window in minutes for filing discovery
   MIN_ALERT_VOLUME: 2000,           // Minimum volume threshold for initial alert trigger
   STRONG_SIGNAL_MIN_VOLUME: 1000,    // Volume threshold for high-confidence signal detection
-  MAX_FLOAT_6K: 25000000,           // Maximum float size threshold for 6-K filings
-  MAX_FLOAT_8K: 35000000,           // Maximum float size threshold for 8-K filings
-  MAX_FAV_RATIO: 200,                // Maximum float-to-average-volume ratio threshold
-  ALLOWED_COUNTRIES: ['israel', 'new york', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'virgin islands', 'canada', 'nevada', 'delaware'], // Whitelisted jurisdictions for company registration
-  CTB_WATCHLIST: ['PCLA','GITS','BRAI','TGHL','ZCMD','MWC','VTAK','CLRO','DSY','BJDX','DXST','RGNT','NCT','FABTQ','LGCL','JEM','CZOOF','EHGO','AFJK','AMSS','ATPC','SUNE','PRFX','HCWB'], // Symbols with elevated cost-to-borrow values from IBorrowDesk
+  MAX_FLOAT_6K: 100000000,           // Maximum float size threshold for 6-K filings
+  MAX_FLOAT_8K: 125000000,           // Maximum float size threshold for 8-K filings
+  MAX_FAV_RATIO: 300,                // Maximum float-to-average-volume ratio threshold
+  ALLOWED_COUNTRIES: ['israel', 'singapore', 'ireland', 'new york', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'bvi', 'virgin islands', 'canada', 'nevada', 'delaware'], // Whitelisted jurisdictions for company registration
+  CTB_WATCHLIST: ['GITS','MWC','RGNT','OMH','SMCZ','ATPC','FABTQ','SLGB','ISCO','CLRO','NCT','BIYA','ZCMD','CZOOF','DXST','ZYBT','SLBT','IOTR','HIHO','DXF','CJMB','EGG','PRFX','TGHL','EHGO'], // Symbols with elevated cost-to-borrow values from IBorrowDesk
   PI_MODE: true,              // Enable optimizations for resource-constrained environments          
   REFRESH_PEAK: 1,            // Poll interval (ms) during peak market hours for real-time detection
   REFRESH_NORMAL: 30000,      // Poll interval (ms) during standard market hours

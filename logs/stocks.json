@@ -10592,10 +10592,10 @@
     "recordId": "CNTN-1784810469623",
     "expiresAt": "2026-07-28T12:41:09.623Z",
     "direction": "SHORT",
-    "highest5Day": 1.99,
-    "highest5DayPercent": -4.78,
-    "lowest5Day": 1.99,
-    "lowest5DayPercent": 4.78,
+    "highest5Day": 1.915,
+    "highest5DayPercent": -8.37,
+    "lowest5Day": 1.915,
+    "lowest5DayPercent": 8.37,
     "priceAfter30m": 2.09,
     "percentAfter30m": 0,
     "priceAfter1h": 2.09,
@@ -10604,9 +10604,10 @@
     "percentAfter6h": -1.44,
     "priceAfter1d": 2.06,
     "percentAfter1d": -1.44,
-    "priceAfter3d": null,
-    "percentAfter3d": null,
-    "personalPriceAlertSent": false
+    "priceAfter3d": 1.94,
+    "percentAfter3d": -7.18,
+    "personalPriceAlertSent": true,
+    "personalPriceAlertPercent": -8.13
   },
   {
     "ticker": "SST",
@@ -10675,21 +10676,245 @@
     "recordId": "SST-1784898461611",
     "expiresAt": "2026-07-29T13:07:41.611Z",
     "direction": "LONG",
-    "highest5Day": 2.0799,
-    "highest5DayPercent": 14.91,
-    "lowest5Day": 1.6507,
-    "lowest5DayPercent": -8.8,
+    "highest5Day": 2.12,
+    "highest5DayPercent": 17.13,
+    "lowest5Day": 1.77,
+    "lowest5DayPercent": -2.21,
     "priceAfter30m": 1.81,
     "percentAfter30m": 0,
     "priceAfter1h": 1.965,
     "percentAfter1h": 8.56,
-    "priceAfter6h": null,
-    "percentAfter6h": null,
+    "priceAfter6h": 1.9801,
+    "percentAfter6h": 9.4,
+    "priceAfter1d": 1.83,
+    "percentAfter1d": 1.1,
+    "priceAfter3d": 1.83,
+    "percentAfter3d": 1.1,
+    "personalPriceAlertSent": true,
+    "personalPriceAlertPercent": 8.29
+  },
+  {
+    "ticker": "NIVF",
+    "title": "6-K - NewGenIvf Group Ltd (0001981662) (Filer)",
+    "companyName": "NewGenIvf Group Ltd",
+    "filerName": null,
+    "price": 1.1,
+    "fav": "1.80",
+    "volume": 172793,
+    "averageVolume": 2078394,
+    "float": 3750000,
+    "sharesOutstanding": 3419922,
+    "soRatio": "109.7%",
+    "marketCap": 3761914,
+    "isShort": true,
+    "ftd": 887427,
+    "intent": "Unregistered Equity Sales, Regulation S Offering, Credit Default, Nasdaq Delisting",
+    "incorporated": "Hong Kong",
+    "located": "W1",
+    "filingDate": "2026-07-27T08:30:01-04:00",
+    "signals": {
+      "Unregistered Equity Sales": [
+        "Item 3.02: a &ldquo;Party&rdquo; and together the &ldquo;Parties&rdquo;"
+      ],
+      "Regulation S Offering": [
+        "Regulation S"
+      ],
+      "Credit Default": [
+        "Is In Default"
+      ],
+      "Nasdaq Delisting": [
+        "Delisting Determination"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "20-F",
+      "Form D",
+      "EX-99.1",
+      "EX-10.1"
+    ],
+    "cik": "1981662",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Health Care",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "W1 (via Hong Kong)",
+    "filingTimeBonus": 1.15,
+    "recordedAt": "2026-07-27T12:30:56.313Z",
+    "recordId": "NIVF-1785155456313",
+    "expiresAt": "2026-07-31T12:30:56.313Z",
+    "direction": "SHORT",
+    "highest5Day": 0.8186,
+    "highest5DayPercent": -25.58,
+    "lowest5Day": 0.8186,
+    "lowest5DayPercent": 25.58,
+    "priceAfter30m": 1.1,
+    "percentAfter30m": 0,
+    "priceAfter1h": 1.07,
+    "percentAfter1h": -2.73,
+    "priceAfter6h": 1.02,
+    "percentAfter6h": -7.27,
+    "priceAfter1d": 1.05,
+    "percentAfter1d": -4.55,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "personalPriceAlertSent": true,
+    "personalPriceAlertPercent": -8.18
+  },
+  {
+    "ticker": "RBNE",
+    "title": "6-K - Robin Energy Ltd. (0002039060) (Filer)",
+    "companyName": "Robin Energy Ltd.",
+    "filerName": null,
+    "price": 3.2,
+    "fav": "29.15",
+    "volume": 832788,
+    "averageVolume": 102913,
+    "float": 3000000,
+    "sharesOutstanding": 582297,
+    "soRatio": "515.2%",
+    "marketCap": 1863350,
+    "isShort": true,
+    "ftd": 14760,
+    "intent": "Partnership, Unregistered Equity Sales, Related-Party Transaction, Credit Default, Regulatory Breach",
+    "incorporated": "Athens, Greece",
+    "located": "New York, United States",
+    "filingDate": "2026-07-27T09:11:10-04:00",
+    "signals": {
+      "Partnership": [
+        "Joint Venture"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: or is under common control with such Person as such terms are used in and construed under Rule 405 u",
+        "Shares: 0.8M"
+      ],
+      "Related-Party Transaction": [
+        "Controlled By",
+        "Affiliate Of"
+      ],
+      "Credit Default": [
+        "Is In Default"
+      ],
+      "Regulatory Breach": [
+        "Warning Letter"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "S-3",
+      "F-3",
+      "20-F",
+      "EX-1.1"
+    ],
+    "cik": "2039060",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Marine",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "New York, United States (via Athens, Greece)",
+    "filingTimeBonus": 1.2,
+    "recordedAt": "2026-07-27T13:11:57.168Z",
+    "recordId": "RBNE-1785157917168",
+    "expiresAt": "2026-07-31T13:11:57.168Z",
+    "direction": "SHORT",
+    "highest5Day": 2.4617,
+    "highest5DayPercent": -23.07,
+    "lowest5Day": 2.4617,
+    "lowest5DayPercent": 23.07,
+    "priceAfter30m": 3.17,
+    "percentAfter30m": -0.94,
+    "priceAfter1h": 3.27,
+    "percentAfter1h": 2.19,
+    "priceAfter6h": 3.0937,
+    "percentAfter6h": -3.32,
+    "priceAfter1d": 3.1,
+    "percentAfter1d": -3.13,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "personalPriceAlertSent": true,
+    "personalPriceAlertPercent": -8.13
+  },
+  {
+    "ticker": "PAG",
+    "title": "8-K - PENSKE AUTOMOTIVE GROUP, INC. (0001019849) (Filer)",
+    "companyName": "PENSKE AUTOMOTIVE GROUP, INC.",
+    "filerName": null,
+    "price": 221.95,
+    "fav": "49.93",
+    "volume": 247646,
+    "averageVolume": 352485,
+    "float": 17598446,
+    "sharesOutstanding": 65749255,
+    "soRatio": "26.77%",
+    "marketCap": 14593047552,
+    "isShort": false,
+    "ftd": 52448,
+    "intent": "Stock Buyback, Merger/Acquisition, Unregistered Equity Sales",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Michigan",
+    "filingDate": "2026-07-29T12:04:41-04:00",
+    "signals": {
+      "Stock Buyback": [
+        "Repurchase Program"
+      ],
+      "Merger/Acquisition": [
+        "Take Private"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: Unknown Buyer",
+        "Shares: 0.3M"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {
+      "signals": [
+        "High Leverage - Debt/Equity Exceeds 3.0"
+      ],
+      "severity": 0.75,
+      "isDeterministic": true
+    },
+    "formType": [
+      "8-K",
+      "EX-99.1",
+      "Item 2.02",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "cik": "1019849",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Retail",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Michigan (via Wilmington, Delaware)",
+    "filingTimeBonus": 1.05,
+    "recordedAt": "2026-07-29T16:05:50.250Z",
+    "recordId": "PAG-1785341150250",
+    "expiresAt": "2026-08-03T16:05:50.250Z",
+    "direction": "LONG",
+    "highest5Day": 227,
+    "highest5DayPercent": 2.28,
+    "lowest5Day": 220.04,
+    "lowest5DayPercent": -0.86,
+    "priceAfter30m": 222.55,
+    "percentAfter30m": 0.27,
+    "priceAfter1h": 222.71,
+    "percentAfter1h": 0.34,
+    "priceAfter6h": 223.44,
+    "percentAfter6h": 0.67,
     "priceAfter1d": null,
     "percentAfter1d": null,
     "priceAfter3d": null,
     "percentAfter3d": null,
-    "personalPriceAlertSent": true,
-    "personalPriceAlertPercent": 8.29
+    "personalPriceAlertSent": false
   }
 ]
