@@ -518,6 +518,13 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
   if (deathSpiral) {
     return { direction: 'SHORT', confidence: 0.85 };
   }
+
+  // Special override: Acquisition Agreement = strongest BUY (force LONG)
+  // NOTE: This override does not bypass explicit death-spiral bankruptcy signals above.
+  const hasAcquisitionAgreement = signalArray.includes('Acquisition Agreement');
+  if (hasAcquisitionAgreement) {
+    return { direction: 'LONG', confidence: 0.95 };
+  }
   
   // Heavyweight bearish signals that override isolated bullish catalysts
   const heavyweightBearish = ['Regulatory Breach', 'Accounting Restatement', 'Auditor Change'];
@@ -783,6 +790,9 @@ const SEMANTIC_KEYWORDS = {
   
   // Revenue locked in
   'Revenue Secured': ['Expected To Retain', 'Revenue Expected', 'Revenue Attributable', 'Revenue Backlog', 'Contract Backlog', 'Remaining Performance Obligation'],
+  
+  // STRONGEST BUY PRESSURE: Acquisition Agreement (structural buy pressure, overrides all short signals & filters)
+  'Acquisition Agreement': ['Acquisition Agreement', 'Completed Acquisition', 'Acquisition Closing', 'Closing Of Acquisition', 'Definitive Agreement To Acquire', 'Take Private', 'Going Private', 'Definitive Agreement To Be Acquired'],
   
   // Government / Partnership / Licensing
   'Government Contract': ['Government Contract Award', 'Defense Contract', 'Federal Contract', 'DOD Contract', 'GSA Schedule', 'Federal Procurement'],
@@ -3593,6 +3603,8 @@ const sendPersonalWebhook = async (alertData) => {
         'Commercial Inflection',
         'DTC Eligible Restored'
       ]);
+      // Ensure Acquisition Agreement is treated as Buy Pressure
+      buyCategories.add('Acquisition Agreement');
       const sellCategories = new Set([
         'Customer Loss',
         'Revenue Loss',
@@ -3624,9 +3636,15 @@ const sendPersonalWebhook = async (alertData) => {
         'Contingent Value Rights'
       ]);
 
+      // If Acquisition Agreement is present, promote related value-change signals to Buy Pressure
+      const hasAcq = Object.prototype.hasOwnProperty.call(signals, 'Acquisition Agreement');
+      const promoteWhenAcq = new Set(['Merger/Acquisition', 'Strategic Review', 'Contingent Value Rights', 'Partnership', 'Licensing Deal', 'Government Contract', 'Stock Buyback', 'Commercial Inflection']);
+
       for (const [cat, details] of Object.entries(signals)) {
         const entry = buildEntry(cat, details);
-        if (buyCategories.has(cat)) {
+        if (hasAcq && promoteWhenAcq.has(cat)) {
+          buyPressure.push(entry);
+        } else if (buyCategories.has(cat)) {
           buyPressure.push(entry);
         } else if (sellCategories.has(cat)) {
           sellPressure.push(entry);
@@ -3652,6 +3670,16 @@ const sendPersonalWebhook = async (alertData) => {
     let timingTag = '';
     if (alertData.signals && typeof alertData.signals === 'object' && Object.keys(alertData.signals).length > 0) {
       const { buyPressure, sellPressure, valueChange } = categorizePressureBuckets(alertData.signals);
+      // Highlight Acquisition Agreement in personal alerts (bold + italic)
+      const highlightItem = (it) => {
+        try {
+          if (typeof it === 'string' && it.includes('Acquisition Agreement')) return it.replace(/Acquisition Agreement/g, '**_$&_**');
+        } catch (e) {}
+        return it;
+      };
+      const buyPressureHighlighted = buyPressure.map(highlightItem);
+      const sellPressureHighlighted = sellPressure.map(highlightItem);
+      const valueChangeHighlighted = valueChange.map(highlightItem);
       // Categorize signals by timing: Immediate changes today's supply/demand vs Future promises
       const immediateSignals = Object.entries(alertData.signals || {}).filter(([cat]) => signalTiming[cat] === 'Immediate');
       const futureSignals = Object.entries(alertData.signals || {}).filter(([cat]) => signalTiming[cat] === 'Future');
@@ -3663,9 +3691,9 @@ const sendPersonalWebhook = async (alertData) => {
                       : '';
       
       pressureDisplay = [
-        formatBucket('Buy Pressure', '(*New Demand*)', buyPressure),
-        formatBucket('Sell Pressure', '(*New Supply*)', sellPressure),
-        formatBucket('Value Change', '(*Future Valuation*)', valueChange)
+        formatBucket('Buy Pressure', '(*New Demand*)', buyPressureHighlighted),
+        formatBucket('Sell Pressure', '(*New Supply*)', sellPressureHighlighted),
+        formatBucket('Value Change', '(*Future Valuation*)', valueChangeHighlighted)
       ].join('\n\n');
     } else {
       pressureDisplay = `**Signals:**\n${reason}`;
@@ -10297,14 +10325,15 @@ if (process.stdin.isTTY) {
           const hasInsiderBuying = signalCategories.includes('Insider Buying');
           const hasInsiderBlockBuy = signalCategories.includes('Insider Buying');
           const hasMerger = signalCategories.includes('Merger/Acquisition');
+          const hasAcquisition = signalCategories.includes('Acquisition Agreement');
           const hasPartnership = signalCategories.includes('Partnership');
           const hasStockBuyback = signalCategories.includes('Stock Buyback');
           
           // Bot-reactive high-conviction combos (skip volume gate)
           const isHighConviction = 
             hasInsiderBlockBuy ||                                           // Large position = immediate bot action
-            hasMerger ||                                                    // M&A = bots trade instantly
-            (hasInsiderBlockBuy && (hasMerger || hasPartnership || hasStockBuyback)); // Insider accumulation + catalyst
+            hasMerger || hasAcquisition ||                                  // M&A or Acquisition Agreement = high conviction
+            (hasInsiderBlockBuy && (hasMerger || hasAcquisition || hasPartnership || hasStockBuyback)); // Insider accumulation + catalyst
           
           const volumeCheckLater = volumeValue;
           const avgVolumeValue = averageVolume !== 'N/A' ? parseFloat(averageVolume) : null;
@@ -10490,6 +10519,7 @@ if (process.stdin.isTTY) {
           
           const isHighConvictionLong = !shortOpportunity && (
             signalCategories.includes('Merger/Acquisition') ||
+            signalCategories.includes('Acquisition Agreement') ||
             signalCategories.includes('Government Contract') ||
             signalCategories.includes('Licensing Deal') ||
             signalCategories.includes('Commercial Inflection') ||

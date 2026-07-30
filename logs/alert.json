@@ -217,5 +217,80 @@
     "percentAfter1d": null,
     "priceAfter3d": null,
     "percentAfter3d": null
+  },
+  {
+    "ticker": "PN",
+    "title": "6-K - PN Smart Energy Ltd (0002001288) (Filer)",
+    "companyName": "PN Smart Energy Ltd",
+    "filerName": null,
+    "price": 10.72,
+    "fav": "1.81",
+    "volume": 255249,
+    "averageVolume": 1915227,
+    "float": 3472591,
+    "sharesOutstanding": 7744775,
+    "soRatio": "44.84%",
+    "marketCap": 149008272,
+    "isShort": false,
+    "ftd": 1,
+    "intent": "Regulation S Offering, Related-Party Transaction, Merger/Acquisition, Asset Disposition, Unregistered Equity Sales",
+    "incorporated": "Unknown",
+    "located": "China",
+    "filingDate": "2026-07-30T08:30:45-04:00",
+    "signals": {
+      "Regulation S Offering": [
+        "Regulation S"
+      ],
+      "Related-Party Transaction": [
+        "Related Party"
+      ],
+      "Merger/Acquisition": [
+        "Acquisition Agreement"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: Unknown Buyer"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "F-1",
+      "F-3",
+      "F-4",
+      "20-F",
+      "EX-99.1",
+      "EX-99.2"
+    ],
+    "cik": "2001288",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Electrical Equipment",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "China (via Unknown)",
+    "filingTimeBonus": 1.15,
+    "recordedAt": "2026-07-30T12:31:33.539Z",
+    "recordId": "PN-1785414693539",
+    "expiresAt": "2026-08-04T12:31:33.539Z",
+    "direction": "LONG",
+    "highest5Day": 10.72,
+    "highest5DayPercent": 0,
+    "lowest5Day": 10.72,
+    "lowest5DayPercent": 0,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null
   }
 ]
