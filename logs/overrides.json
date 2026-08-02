@@ -1,0 +1,17 @@
+{
+  "SILC": {
+    "highest5Day": 52.95
+  },
+  "PN": {
+    "highest5Day": 24,
+    "highest5DayPercent": 123.88,
+    "lowest5Day": 8.78,
+    "lowest5DayPercent": -18.1
+  },
+  "KPTI": {
+    "highest5Day": 2.43,
+    "highest5DayPercent": -74.32,
+    "lowest5Day": 1.8,
+    "lowest5DayPercent": 74.32
+  }
+}
