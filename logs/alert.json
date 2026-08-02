@@ -1,150 +1,5 @@
 [
   {
-    "ticker": "NIVF",
-    "title": "6-K - NewGenIvf Group Ltd (0001981662) (Filer)",
-    "companyName": "NewGenIvf Group Ltd",
-    "filerName": null,
-    "price": 1.1,
-    "fav": "1.80",
-    "volume": 172793,
-    "averageVolume": 2078394,
-    "float": 3750000,
-    "sharesOutstanding": 3419922,
-    "soRatio": "109.7%",
-    "marketCap": 3761914,
-    "isShort": true,
-    "ftd": 887427,
-    "intent": "Unregistered Equity Sales, Regulation S Offering, Credit Default, Nasdaq Delisting",
-    "incorporated": "Hong Kong",
-    "located": "W1",
-    "filingDate": "2026-07-27T08:30:01-04:00",
-    "signals": {
-      "Unregistered Equity Sales": [
-        "Item 3.02: a &ldquo;Party&rdquo; and together the &ldquo;Parties&rdquo;"
-      ],
-      "Regulation S Offering": [
-        "Regulation S"
-      ],
-      "Credit Default": [
-        "Is In Default"
-      ],
-      "Nasdaq Delisting": [
-        "Delisting Determination"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "formType": [
-      "6-K",
-      "20-F",
-      "Form D",
-      "EX-99.1",
-      "EX-10.1"
-    ],
-    "cik": "1981662",
-    "skipReason": "",
-    "alertType": null,
-    "predatoryFinancing": null,
-    "sector": "Health Care",
-    "hasTuesdayBonus": false,
-    "custodianVerified": true,
-    "custodianName": "W1 (via Hong Kong)",
-    "filingTimeBonus": 1.15,
-    "recordedAt": "2026-07-27T12:30:56.313Z",
-    "recordId": "NIVF-1785155456313",
-    "expiresAt": "2026-07-31T12:30:56.313Z",
-    "direction": "SHORT",
-    "highest5Day": 1.1,
-    "highest5DayPercent": 0,
-    "lowest5Day": 1.1,
-    "lowest5DayPercent": 0,
-    "priceAfter30m": null,
-    "percentAfter30m": null,
-    "priceAfter1h": null,
-    "percentAfter1h": null,
-    "priceAfter6h": null,
-    "percentAfter6h": null,
-    "priceAfter1d": null,
-    "percentAfter1d": null,
-    "priceAfter3d": null,
-    "percentAfter3d": null
-  },
-  {
-    "ticker": "RBNE",
-    "title": "6-K - Robin Energy Ltd. (0002039060) (Filer)",
-    "companyName": "Robin Energy Ltd.",
-    "filerName": null,
-    "price": 3.2,
-    "fav": "29.15",
-    "volume": 832788,
-    "averageVolume": 102913,
-    "float": 3000000,
-    "sharesOutstanding": 582297,
-    "soRatio": "515.2%",
-    "marketCap": 1863350,
-    "isShort": true,
-    "ftd": 14760,
-    "intent": "Partnership, Unregistered Equity Sales, Related-Party Transaction, Credit Default, Regulatory Breach",
-    "incorporated": "Athens, Greece",
-    "located": "New York, United States",
-    "filingDate": "2026-07-27T09:11:10-04:00",
-    "signals": {
-      "Partnership": [
-        "Joint Venture"
-      ],
-      "Unregistered Equity Sales": [
-        "Item 3.02: or is under common control with such Person as such terms are used in and construed under Rule 405 u",
-        "Shares: 0.8M"
-      ],
-      "Related-Party Transaction": [
-        "Controlled By",
-        "Affiliate Of"
-      ],
-      "Credit Default": [
-        "Is In Default"
-      ],
-      "Regulatory Breach": [
-        "Warning Letter"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "formType": [
-      "6-K",
-      "S-3",
-      "F-3",
-      "20-F",
-      "EX-1.1"
-    ],
-    "cik": "2039060",
-    "skipReason": "",
-    "alertType": null,
-    "predatoryFinancing": null,
-    "sector": "Marine",
-    "hasTuesdayBonus": false,
-    "custodianVerified": true,
-    "custodianName": "New York, United States (via Athens, Greece)",
-    "filingTimeBonus": 1.2,
-    "recordedAt": "2026-07-27T13:11:57.168Z",
-    "recordId": "RBNE-1785157917168",
-    "expiresAt": "2026-07-31T13:11:57.168Z",
-    "direction": "SHORT",
-    "highest5Day": 3.2,
-    "highest5DayPercent": 0,
-    "lowest5Day": 3.2,
-    "lowest5DayPercent": 0,
-    "priceAfter30m": null,
-    "percentAfter30m": null,
-    "priceAfter1h": null,
-    "percentAfter1h": null,
-    "priceAfter6h": null,
-    "percentAfter6h": null,
-    "priceAfter1d": null,
-    "percentAfter1d": null,
-    "priceAfter3d": null,
-    "percentAfter3d": null
-  },
-  {
     "ticker": "PAG",
     "title": "8-K - PENSKE AUTOMOTIVE GROUP, INC. (0001019849) (Filer)",
     "companyName": "PENSKE AUTOMOTIVE GROUP, INC.",
@@ -281,6 +136,297 @@
     "highest5Day": 10.72,
     "highest5DayPercent": 0,
     "lowest5Day": 10.72,
+    "lowest5DayPercent": 0,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null
+  },
+  {
+    "ticker": "KPTI",
+    "title": "8-K - Karyopharm Therapeutics Inc. (0001503802) (Filer)",
+    "companyName": "Karyopharm Therapeutics Inc.",
+    "filerName": null,
+    "price": 7.01,
+    "fav": "26.07",
+    "volume": 674033,
+    "averageVolume": 568206,
+    "float": 14811820,
+    "sharesOutstanding": 22662943,
+    "soRatio": "65.36%",
+    "marketCap": 158867248,
+    "isShort": true,
+    "ftd": 143694,
+    "intent": "Clinical Success, Commercial Inflection, Accounting Restatement, Strategic Review",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Massachusetts",
+    "filingDate": "2026-07-31T08:30:33-04:00",
+    "signals": {
+      "Clinical Success": [
+        "Priority Review",
+        "Phase 3",
+        "Primary Endpoint",
+        "Topline Data",
+        "Statistically Significant"
+      ],
+      "Commercial Inflection": [
+        "Cash Runway"
+      ],
+      "Accounting Restatement": [
+        "Substantial Doubt"
+      ],
+      "Strategic Review": [
+        "Strategic Alternatives"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "8-K",
+      "Item 8.01"
+    ],
+    "cik": "1503802",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Biotechnology",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Massachusetts (via Wilmington, Delaware)",
+    "filingTimeBonus": 1.15,
+    "direction": "SHORT",
+    "recordedAt": "2026-07-31T12:31:30.961Z",
+    "recordId": "KPTI-1785501090961",
+    "expiresAt": "2026-08-05T12:31:30.961Z",
+    "highest5Day": 7.01,
+    "highest5DayPercent": 0,
+    "lowest5Day": 7.01,
+    "lowest5DayPercent": 0,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null
+  },
+  {
+    "ticker": "SKYT",
+    "title": "8-K - SkyWater Technology, Inc (0001819974) (Filer)",
+    "companyName": "SkyWater Technology, Inc",
+    "filerName": null,
+    "price": 32.46,
+    "fav": "37.26",
+    "volume": 2037656,
+    "averageVolume": 964983,
+    "float": 35954295,
+    "sharesOutstanding": 49204602,
+    "soRatio": "73.07%",
+    "marketCap": 1597181312,
+    "isShort": true,
+    "ftd": 350,
+    "intent": "Partnership, Asset Disposition, Going Dark",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Minnesota",
+    "filingDate": "2026-07-31T09:00:16-04:00",
+    "signals": {
+      "Partnership": [
+        "Joint Venture"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Going Dark": [
+        "Form 15",
+        "Deregistration"
+      ]
+    },
+    "bonusSignals": {
+      "Shell Recycling": "Shell Recycling"
+    },
+    "financialRatioSignals": {},
+    "formType": [
+      "8-K",
+      "EX-3.1",
+      "EX-3.2",
+      "Item 1.02",
+      "Item 2.01",
+      "Item 3.01",
+      "Item 3.03",
+      "Item 5.01",
+      "Item 5.02",
+      "Item 5.03",
+      "Item 9.01"
+    ],
+    "cik": "1819974",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Semiconductors",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Minnesota (via Wilmington, Delaware)",
+    "filingTimeBonus": 1.2,
+    "recordedAt": "2026-07-31T13:01:06.887Z",
+    "recordId": "SKYT-1785502866887",
+    "expiresAt": "2026-08-05T13:01:06.887Z",
+    "direction": "SHORT",
+    "highest5Day": 32.46,
+    "highest5DayPercent": 0,
+    "lowest5Day": 32.46,
+    "lowest5DayPercent": 0,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null
+  },
+  {
+    "ticker": "TK",
+    "title": "6-K - TEEKAY CORP LTD (0000911971) (Filer)",
+    "companyName": "TEEKAY CORP LTD",
+    "filerName": "Brody Speers Brody Speers Chief Financial Officer (Principal Financial and Accounting Officer)",
+    "price": 11.6429,
+    "fav": "41.03",
+    "volume": 215229,
+    "averageVolume": 609282,
+    "float": 25000000,
+    "sharesOutstanding": 87011821,
+    "soRatio": "28.73%",
+    "marketCap": 1013070016,
+    "isShort": false,
+    "ftd": 147542,
+    "intent": "Partnership, Stock Buyback, Related-Party Transaction, Asset Disposition, Unregistered Equity Sales",
+    "incorporated": "Hamilton, Canada",
+    "located": "Hamilton, Canada",
+    "filingDate": "2026-07-31T12:54:39-04:00",
+    "signals": {
+      "Partnership": [
+        "Joint Venture"
+      ],
+      "Stock Buyback": [
+        "Share Repurchase"
+      ],
+      "Related-Party Transaction": [
+        "Controlled By"
+      ],
+      "Asset Disposition": [
+        "Sale Of Assets"
+      ],
+      "Unregistered Equity Sales": [
+        "Item 3.02: the Company and Wah Kwong Maritime Transport Holdings Limited",
+        "Discount: 125%",
+        "Shares: 725.0M"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "S-8",
+      "F-3",
+      "20-F"
+    ],
+    "cik": "911971",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Energy",
+    "hasTuesdayBonus": false,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeBonus": 1.05,
+    "recordedAt": "2026-07-31T16:55:30.947Z",
+    "recordId": "TK-1785516930947",
+    "expiresAt": "2026-08-05T16:55:30.947Z",
+    "direction": "LONG",
+    "highest5Day": 11.6429,
+    "highest5DayPercent": 0,
+    "lowest5Day": 11.6429,
+    "lowest5DayPercent": 0,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null
+  },
+  {
+    "ticker": "TEX",
+    "title": "8-K - TEREX CORP (0000097216) (Filer)",
+    "companyName": "TEREX CORP",
+    "filerName": null,
+    "price": 64.04,
+    "fav": "35.51",
+    "volume": 1110880,
+    "averageVolume": 1369941,
+    "float": 48641758,
+    "sharesOutstanding": 114216576,
+    "soRatio": "42.59%",
+    "marketCap": 7314429440,
+    "isShort": true,
+    "ftd": 7046,
+    "intent": "Credit Default, Asset Disposition",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Connecticut",
+    "filingDate": "2026-07-31T13:01:55-04:00",
+    "signals": {
+      "Credit Default": [
+        "Event Of Default",
+        "Default Under The"
+      ],
+      "Asset Disposition": [
+        "Divested"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {
+      "signals": [
+        "High Leverage - Debt/Equity Exceeds 3.0"
+      ],
+      "severity": 0.75,
+      "isDeterministic": true
+    },
+    "formType": [
+      "8-K",
+      "EX-99.1",
+      "Item 8.01",
+      "Item 9.01"
+    ],
+    "cik": "97216",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Machinery",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Connecticut (via Wilmington, Delaware)",
+    "filingTimeBonus": 1.05,
+    "recordedAt": "2026-07-31T17:02:46.120Z",
+    "recordId": "TEX-1785517366120",
+    "expiresAt": "2026-08-05T17:02:46.120Z",
+    "direction": "SHORT",
+    "highest5Day": 64.04,
+    "highest5DayPercent": 0,
+    "lowest5Day": 64.04,
     "lowest5DayPercent": 0,
     "priceAfter30m": null,
     "percentAfter30m": null,

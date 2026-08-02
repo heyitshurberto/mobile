@@ -7151,8 +7151,10 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             const tradeDetails = [];
             let totalLongTrades = 0, totalShortTrades = 0;
             let longWins = 0, shortWins = 0;
-            let bestTrade = { percent: -Infinity, ticker: '', type: '' };
-            let worstTrade = { percent: Infinity, ticker: '', type: '' };
+            let bestLongTrade = { percent: -Infinity, ticker: '', type: 'LONG' };
+            let worstLongTrade = { percent: Infinity, ticker: '', type: 'LONG' };
+            let bestShortTrade = { percent: -Infinity, ticker: '', type: 'SHORT' };
+            let worstShortTrade = { percent: Infinity, ticker: '', type: 'SHORT' };
             let totalReturn = 0;
 
             stocks.forEach(stock => {
@@ -7195,24 +7197,45 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     const now = new Date();
                     const duration = Math.floor((now - recordDate) / (1000 * 60 * 60 * 24));
                     
-                    // Track best and worst trades
-                    if (bestPercent > bestTrade.percent) {
-                        bestTrade = { 
-                            percent: bestPercent, 
-                            ticker: stock.ticker, 
-                            type: isShort ? 'SHORT' : 'LONG',
-                            companyName: stock.companyName || 'N/A',
-                            date: recordDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' }) + ' ' + recordDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })
-                        };
-                    }
-                    if (worstPercent < worstTrade.percent) {
-                        worstTrade = { 
-                            percent: worstPercent, 
-                            ticker: stock.ticker, 
-                            type: isShort ? 'SHORT' : 'LONG',
-                            companyName: stock.companyName || 'N/A',
-                            date: recordDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' }) + ' ' + recordDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })
-                        };
+                    // Track best and worst trades by direction
+                    if (isShort) {
+                        if (bestPercent > bestShortTrade.percent) {
+                            bestShortTrade = {
+                                percent: bestPercent,
+                                ticker: stock.ticker,
+                                type: 'SHORT',
+                                companyName: stock.companyName || 'N/A',
+                                date: recordDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' }) + ' ' + recordDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })
+                            };
+                        }
+                        if (worstPercent < worstShortTrade.percent) {
+                            worstShortTrade = {
+                                percent: worstPercent,
+                                ticker: stock.ticker,
+                                type: 'SHORT',
+                                companyName: stock.companyName || 'N/A',
+                                date: recordDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' }) + ' ' + recordDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })
+                            };
+                        }
+                    } else {
+                        if (bestPercent > bestLongTrade.percent) {
+                            bestLongTrade = {
+                                percent: bestPercent,
+                                ticker: stock.ticker,
+                                type: 'LONG',
+                                companyName: stock.companyName || 'N/A',
+                                date: recordDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' }) + ' ' + recordDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })
+                            };
+                        }
+                        if (worstPercent < worstLongTrade.percent) {
+                            worstLongTrade = {
+                                percent: worstPercent,
+                                ticker: stock.ticker,
+                                type: 'LONG',
+                                companyName: stock.companyName || 'N/A',
+                                date: recordDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' }) + ' ' + recordDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })
+                            };
+                        }
                     }
                     
                     tradeDetails.push({
@@ -7239,17 +7262,32 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 }
             });
 
-            // Sort trades by return for top performers
-            const topPerformers = tradeDetails
+            // Sort trades by return for top performers and losers, split by direction
+            const longTradeDetails = tradeDetails.filter(t => t.type === 'LONG');
+            const shortTradeDetails = tradeDetails.filter(t => t.type === 'SHORT');
+
+            const topLongPerformers = longTradeDetails
                 .slice()
                 .sort((a, b) => b.bestReturn - a.bestReturn)
-                .slice(0, 5)
+                .slice(0, 8)
                 .map(t => ({ ...t, return: t.bestReturn, peakPrice: t.bestPrice }));
-            
-            const worstPerformers = tradeDetails
+
+            const topShortPerformers = shortTradeDetails
+                .slice()
+                .sort((a, b) => b.bestReturn - a.bestReturn)
+                .slice(0, 8)
+                .map(t => ({ ...t, return: t.bestReturn, peakPrice: t.bestPrice }));
+
+            const worstLongPerformers = longTradeDetails
                 .slice()
                 .sort((a, b) => a.worstReturn - b.worstReturn)
-                .slice(0, 5)
+                .slice(0, 8)
+                .map(t => ({ ...t, return: t.worstReturn, peakPrice: t.worstPrice }));
+
+            const worstShortPerformers = shortTradeDetails
+                .slice()
+                .sort((a, b) => a.worstReturn - b.worstReturn)
+                .slice(0, 8)
                 .map(t => ({ ...t, return: t.worstReturn, peakPrice: t.worstPrice }));
 
             // Calculate additional metrics
@@ -7450,66 +7488,120 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             </div>
                         </div>
 
-                        <!-- Best & Worst -->
+                        <!-- Best & Worst by Direction -->
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
                             <div class="stat-card">
-                                <h3 style="margin-bottom: 8px; border-bottom: 1px solid #00dd00; padding-bottom: 6px; font-style: italic; font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Best Play</h3>
+                                <h3 style="margin-bottom: 8px; border-bottom: 1px solid #00dd00; padding-bottom: 6px; font-style: italic; font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Best Long</h3>
                                 <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
                                     <div style="flex: 1;">
-                                        <div style="font-size: 11px; font-weight: 500; color: ${textColor}; margin-bottom: 2px;">$${bestTrade.ticker} - <span style="font-size: 10px; opacity: 0.65;">${bestTrade.companyName}</span></div>
-                                        <div style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 500; color: ${isDark ? '#bbb' : '#666'};">${bestTrade.type}</div>
+                                        <div style="font-size: 11px; font-weight: 500; color: ${textColor}; margin-bottom: 2px;">$${bestLongTrade.ticker} - <span style="font-size: 10px; opacity: 0.65;">${bestLongTrade.companyName}</span></div>
+                                        <div style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 500; color: ${isDark ? '#bbb' : '#666'};">${bestLongTrade.type}</div>
                                     </div>
-                                    <div style="color: #00dd00; font-size: 11px; text-align: right;">+${bestTrade.percent.toFixed(2)}%</div>
+                                    <div style="color: #00dd00; font-size: 11px; text-align: right;">+${bestLongTrade.percent.toFixed(2)}%</div>
                                 </div>
-                                <div style="font-size: 8px; opacity: 0.55; font-style: italic;">${bestTrade.date} UTC</div>
+                                <div style="font-size: 8px; opacity: 0.55; font-style: italic;">${bestLongTrade.date} UTC</div>
                             </div>
                             <div class="stat-card">
-                                <h3 style="margin-bottom: 8px; border-bottom: 1px solid #ff3333; padding-bottom: 6px; font-style: italic;  font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Worst Play</h3>
+                                <h3 style="margin-bottom: 8px; border-bottom: 1px solid #00dd00; padding-bottom: 6px; font-style: italic; font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Best Short</h3>
                                 <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
                                     <div style="flex: 1;">
-                                        <div style="font-size: 11px; font-weight: 500; color: ${textColor}; margin-bottom: 2px;">$${worstTrade.ticker} - <span style="font-size: 10px; opacity: 0.65;">${worstTrade.companyName}</span></div>
-                                        <div style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 500; color: ${isDark ? '#bbb' : '#666'};">${worstTrade.type}</div>
+                                        <div style="font-size: 11px; font-weight: 500; color: ${textColor}; margin-bottom: 2px;">$${bestShortTrade.ticker} - <span style="font-size: 10px; opacity: 0.65;">${bestShortTrade.companyName}</span></div>
+                                        <div style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 500; color: ${isDark ? '#bbb' : '#666'};">${bestShortTrade.type}</div>
                                     </div>
-                                    <div style="color: #ff3333; font-size: 11px; text-align: right;">${worstTrade.percent.toFixed(2)}%</div>
+                                    <div style="color: #00dd00; font-size: 11px; text-align: right;">+${bestShortTrade.percent.toFixed(2)}%</div>
                                 </div>
-                                <div style="font-size: 8px; opacity: 0.55; font-style: italic;">${worstTrade.date} UTC</div>
+                                <div style="font-size: 8px; opacity: 0.55; font-style: italic;">${bestShortTrade.date} UTC</div>
+                            </div>
+                            <div class="stat-card">
+                                <h3 style="margin-bottom: 8px; border-bottom: 1px solid #ff3333; padding-bottom: 6px; font-style: italic;  font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Worst Long</h3>
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                                    <div style="flex: 1;">
+                                        <div style="font-size: 11px; font-weight: 500; color: ${textColor}; margin-bottom: 2px;">$${worstLongTrade.ticker} - <span style="font-size: 10px; opacity: 0.65;">${worstLongTrade.companyName}</span></div>
+                                        <div style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 500; color: ${isDark ? '#bbb' : '#666'};">${worstLongTrade.type}</div>
+                                    </div>
+                                    <div style="color: #ff3333; font-size: 11px; text-align: right;">${worstLongTrade.percent.toFixed(2)}%</div>
+                                </div>
+                                <div style="font-size: 8px; opacity: 0.55; font-style: italic;">${worstLongTrade.date} UTC</div>
+                            </div>
+                            <div class="stat-card">
+                                <h3 style="margin-bottom: 8px; border-bottom: 1px solid #ff3333; padding-bottom: 6px; font-style: italic;  font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Worst Short</h3>
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                                    <div style="flex: 1;">
+                                        <div style="font-size: 11px; font-weight: 500; color: ${textColor}; margin-bottom: 2px;">$${worstShortTrade.ticker} - <span style="font-size: 10px; opacity: 0.65;">${worstShortTrade.companyName}</span></div>
+                                        <div style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 500; color: ${isDark ? '#bbb' : '#666'};">${worstShortTrade.type}</div>
+                                    </div>
+                                    <div style="color: #ff3333; font-size: 11px; text-align: right;">${worstShortTrade.percent.toFixed(2)}%</div>
+                                </div>
+                                <div style="font-size: 8px; opacity: 0.55; font-style: italic;">${worstShortTrade.date} UTC</div>
                             </div>
                         </div>
 
-                        <!-- Top Performers -->
-                        <div class="stat-card">
-                            <h3 style="font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Top Performers</h3>
-                            ${topPerformers.map(t => `
-                                <div class="trade-item" style="cursor: pointer; padding: 13px 6px; flex-direction: column; align-items: flex-start; border-bottom: 1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}; transition: all 0.2s ease;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'" onclick="window.showTradeDetail(${JSON.stringify(t).replace(/"/g, '&quot;')})">
-                                    <div style="width: 100%; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px; margin-top: -5px;">
-                                        <div>
-                                            <span class="trade-ticker" style="font-weight: 500;">$${t.ticker}</span>
-                                            <span style="font-size: 10px; opacity: 0.65;"> (${t.companyName})</span>
-                                            <span style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 700; margin-left: 4px; color: ${isDark ? '#ffffff' : '#666'};">${t.type}</span>
+                        <!-- Directional Performer Matrix -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                            <div class="stat-card">
+                                <h3 style="font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Top Long Performers</h3>
+                                ${topLongPerformers.map(t => `
+                                    <div class="trade-item" style="cursor: pointer; padding: 10px 4px; flex-direction: column; align-items: flex-start; border-bottom: 1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}; transition: all 0.2s ease;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'" onclick="window.showTradeDetail(${JSON.stringify(t).replace(/"/g, '&quot;')})">
+                                        <div style="width: 100%; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; margin-top: -4px;">
+                                            <div>
+                                                <span class="trade-ticker" style="font-weight: 500;">$${t.ticker}</span>
+                                                <span style="font-size: 10px; opacity: 0.65;"> (${t.companyName})</span>
+                                                <span style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 700; margin-left: 4px; color: ${isDark ? '#ffffff' : '#666'};">${t.type}</span>
+                                            </div>
+                                            <span class="trade-return" style="color: #00dd00; font-size: 11px; font-style: italic;">+${t.return.toFixed(2)}%</span>
                                         </div>
-                                        <span class="trade-return" style="color: #00dd00; font-size: 11px; font-style: italic;">+${t.return.toFixed(2)}%</span>
+                                        <div style="font-size: 8px; opacity: 0.55;"><span style="font-style: italic;">${t.date}</span> • ${t.duration}</div>
                                     </div>
-                                    <div style="font-size: 8px; opacity: 0.55;"><span style="font-style: italic;">${t.date}</span> • ${t.duration}</div>
-                                </div>
-                            `).join('')}
-                        </div>
-
-                        <!-- Worst Performers -->
-                        <div class="stat-card">
-                            <h3 style="font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Worst Performers</h3>
-                            ${worstPerformers.map(t => `
-                                <div class="trade-item" style="cursor: pointer; padding: 13px 6px; flex-direction: column; align-items: flex-start; border-bottom: 1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}; transition: all 0.2s ease;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'" onclick="window.showTradeDetail(${JSON.stringify(t).replace(/"/g, '&quot;')})">
-                                    <div style="width: 100%; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px; margin-top: -5px;">
-                                        <div>
-                                            <span class="trade-ticker" style="font-weight: 500;">$${t.ticker}</span>
-                                            <span style="font-size: 10px; opacity: 0.65;"> (${t.companyName})</span>
-                                            <span style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 700; margin-left: 4px; color: ${isDark ? '#ffffff' : '#666'};">${t.type}</span>
+                                `).join('')}
+                            </div>
+                            <div class="stat-card">
+                                <h3 style="font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Top Short Performers</h3>
+                                ${topShortPerformers.map(t => `
+                                    <div class="trade-item" style="cursor: pointer; padding: 10px 4px; flex-direction: column; align-items: flex-start; border-bottom: 1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}; transition: all 0.2s ease;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'" onclick="window.showTradeDetail(${JSON.stringify(t).replace(/"/g, '&quot;')})">
+                                        <div style="width: 100%; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; margin-top: -4px;">
+                                            <div>
+                                                <span class="trade-ticker" style="font-weight: 500;">$${t.ticker}</span>
+                                                <span style="font-size: 10px; opacity: 0.65;"> (${t.companyName})</span>
+                                                <span style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 700; margin-left: 4px; color: ${isDark ? '#ffffff' : '#666'};">${t.type}</span>
+                                            </div>
+                                            <span class="trade-return" style="color: #00dd00; font-size: 11px; font-style: italic;">+${t.return.toFixed(2)}%</span>
                                         </div>
-                                        <span class="trade-return" style="color: ${t.return > 0 ? '#00dd00' : '#ff3333'}; font-size: 11px; font-style: italic;">${t.return > 0 ? '+' : ''}${t.return.toFixed(2)}%</span>
+                                        <div style="font-size: 8px; opacity: 0.55;"><span style="font-style: italic;">${t.date}</span> • ${t.duration}</div>
                                     </div>
-                                    <div style="font-size: 8px; opacity: 0.55;"><span style="font-style: italic;">${t.date}</span> • ${t.duration}</div>
-                                </div>
-                            `).join('')}
+                                `).join('')}
+                            </div>
+                            <div class="stat-card">
+                                <h3 style="font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Worst Long Performers</h3>
+                                ${worstLongPerformers.map(t => `
+                                    <div class="trade-item" style="cursor: pointer; padding: 10px 4px; flex-direction: column; align-items: flex-start; border-bottom: 1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}; transition: all 0.2s ease;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'" onclick="window.showTradeDetail(${JSON.stringify(t).replace(/"/g, '&quot;')})">
+                                        <div style="width: 100%; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; margin-top: -4px;">
+                                            <div>
+                                                <span class="trade-ticker" style="font-weight: 500;">$${t.ticker}</span>
+                                                <span style="font-size: 10px; opacity: 0.65;"> (${t.companyName})</span>
+                                                <span style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 700; margin-left: 4px; color: ${isDark ? '#ffffff' : '#666'};">${t.type}</span>
+                                            </div>
+                                            <span class="trade-return" style="color: ${t.return > 0 ? '#00dd00' : '#ff3333'}; font-size: 11px; font-style: italic;">${t.return > 0 ? '+' : ''}${t.return.toFixed(2)}%</span>
+                                        </div>
+                                        <div style="font-size: 8px; opacity: 0.55;"><span style="font-style: italic;">${t.date}</span> • ${t.duration}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="stat-card">
+                                <h3 style="font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Worst Short Performers</h3>
+                                ${worstShortPerformers.map(t => `
+                                    <div class="trade-item" style="cursor: pointer; padding: 10px 4px; flex-direction: column; align-items: flex-start; border-bottom: 1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}; transition: all 0.2s ease;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'" onclick="window.showTradeDetail(${JSON.stringify(t).replace(/"/g, '&quot;')})">
+                                        <div style="width: 100%; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; margin-top: -4px;">
+                                            <div>
+                                                <span class="trade-ticker" style="font-weight: 500;">$${t.ticker}</span>
+                                                <span style="font-size: 10px; opacity: 0.65;"> (${t.companyName})</span>
+                                                <span style="font-size: 10px; opacity: 0.80; font-style: italic; font-weight: 700; margin-left: 4px; color: ${isDark ? '#ffffff' : '#666'};">${t.type}</span>
+                                            </div>
+                                            <span class="trade-return" style="color: ${t.return > 0 ? '#00dd00' : '#ff3333'}; font-size: 11px; font-style: italic;">${t.return > 0 ? '+' : ''}${t.return.toFixed(2)}%</span>
+                                        </div>
+                                        <div style="font-size: 8px; opacity: 0.55;"><span style="font-style: italic;">${t.date}</span> • ${t.duration}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
                         </div>
                     </div>
                 </div>
