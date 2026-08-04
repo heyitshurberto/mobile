@@ -535,7 +535,7 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
   const structuralBearish = ['Convertible Debt'];
   
   // Bullish signals (including confidence signals like buybacks)
-  const bullishSignals = ['Insider Buying', 'Partnership', 'Licensing Deal', 'Government Contract', 'Stock Buyback', 'DTC Eligible Restored', 'Commercial Inflection'];
+  const bullishSignals = ['Insider Buying', 'Licensing Deal', 'Government Contract', 'Stock Buyback', 'DTC Eligible Restored', 'Commercial Inflection'];
   
   // Asset Disposition is context-dependent: only bearish if paired with distress signals
   const hasAssetDisposition = signalArray.includes('Asset Disposition');
@@ -566,7 +566,7 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
   
   // M&A logic: always LONG unless the acquisition is stressed
   // M&A with stress (Credit Default, Bankruptcy Filing, Going Dark, Failed Trial) = SHORT
-  // M&A without stress (dilution, clinical, partnership, normal deals) = LONG
+  // M&A without stress (dilution, clinical, normal deals) = LONG
   const hasMergerAcquisition = signalArray.includes('Merger/Acquisition');
   if (hasMergerAcquisition) {
     const isStressMAndA = ['Credit Default', 'Bankruptcy Filing', 'Going Dark'].some(cat => signalArray.includes(cat)) || hasFailedTrial;
@@ -577,7 +577,7 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
   }
   
   // Fast-track pure growth catalysts (force LONG immediately) - only if no distress signals
-  const pureBullishCatalysts = ['Partnership', 'Licensing Deal', 'Commercial Inflection', 'Government Contract'].some(cat => signalArray.includes(cat));
+  const pureBullishCatalysts = ['Licensing Deal', 'Commercial Inflection', 'Government Contract'].some(cat => signalArray.includes(cat));
   if (pureBullishCatalysts && !hasHeavyweightBearish && moderateCount === 0 && !isDistressedDisposition) {
     return { direction: 'LONG', confidence: 0.80 };
   }
@@ -794,9 +794,8 @@ const SEMANTIC_KEYWORDS = {
   // STRONGEST BUY PRESSURE: Acquisition Agreement (structural buy pressure, overrides all short signals & filters)
   'Acquisition Agreement': ['Acquisition Agreement', 'Completed Acquisition', 'Acquisition Closing', 'Closing Of Acquisition', 'Definitive Agreement To Acquire', 'Take Private', 'Going Private', 'Definitive Agreement To Be Acquired'],
   
-  // Government / Partnership / Licensing
+  // Government / Licensing
   'Government Contract': ['Government Contract Award', 'Defense Contract', 'Federal Contract', 'DOD Contract', 'GSA Schedule', 'Federal Procurement'],
-  'Partnership': ['Strategic Partnership', 'Joint Venture', 'Partnership Agreement', 'Strategic Alliance', 'Development Agreement', 'Collaboration Agreement', 'Distribution Agreement', 'Co-Development Agreement'],
   'Licensing Deal': ['Exclusive License', 'License Agreement', 'Technology License', 'IP Licensing'],
   
   // Capital return to shareholders
@@ -827,8 +826,6 @@ const SEMANTIC_KEYWORDS = {
   
   // Equity dilution = new share supply
   'Convertible Debt': ['Convertible Bonds', 'Convertible Notes', 'Convertible Securities'],
-  'Unregistered Equity Sales': ['Registered Direct Offering', 'Offering to Certain Investors', 'Accredited Investors', 'Rule 506(b)', 'Private Placement', 'Registered Direct', 'Issuable Under', 'Pre-funded Warrants', 'Purchase Agreement', 'Placement Agent'],
-  'Regulation S Offering': ['Regulation S', 'Rule 902', 'Non-U.S. Persons', 'Offshore Transaction', 'Offshore Purchaser', 'Foreign Purchaser'],
   'Related-Party Transaction': ['Spouse Of', 'Family Member', 'Relative Of CEO', 'Relative Of The CEO', 'Controlled By', 'Related Party', 'Affiliate Transaction', 'Affiliate Of', 'Related Person', 'Family Relationship'],
   'Offering At A Discount': ['Offering At A Discount', 'Priced At A Discount', 'Discount To Market', 'Discounted Offering', 'Sold At A Discount', 'Discounted Placement'],
   
@@ -876,9 +873,7 @@ const SEMANTIC_KEYWORDS = {
 };
 
 const strongBearishSignals = [
-  'Unregistered Equity Sales',
   'Convertible Debt',
-  'Regulation S Offering',
   'Related-Party Transaction',
   'Credit Default',
   'Accounting Restatement',
@@ -909,7 +904,6 @@ const signalTiming = {
   'Post-Hoc Salvage': 'Future',              // emergency salvage attempt
   'Government Contract': 'Immediate',        // award granted
   'Commercial Agreement': 'Repricing',           // varies: MOU=future, MSA=immediate
-  'Partnership': 'Future',                   // announced, not yet executing
   'Licensing Deal': 'Immediate',             // deal closed with real IP
   'Stock Buyback': 'Immediate',              // capital returned now
   'Commercial Inflection': 'Repricing',          // LOI=future, PO shipped=immediate
@@ -922,8 +916,6 @@ const signalTiming = {
   'Contingent Value Rights': 'Immediate',    // CVR terms set now
   
   // Equity dilution = new supply created TODAY
-  'Unregistered Equity Sales': 'Immediate', // offering priced, shares exist now
-  'Regulation S Offering': 'Immediate',     // offering executed now
   'Convertible Debt': 'Future',             // dilution on conversion date
   'Offering At A Discount': 'Immediate',    // shares issued at discount now
   'Related-Party Transaction': 'Immediate', // insider sale already happened
@@ -966,13 +958,10 @@ const signalImpact = {
   'Accounting Restatement': 'Material',
   'Convertible Debt': 'Material',
   'Underwritten Offering': 'Material',
-  'Unregistered Equity Sales': 'Material',
-  'Regulation S Offering': 'Material',
   'Capital Raise': 'Material',
   'Nasdaq Delisting': 'Material',
 
   // Supporting: reinforces another catalyst but rarely wins alone.
-  'Partnership': 'Supporting',
   'Licensing Deal': 'Supporting',
   'Clinical Success': 'Supporting',
   'Clinical Milestone': 'Supporting',
@@ -1447,25 +1436,11 @@ const parseSemanticSignals = (text) => {
       return regex.test(lowerText);
     });
     if (matches.length > 0) {
-        if (category === 'Partnership') {
-        const hasCapitalPreservation = /preserve\s+capital|evaluate\s+(?:all\s+)?options|strategic\s+(?:alternatives|opportunities|transactions)/i.test(lowerText);
-        if (hasCapitalPreservation && hasFailedTrial) {
-          continue;
-        }
-      }
-      
       signals[category] = matches;
     }
   }
   
-  const item302Data = detectItem302HiddenBuyers(text);
-  if (item302Data && item302Data.hasItem302) {
-    signals['Unregistered Equity Sales'] = [
-      `Item 3.02: ${item302Data.buyerDescription || 'Hidden Buyer'}`,
-      item302Data.discount ? `Discount: ${item302Data.discount}%` : null,
-      item302Data.sharesIssued ? `Shares: ${(item302Data.sharesIssued / 1000000).toFixed(1)}M` : null
-    ].filter(Boolean);
-  }
+  // Item 3.02 detection (Unregistered Equity Sales) removed
   
   
   // ADD FAILED TRIAL SIGNAL if detected (key insight for SHORT direction)
@@ -1650,11 +1625,6 @@ const detectFinancingType = (text) => {
   if (lowerText.includes('at-the-market') || lowerText.includes('atm offering')) {
     return { type: 'ATM Offering', multiplier: 0.95 };
   }
-  
-  // Regulation S / offshore offering
-  if (/regulation\s*s|rule\s*902|offshore\s+transaction|offshore\s+purchaser|foreign\s+purchaser|non-?u\.s\.\s+persons/i.test(lowerText)) {
-    return { type: 'Regulation S Offering', multiplier: 0.90 };
-  }
 
   // Related-party transaction warning
   if (/spouse of|family member|relative of ceo|relative of the ceo|controlled by|related party|affiliate transaction|affiliate of|related person|family relationship/i.test(lowerText)) {
@@ -1784,17 +1754,6 @@ const saveToCSV = (alertData) => {
     let sepaType = 'N/A';
     let predatoryLender = 'N/A';
     let predatorConfidence = 'N/A';
-    
-    if (alertData.signals && alertData.signals['Unregistered Equity Sales']) {
-      item302Detected = 'Yes';
-      if (alertData.filingText) {
-        const sepaData = detectSEPAAgreement(alertData.filingText, alertData.buyerDescription);
-        if (sepaData && sepaData.hasSEPA) {
-          sepaAgreement = sepaData.buyerName || 'Unknown';
-          sepaType = sepaData.isOpenEnded ? 'Open Ended' : 'Single Tranche';
-        }
-      }
-    }
     
     // Extract predatory financing data from alertData
     if (alertData.predatoryFinancing && alertData.predatoryFinancing.detected) {
@@ -2096,16 +2055,7 @@ const saveAlert = (alertData) => {
     const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${alertData.cik}&type=6-K&dateb=&owner=exclude&count=100`;
     log('INFO', `Links: ${tvLink} ${secLink}`);
     
-    // Log SEPA agreement if Item 3.02 detected
-    if (alertData.signals && alertData.signals['Unregistered Equity Sales']) {
-      if (alertData.filingText) {
-        const sepaData = detectSEPAAgreement(alertData.filingText, alertData.buyerDescription);
-        if (sepaData && sepaData.hasSEPA) {
-          const sepaMsg = sepaData.isOpenEnded ? `SEPA (Open-Ended): ${sepaData.buyerName}` : `SEPA (Single Tranche): ${sepaData.buyerName}`;
-          log('INFO', sepaMsg);
-        }
-      }
-    }
+    // SEPA agreement logging removed
     
     // Consolidated single log line for all file saves + git status
     const gitStatus = CONFIG.GITHUB_PUSH_ENABLED && CONFIG.GITHUB_PAGES_ENABLED ? 'Git Push Enabled' : 'Git Push Disabled';
@@ -2622,28 +2572,51 @@ const getFTDData = (ticker) => {
   }
 };
 
-// Fetch sector/industry from Finnhub profile
+// Fetch sector/industry from Finnhub profile with retry logic for transient errors
 const getSectorFromFinnhub = async (ticker) => {
-  try {
-    const finnhubKey = process.env.FINNHUB_API_KEY;
-    if (!finnhubKey) {
-      log('WARN', `FINNHUB_API_KEY missing; cannot fetch sector for ${ticker}`);
-      return null;
-    }
+  const finnhubKey = process.env.FINNHUB_API_KEY;
+  if (!finnhubKey) return null; // Silently skip if no API key
+  
+  let lastError = null;
+  const maxRetries = 2;
+  const baseDelay = 500; // Start with 500ms
+  
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      const res = await fetchWithTimeout(`https://finnhub.io/api/v1/stock/profile2?symbol=${ticker}&token=${finnhubKey}`, 5000);
+      
+      if (!res.ok) {
+        // 5xx and 429 are transient — retry silently
+        if (res.status >= 500 || res.status === 429) {
+          lastError = res.status;
+          if (attempt < maxRetries - 1) {
+            const delay = baseDelay * Math.pow(2, attempt); // Exponential backoff
+            await new Promise(r => setTimeout(r, delay));
+            continue;
+          }
+          return null; // Silently fail after retries
+        }
+        // 4xx errors are permanent — don't retry, don't log
+        return null;
+      }
 
-    const res = await fetchWithTimeout(`https://finnhub.io/api/v1/stock/profile2?symbol=${ticker}&token=${finnhubKey}`, 5000);
-    if (!res.ok) {
-      const body = await res.text().catch(() => '');
-      log('WARN', `Finnhub sector lookup failed for ${ticker}: ${res.status} ${res.statusText}${body ? ` - ${body.slice(0,200)}` : ''}`);
-      return null;
+      const data = await res.json();
+      return data.finnhubIndustry || data.industry || data.sector || null;
+    } catch (e) {
+      lastError = e.message;
+      if (attempt < maxRetries - 1) {
+        const delay = baseDelay * Math.pow(2, attempt);
+        await new Promise(r => setTimeout(r, delay));
+      }
     }
-
-    const data = await res.json();
-    return data.finnhubIndustry || data.industry || data.sector || null;
-  } catch (e) {
-    log('WARN', `Finnhub sector lookup error for ${ticker}: ${e.message}`);
-    return null;
   }
+  
+  // Only log network errors, not API 503s
+  if (lastError && typeof lastError === 'string' && lastError.includes('ECONNREFUSED|ENOTFOUND|timeout')) {
+    log('WARN', `Finnhub network error for ${ticker}: ${lastError}`);
+  }
+  
+  return null;
 };
 
 // Fetch float data from Financial Modeling Prep
@@ -2666,40 +2639,85 @@ const getSharesFromAlphaVantage = async (ticker) => {
   }
 };
 
-// Get shares outstanding from Finnhub (secondary)
+// Get shares outstanding from Finnhub (secondary) with retry logic
 const getSharesFromFinnhub = async (ticker) => {
-  try {
-    const finnhubKey = process.env.FINNHUB_API_KEY;
-    if (!finnhubKey) return null;
-    
-    const res = await fetchWithTimeout(`https://finnhub.io/api/v1/stock/profile2?symbol=${ticker}&token=${finnhubKey}`, 5000);
-    if (!res.ok) return null;
-    
-    const data = await res.json();
-    if (data.shareOutstanding && data.shareOutstanding > 0) {
-      return Math.round(data.shareOutstanding);
+  const finnhubKey = process.env.FINNHUB_API_KEY;
+  if (!finnhubKey) return null;
+  
+  let attempt = 0;
+  const maxRetries = 2;
+  const baseDelay = 300;
+  
+  while (attempt < maxRetries) {
+    try {
+      const res = await fetchWithTimeout(`https://finnhub.io/api/v1/stock/profile2?symbol=${ticker}&token=${finnhubKey}`, 5000);
+      
+      if (!res.ok) {
+        // Retry on transient errors only
+        if ((res.status >= 500 || res.status === 429) && attempt < maxRetries - 1) {
+          const delay = baseDelay * Math.pow(2, attempt);
+          await new Promise(r => setTimeout(r, delay));
+          attempt++;
+          continue;
+        }
+        return null;
+      }
+
+      const data = await res.json();
+      if (data.shareOutstanding && data.shareOutstanding > 0) {
+        return Math.round(data.shareOutstanding);
+      }
+      return null;
+    } catch (e) {
+      if (attempt < maxRetries - 1) {
+        const delay = baseDelay * Math.pow(2, attempt);
+        await new Promise(r => setTimeout(r, delay));
+        attempt++;
+      } else {
+        return null;
+      }
     }
-    return null;
-  } catch (e) {
-    return null;
   }
+  
+  return null;
 };
 
 // Get shares outstanding with priority: Alpha Vantage → Finnhub → FMP
 const getSharesOutstanding = async (ticker) => {
-  // Try Finnhub first (most reliable)
-  try {
-    const finnhubKey = process.env.FINNHUB_API_KEY;
-    if (finnhubKey) {
-      const res = await fetchWithTimeout(`https://finnhub.io/api/v1/stock/profile2?symbol=${ticker}&token=${finnhubKey}`, 8000);
-      if (res.ok) {
-        const data = await res.json();
-        if (data.shareOutstanding && data.shareOutstanding > 0) {
-          return Math.round(data.shareOutstanding);
+  // Try Finnhub first (most reliable) with retry logic
+  let attempt = 0;
+  const maxRetries = 2;
+  const baseDelay = 300;
+  
+  while (attempt < maxRetries) {
+    try {
+      const finnhubKey = process.env.FINNHUB_API_KEY;
+      if (finnhubKey) {
+        const res = await fetchWithTimeout(`https://finnhub.io/api/v1/stock/profile2?symbol=${ticker}&token=${finnhubKey}`, 8000);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.shareOutstanding && data.shareOutstanding > 0) {
+            return Math.round(data.shareOutstanding);
+          }
+        } else if ((res.status >= 500 || res.status === 429) && attempt < maxRetries - 1) {
+          // Retry on transient errors
+          const delay = baseDelay * Math.pow(2, attempt);
+          await new Promise(r => setTimeout(r, delay));
+          attempt++;
+          continue;
         }
       }
+      break; // Exit retry loop on success or permanent error
+    } catch (e) {
+      if (attempt < maxRetries - 1) {
+        const delay = baseDelay * Math.pow(2, attempt);
+        await new Promise(r => setTimeout(r, delay));
+        attempt++;
+      } else {
+        break;
+      }
     }
-  } catch (e) {}
+  }
   
   // Fallback to FMP shares-float endpoint which has outstandingShares
   try {
@@ -3540,7 +3558,6 @@ const sendPersonalWebhook = async (alertData) => {
       }
     } else if (direction === 'LONG') {
       const hasLongSetup = intents.includes('Stock Buyback') &&
-                          intents.includes('Partnership') &&
                           intents.includes('Capital Raise');
       if (hasLongSetup) {
         setupTag = '\n★ Highest Probability Setup';
@@ -3555,18 +3572,6 @@ const sendPersonalWebhook = async (alertData) => {
     
     // Check for SEPA agreement if Item 3.02 detected
     let sepaMessage = '';
-    if (alertData.signals && alertData.signals['Unregistered Equity Sales']) {
-      const item302Data = alertData.signals['Unregistered Equity Sales'];
-      if (typeof item302Data === 'string' && item302Data.includes('Item 3.02')) {
-        // Try to detect SEPA from filing text if available
-        if (alertData.filingText) {
-          const sepaData = detectSEPAAgreement(alertData.filingText, alertData.buyerDescription);
-          if (sepaData && sepaData.hasSEPA) {
-            sepaMessage = sepaData.isOpenEnded ? `**SEPA:** Open-Ended Dilution (${sepaData.buyerName})` : `**SEPA:** ${sepaData.buyerName}`;
-          }
-        }
-      }
-    }
     
     // Check for predatory financing
     let predatoryMessage = '';
@@ -3597,7 +3602,6 @@ const sendPersonalWebhook = async (alertData) => {
         'Commercial Agreement',
         'Revenue Secured',
         'Government Contract',
-        'Partnership',
         'Licensing Deal',
         'Stock Buyback',
         'Commercial Inflection',
@@ -3611,8 +3615,6 @@ const sendPersonalWebhook = async (alertData) => {
         'Failed Trial',
         'Post-Hoc Salvage',
         'Convertible Debt',
-        'Unregistered Equity Sales',
-        'Regulation S Offering',
         'Related-Party Transaction',
         'Offering At A Discount',
         'Capital Raise',
@@ -3638,7 +3640,7 @@ const sendPersonalWebhook = async (alertData) => {
 
       // If Acquisition Agreement is present, promote related value-change signals to Buy Pressure
       const hasAcq = Object.prototype.hasOwnProperty.call(signals, 'Acquisition Agreement');
-      const promoteWhenAcq = new Set(['Merger/Acquisition', 'Strategic Review', 'Contingent Value Rights', 'Partnership', 'Licensing Deal', 'Government Contract', 'Stock Buyback', 'Commercial Inflection']);
+      const promoteWhenAcq = new Set(['Merger/Acquisition', 'Strategic Review', 'Contingent Value Rights', 'Licensing Deal', 'Government Contract', 'Stock Buyback', 'Commercial Inflection']);
 
       for (const [cat, details] of Object.entries(signals)) {
         const entry = buildEntry(cat, details);
@@ -9954,15 +9956,13 @@ if (process.stdin.isTTY) {
             const sigKeys = Object.keys(semanticSignals || {});
             
             // Bearish signals that force SHORT regardless
-            const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Regulatory Breach', 'Accounting Restatement', 'Auditor Change', 'Material Lawsuit', 'Nasdaq Delisting', 'Bid Price Delisting', 'Unregistered Equity Sales', 'Executive Departure', 'Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount'];
+            const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Regulatory Breach', 'Accounting Restatement', 'Auditor Change', 'Material Lawsuit', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure', 'Related-Party Transaction', 'Offering At A Discount'];
             const bearishCount = sigKeys.filter(cat => bearishCats.includes(cat)).length;
-            const bullishCats = ['Merger/Acquisition', 'Clinical Success', 'Clinical Milestone', 'DTC Eligible Restored', 'Government Contract', 'Partnership', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Insider Buying', 'Contingent Value Rights'];
+            const bullishCats = ['Merger/Acquisition', 'Clinical Success', 'Clinical Milestone', 'DTC Eligible Restored', 'Government Contract', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Insider Buying', 'Contingent Value Rights'];
             const bullishCount = sigKeys.filter(cat => bullishCats.includes(cat)).length;
-            const hasPartnership = sigKeys.includes('Partnership');
             
             // BULL TRAP EXTRACTION DETECTION: Predatory structure + equity incentive
             // When predator has equity (shares/warrants), they profit from bull catalyst before dumping
-            const hasUnregisteredEquitySales = sigKeys.includes('Unregistered Equity Sales');
             const hasGoingConcern = sigKeys.includes('Going Concern');
             
             // Bull trap extraction pattern:
@@ -9978,13 +9978,8 @@ if (process.stdin.isTTY) {
             
             // ALWAYS check for predatory financing to capture details for logging
             let predatoryCheck = { isPredatory: false, predatorName: null, reason: null };
-            if (hasUnregisteredEquitySales) {
-              const buyerDesc = semanticSignals['Unregistered Equity Sales'] ? 
-                semanticSignals['Unregistered Equity Sales'].join(' ') : '';
-              predatoryCheck = isPredatoryFinancingAlert(text, buyerDesc);
-            }
             
-            if (!hasFatalBearish && hasUnregisteredEquitySales && hasGoingConcern) {
+            if (!hasFatalBearish && hasGoingConcern) {
               if (predatoryCheck.isPredatory) {
                 // Check if text contains commodity/partnership bullish catalyst keywords
                 const bullishCatalystKeywords = [
@@ -10004,11 +9999,11 @@ if (process.stdin.isTTY) {
               }
             }
             
-            const dilutionSignals = ['Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount', 'Unregistered Equity Sales', 'PIPE'];
+            const dilutionSignals = ['Related-Party Transaction', 'Offering At A Discount', 'PIPE'];
             const stressSignals = ['Credit Default', 'Bankruptcy Filing', 'Going Dark', 'Failed Trial', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure'];
-            const weakBearishSignals = ['Regulation S Offering', 'Related-Party Transaction', 'Offering At A Discount', 'PIPE'];
+            const weakBearishSignals = ['Related-Party Transaction', 'Offering At A Discount', 'PIPE'];
             const hasOnlyWeakBearish = bearishCount > 0 && sigKeys.some(cat => weakBearishSignals.includes(cat)) && !sigKeys.some(cat => stressSignals.includes(cat) || ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure'].includes(cat));
-            const hasStrongBullish = bullishCount >= 2 || ['Merger/Acquisition', 'Clinical Success', 'Government Contract', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Insider Buying', 'Partnership'].some(cat => sigKeys.includes(cat));
+            const hasStrongBullish = bullishCount >= 2 || ['Merger/Acquisition', 'Clinical Success', 'Government Contract', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Insider Buying'].some(cat => sigKeys.includes(cat));
 
             // Determine SHORT or LONG - bullish signals that drive price up should override single bearish signals
             // But NOT if it's a bull trap extraction (handle separately above)
@@ -10031,10 +10026,6 @@ if (process.stdin.isTTY) {
               } else if (bullishCount >= 2) {
                 // Need at least 2 bullish signals for LONG (not just 1)
                 longOpportunity = true;
-              } else if (hasPartnership && bullishCount === 0) {
-                // Partnership alone is neutral - don't mark as long or short
-                shortOpportunity = null;
-                longOpportunity = null;
               }
             }
             // If no signals, leave both null for "N/A"
@@ -10164,7 +10155,7 @@ if (process.stdin.isTTY) {
             }
           }
           
-          const neutralCategories = ['Partnership', 'Licensing Deal', 'Government Contract', 'Stock Buyback'];
+          const neutralCategories = ['Licensing Deal', 'Government Contract', 'Stock Buyback'];
           const neutralSignals = signalCategories.filter(cat => neutralCategories.includes(cat));
           const nonNeutralSignals = signalCategories.filter(cat => !neutralCategories.includes(cat));
           
@@ -10326,14 +10317,13 @@ if (process.stdin.isTTY) {
           const hasInsiderBlockBuy = signalCategories.includes('Insider Buying');
           const hasMerger = signalCategories.includes('Merger/Acquisition');
           const hasAcquisition = signalCategories.includes('Acquisition Agreement');
-          const hasPartnership = signalCategories.includes('Partnership');
           const hasStockBuyback = signalCategories.includes('Stock Buyback');
           
           // Bot-reactive high-conviction combos (skip volume gate)
           const isHighConviction = 
             hasInsiderBlockBuy ||                                           // Large position = immediate bot action
             hasMerger || hasAcquisition ||                                  // M&A or Acquisition Agreement = high conviction
-            (hasInsiderBlockBuy && (hasMerger || hasAcquisition || hasPartnership || hasStockBuyback)); // Insider accumulation + catalyst
+            (hasInsiderBlockBuy && (hasMerger || hasAcquisition || hasStockBuyback)); // Insider accumulation + catalyst
           
           const volumeCheckLater = volumeValue;
           const avgVolumeValue = averageVolume !== 'N/A' ? parseFloat(averageVolume) : null;
@@ -10526,11 +10516,12 @@ if (process.stdin.isTTY) {
             signalCategories.includes('Stock Buyback') ||
             deterministic.pattern !== null
           );
+          const isAcquisitionAgreement = signalCategories.includes('Acquisition Agreement');
           const numFloatForFilter = numFloat || 0;
           const isTightFloatMicrocap = numFloatForFilter > 0 && numFloatForFilter <= 15000000;
           
           // 1. HARD REJECT: F/AV (untradeable, gets slipped on entry/exit)
-          if (favNum > 0 && favNum < 0.2) {
+          if (favNum > 0 && favNum < 0.2 && !isAcquisitionAgreement) {
             skipReason = `F/AV ${favNum.toFixed(2)}x below absolute minimum (untradeable liquidity)`;
             saveToCSV({ ...alertData, skipReason });
             const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
@@ -10542,7 +10533,7 @@ if (process.stdin.isTTY) {
           }
           
           // 1a. CONDITIONAL REVIEW: F/AV 3-5x is acceptable for high-conviction long setups
-          if (favNum >= 3 && favNum < 5 && !isHighConvictionLong) {
+          if (favNum >= 3 && favNum < 5 && !isHighConvictionLong && !isAcquisitionAgreement) {
             skipReason = `F/AV ${favNum.toFixed(2)}x below the preferred 5x threshold for general alerts`;
             saveToCSV({ ...alertData, skipReason });
             const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
@@ -10713,7 +10704,6 @@ if (process.stdin.isTTY) {
                   'Clinical Milestone',
                   'DTC Eligible Restored',
                   'Government Contract',
-                  'Partnership',
                   'Licensing Deal',
                   'Stock Buyback',
                   'Capital Raise',
@@ -10727,8 +10717,6 @@ if (process.stdin.isTTY) {
                 const ctbSufficientBullish = ctbBullishSignalCategories.length >= 2;
                 const ctbSufficientBearish = ctbBearishSignalCategories.length >= 3 || ctbHasStrongBearish;
                 const ctbDilutionSignalCategories = signalCategories.filter(cat => [
-                  'Unregistered Equity Sales',
-                  'Regulation S Offering',
                   'Convertible Debt',
                   'Related-Party Transaction',
                   'Offering At A Discount',
@@ -10805,7 +10793,6 @@ if (process.stdin.isTTY) {
                   'Clinical Milestone',
                   'DTC Eligible Restored',
                   'Government Contract',
-                  'Partnership',
                   'Licensing Deal',
                   'Stock Buyback',
                   'Capital Raise',
