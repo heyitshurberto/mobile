@@ -531,15 +531,15 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
   const hasHeavyweightBearish = heavyweightBearish.some(cat => signalArray.includes(cat));
   
   // Moderate bearish (only count when reinforced by heavyweight or structural signals)
-  const moderateBearish = ['Nasdaq Delisting', 'Bid Price Delisting'];
+  const moderateBearish = ['Nasdaq Delisting', 'Bid Price Delisting', 'Failed Trial', 'Material Lawsuit', 'Revenue Loss', 'Asset Disposition', 'Related-Party Transaction', 'Offering At A Discount', 'PIPE'];
   const structuralBearish = ['Convertible Debt'];
   
   // Bullish signals (including confidence signals like buybacks)
   const bullishSignals = ['Insider Buying', 'Licensing Deal', 'Government Contract', 'Stock Buyback', 'DTC Eligible Restored', 'Commercial Inflection'];
   
-  // Asset Disposition is context-dependent: only bearish if paired with distress signals
   const hasAssetDisposition = signalArray.includes('Asset Disposition');
-  const isDistressedDisposition = hasAssetDisposition && (signalArray.includes('Bankruptcy Filing') || signalArray.includes('Credit Default') || signalArray.includes('Going Dark'));
+  const dilutionBearish = ['Revenue Loss', 'Asset Disposition', 'Related-Party Transaction', 'Offering At A Discount', 'PIPE'];
+  const dilutionCount = dilutionBearish.filter(cat => signalArray.includes(cat)).length;
   
   const heavyweightCount = heavyweightBearish.filter(cat => signalArray.includes(cat)).length;
   const moderateCount = moderateBearish.filter(cat => signalArray.includes(cat)).length;
@@ -547,7 +547,11 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
   const bullishCount = bullishSignals.filter(cat => signalArray.includes(cat)).length;
   
   // Distressed Asset Disposition counts as additional bearish weight
-  const totalBearish = heavyweightCount + moderateCount + structuralCount + (isDistressedDisposition ? 1 : 0);
+  const totalBearish = heavyweightCount + moderateCount + structuralCount;
+  
+  if (dilutionCount >= 1) {
+    return { direction: 'SHORT', confidence: 0.65 };
+  }
   
   // Heavy/Moderate bearish always win if >= 2 combined
   if ((heavyweightCount + moderateCount) >= 2) {
@@ -879,10 +883,12 @@ const strongBearishSignals = [
   'Accounting Restatement',
   'Customer Loss',
   'Revenue Loss',
+  'Asset Disposition',
   'Failed Trial',
   'Bankruptcy Filing',
   'Post-Hoc Salvage',
   'Offering At A Discount',
+  'PIPE',
   'Capital Raise',
   'Underwritten Offering'
 ];
@@ -1402,6 +1408,35 @@ const isPredatoryFinancingAlert = (text, buyerDescription = '') => {
 };
 
 // Signal detection engine - identifies market catalysts from filing text
+const detectFailedTrialRelationship = (text) => {
+  if (!text) return false;
+  const lowerText = text.toLowerCase();
+
+  const failureTerms = [
+    'did not meet its key activity endpoint',
+    'did not meet key endpoint',
+    'failed to demonstrate',
+    'trial results were disappointing',
+    'trial results were unexpected',
+    'does not plan to advance',
+    'not advancing',
+    'program discontinued',
+    'program terminated',
+    'preserve capital',
+    'potential confounders'
+  ];
+
+  const trialTerms = ['trial', 'study', 'program', 'drug', 'endpoint', 'protocol', 'sion-719'];
+  const sentenceRegex = /[^.!?]+[.!?]/g;
+  const sentences = lowerText.match(sentenceRegex) || [lowerText];
+
+  return sentences.some(sentence => {
+    const hasFailure = failureTerms.some(term => sentence.includes(term));
+    const hasTrial = trialTerms.some(term => sentence.includes(term));
+    return hasFailure && hasTrial;
+  });
+};
+
 const parseSemanticSignals = (text) => {
   if (!text) return {};
   const lowerText = text.toLowerCase();
@@ -1444,10 +1479,11 @@ const parseSemanticSignals = (text) => {
   
   
   // ADD FAILED TRIAL SIGNAL if detected (key insight for SHORT direction)
-  if (hasFailedTrial) {
+  const hasFailureRelationship = detectFailedTrialRelationship(text);
+  if (hasFailedTrial || hasFailureRelationship) {
     signals['Failed Trial'] = ['Primary Endpoint Not Met', hasPostHocAnalysis ? 'Post-Hoc Salvage Attempt' : null].filter(Boolean);
   }
-  
+
   return signals;
 };
 
@@ -1473,6 +1509,39 @@ const getItem801Context = (text) => {
   if (lowerText.includes('regulatory') && (lowerText.includes('violation') || lowerText.includes('investigation'))) {
     return 'Regulatory Loss';
   }
+  return null;
+};
+
+const findLocalContext = (text, terms) => {
+  if (!text || !Array.isArray(terms) || terms.length === 0) return '';
+  const lowerText = text.replace(/\r/g, ' ').toLowerCase();
+  const sentences = lowerText.match(/[^.!?]+[.!?]/g) || [lowerText];
+  const matches = sentences.filter(sentence => terms.some(term => sentence.includes(term)));
+  if (matches.length > 0) {
+    return matches.slice(0, 3).join(' ').trim();
+  }
+  const paragraphs = lowerText.split(/\n{2,}/).filter(paragraph => terms.some(term => paragraph.includes(term)));
+  return paragraphs.slice(0, 2).join(' ').trim();
+};
+
+const resolveAssetDispositionContext = (text) => {
+  if (!text) return null;
+
+  const growthTerms = ['revenue growth', 'commercial inflection', 'commercial traction', 'customer growth', 'revenue-generating', 'commercial momentum', 'commercial pipeline', 'repeat business'];
+  const lossTerms = ['revenue loss', 'decrease in revenue', 'revenue decline', 'reduced revenue', 'revenue reduction', 'loss of revenue', 'lower revenue', 'declining revenue'];
+  const dispositionTerms = ['asset disposition', 'sale of assets', 'divestiture', 'asset sale', 'sold assets', 'business disposition', 'divesting', 'disposition of assets'];
+
+  const context = findLocalContext(text, [...growthTerms, ...lossTerms, ...dispositionTerms]);
+  if (!context) return null;
+
+  const hasGrowth = growthTerms.some(term => context.includes(term));
+  const hasLoss = lossTerms.some(term => context.includes(term));
+  const hasDisposition = dispositionTerms.some(term => context.includes(term));
+
+  if (!hasDisposition) return null;
+  if (hasLoss && !hasGrowth) return 'SHORT';
+  if (hasGrowth && !hasLoss) return 'LONG';
+  if (hasGrowth && hasLoss) return 'MANUAL';
   return null;
 };
 
@@ -1518,7 +1587,7 @@ const extractInsiderBuyingAmount = (text) => {
 };
 
 // Pattern analyzer - maps signal combinations to high-confidence trade direction predictions
-const detectDeterministicPatterns = (semanticSignals) => {
+const detectDeterministicPatterns = (semanticSignals, text) => {
   if (!semanticSignals || Object.keys(semanticSignals).length === 0) {
     return { pattern: null, mechanism: null };
   }
@@ -1534,6 +1603,25 @@ const detectDeterministicPatterns = (semanticSignals) => {
   const hasAssetDisposition = signals.includes('Asset Disposition');
   const hasBankruptcy = signals.includes('Bankruptcy Filing');
   const hasExecutiveDeparture = signals.includes('Executive Departure');
+
+  if (hasAssetDisposition && signals.includes('Revenue Loss') && signals.includes('Commercial Inflection')) {
+    const contextDirection = resolveAssetDispositionContext(text);
+    if (contextDirection === 'SHORT') {
+      return {
+        pattern: 'Asset Disposition (Revenue Decline)',
+        mechanism: 'Local filing context shows asset sale tied to revenue decline, not growth. Short bias on distressed divestiture.',
+        direction: 'SHORT'
+      };
+    }
+    if (contextDirection === 'LONG') {
+      return {
+        pattern: 'Asset Disposition (Restructuring)',
+        mechanism: 'Local filing context shows asset sale tied to restructuring or growth optimization. Long bias on strategic divestiture.',
+        direction: 'LONG'
+      };
+    }
+    return { pattern: null, mechanism: null };
+  }
   
   if (hasAssetDisposition && (hasBankruptcy || hasExecutiveDeparture)) {
     return {
@@ -9956,7 +10044,7 @@ if (process.stdin.isTTY) {
             const sigKeys = Object.keys(semanticSignals || {});
             
             // Bearish signals that force SHORT regardless
-            const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Regulatory Breach', 'Accounting Restatement', 'Auditor Change', 'Material Lawsuit', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure', 'Related-Party Transaction', 'Offering At A Discount'];
+            const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Regulatory Breach', 'Accounting Restatement', 'Auditor Change', 'Material Lawsuit', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure', 'Related-Party Transaction', 'Offering At A Discount', 'Revenue Loss', 'Asset Disposition', 'PIPE', ...strongBearishSignals];
             const bearishCount = sigKeys.filter(cat => bearishCats.includes(cat)).length;
             const bullishCats = ['Merger/Acquisition', 'Clinical Success', 'Clinical Milestone', 'DTC Eligible Restored', 'Government Contract', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Insider Buying', 'Contingent Value Rights'];
             const bullishCount = sigKeys.filter(cat => bullishCats.includes(cat)).length;
@@ -9999,24 +10087,24 @@ if (process.stdin.isTTY) {
               }
             }
             
-            const dilutionSignals = ['Related-Party Transaction', 'Offering At A Discount', 'PIPE'];
+            const dilutionSignals = ['Related-Party Transaction', 'Offering At A Discount', 'PIPE', 'Revenue Loss', 'Asset Disposition'];
             const stressSignals = ['Credit Default', 'Bankruptcy Filing', 'Going Dark', 'Failed Trial', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure'];
-            const weakBearishSignals = ['Related-Party Transaction', 'Offering At A Discount', 'PIPE'];
-            const hasOnlyWeakBearish = bearishCount > 0 && sigKeys.some(cat => weakBearishSignals.includes(cat)) && !sigKeys.some(cat => stressSignals.includes(cat) || ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure'].includes(cat));
+            const weakBearishSignals = ['Related-Party Transaction', 'Offering At A Discount', 'PIPE', 'Revenue Loss', 'Asset Disposition'];
+            const hasOnlyWeakBearish = bearishCount > 0 && sigKeys.some(cat => weakBearishSignals.includes(cat)) && !sigKeys.some(cat => stressSignals.includes(cat));
             const hasStrongBullish = bullishCount >= 2 || ['Merger/Acquisition', 'Clinical Success', 'Government Contract', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Insider Buying'].some(cat => sigKeys.includes(cat));
 
             // Determine SHORT or LONG - bullish signals that drive price up should override single bearish signals
-            // But NOT if it's a bull trap extraction (handle separately above)
+            // But NOT if this is dilution or stress-based bearish setup
             if (!isBullTrapExtraction) {
               if (bearishCount >= 2 && !hasOnlyWeakBearish) {
                 shortOpportunity = true;
-              } else if (bearishCount > 0 && bullishCount >= 2) {
-                // Strong bullish signals (2+) override single bearish signals - use bullish
+              } else if (bearishCount > 0 && bullishCount >= 2 && !sigKeys.some(cat => dilutionSignals.includes(cat))) {
+                // Strong bullish signals (2+) override single bearish signals only when there is no dilution stress
                 longOpportunity = true;
               } else if (bearishCount > 0 && bullishCount > 0) {
-                if (hasOnlyWeakBearish && hasStrongBullish) {
+                if (hasOnlyWeakBearish && !sigKeys.some(cat => dilutionSignals.includes(cat)) && hasStrongBullish) {
                   longOpportunity = true;
-                } else if (hasStrongBullish && !sigKeys.some(cat => ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure'].includes(cat))) {
+                } else if (hasStrongBullish && !sigKeys.some(cat => stressSignals.includes(cat) || dilutionSignals.includes(cat))) {
                   longOpportunity = true;
                 } else {
                   shortOpportunity = true;
@@ -10070,7 +10158,7 @@ if (process.stdin.isTTY) {
           const signalCategories = Object.keys(semanticSignals || {});
           
           // Pattern matching: Identify high-confidence trade scenarios from signal combinations
-          const deterministic = detectDeterministicPatterns(semanticSignals);
+          const deterministic = detectDeterministicPatterns(semanticSignals, text);
           const deterministicPhrase = deterministic.mechanism ? `[${deterministic.mechanism}]` : '';
           
           // Add deterministic signals to categories for scoring boost
@@ -10556,32 +10644,32 @@ if (process.stdin.isTTY) {
             continue;
           }
           
-          // 2. SHORT-SIDE CONSTRAINT: soRatio < 10% is impossible to short (no borrow)
+          // 2. SHORT-SIDE CONSTRAINT: soRatio < 4% is impossible to short (no borrow)
           if (shortOpportunity === true) {
             const soNum = soRatioValue !== null ? parseFloat(soRatioValue) : 0;
-            if (soNum < 10) {
-              skipReason = `SHORT signal but S/O ${soNum.toFixed(2)}% < 10% minimum (unborrowable)`;
+            if (soNum < 4) {
+              skipReason = `SHORT signal but S/O ${soNum.toFixed(2)}% < 4% minimum (unborrowable)`;
               saveToCSV({ ...alertData, skipReason });
               const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
               const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
               log('INFO', `Links: ${secLink} ${tvLink}`);
-              log('SKIP', `$${ticker}, SHORT impossible - S/O ${soNum.toFixed(2)}% (need 10%+ to short)`);
+              log('SKIP', `$${ticker}, SHORT impossible - S/O ${soNum.toFixed(2)}% (need 4%+ to short)`);
               console.log('');
               continue;
             }
           }
           
-          // 3. LONG-SIDE S/O FLOOR: < 5% usually lacks squeeze depth, but tight-float micro-cap and high-confidence catalysts can still trade
+          // 3. LONG-SIDE S/O FLOOR: < 2% usually lacks squeeze depth, but tight-float micro-cap and high-confidence catalysts can still trade
           if (shortOpportunity !== true) {
             const soNum = soRatioValue !== null ? parseFloat(soRatioValue) : 0;
             const allowLowSO = isHighConvictionLong || (isTightFloatMicrocap && soNum < 5);
-            if (soNum < 5 && !allowLowSO) {
-              skipReason = `LONG signal but S/O ${soNum.toFixed(2)}% < 5% (no squeeze potential)`;
+            if (soNum < 2 && !allowLowSO) {
+              skipReason = `LONG signal but S/O ${soNum.toFixed(2)}% < 2% (no squeeze potential)`;
               saveToCSV({ ...alertData, skipReason });
               const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
               const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
               log('INFO', `Links: ${secLink} ${tvLink}`);
-              log('SKIP', `$${ticker}, LONG weak - S/O ${soNum.toFixed(2)}% (need 5%+ for squeeze)`);
+              log('SKIP', `$${ticker}, LONG weak - S/O ${soNum.toFixed(2)}% (need 2%+ for squeeze)`);
               console.log('');
               continue;
             }
