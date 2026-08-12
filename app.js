@@ -1487,6 +1487,98 @@ const parseSemanticSignals = (text) => {
   return signals;
 };
 
+const computeSignalResolution = (semanticSignals, text) => {
+  const lowerText = String(text || '').toLowerCase();
+  const sentences = lowerText.match(/[^.!?]+[.!?]/g) || [lowerText];
+
+  // Modifiers: CAUSE (signal is causal), RESOLVE (signal explicitly resolved/mitigated), STATE (neutral description)
+  const modifiers = {};
+  const categories = Object.keys(semanticSignals || {});
+  for (const c of categories) modifiers[c] = 'State';
+
+  if (categories.length === 0) {
+    return { modifiers };
+  }
+
+  const strongResolvePatterns = [
+    /\b(?:will be used to|used to|to repay|to settle|to resolve|to cure|to cover|to satisfy|to address|to fund|to support|to backstop)\b/i,
+    /\bwith the proceeds\b/i,
+    /\bfor the purpose of\b/i
+  ];
+
+  const weakResolvePatterns = [
+    /\b(?:repay|settle|resolve|cure|cover|satisfy|address|fund|support|backstop)\b/i
+  ];
+
+  const causePatterns = [
+    /\b(?:due to|because of|caused by|resulting from|as a result of|following|after|lead to|led to)\b/i,
+    /\b(?:cause|causes|caused)\b/i
+  ];
+
+  const isBearishCategory = (category) => {
+    const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Regulatory Breach', 'Accounting Restatement', 'Auditor Change', 'Material Lawsuit', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure', 'Related-Party Transaction', 'Offering At A Discount', 'Revenue Loss', 'Asset Disposition', 'PIPE', ...strongBearishSignals];
+    return bearishCats.includes(category);
+  };
+
+  const isNear = (haystack, needle, maxDistance = 80) => {
+    const i = haystack.indexOf(needle);
+    return i >= 0 && i <= maxDistance;
+  };
+
+  const isCloseToAny = (sentence, phrase, candidates) => {
+    const idx = sentence.indexOf(phrase);
+    if (idx < 0) return false;
+    return candidates.some(candidate => {
+      const candidateIdx = sentence.indexOf(candidate);
+      return candidateIdx >= 0 && Math.abs(candidateIdx - idx) <= 80;
+    });
+  };
+
+  for (const sentence of sentences) {
+    const presentCategories = categories.filter(category => {
+      const matches = semanticSignals[category];
+      if (!Array.isArray(matches) || matches.length === 0) return false;
+      return matches.some(match => match && sentence.includes(String(match).toLowerCase()));
+    });
+
+    if (presentCategories.length === 0) continue;
+
+    const sentenceResolveMatch = strongResolvePatterns.find(re => re.exec(sentence));
+    const sentenceWeakResolveMatch = weakResolvePatterns.find(re => re.exec(sentence));
+    const sentenceCauseExec = causePatterns.map(re => re.exec(sentence)).find(Boolean);
+
+    const categoryMatches = presentCategories.flatMap(category => {
+      const matches = semanticSignals[category] || [];
+      return matches.filter(Boolean).map(match => String(match).toLowerCase());
+    });
+
+    const resolvePhrase = sentenceResolveMatch ? sentenceResolveMatch[0].toLowerCase() : '';
+    const weakResolvePhrase = sentenceWeakResolveMatch ? sentenceWeakResolveMatch[0].toLowerCase() : '';
+    const causePhrase = sentenceCauseExec ? sentenceCauseExec[0].toLowerCase() : '';
+
+    const isResolveLinked = Boolean(resolvePhrase && categoryMatches.some(match => isCloseToAny(sentence, resolvePhrase, [match])));
+    const isWeakResolveLinked = Boolean(
+      weakResolvePhrase &&
+      sentence.includes('proceeds') &&
+      categoryMatches.some(match => isCloseToAny(sentence, weakResolvePhrase, [match]) && isCloseToAny(sentence, 'proceeds', [match]))
+    );
+    const isCauseLinked = Boolean(causePhrase && categoryMatches.some(match => isCloseToAny(sentence, causePhrase, [match])));
+
+    if (isResolveLinked || isWeakResolveLinked) {
+      presentCategories.filter(cat => isBearishCategory(cat)).forEach(cat => { modifiers[cat] = 'Resolve'; });
+      continue;
+    }
+
+    if (isCauseLinked) {
+      presentCategories.forEach(cat => {
+        if (modifiers[cat] !== 'Resolve') modifiers[cat] = 'Cause';
+      });
+    }
+  }
+
+  return { modifiers };
+};
+
 // Extract Item Code context from filing (e.g., "Item 8.01", "Item 6.01")
 const extractItemCode = (text) => {
   if (!text) return null;
@@ -1509,39 +1601,6 @@ const getItem801Context = (text) => {
   if (lowerText.includes('regulatory') && (lowerText.includes('violation') || lowerText.includes('investigation'))) {
     return 'Regulatory Loss';
   }
-  return null;
-};
-
-const findLocalContext = (text, terms) => {
-  if (!text || !Array.isArray(terms) || terms.length === 0) return '';
-  const lowerText = text.replace(/\r/g, ' ').toLowerCase();
-  const sentences = lowerText.match(/[^.!?]+[.!?]/g) || [lowerText];
-  const matches = sentences.filter(sentence => terms.some(term => sentence.includes(term)));
-  if (matches.length > 0) {
-    return matches.slice(0, 3).join(' ').trim();
-  }
-  const paragraphs = lowerText.split(/\n{2,}/).filter(paragraph => terms.some(term => paragraph.includes(term)));
-  return paragraphs.slice(0, 2).join(' ').trim();
-};
-
-const resolveAssetDispositionContext = (text) => {
-  if (!text) return null;
-
-  const growthTerms = ['revenue growth', 'commercial inflection', 'commercial traction', 'customer growth', 'revenue-generating', 'commercial momentum', 'commercial pipeline', 'repeat business'];
-  const lossTerms = ['revenue loss', 'decrease in revenue', 'revenue decline', 'reduced revenue', 'revenue reduction', 'loss of revenue', 'lower revenue', 'declining revenue'];
-  const dispositionTerms = ['asset disposition', 'sale of assets', 'divestiture', 'asset sale', 'sold assets', 'business disposition', 'divesting', 'disposition of assets'];
-
-  const context = findLocalContext(text, [...growthTerms, ...lossTerms, ...dispositionTerms]);
-  if (!context) return null;
-
-  const hasGrowth = growthTerms.some(term => context.includes(term));
-  const hasLoss = lossTerms.some(term => context.includes(term));
-  const hasDisposition = dispositionTerms.some(term => context.includes(term));
-
-  if (!hasDisposition) return null;
-  if (hasLoss && !hasGrowth) return 'SHORT';
-  if (hasGrowth && !hasLoss) return 'LONG';
-  if (hasGrowth && hasLoss) return 'MANUAL';
   return null;
 };
 
@@ -1587,60 +1646,18 @@ const extractInsiderBuyingAmount = (text) => {
 };
 
 // Pattern analyzer - maps signal combinations to high-confidence trade direction predictions
-const detectDeterministicPatterns = (semanticSignals, text) => {
+const detectDeterministicPatterns = (semanticSignals, text, modifiers = {}) => {
   if (!semanticSignals || Object.keys(semanticSignals).length === 0) {
     return { pattern: null, mechanism: null };
   }
-  
-  const signals = Object.keys(semanticSignals);
-  
+
+  // Exclude signals explicitly marked as RESOLVE by sentence-level modifiers
+  const signals = Object.keys(semanticSignals).filter(cat => !(modifiers && modifiers[cat] === 'Resolve'));
+
   // Signal categories: verified market catalysts for trading alerts
-  
+
   const hasNasdaqDelisting = signals.includes('Nasdaq Delisting');
   const hasBidPriceDelisting = signals.includes('Bid Price Delisting');
-  
-  // STRICT: Asset Disposition requires supporting signals (distress context)
-  const hasAssetDisposition = signals.includes('Asset Disposition');
-  const hasBankruptcy = signals.includes('Bankruptcy Filing');
-  const hasExecutiveDeparture = signals.includes('Executive Departure');
-
-  if (hasAssetDisposition && signals.includes('Revenue Loss') && signals.includes('Commercial Inflection')) {
-    const contextDirection = resolveAssetDispositionContext(text);
-    if (contextDirection === 'SHORT') {
-      return {
-        pattern: 'Asset Disposition (Revenue Decline)',
-        mechanism: 'Local filing context shows asset sale tied to revenue decline, not growth. Short bias on distressed divestiture.',
-        direction: 'SHORT'
-      };
-    }
-    if (contextDirection === 'LONG') {
-      return {
-        pattern: 'Asset Disposition (Restructuring)',
-        mechanism: 'Local filing context shows asset sale tied to restructuring or growth optimization. Long bias on strategic divestiture.',
-        direction: 'LONG'
-      };
-    }
-    return { pattern: null, mechanism: null };
-  }
-  
-  if (hasAssetDisposition && (hasBankruptcy || hasExecutiveDeparture)) {
-    return {
-      pattern: 'Asset Disposition (Distressed)',
-      mechanism: 'Company liquidating assets in emergency context + leadership exodus = covenant breach scenario. Assets sold at discount, downward spiral.',
-      direction: 'SHORT'
-    };
-  }
-  
-  // Asset disposition without distress signals = restructuring (LONG)
-  if (hasAssetDisposition && signals.length >= 2 && !hasBankruptcy && !hasExecutiveDeparture) {
-    return {
-      pattern: 'Asset Disposition (Restructuring)',
-      mechanism: 'Company optimizing portfolio, disposing non-core assets = better capital allocation. Often precedes M&A or turnaround.',
-      direction: 'LONG'
-    };
-  }
-    
-  // Signal: Corporate consolidation detected
   // M&A catalysts - STRICT: Merger/Acquisition only without other issues
   const hasMergerAcquisition = signals.includes('Merger/Acquisition');
   
@@ -2029,6 +2046,10 @@ const saveAlert = (alertData) => {
       lowest5DayPercent: 0,
       isShort: alertData.isShort,
       // Price tracking snapshots for retrospective analysis
+      priceAfter1m: null,
+      percentAfter1m: null,
+      priceAfter5m: null,
+      percentAfter5m: null,
       priceAfter30m: null,
       percentAfter30m: null,
       priceAfter1h: null,
@@ -2505,6 +2526,8 @@ const syncAllPeakData = () => {
           return null;
         };
         
+        const snapshot1m = maybeSnapshot(stock.priceAfter1m, stock.percentAfter1m, 1 * 60 * 1000);
+        const snapshot5m = maybeSnapshot(stock.priceAfter5m, stock.percentAfter5m, 5 * 60 * 1000);
         const snapshot30m = maybeSnapshot(stock.priceAfter30m, stock.percentAfter30m, 30 * 60 * 1000);
         const snapshot1h = maybeSnapshot(stock.priceAfter1h, stock.percentAfter1h, 60 * 60 * 1000);
         const snapshot6h = maybeSnapshot(stock.priceAfter6h, stock.percentAfter6h, 6 * 60 * 60 * 1000);
@@ -2544,6 +2567,10 @@ const syncAllPeakData = () => {
             highest5DayPercent: highestPercent,
             lowest5Day: lowestPrice,
             lowest5DayPercent: lowestPercent,
+            priceAfter1m: snapshot1m ? snapshot1m.price : stock.priceAfter1m,
+            percentAfter1m: snapshot1m ? snapshot1m.percent : stock.percentAfter1m,
+            priceAfter5m: snapshot5m ? snapshot5m.price : stock.priceAfter5m,
+            percentAfter5m: snapshot5m ? snapshot5m.percent : stock.percentAfter5m,
             priceAfter30m: snapshot30m ? snapshot30m.price : stock.priceAfter30m,
             percentAfter30m: snapshot30m ? snapshot30m.percent : stock.percentAfter30m,
             priceAfter1h: snapshot1h ? snapshot1h.price : stock.priceAfter1h,
@@ -2575,6 +2602,10 @@ const syncAllPeakData = () => {
             highest5DayPercent: highestPercent,
             lowest5Day: lowestPrice,
             lowest5DayPercent: lowestPercent,
+            priceAfter1m: snapshot1m ? snapshot1m.price : stock.priceAfter1m,
+            percentAfter1m: snapshot1m ? snapshot1m.percent : stock.percentAfter1m,
+            priceAfter5m: snapshot5m ? snapshot5m.price : stock.priceAfter5m,
+            percentAfter5m: snapshot5m ? snapshot5m.percent : stock.percentAfter5m,
             priceAfter30m: snapshot30m ? snapshot30m.price : stock.priceAfter30m,
             percentAfter30m: snapshot30m ? snapshot30m.percent : stock.percentAfter30m,
             priceAfter1h: snapshot1h ? snapshot1h.price : stock.priceAfter1h,
@@ -9717,6 +9748,9 @@ if (process.stdin.isTTY) {
               semanticSignals['PIPE'].push('PIPE');
             }
           } catch (e) {}
+
+            const signalResolution = computeSignalResolution(semanticSignals, text);
+            const modifiersMap = (signalResolution && signalResolution.modifiers) ? signalResolution.modifiers : {};
           
           // Extract financial ratio signals - bankruptcy indicators
           const financialRatioData = parseFinancialRatios(text);
@@ -10042,16 +10076,18 @@ if (process.stdin.isTTY) {
           if (!isOnCTBWatchlist) {
             // Determine if this is a SHORT or LONG opportunity based on signals (non-CTB only)
             const sigKeys = Object.keys(semanticSignals || {});
+            const resolvedBearishSignals = new Set(Object.keys(modifiersMap).filter(c => modifiersMap[c] === 'Resolve'));
+            const activeSigKeys = sigKeys.filter(cat => modifiersMap[cat] !== 'Resolve');
             
             // Bearish signals that force SHORT regardless
             const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Regulatory Breach', 'Accounting Restatement', 'Auditor Change', 'Material Lawsuit', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure', 'Related-Party Transaction', 'Offering At A Discount', 'Revenue Loss', 'Asset Disposition', 'PIPE', ...strongBearishSignals];
-            const bearishCount = sigKeys.filter(cat => bearishCats.includes(cat)).length;
+            const bearishCount = activeSigKeys.filter(cat => bearishCats.includes(cat)).length;
             const bullishCats = ['Merger/Acquisition', 'Clinical Success', 'Clinical Milestone', 'DTC Eligible Restored', 'Government Contract', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Insider Buying', 'Contingent Value Rights'];
-            const bullishCount = sigKeys.filter(cat => bullishCats.includes(cat)).length;
+            const bullishCount = activeSigKeys.filter(cat => bullishCats.includes(cat)).length;
             
             // BULL TRAP EXTRACTION DETECTION: Predatory structure + equity incentive
             // When predator has equity (shares/warrants), they profit from bull catalyst before dumping
-            const hasGoingConcern = sigKeys.includes('Going Concern');
+            const hasGoingConcern = activeSigKeys.includes('Going Concern');
             
             // Bull trap extraction pattern:
             // 1. Item 3.02 unregistered equity (predator detection)
@@ -10062,7 +10098,7 @@ if (process.stdin.isTTY) {
             // 6. REQUIRE: Predator must pass unified predatory financing filter (known bad actor or dodgy LLC)
             let isBullTrapExtraction = false;
             const fatalBearishSignals = ['Bankruptcy Filing', 'Credit Default'];
-            const hasFatalBearish = fatalBearishSignals.some(cat => sigKeys.includes(cat));
+            const hasFatalBearish = fatalBearishSignals.some(cat => activeSigKeys.includes(cat));
             
             // ALWAYS check for predatory financing to capture details for logging
             let predatoryCheck = { isPredatory: false, predatorName: null, reason: null };
@@ -10158,7 +10194,7 @@ if (process.stdin.isTTY) {
           const signalCategories = Object.keys(semanticSignals || {});
           
           // Pattern matching: Identify high-confidence trade scenarios from signal combinations
-          const deterministic = detectDeterministicPatterns(semanticSignals, text);
+          const deterministic = detectDeterministicPatterns(semanticSignals, text, modifiersMap);
           const deterministicPhrase = deterministic.mechanism ? `[${deterministic.mechanism}]` : '';
           
           // Add deterministic signals to categories for scoring boost
