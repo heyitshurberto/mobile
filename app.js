@@ -36,7 +36,7 @@ const CONFIG = {
   STRONG_SIGNAL_MIN_VOLUME: 1000,    // Volume threshold for high-confidence signal detection
   MAX_FLOAT_6K: 100000000,           // Maximum float size threshold for 6-K filings
   MAX_FLOAT_8K: 125000000,           // Maximum float size threshold for 8-K filings
-  MAX_FAV_RATIO: 300,                // Maximum float-to-average-volume ratio threshold
+  MAX_FAV_RATIO: 1000,                // Maximum float-to-average-volume ratio threshold
   ALLOWED_COUNTRIES: ['israel', 'singapore', 'ireland', 'new york', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'bvi', 'virgin islands', 'canada', 'nevada', 'delaware'], // Whitelisted jurisdictions for company registration
   CTB_WATCHLIST: ['GITS','MWC','RGNT','OMH','SMCZ','ATPC','FABTQ','SLGB','ISCO','CLRO','NCT','BIYA','ZCMD','CZOOF','DXST','ZYBT','SLBT','IOTR','HIHO','DXF','CJMB','EGG','PRFX','TGHL','EHGO'], // Symbols with elevated cost-to-borrow values from IBorrowDesk
   PI_MODE: true,              // Enable optimizations for resource-constrained environments          
@@ -1188,7 +1188,7 @@ const detectNT10KCycle = (text, filingType) => {
 // 6. Third-Party Services Detection - Proxy solicitors, M&A advisors, transfer agents
 const detectThirdPartyServices = (text) => {
   if (!text) return null;
-  const lowerText = text.toLowerCase();
+  const lowerText = String(text || '').toLowerCase();
   
   const services = {
     'D.F. King': /d\.f\.\s*king|df king/i,
@@ -1216,7 +1216,7 @@ const SEC_CODE_TO_COUNTRY = {'C2':'Shanghai, China','F4':'Shadong, China','F8':'
 
 const detectItem302HiddenBuyers = (text) => {
   if (!text) return null;
-  const lowerText = text.toLowerCase();
+  const lowerText = String(text || '').toLowerCase();
   
   const hasItem302 = /item\s+3\.02|unregistered.*equity|registered direct|regulation\s*s|rule\s*902|offshore\s+transaction/i.test(lowerText);
   if (!hasItem302) return null;
@@ -1261,8 +1261,8 @@ const detectItem302HiddenBuyers = (text) => {
 
 const identifyPredatorLender = (text, buyerDescription) => {
   if (!text) return null;
-  
-  const lowerText = text.toLowerCase();
+
+  const lowerText = String(text || '').toLowerCase();
   const buyerLower = (buyerDescription || '').toLowerCase();
   const combined = lowerText + ' ' + buyerLower;
   
@@ -1315,7 +1315,7 @@ const identifyPredatorLender = (text, buyerDescription) => {
 const isPredatoryFinancingAlert = (text, buyerDescription = '') => {
   if (!text) return { isPredatory: false, reason: null };
   
-  const lowerText = text.toLowerCase();
+  const lowerText = String(text || '').toLowerCase();
   const buyerLower = (buyerDescription || '').toLowerCase();
   const combined = lowerText + ' ' + buyerLower;
   
@@ -1410,7 +1410,7 @@ const isPredatoryFinancingAlert = (text, buyerDescription = '') => {
 // Signal detection engine - identifies market catalysts from filing text
 const detectFailedTrialRelationship = (text) => {
   if (!text) return false;
-  const lowerText = text.toLowerCase();
+  const lowerText = String(text || '').toLowerCase();
 
   const failureTerms = [
     'did not meet its key activity endpoint',
@@ -1439,7 +1439,7 @@ const detectFailedTrialRelationship = (text) => {
 
 const parseSemanticSignals = (text) => {
   if (!text) return {};
-  const lowerText = text.toLowerCase();
+  const lowerText = String(text || '').toLowerCase();
   const signals = {};
   
   // Failed trials are significant bearish signals that override other factors
@@ -1552,9 +1552,9 @@ const computeSignalResolution = (semanticSignals, text) => {
       return matches.filter(Boolean).map(match => String(match).toLowerCase());
     });
 
-    const resolvePhrase = sentenceResolveMatch ? sentenceResolveMatch[0].toLowerCase() : '';
-    const weakResolvePhrase = sentenceWeakResolveMatch ? sentenceWeakResolveMatch[0].toLowerCase() : '';
-    const causePhrase = sentenceCauseExec ? sentenceCauseExec[0].toLowerCase() : '';
+    const resolvePhrase = sentenceResolveMatch && sentenceResolveMatch[0] ? String(sentenceResolveMatch[0]).toLowerCase() : '';
+    const weakResolvePhrase = sentenceWeakResolveMatch && sentenceWeakResolveMatch[0] ? String(sentenceWeakResolveMatch[0]).toLowerCase() : '';
+    const causePhrase = sentenceCauseExec && sentenceCauseExec[0] ? String(sentenceCauseExec[0]).toLowerCase() : '';
 
     const isResolveLinked = Boolean(resolvePhrase && categoryMatches.some(match => isCloseToAny(sentence, resolvePhrase, [match])));
     const isWeakResolveLinked = Boolean(
@@ -1590,7 +1590,7 @@ const extractItemCode = (text) => {
 // Detect if Item 8.01 contains specific context (patent loss, lawsuit, etc.)
 const getItem801Context = (text) => {
   if (!text) return null;
-  const lowerText = text.toLowerCase();
+  const lowerText = String(text || '').toLowerCase();
   
   if (lowerText.includes('patent') && (lowerText.includes('revoked') || lowerText.includes('lost') || lowerText.includes('invalidated'))) {
     return 'Patent Loss';
@@ -1998,6 +1998,7 @@ const saveAlert = (alertData) => {
       const now = new Date();
       const etTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
       log('INFO', `Skipping dashboard alert for ${alertData.ticker} - Outside allowed alert window (${etTime.toLocaleString('en-US', { timeZone: 'America/New_York' })})`);
+      console.log('');
       return;
     }
 
@@ -10344,10 +10345,10 @@ if (process.stdin.isTTY) {
             continue;
           }
           
-          // Check minimum price filter - skip alerts for stocks below $0.2
+          // Check minimum price filter - skip alerts for stocks below $0.1
           const priceFloat = parseFloat(price) || 0;
-          if (priceFloat > 0 && priceFloat < 0.2) {
-            skipReason = `Price too low: $${priceFloat.toFixed(4)} below $0.2 minimum`;
+          if (priceFloat > 0 && priceFloat < 0.1) {
+            skipReason = `Price too low: $${priceFloat.toFixed(4)} below $0.1 minimum`;
             const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
             const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
             log('INFO', `Links: ${secLink} ${tvLink}`);
@@ -10582,9 +10583,9 @@ if (process.stdin.isTTY) {
             continue;
           }
 
-          // F/AV filtering: skip stocks exceeding max ratio (65x)
+          // F/AV filtering removed — per user request, do not skip based on F/AV values
           const favNum = parseFloat(fav) || 0;
-          
+
           // Initialize alertData early to prevent uninitialized reference errors
           let alertData = {
             ticker: ticker || filing.cik || 'Unknown',
@@ -10619,18 +10620,7 @@ if (process.stdin.isTTY) {
               reason: predatoryCheck.reason
             } : null
           };
-          
-          if (favNum > CONFIG.MAX_FAV_RATIO && favNum !== 0) {
-            alertData.skipReason = `F/AV ${favNum}x exceeds max threshold of ${CONFIG.MAX_FAV_RATIO}x`;
-            saveToCSV(alertData);
-            const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
-            const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
-            log('INFO', `Links: ${secLink} ${tvLink}`);
-            log('SKIP', `$${ticker}, F/AV ${favNum}x exceeds ${CONFIG.MAX_FAV_RATIO}x limit`);
-            console.log('');
-            continue;
-          }
-          
+
           // === TRADABILITY FILTERS ===
           
           const isHighConvictionLong = !shortOpportunity && (
@@ -10645,42 +10635,6 @@ if (process.stdin.isTTY) {
           const isAcquisitionAgreement = signalCategories.includes('Acquisition Agreement');
           const numFloatForFilter = numFloat || 0;
           const isTightFloatMicrocap = numFloatForFilter > 0 && numFloatForFilter <= 15000000;
-          
-          // 1. HARD REJECT: F/AV (untradeable, gets slipped on entry/exit)
-          if (favNum > 0 && favNum < 0.2 && !isAcquisitionAgreement) {
-            skipReason = `F/AV ${favNum.toFixed(2)}x below absolute minimum (untradeable liquidity)`;
-            saveToCSV({ ...alertData, skipReason });
-            const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
-            const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
-            log('INFO', `Links: ${secLink} ${tvLink}`);
-            log('SKIP', `$${ticker}, F/AV ${favNum.toFixed(2)}x - untradeable (absolute minimum)`);
-            console.log('');
-            continue;
-          }
-          
-          // 1a. CONDITIONAL REVIEW: F/AV 3-5x is acceptable for high-conviction long setups
-          if (favNum >= 3 && favNum < 5 && !isHighConvictionLong && !isAcquisitionAgreement) {
-            skipReason = `F/AV ${favNum.toFixed(2)}x below the preferred 5x threshold for general alerts`;
-            saveToCSV({ ...alertData, skipReason });
-            const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
-            const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
-            log('INFO', `Links: ${secLink} ${tvLink}`);
-            log('SKIP', `$${ticker}, F/AV ${favNum.toFixed(2)}x - below preferred 5x threshold`);
-            console.log('');
-            continue;
-          }
-          
-          // 1b. HARD REJECT: F/AV > 65x (overextended blowoff, late entry, already crowded)
-          if (favNum > 65) {
-            skipReason = `F/AV ${favNum.toFixed(2)}x above 65x (overextended blowoff/meme volume)`;
-            saveToCSV({ ...alertData, skipReason });
-            const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
-            const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
-            log('INFO', `Links: ${secLink} ${tvLink}`);
-            log('SKIP', `$${ticker}, F/AV ${favNum.toFixed(2)}x - overextended (news-driven exhaustion, too late)`);
-            console.log('');
-            continue;
-          }
           
           // 2. SHORT-SIDE CONSTRAINT: soRatio < 4% is impossible to short (no borrow)
           if (shortOpportunity === true) {
