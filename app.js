@@ -1426,7 +1426,7 @@ const detectFailedTrialRelationship = (text) => {
     'potential confounders'
   ];
 
-  const trialTerms = ['trial', 'study', 'program', 'drug', 'endpoint', 'protocol', 'sion-719'];
+  const trialTerms = ['trial', 'study', 'program', 'drug', 'endpoint', 'protocol'];
   const sentenceRegex = /[^.!?]+[.!?]/g;
   const sentences = lowerText.match(sentenceRegex) || [lowerText];
 
@@ -10287,10 +10287,12 @@ if (process.stdin.isTTY) {
           let countryWhitelisted = true;
           if (ticker === 'PMN') log('DEBUG', `PMN: Checking country whitelist...`);
           if (!isOnCTBWatchlist) {
-            const incorporatedMatch = CONFIG.ALLOWED_COUNTRIES.some(country => normalizedIncorporated.toLowerCase().includes(country));
-            const locatedMatch = CONFIG.ALLOWED_COUNTRIES.some(country => normalizedLocated.toLowerCase().includes(country));
-            const isCaymanOrBVI = normalizedIncorporated.toLowerCase().includes('cayman') || normalizedLocated.toLowerCase().includes('cayman') || 
-                                  normalizedIncorporated.toLowerCase().includes('virgin') || normalizedLocated.toLowerCase().includes('virgin');
+            const incorporatedText = String(normalizedIncorporated || 'Unknown').toLowerCase();
+            const locatedText = String(normalizedLocated || 'Unknown').toLowerCase();
+            const incorporatedMatch = CONFIG.ALLOWED_COUNTRIES.some(country => incorporatedText.includes(country));
+            const locatedMatch = CONFIG.ALLOWED_COUNTRIES.some(country => locatedText.includes(country));
+            const isCaymanOrBVI = incorporatedText.includes('cayman') || locatedText.includes('cayman') || 
+                                  incorporatedText.includes('virgin') || locatedText.includes('virgin');
             
             if (filing.formType === '6-K' || filing.formType === '6-K/A') {
               // 6-K filings: Only allow whitelisted countries
@@ -10749,7 +10751,9 @@ if (process.stdin.isTTY) {
           const hasTuesdayBonus = dayOfWeek === 2;
           
           const custodianInfo = detectCustodianBanks(text);
-          const custodianControl = Boolean(custodianInfo || (normalizedIncorporated && normalizedLocated && normalizedIncorporated.toLowerCase() !== normalizedLocated.toLowerCase()));
+          const incorporatedText = String(normalizedIncorporated || 'Unknown').toLowerCase();
+          const locatedText = String(normalizedLocated || 'Unknown').toLowerCase();
+          const custodianControl = Boolean(custodianInfo || (normalizedIncorporated && normalizedLocated && incorporatedText !== locatedText));
           const isCustodianVerified = custodianInfo ? custodianInfo.verified : custodianControl;
           let custodianName = custodianInfo ? custodianInfo.custodian : null;
           if (!custodianName && custodianControl) {
