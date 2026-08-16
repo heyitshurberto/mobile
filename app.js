@@ -10636,16 +10636,16 @@ if (process.stdin.isTTY) {
           const numFloatForFilter = numFloat || 0;
           const isTightFloatMicrocap = numFloatForFilter > 0 && numFloatForFilter <= 15000000;
           
-          // 2. SHORT-SIDE CONSTRAINT: soRatio < 4% is impossible to short (no borrow)
+          // 2. SHORT-SIDE CONSTRAINT: soRatio < 1% is impossible to short (no borrow)
           if (shortOpportunity === true) {
             const soNum = soRatioValue !== null ? parseFloat(soRatioValue) : 0;
-            if (soNum < 4) {
-              skipReason = `SHORT signal but S/O ${soNum.toFixed(2)}% < 4% minimum (unborrowable)`;
+            if (soNum < 1) {
+              skipReason = `SHORT signal but S/O ${soNum.toFixed(2)}% < 1% minimum (unborrowable)`;
               saveToCSV({ ...alertData, skipReason });
               const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
               const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
               log('INFO', `Links: ${secLink} ${tvLink}`);
-              log('SKIP', `$${ticker}, SHORT impossible - S/O ${soNum.toFixed(2)}% (need 4%+ to short)`);
+              log('SKIP', `$${ticker}, SHORT impossible - S/O ${soNum.toFixed(2)}% (need 1%+ to short)`);
               console.log('');
               continue;
             }
