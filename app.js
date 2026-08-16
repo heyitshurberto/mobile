@@ -31,7 +31,7 @@ if (fs.existsSync('.env')) {
 // Configuration object - all adjustable parameters for system behavior
 const CONFIG = {
   // Alert filtering criteria
-  FILE_TIME: 1000000000,                     // Historical lookback window in minutes for filing discovery
+  FILE_TIME: 1,                     // Historical lookback window in minutes for filing discovery
   MIN_ALERT_VOLUME: 2000,           // Minimum volume threshold for initial alert trigger
   STRONG_SIGNAL_MIN_VOLUME: 1000,    // Volume threshold for high-confidence signal detection
   MAX_FLOAT_6K: 100000000,           // Maximum float size threshold for 6-K filings
