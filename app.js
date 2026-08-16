@@ -31,7 +31,7 @@ if (fs.existsSync('.env')) {
 // Configuration object - all adjustable parameters for system behavior
 const CONFIG = {
   // Alert filtering criteria
-  FILE_TIME: 1,                     // Historical lookback window in minutes for filing discovery
+  FILE_TIME: 1000000000,                     // Historical lookback window in minutes for filing discovery
   MIN_ALERT_VOLUME: 2000,           // Minimum volume threshold for initial alert trigger
   STRONG_SIGNAL_MIN_VOLUME: 1000,    // Volume threshold for high-confidence signal detection
   MAX_FLOAT_6K: 100000000,           // Maximum float size threshold for 6-K filings
@@ -401,8 +401,8 @@ const parseFilerName = (text) => {
 // Custodian detection - identifies major financial institutions in custody or transfer roles
 const detectCustodianBanks = (text) => {
   if (!text) return false;
-  
-  const lowerText = text.toLowerCase();
+
+  const lowerText = String(text || '').toLowerCase();
   
   // Pattern 1: Custodian bank designations (word boundaries prevent false matches)
   // Looks for "jpmorgan" or "j.p. morgan" as custodian or depositary
@@ -1077,7 +1077,7 @@ const parseFinancialRatios = (filingText) => {
 // 1. DTC Chill Lift Detector
 const detectDTCChillLift = (text) => {
   if (!text) return null;
-  const lowerText = text.toLowerCase();
+  const lowerText = String(text || '').toLowerCase();
   const liftPatterns = ['dtc chill lifted', 'dtc eligibility restored', 'dtc eligible', 'shares are now dtc eligible', 'dtc has restored'];
   return liftPatterns.some(p => lowerText.includes(p)) ? 'DTC_CHILL_LIFT' : null;
 };
@@ -1134,7 +1134,7 @@ const detectBatchFiling = (allFilings) => {
 // Shell company detection - identifies recycled entities with name/structure changes
 const detectShellRecycling = (text) => {
   if (!text) return null;
-  const lowerText = text.toLowerCase();
+  const lowerText = String(text || '').toLowerCase();
   
   const hasForm15 = lowerText.includes('form 15') || lowerText.includes('going dark');
   const hasNameChange = lowerText.includes('name change') || lowerText.includes('certificate of amendment') || 
@@ -1146,7 +1146,7 @@ const detectShellRecycling = (text) => {
 // 4. VStock Transfer Agent Detection - Transfer agent rotation indicator
 const detectVStockTransferAgent = (text) => {
   if (!text) return null;
-  const lowerText = text.toLowerCase();
+  const lowerText = String(text || '').toLowerCase();
   
   const patterns = [
     { from: /equity stock transfer/i, to: /vstock transfer/i, signal: 'VStock Setup' },
@@ -1163,7 +1163,7 @@ const detectVStockTransferAgent = (text) => {
 // 5. NT 10-K → Actual 10-K Cycle (Chinese ADRs) - Filing cycle pattern
 const detectNT10KCycle = (text, filingType) => {
   if (!text) return null;
-  const lowerText = text.toLowerCase();
+  const lowerText = String(text || '').toLowerCase();
   
   const isChinese = lowerText.includes('prc') || lowerText.includes('china') || 
                     lowerText.includes('cayman') || lowerText.includes('bvi') ||
