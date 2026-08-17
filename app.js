@@ -10636,7 +10636,7 @@ if (process.stdin.isTTY) {
           const numFloatForFilter = numFloat || 0;
           const isTightFloatMicrocap = numFloatForFilter > 0 && numFloatForFilter <= 15000000;
           
-          // 2. SHORT-SIDE CONSTRAINT: soRatio < 1% is impossible to short (no borrow)
+          // 2. SHORT-SIDE CONSTRAINT: soRatio < 1% (no borrow)
           if (shortOpportunity === true) {
             const soNum = soRatioValue !== null ? parseFloat(soRatioValue) : 0;
             if (soNum < 1) {
