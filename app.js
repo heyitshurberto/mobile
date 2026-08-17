@@ -10583,6 +10583,7 @@ if (process.stdin.isTTY) {
             continue;
           }
 
+          // F/AV filtering removed — per user request, do not skip based on F/AV values
           const favNum = parseFloat(fav) || 0;
 
           // Initialize alertData early to prevent uninitialized reference errors
