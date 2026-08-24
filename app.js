@@ -514,8 +514,13 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
   }
   
   // Fast-track bankruptcy indicators (force SHORT immediately)
-  const deathSpiral = ['Bankruptcy Filing', 'Credit Default', 'Executive Liquidation', 'Going Dark'].some(cat => signalArray.includes(cat));
-  if (deathSpiral) {
+  // EXCEPTION: Credit Default + Capital Raise = capital addressing the covenant issue = LONG not SHORT
+  const deathSpiral = ['Bankruptcy Filing', 'Executive Liquidation', 'Going Dark'].some(cat => signalArray.includes(cat));
+  const hasCreditDefault = signalArray.includes('Credit Default');
+  const hasFatalBearish = deathSpiral || (hasCreditDefault && !hasCapitalRaise);
+  
+  // Only force immediate SHORT if it's bankruptcy, going dark, or Credit Default without capital solution
+  if (deathSpiral || (hasCreditDefault && !hasCapitalRaise)) {
     return { direction: 'SHORT', confidence: 0.85 };
   }
 
@@ -531,14 +536,26 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
   const hasHeavyweightBearish = heavyweightBearish.some(cat => signalArray.includes(cat));
   
   // Moderate bearish (only count when reinforced by heavyweight or structural signals)
-  const moderateBearish = ['Nasdaq Delisting', 'Bid Price Delisting', 'Failed Trial', 'Material Lawsuit', 'Revenue Loss', 'Asset Disposition', 'Related-Party Transaction', 'Offering At A Discount', 'PIPE'];
+  // NOTE: Asset Disposition and Related-Party Transaaction removed - these are conditional, not automatically bearish
+  const moderateBearish = ['Nasdaq Delisting', 'Bid Price Delisting', 'Failed Trial', 'Material Lawsuit', 'Revenue Loss', 'Offering At A Discount', 'PIPE'];
   const structuralBearish = ['Convertible Debt'];
   
   // Bullish signals (including confidence signals like buybacks)
-  const bullishSignals = ['Insider Buying', 'Licensing Deal', 'Government Contract', 'Stock Buyback', 'DTC Eligible Restored', 'Commercial Inflection'];
+  // Capital Raise: Only bearish if it's clearly dilutive (no proceeds disclosed); otherwise it's capital support
+  const bullishSignals = ['Insider Buying', 'Licensing Deal', 'Government Contract', 'Stock Buyback', 'DTC Eligible Restored', 'Commercial Inflection', 'Capital Raise'];
   
+  // Conditional bearish signals: Asset Disposition is only short if company is actually selling
+  // Related-Party Transaction is only short if it shows extraction, not investment
+  // These are context-dependent, not categorical bearish
   const hasAssetDisposition = signalArray.includes('Asset Disposition');
-  const dilutionBearish = ['Revenue Loss', 'Asset Disposition', 'Related-Party Transaction', 'Offering At A Discount', 'PIPE'];
+  const hasRelatedPartyTransaction = signalArray.includes('Related-Party Transaction');
+  const hasCapitalRaise = signalArray.includes('Capital Raise');
+  
+  // Distressed Disposition: Asset Disposition paired with Credit Default, Bankruptcy, or Going Dark
+  const isDistressedDisposition = hasAssetDisposition && ['Credit Default', 'Bankruptcy Filing', 'Going Dark'].some(cat => signalArray.includes(cat));
+  
+  // Only count as dilution if we have Offering At Discount or PIPE (true dilution)
+  const dilutionBearish = ['Revenue Loss', 'Offering At A Discount', 'PIPE'];
   const dilutionCount = dilutionBearish.filter(cat => signalArray.includes(cat)).length;
   
   const heavyweightCount = heavyweightBearish.filter(cat => signalArray.includes(cat)).length;
@@ -549,8 +566,15 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
   // Distressed Asset Disposition counts as additional bearish weight
   const totalBearish = heavyweightCount + moderateCount + structuralCount;
   
-  if (dilutionCount >= 1) {
+  // True dilution: only Offering At Discount or PIPE without capital infusion = SHORT
+  if (dilutionCount >= 1 && !hasCapitalRaise) {
     return { direction: 'SHORT', confidence: 0.65 };
+  }
+  
+  // Capital Raise with disclosed use of proceeds (acquisition, working capital) = LONG structural support
+  // Do not short when capital is flowing in for operations/acquisition
+  if (hasCapitalRaise && !hasFatalBearish) {
+    return { direction: 'LONG', confidence: 0.75 };
   }
   
   // Heavy/Moderate bearish always win if >= 2 combined
@@ -578,6 +602,22 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
       return { direction: 'SHORT', confidence: 0.75 };
     }
     return { direction: 'LONG', confidence: 0.75 };
+  }
+  
+  // Conditional Asset Disposition: Only bearish if company is selling/divesting
+  // If paired with Capital Raise or Acquisition, Asset Disposition means company is acquiring, not selling
+  if (hasAssetDisposition && !hasCapitalRaise && !hasMergerAcquisition) {
+    // Only treat Asset Disposition as bearish if it stands alone (actual distress sale)
+    if (heavyweightCount === 0 && moderateCount === 0) {
+      return { direction: 'SHORT', confidence: 0.65 };
+    }
+  }
+  
+  // Conditional Related-Party Transaction: Only bearish if it shows extraction/selling
+  // If paired with Capital Raise, related party is investing/supporting, not extracting
+  if (hasRelatedPartyTransaction && !hasCapitalRaise && heavyweightCount === 0) {
+    // Related party transaction alone is borderline; don't force SHORT without other signals
+    // This is context, not direction by itself
   }
   
   // Fast-track pure growth catalysts (force LONG immediately) - only if no distress signals
