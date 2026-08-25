@@ -6,6 +6,7 @@ import { execSync } from 'child_process';
 import crypto from 'crypto';
 import express from 'express';
 import bcrypt from 'bcrypt';
+import AIPipeline from './brain/interface.js';
 
 // Load environment variables from .env file
 if (fs.existsSync('.env')) {
@@ -2164,6 +2165,14 @@ const saveAlert = (alertData) => {
         pushToGistOnly();
       } catch (writeErr) {
         log('ERR', `Failed to write ${CONFIG.STOCKS_FILE}: ${writeErr.message}`);
+      }
+      
+      // Prepare alert with empty ai_analysis stub (runs in background)
+      try {
+        const brain = new AIPipeline();
+        brain.prepareAlert(enrichedData);
+      } catch (e) {
+        // Silent fail - AI pipeline not critical to alert save
       }
     }
     
@@ -9637,6 +9646,41 @@ setInterval(updateAllPerformanceData, 30000);
 
 // Sync all peak data to stocks.json every 10 seconds
 setInterval(syncAllPeakData, 10000);
+
+// Brain: Periodic analysis of expired alerts (every 60 seconds)
+setInterval(async () => {
+  try {
+    const brain = new AIPipeline();
+    const stocksPath = CONFIG.STOCKS_FILE;
+    if (fs.existsSync(stocksPath)) {
+      const stocks = JSON.parse(fs.readFileSync(stocksPath, 'utf8'));
+      const now = new Date();
+      const hasExpired = stocks.some(s => s.expiresAt && new Date(s.expiresAt) <= now && s.highest5DayPercent !== undefined);
+      if (hasExpired) {
+        await brain.analyze(stocksPath).catch(e => {
+          // Silent fail - analysis not critical to app operation
+        });
+      }
+    }
+  } catch (e) {
+    // Silent fail
+  }
+}, 60000);
+
+// Brain: Weekly retraining (every 7 days)
+setInterval(async () => {
+  try {
+    const brain = new AIPipeline();
+    const stocksPath = CONFIG.STOCKS_FILE;
+    if (fs.existsSync(stocksPath)) {
+      await brain.retrain(stocksPath).catch(e => {
+        // Silent fail - retraining not critical to app operation
+      });
+    }
+  } catch (e) {
+    // Silent fail
+  }
+}, 7 * 24 * 60 * 60 * 1000);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {

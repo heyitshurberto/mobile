@@ -1,1 +1,78 @@
-[]
+[
+  {
+    "ticker": "CGTL",
+    "title": "6-K - Creative Global Technology Holdings Ltd (0001967822) (Filer)",
+    "companyName": "Creative Global Technology Holdings Ltd",
+    "filerName": null,
+    "price": 4.799,
+    "fav": "1.51",
+    "volume": 8011,
+    "averageVolume": 760864,
+    "float": 1152588,
+    "sharesOutstanding": 1148333,
+    "soRatio": "100.4%",
+    "marketCap": 8230280,
+    "isShort": true,
+    "ftd": 43773,
+    "intent": "Convertible Debt, Credit Default, Asset Disposition",
+    "incorporated": "Cayman Islands",
+    "located": "Kowloon Bay, Hong Kong",
+    "filingDate": "2026-08-25T10:30:03-04:00",
+    "signals": {
+      "Convertible Debt": [
+        "Convertible Securities"
+      ],
+      "Credit Default": [
+        "Notice Of Default"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ]
+    },
+    "bonusSignals": {
+      "VStock": "VStock Setup",
+      "Third Party": [
+        "Okapi Partners",
+        "VStock Transfer"
+      ]
+    },
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "S-8",
+      "20-F",
+      "EX-99.1"
+    ],
+    "cik": "1967822",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Electrical Equipment",
+    "hasTuesdayBonus": true,
+    "custodianVerified": true,
+    "custodianName": "Kowloon Bay, Hong Kong (via Cayman Islands)",
+    "filingTimeBonus": 1.15,
+    "recordedAt": "2026-08-25T14:30:58.651Z",
+    "recordId": "CGTL-1787668258651",
+    "expiresAt": "2026-08-28T14:30:58.652Z",
+    "direction": "SHORT",
+    "highest5Day": 4.799,
+    "highest5DayPercent": 0,
+    "lowest5Day": 4.799,
+    "lowest5DayPercent": 0,
+    "priceAfter1m": null,
+    "percentAfter1m": null,
+    "priceAfter5m": null,
+    "percentAfter5m": null,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null
+  }
+]

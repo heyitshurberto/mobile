@@ -435,6 +435,14 @@ document.addEventListener('DOMContentLoaded', function() {
             noButton.addEventListener('click', handleNo);
             yesButton.addEventListener('touchend', handleTouchYes, { passive: false });
             noButton.addEventListener('touchend', handleTouchNo, { passive: false });
+            // Add pointer events to improve responsiveness on Android devices
+            yesButton.addEventListener('pointerup', handleYes, { passive: false });
+            noButton.addEventListener('pointerup', handleNo, { passive: false });
+            // Prevent default touchstart to avoid 300ms delays on some browsers
+            yesButton.addEventListener('touchstart', (e) => { e.preventDefault(); }, { passive: false });
+            noButton.addEventListener('touchstart', (e) => { e.preventDefault(); }, { passive: false });
+            yesButton.style.touchAction = 'manipulation';
+            noButton.style.touchAction = 'manipulation';
             modal.addEventListener('click', handleModalClick);
             document.addEventListener('keydown', handleKeyboard);
             
@@ -747,20 +755,39 @@ document.addEventListener('DOMContentLoaded', function() {
 
         toggleButton.textContent = viewLabel('single');
 
+        // Tweak button sizes and spacing on mobile to avoid touching
+        if (isMobile) {
+            try {
+                toggleButton.style.padding = '6px 10px';
+                toggleButton.style.fontSize = '12px';
+                toggleButton.style.minWidth = '84px';
+                toggleButton.style.borderRadius = '6px';
+                closeButton.style.padding = '6px 10px';
+                closeButton.style.fontSize = '12px';
+                closeButton.style.marginLeft = '8px';
+                closeButton.style.borderRadius = '6px';
+            } catch (e) {}
+        }
+
         const updateViewMode = (mode) => {
             viewMode = mode;
             if (mode === 'single') {
                 chartsGrid.style.gridTemplateColumns = '1fr';
                 chartsGrid.querySelectorAll('.multi-chart-item').forEach(item => {
-                    item.style.minHeight = isMobile ? 'calc(77vh)' : 'calc(65vh)';
-                    item.querySelector('[id^="multi_chart_"]').style.height = 'calc(60vh)';
+                    // Reduce single-view chart height on mobile to avoid long top/bottom borders
+                    item.style.minHeight = isMobile ? '65vh' : 'calc(65vh)';
+                    item.querySelector('[id^="multi_chart_"]').style.height = isMobile ? '52vh' : 'calc(60vh)';
+                    // Tighten header padding in single view on mobile
+                    const hdr = item.querySelector('div');
+                    if (hdr) hdr.style.padding = isMobile ? '6px 8px' : hdr.style.padding;
                 });
                 toggleButton.textContent = viewLabel('grid');
             } else {
                 chartsGrid.style.gridTemplateColumns = isMobile ? 'repeat(2, minmax(0, 1fr))' : gridCols;
                 chartsGrid.querySelectorAll('.multi-chart-item').forEach(item => {
-                    item.style.minHeight = isMobile ? '220px' : '300px';
-                    item.querySelector('[id^="multi_chart_"]').style.height = isMobile ? '190px' : '250px';
+                    // Slightly larger tiles but keep compact grid spacing
+                    item.style.minHeight = isMobile ? '200px' : '300px';
+                    item.querySelector('[id^="multi_chart_"]').style.height = isMobile ? '170px' : '250px';
                 });
                 toggleButton.textContent = viewLabel('single');
             }
