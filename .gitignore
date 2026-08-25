@@ -22,3 +22,5 @@ Thumbs.db
 
 # Live data - never track in git
 /logs/
+
+.venv/
