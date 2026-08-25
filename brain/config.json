@@ -1,0 +1,30 @@
+{
+  "embedding_model": "nomic-embed-text-1.5-v2",
+  "embedding_dimension": 768,
+  "similarity_threshold": 0.7,
+  "top_n_matches": 10,
+  "outlier_method": "isolation_forest",
+  "outlier_contamination": 0.1,
+  "win_rate_smoothing": 0.95,
+  "confidence_formula": "win_rate * (1 - outlier_penalty) * similarity_score",
+  "outlier_penalty_default": 0.1,
+  "retraining_interval_days": 7,
+  "min_historical_data_for_analysis": 5,
+  "feature_weights": {
+    "soRatio": 0.15,
+    "float": 0.10,
+    "volume": 0.08,
+    "marketCap": 0.08,
+    "ftdPercent": 0.07,
+    "filingTimeBonus": 0.05,
+    "custodianVerified": 0.05,
+    "signal_embedding": 0.42
+  },
+  "signal_categories": {
+    "bullish": ["FDA Approved", "Licensing Deal", "Stock Buyback", "Capital Raise", "Commercial Inflection"],
+    "bearish": ["Bankruptcy Filing", "Credit Default", "Going Dark", "Failed Trial", "Regulatory Breach", "Offering At A Discount"]
+  },
+  "last_retrained": null,
+  "vector_db_path": "./brain/vectors.db",
+  "stats_path": "./brain/stats.json"
+}
