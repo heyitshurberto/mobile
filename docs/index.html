@@ -30,7 +30,7 @@ table {
 
 /* Mobile: 80% zoom */
 @media (max-width: 768px) {
-    body { zoom: 85%; }
+    html { zoom: 80%; }
 }
 
 /* iPad/tablet: 90% zoom for better fit */
@@ -797,7 +797,7 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
 
             const chartWrapper = document.createElement('div');
-            chartWrapper.style.cssText = 'width: 100%; height: 250px; position: relative; box-sizing: border-box;';
+            chartWrapper.style.cssText = 'width: 100%; height: 250px; position: relative; box-sizing: border-box; overflow: hidden;';
             chartWrapper.style.minWidth = '0';
 
             const chartId = 'multi_chart_' + ticker + '_' + Date.now() + '_' + index;
