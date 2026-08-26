@@ -5988,6 +5988,8 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                     const alertPrice = '$' + (alert.alertPrice !== undefined && alert.alertPrice !== null ? parseFloat(alert.alertPrice).toFixed(2) : 'N/A');
 
                     card.querySelectorAll('.link-button').forEach(btn => {
+                        // Remove any inline onclick to avoid duplicate/conflicting handlers
+                        try { btn.removeAttribute && btn.removeAttribute('onclick'); } catch (e) {}
                         // Remove any unreliable inline event reliance by adding a robust listener
                         btn.addEventListener('click', (e) => {
                             try {
