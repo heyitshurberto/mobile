@@ -718,16 +718,29 @@ document.addEventListener('DOMContentLoaded', function() {
             viewMode = mode;
             if (mode === 'single') {
                 chartsGrid.style.gridTemplateColumns = '1fr';
+                chartsGrid.style.padding = '10px';
+                chartsGrid.style.rowGap = '10px';
                 chartsGrid.querySelectorAll('.multi-chart-item').forEach(item => {
-                    item.style.minHeight = isMobile ? 'calc(77vh)' : 'calc(65vh)';
-                    item.querySelector('[id^="multi_chart_"]').style.height = 'calc(60vh)';
+                    const chartFrame = item.querySelector('[id^="multi_chart_"]');
+                    const singleHeight = isMobile ? '58vh' : '62vh';
+                    item.style.minHeight = singleHeight;
+                    item.style.height = singleHeight;
+                    if (chartFrame) {
+                        chartFrame.style.height = isMobile ? 'calc(58vh - 42px)' : 'calc(62vh - 42px)';
+                    }
                 });
                 toggleButton.textContent = viewLabel('grid');
             } else {
                 chartsGrid.style.gridTemplateColumns = gridCols;
+                chartsGrid.style.padding = '10px';
+                chartsGrid.style.rowGap = '8px';
                 chartsGrid.querySelectorAll('.multi-chart-item').forEach(item => {
                     item.style.minHeight = '300px';
-                    item.querySelector('[id^="multi_chart_"]').style.height = '250px';
+                    item.style.height = 'auto';
+                    const chartFrame = item.querySelector('[id^="multi_chart_"]');
+                    if (chartFrame) {
+                        chartFrame.style.height = '250px';
+                    }
                 });
                 toggleButton.textContent = viewLabel('single');
             }
@@ -775,7 +788,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 background: ${headerBg};
                 border-bottom: 1px solid ${headerBorder};
                 color: ${headerText};
-                font-size: 14px;
+                font-size: 10.5px;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -783,12 +796,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 flex-wrap: wrap;
             `;
             chartHeader.innerHTML = `
-                <span style="display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-                    <span>$${ticker} <i style="font-size: 12px; font-style: italic; opacity: 0.8;">@ ${alertPriceText}</i></span>
-                    <span style="opacity: 0.55; font-size: 10px;">(${companyName})</span>
-                    <span style="font-weight: 700; font-size: 12px; font-style: italic; color: ${directionColor};">${direction}</span>
+                <span style="display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 10.5px;">
+                    <span style="font-size: 10.5px;">$${ticker} <i style="font-size: 9px; font-style: italic; opacity: 0.8;">@ ${alertPriceText}</i></span>
+                    <span style="opacity: 0.55; font-size: 7.5px;">(${companyName})</span>
+                    <span style="font-weight: 700; font-size: 9px; font-style: italic; color: ${directionColor};">${direction}</span>
                 </span>
-                <span style="font-size: 11px; opacity: 0.6; cursor: pointer;" onclick="this.closest('.multi-chart-item').remove()">✕</span>
+                <span style="font-size: 9px; opacity: 0.6; cursor: pointer;" onclick="this.closest('.multi-chart-item').remove()">✕</span>
             `;
 
             const chartWrapper = document.createElement('div');
