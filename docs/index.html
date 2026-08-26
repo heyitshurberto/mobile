@@ -34,39 +34,6 @@ table {
 }
 </style>
 
-<script>
-(() => {
-  try {
-    const nav = window.navigator;
-    const denyMediaRequest = () => Promise.reject(new DOMException('Permission denied', 'NotAllowedError'));
-
-    if (nav && nav.mediaDevices && typeof nav.mediaDevices.getUserMedia === 'function') {
-      nav.mediaDevices.getUserMedia = denyMediaRequest;
-    }
-    if (nav && typeof nav.getUserMedia === 'function') {
-      nav.getUserMedia = denyMediaRequest;
-    }
-    if (nav && nav.geolocation) {
-      const geolocation = nav.geolocation;
-      if (typeof geolocation.getCurrentPosition === 'function') {
-        geolocation.getCurrentPosition = () => {};
-      }
-      if (typeof geolocation.watchPosition === 'function') {
-        geolocation.watchPosition = () => -1;
-      }
-      if (typeof geolocation.clearWatch === 'function') {
-        geolocation.clearWatch = () => {};
-      }
-    }
-    if (window.Notification && typeof window.Notification.requestPermission === 'function') {
-      window.Notification.requestPermission = () => Promise.resolve('denied');
-    }
-  } catch (e) {
-    // Intentionally no-op: do not trigger browser permissions.
-  }
-})();
-</script>
-
 <div style="position: absolute; top: 1px; left: 6px; display: flex; gap: 4px; align-items: center; z-index: 9999;" class="usersname-tag-desktop">
   <a href="javascript:void(0)" id="social-tele" role="button" tabindex="0" onclick="customConfirm('Join the <b><i>Pleromics Ψ</i></b> Community?', 'https://discord.gg/fGaje7478P'); return false;" style="text-decoration: none; display: inline-flex; align-items: center; padding: 3px 3px; border-radius: 4px; transition: opacity 0.2s; cursor: pointer; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: manipulation; -webkit-tap-highlight-color: transparent; z-index: 9999;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">
     <img src="/docs/tele.png" alt="Discord" style="height: 23px; width: 22px; filter: brightness(0) saturate(100%);" id="tele-logo" class="social-icon">
@@ -435,14 +402,6 @@ document.addEventListener('DOMContentLoaded', function() {
             noButton.addEventListener('click', handleNo);
             yesButton.addEventListener('touchend', handleTouchYes, { passive: false });
             noButton.addEventListener('touchend', handleTouchNo, { passive: false });
-            // Add pointer events to improve responsiveness on Android devices
-            yesButton.addEventListener('pointerup', handleYes, { passive: false });
-            noButton.addEventListener('pointerup', handleNo, { passive: false });
-            // Prevent default touchstart to avoid 300ms delays on some browsers
-            yesButton.addEventListener('touchstart', (e) => { e.preventDefault(); }, { passive: false });
-            noButton.addEventListener('touchstart', (e) => { e.preventDefault(); }, { passive: false });
-            yesButton.style.touchAction = 'manipulation';
-            noButton.style.touchAction = 'manipulation';
             modal.addEventListener('click', handleModalClick);
             document.addEventListener('keydown', handleKeyboard);
             
@@ -755,37 +714,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
         toggleButton.textContent = viewLabel('single');
 
-        // Tweak button sizes and spacing on mobile to avoid touching
-        if (isMobile) {
-            try {
-                toggleButton.style.padding = '6px 10px';
-                toggleButton.style.fontSize = '12px';
-                toggleButton.style.minWidth = '84px';
-                toggleButton.style.borderRadius = '6px';
-                closeButton.style.padding = '6px 10px';
-                closeButton.style.fontSize = '12px';
-                closeButton.style.marginLeft = '8px';
-                closeButton.style.borderRadius = '6px';
-            } catch (e) {}
-        }
-
         const updateViewMode = (mode) => {
             viewMode = mode;
             if (mode === 'single') {
                 chartsGrid.style.gridTemplateColumns = '1fr';
                 chartsGrid.querySelectorAll('.multi-chart-item').forEach(item => {
-                    // Reduce single-view chart height on mobile to avoid long top/bottom borders
-                    item.style.minHeight = isMobile ? '65vh' : 'calc(65vh)';
-                    item.querySelector('[id^="multi_chart_"]').style.height = isMobile ? '52vh' : 'calc(60vh)';
-                    // Tighten header padding in single view on mobile
-                    const hdr = item.querySelector('div');
-                    if (hdr) hdr.style.padding = isMobile ? '6px 8px' : hdr.style.padding;
+                    item.style.minHeight = isMobile ? 'calc(77vh)' : 'calc(65vh)';
+                    item.querySelector('[id^="multi_chart_"]').style.height = 'calc(60vh)';
                 });
                 toggleButton.textContent = viewLabel('grid');
             } else {
-                chartsGrid.style.gridTemplateColumns = isMobile ? 'repeat(2, minmax(0, 1fr))' : gridCols;
+                chartsGrid.style.gridTemplateColumns = gridCols;
                 chartsGrid.querySelectorAll('.multi-chart-item').forEach(item => {
-                    // Slightly larger tiles but keep compact grid spacing
                     item.style.minHeight = '300px';
                     item.querySelector('[id^="multi_chart_"]').style.height = '250px';
                 });
@@ -1306,10 +1246,10 @@ document.addEventListener('DOMContentLoaded', function() {
         /* iPhone portrait only - move logo up 1px & title down 1px */
         @media (max-width: 767px) and (orientation: portrait) {
             .logo {
-            margin-top: -2px !important;
+            margin-top: -1px !important;
             }
             .dashboard-title {
-            margin-top: 28px !important;
+            margin-top: 29px !important;
             }
         }
 
@@ -3814,6 +3754,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div id="status" class="status-online">Online: <span id="online-users">1</span></div>
                 </div>
             </div>
+            <div class="separator"></div>
             
             <!-- Search, Filter & Sort Controls -->
             <div class="alerts-controls" style="display: flex; gap: 8px; margin-bottom: 30px; flex-wrap: wrap; align-items: center;">
