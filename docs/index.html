@@ -5980,7 +5980,39 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
 
                 // Set up one-time click handlers
                 const setupClickHandlers = () => {
-                    // Handlers disabled - ticker no longer clickable
+                    // Ensure button clicks don't bubble to the card (which may intercept/toggle)
+                    const ticker = alert.ticker;
+                    const exchange = alert.exchange || 'NASDAQ';
+                    const companyName = alert.companyName || 'N/A';
+                    const direction = (alert.isShort === true || alert.position === 'short' || alert.side === 'SHORT') ? 'SHORT' : 'LONG';
+                    const alertPrice = '$' + (alert.alertPrice !== undefined && alert.alertPrice !== null ? parseFloat(alert.alertPrice).toFixed(2) : 'N/A');
+
+                    card.querySelectorAll('.link-button').forEach(btn => {
+                        // Remove any unreliable inline event reliance by adding a robust listener
+                        btn.addEventListener('click', (e) => {
+                            try {
+                                e.stopPropagation();
+                                e.preventDefault();
+                            } catch (err) {}
+
+                            const label = (btn.textContent || btn.innerText || '').trim();
+                            if (/TradingView/i.test(label)) {
+                                openTradingViewModal(ticker, exchange, companyName, direction, alertPrice);
+                                return;
+                            }
+                            if (/Financials/i.test(label)) {
+                                customConfirm('View Financials for <b><i>' + ticker + '</i></b>?', 'https://stockanalysis.com/stocks/' + ticker + '/statistics/');
+                                return;
+                            }
+                            if (/Trading\s*212|Trading212/i.test(label)) {
+                                customConfirm('Open Trading 212 to trade <b><i>' + ticker + '</i></b>?', 'https://www.trading212.com/en/login');
+                                return;
+                            }
+                        }, { passive: false });
+                        // Improve hit target on mobile
+                        btn.style.touchAction = 'manipulation';
+                        btn.style.webkitTapHighlightColor = 'transparent';
+                    });
                 };
                 
                 // Calculate display percent
