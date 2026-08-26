@@ -788,7 +788,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 background: ${headerBg};
                 border-bottom: 1px solid ${headerBorder};
                 color: ${headerText};
-                font-size: 10.5px;
+                font-size: 11.55px;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -796,12 +796,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 flex-wrap: wrap;
             `;
             chartHeader.innerHTML = `
-                <span style="display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 10.5px;">
-                    <span style="font-size: 10.5px;">$${ticker} <i style="font-size: 9px; font-style: italic; opacity: 0.8;">@ ${alertPriceText}</i></span>
-                    <span style="opacity: 0.55; font-size: 7.5px;">(${companyName})</span>
-                    <span style="font-weight: 700; font-size: 9px; font-style: italic; color: ${directionColor};">${direction}</span>
+                <span style="display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 14px;">
+                    <span style="font-size: 13px;">$${ticker} <i style="font-size: 12px; font-style: italic; opacity: 0.8;">@ ${alertPriceText}</i></span>
+                    <span style="opacity: 0.55; font-size: 9px;">(${companyName})</span>
+                    <span style="font-weight: 700; font-size: 12px; font-style: italic; color: ${directionColor};">${direction}</span>
                 </span>
-                <span style="font-size: 9px; opacity: 0.6; cursor: pointer;" onclick="this.closest('.multi-chart-item').remove()">✕</span>
+                <span style="font-size: 9.9px; opacity: 0.6; cursor: pointer;" onclick="this.closest('.multi-chart-item').remove()">✕</span>
             `;
 
             const chartWrapper = document.createElement('div');
@@ -3021,6 +3021,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .alerts-controls {
                 flex-wrap: wrap !important;
                 gap: 6px !important;
+                margin-top: 20px !important;
             }
             
             #search-ticker {
@@ -3577,10 +3578,19 @@ document.addEventListener('DOMContentLoaded', function() {
         </style>
 
         <style>
-        /* Android-only portrait: move logo up (overrides inline styles) */
+        /* Android-only portrait: move title and logo down 2px */
         @media only screen and (max-width: 768px) and (orientation: portrait) {
-            html.android .logo { margin-top: 18px !important; }
-            html.android .modal-logo { margin-top: 18px !important; }
+            html.android .logo {
+                margin-top: -4px !important;
+                transform: translateY(2px);
+            }
+            html.android .dashboard-title {
+                margin-top: 5px !important;
+                transform: translateY(2px);
+            }
+            html.android .modal-logo {
+                margin-top: 2px !important;
+            }
         }
         </style>
 
@@ -3769,7 +3779,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             
             <!-- Search, Filter & Sort Controls -->
-            <div class="alerts-controls" style="display: flex; gap: 8px; margin-bottom: 30px; flex-wrap: wrap; align-items: center;">
+            <div class="alerts-controls" style="display: flex; gap: 8px; margin-top: 20px; margin-bottom: 30px; flex-wrap: wrap; align-items: center;">
                 <input type="text" id="search-ticker" placeholder="Search ticker..." style="padding: 6px 10px; border-radius: 6px; border: 1px solid #ccc; flex: 1; min-width: 150px; font-size: 12px;">
                 
                 <select id="filter-direction" style="padding: 6px 10px; border-radius: 6px; border: 1px solid #ccc; font-size: 12px;">
