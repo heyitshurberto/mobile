@@ -165,5 +165,91 @@
       "verdict": "PENDING",
       "last_trained": null
     }
+  },
+  {
+    "ticker": "SWVL",
+    "title": "6-K - Swvl Holdings Corp (0001875609) (Filer)",
+    "companyName": "Swvl Holdings Corp",
+    "filerName": null,
+    "price": 2.21,
+    "fav": "7.29",
+    "volume": 75802076,
+    "averageVolume": 1233549,
+    "float": 8990317,
+    "sharesOutstanding": 9964344,
+    "soRatio": "90.22%",
+    "marketCap": 22021200,
+    "isShort": true,
+    "ftd": 80,
+    "intent": "Acquisition Agreement, Related-Party Transaction, Credit Default, Merger/Acquisition",
+    "incorporated": "Hong Kong",
+    "located": "Cayman Islands",
+    "filingDate": "2026-08-26T09:26:50-04:00",
+    "signals": {
+      "Acquisition Agreement": [
+        "Going Private"
+      ],
+      "Related-Party Transaction": [
+        "Controlled By",
+        "Affiliate Of"
+      ],
+      "Credit Default": [
+        "Is In Default"
+      ],
+      "Merger/Acquisition": [
+        "Going Private"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "S-8",
+      "F-3",
+      "20-F",
+      "Form D",
+      "EX-99.1",
+      "EX-99.2"
+    ],
+    "cik": "1875609",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Road & Rail",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Cayman Islands (via Hong Kong)",
+    "filingTimeBonus": 1.2,
+    "recordedAt": "2026-08-26T13:27:38.346Z",
+    "recordId": "SWVL-1787750858346",
+    "expiresAt": "2026-08-31T13:27:38.346Z",
+    "direction": "SHORT",
+    "highest5Day": 2.21,
+    "highest5DayPercent": 0,
+    "lowest5Day": 2.21,
+    "lowest5DayPercent": 0,
+    "priceAfter1m": null,
+    "percentAfter1m": null,
+    "priceAfter5m": null,
+    "percentAfter5m": null,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "ai_analysis": {
+      "win_rate": null,
+      "avg_move": null,
+      "confidence": null,
+      "matches": [],
+      "outliers": [],
+      "verdict": "PENDING",
+      "last_trained": null
+    }
   }
 ]
