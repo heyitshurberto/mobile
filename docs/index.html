@@ -657,7 +657,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const isIPhonePortrait = /iPhone/.test(navigator.userAgent) && window.innerWidth <= 767 && window.matchMedia('(orientation: portrait)').matches;
         const modalPaddingTop = isMobile ? '14vh' : '80px';
         const modalPadding = isMobile ? '10px' : '20px';
-        const gridCols = isMobile ? 'repeat(2, minmax(0, 1fr))' : 'repeat(auto-fit, minmax(360px, 1fr))';
 
         modal.style.cssText = `
             position: fixed;
@@ -725,11 +724,12 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
 
         const chartsGrid = document.createElement('div');
+        const gridCols = isMobile ? '1fr' : 'repeat(auto-fit, minmax(360px, 1fr))';
         chartsGrid.style.cssText = `
             display: grid;
             grid-template-columns: ${gridCols};
-            gap: 4px;
-            padding: 6px;
+            gap: 8px;
+            padding: 10px;
             overflow-y: auto;
             max-height: calc(90vh - 90px);
             width: 100%;
@@ -786,8 +786,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 chartsGrid.style.gridTemplateColumns = isMobile ? 'repeat(2, minmax(0, 1fr))' : gridCols;
                 chartsGrid.querySelectorAll('.multi-chart-item').forEach(item => {
                     // Slightly larger tiles but keep compact grid spacing
-                    item.style.minHeight = isMobile ? '200px' : '300px';
-                    item.querySelector('[id^="multi_chart_"]').style.height = isMobile ? '170px' : '250px';
+                    item.style.minHeight = '300px';
+                    item.querySelector('[id^="multi_chart_"]').style.height = '250px';
                 });
                 toggleButton.textContent = viewLabel('single');
             }
