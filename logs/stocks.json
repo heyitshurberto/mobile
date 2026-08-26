@@ -12176,5 +12176,96 @@
     "percentAfter1d": null,
     "priceAfter3d": null,
     "percentAfter3d": null
+  },
+    {
+    "ticker": "GYRE",
+    "title": "8-K - GYRE THERAPEUTICS, INC. (0001124105) (Filer)",
+    "companyName": "GYRE THERAPEUTICS, INC.",
+    "filerName": null,
+    "price": 6.68,
+    "fav": "427.07",
+    "volume": 44548,
+    "averageVolume": 84157,
+    "float": 35941200,
+    "sharesOutstanding": 106033763,
+    "soRatio": "33.90%",
+    "marketCap": 708305472,
+    "isShort": false,
+    "ftd": 26947,
+    "intent": "Clinical Success, FDA Approved, Commercial Inflection, Clinical Milestone",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Toronto, Canada",
+    "filingDate": "2026-08-26T09:00:44-04:00",
+    "signals": {
+      "Clinical Success": [
+        "Priority Review",
+        "Phase 3",
+        "Primary Endpoint",
+        "Primary Endpoint Met"
+      ],
+      "FDA Approved": [
+        "FDA approved"
+      ],
+      "Commercial Inflection": [
+        "Revenue Growth",
+        "De-Risking"
+      ],
+      "Clinical Milestone": [
+        "Dose Escalation"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "8-K",
+      "S-8",
+      "FWG",
+      "20-F",
+      "13D",
+      "Form D",
+      "EX-99.1",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "cik": "1124105",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Biotechnology",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Toronto, Canada (via Wilmington, Delaware)",
+    "filingTimeBonus": 1.2,
+    "direction": "LONG",
+    "recordedAt": "2026-08-26T13:01:35.410Z",
+    "recordId": "GYRE-1787749295410",
+    "expiresAt": "2026-08-31T13:01:35.410Z",
+    "highest5Day": 6.68,
+    "highest5DayPercent": 0,
+    "lowest5Day": 6.68,
+    "lowest5DayPercent": 0,
+    "priceAfter1m": null,
+    "percentAfter1m": null,
+    "priceAfter5m": null,
+    "percentAfter5m": null,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "ai_analysis": {
+      "win_rate": null,
+      "avg_move": null,
+      "confidence": null,
+      "matches": [],
+      "outliers": [],
+      "verdict": "PENDING",
+      "last_trained": null
+    }
   }
 ]
