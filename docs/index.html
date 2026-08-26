@@ -28,6 +28,11 @@ table {
     body { zoom: 110%; }
 }
 
+/* Mobile: 80% zoom */
+@media (max-width: 768px) {
+    body { zoom: 85%; }
+}
+
 /* iPad/tablet: 90% zoom for better fit */
 @media (min-width: 769px) and (max-width: 1023px) {
     body { zoom: 90%; }
@@ -3754,7 +3759,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div id="status" class="status-online">Online: <span id="online-users">1</span></div>
                 </div>
             </div>
-            <div class="separator"></div>
             
             <!-- Search, Filter & Sort Controls -->
             <div class="alerts-controls" style="display: flex; gap: 8px; margin-bottom: 30px; flex-wrap: wrap; align-items: center;">
