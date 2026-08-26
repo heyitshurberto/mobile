@@ -30,12 +30,3 @@ node_modules/
 __pycache__/
 *.pyc
 
-.venv/
-node_modules/
-__pycache__/
-*.pyc
-
-.venv/
-node_modules/
-__pycache__/
-*.pyc
