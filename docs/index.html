@@ -3578,19 +3578,10 @@ document.addEventListener('DOMContentLoaded', function() {
         </style>
 
         <style>
-        /* Android-only portrait: move title and logo down 2px */
+        /* Android-only portrait: move logo up (overrides inline styles) */
         @media only screen and (max-width: 768px) and (orientation: portrait) {
-            html.android .logo {
-                margin-top: -4px !important;
-                transform: translateY(2px);
-            }
-            html.android .dashboard-title {
-                margin-top: 5px !important;
-                transform: translateY(2px);
-            }
-            html.android .modal-logo {
-                margin-top: 2px !important;
-            }
+            html.android .logo { margin-top: 18px !important; }
+            html.android .modal-logo { margin-top: 18px !important; }
         }
         </style>
 
