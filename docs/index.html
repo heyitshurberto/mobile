@@ -316,6 +316,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Custom confirm modal for all links
     function customConfirm(message, url) {
         return new Promise((resolve) => {
+            let settled = false;
+
             // Remove any existing modals
             const existingModals = document.querySelectorAll('.custom-confirm-modal');
             existingModals.forEach(modal => modal.remove());
@@ -340,6 +342,8 @@ document.addEventListener('DOMContentLoaded', function() {
             };
 
             const handleYes = (e) => {
+                if (settled) return;
+                settled = true;
                 if (e) {
                     e.preventDefault();
                     e.stopPropagation();
@@ -352,28 +356,14 @@ document.addEventListener('DOMContentLoaded', function() {
             };
 
             const handleNo = (e) => {
+                if (settled) return;
+                settled = true;
                 if (e) {
                     e.preventDefault();
                     e.stopPropagation();
                 }
                 cleanup();
                 resolve(false);
-            };
-
-            const handleTouchYes = (e) => {
-                if (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
-                handleYes(e);
-            };
-
-            const handleTouchNo = (e) => {
-                if (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
-                handleNo(e);
             };
 
             const handleKeyboard = (e) => {
@@ -398,11 +388,19 @@ document.addEventListener('DOMContentLoaded', function() {
             const yesButton = modal.querySelector('#custom-confirm-yes');
             const noButton = modal.querySelector('#custom-confirm-no');
             
-            yesButton.addEventListener('click', handleYes);
-            noButton.addEventListener('click', handleNo);
-            yesButton.addEventListener('touchend', handleTouchYes, { passive: false });
-            noButton.addEventListener('touchend', handleTouchNo, { passive: false });
-            modal.addEventListener('click', handleModalClick);
+            yesButton.addEventListener('click', handleYes, { passive: false });
+            noButton.addEventListener('click', handleNo, { passive: false });
+            yesButton.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleYes(e);
+            }, { passive: false });
+            noButton.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleNo(e);
+            }, { passive: false });
+            modal.addEventListener('click', handleModalClick, { passive: false });
             document.addEventListener('keydown', handleKeyboard);
             
             // Add modal to document
@@ -4453,7 +4451,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     message: 'This is your inbox where you can receive important notifications and updates about news, alerts, and system messages. Create new messages or delete ones you no longer need.',
                     timestamp: new Date().toISOString()
                 };
-                messages.push(welcomeMsg);
+                const betaMsg = {
+                    title: 'Beta Status & Feedback',
+                    message: 'This dashboard is still in beta. If you notice any issues, glitches, broken links, or anything unexpected, please send a message in the inbox so we can review and improve it.',
+                    timestamp: new Date(Date.now() + 1000).toISOString()
+                };
+                messages.push(welcomeMsg, betaMsg);
                 localStorage.setItem(storageKey, JSON.stringify(messages));
             }
             
