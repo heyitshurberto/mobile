@@ -6018,6 +6018,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                 
                 // Set the base card class
                 card.className = `alert-card ${alert.triggered ? 'triggered' : ''} ${directionClass}`;
+                card.style.cssText = 'position: relative;';
                 
                 // Set card attributes
                 card.setAttribute('data-exchange', alert.exchange || 'NASDAQ');
