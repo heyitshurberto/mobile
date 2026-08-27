@@ -3297,6 +3297,17 @@ document.addEventListener('DOMContentLoaded', function() {
             background: rgba(255,255,255,0.1);
         }
 
+        @media (max-width: 768px) {
+            .trading-view-modal div[style*="font-weight: 600"] {
+                font-size: 10px !important;
+                flex-wrap: wrap !important;
+                gap: 2px !important;
+            }
+            .trading-view-modal div[style*="font-weight: 600"] span {
+                font-size: 9px !important;
+            }
+        }
+
         </style>
         <!-- Flatpickr for custom date picker -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
