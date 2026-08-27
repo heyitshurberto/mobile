@@ -105,12 +105,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
   
-  // Ensure all buttons are clickable on iPad
-  document.addEventListener('touchend', function(e) {
-    if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
-      e.target.click?.() || e.target.closest('button')?.click?.();
-    }
-  }, true);
+  // Do not force a global touchend click for all buttons.
+  // It causes duplicate tap activation on mobile and makes confirm prompts appear only after repeated presses.
 });
 </script>
 <style>
