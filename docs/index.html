@@ -5075,26 +5075,43 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             </div>
                         </div>
                         <div class="popup-footer">
-                            <button onclick="(() => {
-                                const ticker = '${alert.ticker}';
-                                const exchange = '${alert.exchange || 'NASDAQ'}';
-                                const companyName = '${alert.companyName || 'N/A'}';
-                                const direction = ${alert.isShort === true || alert.position === 'short' || alert.side === 'SHORT' ? `'SHORT'` : `'LONG'`};
-                                const alertPrice = '${alertPriceDisplay}';
-                                openTradingViewModal(ticker, exchange, companyName, direction, alertPrice);
-                            })()">TradingView</button>
-                            <button onclick="(() => {
-                                customConfirm(\`View Financials for <b><i>${alert.ticker}</i></b>?\`, \`https://stockanalysis.com/stocks/${alert.ticker}/statistics/\`);
-                            })()">Financials</button>
-                            <button onclick="(() => {
-                                customConfirm(\`Open Trading 212 to trade <b><i>${alert.ticker}</i></b>?\`, 'https://www.trading212.com/en/login');
-                            })()">Trading 212</button>
-                           <button onclick="this.closest('.alert-popup').remove()">Close</button>
+                            <button type="button">TradingView</button>
+                            <button type="button">Financials</button>
+                            <button type="button">Trading 212</button>
+                           <button type="button">Close</button>
                         </div>
                     </div>
                 `;
                 
                 document.body.appendChild(popup);
+
+                popup.querySelectorAll('.popup-footer button').forEach((button) => {
+                    button.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const label = (button.textContent || button.innerText || '').trim();
+                        if (/TradingView/i.test(label)) {
+                            const ticker = alert.ticker;
+                            const exchange = alert.exchange || 'NASDAQ';
+                            const companyName = alert.companyName || 'N/A';
+                            const direction = alert.isShort === true || alert.position === 'short' || alert.side === 'SHORT' ? 'SHORT' : 'LONG';
+                            const alertPrice = alertPriceDisplay;
+                            openTradingViewModal(ticker, exchange, companyName, direction, alertPrice);
+                            return;
+                        }
+                        if (/Financials/i.test(label)) {
+                            customConfirm(`View Financials for <b><i>${alert.ticker}</i></b>?`, `https://stockanalysis.com/stocks/${alert.ticker}/statistics/`);
+                            return;
+                        }
+                        if (/Trading\s*212|Trading212/i.test(label)) {
+                            customConfirm('Open Trading 212 to trade <b><i>' + alert.ticker + '</i></b>?', 'https://www.trading212.com/en/login');
+                            return;
+                        }
+                        if (/Close/i.test(label)) {
+                            popup.remove();
+                        }
+                    }, { passive: false });
+                });
                 
                 // Add popup close functionality
                 popup.addEventListener('click', (e) => {
@@ -6071,23 +6088,9 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             const color = event.direction === 'up' ? '#00cc00' : '#cc0000';
                         }).join('') : ''}
                     </div>` : ''}
-                        <button type="button" class="link-button" onclick="(() => {
-                            event.stopPropagation();
-                            const ticker = '${alert.ticker}';
-                            const exchange = '${alert.exchange || 'NASDAQ'}';
-                            const companyName = '${alert.companyName || 'N/A'}';
-                            const direction = ${alert.isShort === true || alert.position === 'short' || alert.side === 'SHORT' ? `'SHORT'` : `'LONG'`};
-                            const alertPrice = '$${parseFloat(alert.alertPrice).toFixed(2)}';
-                            openTradingViewModal(ticker, exchange, companyName, direction, alertPrice);
-                        })()">TradingView</button>
-                        <button type="button" class="link-button" onclick="(() => {
-                            event.stopPropagation();
-                            customConfirm('View Financials for <b><i>$${alert.ticker}</i></b>?', \`https://stockanalysis.com/stocks/${alert.ticker}/statistics/\`);
-                        })()">Financials</button>
-                        <button type="button" class="link-button" onclick="(() => {
-                            event.stopPropagation();
-                            customConfirm('Open Trading 212 to trade <b><i>$${alert.ticker}</i></b>?', 'https://www.trading212.com/en/login');
-                        })()">Trading 212</button>
+                        <button type="button" class="link-button">TradingView</button>
+                        <button type="button" class="link-button">Financials</button>
+                        <button type="button" class="link-button">Trading 212</button>
                     </div>
                 `;
                 // Set up click handlers after HTML is set
