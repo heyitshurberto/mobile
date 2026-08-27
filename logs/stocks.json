@@ -9605,7 +9605,7 @@
     "marketCap": 6351249,
     "isShort": true,
     "ftd": 828045,
-    "intent": "Convertible Debt, Credit Default, Asset Disposition, Partnership, Unregistered Equity Sales, Related-Party Transaction, PIPE",
+    "intent": "Convertible Debt, Credit Default, Asset Disposition, Partnership, Unregistered Equity Sales, Related-Party Transaction, Private Placement",
     "incorporated": "Cayman Islands",
     "located": "Kowloon Bay, Hong Kong",
     "filingDate": "2026-07-16T16:34:17-04:00",
@@ -9631,7 +9631,7 @@
         "Controlled By",
         "Affiliate Of"
       ],
-      "PIPE": [
+      "Private Placement": [
         "PIPE"
       ]
     },
@@ -9767,7 +9767,7 @@
     "marketCap": 11637127,
     "isShort": false,
     "ftd": 15641,
-    "intent": "Merger/Acquisition, Convertible Debt, Asset Disposition, Partnership, Unregistered Equity Sales, Regulation S Offering, Related-Party Transaction, PIPE",
+    "intent": "Merger/Acquisition, Convertible Debt, Asset Disposition, Partnership, Unregistered Equity Sales, Regulation S Offering, Related-Party Transaction, Private Placement",
     "incorporated": "Nevada",
     "located": "Florida",
     "filingDate": "2026-07-16T17:12:45-04:00",
@@ -9796,7 +9796,7 @@
         "Controlled By",
         "Affiliate Of"
       ],
-      "PIPE": [
+      "Private Placement": [
         "PIPE"
       ]
     },
@@ -11561,7 +11561,7 @@
     "marketCap": 67859208,
     "isShort": true,
     "ftd": 16029,
-    "intent": "Convertible Debt, Asset Disposition, Nasdaq Delisting, PIPE",
+    "intent": "Convertible Debt, Asset Disposition, Nasdaq Delisting, Private Placement",
     "incorporated": "Toronto, Canada",
     "located": "Arizona",
     "filingDate": "2026-08-17T12:35:44-04:00",
@@ -11575,7 +11575,7 @@
       "Nasdaq Delisting": [
         "Notice Of Non-Compliance"
       ],
-      "PIPE": [
+      "Private Placement": [
         "PIPE"
       ]
     },
@@ -12158,8 +12158,8 @@
     "recordId": "CGTL-1787668258651",
     "expiresAt": "2026-08-28T14:30:58.652Z",
     "direction": "SHORT",
-    "highest5Day": 4.51,
-    "highest5DayPercent": -6.02,
+    "highest5Day": 4.42,
+    "highest5DayPercent": -7.9,
     "lowest5Day": 4.3029,
     "lowest5DayPercent": 10.34,
     "priceAfter1m": 4.3029,
@@ -12244,8 +12244,8 @@
     "expiresAt": "2026-08-31T13:01:35.410Z",
     "highest5Day": 6.81,
     "highest5DayPercent": 1.95,
-    "lowest5Day": 6.68,
-    "lowest5DayPercent": 0,
+    "lowest5Day": 6.63,
+    "lowest5DayPercent": -0.75,
     "priceAfter1m": 6.77,
     "percentAfter1m": 1.35,
     "priceAfter5m": 6.77,
@@ -12254,10 +12254,10 @@
     "percentAfter30m": 1.35,
     "priceAfter1h": 6.77,
     "percentAfter1h": 1.35,
-    "priceAfter6h": null,
-    "percentAfter6h": null,
-    "priceAfter1d": null,
-    "percentAfter1d": null,
+    "priceAfter6h": 6.72,
+    "percentAfter6h": 0.6,
+    "priceAfter1d": 6.72,
+    "percentAfter1d": 0.6,
     "priceAfter3d": null,
     "percentAfter3d": null,
     "ai_analysis": {
@@ -12329,8 +12329,8 @@
     "recordId": "SWVL-1787750858346",
     "expiresAt": "2026-08-31T13:27:38.346Z",
     "direction": "SHORT",
-    "highest5Day": 2.3682,
-    "highest5DayPercent": 7.16,
+    "highest5Day": 2.61,
+    "highest5DayPercent": 18.1,
     "lowest5Day": 2.06,
     "lowest5DayPercent": 6.79,
     "priceAfter1m": 2.22,
@@ -12341,6 +12341,110 @@
     "percentAfter30m": 0.45,
     "priceAfter1h": 2.2075,
     "percentAfter1h": -0.11,
+    "priceAfter6h": 2.28,
+    "percentAfter6h": 3.17,
+    "priceAfter1d": 2.28,
+    "percentAfter1d": 3.17,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "ai_analysis": {
+      "win_rate": null,
+      "avg_move": null,
+      "confidence": null,
+      "matches": [],
+      "outliers": [],
+      "verdict": "PENDING",
+      "last_trained": null
+    },
+    "personalPriceAlertSent": true,
+    "personalPriceAlertPercent": 11.76
+  },
+  {
+    "ticker": "AMOD",
+    "title": "8-K - ALPHA MODUS HOLDINGS, INC. (0001862463) (Filer)",
+    "companyName": "ALPHA MODUS HOLDINGS, INC.",
+    "filerName": null,
+    "price": 3.81,
+    "fav": "1468.69",
+    "volume": 14531,
+    "averageVolume": 35148,
+    "float": 51621560,
+    "sharesOutstanding": 4966818,
+    "soRatio": "1039.3%",
+    "marketCap": 18923576,
+    "isShort": true,
+    "ftd": 14126,
+    "intent": "Commercial Agreement, Licensing Deal, Commercial Inflection, Convertible Debt, Related-Party Transaction, Regulatory Breach, Nasdaq Delisting, Private Placement",
+    "incorporated": "Wilmington, Delaware",
+    "located": "North Carolina",
+    "filingDate": "2026-08-27T08:53:34-04:00",
+    "signals": {
+      "Commercial Agreement": [
+        "Services Agreement"
+      ],
+      "Licensing Deal": [
+        "License Agreement"
+      ],
+      "Commercial Inflection": [
+        "Purchase Order"
+      ],
+      "Convertible Debt": [
+        "Convertible Notes",
+        "Convertible Securities"
+      ],
+      "Related-Party Transaction": [
+        "Family Member",
+        "Controlled By",
+        "Related Party",
+        "Affiliate Of"
+      ],
+      "Regulatory Breach": [
+        "Warning Letter"
+      ],
+      "Nasdaq Delisting": [
+        "Nasdaq Notification"
+      ],
+      "Private Placement": [
+        "PIPE"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "8-K",
+      "S-1",
+      "S-3",
+      "EX-10.1",
+      "Item 1.01",
+      "Item 3.02",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "cik": "1862463",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Technology",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "North Carolina (via Wilmington, Delaware)",
+    "filingTimeBonus": 1.15,
+    "direction": "SHORT",
+    "recordedAt": "2026-08-27T12:54:35.012Z",
+    "recordId": "AMOD-1787835275012",
+    "expiresAt": "2026-09-01T12:54:35.012Z",
+    "highest5Day": 2.8,
+    "highest5DayPercent": -26.51,
+    "lowest5Day": 2.54,
+    "lowest5DayPercent": 33.33,
+    "priceAfter1m": 2.685,
+    "percentAfter1m": -29.53,
+    "priceAfter5m": 2.685,
+    "percentAfter5m": -29.53,
+    "priceAfter30m": 2.685,
+    "percentAfter30m": -29.53,
+    "priceAfter1h": 2.685,
+    "percentAfter1h": -29.53,
     "priceAfter6h": null,
     "percentAfter6h": null,
     "priceAfter1d": null,
@@ -12356,6 +12460,7 @@
       "verdict": "PENDING",
       "last_trained": null
     },
-    "personalPriceAlertSent": false
+    "personalPriceAlertSent": true,
+    "personalPriceAlertPercent": -29.53
   }
 ]

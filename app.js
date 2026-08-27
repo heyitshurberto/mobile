@@ -538,7 +538,7 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
   
   // Moderate bearish (only count when reinforced by heavyweight or structural signals)
   // NOTE: Asset Disposition and Related-Party Transaaction removed - these are conditional, not automatically bearish
-  const moderateBearish = ['Nasdaq Delisting', 'Bid Price Delisting', 'Failed Trial', 'Material Lawsuit', 'Revenue Loss', 'Offering At A Discount', 'PIPE'];
+  const moderateBearish = ['Nasdaq Delisting', 'Bid Price Delisting', 'Failed Trial', 'Material Lawsuit', 'Revenue Loss', 'Offering At A Discount', 'Private Placement'];
   const structuralBearish = ['Convertible Debt'];
   
   // Bullish signals (including confidence signals like buybacks)
@@ -555,8 +555,8 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
   // Distressed Disposition: Asset Disposition paired with Credit Default, Bankruptcy, or Going Dark
   const isDistressedDisposition = hasAssetDisposition && ['Credit Default', 'Bankruptcy Filing', 'Going Dark'].some(cat => signalArray.includes(cat));
   
-  // Only count as dilution if we have Offering At Discount or PIPE (true dilution)
-  const dilutionBearish = ['Revenue Loss', 'Offering At A Discount', 'PIPE'];
+  // Only count as dilution if we have Offering At Discount or Private Placement (true dilution)
+  const dilutionBearish = ['Revenue Loss', 'Offering At A Discount', 'Private Placement'];
   const dilutionCount = dilutionBearish.filter(cat => signalArray.includes(cat)).length;
   
   const heavyweightCount = heavyweightBearish.filter(cat => signalArray.includes(cat)).length;
@@ -567,7 +567,7 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
   // Distressed Asset Disposition counts as additional bearish weight
   const totalBearish = heavyweightCount + moderateCount + structuralCount;
   
-  // True dilution: only Offering At Discount or PIPE without capital infusion = SHORT
+  // True dilution: only Offering At Discount or Private Placement without capital infusion = SHORT
   if (dilutionCount >= 1 && !hasCapitalRaise) {
     return { direction: 'SHORT', confidence: 0.65 };
   }
@@ -837,7 +837,7 @@ const SEMANTIC_KEYWORDS = {
   'Revenue Secured': ['Expected To Retain', 'Revenue Expected', 'Revenue Attributable', 'Revenue Backlog', 'Contract Backlog', 'Remaining Performance Obligation'],
   
   // STRONGEST BUY PRESSURE: Acquisition Agreement (structural buy pressure, overrides all short signals & filters)
-  'Acquisition Agreement': ['Acquisition Agreement', 'Completed Acquisition', 'Acquisition Closing', 'Closing Of Acquisition', 'Definitive Agreement To Acquire', 'Take Private', 'Going Private', 'Definitive Agreement To Be Acquired'],
+  'Acquisition Agreement': ['Acquisition Agreement', 'Completed Acquisition', 'Acquisition Closing', 'Closing Of Acquisition', 'Definitive Agreement To Acquire', 'Take Private', 'Definitive Agreement To Be Acquired'],
   
   // Government / Licensing
   'Government Contract': ['Government Contract Award', 'Defense Contract', 'Federal Contract', 'DOD Contract', 'GSA Schedule', 'Federal Procurement'],
@@ -929,7 +929,7 @@ const strongBearishSignals = [
   'Bankruptcy Filing',
   'Post-Hoc Salvage',
   'Offering At A Discount',
-  'PIPE',
+  'Private Placement',
   'Capital Raise',
   'Underwritten Offering'
 ];
@@ -1557,7 +1557,7 @@ const computeSignalResolution = (semanticSignals, text) => {
   ];
 
   const isBearishCategory = (category) => {
-    const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Regulatory Breach', 'Accounting Restatement', 'Auditor Change', 'Material Lawsuit', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure', 'Related-Party Transaction', 'Offering At A Discount', 'Revenue Loss', 'Asset Disposition', 'PIPE', ...strongBearishSignals];
+    const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Regulatory Breach', 'Accounting Restatement', 'Auditor Change', 'Material Lawsuit', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure', 'Related-Party Transaction', 'Offering At A Discount', 'Revenue Loss', 'Asset Disposition', 'Private Placement', ...strongBearishSignals];
     return bearishCats.includes(category);
   };
 
@@ -4114,7 +4114,6 @@ const pushToGistOnly = () => {
       }
     })
     .catch(err => {
-      log('WARN', `Gist backup error: ${err.message}`);
     });
   }
 };
@@ -9825,12 +9824,12 @@ if (process.stdin.isTTY) {
           
           let semanticSignals = parseSemanticSignals(text);
 
-          // Explicit PIPE detection: match the literal token as a whole word
+          // Explicit Private Placement detection: match the literal token as a whole word
           // Use word boundaries to avoid matching substrings like "larp"
           try {
             if (/\bPIPE\b/i.test(text) || /private investment in public equity/i.test(text)) {
-              if (!semanticSignals['PIPE']) semanticSignals['PIPE'] = [];
-              semanticSignals['PIPE'].push('PIPE');
+              if (!semanticSignals['Private Placement']) semanticSignals['Private Placement'] = [];
+              semanticSignals['Private Placement'].push('Private Placement');
             }
           } catch (e) {}
 
@@ -10165,7 +10164,7 @@ if (process.stdin.isTTY) {
             const activeSigKeys = sigKeys.filter(cat => modifiersMap[cat] !== 'Resolve');
             
             // Bearish signals that force SHORT regardless
-            const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Regulatory Breach', 'Accounting Restatement', 'Auditor Change', 'Material Lawsuit', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure', 'Related-Party Transaction', 'Offering At A Discount', 'Revenue Loss', 'Asset Disposition', 'PIPE', ...strongBearishSignals];
+            const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Regulatory Breach', 'Accounting Restatement', 'Auditor Change', 'Material Lawsuit', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure', 'Related-Party Transaction', 'Offering At A Discount', 'Revenue Loss', 'Asset Disposition', 'Private Placement', ...strongBearishSignals];
             const bearishCount = activeSigKeys.filter(cat => bearishCats.includes(cat)).length;
             const bullishCats = ['Merger/Acquisition', 'Clinical Success', 'Clinical Milestone', 'DTC Eligible Restored', 'Government Contract', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Insider Buying', 'Contingent Value Rights'];
             const bullishCount = activeSigKeys.filter(cat => bullishCats.includes(cat)).length;
@@ -10208,9 +10207,9 @@ if (process.stdin.isTTY) {
               }
             }
             
-            const dilutionSignals = ['Related-Party Transaction', 'Offering At A Discount', 'PIPE', 'Revenue Loss', 'Asset Disposition'];
+            const dilutionSignals = ['Related-Party Transaction', 'Offering At A Discount', 'Private Placement', 'Revenue Loss', 'Asset Disposition'];
             const stressSignals = ['Credit Default', 'Bankruptcy Filing', 'Going Dark', 'Failed Trial', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure'];
-            const weakBearishSignals = ['Related-Party Transaction', 'Offering At A Discount', 'PIPE', 'Revenue Loss', 'Asset Disposition'];
+            const weakBearishSignals = ['Related-Party Transaction', 'Offering At A Discount', 'Private Placement', 'Revenue Loss', 'Asset Disposition'];
             const hasOnlyWeakBearish = bearishCount > 0 && sigKeys.some(cat => weakBearishSignals.includes(cat)) && !sigKeys.some(cat => stressSignals.includes(cat));
             const hasStrongBullish = bullishCount >= 2 || ['Merger/Acquisition', 'Clinical Success', 'Government Contract', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Insider Buying'].some(cat => sigKeys.includes(cat));
 
@@ -10886,7 +10885,7 @@ if (process.stdin.isTTY) {
                   'Convertible Debt',
                   'Related-Party Transaction',
                   'Offering At A Discount',
-                  'PIPE'
+                  'Private Placement'
                 ].includes(cat));
                 const ctbHasDilutionOnly = ctbDilutionSignalCategories.length > 0 && ctbBullishSignalCategories.length === 0;
 

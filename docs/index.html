@@ -1574,22 +1574,38 @@ document.addEventListener('DOMContentLoaded', function() {
                 font-size: 13px;
             }
 
-            @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-                .alerts-grid {
-                    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-                    gap: 14px;
-                }
-                .alert-card {
-                    font-size: 13px !important;
-                    line-height: 1.2 !important;
-                }
-            }
+        .score-details-toggle {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: transparent !important;
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            color: #666;
+            font-size: 13px;
+            line-height: 1;
+            cursor: pointer;
+            padding: 0;
+            z-index: 2;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
 
-            .alert-card-content {
-                transition: opacity 0.3s ease;
-                position: relative;
-                z-index: 1;
-            }
+        body.dark-mode .score-details-toggle {
+            border: none !important;
+            background: transparent !important;
+            box-shadow: none !important;
+        }
+
+        .score-details-toggle:hover,
+        .score-details-toggle:focus,
+        .score-details-toggle:active {
+            border: none !important;
+            box-shadow: none !important;
+            outline: none !important;
+            background: transparent !important;
+        }
         
         .alert-card.triggered {
             z-index: 2;
@@ -1622,13 +1638,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         .alert-card.triggered.up .score-details-toggle {
-            color: #00cc00;
-            opacity: 0.9;
+            color: #ffffff;
+            opacity: 1;
         }
 
         .alert-card.triggered.down .score-details-toggle {
-            color: #ff3333;
-            opacity: 0.9;
+            color: #ffffff;
+            opacity: 1;
         }
 
         body.dark-mode .alert-card.triggered.down {
@@ -2551,8 +2567,12 @@ document.addEventListener('DOMContentLoaded', function() {
             margin: 0 0 8px;
             padding-bottom: 6px;
             border-bottom: 1px solid #eee;
-            font-size: 15px;
+            font-size: 12px;
             font-family: 'ChatGPT Sans', sans-serif;
+        }
+
+        .popup-content h3 span {
+            font-size: 0.8em;
         }
 
         body.dark-mode .popup-content h3 {
@@ -3079,6 +3099,12 @@ document.addEventListener('DOMContentLoaded', function() {
             #search-ticker {
                 margin-top: -1px !important;
             }
+        }
+
+        /* Hide big CSS tooltip on 3-dot button, keep small browser tooltip */
+        .score-details-toggle[title]:hover::after {
+            display: none !important;
+            content: none !important;
         }
 
         .notification-tab {
@@ -5014,8 +5040,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 popup.innerHTML = `
                     <div class="popup-content">
-                        <h3 style="font-style: italic; padding-left: 4px;">Ψ $${alert.ticker} ︱ ${cleanTitle ? ' ' + cleanTitle : ''} <span style="color: ${isShort ? '#ff0000' : '#00cc00'};">[${isShort ? 'SHORT' : 'LONG'}]</span></h3>
-                        <div class="popup-details">
+                            <h3 style="font-style: italic; font-size: 11px; padding-left: 4px; color: ${document.body.classList.contains('dark-mode') ? '#e0e0e0' : '#444'};">Ψ $${alert.ticker} ︱ ${cleanTitle ? ' ' + cleanTitle : ''} <span style="color: ${isShort ? '#ff0000' : '#00cc00'}; font-size: 11px; margin-left: 4px;">[${isShort ? 'SHORT' : 'LONG'}]</span></h3>                        <div class="popup-details">
                             <div class="popup-section">
                                 <h4>Alert Details</h4>
                                 <pre style="margin-top: 4px; padding: 6px; border-radius: 4px; font-size: 10px; line-height: 1.4; font-family: monospace; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05); word-wrap: break-word; white-space: pre-wrap; overflow-wrap: break-word; word-break: break-word; max-width: 100%;"><span style="opacity: 0.7;">Alert:</span> ${alertAge}
@@ -5033,13 +5058,13 @@ document.addEventListener('DOMContentLoaded', function() {
 <span style="opacity: 0.7;">Move:</span> ${displayPercentMove}% ($${priceMove})</pre>
                             </div>
                             <div class="popup-section">
-<h4>Company Disclosures</h4>
-${alert.signals && typeof alert.signals === 'object' && Object.keys(alert.signals).length > 0 ? 
-    `<pre style="margin-top: 4px; padding: 6px; border-radius: 4px; font-size: 11px; line-height: 1.3; font-family: monospace; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05); word-wrap: break-word; white-space: pre-wrap; overflow-wrap: break-word; word-break: break-word;">` + 
-    Object.entries(alert.signals).filter(([signal]) => signal !== 'Reverse Split Event').map(([signal, reasons]) => 
-        `<span style="opacity: 0.7;">${signal}:</span>\n${formatSignalValue(signal, reasons)}`
-    ).join('\n') + `</pre>`
-    : '<pre style="margin-top: 4px; padding: 6px; border-radius: 4px; font-size: 11px; line-height: 1.3; font-family: monospace; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05); word-wrap: break-word; white-space: pre-wrap; overflow-wrap: break-word;">No signals detected</pre>'}
+    <h4>Company Disclosures</h4>
+    ${alert.signals && typeof alert.signals === 'object' && Object.keys(alert.signals).length > 0 ? 
+        `<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; margin-top: 4px; padding: 6px; border-radius: 4px; font-size: 11px; line-height: 1.4; font-family: monospace; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05); word-wrap: break-word; white-space: normal; overflow-wrap: break-word; word-break: break-word; max-width: 100%;">` + 
+        Object.entries(alert.signals).filter(([signal]) => signal !== 'Reverse Split Event').map(([signal, reasons]) => 
+            `<div style="display: contents;"><span style="opacity: 0.7; grid-column: 1;">${signal}:</span><span style="grid-column: 2; word-break: break-word;">${formatSignalValue(signal, reasons)}</span></div>`
+        ).join('') + `</div>`
+        : '<div style="margin-top: 4px; padding: 6px; border-radius: 4px; font-size: 11px; line-height: 1.3; font-family: monospace; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);">No signals detected</div>'}
 </div>
 <div class="popup-section">
                                 <h4>Quote Metrics</h4>
@@ -5048,12 +5073,12 @@ ${alert.signals && typeof alert.signals === 'object' && Object.keys(alert.signal
 <span style="opacity: 0.7;">Float:</span> ${alert.float ? alert.float.toLocaleString() : 'N/A'}
 <span style="opacity: 0.7;">F/AV:</span> ${alert.fav || 'N/A'}
 <span style="opacity: 0.7;">S/O Ratio:</span> ${alert.soRatio || 'N/A'}${alert.soBonus && alert.soBonus > 1.0 ? ' (' + alert.soBonus.toFixed(2) + 'x)' : ''}${alert.wa && alert.wa !== 'N/A' && !isNaN(parseFloat(alert.wa)) ? `\n<span style="opacity: 0.7;">WA:</span> $${parseFloat(alert.wa).toFixed(2)}${alert.currentPrice ? ` (Spread: ${((alert.currentPrice - parseFloat(alert.wa)) / parseFloat(alert.wa) * 100).toFixed(2)}%)` : ''}` : ''}
-<span style="opacity: 0.7;">FTD:</span> ${alert.ftd !== false && alert.ftd !== null && alert.ftd !== undefined && alert.ftd !== 'False' ? (typeof alert.ftd === 'number' ? alert.ftd.toLocaleString() : alert.ftd) + (alert.ftdPercent ? ' (' + alert.ftdPercent + '%)' : '') : 'False'}${alert.custodianName ? '\n<span style="opacity: 0.7;">Custodian:</span> ' + alert.custodianName : ''}${alert.filerName ? '\n<span style="opacity: 0.7;">Filer:</span> ' + alert.filerName : ''}
+<span style="opacity: 0.7;">FTD:</span> ${alert.ftd !== false && alert.ftd !== null && alert.ftd !== undefined && alert.ftd !== 'False' ? (typeof alert.ftd === 'number' ? alert.ftd.toLocaleString() : alert.ftd) + (alert.ftdPercent ? ' (' + alert.ftdPercent + '%)' : '') : 'False'}
 ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.financialRatioSignals.signals.length > 0 ? '\n<span style="opacity: 0.7;">Arithmetics:</span>\n' + alert.financialRatioSignals.signals.map(sig => {
         // Format financial ratio signals with simple phrasing
         const simplePhrase = sig.replace(/\s*\([^)]*\)/g, '');
         return '• ' + simplePhrase;
-    }).join('\n') + (alert.hasTuesdayBonus || (alert.bonusSignals && typeof alert.bonusSignals === 'object' && Object.keys(alert.bonusSignals).length > 0) ? '\n' : '') : ''}${(alert.hasTuesdayBonus || (alert.bonusSignals && typeof alert.bonusSignals === 'object' && Object.keys(alert.bonusSignals).length > 0)) ? '<span style="opacity: 0.7;">Bonus:</span> ' + (() => {
+    }).join('\n') + (alert.hasTuesdayBonus || (alert.bonusSignals && typeof alert.bonusSignals === 'object' && Object.keys(alert.bonusSignals).length > 0) ? '\n' : '') : ''}${(alert.hasTuesdayBonus || (alert.bonusSignals && typeof alert.bonusSignals === 'object' && Object.keys(alert.bonusSignals).length > 0)) ? '<div style="white-space: normal; word-break: break-word; max-width: 100%; display: inline-block;"><span style="opacity: 0.7;">Bonus:</span> ' + (() => {
         let bonusItems = [];
         let services = [];
         if (alert.hasTuesdayBonus) bonusItems.push('Tuesday Window');
@@ -5070,7 +5095,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
         let result = bonusItems.join(', ');
         if (services.length > 0) result += '\n' + services.join('\n');
         return result;
-    })() : ''}<pre>
+    })() + '</div>' : ''}<pre>
                             </div>
                         </div>
                         <div class="popup-footer">
@@ -5099,11 +5124,11 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             return;
                         }
                         if (/Financials/i.test(label)) {
-                            customConfirm(`View Financials for <b><i>${alert.ticker}</i></b>?`, `https://stockanalysis.com/stocks/${alert.ticker}/statistics/`);
+                            customConfirm(`View Financials for $<b><i>${alert.ticker}</i></b>?`, `https://stockanalysis.com/stocks/${alert.ticker}/statistics/`);
                             return;
                         }
                         if (/Trading\s*212|Trading212/i.test(label)) {
-                            customConfirm('Open Trading 212 to trade <b><i>' + alert.ticker + '</i></b>?', 'https://www.trading212.com/en/login');
+                            customConfirm('Open Trading 212 to trade $<b><i>' + alert.ticker + '</i></b>?', 'https://www.trading212.com/en/login');
                             return;
                         }
                         if (/Close/i.test(label)) {
@@ -6061,7 +6086,8 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
 
                 // Create the initial HTML content
                 card.innerHTML = `
-                    <div class="ticker" style="display:inline-block;user-select:none;transition:background 0.15s,border 0.15s; border-radius:4px; padding:2px 6px; margin-bottom:2px; font-size: 14px;">
+                    <button type="button" class="score-details-toggle" style="right: -6px;" title="View alert details">⫶</button>
+                    <div class="ticker" style="display:inline-block;user-select:none;transition:background 0.15s,border 0.15s; border-radius:4px; padding:2px 6px; margin-bottom:2px; font-size: 14px; margin-right: 18px;">
                     <div class="ticker" style="transition: all 0.15s ease;">
                         <span style="${alert.triggered ? `text-shadow: 0 0 5px rgba(0, 0, 0, ${this.isDarkMode() ? '0.95' : '0.7'})` : ''}; font-weight: bold;">Ψ $${alert.ticker}</span>
                         <span style="color: ${alert.isShort ? '#cc0000' : '#00cc00'}; transition: color 0.15s ease; display: inline-block; min-width: 50px; text-align: center; font-weight: bold; font-style: italic; ${alert.triggered && !this.isDarkMode() ? `text-shadow: 0 0px 2px rgba(120, 120, 120, 0.9)` : ''};">[${alert.isShort ? 'SHORT' : 'LONG'}]</span>
@@ -6567,7 +6593,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             }
             
             // For all other categories, join with newlines
-            return values.join('\n');
+            return values.join(', ');
         }
 
         // Helper function to determine if an alert is a short setup
