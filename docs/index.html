@@ -7271,21 +7271,43 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
 
                 if (alertPrice > 0) {
                     if (isShort) {
-                        bestPercent = ((alertPrice - quoteLowest) / alertPrice) * 100;
-                        worstPercent = ((alertPrice - quoteHighest) / alertPrice) * 100;
-                        bestPrice = quoteLowest;
+                        // For shorts: down is profit, up is loss
+                        let highPercent = ((quoteHighest - alertPrice) / alertPrice) * 100;
+                        const lowPercent = ((alertPrice - quoteLowest) / alertPrice) * 100;
+                        highPercent = -highPercent;  // Negate the upward move (it's a loss)
+                        
+                        // Peak is whichever had larger absolute return
+                        if (Math.abs(highPercent) >= Math.abs(lowPercent)) {
+                            peakPercent = highPercent;
+                            bestPrice = quoteHighest;
+                        } else {
+                            peakPercent = lowPercent;
+                            bestPrice = quoteLowest;
+                        }
+                        bestPercent = lowPercent; // Best case scenario (lowest price)
+                        worstPercent = highPercent; // Worst case scenario (highest price, negative)
                         worstPrice = quoteHighest;
                         totalShortTrades++;
-                        if (bestPercent > 0) shortWins++;
+                        if (peakPercent > 0) shortWins++;
                     } else {
-                        bestPercent = ((quoteHighest - alertPrice) / alertPrice) * 100;
-                        worstPercent = ((quoteLowest - alertPrice) / alertPrice) * 100;
-                        bestPrice = quoteHighest;
+                        // For longs: up is profit, down is loss
+                        const highPercent = ((quoteHighest - alertPrice) / alertPrice) * 100;
+                        const lowPercent = ((quoteLowest - alertPrice) / alertPrice) * 100;
+                        
+                        // Peak is whichever had larger absolute return
+                        if (Math.abs(highPercent) >= Math.abs(lowPercent)) {
+                            peakPercent = highPercent;
+                            bestPrice = quoteHighest;
+                        } else {
+                            peakPercent = lowPercent;
+                            bestPrice = quoteLowest;
+                        }
+                        bestPercent = highPercent; // Best case scenario (highest price)
+                        worstPercent = lowPercent; // Worst case scenario (lowest price)
                         worstPrice = quoteLowest;
                         totalLongTrades++;
-                        if (bestPercent > 0) longWins++;
+                        if (peakPercent > 0) longWins++;
                     }
-                    peakPercent = bestPercent;
                     peakPrice = bestPrice;
                 }
 
@@ -7394,6 +7416,8 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             const avgWin = winningTrades > 0 ? tradeDetails.filter(t => t.return > 0).reduce((sum, t) => sum + t.return, 0) / winningTrades : 0;
             const avgLoss = losingTrades > 0 ? tradeDetails.filter(t => t.return < 0).reduce((sum, t) => sum + t.return, 0) / losingTrades : 0;
             const profitFactor = Math.abs(avgLoss) > 0 ? avgWin / Math.abs(avgLoss) : 0;
+            const longWinRate = totalLongTrades > 0 ? (longWins / totalLongTrades * 100).toFixed(1) : 0;
+            const shortWinRate = totalShortTrades > 0 ? (shortWins / totalShortTrades * 100).toFixed(1) : 0;
 
             // Function to show trade detail popup
             window.showTradeDetail = function(trade) {
@@ -7572,6 +7596,14 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             <div class="trade-item">
                                 <span>Win Rate</span>
                                 <span class="trade-return">${(winningTrades / totalTrades * 100).toFixed(1)}%</span>
+                            </div>
+                            <div class="trade-item">
+                                <span>Long Win %</span>
+                                <span class="trade-return">${longWinRate}%</span>
+                            </div>
+                            <div class="trade-item">
+                                <span>Short Win %</span>
+                                <span class="trade-return">${shortWinRate}%</span>
                             </div>
                             <div class="trade-item">
                                 <span>Wins / Losses</span>

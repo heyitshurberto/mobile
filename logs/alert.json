@@ -1,194 +1,24 @@
 [
   {
-    "ticker": "CGTL",
-    "title": "6-K - Creative Global Technology Holdings Ltd (0001967822) (Filer)",
-    "companyName": "Creative Global Technology Holdings Ltd",
+    "ticker": "PLRZ",
+    "title": "6-K - Polyrizon Ltd. (0001893645) (Filer)",
+    "companyName": "Polyrizon Ltd.",
     "filerName": null,
-    "price": 4.799,
-    "fav": "1.51",
-    "volume": 8011,
-    "averageVolume": 760864,
-    "float": 1152588,
-    "sharesOutstanding": 1148333,
-    "soRatio": "100.4%",
-    "marketCap": 8230280,
+    "price": 12.56,
+    "fav": "22.34",
+    "volume": 133135,
+    "averageVolume": 61084,
+    "float": 1364900,
+    "sharesOutstanding": 1871848,
+    "soRatio": "72.92%",
+    "marketCap": 23510412,
     "isShort": true,
-    "ftd": 43773,
-    "intent": "Convertible Debt, Credit Default, Asset Disposition",
-    "incorporated": "Cayman Islands",
-    "located": "Kowloon Bay, Hong Kong",
-    "filingDate": "2026-08-25T10:30:03-04:00",
+    "ftd": 17031,
+    "intent": "Related-Party Transaction, Credit Default, Private Placement",
+    "incorporated": "Tel Aviv, Israel",
+    "located": "Israel",
+    "filingDate": "2026-09-04T09:19:08-04:00",
     "signals": {
-      "Convertible Debt": [
-        "Convertible Securities"
-      ],
-      "Credit Default": [
-        "Notice Of Default"
-      ],
-      "Asset Disposition": [
-        "Disposition"
-      ]
-    },
-    "bonusSignals": {
-      "VStock": "VStock Setup",
-      "Third Party": [
-        "Okapi Partners",
-        "VStock Transfer"
-      ]
-    },
-    "financialRatioSignals": {},
-    "formType": [
-      "6-K",
-      "S-8",
-      "20-F",
-      "EX-99.1"
-    ],
-    "cik": "1967822",
-    "skipReason": "",
-    "alertType": null,
-    "predatoryFinancing": null,
-    "sector": "Electrical Equipment",
-    "hasTuesdayBonus": true,
-    "custodianVerified": true,
-    "custodianName": "Kowloon Bay, Hong Kong (via Cayman Islands)",
-    "filingTimeBonus": 1.15,
-    "recordedAt": "2026-08-25T14:30:58.651Z",
-    "recordId": "CGTL-1787668258651",
-    "expiresAt": "2026-08-28T14:30:58.652Z",
-    "direction": "SHORT",
-    "highest5Day": 4.799,
-    "highest5DayPercent": 0,
-    "lowest5Day": 4.799,
-    "lowest5DayPercent": 0,
-    "priceAfter1m": null,
-    "percentAfter1m": null,
-    "priceAfter5m": null,
-    "percentAfter5m": null,
-    "priceAfter30m": null,
-    "percentAfter30m": null,
-    "priceAfter1h": null,
-    "percentAfter1h": null,
-    "priceAfter6h": null,
-    "percentAfter6h": null,
-    "priceAfter1d": null,
-    "percentAfter1d": null,
-    "priceAfter3d": null,
-    "percentAfter3d": null
-  },
-  {
-    "ticker": "GYRE",
-    "title": "8-K - GYRE THERAPEUTICS, INC. (0001124105) (Filer)",
-    "companyName": "GYRE THERAPEUTICS, INC.",
-    "filerName": null,
-    "price": 6.68,
-    "fav": "427.07",
-    "volume": 44548,
-    "averageVolume": 84157,
-    "float": 35941200,
-    "sharesOutstanding": 106033763,
-    "soRatio": "33.90%",
-    "marketCap": 708305472,
-    "isShort": false,
-    "ftd": 26947,
-    "intent": "Clinical Success, FDA Approved, Commercial Inflection, Clinical Milestone",
-    "incorporated": "Wilmington, Delaware",
-    "located": "Toronto, Canada",
-    "filingDate": "2026-08-26T09:00:44-04:00",
-    "signals": {
-      "Clinical Success": [
-        "Priority Review",
-        "Phase 3",
-        "Primary Endpoint",
-        "Primary Endpoint Met"
-      ],
-      "FDA Approved": [
-        "FDA approved"
-      ],
-      "Commercial Inflection": [
-        "Revenue Growth",
-        "De-Risking"
-      ],
-      "Clinical Milestone": [
-        "Dose Escalation"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "formType": [
-      "8-K",
-      "S-8",
-      "FWG",
-      "20-F",
-      "13D",
-      "Form D",
-      "EX-99.1",
-      "Item 7.01",
-      "Item 9.01"
-    ],
-    "cik": "1124105",
-    "skipReason": "",
-    "alertType": null,
-    "predatoryFinancing": null,
-    "sector": "Biotechnology",
-    "hasTuesdayBonus": false,
-    "custodianVerified": true,
-    "custodianName": "Toronto, Canada (via Wilmington, Delaware)",
-    "filingTimeBonus": 1.2,
-    "direction": "LONG",
-    "recordedAt": "2026-08-26T13:01:35.410Z",
-    "recordId": "GYRE-1787749295410",
-    "expiresAt": "2026-08-31T13:01:35.410Z",
-    "highest5Day": 6.68,
-    "highest5DayPercent": 0,
-    "lowest5Day": 6.68,
-    "lowest5DayPercent": 0,
-    "priceAfter1m": null,
-    "percentAfter1m": null,
-    "priceAfter5m": null,
-    "percentAfter5m": null,
-    "priceAfter30m": null,
-    "percentAfter30m": null,
-    "priceAfter1h": null,
-    "percentAfter1h": null,
-    "priceAfter6h": null,
-    "percentAfter6h": null,
-    "priceAfter1d": null,
-    "percentAfter1d": null,
-    "priceAfter3d": null,
-    "percentAfter3d": null,
-    "ai_analysis": {
-      "win_rate": null,
-      "avg_move": null,
-      "confidence": null,
-      "matches": [],
-      "outliers": [],
-      "verdict": "PENDING",
-      "last_trained": null
-    }
-  },
-  {
-    "ticker": "SWVL",
-    "title": "6-K - Swvl Holdings Corp (0001875609) (Filer)",
-    "companyName": "Swvl Holdings Corp",
-    "filerName": null,
-    "price": 2.21,
-    "fav": "7.29",
-    "volume": 75802076,
-    "averageVolume": 1233549,
-    "float": 8990317,
-    "sharesOutstanding": 9964344,
-    "soRatio": "90.22%",
-    "marketCap": 22021200,
-    "isShort": true,
-    "ftd": 80,
-    "intent": "Acquisition Agreement, Related-Party Transaction, Credit Default, Merger/Acquisition",
-    "incorporated": "Hong Kong",
-    "located": "Cayman Islands",
-    "filingDate": "2026-08-26T09:26:50-04:00",
-    "signals": {
-      "Acquisition Agreement": [
-        "Going Private"
-      ],
       "Related-Party Transaction": [
         "Controlled By",
         "Affiliate Of"
@@ -196,11 +26,16 @@
       "Credit Default": [
         "Is In Default"
       ],
-      "Merger/Acquisition": [
-        "Going Private"
+      "Private Placement": [
+        "Private Placement"
       ]
     },
-    "bonusSignals": {},
+    "bonusSignals": {
+      "VStock": "VStock Setup",
+      "Third Party": [
+        "VStock Transfer"
+      ]
+    },
     "financialRatioSignals": {},
     "formType": [
       "6-K",
@@ -208,25 +43,24 @@
       "F-3",
       "20-F",
       "Form D",
-      "EX-99.1",
-      "EX-99.2"
+      "EX-10.1"
     ],
-    "cik": "1875609",
+    "cik": "1893645",
     "skipReason": "",
     "alertType": null,
     "predatoryFinancing": null,
-    "sector": "Road & Rail",
+    "sector": "Biotechnology",
     "hasTuesdayBonus": false,
     "custodianVerified": true,
-    "custodianName": "Cayman Islands (via Hong Kong)",
+    "custodianName": "Israel (via Tel Aviv, Israel)",
     "filingTimeBonus": 1.2,
-    "recordedAt": "2026-08-26T13:27:38.346Z",
-    "recordId": "SWVL-1787750858346",
-    "expiresAt": "2026-08-31T13:27:38.346Z",
+    "recordedAt": "2026-09-04T13:20:14.822Z",
+    "recordId": "PLRZ-1788528014822",
+    "expiresAt": "2026-09-09T13:20:14.822Z",
     "direction": "SHORT",
-    "highest5Day": 2.21,
+    "highest5Day": 12.56,
     "highest5DayPercent": 0,
-    "lowest5Day": 2.21,
+    "lowest5Day": 12.56,
     "lowest5DayPercent": 0,
     "priceAfter1m": null,
     "percentAfter1m": null,
@@ -253,82 +87,237 @@
     }
   },
   {
-    "ticker": "AMOD",
-    "title": "8-K - ALPHA MODUS HOLDINGS, INC. (0001862463) (Filer)",
-    "companyName": "ALPHA MODUS HOLDINGS, INC.",
+    "ticker": "RPC",
+    "title": "8-K/A - Ridgepost Capital, Inc. (0001841968) (Filer)",
+    "companyName": "Ridgepost Capital, Inc.",
     "filerName": null,
-    "price": 3.81,
-    "fav": "1468.69",
-    "volume": 14531,
-    "averageVolume": 35148,
-    "float": 51621560,
-    "sharesOutstanding": 4966818,
-    "soRatio": "1039.3%",
-    "marketCap": 18923576,
+    "price": 8.48,
+    "fav": "102.25",
+    "volume": 221114,
+    "averageVolume": 516144,
+    "float": 52778000,
+    "sharesOutstanding": 78989717,
+    "soRatio": "66.82%",
+    "marketCap": 934821952,
     "isShort": true,
-    "ftd": 14126,
-    "intent": "Commercial Agreement, Licensing Deal, Commercial Inflection, Convertible Debt, Related-Party Transaction, Regulatory Breach, Nasdaq Delisting, Private Placement",
+    "ftd": 14482,
+    "intent": "Related-Party Transaction, Accounting Restatement, Contingent Value Rights",
     "incorporated": "Wilmington, Delaware",
-    "located": "North Carolina",
-    "filingDate": "2026-08-27T08:53:34-04:00",
+    "located": "Texas",
+    "filingDate": "2026-09-04T11:32:52-04:00",
     "signals": {
-      "Commercial Agreement": [
-        "Services Agreement"
-      ],
-      "Licensing Deal": [
-        "License Agreement"
-      ],
-      "Commercial Inflection": [
-        "Purchase Order"
-      ],
-      "Convertible Debt": [
-        "Convertible Notes",
-        "Convertible Securities"
-      ],
       "Related-Party Transaction": [
-        "Family Member",
-        "Controlled By",
         "Related Party",
         "Affiliate Of"
       ],
-      "Regulatory Breach": [
-        "Warning Letter"
+      "Accounting Restatement": [
+        "Substantial Doubt"
       ],
-      "Nasdaq Delisting": [
-        "Nasdaq Notification"
-      ],
-      "Private Placement": [
-        "PIPE"
+      "Contingent Value Rights": [
+        "Contingent Payments"
       ]
     },
     "bonusSignals": {},
     "financialRatioSignals": {},
     "formType": [
       "8-K",
-      "S-1",
+      "8-K/A",
       "S-3",
-      "EX-10.1",
-      "Item 1.01",
-      "Item 3.02",
-      "Item 7.01",
+      "S-8",
+      "EX-99.1",
+      "EX-99.2",
       "Item 9.01"
     ],
-    "cik": "1862463",
+    "cik": "1841968",
     "skipReason": "",
     "alertType": null,
     "predatoryFinancing": null,
-    "sector": "Technology",
+    "sector": "Financial Services",
     "hasTuesdayBonus": false,
     "custodianVerified": true,
-    "custodianName": "North Carolina (via Wilmington, Delaware)",
-    "filingTimeBonus": 1.15,
+    "custodianName": "Texas (via Wilmington, Delaware)",
+    "filingTimeBonus": 1.1,
     "direction": "SHORT",
-    "recordedAt": "2026-08-27T12:54:35.012Z",
-    "recordId": "AMOD-1787835275012",
-    "expiresAt": "2026-09-01T12:54:35.012Z",
-    "highest5Day": 3.81,
+    "recordedAt": "2026-09-04T15:33:50.210Z",
+    "recordId": "RPC-1788536030210",
+    "expiresAt": "2026-09-09T15:33:50.210Z",
+    "highest5Day": 8.48,
     "highest5DayPercent": 0,
-    "lowest5Day": 3.81,
+    "lowest5Day": 8.48,
+    "lowest5DayPercent": 0,
+    "priceAfter1m": null,
+    "percentAfter1m": null,
+    "priceAfter5m": null,
+    "percentAfter5m": null,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "ai_analysis": {
+      "win_rate": null,
+      "avg_move": null,
+      "confidence": null,
+      "matches": [],
+      "outliers": [],
+      "verdict": "PENDING",
+      "last_trained": null
+    }
+  },
+  {
+    "ticker": "LU",
+    "title": "6-K - Lufax Holding Ltd (0001816007) (Filer)",
+    "companyName": "Lufax Holding Ltd",
+    "filerName": null,
+    "price": 1.23,
+    "fav": "58.37",
+    "volume": 610137,
+    "averageVolume": 964635,
+    "float": 56304860,
+    "sharesOutstanding": 866688892,
+    "soRatio": "6.50%",
+    "marketCap": 1066027328,
+    "isShort": false,
+    "ftd": 25760,
+    "intent": "Stock Buyback, DTC Eligible Restored, Credit Default",
+    "incorporated": "Cayman Islands",
+    "located": "China",
+    "filingDate": "2026-09-09T09:00:50-04:00",
+    "signals": {
+      "Stock Buyback": [
+        "Share Repurchase"
+      ],
+      "DTC Eligible Restored": [
+        "Resume Trading"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "20-F",
+      "EX-99.1"
+    ],
+    "cik": "1816007",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Financial Services",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Foreign Depositary",
+    "filingTimeBonus": 1.2,
+    "recordedAt": "2026-09-09T13:02:02.712Z",
+    "recordId": "LU-1788958922712",
+    "expiresAt": "2026-09-14T13:02:02.712Z",
+    "direction": "LONG",
+    "highest5Day": 1.23,
+    "highest5DayPercent": 0,
+    "lowest5Day": 1.23,
+    "lowest5DayPercent": 0,
+    "priceAfter1m": null,
+    "percentAfter1m": null,
+    "priceAfter5m": null,
+    "percentAfter5m": null,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "ai_analysis": {
+      "win_rate": null,
+      "avg_move": null,
+      "confidence": null,
+      "matches": [],
+      "outliers": [],
+      "verdict": "PENDING",
+      "last_trained": null
+    }
+  },
+  {
+    "ticker": "LMB",
+    "title": "8-K - Limbach Holdings, Inc. (0001606163) (Filer)",
+    "companyName": "Limbach Holdings, Inc.",
+    "filerName": null,
+    "price": 49.54,
+    "fav": "75.04",
+    "volume": 466447,
+    "averageVolume": 333169,
+    "float": 25000000,
+    "sharesOutstanding": 11921067,
+    "soRatio": "209.7%",
+    "marketCap": 590569664,
+    "isShort": true,
+    "ftd": 915,
+    "intent": "Licensing Deal, Related-Party Transaction, Bankruptcy Filing, Credit Default, Asset Disposition",
+    "incorporated": "Wilmington, Delaware",
+    "located": "Florida",
+    "filingDate": "2026-09-09T09:07:26-04:00",
+    "signals": {
+      "Licensing Deal": [
+        "License Agreement"
+      ],
+      "Related-Party Transaction": [
+        "Controlled By",
+        "Affiliate Of"
+      ],
+      "Bankruptcy Filing": [
+        "Insolvency Proceedings"
+      ],
+      "Credit Default": [
+        "Event Of Default"
+      ],
+      "Asset Disposition": [
+        "Asset Sale",
+        "Asset Disposition",
+        "Disposition"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {
+      "signals": [
+        "High Leverage - Debt/Equity Exceeds 3.0"
+      ],
+      "severity": 0.75,
+      "isDeterministic": true
+    },
+    "formType": [
+      "8-K",
+      "EX-10.1",
+      "Item 1.01",
+      "Item 1.02",
+      "Item 2.03",
+      "Item 9.01"
+    ],
+    "cik": "1606163",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Construction",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Florida (via Wilmington, Delaware)",
+    "filingTimeBonus": 1.2,
+    "recordedAt": "2026-09-09T13:07:59.591Z",
+    "recordId": "LMB-1788959279591",
+    "expiresAt": "2026-09-14T13:07:59.591Z",
+    "direction": "SHORT",
+    "highest5Day": 49.54,
+    "highest5DayPercent": 0,
+    "lowest5Day": 49.54,
     "lowest5DayPercent": 0,
     "priceAfter1m": null,
     "percentAfter1m": null,
