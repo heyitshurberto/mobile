@@ -10715,6 +10715,25 @@ if (process.stdin.isTTY) {
             signalCategories.includes('Stock Buyback') ||
             deterministic.pattern !== null
           );
+          const hasStrongStructuralBullish = !shortOpportunity && (
+            signalCategories.includes('Merger/Acquisition') ||
+            signalCategories.includes('Acquisition Agreement') ||
+            signalCategories.includes('Government Contract') ||
+            signalCategories.includes('Licensing Deal') ||
+            signalCategories.includes('Commercial Inflection') ||
+            signalCategories.includes('Stock Buyback') ||
+            signalCategories.includes('Insider Buying')
+          );
+          const hasPureClinicalOrFdaLong = !shortOpportunity && (
+            signalCategories.some(cat => [
+              'Clinical Success',
+              'Clinical Milestone',
+              'FDA Approved',
+              'FDA Breakthrough',
+              'FDA Filing'
+            ].includes(cat)) &&
+            !hasStrongStructuralBullish
+          );
           const isAcquisitionAgreement = signalCategories.includes('Acquisition Agreement');
           const numFloatForFilter = numFloat || 0;
           const isTightFloatMicrocap = numFloatForFilter > 0 && numFloatForFilter <= 15000000;
@@ -10732,24 +10751,45 @@ if (process.stdin.isTTY) {
               console.log('');
               continue;
             }
-          }
-          
-          // 3. LONG-SIDE S/O FLOOR: < 2% usually lacks squeeze depth, but tight-float micro-cap and high-confidence catalysts can still trade
-          if (shortOpportunity !== true) {
-            const soNum = soRatioValue !== null ? parseFloat(soRatioValue) : 0;
-            const allowLowSO = isHighConvictionLong || (isTightFloatMicrocap && soNum < 5);
-            if (soNum < 2 && !allowLowSO) {
-              skipReason = `LONG signal but S/O ${soNum.toFixed(2)}% < 2% (no squeeze potential)`;
+
+            // Reject weak high-S/O shorts. The data shows these underperform materially.
+            if (soNum > 120) {
+              skipReason = `SHORT signal but S/O ${soNum.toFixed(2)}% exceeds 120% cutoff`;
               saveToCSV({ ...alertData, skipReason });
               const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
               const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
               log('INFO', `Links: ${secLink} ${tvLink}`);
-              log('SKIP', `$${ticker}, LONG weak - S/O ${soNum.toFixed(2)}% (need 2%+ for squeeze)`);
+              log('SKIP', `$${ticker}, SHORT weak - S/O ${soNum.toFixed(2)}% (cap 120% cutoff)`);
               console.log('');
               continue;
             }
           }
           
+          // 3. LONG-SIDE S/O FLOOR + pure clinical/FDA cutoff
+          if (shortOpportunity !== true) {
+            const soNum = soRatioValue !== null ? parseFloat(soRatioValue) : 0;
+            const allowLowSO = isHighConvictionLong || (isTightFloatMicrocap && soNum < 5);
+            if (hasPureClinicalOrFdaLong) {
+              skipReason = `Pure Clinical/FDA LONG without structural catalyst`;
+              saveToCSV({ ...alertData, skipReason });
+              const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
+              const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
+              log('INFO', `Links: ${secLink} ${tvLink}`);
+              log('SKIP', `$${ticker}, LONG weak - Clinical/FDA only without structural catalyst`);
+              console.log('');
+              continue;
+            }
+            if (soNum < 10 && !allowLowSO) {
+              skipReason = `LONG signal but S/O ${soNum.toFixed(2)}% < 10% and not high conviction`;
+              saveToCSV({ ...alertData, skipReason });
+              const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
+              const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
+              log('INFO', `Links: ${secLink} ${tvLink}`);
+              log('SKIP', `$${ticker}, LONG weak - S/O ${soNum.toFixed(2)}% (need 10%+ unless high conviction)`);
+              console.log('');
+              continue;
+            }
+          }
           
           // 5. HIGH SHORT INTEREST MODIFIER: soRatio > 70% requires extreme catalyst
           if (shortOpportunity !== true) {
