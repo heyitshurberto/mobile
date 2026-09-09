@@ -10711,7 +10711,6 @@ if (process.stdin.isTTY) {
             signalCategories.includes('Acquisition Agreement') ||
             signalCategories.includes('Government Contract') ||
             signalCategories.includes('Licensing Deal') ||
-            signalCategories.includes('Commercial Inflection') ||
             signalCategories.includes('Stock Buyback') ||
             deterministic.pattern !== null
           );
@@ -10720,7 +10719,6 @@ if (process.stdin.isTTY) {
             signalCategories.includes('Acquisition Agreement') ||
             signalCategories.includes('Government Contract') ||
             signalCategories.includes('Licensing Deal') ||
-            signalCategories.includes('Commercial Inflection') ||
             signalCategories.includes('Stock Buyback') ||
             signalCategories.includes('Insider Buying')
           );
