@@ -919,7 +919,6 @@ const SEMANTIC_KEYWORDS = {
 
 const strongBearishSignals = [
   'Convertible Debt',
-  'Related-Party Transaction',
   'Credit Default',
   'Accounting Restatement',
   'Customer Loss',
@@ -1557,7 +1556,7 @@ const computeSignalResolution = (semanticSignals, text) => {
   ];
 
   const isBearishCategory = (category) => {
-    const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Regulatory Breach', 'Accounting Restatement', 'Auditor Change', 'Material Lawsuit', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure', 'Related-Party Transaction', 'Offering At A Discount', 'Revenue Loss', 'Asset Disposition', 'Private Placement', ...strongBearishSignals];
+    const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Regulatory Breach', 'Accounting Restatement', 'Auditor Change', 'Material Lawsuit', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure', 'Offering At A Discount', 'Revenue Loss', 'Asset Disposition', 'Private Placement', ...strongBearishSignals];
     return bearishCats.includes(category);
   };
 
@@ -3784,7 +3783,6 @@ const sendPersonalWebhook = async (alertData) => {
         'Failed Trial',
         'Post-Hoc Salvage',
         'Convertible Debt',
-        'Related-Party Transaction',
         'Offering At A Discount',
         'Capital Raise',
         'Underwritten Offering',
@@ -10164,7 +10162,7 @@ if (process.stdin.isTTY) {
             const activeSigKeys = sigKeys.filter(cat => modifiersMap[cat] !== 'Resolve');
             
             // Bearish signals that force SHORT regardless
-            const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Regulatory Breach', 'Accounting Restatement', 'Auditor Change', 'Material Lawsuit', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure', 'Related-Party Transaction', 'Offering At A Discount', 'Revenue Loss', 'Asset Disposition', 'Private Placement', ...strongBearishSignals];
+            const bearishCats = ['Bankruptcy Filing', 'Credit Default', 'Going Dark', 'Failed Trial', 'Regulatory Breach', 'Accounting Restatement', 'Auditor Change', 'Material Lawsuit', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure', 'Offering At A Discount', 'Revenue Loss', 'Asset Disposition', 'Private Placement', ...strongBearishSignals];
             const bearishCount = activeSigKeys.filter(cat => bearishCats.includes(cat)).length;
             const bullishCats = ['Merger/Acquisition', 'Clinical Success', 'Clinical Milestone', 'DTC Eligible Restored', 'Government Contract', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Insider Buying', 'Contingent Value Rights'];
             const bullishCount = activeSigKeys.filter(cat => bullishCats.includes(cat)).length;
@@ -10207,9 +10205,9 @@ if (process.stdin.isTTY) {
               }
             }
             
-            const dilutionSignals = ['Related-Party Transaction', 'Offering At A Discount', 'Private Placement', 'Revenue Loss', 'Asset Disposition'];
+            const dilutionSignals = ['Offering At A Discount', 'Private Placement', 'Revenue Loss', 'Asset Disposition'];
             const stressSignals = ['Credit Default', 'Bankruptcy Filing', 'Going Dark', 'Failed Trial', 'Auditor Change', 'Accounting Restatement', 'Regulatory Breach', 'Nasdaq Delisting', 'Bid Price Delisting', 'Executive Departure'];
-            const weakBearishSignals = ['Related-Party Transaction', 'Offering At A Discount', 'Private Placement', 'Revenue Loss', 'Asset Disposition'];
+            const weakBearishSignals = ['Offering At A Discount', 'Private Placement', 'Revenue Loss', 'Asset Disposition'];
             const hasOnlyWeakBearish = bearishCount > 0 && sigKeys.some(cat => weakBearishSignals.includes(cat)) && !sigKeys.some(cat => stressSignals.includes(cat));
             const hasStrongBullish = bullishCount >= 2 || ['Merger/Acquisition', 'Clinical Success', 'Government Contract', 'Licensing Deal', 'Stock Buyback', 'Capital Raise', 'Underwritten Offering', 'Insider Buying'].some(cat => sigKeys.includes(cat));
 
@@ -10921,7 +10919,6 @@ if (process.stdin.isTTY) {
                 const ctbSufficientBearish = ctbBearishSignalCategories.length >= 3 || ctbHasStrongBearish;
                 const ctbDilutionSignalCategories = signalCategories.filter(cat => [
                   'Convertible Debt',
-                  'Related-Party Transaction',
                   'Offering At A Discount',
                   'Private Placement'
                 ].includes(cat));
