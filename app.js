@@ -10775,6 +10775,28 @@ if (process.stdin.isTTY) {
               console.log('');
               continue;
             }
+
+            // Asset Disposition LONG must have clean M&A and no toxic long-side signals.
+            if (signalCategories.includes('Asset Disposition')) {
+              const hasCleanMA = signalCategories.includes('Merger/Acquisition') || signalCategories.includes('Acquisition Agreement');
+              const hasToxicLongSignals = [
+                'Credit Default',
+                'Convertible Debt',
+                'Underwritten Offering'
+              ].some(cat => signalCategories.includes(cat));
+
+              if (!hasCleanMA || hasToxicLongSignals) {
+                skipReason = 'Asset Disposition LONG requires M&A/Acquisition and no toxic signals';
+                saveToCSV({ ...alertData, skipReason });
+                const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
+                const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
+                log('INFO', `Links: ${secLink} ${tvLink}`);
+                log('SKIP', `$${ticker}, LONG weak - Asset Disposition without clean M&A or toxic signals`);
+                console.log('');
+                continue;
+              }
+            }
+
             if (soNum < 10 && !allowLowSO) {
               skipReason = `LONG signal but S/O ${soNum.toFixed(2)}% < 10% and not high conviction`;
               saveToCSV({ ...alertData, skipReason });
