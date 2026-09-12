@@ -39,7 +39,7 @@ const CONFIG = {
   MAX_FLOAT_8K: 125000000,           // Maximum float size threshold for 8-K filings
   MAX_FAV_RATIO: 1000,                // Maximum float-to-average-volume ratio threshold
   ALLOWED_COUNTRIES: ['israel', 'singapore', 'ireland', 'new york', 'texas', 'china', 'bermuda', 'hong kong', 'cayman islands', 'bvi', 'virgin islands', 'canada', 'nevada', 'delaware'], // Whitelisted jurisdictions for company registration
-  CTB_WATCHLIST: ['GITS','MWC','RGNT','OMH','SMCZ','ATPC','FABTQ','SLGB','ISCO','CLRO','NCT','BIYA','ZCMD','CZOOF','DXST','ZYBT','SLBT','IOTR','HIHO','DXF','CJMB','EGG','PRFX','TGHL','EHGO'], // Symbols with elevated cost-to-borrow values from IBorrowDesk
+  CTB_WATCHLIST: ['GITS','MWC','RGNT','OMH','SMCZ','ATPC','FABTQ','SLGB','ISCO','CLRO','NCT','BIYA','ZCMD','CZOOF','DXST','ZYBT','SLBT','IOTR','HIHO','DXF','CJMB','EGG','PRFX','TGHL','EHGO','SGLD','WLDS','SGLY','TNON','JZ','IPST','MB','TNMG','BAOS','IONM','NCPL','CIIT','WETO','LHSW','PPCB','HCWB','SUNE','PMAX','WHLR','AMIX'], // Symbols with elevated cost-to-borrow values from IBorrowDesk
   PI_MODE: true,              // Enable optimizations for resource-constrained environments          
   REFRESH_PEAK: 1,            // Poll interval (ms) during peak market hours for real-time detection
   REFRESH_NORMAL: 30000,      // Poll interval (ms) during standard market hours
