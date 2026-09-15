@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Pleromic Capital">
-    <meta name="theme-color" content="#1a1a1a" id="theme-color-meta">
+    <meta name="theme-color" content="#1a1a1a">
     <!-- Google Font for modern look -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Crafty+Girls&display=swap" rel="stylesheet">
@@ -1102,7 +1102,7 @@ document.addEventListener('DOMContentLoaded', function() {
             padding: 0;
             font-size: 12px;
             -webkit-font-smoothing: antialiased;
-            transition: background-color 0.15s ease, color 0.15s ease;
+            transition: background-color 0.02s ease, color 0.02s ease;
             scrollbar-gutter: stable;
             overflow-y: scroll;
         }
@@ -1110,6 +1110,13 @@ document.addEventListener('DOMContentLoaded', function() {
         body.dark-mode {
             background: #1a1a1a;
             color: #e0e0e0;
+        }
+        
+        /* iPhone-only faster transitions for dark mode */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                transition: background-color 0.15s ease, color 0.15s ease;
+            }
         }
         
         .container {
@@ -3743,7 +3750,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <img src="logo.jpeg?t=${new Date().getTime()}" alt="Logo" class="logo" style="height: 30px; width: auto; transition: opacity 0.4s ease; margin-right: -34x; margin-left: 35px; margin-top: -5px; margin-bottom: 2px; transform: rotate(0deg); opacity: 0.7;" onload="this.style.opacity=0.75">
                     <h1 style="color: #000000; font-size: 22px; font-family: 'Playfair Display', serif; font-weight: 500; letter-spacing: 0.4px; margin-left: -7px; margin-top: 1px; margin-bottom: 7px; opacity: 0.8;" class="dashboard-title">Pleromic Capital</h1>
                 </div>
-                <div class="theme-toggle" onclick="toggleTheme();" ontouchstart="toggleTheme(); event.stopPropagation();">
+                <div class="theme-toggle" onmousedown="event.stopPropagation(); toggleTheme();">
                     <svg class="theme-icon-light" viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="5"></circle>
                         <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -6227,46 +6234,47 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             const sunIcon = themeToggle.querySelector('.theme-icon-light');
             const moonIcon = themeToggle.querySelector('.theme-icon-dark');
 
-            // Toggle theme immediately (not in requestAnimationFrame)
-            body.classList.toggle('dark-mode');
-            header.classList.toggle('dark-mode');
+            // Use requestAnimationFrame for smoother transitions
+            requestAnimationFrame(() => {
+                // Toggle theme immediately
+                body.classList.toggle('dark-mode');
+                header.classList.toggle('dark-mode');
 
-            // Get current theme state
-            const isDark = body.classList.contains('dark-mode');
-            
-            // Update meta theme-color for iOS Safari status bar
-            const metaThemeColor = document.getElementById('theme-color-meta');
-            if (metaThemeColor) {
-                metaThemeColor.setAttribute('content', isDark ? '#1a1a1a' : '#ffffff');
-            }
+                // Toggle icon visibility
+                const isDark = body.classList.contains('dark-mode');
+                if (isDark) {
+                    sunIcon.style.display = 'none';
+                    moonIcon.style.display = 'block';
+                } else {
+                    sunIcon.style.display = 'block';
+                    moonIcon.style.display = 'none';
+                }
 
-            // Toggle icon visibility
-            if (isDark) {
-                sunIcon.style.display = 'none';
-                moonIcon.style.display = 'block';
-            } else {
-                sunIcon.style.display = 'block';
-                moonIcon.style.display = 'none';
-            }
+                // Save theme preference
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
 
-            // Save theme preference
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                // iPhone-only: Update meta theme-color
+                if (/iPhone/.test(navigator.userAgent)) {
+                    const metaTag = document.querySelector('meta[name="theme-color"]');
+                    if (metaTag) metaTag.setAttribute('content', isDark ? '#1a1a1a' : '#ffffff');
+                }
 
-            // Restore dropdowns efficiently
-            if (dropdownStates.length) {
-                requestAnimationFrame(() => {
-                    dropdownStates.forEach(({ dropdown, button, ticker }) => {
-                        dropdown.style.display = 'block';
-                        dropdown.style.opacity = '1';
-                        dropdown.style.transform = 'translateY(0)';
-                        dropdown.style.pointerEvents = 'auto';
-                        if (button) button.textContent = '▲';
-                        if (ticker === lastActiveTicker) {
-                            activeDropdown = dropdown;
-                        }
+                // Restore dropdowns efficiently
+                if (dropdownStates.length) {
+                    requestAnimationFrame(() => {
+                        dropdownStates.forEach(({ dropdown, button, ticker }) => {
+                            dropdown.style.display = 'block';
+                            dropdown.style.opacity = '1';
+                            dropdown.style.transform = 'translateY(0)';
+                            dropdown.style.pointerEvents = 'auto';
+                            if (button) button.textContent = '▲';
+                            if (ticker === lastActiveTicker) {
+                                activeDropdown = dropdown;
+                            }
+                        });
                     });
-                });
-            }
+                }
+            });
         }
 
         // Load saved theme on page load
