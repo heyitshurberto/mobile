@@ -26,7 +26,7 @@ if os.path.exists('.env'):
     with open('.env', 'r') as f:
         for line in f:
             if line.startswith('FINNHUB_API_KEY='):
-                FINNHUB_API_KEY = line.split('=', 1)[1].strip()
+                FINNHUB_API_KEY = line.split('=', 1)[1].strip().strip('"').strip("'")
                 break
 
 def fetch_stock_price(ticker, request_count, max_retries=3):
@@ -581,6 +581,10 @@ def weighted_performance_analysis(rows, perf_dict):
     return analysis
 
 def main():
+    if not FINNHUB_API_KEY:
+        print("WARNING: FINNHUB_API_KEY is not set in .env; live post-alert price lookup is disabled.")
+        print("         The script will fall back to the alert price and show 0.00 move until an API key is configured.\n")
+
     # Load data from track.csv with proper handling for column misalignment
     try:
         with open('logs/track.csv', 'r') as f:
@@ -615,7 +619,7 @@ def main():
     
     print(f"\nAlerts ({len(tickers)})")
     print("=" * 220)
-    header = f"{'Ticker':<8} {'Alert':<10} {'Current':<10} {'Peak':<10} {'Change':<8} {'Direction':<10} {'Location':<15} {'Incorporated':<15} {'Float':<12} {'Shares Outstanding':<12} {'S/O%':<10} {'FTD':<10} {'Sector':<24} {'News':<60}"
+    header = f"{'Ticker':<8} {'Alert':<10} {'Current':<10} {'Peak':<10} {'Δ$':<10} {'Δ%':<8} {'Direction':<10} {'Location':<15} {'Incorporated':<15} {'Float':<12} {'Shares Outstanding':<12} {'S/O%':<10} {'FTD':<10} {'Sector':<24} {'News':<60} {'Skip Reason':<60}"
     print(header)
     print("=" * 220)
     
@@ -666,14 +670,15 @@ def main():
             high = alert_price
             low = alert_price
         
-        current_str = f"${current:.2f}"
+        current_str = f"${current:.2f}" if current is not None else 'N/A'
         
-        if current:
+        if current is not None:
             # Calculate peak price (highest or lowest since alert, whichever is more extreme)
             peak_price = max(high, alert_price) if current > alert_price else min(low, alert_price)
             peak_str = f"${peak_price:.2f}"
             peak_move_pct = ((peak_price - alert_price) / alert_price) * 100
             
+            delta_dollars = current - alert_price
             move_pct = ((current - alert_price) / alert_price) * 100
             
             if current > alert_price:
@@ -689,7 +694,8 @@ def main():
                 count += 1
                 total_move += move_pct
             
-            move_str = f"{move_pct:+.1f}%"
+            move_str = f"{delta_dollars:+.2f}"
+            move_pct_str = f"{move_pct:+.1f}%"
             
             # Track big movers (10% +/- threshold) but exclude extreme outliers (700%+ = reverse split artifacts)
             if abs(move_pct) >= 10 and abs(move_pct) < 700:
@@ -710,6 +716,7 @@ def main():
         else:
             peak_str = "N/A"
             move_str = "N/A"
+            move_pct_str = "N/A"
             na_tickers.append({'ticker': ticker, 'skip_reason': skip_reason})
         
         alert_str = f"${alert_price:.2f}"
@@ -732,6 +739,12 @@ def main():
         news = ticker_rows[0].get('News', 'N/A')
         if news and news != 'N/A':
             signals_display = str(news)
+
+        # Show the actual skip-reason text from the CSV, which is the reason the alert was skipped/rejected
+        skip_display = 'N/A'
+        skip_reason_value = ticker_rows[0].get('Skip Reason', 'N/A')
+        if skip_reason_value and skip_reason_value != 'N/A':
+            skip_display = str(skip_reason_value)
         
         # Extract sector info
         sector = ticker_rows[0].get('Sector', 'N/A')
@@ -748,7 +761,7 @@ def main():
         shares_outstanding = ticker_rows[0].get('Shares Outstanding', 'N/A')
         so_display = str(shares_outstanding) if shares_outstanding != 'N/A' else 'N/A'
         
-        print(f"{ticker:<8} {alert_str:<10} {current_str:<10} {peak_str:<10} {move_str:<8} {direction_display:<10} {location_display:<15} {incorporated_display:<15} {str(float_val):<12} {so_display:<12} {str(so_ratio):<9} {str(ftd_display):<8} {sector_display:<18} {signals_display}")
+        print(f"{ticker:<8} {alert_str:<10} {current_str:<10} {peak_str:<10} {move_str:<10} {move_pct_str:<8} {direction_display:<10} {location_display:<15} {incorporated_display:<15} {str(float_val):<12} {so_display:<12} {str(so_ratio):<9} {str(ftd_display):<8} {sector_display:<18} {signals_display:<60} {skip_display:<60}")
     
     print("=" * 180)
     avg_move = total_move / count if count > 0 else 0
