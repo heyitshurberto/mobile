@@ -13,5 +13,17 @@
     "highest5DayPercent": -74.32,
     "lowest5Day": 1.8,
     "lowest5DayPercent": 74.32
+  },
+  "JAGX": {
+    "highest5Day": 0.2329,
+    "highest5DayPercent": -3.37,
+    "lowest5Day": 0.2253,
+    "lowest5DayPercent": 0
+  },
+  "LRHC": {
+    "highest5Day": 2.66,
+    "highest5DayPercent": -3.5,
+    "lowest5Day": 2.45,
+    "lowest5DayPercent": 7.89
   }
 }
