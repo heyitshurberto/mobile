@@ -4248,83 +4248,6 @@
     "lowest5DayPercent": 41.5
   },
   {
-    "ticker": "KPTI",
-    "title": "8-K - Karyopharm Therapeutics Inc. (0001503802) (Filer)",
-    "companyName": "Karyopharm Therapeutics Inc.",
-    "filerName": null,
-    "sector": "Biotechnology",
-    "price": 6.66,
-    "fav": "1.72",
-    "hasTuesdayBonus": true,
-    "custodianVerified": true,
-    "custodianName": "Massachusetts (via Wilmington, Delaware)",
-    "filingTimeBonus": 1.1,
-    "volume": 964752,
-    "averageVolume": 597945,
-    "float": 1030354,
-    "sharesOutstanding": 18343968,
-    "soRatio": "5.62%",
-    "marketCap": 122170824,
-    "isShort": false,
-    "ftd": 11225,
-    "ftdPercent": "1.09",
-    "intent": "Merger/Acquisition, Clinical Success, Convertible Debt, Asset Disposition, Partnership",
-    "incorporated": "Wilmington, Delaware",
-    "located": "Massachusetts",
-    "filingDate": "2026-03-24",
-    "signals": {
-      "Merger/Acquisition": [
-        "Material Definitive Agreement"
-      ],
-      "Clinical Success": [
-        "Phase 2",
-        "Phase 3",
-        "Primary Endpoint",
-        "Topline Data",
-        "Statistically Significant"
-      ],
-      "Convertible Debt": [
-        "Convertible Notes",
-        "Convertible Securities"
-      ],
-      "Asset Disposition": [
-        "Disposition"
-      ],
-      "Partnership": [
-        "Joint Venture"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "reverseSplitRatio": null,
-    "reverseSplitReason": null,
-    "formType": [
-      "8-K",
-      "S-3",
-      "EX-4.1",
-      "EX-4.2",
-      "Item 1.01",
-      "Item 3.02",
-      "Item 7.01",
-      "Item 8.01",
-      "Item 9.01"
-    ],
-    "filingType": "8-K, S-3, EX-4.1, EX-4.2, Item 1.01, Item 3.02, Item 7.01, Item 8.01, Item 9.01",
-    "cik": "1503802",
-    "skipReason": "",
-    "alertType": null,
-    "recordedAt": "2026-03-24T12:01:40.153Z",
-    "recordId": "KPTI-1774353700153",
-    "expiresAt": "2026-03-29T12:01:40.153Z",
-    "direction": "LONG",
-    "highest5Day": 0,
-    "highest5DayPercent": -100,
-    "lowest5Day": 0,
-    "lowest5DayPercent": -100,
-    "finalPrice": 6.66,
-    "finalPercent": 0
-  },
-  {
     "ticker": "ZSPC",
     "title": "8-K - zSpace, Inc. (0001637147) (Filer)",
     "companyName": "zSpace, Inc.",
@@ -5857,79 +5780,6 @@
     "highest5DayPercent": -12.94,
     "lowest5Day": 1.5496,
     "lowest5DayPercent": -12.94
-  },
-  {
-    "ticker": "VTIX",
-    "title": "8-K - Virtuix Holdings Inc. (0001606242) (Filer)",
-    "companyName": "Virtuix Holdings Inc.",
-    "filerName": null,
-    "sector": "Technology",
-    "price": 6.38,
-    "fav": "47.54",
-    "hasTuesdayBonus": false,
-    "custodianVerified": true,
-    "custodianName": "Texas (via Wilmington, Delaware)",
-    "filingTimeBonus": 1.2,
-    "volume": 109101,
-    "averageVolume": 395989,
-    "float": 18823338,
-    "sharesOutstanding": 27349447,
-    "soRatio": "68.83%",
-    "marketCap": 203199488,
-    "isShort": true,
-    "ftd": 511408,
-    "ftdPercent": "2.72",
-    "intent": "Merger/Acquisition, Convertible Debt, Credit Default, Reverse Split Event, Asset Disposition, Unregistered Equity Sales",
-    "incorporated": "Wilmington, Delaware",
-    "located": "Texas",
-    "filingDate": "2026-04-02",
-    "signals": {
-      "Merger/Acquisition": [
-        "Material Definitive Agreement"
-      ],
-      "Convertible Debt": [
-        "Convertible Notes"
-      ],
-      "Credit Default": [
-        "Event Of Default"
-      ],
-      "Reverse Split Event": [
-        "Reverse Split"
-      ],
-      "Asset Disposition": [
-        "Disposition"
-      ],
-      "Unregistered Equity Sales": [
-        "purchase agreement",
-        "placement agent"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "reverseSplitRatio": "1-for-101",
-    "reverseSplitReason": "Nasdaq minimum bid price requirement",
-    "formType": [
-      "8-K",
-      "EX-10.1",
-      "EX-10.2",
-      "Item 1.01",
-      "Item 2.03",
-      "Item 9.01"
-    ],
-    "filingType": "8-K, EX-10.1, EX-10.2, Item 1.01, Item 2.03, Item 9.01",
-    "cik": "1606242",
-    "skipReason": "",
-    "alertType": null,
-    "recordedAt": "2026-04-02T13:00:53.893Z",
-    "recordId": "VTIX-1775134853893",
-    "expiresAt": "2026-04-07T13:00:53.893Z",
-    "direction": "SHORT",
-    "highest5Day": 0,
-    "highest5DayPercent": -100,
-    "lowest5Day": 0,
-    "lowest5DayPercent": 100,
-    "finalPrice": 6.38,
-    "finalPercent": 0
   },
   {
     "ticker": "BCDA",
@@ -11718,75 +11568,6 @@
     "personalPriceAlertSent": false
   },
   {
-    "ticker": "LU",
-    "title": "6-K - Lufax Holding Ltd (0001816007) (Filer)",
-    "companyName": "Lufax Holding Ltd",
-    "filerName": null,
-    "price": 1.45,
-    "fav": "48.87",
-    "volume": 1293287,
-    "averageVolume": 1152140,
-    "float": 56304860,
-    "sharesOutstanding": 866688892,
-    "soRatio": "6.50%",
-    "marketCap": 1256698880,
-    "isShort": true,
-    "ftd": 25760,
-    "intent": "Stock Buyback, Credit Default",
-    "incorporated": "Cayman Islands",
-    "located": "China",
-    "filingDate": "2026-08-20T09:17:20-04:00",
-    "signals": {
-      "Stock Buyback": [
-        "Share Repurchase"
-      ],
-      "Credit Default": [
-        "Event Of Default"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "formType": [
-      "6-K",
-      "20-F",
-      "EX-99.1"
-    ],
-    "cik": "1816007",
-    "skipReason": "",
-    "alertType": null,
-    "predatoryFinancing": null,
-    "sector": "Financial Services",
-    "hasTuesdayBonus": false,
-    "custodianVerified": true,
-    "custodianName": "Foreign Depositary",
-    "filingTimeBonus": 1.2,
-    "recordedAt": "2026-08-20T13:17:56.896Z",
-    "recordId": "LU-1787231876896",
-    "expiresAt": "2026-08-25T13:17:56.896Z",
-    "direction": "SHORT",
-    "highest5Day": 0,
-    "highest5DayPercent": -100,
-    "lowest5Day": 0,
-    "lowest5DayPercent": 100,
-    "priceAfter1m": 1.45,
-    "percentAfter1m": 0,
-    "priceAfter5m": 1.45,
-    "percentAfter5m": 0,
-    "priceAfter30m": 1.465,
-    "percentAfter30m": 1.03,
-    "priceAfter1h": 1.429,
-    "percentAfter1h": -1.45,
-    "priceAfter6h": 1.425,
-    "percentAfter6h": -1.72,
-    "priceAfter1d": 1.4,
-    "percentAfter1d": -3.45,
-    "priceAfter3d": 1.39,
-    "percentAfter3d": -4.14,
-    "personalPriceAlertSent": false,
-    "finalPrice": 1.45,
-    "finalPercent": 0
-  },
-  {
     "ticker": "CDT",
     "title": "8-K/A - CDT Equity Inc. (0001896212) (Filer)",
     "companyName": "CDT Equity Inc.",
@@ -13462,8 +13243,8 @@
     "recordId": "MYSZ-1789565333468",
     "expiresAt": "2026-09-21T13:28:53.468Z",
     "direction": "SHORT",
-    "highest5Day": 2.13,
-    "highest5DayPercent": -8.19,
+    "highest5Day": 1.97,
+    "highest5DayPercent": -15.09,
     "lowest5Day": 1.7301,
     "lowest5DayPercent": 25.43,
     "priceAfter1m": 2.32,
