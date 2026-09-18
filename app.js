@@ -841,7 +841,7 @@ const SEMANTIC_KEYWORDS = {
   'Revenue Secured': ['Expected To Retain', 'Revenue Expected', 'Revenue Attributable', 'Revenue Backlog', 'Contract Backlog', 'Remaining Performance Obligation'],
   
   // STRONGEST BUY PRESSURE: Acquisition Agreement (structural buy pressure, overrides all short signals & filters)
-  'Acquisition Agreement': ['Acquisition Agreement', 'Completed Acquisition', 'Acquisition Closing', 'Closing Of Acquisition', 'Definitive Agreement To Acquire', 'Take Private', 'Definitive Agreement To Be Acquired'],
+  'Acquisition Agreement': ['Acquisition Agreement', 'Completed Acquisition', 'Acquisition Closing', 'Closing Of Acquisition', 'Definitive Agreement To Acquire', 'Take Private', 'Definitive Agreement To Be Acquired', 'Agreement and Plan of Merger', 'Merger Agreement', 'Completed the Merger', 'Consummation of the Merger', 'Surviving Corporation', 'Change of Control', 'Change in Control'],
   
   // Government / Licensing
   'Government Contract': ['Government Contract Award', 'Defense Contract', 'Federal Contract', 'DOD Contract', 'GSA Schedule', 'Federal Procurement'],
@@ -879,7 +879,7 @@ const SEMANTIC_KEYWORDS = {
   'Offering At A Discount': ['Offering At A Discount', 'Priced At A Discount', 'Discount To Market', 'Discounted Offering', 'Sold At A Discount', 'Discounted Placement'],
   
   // Capital raise = new share supply (even if credible)
-  'Capital Raise': ['Oversubscribed', 'Institutional Participation', 'Lead Investor', 'Top-Tier Investor', 'Strategic Investor'],
+  'Capital Raise': ['Oversubscribed', 'Institutional Participation', 'Lead Investor', 'Top-Tier Investor', 'Strategic Investor', 'Private Placement', 'Securities Purchase Agreement', 'PIPE', 'Concurrent Private Placement', 'Series C Preferred', 'Convertible Preferred'],
   'Underwritten Offering': ['Bought Deal', 'Underwriter Commitment', 'Underwritten Bought Deal', 'IPO Underwritten'],
   
   // Distress = destroys future cash flow
