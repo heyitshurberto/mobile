@@ -258,5 +258,264 @@
       "verdict": "PENDING",
       "last_trained": null
     }
+  },
+  {
+    "ticker": "AAPG",
+    "title": "6-K - ASCENTAGE PHARMA GROUP INTERNATIONAL (0002023311) (Filer)",
+    "companyName": "ASCENTAGE PHARMA GROUP INTERNATIONAL",
+    "filerName": null,
+    "price": 15.4,
+    "fav": "1470.59",
+    "volume": 3737,
+    "averageVolume": 10200,
+    "float": 15000000,
+    "sharesOutstanding": 93388942,
+    "soRatio": "16.06%",
+    "marketCap": 1438189696,
+    "isShort": true,
+    "ftd": 180,
+    "intent": "Clinical Success, Licensing Deal, Commercial Inflection, Clinical Milestone, Related-Party Transaction, Failed Trial",
+    "incorporated": "Cayman Islands",
+    "located": "China",
+    "filingDate": "2026-09-17T08:30:08-04:00",
+    "signals": {
+      "Clinical Success": [
+        "Phase 3"
+      ],
+      "Licensing Deal": [
+        "Exclusive License",
+        "License Agreement"
+      ],
+      "Commercial Inflection": [
+        "Revenue Growth",
+        "Commercial Production"
+      ],
+      "Clinical Milestone": [
+        "Dose Escalation"
+      ],
+      "Related-Party Transaction": [
+        "Spouse Of",
+        "Controlled By"
+      ],
+      "Failed Trial": [
+        "Primary Endpoint Not Met"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "S-1",
+      "S-3",
+      "20-F",
+      "EX-99.1"
+    ],
+    "cik": "2023311",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Biotechnology",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Foreign Depositary",
+    "filingTimeBonus": 1.15,
+    "direction": "SHORT",
+    "recordedAt": "2026-09-17T12:31:16.143Z",
+    "recordId": "AAPG-1789648276143",
+    "expiresAt": "2026-09-22T12:31:16.143Z",
+    "highest5Day": 15.4,
+    "highest5DayPercent": 0,
+    "lowest5Day": 15.4,
+    "lowest5DayPercent": 0,
+    "priceAfter1m": null,
+    "percentAfter1m": null,
+    "priceAfter5m": null,
+    "percentAfter5m": null,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "ai_analysis": {
+      "win_rate": null,
+      "avg_move": null,
+      "confidence": null,
+      "matches": [],
+      "outliers": [],
+      "verdict": "PENDING",
+      "last_trained": null
+    }
+  },
+  {
+    "ticker": "ZBAO",
+    "title": "6-K - Zhibao Technology Inc. (0001966750) (Filer)",
+    "companyName": "Zhibao Technology Inc.",
+    "filerName": null,
+    "price": 0.1116,
+    "fav": "0.22",
+    "volume": 126911343,
+    "averageVolume": 29710212,
+    "float": 6666667,
+    "sharesOutstanding": 17245000,
+    "soRatio": "38.66%",
+    "marketCap": 3801284,
+    "isShort": true,
+    "ftd": 8071435,
+    "intent": "Convertible Debt, Credit Default, Asset Disposition",
+    "incorporated": "Cayman Islands",
+    "located": "Shadong, China",
+    "filingDate": "2026-09-17T09:21:44-04:00",
+    "signals": {
+      "Convertible Debt": [
+        "Convertible Notes",
+        "Convertible Securities"
+      ],
+      "Credit Default": [
+        "Event Of Default",
+        "Default Has Occurred"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "S-8",
+      "20-F",
+      "EX-4.1"
+    ],
+    "cik": "1966750",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Insurance",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Shadong, China (via Cayman Islands)",
+    "filingTimeBonus": 1.2,
+    "recordedAt": "2026-09-17T13:22:46.108Z",
+    "recordId": "ZBAO-1789651366108",
+    "expiresAt": "2026-09-22T13:22:46.108Z",
+    "direction": "SHORT",
+    "highest5Day": 0.1116,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0.1116,
+    "lowest5DayPercent": 0,
+    "priceAfter1m": null,
+    "percentAfter1m": null,
+    "priceAfter5m": null,
+    "percentAfter5m": null,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "ai_analysis": {
+      "win_rate": null,
+      "avg_move": null,
+      "confidence": null,
+      "matches": [],
+      "outliers": [],
+      "verdict": "PENDING",
+      "last_trained": null
+    }
+  },
+  {
+    "ticker": "LSTA",
+    "title": "8-K - LISATA THERAPEUTICS, INC. (0000320017) (Filer)",
+    "companyName": "LISATA THERAPEUTICS, INC.",
+    "filerName": null,
+    "price": 1.47,
+    "fav": "15.19",
+    "volume": 93517,
+    "averageVolume": 237850,
+    "float": 3613906,
+    "sharesOutstanding": 9010937,
+    "soRatio": "40.11%",
+    "marketCap": 13246078,
+    "isShort": true,
+    "ftd": "N/A",
+    "intent": "Accounting Restatement, Asset Disposition, Private Placement",
+    "incorporated": "Wilmington, Delaware",
+    "located": "New Jersey",
+    "filingDate": "2026-09-17T09:27:26-04:00",
+    "signals": {
+      "Accounting Restatement": [
+        "Material Weakness"
+      ],
+      "Asset Disposition": [
+        "Disposition"
+      ],
+      "Private Placement": [
+        "Private Placement"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "8-K",
+      "8-K/A",
+      "S-3",
+      "S-8",
+      "Item 1.01",
+      "Item 2.01",
+      "Item 3.02",
+      "Item 5.02",
+      "Item 5.03",
+      "Item 7.01",
+      "Item 9.01"
+    ],
+    "cik": "320017",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Biotechnology",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "New Jersey (via Wilmington, Delaware)",
+    "filingTimeBonus": 1.2,
+    "direction": "SHORT",
+    "recordedAt": "2026-09-17T13:28:11.383Z",
+    "recordId": "LSTA-1789651691383",
+    "expiresAt": "2026-09-22T13:28:11.383Z",
+    "highest5Day": 1.47,
+    "highest5DayPercent": 0,
+    "lowest5Day": 1.47,
+    "lowest5DayPercent": 0,
+    "priceAfter1m": null,
+    "percentAfter1m": null,
+    "priceAfter5m": null,
+    "percentAfter5m": null,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "ai_analysis": {
+      "win_rate": null,
+      "avg_move": null,
+      "confidence": null,
+      "matches": [],
+      "outliers": [],
+      "verdict": "PENDING",
+      "last_trained": null
+    }
   }
 ]
