@@ -614,11 +614,15 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
     }
   }
   
-  // Conditional Related-Party Transaction: Only bearish if it shows extraction/selling
-  // If paired with Capital Raise, related party is investing/supporting, not extracting
-  if (hasRelatedPartyTransaction && !hasCapitalRaise && heavyweightCount === 0) {
-    // Related party transaction alone is borderline; don't force SHORT without other signals
-    // This is context, not direction by itself
+  // Conditional Related-Party Transaction: Only reinforces SHORT when paired with specific signals
+  // Cannot flip direction by itself - only adds weight to existing bearish catalysts
+  // Can only reinforce shorts when paired with: Credit Default, Convertible Debt, Material Weakness (Accounting Restatement), or Customer Loss
+  if (hasRelatedPartyTransaction) {
+    const reinforcementSignals = ['Credit Default', 'Convertible Debt', 'Accounting Restatement', 'Customer Loss'];
+    const hasReinforcementSignal = reinforcementSignals.some(cat => signalArray.includes(cat));
+    // Related-Party Transaction only acts as supporting context - cannot create direction by itself
+    // It can only strengthen an existing SHORT if paired with one of the reinforcement signals
+    // But it does NOT add to the bearish count or flip direction on its own
   }
   
   // Fast-track pure growth catalysts (force LONG immediately) - only if no distress signals
@@ -880,7 +884,7 @@ const SEMANTIC_KEYWORDS = {
   
   // Distress = destroys future cash flow
   'Bankruptcy Filing': ['Bankruptcy Protection', 'Chapter 11 Filing', 'Chapter 7 Filing', 'Insolvency Proceedings', 'Creditor Protection'],
-  'Credit Default': ['Loan Default', 'Debt Covenant Breach', 'Event Of Default', 'Credit Agreement Violation', 'Covenant Breach', 'Default Event', 'Acceleration Of Debt', 'Mandatory Prepayment', 'Covenant Violation', 'Is In Default', 'Notice Of Default', 'Default Has Occurred', 'Declared An Event Of Default', 'Default Under The', 'Constitutes A Default'],
+  'Credit Default': ['Is In Default', 'Default Has Occurred', 'Declared An Event Of Default', 'Notice Of Default', 'Acceleration Of Debt', 'Loan Default', 'Debt Covenant Breach', 'Covenant Breach', 'Covenant Violation', 'Credit Agreement Violation'],
   
   // Accounting failure = destroys trust in numbers
   'Accounting Restatement': ['Financial Restatement', 'Audit Non-Reliance', 'Material Weakness', 'Control Deficiency', 'Audit Adjustment', 'Non-Reliance On Previously Issued Financial Statements', 'Previously Issued Financial Statements', 'Substantial Doubt About Ability To Continue As A Going Concern', 'Going Concern Uncertainty', 'Substantial Doubt'],
@@ -897,7 +901,7 @@ const SEMANTIC_KEYWORDS = {
   'Strategic Review': ['Strategic Alternatives', 'Exploring Strategic Alternatives', 'Review Of Strategic Alternatives'],
   
   // Asset changes = business mix changes
-  'Asset Disposition': ['Asset Sale', 'Asset Disposition', 'Business Disposition', 'Sold Assets', 'Divesting', 'Asset Divestiture', 'Strategic Sale', 'Sale Of Assets', 'Disposition', 'Divested', 'Business Disposition'],
+  'Asset Disposition': ['Asset Sale', 'Sold Assets', 'Divesting', 'Sale Of Assets', 'Asset Divestiture', 'Strategic Sale'],
   
   // Governance/Legal shifts = trust/control shifts
   'Accounting Restatement': ['Financial Restatement', 'Audit Non-Reliance', 'Material Weakness', 'Control Deficiency', 'Audit Adjustment', 'Non-Reliance On Previously Issued Financial Statements', 'Previously Issued Financial Statements', 'Substantial Doubt About Ability To Continue As A Going Concern', 'Going Concern Uncertainty', 'Substantial Doubt'],
