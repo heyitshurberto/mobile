@@ -514,22 +514,25 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
     return { direction: 'SHORT', confidence: 0.70 };
   }
   
+  const hasCapitalRaise = signalArray.includes('Capital Raise');
+  const hasAcquisitionAgreement = signalArray.includes('Acquisition Agreement');
+  const hasGoingDark = signalArray.includes('Going Dark');
+
   // Fast-track bankruptcy indicators (force SHORT immediately)
   // EXCEPTION: Credit Default + Capital Raise = capital addressing the covenant issue = LONG not SHORT
-  const deathSpiral = ['Bankruptcy Filing', 'Executive Liquidation', 'Going Dark'].some(cat => signalArray.includes(cat));
+  const deathSpiral = ['Bankruptcy Filing', 'Executive Liquidation'].some(cat => signalArray.includes(cat));
   const hasCreditDefault = signalArray.includes('Credit Default');
   const hasFatalBearish = deathSpiral || (hasCreditDefault && !hasCapitalRaise);
-  
-  // Only force immediate SHORT if it's bankruptcy, going dark, or Credit Default without capital solution
-  if (deathSpiral || (hasCreditDefault && !hasCapitalRaise)) {
-    return { direction: 'SHORT', confidence: 0.85 };
-  }
 
   // Special override: Acquisition Agreement = strongest BUY (force LONG)
   // NOTE: This override does not bypass explicit death-spiral bankruptcy signals above.
-  const hasAcquisitionAgreement = signalArray.includes('Acquisition Agreement');
-  if (hasAcquisitionAgreement) {
+  if (hasAcquisitionAgreement && !hasFatalBearish) {
     return { direction: 'LONG', confidence: 0.95 };
+  }
+
+  // Only force immediate SHORT if it's true bankruptcy distress or Credit Default without capital solution
+  if (deathSpiral || (hasCreditDefault && !hasCapitalRaise)) {
+    return { direction: 'SHORT', confidence: 0.85 };
   }
   
   // Heavyweight bearish signals that override isolated bullish catalysts
@@ -550,7 +553,6 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
   // These are context-dependent, not categorical bearish
   const hasAssetDisposition = signalArray.includes('Asset Disposition');
   const hasRelatedPartyTransaction = signalArray.includes('Related-Party Transaction');
-  const hasCapitalRaise = signalArray.includes('Capital Raise');
   
   // Distressed Disposition: Asset Disposition paired with Credit Default, Bankruptcy, or Going Dark
   const isDistressedDisposition = hasAssetDisposition && ['Credit Default', 'Bankruptcy Filing', 'Going Dark'].some(cat => signalArray.includes(cat));

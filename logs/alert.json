@@ -1,412 +1,71 @@
 [
   {
-    "ticker": "XBP",
-    "title": "8-K - XBP Global Holdings, Inc. (0001839530) (Filer)",
-    "companyName": "XBP Global Holdings, Inc.",
-    "filerName": "Not Applicable",
-    "price": 2.83,
-    "fav": "108.29",
-    "volume": 51995,
-    "averageVolume": 21011,
-    "float": 2275245,
-    "sharesOutstanding": 11881339,
-    "soRatio": "19.15%",
-    "marketCap": 33624188,
-    "isShort": true,
-    "ftd": 322,
-    "intent": "Convertible Debt, Related-Party Transaction, Accounting Restatement, Asset Disposition",
-    "incorporated": "Wilmington, Delaware",
-    "located": "Texas",
-    "filingDate": "2026-09-14T09:18:15-04:00",
-    "signals": {
-      "Convertible Debt": [
-        "Convertible Securities"
-      ],
-      "Related-Party Transaction": [
-        "Family Member",
-        "Controlled By",
-        "Related Party",
-        "Affiliate Of"
-      ],
-      "Accounting Restatement": [
-        "Material Weakness"
-      ],
-      "Asset Disposition": [
-        "Disposition"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "formType": [
-      "8-K",
-      "S-8",
-      "EX-10.1",
-      "Item 1.01",
-      "Item 3.02",
-      "Item 9.01"
-    ],
-    "cik": "1839530",
-    "skipReason": "",
-    "alertType": null,
-    "predatoryFinancing": null,
-    "sector": "Financial Services",
-    "hasTuesdayBonus": false,
-    "custodianVerified": true,
-    "custodianName": "Texas (via Wilmington, Delaware)",
-    "filingTimeBonus": 1.2,
-    "direction": "SHORT",
-    "recordedAt": "2026-09-14T13:18:59.290Z",
-    "recordId": "XBP-1789391939290",
-    "expiresAt": "2026-09-18T13:18:59.290Z",
-    "highest5Day": 2.83,
-    "highest5DayPercent": 0,
-    "lowest5Day": 2.83,
-    "lowest5DayPercent": 0,
-    "priceAfter1m": null,
-    "percentAfter1m": null,
-    "priceAfter5m": null,
-    "percentAfter5m": null,
-    "priceAfter30m": null,
-    "percentAfter30m": null,
-    "priceAfter1h": null,
-    "percentAfter1h": null,
-    "priceAfter6h": null,
-    "percentAfter6h": null,
-    "priceAfter1d": null,
-    "percentAfter1d": null,
-    "priceAfter3d": null,
-    "percentAfter3d": null,
-    "ai_analysis": {
-      "win_rate": null,
-      "avg_move": null,
-      "confidence": null,
-      "matches": [],
-      "outliers": [],
-      "verdict": "PENDING",
-      "last_trained": null
-    }
-  },
-  {
-    "ticker": "LRHC",
-    "title": "8-K - La Rosa Holdings Corp. (0001879403) (Filer)",
-    "companyName": "La Rosa Holdings Corp.",
+    "ticker": "LFCR",
+    "title": "8-K - LIFECORE BIOMEDICAL, INC. \\DE\\ (0001005286) (Filer)",
+    "companyName": "LIFECORE BIOMEDICAL, INC. \\DE\\",
     "filerName": null,
-    "price": 2.66,
-    "fav": "15.10",
-    "volume": 93414,
-    "averageVolume": 132493,
+    "price": 4.2,
+    "fav": "13.12",
+    "volume": 70504,
+    "averageVolume": 152480,
     "float": 2000000,
-    "sharesOutstanding": 3317834,
-    "soRatio": "60.28%",
-    "marketCap": 8825439,
-    "isShort": true,
-    "ftd": 1296250,
-    "intent": "Convertible Debt, Related-Party Transaction, Credit Default, Accounting Restatement",
-    "incorporated": "Nevada",
-    "located": "Florida",
-    "filingDate": "2026-09-16T08:30:29-04:00",
-    "signals": {
-      "Convertible Debt": [
-        "Convertible Securities"
-      ],
-      "Related-Party Transaction": [
-        "Controlled By",
-        "Affiliate Of"
-      ],
-      "Credit Default": [
-        "Event Of Default"
-      ],
-      "Accounting Restatement": [
-        "Material Weakness"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "formType": [
-      "8-K",
-      "S-1",
-      "13D",
-      "Form D",
-      "EX-10.1",
-      "Item 1.01",
-      "Item 3.02",
-      "Item 9.01"
-    ],
-    "cik": "1879403",
-    "skipReason": "",
-    "alertType": null,
-    "predatoryFinancing": null,
-    "sector": "Real Estate",
-    "hasTuesdayBonus": false,
-    "custodianVerified": true,
-    "custodianName": "Florida (via Nevada)",
-    "filingTimeBonus": 1.15,
-    "recordedAt": "2026-09-16T12:31:18.446Z",
-    "recordId": "LRHC-1789561878446",
-    "expiresAt": "2026-09-21T12:31:18.446Z",
-    "direction": "SHORT",
-    "highest5Day": 2.66,
-    "highest5DayPercent": 0,
-    "lowest5Day": 2.66,
-    "lowest5DayPercent": 0,
-    "priceAfter1m": null,
-    "percentAfter1m": null,
-    "priceAfter5m": null,
-    "percentAfter5m": null,
-    "priceAfter30m": null,
-    "percentAfter30m": null,
-    "priceAfter1h": null,
-    "percentAfter1h": null,
-    "priceAfter6h": null,
-    "percentAfter6h": null,
-    "priceAfter1d": null,
-    "percentAfter1d": null,
-    "priceAfter3d": null,
-    "percentAfter3d": null,
-    "ai_analysis": {
-      "win_rate": null,
-      "avg_move": null,
-      "confidence": null,
-      "matches": [],
-      "outliers": [],
-      "verdict": "PENDING",
-      "last_trained": null
-    }
-  },
-  {
-    "ticker": "MYSZ",
-    "title": "8-K - My Size, Inc. (0001211805) (Filer)",
-    "companyName": "My Size, Inc.",
-    "filerName": null,
-    "price": 2.32,
-    "fav": "1.90",
-    "volume": 28523415,
-    "averageVolume": 688231,
-    "float": 1308901,
-    "sharesOutstanding": 4818164,
-    "soRatio": "27.17%",
-    "marketCap": 11178140,
-    "isShort": true,
-    "ftd": 288,
-    "intent": "Related-Party Transaction, Credit Default",
+    "sharesOutstanding": 37853060,
+    "soRatio": "5.28%",
+    "marketCap": 158982848,
+    "isShort": false,
+    "ftd": 270,
+    "intent": "Commercial Agreement, Acquisition Agreement, Related-Party Transaction, Capital Raise, Going Dark, Contingent Value Rights",
     "incorporated": "Wilmington, Delaware",
-    "located": "Tel Aviv, Israel",
-    "filingDate": "2026-09-16T09:28:19-04:00",
+    "located": "Minnesota",
+    "filingDate": "2026-09-28T08:53:40-04:00",
     "signals": {
-      "Related-Party Transaction": [
-        "Controlled By",
-        "Affiliate Of"
+      "Commercial Agreement": [
+        "Supply Agreement"
       ],
-      "Credit Default": [
-        "Is In Default"
+      "Acquisition Agreement": [
+        "Agreement and Plan of Merger",
+        "Merger Agreement",
+        "Consummation of the Merger",
+        "Surviving Corporation"
+      ],
+      "Related-Party Transaction": [
+        "Related Party"
+      ],
+      "Capital Raise": [
+        "Convertible Preferred"
+      ],
+      "Going Dark": [
+        "Deregistration"
+      ],
+      "Contingent Value Rights": [
+        "Contingent Value Rights",
+        "CVR"
       ]
     },
-    "bonusSignals": {
-      "VStock": "VStock Setup",
-      "Third Party": [
-        "VStock Transfer"
-      ]
-    },
+    "bonusSignals": {},
     "financialRatioSignals": {},
     "formType": [
       "8-K",
-      "S-3",
-      "Form D",
-      "EX-10.1",
       "Item 1.01",
-      "Item 3.02",
-      "Item 8.01",
+      "Item 7.01",
       "Item 9.01"
     ],
-    "cik": "1211805",
+    "cik": "1005286",
     "skipReason": "",
     "alertType": null,
     "predatoryFinancing": null,
-    "sector": "Technology",
+    "sector": "Life Sciences Tools & Services",
     "hasTuesdayBonus": false,
     "custodianVerified": true,
-    "custodianName": "Tel Aviv, Israel (via Wilmington, Delaware)",
-    "filingTimeBonus": 1.2,
-    "recordedAt": "2026-09-16T13:28:53.468Z",
-    "recordId": "MYSZ-1789565333468",
-    "expiresAt": "2026-09-21T13:28:53.468Z",
-    "direction": "SHORT",
-    "highest5Day": 2.32,
-    "highest5DayPercent": 0,
-    "lowest5Day": 2.32,
-    "lowest5DayPercent": 0,
-    "priceAfter1m": null,
-    "percentAfter1m": null,
-    "priceAfter5m": null,
-    "percentAfter5m": null,
-    "priceAfter30m": null,
-    "percentAfter30m": null,
-    "priceAfter1h": null,
-    "percentAfter1h": null,
-    "priceAfter6h": null,
-    "percentAfter6h": null,
-    "priceAfter1d": null,
-    "percentAfter1d": null,
-    "priceAfter3d": null,
-    "percentAfter3d": null,
-    "ai_analysis": {
-      "win_rate": null,
-      "avg_move": null,
-      "confidence": null,
-      "matches": [],
-      "outliers": [],
-      "verdict": "PENDING",
-      "last_trained": null
-    }
-  },
-  {
-    "ticker": "AAPG",
-    "title": "6-K - ASCENTAGE PHARMA GROUP INTERNATIONAL (0002023311) (Filer)",
-    "companyName": "ASCENTAGE PHARMA GROUP INTERNATIONAL",
-    "filerName": null,
-    "price": 15.4,
-    "fav": "1470.59",
-    "volume": 3737,
-    "averageVolume": 10200,
-    "float": 15000000,
-    "sharesOutstanding": 93388942,
-    "soRatio": "16.06%",
-    "marketCap": 1438189696,
-    "isShort": true,
-    "ftd": 180,
-    "intent": "Clinical Success, Licensing Deal, Commercial Inflection, Clinical Milestone, Related-Party Transaction, Failed Trial",
-    "incorporated": "Cayman Islands",
-    "located": "China",
-    "filingDate": "2026-09-17T08:30:08-04:00",
-    "signals": {
-      "Clinical Success": [
-        "Phase 3"
-      ],
-      "Licensing Deal": [
-        "Exclusive License",
-        "License Agreement"
-      ],
-      "Commercial Inflection": [
-        "Revenue Growth",
-        "Commercial Production"
-      ],
-      "Clinical Milestone": [
-        "Dose Escalation"
-      ],
-      "Related-Party Transaction": [
-        "Spouse Of",
-        "Controlled By"
-      ],
-      "Failed Trial": [
-        "Primary Endpoint Not Met"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "formType": [
-      "6-K",
-      "S-1",
-      "S-3",
-      "20-F",
-      "EX-99.1"
-    ],
-    "cik": "2023311",
-    "skipReason": "",
-    "alertType": null,
-    "predatoryFinancing": null,
-    "sector": "Biotechnology",
-    "hasTuesdayBonus": false,
-    "custodianVerified": true,
-    "custodianName": "Foreign Depositary",
+    "custodianName": "Minnesota (via Wilmington, Delaware)",
     "filingTimeBonus": 1.15,
-    "direction": "SHORT",
-    "recordedAt": "2026-09-17T12:31:16.143Z",
-    "recordId": "AAPG-1789648276143",
-    "expiresAt": "2026-09-22T12:31:16.143Z",
-    "highest5Day": 15.4,
+    "recordedAt": "2026-09-28T12:54:27.802Z",
+    "recordId": "LFCR-1790600067802",
+    "expiresAt": "2026-10-02T12:54:27.802Z",
+    "direction": "LONG",
+    "highest5Day": 4.2,
     "highest5DayPercent": 0,
-    "lowest5Day": 15.4,
-    "lowest5DayPercent": 0,
-    "priceAfter1m": null,
-    "percentAfter1m": null,
-    "priceAfter5m": null,
-    "percentAfter5m": null,
-    "priceAfter30m": null,
-    "percentAfter30m": null,
-    "priceAfter1h": null,
-    "percentAfter1h": null,
-    "priceAfter6h": null,
-    "percentAfter6h": null,
-    "priceAfter1d": null,
-    "percentAfter1d": null,
-    "priceAfter3d": null,
-    "percentAfter3d": null,
-    "ai_analysis": {
-      "win_rate": null,
-      "avg_move": null,
-      "confidence": null,
-      "matches": [],
-      "outliers": [],
-      "verdict": "PENDING",
-      "last_trained": null
-    }
-  },
-  {
-    "ticker": "ZBAO",
-    "title": "6-K - Zhibao Technology Inc. (0001966750) (Filer)",
-    "companyName": "Zhibao Technology Inc.",
-    "filerName": null,
-    "price": 0.1116,
-    "fav": "0.22",
-    "volume": 126911343,
-    "averageVolume": 29710212,
-    "float": 6666667,
-    "sharesOutstanding": 17245000,
-    "soRatio": "38.66%",
-    "marketCap": 3801284,
-    "isShort": true,
-    "ftd": 8071435,
-    "intent": "Convertible Debt, Credit Default, Asset Disposition",
-    "incorporated": "Cayman Islands",
-    "located": "Shadong, China",
-    "filingDate": "2026-09-17T09:21:44-04:00",
-    "signals": {
-      "Convertible Debt": [
-        "Convertible Notes",
-        "Convertible Securities"
-      ],
-      "Credit Default": [
-        "Event Of Default",
-        "Default Has Occurred"
-      ],
-      "Asset Disposition": [
-        "Disposition"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "formType": [
-      "6-K",
-      "S-8",
-      "20-F",
-      "EX-4.1"
-    ],
-    "cik": "1966750",
-    "skipReason": "",
-    "alertType": null,
-    "predatoryFinancing": null,
-    "sector": "Insurance",
-    "hasTuesdayBonus": false,
-    "custodianVerified": true,
-    "custodianName": "Shadong, China (via Cayman Islands)",
-    "filingTimeBonus": 1.2,
-    "recordedAt": "2026-09-17T13:22:46.108Z",
-    "recordId": "ZBAO-1789651366108",
-    "expiresAt": "2026-09-22T13:22:46.108Z",
-    "direction": "SHORT",
-    "highest5Day": 0.1116,
-    "highest5DayPercent": 0,
-    "lowest5Day": 0.1116,
+    "lowest5Day": 4.2,
     "lowest5DayPercent": 0,
     "priceAfter1m": null,
     "percentAfter1m": null,
