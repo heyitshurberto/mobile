@@ -518,20 +518,19 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
   const hasAcquisitionAgreement = signalArray.includes('Acquisition Agreement');
   const hasGoingDark = signalArray.includes('Going Dark');
 
-  // Fast-track bankruptcy indicators (force SHORT immediately)
-  // EXCEPTION: Credit Default + Capital Raise = capital addressing the covenant issue = LONG not SHORT
+  // Fatal distress is the only thing that should override a real acquisition/control event.
+  // Credit Default alone does NOT beat a valid acquisition reset unless there is true insolvency.
   const deathSpiral = ['Bankruptcy Filing', 'Executive Liquidation'].some(cat => signalArray.includes(cat));
   const hasCreditDefault = signalArray.includes('Credit Default');
-  const hasFatalBearish = deathSpiral || (hasCreditDefault && !hasCapitalRaise);
+  const hasFatalBearish = deathSpiral || hasGoingDark;
 
-  // Special override: Acquisition Agreement = strongest BUY (force LONG)
-  // NOTE: This override does not bypass explicit death-spiral bankruptcy signals above.
+  // Special override: Acquisition Agreement = strongest BUY unless there is true fatal distress.
   if (hasAcquisitionAgreement && !hasFatalBearish) {
     return { direction: 'LONG', confidence: 0.95 };
   }
 
-  // Only force immediate SHORT if it's true bankruptcy distress or Credit Default without capital solution
-  if (deathSpiral || (hasCreditDefault && !hasCapitalRaise)) {
+  // Only force immediate SHORT for real fatal distress or for a default without acquisition support.
+  if (hasFatalBearish || (hasCreditDefault && !hasCapitalRaise && !hasAcquisitionAgreement)) {
     return { direction: 'SHORT', confidence: 0.85 };
   }
   
