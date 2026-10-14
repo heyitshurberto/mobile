@@ -1,182 +1,70 @@
 [
   {
-    "ticker": "HCAC",
-    "title": "8-K - Hall Chadwick Acquisition Corp (0002079013) (Filer)",
-    "companyName": "Hall Chadwick Acquisition Corp",
-    "filerName": "Not Applicable",
-    "price": 10.15,
-    "fav": "357.03",
-    "volume": 147896,
-    "averageVolume": 70022,
-    "float": 25000000,
-    "sharesOutstanding": 21314000,
-    "soRatio": "117.3%",
-    "marketCap": 296352512,
-    "isShort": true,
-    "ftd": 227,
-    "intent": "Acquisition Agreement, Related-Party Transaction, Capital Raise, Credit Default, Private Placement",
-    "incorporated": "Cayman Islands",
-    "located": "Cayman Islands",
-    "filingDate": "2026-10-02T09:00:39-04:00",
-    "signals": {
-      "Acquisition Agreement": [
-        "Surviving Corporation"
-      ],
-      "Related-Party Transaction": [
-        "Controlled By",
-        "Affiliate Of"
-      ],
-      "Capital Raise": [
-        "Private Placement",
-        "PIPE"
-      ],
-      "Credit Default": [
-        "Is In Default"
-      ],
-      "Private Placement": [
-        "Private Placement"
-      ]
-    },
-    "bonusSignals": {},
-    "financialRatioSignals": {},
-    "formType": [
-      "8-K",
-      "S-4",
-      "13D",
-      "EX-10.1",
-      "Item 1.01",
-      "Item 3.02",
-      "Item 7.01",
-      "Item 9.01"
-    ],
-    "cik": "2079013",
-    "skipReason": "",
-    "alertType": null,
-    "predatoryFinancing": null,
-    "sector": "N/A",
-    "hasTuesdayBonus": false,
+    "ticker": "EDTK",
+    "title": "Skillful Craftsman Education Technology Ltd (0001782309) (Filer)",
+    "companyName": "Skillful Craftsman Education Technology Ltd",
+    "filerName": null,
+    "price": 0.935,
+    "wa": "0.935",
+    "hasTuesdayBonus": true,
     "custodianVerified": false,
     "custodianName": null,
     "filingTimeBonus": 1.2,
-    "recordedAt": "2026-10-02T13:01:40.110Z",
-    "recordId": "HCAC-1790946100110",
-    "expiresAt": "2026-10-07T13:01:40.110Z",
-    "direction": "SHORT",
-    "highest5Day": 10.15,
-    "highest5DayPercent": 0,
-    "lowest5Day": 10.15,
-    "lowest5DayPercent": 0,
-    "priceAfter1m": null,
-    "percentAfter1m": null,
-    "priceAfter5m": null,
-    "percentAfter5m": null,
-    "priceAfter30m": null,
-    "percentAfter30m": null,
-    "priceAfter1h": null,
-    "percentAfter1h": null,
-    "priceAfter6h": null,
-    "percentAfter6h": null,
-    "priceAfter1d": null,
-    "percentAfter1d": null,
-    "priceAfter3d": null,
-    "percentAfter3d": null,
-    "ai_analysis": {
-      "win_rate": null,
-      "avg_move": null,
-      "confidence": null,
-      "matches": [],
-      "outliers": [],
-      "verdict": "PENDING",
-      "last_trained": null
-    }
-  },
-  {
-    "ticker": "BLFS",
-    "title": "8-K - BIOLIFE SOLUTIONS INC (0000834365) (Filer)",
-    "companyName": "BIOLIFE SOLUTIONS INC",
-    "filerName": null,
-    "price": 38.61,
-    "fav": "43.18",
-    "volume": 4393546,
-    "averageVolume": 1132970,
-    "float": 48923333,
-    "sharesOutstanding": 48923333,
-    "soRatio": "100.0%",
-    "marketCap": 1888929920,
+    "soBonus": 1.15,
+    "volume": 451114,
+    "averageVolume": 15356,
+    "float": 3000000,
+    "sharesOutstanding": 16199451,
+    "soRatio": "18.52%",
+    "marketCap": 15146487,
     "isShort": true,
-    "ftd": 68,
-    "intent": "Acquisition Agreement, Going Dark",
-    "incorporated": "Wilmington, Delaware",
-    "located": "Washington",
-    "filingDate": "2026-10-06T09:11:23-04:00",
+    "ftd": null,
+    "ftdPercent": null,
+    "intent": "Acquisition Agreement, Stock Buyback, Related-Party Transaction, Capital Raise, Accounting Restatement, Material Lawsuit",
+    "incorporated": "Cayman Islands",
+    "located": "Shadong, China",
+    "filingDate": "2026-10-13",
+    "alertDate": "2026-10-13T17:20:44.000Z",
     "signals": {
       "Acquisition Agreement": [
-        "Agreement and Plan of Merger",
-        "Merger Agreement",
-        "Change in Control"
+        "Definitive Agreement To Acquire"
       ],
-      "Going Dark": [
-        "Form 15",
-        "Deregistration"
+      "Stock Buyback": [
+        "Share Repurchase"
+      ],
+      "Related-Party Transaction": [
+        "Controlled By"
+      ],
+      "Capital Raise": [
+        "Private Placement"
+      ],
+      "Accounting Restatement": [
+        "Financial Restatement"
+      ],
+      "Material Lawsuit": [
+        "Material Litigation"
       ]
     },
     "bonusSignals": {
-      "Shell Recycling": "Shell Recycling"
+      "Tuesday Window": true
     },
-    "financialRatioSignals": {},
+    "reverseSplitRatio": null,
+    "reverseSplitReason": null,
     "formType": [
       "8-K",
-      "S-4",
-      "EX-3.1",
-      "EX-3.2",
-      "Item 2.01",
-      "Item 3.01",
-      "Item 3.03",
-      "Item 5.01",
-      "Item 5.02",
-      "Item 5.03",
-      "Item 5.07",
-      "Item 9.01"
+      "6-K"
     ],
-    "cik": "834365",
+    "filingType": "8-K",
+    "cik": "1782309",
     "skipReason": "",
     "alertType": null,
-    "predatoryFinancing": null,
-    "sector": "Life Sciences Tools & Services",
-    "hasTuesdayBonus": true,
-    "custodianVerified": true,
-    "custodianName": "Washington (via Wilmington, Delaware)",
-    "filingTimeBonus": 1.2,
-    "recordedAt": "2026-10-06T13:12:03.920Z",
-    "recordId": "BLFS-1791292323920",
-    "expiresAt": "2026-10-09T13:12:03.920Z",
+    "recordedAt": "2026-10-13T17:20:44.000Z",
+    "recordId": "EDTK-1769991644000",
+    "expiresAt": "2026-10-20T17:20:44.000Z",
     "direction": "SHORT",
-    "highest5Day": 38.61,
-    "highest5DayPercent": 0,
-    "lowest5Day": 38.61,
-    "lowest5DayPercent": 0,
-    "priceAfter1m": null,
-    "percentAfter1m": null,
-    "priceAfter5m": null,
-    "percentAfter5m": null,
-    "priceAfter30m": null,
-    "percentAfter30m": null,
-    "priceAfter1h": null,
-    "percentAfter1h": null,
-    "priceAfter6h": null,
-    "percentAfter6h": null,
-    "priceAfter1d": null,
-    "percentAfter1d": null,
-    "priceAfter3d": null,
-    "percentAfter3d": null,
-    "ai_analysis": {
-      "win_rate": null,
-      "avg_move": null,
-      "confidence": null,
-      "matches": [],
-      "outliers": [],
-      "verdict": "PENDING",
-      "last_trained": null
-    }
+    "highest5Day": 0.9945,
+    "highest5DayPercent": 6.3,
+    "lowest5Day": 1.005,
+    "lowest5DayPercent": 7.48
   }
 ]

@@ -515,7 +515,23 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
   }
   
   const hasCapitalRaise = signalArray.includes('Capital Raise');
-  const hasAcquisitionAgreement = signalArray.includes('Acquisition Agreement');
+  const acquisitionOverrideCategories = [
+    'Acquisition Agreement',
+    'Merger/Acquisition',
+    'Change of Control',
+    'Change in Control',
+    'Definitive Agreement To Acquire',
+    'Take Private',
+    'Going Private',
+    'Completed Acquisition',
+    'Acquisition Closing',
+    'Closing Of Acquisition',
+    'Completed the Merger',
+    'Consummation of the Merger',
+    'Acquired 100% of the Equity Interest',
+    'Acquired 100% of the Issued'
+  ];
+  const hasAcquisitionAgreement = signalArray.includes('Acquisition Agreement') || acquisitionOverrideCategories.some(cat => signalArray.includes(cat));
   const hasGoingDark = signalArray.includes('Going Dark');
 
   // Fatal distress is the only thing that should override a real acquisition/control event.
@@ -524,7 +540,7 @@ const determineDirection = (signals = [], country = '', float = null, soRatio = 
   const hasCreditDefault = signalArray.includes('Credit Default');
   const hasFatalBearish = deathSpiral || hasGoingDark;
 
-  // Special override: Acquisition Agreement = strongest BUY unless there is true fatal distress.
+  // Special override: definitive acquisition / control-change language = no SHORT unless true fatal distress.
   if (hasAcquisitionAgreement && !hasFatalBearish) {
     return { direction: 'LONG', confidence: 0.95 };
   }
@@ -842,7 +858,7 @@ const SEMANTIC_KEYWORDS = {
   'Revenue Secured': ['Expected To Retain', 'Revenue Expected', 'Revenue Attributable', 'Revenue Backlog', 'Contract Backlog', 'Remaining Performance Obligation'],
   
   // STRONGEST BUY PRESSURE: Acquisition Agreement (structural buy pressure, overrides all short signals & filters)
-  'Acquisition Agreement': ['Acquisition Agreement', 'Completed Acquisition', 'Acquisition Closing', 'Closing Of Acquisition', 'Definitive Agreement To Acquire', 'Take Private', 'Definitive Agreement To Be Acquired', 'Agreement and Plan of Merger', 'Merger Agreement', 'Completed the Merger', 'Consummation of the Merger', 'Surviving Corporation', 'Change of Control', 'Change in Control'],
+  'Acquisition Agreement': ['Acquisition Agreement', 'Share Transfer Agreement', 'Completed Acquisition', 'Acquisition Closing', 'Closing Of Acquisition', 'Definitive Agreement To Acquire', 'Take Private', 'Definitive Agreement To Be Acquired', 'Agreement and Plan of Merger', 'Merger Agreement', 'Completed the Merger', 'Consummation of the Merger', 'Surviving Corporation', 'Change of Control', 'Change in Control', 'Were Completed On', 'Acquired 100% of the Equity Interest', 'Acquired 100% of the Issued'],
   
   // Government / Licensing
   'Government Contract': ['Government Contract Award', 'Defense Contract', 'Federal Contract', 'DOD Contract', 'GSA Schedule', 'Federal Procurement'],
@@ -896,7 +912,7 @@ const SEMANTIC_KEYWORDS = {
   
   // Real M&A closing = company structure changes
   'Merger/Acquisition': [
-    'Completed Acquisition', 'Acquisition Closing', 'Closing Of Acquisition', 'Take Private', 'Going Private', 'Definitive Agreement To Be Acquired', 'Acquisition Agreement'],
+    'Completed Acquisition', 'Acquisition Closing', 'Closing Of Acquisition', 'Take Private', 'Going Private', 'Definitive Agreement To Be Acquired', 'Acquisition Agreement', 'Share Transfer', 'Transactions Contemplated by the Agreement were Completed', 'were completed on', 'Indirectly Acquired 100%', 'Acquired 100% of the Equity Interest', 'Acquired 100% of the Issued'],
   
   // Exploring options = story changes (not yet committed)
   'Strategic Review': ['Strategic Alternatives', 'Exploring Strategic Alternatives', 'Review Of Strategic Alternatives'],
@@ -10709,6 +10725,36 @@ if (process.stdin.isTTY) {
 
           // === TRADABILITY FILTERS ===
           
+          const acquisitionOverrideCategories = [
+            'Acquisition Agreement',
+            'Merger/Acquisition',
+            'Change of Control',
+            'Change in Control',
+            'Definitive Agreement To Acquire',
+            'Take Private',
+            'Going Private',
+            'Completed Acquisition',
+            'Acquisition Closing',
+            'Closing Of Acquisition',
+            'Completed the Merger',
+            'Consummation of the Merger',
+            'Acquired 100% of the Equity Interest',
+            'Acquired 100% of the Issued'
+          ];
+          const hasAcquisitionOverride = signalCategories.some(cat => acquisitionOverrideCategories.includes(cat));
+
+          if (shortOpportunity === true && hasAcquisitionOverride) {
+            skipReason = 'Definitive Acquisition / Change of Control present — SHORT skipped';
+            alertData.skipReason = skipReason;
+            saveToCSV({ ...alertData, skipReason });
+            const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
+            const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
+            log('INFO', `Links: ${secLink} ${tvLink}`);
+            log('SKIP', `$${ticker}, ${skipReason}`);
+            console.log('');
+            continue;
+          }
+
           const isHighConvictionLong = !shortOpportunity && (
             signalCategories.includes('Merger/Acquisition') ||
             signalCategories.includes('Acquisition Agreement') ||
@@ -10950,9 +10996,40 @@ if (process.stdin.isTTY) {
                   'Private Placement'
                 ].includes(cat));
                 const ctbHasDilutionOnly = ctbDilutionSignalCategories.length > 0 && ctbBullishSignalCategories.length === 0;
+                const acquisitionOverrideCategories = [
+                  'Acquisition Agreement',
+                  'Merger/Acquisition',
+                  'Change of Control',
+                  'Change in Control',
+                  'Definitive Agreement To Acquire',
+                  'Take Private',
+                  'Going Private',
+                  'Completed Acquisition',
+                  'Acquisition Closing',
+                  'Closing Of Acquisition',
+                  'Completed the Merger',
+                  'Consummation of the Merger',
+                  'Acquired 100% of the Equity Interest',
+                  'Acquired 100% of the Issued'
+                ];
+                const hasAcquisitionOverride = signalCategories.some(cat => acquisitionOverrideCategories.includes(cat));
+                const hasFatalBearish = ['Bankruptcy Filing', 'Going Dark'].some(cat => signalCategories.includes(cat));
 
                 let ctbDirection = 'LONG';
                 shortOpportunity = false;
+
+                if (hasAcquisitionOverride && !hasFatalBearish) {
+                  ctbDirection = 'LONG';
+                  shortOpportunity = false;
+                  alertData.skipReason = 'Definitive Acquisition / Change of Control present — SHORT skipped';
+                  saveToCSV({ ...alertData, skipReason: alertData.skipReason });
+                  const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
+                  const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
+                  log('INFO', `Links: ${secLink} ${tvLink}`);
+                  log('SKIP', `$${ticker}, ${alertData.skipReason}`);
+                  console.log('');
+                  continue;
+                }
 
                 if (ctbHasStrongBearish || ctbSufficientBearish) {
                   ctbDirection = 'SHORT';
@@ -11032,10 +11109,39 @@ if (process.stdin.isTTY) {
                 const hasStrongBearish = bearishSignalCategories.some(cat => strongBearishSignals.includes(cat));
                 const sufficientBullish = bullishSignalCategories.length >= 2;
                 const sufficientBearish = bearishSignalCategories.length >= 3 || hasStrongBearish;
+                const acquisitionOverrideCategories = [
+                  'Acquisition Agreement',
+                  'Merger/Acquisition',
+                  'Change of Control',
+                  'Change in Control',
+                  'Definitive Agreement To Acquire',
+                  'Take Private',
+                  'Going Private',
+                  'Completed Acquisition',
+                  'Acquisition Closing',
+                  'Closing Of Acquisition',
+                  'Completed the Merger',
+                  'Consummation of the Merger',
+                  'Acquired 100% of the Equity Interest',
+                  'Acquired 100% of the Issued'
+                ];
+                const hasAcquisitionOverride = signalCategories.some(cat => acquisitionOverrideCategories.includes(cat));
+                const hasFatalBearish = ['Bankruptcy Filing', 'Going Dark'].some(cat => signalCategories.includes(cat));
 
                 // === IMPROVED DIRECTION LOGIC ===
                 let shortOpportunity = false;
                 let direction = 'LONG';
+
+                if (hasAcquisitionOverride && !hasFatalBearish) {
+                  alertData.skipReason = 'Definitive Acquisition / Change of Control present — SHORT skipped';
+                  saveToCSV({ ...alertData, skipReason: alertData.skipReason });
+                  const secLink = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${filing.cik}&type=6-K&dateb=&owner=exclude&count=100`;
+                  const tvLink = `https://www.tradingview.com/chart/?symbol=${getExchangePrefix(ticker)}:${ticker}`;
+                  log('INFO', `Links: ${secLink} ${tvLink}`);
+                  log('SKIP', `$${ticker}, ${alertData.skipReason}`);
+                  console.log('');
+                  continue;
+                }
 
                 if (hasStrongBearish || sufficientBearish) {
                   shortOpportunity = true;

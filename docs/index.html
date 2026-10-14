@@ -4230,7 +4230,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         `;
                         
                         item.addEventListener('click', () => {
-                            customConfirm(`View details for <b><i>$${alert.ticker}</i></b>?`, `${saLink}`);
+                            customConfirm(`View Details for <b><i>$${alert.ticker}</i></b>?`, `${saLink}`);
                         });
                         
                         list.appendChild(item);
@@ -4464,7 +4464,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         `;
                         
                         item.addEventListener('click', () => {
-                            customConfirm(`View details for <b><i>$${stock.ticker}</i></b>?`, saLink);
+                            customConfirm(`View Details for <b><i>$${stock.ticker}</i></b>?`, saLink);
                         });
                         
                         list.appendChild(item);
@@ -5131,9 +5131,10 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             </div>
                         </div>
                         <div class="popup-footer">
-                            <button type="button">TradingView</button>
-                            <button type="button">Financials</button>
-                            <button type="button">Trading 212</button>
+                            <button type="button">Broker</button>
+                            <button type="button">Chart</button>
+                            <button type="button">Metrics</button>
+                            <button type="button">Stake</button>
                            <button type="button">Close</button>
                         </div>
                     </div>
@@ -5146,7 +5147,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                         e.preventDefault();
                         e.stopPropagation();
                         const label = (button.textContent || button.innerText || '').trim();
-                        if (/TradingView/i.test(label)) {
+                        if (/Chart/i.test(label)) {
                             const ticker = alert.ticker;
                             const exchange = alert.exchange || 'NASDAQ';
                             const companyName = alert.companyName || 'N/A';
@@ -5155,11 +5156,15 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             openTradingViewModal(ticker, exchange, companyName, direction, alertPrice);
                             return;
                         }
-                        if (/Financials/i.test(label)) {
-                            customConfirm(`View Financials for $<b><i>${alert.ticker}</i></b>?`, `https://stockanalysis.com/stocks/${alert.ticker}/statistics/`);
+                        if (/Metrics/i.test(label)) {
+                            customConfirm(`View Metrics for $<b><i>${alert.ticker}</i></b>?`, `https://stockanalysis.com/stocks/${alert.ticker}/statistics/`);
                             return;
                         }
-                        if (/Trading\s*212|Trading212/i.test(label)) {
+                        if (/Stake/i.test(label)) {
+                            customConfirm(`Open Stake for $<b><i>${alert.ticker}</i></b>?`, `http://openinsider.com/${alert.ticker}`);
+                            return;
+                        }
+                        if (/Broker/i.test(label)) {
                             customConfirm('Open Trading 212 to trade $<b><i>' + alert.ticker + '</i></b>?', 'https://www.trading212.com/en/login');
                             return;
                         }
@@ -6084,15 +6089,19 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             } catch (err) {}
 
                             const label = (btn.textContent || btn.innerText || '').trim();
-                            if (/TradingView/i.test(label)) {
+                            if (/Chart/i.test(label)) {
                                 openTradingViewModal(ticker, exchange, companyName, direction, alertPrice);
                                 return;
                             }
-                            if (/Financials/i.test(label)) {
-                                customConfirm('View Financials for $<b><i>' + ticker + '</i></b>?', 'https://stockanalysis.com/stocks/' + ticker + '/statistics/');
+                            if (/Metrics/i.test(label)) {
+                                customConfirm('View Metrics for $<b><i>' + ticker + '</i></b>?', 'https://stockanalysis.com/stocks/' + ticker + '/statistics/');
                                 return;
                             }
-                            if (/Trading\s*212|Trading212/i.test(label)) {
+                            if (/Stake/i.test(label)) {
+                                customConfirm('Open Stake for $<b><i>' + ticker + '</i></b>?', 'http://openinsider.com/' + ticker);
+                                return;
+                            }
+                            if (/Broker/i.test(label)) {
                                 customConfirm('Open Trading 212 to trade $<b><i>' + ticker + '</i></b>?', 'https://www.trading212.com/en/login');
                                 return;
                             }
@@ -6146,9 +6155,10 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             const color = event.direction === 'up' ? '#00cc00' : '#cc0000';
                         }).join('') : ''}
                     </div>` : ''}
-                        <button type="button" class="link-button">TradingView</button>
-                        <button type="button" class="link-button">Financials</button>
-                        <button type="button" class="link-button">Trading 212</button>
+                        <button type="button" class="link-button">Broker</button>
+                        <button type="button" class="link-button">Chart</button>
+                        <button type="button" class="link-button">Metrics</button>
+                        <button type="button" class="link-button">Stake</button>
                     </div>
                 `;
                 // Set up click handlers after HTML is set
@@ -7049,22 +7059,22 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             }
                         } else if (n.link.includes('sec.gov') || n.link.includes('filingLink')) {
                             if (n.message.includes('LONG')) {
-                                confirmMsg = `View Financials for new ${ticker} alert?`;
+                                confirmMsg = `View Metrics for new ${ticker} alert?`;
                                 if (await customConfirm(confirmMsg)) {
                                     window.open(`https://stockanalysis.com/stocks/${ticker}/statistics/`, '_blank');
                                     return;
                                 }
                             } else if (n.message.includes('SHORT')) {
-                                confirmMsg = `View Financials for new ${ticker} alert?`;
+                                confirmMsg = `View Metrics for new ${ticker} alert?`;
                                 if (await customConfirm(confirmMsg)) {
                                     window.open(`https://stockanalysis.com/stocks/${ticker}/statistics/`, '_blank');
                                     return;
                                 }
                             } else {
-                                confirmMsg = `View Financials for <b><i>$${ticker}</i></b>?`;
+                                confirmMsg = `View Metrics for <b><i>$${ticker}</i></b>?`;
                             }
                         } else {
-                            confirmMsg = `View details for <b><i>$${ticker}</i></b>?`;
+                            confirmMsg = `View Details for <b><i>$${ticker}</i></b>?`;
                         }
                         
                         if (await customConfirm(confirmMsg)) {
@@ -7141,10 +7151,10 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                             confirmMsg = `View <b><i>$${ticker}</i></b> chart?`;
                         }
                     } else if (link.includes('sec.gov') || link.includes('filingLink')) {
-                        confirmMsg = `View Financials for <b><i>${ticker}</i></b>?`;
+                        confirmMsg = `View Metrics for <b><i>${ticker}</i></b>?`;
                         link = `https://stockanalysis.com/stocks/${ticker}/statistics/`;
                         } else {
-                            confirmMsg = `View details for <b><i>${ticker}</i></b>?`;
+                            confirmMsg = `View Details for <b><i>${ticker}</i></b>?`;
                         }                    if (await customConfirm(confirmMsg)) {
                         window.open(link, '_blank');
                     }
