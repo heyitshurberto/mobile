@@ -1,70 +1,152 @@
 [
   {
-    "ticker": "EDTK",
-    "title": "Skillful Craftsman Education Technology Ltd (0001782309) (Filer)",
-    "companyName": "Skillful Craftsman Education Technology Ltd",
+    "ticker": "WCT",
+    "title": "6-K - Wellchange Holdings Co Ltd (0001990251) (Filer)",
+    "companyName": "Wellchange Holdings Co Ltd",
     "filerName": null,
-    "price": 0.935,
-    "wa": "0.935",
-    "hasTuesdayBonus": true,
-    "custodianVerified": false,
-    "custodianName": null,
-    "filingTimeBonus": 1.2,
-    "soBonus": 1.15,
-    "volume": 451114,
-    "averageVolume": 15356,
-    "float": 3000000,
-    "sharesOutstanding": 16199451,
-    "soRatio": "18.52%",
-    "marketCap": 15146487,
+    "price": 0.3001,
+    "fav": "15.29",
+    "volume": 64015,
+    "averageVolume": 692058,
+    "float": 10581066,
+    "sharesOutstanding": 10581066,
+    "soRatio": "100.0%",
+    "marketCap": 3663053,
     "isShort": true,
-    "ftd": null,
-    "ftdPercent": null,
-    "intent": "Acquisition Agreement, Stock Buyback, Related-Party Transaction, Capital Raise, Accounting Restatement, Material Lawsuit",
+    "ftd": 209015,
+    "intent": "Convertible Debt, Credit Default",
     "incorporated": "Cayman Islands",
     "located": "Shadong, China",
-    "filingDate": "2026-10-13",
-    "alertDate": "2026-10-13T17:20:44.000Z",
+    "filingDate": "2026-11-02T08:30:09-05:00",
     "signals": {
-      "Acquisition Agreement": [
-        "Definitive Agreement To Acquire"
+      "Convertible Debt": [
+        "Convertible Securities"
       ],
-      "Stock Buyback": [
-        "Share Repurchase"
-      ],
-      "Related-Party Transaction": [
-        "Controlled By"
-      ],
-      "Capital Raise": [
-        "Private Placement"
-      ],
-      "Accounting Restatement": [
-        "Financial Restatement"
-      ],
-      "Material Lawsuit": [
-        "Material Litigation"
+      "Credit Default": [
+        "Notice Of Default"
       ]
     },
-    "bonusSignals": {
-      "Tuesday Window": true
-    },
-    "reverseSplitRatio": null,
-    "reverseSplitReason": null,
+    "bonusSignals": {},
+    "financialRatioSignals": {},
     "formType": [
-      "8-K",
-      "6-K"
+      "6-K",
+      "20-F",
+      "EX-3.1"
     ],
-    "filingType": "8-K",
-    "cik": "1782309",
+    "cik": "1990251",
     "skipReason": "",
     "alertType": null,
-    "recordedAt": "2026-10-13T17:20:44.000Z",
-    "recordId": "EDTK-1769991644000",
-    "expiresAt": "2026-10-20T17:20:44.000Z",
+    "predatoryFinancing": null,
+    "sector": "Technology",
+    "hasTuesdayBonus": false,
+    "custodianVerified": true,
+    "custodianName": "Foreign Depositary",
+    "filingTimeBonus": 1.15,
+    "recordedAt": "2026-11-02T13:31:03.500Z",
+    "recordId": "WCT-1793626263500",
+    "expiresAt": "2026-11-06T13:31:03.500Z",
     "direction": "SHORT",
-    "highest5Day": 0.9945,
-    "highest5DayPercent": 6.3,
-    "lowest5Day": 1.005,
-    "lowest5DayPercent": 7.48
+    "highest5Day": 0.3001,
+    "highest5DayPercent": 0,
+    "lowest5Day": 0.3001,
+    "lowest5DayPercent": 0,
+    "priceAfter1m": null,
+    "percentAfter1m": null,
+    "priceAfter5m": null,
+    "percentAfter5m": null,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "ai_analysis": {
+      "win_rate": null,
+      "avg_move": null,
+      "confidence": null,
+      "matches": [],
+      "outliers": [],
+      "verdict": "PENDING",
+      "last_trained": null
+    }
+  },
+  {
+    "ticker": "VET",
+    "title": "6-K - VERMILION ENERGY INC. (0001293135) (Filer)",
+    "companyName": "VERMILION ENERGY INC.",
+    "filerName": null,
+    "price": 10.7499,
+    "fav": "0.78",
+    "volume": 3193712,
+    "averageVolume": 1390354,
+    "float": 1087115,
+    "sharesOutstanding": 152800000,
+    "soRatio": "0.71%",
+    "marketCap": 1642584704,
+    "isShort": false,
+    "ftd": 69366,
+    "intent": "Acquisition Agreement, Merger/Acquisition",
+    "incorporated": "Calgary, Canada",
+    "located": "Calgary, Canada",
+    "filingDate": "2026-11-04T14:35:42-05:00",
+    "signals": {
+      "Acquisition Agreement": [
+        "Were Completed On"
+      ],
+      "Merger/Acquisition": [
+        "were completed on"
+      ]
+    },
+    "bonusSignals": {},
+    "financialRatioSignals": {},
+    "formType": [
+      "6-K",
+      "20-F",
+      "EX-99.1"
+    ],
+    "cik": "1293135",
+    "skipReason": "",
+    "alertType": null,
+    "predatoryFinancing": null,
+    "sector": "Energy",
+    "hasTuesdayBonus": false,
+    "custodianVerified": false,
+    "custodianName": null,
+    "filingTimeBonus": 1.15,
+    "recordedAt": "2026-11-04T19:36:50.608Z",
+    "recordId": "VET-1793821010608",
+    "expiresAt": "2026-11-09T19:36:50.608Z",
+    "direction": "LONG",
+    "highest5Day": 10.7499,
+    "highest5DayPercent": 0,
+    "lowest5Day": 10.7499,
+    "lowest5DayPercent": 0,
+    "priceAfter1m": null,
+    "percentAfter1m": null,
+    "priceAfter5m": null,
+    "percentAfter5m": null,
+    "priceAfter30m": null,
+    "percentAfter30m": null,
+    "priceAfter1h": null,
+    "percentAfter1h": null,
+    "priceAfter6h": null,
+    "percentAfter6h": null,
+    "priceAfter1d": null,
+    "percentAfter1d": null,
+    "priceAfter3d": null,
+    "percentAfter3d": null,
+    "ai_analysis": {
+      "win_rate": null,
+      "avg_move": null,
+      "confidence": null,
+      "matches": [],
+      "outliers": [],
+      "verdict": "PENDING",
+      "last_trained": null
+    }
   }
 ]

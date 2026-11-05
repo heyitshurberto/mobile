@@ -100,6 +100,8 @@ const CONFIG = {
   GITHUB_GIST_ENABLED: process.env.GITHUB_GIST_ENABLED !== 'false' && process.env.GITHUB_GIST_ENABLED !== '0', // Enable/disable gist backup push
   GITHUB_GIST_ID: process.env.GITHUB_GIST_ID || '', // GitHub gist ID for backup
   GITHUB_GIST_TOKEN: process.env.GITHUB_GIST_TOKEN || process.env.GITHUB_TOKEN || '', // Token with gist access
+  // Market alert window gate (defaults OFF; enable with ALERT_WINDOW_ENABLED=true in .env)
+  ALERT_WINDOW_ENABLED: process.env.ALERT_WINDOW_ENABLED === 'false',
   // 2FA settings
   TWO_FACTOR_ENABLED: true, // Set to false to disable 2FA approval gate (keep basic auth always on)
   // Email authentication settings
@@ -845,7 +847,7 @@ const SEMANTIC_KEYWORDS = {
   // ═════════════════════════════════════════════════════════════════════════════
   
   // FDA / Clinical = revenue becomes legal
-  'Clinical Success': ['Priority Review', 'Fast Track Designation', 'Breakthrough Designation', 'Phase 3', 'Primary Endpoint', 'Topline Data', 'Statistically Significant', 'Met Primary Endpoint', 'Positive Phase 3', 'Primary Endpoint Met'],
+  'Clinical Success': ['Priority Review', 'Fast Track Designation', 'Breakthrough Designation', 'Phase 3', 'Topline Data', 'Statistically Significant', 'Met Primary Endpoint', 'Positive Phase 3'],
   'FDA Approved': ['FDA Approval', 'FDA approved'],
   
   // Customer Relationship = revenue protected OR expanded (probably the biggest signal)
@@ -855,7 +857,7 @@ const SEMANTIC_KEYWORDS = {
   'Commercial Agreement': ['Master Services Agreement', 'Commercial Agreement', 'Supply Agreement', 'Services Agreement', 'Framework Agreement'],
   
   // Revenue locked in
-  'Revenue Secured': ['Expected To Retain', 'Revenue Expected', 'Revenue Attributable', 'Revenue Backlog', 'Contract Backlog', 'Remaining Performance Obligation'],
+  'Revenue Secured': ['Revenue Expected', 'Revenue Attributable', 'Revenue Backlog', 'Contract Backlog', 'Remaining Performance Obligation'],
   
   // STRONGEST BUY PRESSURE: Acquisition Agreement (structural buy pressure, overrides all short signals & filters)
   'Acquisition Agreement': ['Acquisition Agreement', 'Share Transfer Agreement', 'Completed Acquisition', 'Acquisition Closing', 'Closing Of Acquisition', 'Definitive Agreement To Acquire', 'Take Private', 'Definitive Agreement To Be Acquired', 'Agreement and Plan of Merger', 'Merger Agreement', 'Completed the Merger', 'Consummation of the Merger', 'Surviving Corporation', 'Change of Control', 'Change in Control', 'Were Completed On', 'Acquired 100% of the Equity Interest', 'Acquired 100% of the Issued'],
@@ -888,11 +890,11 @@ const SEMANTIC_KEYWORDS = {
   
   // Clinical failure = path to revenue blocked
   'Failed Trial': ['Primary Endpoint Not Met', 'Did Not Meet Primary Endpoint', 'Primary Endpoint Missed', 'Failed To Meet Primary Endpoint', 'Primary Endpoint Failed', 'No Statistically Significant', 'Did Not Show Statistically Significant', 'Did Not Achieve Primary', 'Missed Primary Endpoint'],
-  'Post-Hoc Salvage': ['Post Hoc Analysis', 'Post-Hoc Analysis', 'Unplanned Analysis', 'Post Hoc Findings', 'Subset Analysis', 'Exploratory Analysis', 'Applied For Breakthrough'],
+  'Post-Hoc Salvage': ['Post Hoc Analysis', 'Unplanned Analysis', 'Post Hoc Findings', 'Subset Analysis', 'Exploratory Analysis', 'Applied For Breakthrough'],
   
   // Equity dilution = new share supply
   'Convertible Debt': ['Convertible Bonds', 'Convertible Notes', 'Convertible Securities'],
-  'Related-Party Transaction': ['Spouse Of', 'Family Member', 'Relative Of CEO', 'Relative Of The CEO', 'Controlled By', 'Related Party', 'Affiliate Transaction', 'Affiliate Of', 'Related Person', 'Family Relationship'],
+  'Related-Party Transaction': ['Spouse Of', 'Family Member', 'Relative Of CEO', 'Controlled By', 'Related Party', 'Affiliate Transaction', 'Affiliate Of', 'Related Person', 'Family Relationship'],
   'Offering At A Discount': ['Offering At A Discount', 'Priced At A Discount', 'Discount To Market', 'Discounted Offering', 'Sold At A Discount', 'Discounted Placement'],
   
   // Capital raise = new share supply (even if credible)
@@ -901,10 +903,10 @@ const SEMANTIC_KEYWORDS = {
   
   // Distress = destroys future cash flow
   'Bankruptcy Filing': ['Bankruptcy Protection', 'Chapter 11 Filing', 'Chapter 7 Filing', 'Insolvency Proceedings', 'Creditor Protection'],
-  'Credit Default': ['Is In Default', 'Default Has Occurred', 'Declared An Event Of Default', 'Notice Of Default', 'Acceleration Of Debt', 'Loan Default', 'Debt Covenant Breach', 'Covenant Breach', 'Covenant Violation', 'Credit Agreement Violation'],
+  'Credit Default': ['Is In Default', 'Default Has Occurred', 'Declared An Event Of Default', 'Notice Of Default', 'Acceleration Of Debt', 'Loan Default', 'Debt Covenant Breach', 'Covenant Violation', 'Credit Agreement Violation'],
   
   // Accounting failure = destroys trust in numbers
-  'Accounting Restatement': ['Financial Restatement', 'Audit Non-Reliance', 'Material Weakness', 'Control Deficiency', 'Audit Adjustment', 'Non-Reliance On Previously Issued Financial Statements', 'Previously Issued Financial Statements', 'Substantial Doubt About Ability To Continue As A Going Concern', 'Going Concern Uncertainty', 'Substantial Doubt'],
+  'Accounting Restatement': ['Financial Restatement', 'Audit Non-Reliance', 'Material Weakness', 'Control Deficiency', 'Audit Adjustment', 'Non-Reliance On Previously Issued Financial Statements', 'Previously Issued Financial Statements', 'Substantial Doubt About Ability To Continue As A Going Concern', 'Going Concern Uncertainty'],
   
   // ═════════════════════════════════════════════════════════════════════════════
   // 🟡 VALUE CHANGE: Changes company's future valuation
@@ -912,7 +914,7 @@ const SEMANTIC_KEYWORDS = {
   
   // Real M&A closing = company structure changes
   'Merger/Acquisition': [
-    'Completed Acquisition', 'Acquisition Closing', 'Closing Of Acquisition', 'Take Private', 'Going Private', 'Definitive Agreement To Be Acquired', 'Acquisition Agreement', 'Share Transfer', 'Transactions Contemplated by the Agreement were Completed', 'were completed on', 'Indirectly Acquired 100%', 'Acquired 100% of the Equity Interest', 'Acquired 100% of the Issued'],
+    'Going Private', 'Share Transfer', 'Transactions Contemplated by the Agreement were Completed', 'Indirectly Acquired 100%'],
   
   // Exploring options = story changes (not yet committed)
   'Strategic Review': ['Strategic Alternatives', 'Exploring Strategic Alternatives', 'Review Of Strategic Alternatives'],
@@ -921,13 +923,12 @@ const SEMANTIC_KEYWORDS = {
   'Asset Disposition': ['Asset Sale', 'Sold Assets', 'Divesting', 'Sale Of Assets', 'Asset Divestiture', 'Strategic Sale'],
   
   // Governance/Legal shifts = trust/control shifts
-  'Accounting Restatement': ['Financial Restatement', 'Audit Non-Reliance', 'Material Weakness', 'Control Deficiency', 'Audit Adjustment', 'Non-Reliance On Previously Issued Financial Statements', 'Previously Issued Financial Statements', 'Substantial Doubt About Ability To Continue As A Going Concern', 'Going Concern Uncertainty', 'Substantial Doubt'],
   'Auditor Change': ['Auditor Resigned', 'Audit Firm Changed', 'Auditor Departure', 'Internal Controls Weakness', 'Auditor No Longer', 'Changes Auditor', 'Change Of Auditor'],
   'Regulatory Breach': ['Regulatory Violation', 'FDA Warning', 'Product Recall', 'Safety Recall', 'Warning Letter'],
   'Material Lawsuit': ['Material Litigation', 'Lawsuit Filed', 'Major Lawsuit', 'SEC Investigation', 'DOJ Investigation'],
   
   // Leadership changes = strategic direction may change
-  'Executive Departure': ['CEO Departed', 'CFO Departed', 'CEO Resigned', 'Chief Officer Left', 'CEO Resignation', 'CFO Departure', 'Stepped Down', 'Stepped Down From Role', 'Step Down', 'Planned Leadership Transition'],
+  'Executive Departure': ['CEO Departed', 'CFO Departed', 'CEO Resigned', 'Chief Officer Left', 'CFO Departure', 'Stepped Down', 'Stepped Down From Role', 'Step Down', 'Planned Leadership Transition'],
   
   // Delisting/Deregistration = company structure/access changes
   'Going Dark': ['Form 15', 'Deregistration', 'Stop Reporting', 'Cease Reporting', 'Edgar Delisting', 'No Longer Report', 'Terminate Registration', 'Exit From SEC Reporting', 'Shall No Longer File'],
@@ -3649,6 +3650,11 @@ const detectSEPAAgreement = (text, buyerDescription) => {
   // - Pre-market: 1 hour before open (8:30 AM ET / 510) <= t < 9:30 AM ET (570)
   // Weekends are always disallowed.
   function isAlertAllowedNow() {
+    // Hard off by default. Turn back on in .env with ALERT_WINDOW_ENABLED=true.
+    if (!CONFIG.ALERT_WINDOW_ENABLED) {
+      return true;
+    }
+
     const now = new Date();
     const etTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
     const etHour = etTime.getHours();
@@ -3895,7 +3901,6 @@ const sendPersonalWebhook = async (alertData) => {
 ${pressureDisplay}
 
 Sector: **${sectorDisplay}**
-Filer: **${alertData.filerName || 'Not Applicable'}**
 Location: **${locationDisplay}**
 Incorporation: **${incorporationDisplay}**
 Float: **${floatDisplay}** / S/O: **${soDisplay}**
