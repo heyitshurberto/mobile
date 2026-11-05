@@ -848,7 +848,7 @@ const SEMANTIC_KEYWORDS = {
   
   // FDA / Clinical = revenue becomes legal
   'Clinical Success': ['Priority Review', 'Fast Track Designation', 'Breakthrough Designation', 'Phase 3', 'Topline Data', 'Statistically Significant', 'Met Primary Endpoint', 'Positive Phase 3'],
-  'FDA Approved': ['FDA Approval', 'FDA approved'],
+  'FDA Approved': ['FDA Approval', 'FDA Approved'],
   
   // Customer Relationship = revenue protected OR expanded (probably the biggest signal)
   'Customer Relationship': ['Largest Customer', 'Major Customer', 'Key Customer', 'Customer Renewal', 'Contract Extension', 'Retain At Least', 'Expected To Retain', 'Expanded Relationship', 'Expanded Agreement', 'Continued Provision Of Services', 'Extended The Term', 'Renewed Agreement', 'Additional Services', 'Increased Scope', 'Extended Services'],
