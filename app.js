@@ -101,7 +101,7 @@ const CONFIG = {
   GITHUB_GIST_ID: process.env.GITHUB_GIST_ID || '', // GitHub gist ID for backup
   GITHUB_GIST_TOKEN: process.env.GITHUB_GIST_TOKEN || process.env.GITHUB_TOKEN || '', // Token with gist access
   // Market alert window gate (defaults OFF; enable with ALERT_WINDOW_ENABLED=true in .env)
-  ALERT_WINDOW_ENABLED: process.env.ALERT_WINDOW_ENABLED === 'false',
+  ALERT_WINDOW_ENABLED: process.env.ALERT_WINDOW_ENABLED === 'true',
   // 2FA settings
   TWO_FACTOR_ENABLED: true, // Set to false to disable 2FA approval gate (keep basic auth always on)
   // Email authentication settings
