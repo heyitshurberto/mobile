@@ -4230,7 +4230,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         `;
                         
                         item.addEventListener('click', () => {
-                            customConfirm(`View Details for <b><i>$${alert.ticker}</i></b>?`, `${saLink}`);
+                            customConfirm(`View Financials for <b><i>$${alert.ticker}</i></b>?`, `${saLink}`);
                         });
                         
                         list.appendChild(item);
@@ -4464,7 +4464,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         `;
                         
                         item.addEventListener('click', () => {
-                            customConfirm(`View Details for <b><i>$${stock.ticker}</i></b>?`, saLink);
+                            customConfirm(`View Financials for <b><i>$${stock.ticker}</i></b>?`, saLink);
                         });
                         
                         list.appendChild(item);
@@ -7074,7 +7074,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                                 confirmMsg = `View Metrics for <b><i>$${ticker}</i></b>?`;
                             }
                         } else {
-                            confirmMsg = `View Details for <b><i>$${ticker}</i></b>?`;
+                            confirmMsg = `View Financials for <b><i>$${ticker}</i></b>?`;
                         }
                         
                         if (await customConfirm(confirmMsg)) {
@@ -7154,7 +7154,7 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
                         confirmMsg = `View Metrics for <b><i>${ticker}</i></b>?`;
                         link = `https://stockanalysis.com/stocks/${ticker}/statistics/`;
                         } else {
-                            confirmMsg = `View Details for <b><i>${ticker}</i></b>?`;
+                            confirmMsg = `View Financials for <b><i>${ticker}</i></b>?`;
                         }                    if (await customConfirm(confirmMsg)) {
                         window.open(link, '_blank');
                     }
