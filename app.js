@@ -894,7 +894,7 @@ const SEMANTIC_KEYWORDS = {
   
   // Equity dilution = new share supply
   'Convertible Debt': ['Convertible Bonds', 'Convertible Notes', 'Convertible Securities'],
-  'Related-Party Transaction': ['Spouse Of', 'Family Member', 'Relative Of CEO', 'Controlled By', 'Related Party', 'Affiliate Transaction', 'Affiliate Of', 'Related Person', 'Family Relationship'],
+  'Related-Party Transaction': ['Spouse Of', 'Family Member', 'Relative Of CEO', 'Controlled By', 'Related Party', 'Affiliate Transaction', 'Related Person', 'Family Relationship'],
   'Offering At A Discount': ['Offering At A Discount', 'Priced At A Discount', 'Discount To Market', 'Discounted Offering', 'Sold At A Discount', 'Discounted Placement'],
   
   // Capital raise = new share supply (even if credible)
@@ -1288,7 +1288,7 @@ const detectItem302HiddenBuyers = (text) => {
     /registered direct offering to\s+(.+?)(?:\.|,|$)/i,
     /purchasers?.*?identified in\s+(?:a confidential|schedule)/i,
     /buyer.*?is\s+(.+?)(?:\(|,|\.|$)/i,
-    /(?:spouse of|family member|relative of|affiliate of|controlled by)\s+(.+?)(?:\.|,|$)/i,
+    /(?:spouse of|family member|relative of|controlled by)\s+(.+?)(?:\.|,|$)/i,
   ];
   
   let buyerDescription = 'Unknown Buyer';
@@ -1794,7 +1794,7 @@ const detectFinancingType = (text) => {
   }
 
   // Related-party transaction warning
-  if (/spouse of|family member|relative of ceo|relative of the ceo|controlled by|related party|affiliate transaction|affiliate of|related person|family relationship/i.test(lowerText)) {
+  if (/spouse of|family member|relative of ceo|relative of the ceo|controlled by|related party|affiliate transaction|related person|family relationship/i.test(lowerText)) {
     return { type: 'Related-Party Transaction', multiplier: 0.90 };
   }
   
