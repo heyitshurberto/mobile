@@ -2516,6 +2516,17 @@ document.addEventListener('DOMContentLoaded', function() {
             margin-bottom: 16px;
             line-height: 1.4;
             letter-spacing: 0.2px;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .notification {
+                box-sizing: border-box;
+                max-width: calc(100vw - 20px);
+                min-width: 0;
+                padding: 6px 8px;
+                font-size: clamp(9px, 3vw, 11px);
+            }
         }
 
         .notification i,
@@ -2657,6 +2668,10 @@ document.addEventListener('DOMContentLoaded', function() {
             gap: 6px;
             padding-top: 6px;
             border-top: 1px solid #eee;
+        }
+
+        .popup-footer button:last-child {
+            margin-left: 8px;
         }
 
         body.dark-mode .popup-footer {
@@ -7142,20 +7157,8 @@ ${alert.financialRatioSignals && alert.financialRatioSignals.signals && alert.fi
             notification.style.right = isMobile ? '10px' : '20px';
             notification.style.opacity = document.body.classList.contains('dark-mode') ? '0.95' : '0.85'; // More visible in dark mode
             
-            // Make smaller on mobile
-            if (isMobile) {
-                notification.style.padding = '2px 3px';
-                notification.style.fontSize = '7px';
-                notification.style.maxWidth = '120px';
-                notification.style.minWidth = '75px';
-                notification.style.borderRadius = '2px';
-            }
-
             // Create a wrapper div for better styling
             const contentWrapper = document.createElement('div');
-            contentWrapper.style.display = 'flex';
-            contentWrapper.style.flexDirection = 'column';
-            contentWrapper.style.gap = isMobile ? '1px' : '4px';
 
             if (link) {
                 const linkElement = document.createElement('div');
